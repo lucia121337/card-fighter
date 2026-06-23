@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>카드 파이터 — 신용카드 비교</title>
+<style>
+  :root{
+    /* 카카오뱅크 톤: 시그니처 옐로우 + 브라운 + 따뜻한 크림 */
+    --bg:#faf6ec; --panel:#ffffff; --panel2:#fbf4e4; --line:#efe7d6;
+    --txt:#3a2e1f; --muted:#9b8c74; --brand:#ffe300; --brand-deep:#f6c700;
+    --brown:#6b4f2a; --brown-deep:#3d2f20; --chip:#fbf4e4;
+    --shadow:0 4px 18px rgba(107,79,42,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  header{position:sticky;top:0;z-index:10;background:rgba(250,246,236,.92);
+         backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 22px}
+  .brand{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .brand .logo{width:46px;height:46px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(246,199,0,.45))}
+  .brand h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--brown-deep)}
+  .brand .badge{background:var(--brand);color:var(--brown-deep);
+         font-weight:800;border-radius:999px;padding:4px 12px;font-size:12.5px;
+         box-shadow:0 2px 6px rgba(246,199,0,.4)}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .controls input,.controls select{background:var(--panel);color:var(--txt);
+        border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:14px;outline:none;
+        box-shadow:var(--shadow)}
+  .controls input{flex:1;min-width:210px}
+  .controls input:focus,.controls select:focus{border-color:var(--brand-deep)}
+  .controls select{cursor:pointer}
+  .stat{color:var(--muted);font-size:13px;margin-top:11px}
+  .stat b{color:var(--brown)}
+  main{max-width:1300px;margin:0 auto;padding:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(286px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+        padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);
+        transition:.16s transform,.16s box-shadow,.16s border-color}
+  .card:hover{transform:translateY(-4px);border-color:var(--brand-deep);
+              box-shadow:0 12px 28px rgba(246,199,0,.22)}
+  .card .top{display:flex;gap:14px;align-items:center}
+  .card img{width:78px;height:50px;object-fit:contain;border-radius:7px;
+            background:#fbf8f0;border:1px solid var(--line);flex-shrink:0}
+  .card .nm{font-weight:700;font-size:15px;line-height:1.35}
+  .card .co{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .row{display:flex;gap:7px;flex-wrap:wrap}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;
+        padding:4px 9px;font-size:11.5px;color:#7a6b52}
+  .chip.fee{background:#fff7d6;border-color:#f3e3a0;color:#8a6a12}
+  .chip.pre{background:#fbf0dc;border-color:#ecd9b8;color:#7c5a23}
+  .benefit{font-size:12.5px;color:#5d513f;line-height:1.55;
+           border-top:1px dashed var(--line);padding-top:10px;min-height:38px}
+  .benefit b{color:var(--brown);font-weight:700}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:8px}
+  .foot .dt{color:#b3a488;font-size:11px}
+  .detail-btn{background:var(--brand);color:var(--brown-deep);border:none;border-radius:9px;
+        padding:7px 14px;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;
+        box-shadow:0 2px 6px rgba(246,199,0,.4);white-space:nowrap;display:inline-block}
+  .detail-btn:hover{background:var(--brand-deep)}
+  #more{display:block;margin:26px auto;background:var(--brand);
+        color:var(--brown-deep);border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
+        font-size:14px;font-weight:800;box-shadow:0 6px 16px rgba(246,199,0,.3)}
+  #more:hover{background:var(--brand-deep)}
+  .empty{text-align:center;color:var(--muted);padding:60px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <!-- 로고: 교차된 카드 + 파이터의 에너지를 상징하는 번개 (카카오뱅크 옐로우/브라운) -->
+    <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
+      <rect x="3" y="3" width="42" height="42" rx="13" fill="#ffe300"/>
+      <g stroke="#5a4632" stroke-width="2" stroke-linejoin="round">
+        <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
+        <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#fff6df" transform="rotate(17 24 24)"/>
+      </g>
+      <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
+            fill="#5a4632" stroke="#3d2f20" stroke-width="1" stroke-linejoin="round"/>
+    </svg>
+    <h1>카드 파이터</h1>
+    <span class="badge" id="total">…</span>
+  </div>
+  <div class="controls">
+    <input id="q" type="text" placeholder="🔍 카드명·혜택 검색 (예: 스타벅스, 항공, 캐시백)" />
+    <select id="company"><option value="">전체 카드사</option></select>
+    <select id="fee">
+      <option value="">연회비 전체</option>
+      <option value="free">연회비 없음/저가(~1만원)</option>
+      <option value="mid">1만~5만원</option>
+      <option value="high">5만원 이상</option>
+    </select>
+    <select id="pre">
+      <option value="">전월실적 전체</option>
+      <option value="none">실적 조건 없음</option>
+      <option value="le30">30만원 이하</option>
+      <option value="gt30">30만원 초과</option>
+    </select>
+    <select id="sort">
+      <option value="default">기본(인기순)</option>
+      <option value="name">카드명순</option>
+      <option value="feeAsc">연회비 낮은순</option>
+      <option value="feeDesc">연회비 높은순</option>
+      <option value="preAsc">전월실적 낮은순</option>
+    </select>
+  </div>
+  <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
+</header>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <button id="more" hidden>더 보기</button>
+  <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
+</main>
+
+<script>
+const PAGE = 60;
+let DATA = [], view = [], shown = 0;
+
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
+
+function applyFilters(){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const co = document.getElementById('company').value;
+  const fee = document.getElementById('fee').value;
+  const pre = document.getElementById('pre').value;
+  const sort = document.getElementById('sort').value;
+
+  view = DATA.filter(c=>{
+    if(co && c.company!==co) return false;
+    if(q){
+      const hay = (c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    const f = feeNum(c.annual_fee);
+    if(fee==='free' && f>10000) return false;
+    if(fee==='mid' && !(f>10000 && f<50000)) return false;
+    if(fee==='high' && f<50000) return false;
+    const p = c.pre_month_money||0;
+    if(pre==='none' && p) return false;
+    if(pre==='le30' && (p===0 || p>300000)) return false;
+    if(pre==='gt30' && p<=300000) return false;
+    return true;
+  });
+
+  if(sort==='name') view.sort((a,b)=>a.card_name.localeCompare(b.card_name,'ko'));
+  else if(sort==='feeAsc') view.sort((a,b)=>feeNum(a.annual_fee)-feeNum(b.annual_fee));
+  else if(sort==='feeDesc') view.sort((a,b)=>feeNum(b.annual_fee)-feeNum(a.annual_fee));
+  else if(sort==='preAsc') view.sort((a,b)=>(a.pre_month_money||0)-(b.pre_month_money||0));
+
+  document.getElementById('count').textContent = view.length.toLocaleString();
+  shown = 0;
+  document.getElementById('grid').innerHTML = '';
+  document.getElementById('empty').hidden = view.length>0;
+  render();
+}
+
+function render(){
+  const grid = document.getElementById('grid');
+  const slice = view.slice(shown, shown+PAGE);
+  const html = slice.map(c=>{
+    const benefit = (c.top_benefit_summary||'').split(' | ')
+      .map(s=>{const i=s.indexOf(':');return i>0?`<b>${esc(s.slice(0,i))}</b>${esc(s.slice(i))}`:esc(s);})
+      .join('<br>');
+    return `<div class="card">
+      <div class="top">
+        <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
+      </div>
+      <div class="row">
+        <span class="chip fee">연회비 ${esc(c.annual_fee||'-')}</span>
+      </div>
+      <div class="row">
+        <span class="chip pre">전월실적 ${esc(c.pre_month_condition||'없음')}</span>
+        ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
+        ${c.only_online?`<span class="chip">온라인전용</span>`:''}
+      </div>
+      <div class="benefit">${benefit||'<span style="color:#b3a488">혜택 요약 없음</span>'}</div>
+      <div class="foot">
+        <span class="dt">${c.release_dt?'출시 '+c.release_dt:''}</span>
+        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
+      </div>
+    </div>`;
+  }).join('');
+  grid.insertAdjacentHTML('beforeend', html);
+  shown += slice.length;
+  document.getElementById('more').hidden = shown>=view.length;
+}
+
+['q','company','fee','pre','sort'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',applyFilters);
+});
+document.getElementById('more').addEventListener('click',render);
+
+fetch('cards.json').then(r=>r.json()).then(d=>{
+  DATA = d;
+  document.getElementById('total').textContent = d.length.toLocaleString()+'개 카드';
+  const cos = [...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
+  const sel = document.getElementById('company');
+  cos.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;sel.appendChild(o);});
+  applyFilters();
+}).catch(e=>{
+  document.getElementById('empty').hidden=false;
+  document.getElementById('empty').textContent='cards.json 로드 실패 — 로컬 서버로 실행하세요. ('+e+')';
+});
+</script>
+</body>
+</html>

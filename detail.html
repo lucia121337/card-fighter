@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>카드 상세 — 카드 파이터</title>
+<style>
+  :root{
+    --bg:#faf6ec; --panel:#ffffff; --panel2:#fbf4e4; --line:#efe7d6;
+    --txt:#3a2e1f; --muted:#9b8c74; --brand:#ffe300; --brand-deep:#f6c700;
+    --brown:#6b4f2a; --brown-deep:#3d2f20;
+    --shadow:0 4px 18px rgba(107,79,42,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  header{position:sticky;top:0;z-index:10;background:rgba(250,246,236,.94);
+         backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:13px 22px;
+         display:flex;align-items:center;gap:14px}
+  .back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--brown-deep);
+        background:var(--brand);font-weight:800;font-size:13.5px;padding:8px 15px;border-radius:10px;
+        box-shadow:0 2px 6px rgba(246,199,0,.4)}
+  .back:hover{background:var(--brand-deep)}
+  header .logo{width:34px;height:34px}
+  header .ht{font-weight:800;color:var(--brown-deep);letter-spacing:-.5px}
+
+  .wrap{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+  .hero{background:linear-gradient(135deg,var(--brand),var(--brand-deep));border-radius:22px;
+        padding:30px 28px;display:flex;gap:22px;align-items:center;
+        box-shadow:0 10px 26px rgba(246,199,0,.25)}
+  .hero img{width:150px;height:96px;object-fit:contain;border-radius:12px;background:#fff;padding:7px;
+            box-shadow:0 6px 16px rgba(61,47,32,.2);flex-shrink:0}
+  .hero .h-name{font-size:23px;font-weight:800;color:var(--brown-deep);line-height:1.3}
+  .hero .h-corp{font-size:14px;color:#7c5e1f;margin-top:6px;font-weight:700}
+  .hero .h-tags{margin-top:11px;display:flex;gap:7px;flex-wrap:wrap}
+  .hero .h-tags span{background:rgba(255,255,255,.62);color:var(--brown-deep);border-radius:8px;
+             padding:4px 11px;font-size:12px;font-weight:700}
+
+  .fees{display:flex;gap:13px;flex-wrap:wrap;margin-top:20px}
+  .fee{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);
+        border-radius:16px;padding:17px 19px;box-shadow:var(--shadow)}
+  .fee .lab{font-size:12.5px;color:var(--muted);font-weight:800;margin-bottom:7px}
+  .fee .val{font-size:15px;color:var(--brown-deep);line-height:1.55;font-weight:700}
+
+  .sec{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+       padding:6px 22px 22px;margin-top:18px;box-shadow:var(--shadow)}
+  .sec-title{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;
+        color:var(--brown-deep);margin:18px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--brand)}
+  .sec-title img{width:26px;height:26px}
+  .binfo{font-size:14px;line-height:1.75;color:#4d4231}
+  .binfo p{margin:7px 0}
+  .binfo strong{color:var(--brown-deep)}
+  .binfo table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
+  .binfo th,.binfo td{border:1px solid var(--line);padding:8px 10px;text-align:center}
+  .binfo th{background:var(--panel2)}
+  .binfo img{max-width:100%;height:auto}
+  .binfo ul{padding-left:19px;margin:7px 0}
+
+  .loading{padding:80px 0;text-align:center;color:var(--muted);font-size:15px}
+  .disclaimer{margin-top:24px;padding:20px 22px;background:var(--panel2);
+        border:1px solid var(--line);border-radius:16px;font-size:12px;line-height:1.85;color:#8a7c64}
+  .disclaimer .d-head{color:var(--brown);font-weight:800;margin-bottom:9px;font-size:12.5px}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">← 목록으로</a>
+  <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터">
+    <rect x="3" y="3" width="42" height="42" rx="13" fill="#ffe300"/>
+    <g stroke="#5a4632" stroke-width="2" stroke-linejoin="round">
+      <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
+      <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#fff6df" transform="rotate(17 24 24)"/>
+    </g>
+    <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
+          fill="#5a4632" stroke="#3d2f20" stroke-width="1" stroke-linejoin="round"/>
+  </svg>
+  <span class="ht">카드 파이터</span>
+</header>
+
+<div class="wrap" id="wrap">
+  <div class="loading">카드 상세 정보를 불러오는 중…</div>
+</div>
+
+<script>
+const API = "https://api.card-gorilla.com:8080/v1/cards/";  // CORS * 허용
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const won = n => n ? n.toLocaleString()+'원' : '없음';
+
+const DISCLAIMER = `
+  <div class="disclaimer">
+    <div class="d-head">※ 본 게시물은 카드파이터에서 대가관계 없이 자체제작한 게시물입니다</div>
+    * 본 카드의 서비스 내용은 카드사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.<br>
+    * 카드 사용 전 반드시 상품설명서와 약관을 읽어 보시기 바랍니다.<br>
+    * 카드파이터는 소비자들에게 다양한 정보제공을 목적으로 심의번호가 미기재된 카드상품을 수집 및 노출할 수 있으며, 정보 업데이트에 최선을 다하고 있습니다.
+  </div>`;
+
+function render(d){
+  const img = (d.card_img&&d.card_img.url)||'';
+  const corp = (d.corp&&d.corp.name)||'';
+  const brand = (d.brand||[]).map(b=>b.name).join(', ');
+  const tags = [];
+  if(brand) tags.push(brand);
+  if(d.only_online) tags.push('온라인전용');
+  if(d.cate==='CRD') tags.push('신용카드'); else if(d.cate==='CHK') tags.push('체크카드');
+
+  const sections = (d.key_benefit||[]).map(b=>{
+    const icon = b.cate&&b.cate.logo_img&&b.cate.logo_img.url ? `<img src="${b.cate.logo_img.url}" alt="">` : '';
+    return `<div class="sec-title">${icon}${esc(b.title||(b.cate&&b.cate.name)||'혜택')}</div>
+            <div class="binfo">${b.info||'<p style="color:#b3a488">상세 내용 없음</p>'}</div>`;
+  }).join('');
+
+  document.title = d.name + ' — 카드 파이터';
+  document.getElementById('wrap').innerHTML = `
+    <div class="hero">
+      <img src="${img}" alt="" onerror="this.style.visibility='hidden'"/>
+      <div>
+        <div class="h-name">${esc(d.name)}</div>
+        <div class="h-corp">${esc(corp)}</div>
+        <div class="h-tags">${tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="fees">
+      <div class="fee"><div class="lab">연회비</div><div class="val">${(d.annual_fee_detail||d.annual_fee_basic||'-')}</div></div>
+      <div class="fee"><div class="lab">전월실적 조건</div><div class="val">${won(d.pre_month_money)}</div></div>
+    </div>
+    <div class="sec">${sections}</div>
+    ${DISCLAIMER}`;
+}
+
+const idx = new URLSearchParams(location.search).get('idx');
+if(!idx){
+  document.getElementById('wrap').innerHTML = '<div class="loading">잘못된 접근입니다. <a href="index.html">목록으로</a></div>';
+}else{
+  fetch(API+idx).then(r=>r.json()).then(render).catch(e=>{
+    document.getElementById('wrap').innerHTML =
+      '<div class="loading">상세 정보를 불러오지 못했습니다.<br><small>'+esc(e)+'</small></div>'+DISCLAIMER;
+  });
+}
+</script>
+</body>
+</html>
