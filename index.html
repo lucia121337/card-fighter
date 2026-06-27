@@ -139,6 +139,93 @@
   #more:hover{background:var(--brand-deep)}
   .empty{text-align:center;color:var(--muted);padding:60px}
 
+  /* ── 플로팅 버블 ── */
+  #compare-bubble{position:fixed;bottom:28px;right:28px;z-index:200;display:none}
+  #compare-bubble.visible{display:block}
+  .bubble-wrap{position:relative;display:inline-block}
+  .bubble-btn{width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;
+        border:none;cursor:pointer;font-size:22px;display:flex;align-items:center;
+        justify-content:center;box-shadow:0 6px 24px rgba(20,92,230,.4);
+        font-family:inherit;transition:.15s transform}
+  .bubble-btn:hover{transform:scale(1.08)}
+  .bubble-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;
+        background:#ef4444;color:#fff;font-size:11px;font-weight:800;
+        display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+
+  /* ── 비교 팝업 패널 ── */
+  #compare-popup{position:fixed;bottom:98px;right:28px;z-index:199;
+        background:#fff;border-radius:20px;padding:20px;width:420px;
+        box-shadow:0 12px 48px rgba(0,0,0,.18);display:none;
+        border:1.5px solid var(--line)}
+  #compare-popup.visible{display:block}
+  .popup-title{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px;
+        display:flex;align-items:center;justify-content:space-between}
+  .popup-slots{display:flex;gap:10px;margin-bottom:14px}
+  .popup-slot{flex:1;border:1.5px dashed var(--line);border-radius:14px;
+        padding:12px 8px;display:flex;flex-direction:column;align-items:center;
+        gap:6px;min-height:100px;position:relative;background:var(--bg)}
+  .popup-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
+  .popup-slot img{width:64px;height:40px;object-fit:contain;border-radius:6px}
+  .popup-slot .ps-name{font-size:11px;font-weight:700;color:var(--txt);
+        text-align:center;line-height:1.4;word-break:keep-all}
+  .popup-slot .ps-remove{position:absolute;top:-7px;right:-7px;width:20px;height:20px;
+        border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
+        font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .popup-slot.empty{cursor:pointer;border-style:dashed;transition:.14s border-color;
+        justify-content:center}
+  .popup-slot.empty:hover{border-color:var(--brand)}
+  .popup-slot .ps-plus{font-size:28px;color:#cbd5e1;line-height:1;margin-bottom:2px}
+  .popup-slot .ps-label{font-size:11px;color:var(--muted)}
+  .popup-actions{display:flex;gap:8px}
+  .popup-reset{flex:1;background:none;border:1.5px solid var(--line);border-radius:10px;
+        padding:9px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
+        font-family:inherit;transition:.14s}
+  .popup-reset:hover{border-color:var(--brand);color:var(--brand)}
+  .popup-compare{flex:2;background:var(--brand);color:#fff;border:none;border-radius:10px;
+        padding:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+        box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.14s background}
+  .popup-compare:hover{background:var(--brand-deep)}
+  .popup-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
+
+  /* ── 비교함 버튼 ── */
+  .compare-btn{background:none;border:1.5px solid var(--line);border-radius:9px;
+        padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);
+        font-family:inherit;transition:.15s all;white-space:nowrap}
+  .compare-btn:hover{border-color:var(--brand);color:var(--brand)}
+  .compare-btn.selected{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .compare-btn:disabled{opacity:.4;cursor:not-allowed}
+
+  /* ── 하단 비교바 ── */
+  #compare-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;
+        background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+        border-top:1.5px solid var(--line);padding:14px 24px;
+        display:none;align-items:center;gap:16px;
+        box-shadow:0 -4px 24px rgba(20,92,230,.1)}
+  #compare-bar.visible{display:flex}
+  .cbar-slots{display:flex;gap:10px;flex:1}
+  .cbar-slot{width:180px;height:60px;border:1.5px dashed var(--line);border-radius:12px;
+        display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);
+        flex-shrink:0;position:relative}
+  .cbar-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
+  .cbar-slot img{width:44px;height:28px;object-fit:contain;border-radius:4px;flex-shrink:0}
+  .cbar-slot .slot-name{font-size:12px;font-weight:700;color:var(--txt);
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+  .cbar-slot .slot-remove{position:absolute;top:-6px;right:-6px;width:18px;height:18px;
+        border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
+        font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+  .cbar-slot.empty .slot-label{font-size:12px;color:#b0bec5;margin:auto}
+  .cbar-actions{display:flex;gap:8px;flex-shrink:0}
+  .cbar-reset{background:none;border:1.5px solid var(--line);border-radius:10px;
+        padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
+        font-family:inherit;transition:.15s all}
+  .cbar-reset:hover{border-color:var(--brand);color:var(--brand)}
+  .cbar-compare{background:var(--brand);color:#fff;border:none;border-radius:10px;
+        padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+        box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.15s background}
+  .cbar-compare:hover{background:var(--brand-deep)}
+  .cbar-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
+  .cbar-count{font-size:12px;color:var(--muted);white-space:nowrap}
+
   /* ── 캐시백 섹션 ── */
   .cb-platform-tabs{display:flex;align-items:center;gap:0;
         border-bottom:2px solid var(--line);margin-bottom:28px}
@@ -163,13 +250,12 @@
         box-shadow:var(--shadow)}
   .cb-company-card:hover{transform:translateY(-4px);border-color:var(--brand);
         box-shadow:0 12px 28px rgba(20,92,230,.12)}
-  .cb-company-card .co-logo{width:80px;height:80px;object-fit:contain;border-radius:14px;
-        background:var(--bg);padding:8px;border:1px solid var(--line)}
+  .cb-company-card .co-logo{width:90px;height:90px;object-fit:contain;border-radius:14px}
   .cb-company-card .co-logo-placeholder{width:80px;height:80px;border-radius:14px;
         background:var(--panel2);display:flex;align-items:center;justify-content:center;
         font-size:22px;font-weight:800;color:var(--brand)}
   .cb-company-card .co-name{font-size:13px;font-weight:600;color:var(--muted)}
-  .cb-company-card .co-amount{font-size:14px;font-weight:800;color:#FF6B35;letter-spacing:-.3px}
+  .cb-company-card .co-amount{font-size:16px;font-weight:800;color:#FF6B35;letter-spacing:-.3px}
   .cb-header{min-height:80px}
   .cb-empty{text-align:center;color:var(--muted);padding:60px 0;font-size:14px}
 </style>
@@ -196,7 +282,7 @@
       <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
       <a href="#">할인가맹점</a>
       <a href="#">맞춤카드찾기</a>
-      <a href="#">카드 리포트</a>
+      <a href="#">트렌드분석</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -283,7 +369,139 @@
   </div>
 </main>
 
+<!-- 플로팅 버블 -->
+<div id="compare-bubble">
+  <div class="bubble-wrap">
+    <button class="bubble-btn" onclick="togglePopup()">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="7" x2="21" y2="7"/>
+        <path d="M6 7l-3 7a3 3 0 0 0 6 0L6 7z"/><path d="M18 7l-3 7a3 3 0 0 0 6 0L18 7z"/>
+      </svg>
+    </button>
+    <span class="bubble-badge" id="bubble-badge">0</span>
+  </div>
+</div>
+
+<!-- 비교 팝업 -->
+<div id="compare-popup">
+  <div class="popup-title">
+    <span>비교함</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="popup-count" style="color:var(--brand)"></span>
+      <button onclick="togglePopup()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:0">✕</button>
+    </div>
+  </div>
+  <div class="popup-slots" id="popup-slots"></div>
+  <div class="popup-actions">
+    <button class="popup-reset" onclick="resetCompare()">초기화</button>
+    <button class="popup-compare" id="popup-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+  </div>
+</div>
+
+<!-- 하단 비교바 -->
+<div id="compare-bar">
+  <div class="cbar-slots" id="cbar-slots"></div>
+  <div class="cbar-actions">
+    <span class="cbar-count" id="cbar-count"></span>
+    <button class="cbar-reset" onclick="resetCompare()">초기화</button>
+    <button class="cbar-compare" id="cbar-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+  </div>
+</div>
+
 <script>
+/* ── 비교함 (localStorage 연동) ── */
+let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+
+function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
+
+function toggleCompare(idx, name, img){
+  const i = compareList.findIndex(c=>c.idx===idx);
+  if(i > -1){
+    compareList.splice(i,1);
+  } else {
+    if(compareList.length >= 3) return;
+    compareList.push({idx, name, img});
+  }
+  saveCompare();
+  updateCompareBar();
+  document.querySelectorAll(`.compare-btn[data-idx="${idx}"]`).forEach(btn=>{
+    btn.classList.toggle('selected', compareList.some(c=>c.idx===idx));
+    btn.textContent = compareList.some(c=>c.idx===idx) ? '✓ 담겼어요' : '비교함 담기';
+  });
+  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn=>{
+    btn.disabled = compareList.length >= 3;
+  });
+}
+
+let popupOpen = false;
+
+function togglePopup(){
+  popupOpen = !popupOpen;
+  document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+}
+
+function updateCompareBar(){
+  const isCards = !document.getElementById('section-cards').hidden;
+  const hasItems = compareList.length > 0;
+
+  // 하단 바 숨김
+  document.getElementById('compare-bar').classList.remove('visible');
+
+  // 버블: 모든 섹션에서 표시
+  const bubble = document.getElementById('compare-bubble');
+  bubble.classList.toggle('visible', hasItems);
+  document.getElementById('bubble-badge').textContent = compareList.length;
+
+  // 하단 바 슬롯
+  const slots = Array.from({length:3},(_,i)=>{
+    const c = compareList[i];
+    if(c) return `<div class="cbar-slot filled">
+      <img src="${esc(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      <span class="slot-name">${esc(c.name)}</span>
+      <button class="slot-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img||'')}')">×</button>
+    </div>`;
+    return `<div class="cbar-slot empty"><span class="slot-label">카드 선택</span></div>`;
+  }).join('');
+  document.getElementById('cbar-slots').innerHTML = slots;
+  document.getElementById('cbar-count').textContent = `${compareList.length}/3`;
+  document.getElementById('cbar-compare-btn').disabled = compareList.length < 2;
+
+  // 팝업 슬롯
+  const pslots = Array.from({length:3},(_,i)=>{
+    const c = compareList[i];
+    if(c) return `<div class="popup-slot filled">
+      <img src="${esc(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      <span class="ps-name">${esc(c.name)}</span>
+      <button class="ps-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img||'')}')">×</button>
+    </div>`;
+    return `<div class="popup-slot empty" onclick="showSection('cards');popupOpen=false;document.getElementById('compare-popup').classList.remove('visible')">
+      <span class="ps-plus">+</span>
+      <span class="ps-label">카드 추가</span>
+    </div>`;
+  }).join('');
+  document.getElementById('popup-slots').innerHTML = pslots;
+  document.getElementById('popup-count').textContent = `${compareList.length}/3`;
+  const pcb = document.getElementById('popup-compare-btn');
+  if(pcb) pcb.disabled = compareList.length < 2;
+}
+
+function resetCompare(){
+  compareList = [];
+  saveCompare();
+  document.querySelectorAll('.compare-btn').forEach(btn=>{
+    btn.classList.remove('selected');
+    btn.textContent = '비교함 담기';
+    btn.disabled = false;
+  });
+  updateCompareBar();
+}
+
+function goCompare(){
+  if(compareList.length < 2) return;
+  const slot = compareList.map(c=>c.idx).join(',');
+  window.open(`compare?slot=${slot}`, '_blank');
+}
+
 const PAGE = 60;
 let DATA = [], view = [], shown = 0, activeCardType = '';
 
@@ -297,6 +515,10 @@ function showSection(name){
   document.querySelectorAll('.gnb a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   if(name === 'cashback') renderCashback();
+  // 섹션 변경 시 팝업 닫기 + 바/버블 전환
+  popupOpen = false;
+  document.getElementById('compare-popup').classList.remove('visible');
+  updateCompareBar();
 }
 
 function setCardType(el){
@@ -365,15 +587,16 @@ function render(){
         <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
         <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
       </div>
-      <div class="row"><span class="chip fee">연회비 ${esc(c.annual_fee||'-')}</span></div>
+      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span></div>
       <div class="row">
-        <span class="chip pre">전월실적 ${esc(c.pre_month_condition||'없음')}</span>
+        <span class="chip pre">전월실적 ${c.pre_month_money ? Math.round(c.pre_month_money/10000)+'만원 이상' : '없음'}</span>
         ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
         ${c.only_online?`<span class="chip">온라인전용</span>`:''}
       </div>
       <div class="benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
       <div class="foot">
-        <span class="dt">${c.release_dt?'출시 '+c.release_dt:''}</span>
+        <button class="compare-btn" data-idx="${c.idx}"
+          onclick="toggleCompare(${c.idx},'${esc(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
         <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
       </div>
     </div>`;
@@ -381,6 +604,17 @@ function render(){
   grid.insertAdjacentHTML('beforeend', html);
   shown += slice.length;
   document.getElementById('more').hidden = shown >= view.length;
+  // localStorage 상태 반영
+  compareList.forEach(c=>{
+    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn=>{
+      btn.classList.add('selected');
+      btn.textContent = '✓ 담겼어요';
+    });
+  });
+  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn=>{
+    btn.disabled = compareList.length >= 3;
+  });
+  updateCompareBar();
 }
 
 /* ── 캐시백 더미 데이터 ── */
@@ -417,7 +651,7 @@ const CASHBACK = {
   },
   '네이버페이': {
     icon: 'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png',
-    url: 'https://pay.naver.com',
+    url: 'https://card.pay.naver.com/home/promotion/event?from=menu_event',
     maxAmount: 112.5,
     companies: [
       { name: '신한카드', cards: [
@@ -430,7 +664,7 @@ const CASHBACK = {
   },
   '토스': {
     icon: 'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico',
-    url: 'https://toss.im',
+    url: 'https://card-lounge.toss.im/?utm_source=naverbrand&utm_campaign=webtraffic_cardpcbs_performance&utm_content=search_cardpc_cardlounge_250701',
     maxAmount: 112.5,
     companies: [
       { name: '토스뱅크', cards: [
@@ -463,7 +697,7 @@ const CASHBACK = {
   },
   '뱅크샐러드': {
     icon: '',
-    url: 'https://banksalad.com',
+    url: 'https://www.banksalad.com/chart/cards?tab=event',
     maxAmount: 112.5,
     companies: [
       { name: 'KB국민카드', cards: [
