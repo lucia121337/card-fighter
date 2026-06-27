@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>카드 비교 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --shadow:0 4px 18px rgba(20,92,230,.07);
+  }
+  *{box-sizing:border-box}
+  html{scrollbar-gutter:stable}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+         padding:12px 24px;display:flex;align-items:center;gap:14px}
+  .back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+        background:var(--brand);font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
+        box-shadow:0 2px 8px rgba(20,92,230,.28);transition:.15s background;white-space:nowrap}
+  .back:hover{background:var(--brand-deep)}
+  .header-logo{width:34px;height:34px;flex-shrink:0}
+  .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 80px}
+  .page-title{font-size:22px;font-weight:800;color:var(--txt);margin:0 0 24px;letter-spacing:-1px}
+  .page-title span{color:var(--brand)}
+
+  /* 비교 테이블 — 행 기반 그리드 */
+  .compare-table{display:grid;border-radius:18px;overflow:hidden;
+        box-shadow:var(--shadow);border:1.5px solid var(--line)}
+  .compare-table.cols-2{grid-template-columns:150px 1fr 1fr}
+  .compare-table.cols-3{grid-template-columns:150px 1fr 1fr 1fr}
+
+  /* 모든 셀 공통 */
+  .ct-cell{padding:16px 18px;border-bottom:1px solid var(--line);
+        border-right:1px solid var(--line);background:var(--panel);
+        display:flex;flex-direction:column;justify-content:center;gap:6px}
+  .ct-cell:nth-child(-n+3){border-bottom:2px solid var(--brand)}
+  .compare-table.cols-3 .ct-cell:nth-child(-n+4){border-bottom:2px solid var(--brand)}
+
+  /* 라벨 열 */
+  .ct-label{background:var(--panel2);font-size:13px;font-weight:700;color:var(--muted)}
+
+  /* 헤더 행 */
+  .ct-header{padding:24px 18px;display:flex;flex-direction:column;align-items:center;
+        gap:10px;text-align:center;background:var(--panel)}
+  .ct-header img{width:100px;height:64px;object-fit:contain;border-radius:8px;
+        background:var(--bg);border:1px solid var(--line);padding:4px}
+  .ct-header .ct-name{font-size:14px;font-weight:800;color:var(--txt);line-height:1.4}
+  .ct-header .ct-co{font-size:12px;color:var(--muted)}
+
+  /* 데이터 셀 */
+  .ct-data{font-size:13.5px;line-height:1.6}
+  .ct-data.best{background:#f0fdf4}
+  .badge-best{background:#10b981;color:#fff;font-size:10px;font-weight:700;
+        border-radius:999px;padding:2px 8px;align-self:flex-start}
+  .val-main{font-size:15px;font-weight:700;color:var(--txt)}
+  .benefit-line{font-size:12.5px;color:#475569;line-height:1.6}
+  .benefit-line b{color:var(--brand);font-weight:700}
+
+  /* 마지막 열은 오른쪽 테두리 없음 */
+  .ct-cell:last-child{border-right:none}
+
+  .status{padding:80px 0;text-align:center;color:var(--muted);font-size:15px}
+  .spinner{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--brand);
+        border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">← 목록으로</a>
+  <svg class="header-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
+    <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
+      <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
+      <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
+    </g>
+    <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
+          fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
+  </svg>
+  <span class="header-title">카드 비교</span>
+</header>
+
+<div class="wrap" id="wrap">
+  <div class="status"><div class="spinner"></div>카드 정보를 불러오는 중…</div>
+</div>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const won = n => n ? Number(n).toLocaleString()+'원' : '없음';
+const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
+
+const ROWS = [
+  { key:'hero',         label:''         },
+  { key:'annual_fee',   label:'연회비'    },
+  { key:'pre_month',    label:'전월실적'  },
+  { key:'brands',       label:'브랜드'    },
+  { key:'card_type',    label:'카드 종류' },
+  { key:'benefits',     label:'주요 혜택' },
+  { key:'release_dt',   label:'출시일'    },
+];
+
+function render(cards){
+  const n = cards.length;
+  document.title = `카드 비교 (${n}개) — 카드 파이터`;
+
+  const fees = cards.map(c=>feeNum(c.annual_fee));
+  const minFee = Math.min(...fees);
+  const pres = cards.map(c=>c.pre_month_money||0);
+  const minPre = Math.min(...pres);
+
+  const fmtFee = s => (s||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,'<br>');
+  const fmtPre = n => n ? Math.round(n/10000)+'만원 이상' : '없음';
+  const benefit = c => (c.top_benefit_summary||'').split(' | ')
+    .map(s=>{const i=s.indexOf(':');return i>0?`<b>${esc(s.slice(0,i))}</b>${esc(s.slice(i))}`:esc(s);})
+    .slice(0,4).join('<br>');
+
+  // 행 기반 렌더: 라벨셀 + 카드셀들이 한 행을 이룸
+  const rows = [
+    // 헤더 행
+    `<div class="ct-cell ct-label ct-header" style="border-bottom:2px solid var(--brand)"></div>
+     ${cards.map(c=>`
+      <div class="ct-cell ct-header">
+        <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div class="ct-name">${esc(c.card_name)}</div>
+        <div class="ct-co">${esc(c.company||'')}</div>
+      </div>`).join('')}`,
+
+    // 연회비
+    `<div class="ct-cell ct-label">연회비</div>
+     ${cards.map((c,i)=>`
+      <div class="ct-cell ct-data${fees[i]===minFee?' best':''}">
+        <span class="val-main">${fmtFee(c.annual_fee)}</span>
+        ${fees[i]===minFee?'<span class="badge-best">최저 연회비</span>':''}
+      </div>`).join('')}`,
+
+    // 전월실적
+    `<div class="ct-cell ct-label">전월실적</div>
+     ${cards.map((c,i)=>`
+      <div class="ct-cell ct-data${pres[i]===minPre?' best':''}">
+        <span class="val-main">${fmtPre(c.pre_month_money)}</span>
+        ${pres[i]===minPre?'<span class="badge-best">최저 실적</span>':''}
+      </div>`).join('')}`,
+
+    // 브랜드
+    `<div class="ct-cell ct-label">브랜드</div>
+     ${cards.map(c=>`<div class="ct-cell ct-data"><span class="val-main">${esc(c.brands||'-')}</span></div>`).join('')}`,
+
+    // 카드 종류
+    `<div class="ct-cell ct-label">카드 종류</div>
+     ${cards.map(c=>`<div class="ct-cell ct-data"><span class="val-main">${esc(c.card_type||'-')}</span></div>`).join('')}`,
+
+    // 주요 혜택
+    `<div class="ct-cell ct-label">주요 혜택</div>
+     ${cards.map(c=>`<div class="ct-cell ct-data"><div class="benefit-line">${benefit(c)||'정보 없음'}</div></div>`).join('')}`,
+
+    // 출시일
+    `<div class="ct-cell ct-label">출시일</div>
+     ${cards.map(c=>`<div class="ct-cell ct-data"><span class="val-main">${c.release_dt?'출시 '+esc(c.release_dt):'-'}</span></div>`).join('')}`,
+  ];
+
+  document.getElementById('wrap').innerHTML = `
+    <p class="page-title">카드 <span>${n}개</span> 비교</p>
+    <div class="compare-table cols-${n}">${rows.join('')}</div>`;
+}
+
+const params = new URLSearchParams(location.search);
+const slot = params.get('slot');
+if(!slot){
+  document.getElementById('wrap').innerHTML =
+    '<div class="status">비교할 카드가 없습니다. <a href="index.html" style="color:var(--brand);font-weight:700">← 목록으로</a></div>';
+} else {
+  const idxList = slot.split(',').map(s=>s.trim()).filter(Boolean).slice(0,3);
+  Promise.all(idxList.map(idx=>
+    fetch(`card_detail/${idx}.json`).then(r=>r.ok?r.json():null)
+  )).then(cards=>{
+    const valid = cards.filter(Boolean);
+    if(!valid.length){
+      document.getElementById('wrap').innerHTML =
+        '<div class="status">카드 정보를 불러오지 못했습니다. <a href="index.html" style="color:var(--brand);font-weight:700">← 목록으로</a></div>';
+    } else {
+      render(valid);
+    }
+  });
+}
+</script>
+</body>
+</html>

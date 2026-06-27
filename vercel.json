@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/detail", "destination": "/detail.html" }
+    { "source": "/detail", "destination": "/detail.html" },
+    { "source": "/compare", "destination": "/compare.html" }
   ],
   "cleanUrls": false
 }

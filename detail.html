@@ -80,6 +80,39 @@
   .spinner{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--brand);
         border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
   @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* 비교함 버튼 */
+  .compare-hero-btn{background:var(--brand);border:none;color:#fff;
+        border-radius:10px;padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;
+        font-family:inherit;transition:.15s background;width:156px;text-align:center;
+        box-shadow:0 2px 8px rgba(20,92,230,.3)}
+  .compare-hero-btn:hover{background:var(--brand-deep)}
+  .compare-hero-btn.selected{background:#10b981}
+
+  /* 혜택 계산기 */
+  .calc-box{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
+        padding:22px;margin-top:18px;box-shadow:var(--shadow)}
+  .calc-box h3{font-size:15px;font-weight:800;color:var(--txt);margin:0 0 16px;
+        padding-bottom:12px;border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:8px}
+  .calc-row{display:flex;align-items:center;gap:12px;padding:12px 0;
+        border-bottom:1px solid var(--line)}
+  .calc-row:last-of-type{border-bottom:none}
+  .calc-toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+  .calc-toggle input{opacity:0;width:0;height:0}
+  .calc-slider{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;
+        cursor:pointer;transition:.2s}
+  .calc-slider::before{content:'';position:absolute;width:18px;height:18px;
+        background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s;
+        box-shadow:0 1px 4px rgba(0,0,0,.2)}
+  .calc-toggle input:checked+.calc-slider{background:var(--brand)}
+  .calc-toggle input:checked+.calc-slider::before{transform:translateX(20px)}
+  .calc-name{flex:1;font-size:14px;font-weight:600;color:var(--txt)}
+  .calc-amount{font-size:14px;font-weight:800;color:var(--brand);flex-shrink:0;min-width:80px;text-align:right}
+  .calc-amount.zero{color:var(--muted);font-weight:600}
+  .calc-total{display:flex;justify-content:space-between;align-items:center;
+        margin-top:16px;padding:16px 18px;background:var(--panel2);border-radius:12px}
+  .calc-total .tot-label{font-size:14px;font-weight:700;color:var(--txt)}
+  .calc-total .tot-amt{font-size:20px;font-weight:800;color:var(--brand)}
 </style>
 </head>
 <body>
@@ -104,6 +137,116 @@
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => n ? Number(n).toLocaleString()+'원' : '없음';
+
+/* ── 비교함 (localStorage) ── */
+function getCompareList(){ return JSON.parse(localStorage.getItem('compareList')||'[]'); }
+function saveCompareList(list){ localStorage.setItem('compareList', JSON.stringify(list)); }
+
+function toggleCompareDetail(idx, name, img){
+  let list = getCompareList();
+  const i = list.findIndex(c=>String(c.idx)===String(idx));
+  if(i > -1){
+    list.splice(i,1);
+  } else {
+    if(list.length >= 3){ alert('최대 3개까지 비교할 수 있어요!'); return; }
+    list.push({idx, name, img});
+  }
+  saveCompareList(list);
+  updateCompareBtn(idx);
+}
+
+function updateCompareBtn(idx){
+  const list = getCompareList();
+  const btn = document.getElementById('detail-compare-btn');
+  if(!btn) return;
+  const added = list.some(c=>String(c.idx)===String(idx));
+  btn.textContent = added ? '✓ 비교함에 담겼어요' : '+ 비교함 담기';
+  btn.classList.toggle('selected', added);
+}
+
+/* ── 혜택 계산기 ── */
+function extractAmount(html){
+  const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
+  let max = 0;
+
+  // 1순위: 한도 N만원
+  const p1 = /한도\s+(\d+(?:\.\d+)?)\s*만원/g;
+  let m;
+  while((m=p1.exec(text))!==null){
+    const v = parseFloat(m[1])*10000;
+    if(v>max && v<=5000000) max=v;
+  }
+
+  // 2순위: 한도 N,NNN원
+  const p2 = /한도\s+([\d,]+)\s*원/g;
+  while((m=p2.exec(text))!==null){
+    const v = parseInt(m[1].replace(/,/g,''));
+    if(v>max && v<=5000000) max=v;
+  }
+
+  // 3순위: 최대 N만원
+  if(!max){
+    const p3 = /최대\s+(\d+(?:\.\d+)?)\s*만원/g;
+    while((m=p3.exec(text))!==null){
+      const v = parseFloat(m[1])*10000;
+      if(v>max && v<=5000000) max=v;
+    }
+  }
+
+  // 4순위: N만원 중 가장 큰 값
+  if(!max){
+    const p4 = /(\d+(?:\.\d+)?)\s*만원/g;
+    while((m=p4.exec(text))!==null){
+      const v = parseFloat(m[1])*10000;
+      if(v>max && v<=5000000) max=v;
+    }
+  }
+
+  return max;
+}
+
+function buildCalc(kb){
+  const EXCLUDE = ['유의사항','주의사항','안내','참고','발급','약관','유의'];
+  const items = kb
+    .filter(b=>!EXCLUDE.some(k=>(b.title||'').includes(k)))
+    .map((b,i)=>({
+      id:i, title:b.title||'혜택 '+(i+1),
+      amount: extractAmount(b.info||''),
+      checked:true
+    }));
+
+  function renderTotal(){
+    const total = items.filter(it=>it.checked).reduce((s,it)=>s+it.amount,0);
+    document.getElementById('calc-total-amt').textContent =
+      total ? '최대 '+total.toLocaleString()+'원' : '-';
+  }
+
+  const rows = items.map(it=>`
+    <div class="calc-row">
+      <label class="calc-toggle">
+        <input type="checkbox" id="calc-${it.id}" checked onchange="
+          document.getElementById('calc-${it.id}').closest('.calc-row');
+          window._calcItems[${it.id}].checked=this.checked;
+          window._calcRender();">
+        <span class="calc-slider"></span>
+      </label>
+      <span class="calc-name">${esc(it.title)}</span>
+      <span class="calc-amount${!it.amount?' zero':''}">${it.amount?'최대 '+it.amount.toLocaleString()+'원':'확인 필요'}</span>
+    </div>`).join('');
+
+  window._calcItems = items;
+  window._calcRender = renderTotal;
+
+  return `<div class="calc-box">
+    <h3>🧮 혜택 계산기</h3>
+    ${rows}
+    <div class="calc-total">
+      <span class="tot-label">예상 혜택 합계</span>
+      <span class="tot-amt" id="calc-total-amt"></span>
+    </div>
+  </div>`;
+}
+
 
 function switchTab(i){
   document.querySelectorAll('.kb-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
@@ -137,13 +280,25 @@ function render(d){
   }
 
   const cats = (d.benefit_categories||'').split(',').map(s=>s.trim()).filter(Boolean);
-  const fee  = d.annual_fee || d.annual_fee_detail || d.annual_fee_basic || '-';
-  const pre  = d.pre_month_condition || won(d.pre_month_money);
+  const rawFee = d.annual_fee || d.annual_fee_detail || d.annual_fee_basic || '-';
+  const fee = rawFee
+    .replace(/\[([\d,]+)\]원/g, '$1원')
+    .replace(/\s*\/\s*/g, '\n')
+    .split('\n').map(s=>s.trim()).filter(Boolean).join('<br>');
+  const pre  = d.pre_month_money ? Math.round(d.pre_month_money/10000)+'만원 이상' : '없음';
 
   document.title = name + ' — 카드 파이터';
+  const inCompare = getCompareList().some(c=>String(c.idx)===String(d.idx));
+
   document.getElementById('wrap').innerHTML = `
     <div class="hero">
-      <img src="${esc(img)}" alt="" onerror="this.style.visibility='hidden'"/>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0">
+        <img src="${esc(img)}" alt="" onerror="this.style.visibility='hidden'"/>
+        <button id="detail-compare-btn" class="compare-hero-btn${inCompare?' selected':''}"
+          onclick="toggleCompareDetail(${d.idx},'${esc(name)}','${esc(img)}')">
+          ${inCompare?'✓ 비교함에 담겼어요':'+ 비교함 담기'}
+        </button>
+      </div>
       <div>
         <div class="h-name">${esc(name)}</div>
         <div class="h-corp">${esc(corp)}</div>
@@ -151,14 +306,16 @@ function render(d){
       </div>
     </div>
     <div class="summary">
-      <div class="sum-card"><div class="lab">연회비</div><div class="val">${esc(fee)}</div></div>
+      <div class="sum-card"><div class="lab">연회비</div><div class="val">${fee}</div></div>
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}
     </div>
+    ${kb.length ? buildCalc(kb) : ''}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}
     </div>
+
     ${cats.length?`<div class="sec-box"><h3>🏷️ 혜택 카테고리</h3>
       <div class="cat-wrap">${cats.map(c=>`<span class="cat-chip">${esc(c)}</span>`).join('')}</div>
     </div>`:''}
@@ -176,7 +333,7 @@ if(!idx){
 } else {
   fetch('card_detail/' + idx + '.json')
     .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(render)
+    .then(d=>{ render(d); if(window._calcRender) window._calcRender(); })
     .catch(e => {
       document.getElementById('wrap').innerHTML =
         `<div class="status">카드 정보를 불러오지 못했습니다.<br>
