@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/detail", "destination": "/detail.html" }
+  ],
+  "cleanUrls": false
+}
