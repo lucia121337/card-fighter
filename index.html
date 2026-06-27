@@ -4,143 +4,281 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>카드 파이터 — 신용카드 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
   :root{
-    /* 카카오뱅크 톤: 시그니처 옐로우 + 브라운 + 따뜻한 크림 */
-    --bg:#faf6ec; --panel:#ffffff; --panel2:#fbf4e4; --line:#efe7d6;
-    --txt:#3a2e1f; --muted:#9b8c74; --brand:#ffe300; --brand-deep:#f6c700;
-    --brown:#6b4f2a; --brown-deep:#3d2f20; --chip:#fbf4e4;
-    --shadow:0 4px 18px rgba(107,79,42,.08);
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --chip:#f1f5f9; --shadow:0 4px 18px rgba(20,92,230,.07);
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);
-       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
-  header{position:sticky;top:0;z-index:10;background:rgba(250,246,236,.92);
-         backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 22px}
-  .brand{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
-  .brand .logo{width:46px;height:46px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(246,199,0,.45))}
-  .brand h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--brown-deep)}
-  .brand .badge{background:var(--brand);color:var(--brown-deep);
-         font-weight:800;border-radius:999px;padding:4px 12px;font-size:12.5px;
-         box-shadow:0 2px 6px rgba(246,199,0,.4)}
-  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-  .controls input,.controls select{background:var(--panel);color:var(--txt);
-        border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:14px;outline:none;
-        box-shadow:var(--shadow)}
-  .controls input{flex:1;min-width:210px}
-  .controls input:focus,.controls select:focus{border-color:var(--brand-deep)}
-  .controls select{cursor:pointer}
-  .stat{color:var(--muted);font-size:13px;margin-top:11px}
-  .stat b{color:var(--brown)}
-  main{max-width:1300px;margin:0 auto;padding:22px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(286px,1fr));gap:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+  /* ── 헤더 ── */
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
+
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap}
+  .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .brand-left .logo{width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(19,85,255,.3))}
+  .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
+    cursor:pointer;transition:.15s color}
+  .brand-left h1:hover{color:var(--brand)}
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
+
+  /* GNB */
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+  .gnb a{color:var(--muted);font-size:15px;font-weight:600;text-decoration:none;
+         padding:7px 14px;border-radius:10px;transition:.15s background,.15s color;white-space:nowrap}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  .gnb a.active{background:var(--brand);color:#fff}
+  @keyframes coin-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .gnb .coin-icon{display:inline-block;animation:coin-bounce 1s ease-in-out infinite;margin-right:3px}
+
+  /* 검색창 */
+  .header-search{flex:1;min-width:0;padding-left:20px}
+  .search-box{display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);
+    border-radius:12px;overflow:hidden;transition:.15s border-color,.15s box-shadow;height:42px}
+  .search-box:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
+  .search-box input{flex:1;border:none;outline:none;padding:0 16px;font-size:14px;height:100%;
+    font-family:inherit;color:var(--txt);background:transparent}
+  .search-box input::placeholder{color:#b0bec5}
+  .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
+  .search-box .search-btn{display:flex;align-items:center;justify-content:center;
+    width:48px;height:100%;background:none;border:none;cursor:pointer;
+    color:var(--muted);flex-shrink:0;transition:.15s color}
+  .search-box .search-btn:hover{color:var(--brand)}
+  .search-box .search-btn svg{width:20px;height:20px}
+
+  /* 카드 툴바 (그리드 위 오른쪽) */
+  .cards-toolbar{display:flex;align-items:center;justify-content:flex-end;
+    gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  .controls select{background:var(--panel);color:var(--txt);
+        border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;outline:none;
+        cursor:pointer;font-family:inherit;transition:.15s border-color}
+  .controls select:focus{border-color:var(--brand)}
+  .stat{color:var(--muted);font-size:12.5px;white-space:nowrap;flex-shrink:0;margin-left:4px}
+  .stat b{color:var(--brand);font-weight:700}
+
+  /* ── 메인 ── */
+  main{max-width:1340px;margin:0 auto;padding:24px 22px}
+  .section{display:block}
+  .section[hidden]{display:none}
+
+  /* 준비중 */
+  .coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;
+               min-height:62vh;text-align:center;gap:18px}
+  @keyframes float-icon{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .coming-soon .cs-icon{font-size:90px;animation:float-icon 2s ease-in-out infinite;line-height:1}
+  .coming-soon h2{font-size:30px;font-weight:800;color:var(--txt);margin:0;letter-spacing:-1px}
+  .coming-soon p{color:var(--muted);font-size:15px;margin:0;line-height:1.8}
+  .coming-soon .cs-badge{background:var(--brand);color:#fff;font-weight:700;
+         border-radius:999px;padding:6px 18px;font-size:13px;box-shadow:0 2px 10px rgba(19,85,255,.3)}
+
+  /* ── 전체카드 레이아웃 ── */
+  .cards-layout{display:flex;flex-direction:column;gap:0}
+
+  /* LNB — 언더라인 탭 */
+  .lnb{display:flex;align-items:center;gap:0;border-bottom:2px solid var(--line);margin-bottom:20px}
+  .lnb-title{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;
+             padding:0 16px 0 0;margin-right:8px;border-right:1px solid var(--line);
+             line-height:42px}
+  .lnb-divider{display:none}
+  .lnb-item{display:inline-flex;align-items:center;gap:7px;
+            padding:10px 18px;font-size:14px;font-weight:600;
+            color:var(--muted);cursor:pointer;text-decoration:none;
+            border:none;background:none;font-family:inherit;white-space:nowrap;
+            border-bottom:2.5px solid transparent;margin-bottom:-2px;
+            transition:.15s color,.15s border-color}
+  .lnb-item:hover{color:var(--brand)}
+  .lnb-item.active{color:var(--brand);border-bottom-color:var(--brand)}
+  .lnb-item .lnb-count{font-size:11.5px;font-weight:700;
+        background:var(--panel2);color:var(--brand);border-radius:999px;padding:1px 8px}
+  .lnb-item.active .lnb-count{background:var(--brand);color:#fff}
+
+  /* 카드 그리드 */
+  .cards-main{}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
         padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);
         transition:.16s transform,.16s box-shadow,.16s border-color}
-  .card:hover{transform:translateY(-4px);border-color:var(--brand-deep);
-              box-shadow:0 12px 28px rgba(246,199,0,.22)}
+  .card:hover{transform:translateY(-4px);border-color:var(--brand);
+              box-shadow:0 12px 28px rgba(19,85,255,.12)}
   .card .top{display:flex;gap:14px;align-items:center}
   .card img{width:78px;height:50px;object-fit:contain;border-radius:7px;
-            background:#fbf8f0;border:1px solid var(--line);flex-shrink:0}
+            background:#f8fafc;border:1px solid var(--line);flex-shrink:0}
   .card .nm{font-weight:700;font-size:15px;line-height:1.35}
-  .card .co{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .card .co{color:var(--muted);font-size:12px;margin-top:3px}
   .row{display:flex;gap:7px;flex-wrap:wrap}
   .chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;
-        padding:4px 9px;font-size:11.5px;color:#7a6b52}
-  .chip.fee{background:#fff7d6;border-color:#f3e3a0;color:#8a6a12}
-  .chip.pre{background:#fbf0dc;border-color:#ecd9b8;color:#7c5a23}
-  .benefit{font-size:12.5px;color:#5d513f;line-height:1.55;
-           border-top:1px dashed var(--line);padding-top:10px;min-height:38px}
-  .benefit b{color:var(--brown);font-weight:700}
-  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:8px}
-  .foot .dt{color:#b3a488;font-size:11px}
-  .detail-btn{background:var(--brand);color:var(--brown-deep);border:none;border-radius:9px;
-        padding:7px 14px;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;
-        box-shadow:0 2px 6px rgba(246,199,0,.4);white-space:nowrap;display:inline-block}
+        padding:4px 9px;font-size:11.5px;color:var(--muted)}
+  .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+  .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  .benefit{font-size:12.5px;color:#475569;line-height:1.55;
+           border-top:1px dashed var(--line);padding-top:10px;flex:1}
+  .benefit b{color:var(--brand);font-weight:700}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;gap:8px}
+  .foot .dt{color:#94a3b8;font-size:11px}
+  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:9px;
+        padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
+        box-shadow:0 2px 8px rgba(19,85,255,.28);white-space:nowrap;display:inline-block;
+        transition:.15s background}
   .detail-btn:hover{background:var(--brand-deep)}
   #more{display:block;margin:26px auto;background:var(--brand);
-        color:var(--brown-deep);border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
-        font-size:14px;font-weight:800;box-shadow:0 6px 16px rgba(246,199,0,.3)}
+        color:#fff;border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
+        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:.15s background}
   #more:hover{background:var(--brand-deep)}
   .empty{text-align:center;color:var(--muted);padding:60px}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">
-    <!-- 로고: 교차된 카드 + 파이터의 에너지를 상징하는 번개 (카카오뱅크 옐로우/브라운) -->
-    <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
-      <rect x="3" y="3" width="42" height="42" rx="13" fill="#ffe300"/>
-      <g stroke="#5a4632" stroke-width="2" stroke-linejoin="round">
-        <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-        <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#fff6df" transform="rotate(17 24 24)"/>
-      </g>
-      <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-            fill="#5a4632" stroke="#3d2f20" stroke-width="1" stroke-linejoin="round"/>
-    </svg>
-    <h1>카드 파이터</h1>
-    <span class="badge" id="total">…</span>
+  <div class="header-top">
+    <div class="brand-left">
+      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
+        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
+        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
+          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
+          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
+        </g>
+        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
+              fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
+      </svg>
+      <h1 onclick="showSection('home')">카드 파이터</h1>
+    </div>
+    <div class="gnb-divider"></div>
+    <nav class="gnb">
+      <a href="#" class="active" data-section="home" onclick="showSection('home');return false">홈</a>
+      <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
+      <a href="#"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="#">할인가맹점</a>
+      <a href="#">맞춤카드찾기</a>
+      <a href="#">카드 리포트</a>
+    </nav>
+    <div class="header-search">
+      <div class="search-box">
+        <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" />
+        <div class="search-divider"></div>
+        <button class="search-btn" onclick="document.getElementById('q').focus()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="controls">
-    <input id="q" type="text" placeholder="🔍 카드명·혜택 검색 (예: 스타벅스, 항공, 캐시백)" />
-    <select id="company"><option value="">전체 카드사</option></select>
-    <select id="fee">
-      <option value="">연회비 전체</option>
-      <option value="free">연회비 없음/저가(~1만원)</option>
-      <option value="mid">1만~5만원</option>
-      <option value="high">5만원 이상</option>
-    </select>
-    <select id="pre">
-      <option value="">전월실적 전체</option>
-      <option value="none">실적 조건 없음</option>
-      <option value="le30">30만원 이하</option>
-      <option value="gt30">30만원 초과</option>
-    </select>
-    <select id="sort">
-      <option value="default">기본(인기순)</option>
-      <option value="name">카드명순</option>
-      <option value="feeAsc">연회비 낮은순</option>
-      <option value="feeDesc">연회비 높은순</option>
-      <option value="preAsc">전월실적 낮은순</option>
-    </select>
-  </div>
-  <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
 </header>
 
 <main>
-  <div class="grid" id="grid"></div>
-  <button id="more" hidden>더 보기</button>
-  <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
+  <!-- 홈 섹션 -->
+  <div id="section-home" class="section">
+    <div class="coming-soon">
+      <div class="cs-icon">🏗️</div>
+      <span class="cs-badge">준비중</span>
+      <h2>홈 화면을 준비하고 있어요</h2>
+      <p>더 멋진 메인 페이지로 곧 찾아올게요!<br>지금은 <strong>전체카드</strong> 탭에서 카드를 탐색해보세요.</p>
+    </div>
+  </div>
+  <!-- 전체카드 섹션 -->
+  <div id="section-cards" class="section" hidden>
+    <div class="cards-layout">
+      <!-- LNB 수평 탭 -->
+      <nav class="lnb">
+<button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">
+          전체카드 <span class="lnb-count" id="cnt-all"></span>
+        </button>
+        <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">
+          신용카드 <span class="lnb-count" id="cnt-credit"></span>
+        </button>
+        <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">
+          체크카드 <span class="lnb-count" id="cnt-debit"></span>
+        </button>
+      </nav>
+      <!-- 카드 목록 -->
+      <div class="cards-main">
+        <div class="cards-toolbar">
+          <div class="controls">
+            <select id="company"><option value="">전체 카드사</option></select>
+            <select id="fee">
+              <option value="">연회비 전체</option>
+              <option value="free">연회비 없음/저가(~1만원)</option>
+              <option value="mid">1만~5만원</option>
+              <option value="high">5만원 이상</option>
+            </select>
+            <select id="pre">
+              <option value="">전월실적 전체</option>
+              <option value="none">실적 조건 없음</option>
+              <option value="le30">30만원 이하</option>
+              <option value="gt30">30만원 초과</option>
+            </select>
+            <select id="sort">
+              <option value="default">기본(인기순)</option>
+              <option value="name">카드명순</option>
+              <option value="feeAsc">연회비 낮은순</option>
+              <option value="feeDesc">연회비 높은순</option>
+              <option value="preAsc">전월실적 낮은순</option>
+            </select>
+          </div>
+          <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <button id="more" hidden>더 보기</button>
+        <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>
 const PAGE = 60;
-let DATA = [], view = [], shown = 0;
+let DATA = [], view = [], shown = 0, activeCardType = '';
 
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
 
+/* ── 섹션 전환 ── */
+function showSection(name){
+  document.querySelectorAll('.section').forEach(s => s.hidden = true);
+  document.getElementById('section-'+name).hidden = false;
+  document.querySelectorAll('.gnb a[data-section]').forEach(a =>
+    a.classList.toggle('active', a.dataset.section === name));
+}
+
+function setCardType(el){
+  document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  activeCardType = el.dataset.cardtype;
+  applyFilters();
+}
+
+/* ── 필터 & 렌더 ── */
 function applyFilters(){
-  const q = document.getElementById('q').value.trim().toLowerCase();
-  const co = document.getElementById('company').value;
+  const q   = document.getElementById('q').value.trim().toLowerCase();
+  const co  = document.getElementById('company').value;
   const fee = document.getElementById('fee').value;
   const pre = document.getElementById('pre').value;
-  const sort = document.getElementById('sort').value;
+  const sort= document.getElementById('sort').value;
 
   view = DATA.filter(c=>{
+    if(activeCardType && c.cate !== activeCardType) return false;
     if(co && c.company!==co) return false;
     if(q){
-      const hay = (c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
+      const hay=(c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
       if(!hay.includes(q)) return false;
     }
-    const f = feeNum(c.annual_fee);
-    if(fee==='free' && f>10000) return false;
-    if(fee==='mid' && !(f>10000 && f<50000)) return false;
-    if(fee==='high' && f<50000) return false;
-    const p = c.pre_month_money||0;
-    if(pre==='none' && p) return false;
-    if(pre==='le30' && (p===0 || p>300000)) return false;
-    if(pre==='gt30' && p<=300000) return false;
+    const f=feeNum(c.annual_fee);
+    if(fee==='free'&&f>10000) return false;
+    if(fee==='mid'&&!(f>10000&&f<50000)) return false;
+    if(fee==='high'&&f<50000) return false;
+    const p=c.pre_month_money||0;
+    if(pre==='none'&&p) return false;
+    if(pre==='le30'&&(p===0||p>300000)) return false;
+    if(pre==='gt30'&&p<=300000) return false;
     return true;
   });
 
@@ -152,15 +290,24 @@ function applyFilters(){
   document.getElementById('count').textContent = view.length.toLocaleString();
   shown = 0;
   document.getElementById('grid').innerHTML = '';
-  document.getElementById('empty').hidden = view.length>0;
+  document.getElementById('empty').hidden = view.length > 0;
   render();
 }
 
+function updateLnbCounts(){
+  const all    = DATA.length;
+  const credit = DATA.filter(c=>c.cate==='CRD').length;
+  const debit  = DATA.filter(c=>c.cate==='CHK').length;
+  document.getElementById('cnt-all').textContent    = all    ? all.toLocaleString()    : '';
+  document.getElementById('cnt-credit').textContent = credit ? credit.toLocaleString() : '';
+  document.getElementById('cnt-debit').textContent  = debit  ? debit.toLocaleString()  : '';
+}
+
 function render(){
-  const grid = document.getElementById('grid');
+  const grid  = document.getElementById('grid');
   const slice = view.slice(shown, shown+PAGE);
-  const html = slice.map(c=>{
-    const benefit = (c.top_benefit_summary||'').split(' | ')
+  const html  = slice.map(c=>{
+    const benefit=(c.top_benefit_summary||'').split(' | ')
       .map(s=>{const i=s.indexOf(':');return i>0?`<b>${esc(s.slice(0,i))}</b>${esc(s.slice(i))}`:esc(s);})
       .join('<br>');
     return `<div class="card">
@@ -168,42 +315,54 @@ function render(){
         <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
         <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
       </div>
-      <div class="row">
-        <span class="chip fee">연회비 ${esc(c.annual_fee||'-')}</span>
-      </div>
+      <div class="row"><span class="chip fee">연회비 ${esc(c.annual_fee||'-')}</span></div>
       <div class="row">
         <span class="chip pre">전월실적 ${esc(c.pre_month_condition||'없음')}</span>
         ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
         ${c.only_online?`<span class="chip">온라인전용</span>`:''}
       </div>
-      <div class="benefit">${benefit||'<span style="color:#b3a488">혜택 요약 없음</span>'}</div>
+      <div class="benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
       <div class="foot">
         <span class="dt">${c.release_dt?'출시 '+c.release_dt:''}</span>
-        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
+        <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
       </div>
     </div>`;
   }).join('');
   grid.insertAdjacentHTML('beforeend', html);
   shown += slice.length;
-  document.getElementById('more').hidden = shown>=view.length;
+  document.getElementById('more').hidden = shown >= view.length;
 }
 
-['q','company','fee','pre','sort'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',applyFilters);
+/* ── 이벤트 ── */
+document.getElementById('q').addEventListener('input',()=>{
+  if(document.getElementById('section-cards').hidden) showSection('cards');
+  applyFilters();
 });
+['company','fee','pre','sort'].forEach(id=>
+  document.getElementById(id).addEventListener('input',applyFilters));
 document.getElementById('more').addEventListener('click',render);
 
-fetch('cards.json').then(r=>r.json()).then(d=>{
-  DATA = d;
-  document.getElementById('total').textContent = d.length.toLocaleString()+'개 카드';
-  const cos = [...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
-  const sel = document.getElementById('company');
-  cos.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;sel.appendChild(o);});
-  applyFilters();
-}).catch(e=>{
-  document.getElementById('empty').hidden=false;
-  document.getElementById('empty').textContent='cards.json 로드 실패 — 로컬 서버로 실행하세요. ('+e+')';
+/* LNB data-cardtype: 한글→코드 */
+document.querySelectorAll('.lnb-item').forEach(btn=>{
+  const map={'':'','신용':'CRD','체크':'CHK'};
+  if(btn.dataset.cardtype in map) btn.dataset.cardtype = map[btn.dataset.cardtype];
 });
+
+/* ── 초기 로드: cards_full.json ── */
+fetch('cards_list.json')
+  .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(d=>{
+    DATA = d;
+    const cos=[...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
+    const sel=document.getElementById('company');
+    cos.forEach(c=>{ const o=document.createElement('option'); o.value=o.textContent=c; sel.appendChild(o); });
+    updateLnbCounts();
+    applyFilters();
+  })
+  .catch(e=>{
+    document.getElementById('empty').hidden=false;
+    document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
+  });
 </script>
 </body>
 </html>
