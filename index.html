@@ -385,16 +385,16 @@ function render(){
 
 /* ── 캐시백 더미 데이터 ── */
 const COMPANIES = [
-  { name:'삼성카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/1/logo_img/33415/logo_ss.png',  amount:112.5 },
-  { name:'신한카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/2/logo_img/33324/logo_sh.png',  amount:30    },
-  { name:'현대카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/7/logo_img/33328/logo_hd.png',  amount:25    },
-  { name:'KB국민카드',      logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/3/logo_img/33325/logo_kb.png',  amount:20    },
-  { name:'롯데카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/4/logo_img/33414/logo_lt.png',  amount:15    },
-  { name:'NH농협카드',      logo:'',                                                                          amount:12    },
-  { name:'우리카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/5/logo_img/33329/logo_wr.png',  amount:10    },
-  { name:'하나카드',        logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/8/logo_img/33331/logo_hn.png',  amount:8     },
-  { name:'BC바로카드',      logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/32/logo_img/33332/logo_bc.png', amount:5     },
-  { name:'IBK기업은행카드', logo:'https://d1c5n4ri2guedi.cloudfront.net/corp/10/logo_img/33333/logo_ibk.png',amount:3     },
+  { name:'삼성카드',        logo:'image/삼성.png',   amount:112.5 },
+  { name:'신한카드',        logo:'image/신한.png',   amount:30    },
+  { name:'현대카드',        logo:'image/현대.png',   amount:25    },
+  { name:'KB국민카드',      logo:'image/KB국민.png', amount:20    },
+  { name:'롯데카드',        logo:'image/롯데.png',   amount:15    },
+  { name:'NH농협카드',      logo:'image/NH농협.png', amount:12    },
+  { name:'우리카드',        logo:'image/우리.png',   amount:10    },
+  { name:'하나카드',        logo:'image/하나.png',   amount:8     },
+  { name:'BC바로카드',      logo:'image/BC.png',     amount:5     },
+  { name:'IBK기업은행카드', logo:'image/IBK기업.png', amount:3 },
 ].sort((a,b)=>b.amount-a.amount);
 
 const CASHBACK = {
