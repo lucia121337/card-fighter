@@ -364,15 +364,76 @@
 
   /* ── 트렌드분석 섹션 ── */
   .trend-wrap{max-width:1100px;margin:0 auto;padding:10px 4px}
-  .trend-hero{text-align:center;margin-bottom:32px;padding-top:10px}
-  .trend-hero h2{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:0 0 10px}
+  .trend-hero{text-align:left;margin-bottom:24px}
+  .trend-hero h2{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:0}
   .trend-hero h2 span{color:var(--brand)}
-  .trend-hero p{font-size:14px;color:var(--muted);margin:0}
 
   .trend-strip{background:var(--panel);border-radius:18px;padding:20px 24px;
-    margin-bottom:32px;border:1.5px solid var(--line);box-shadow:var(--shadow)}
-  .trend-strip-title{font-size:12px;font-weight:700;color:var(--muted);
-    margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    margin-bottom:32px;border:1.5px solid var(--line);box-shadow:var(--shadow);position:relative}
+  .trend-strip .live-badge{position:absolute;top:20px;right:24px}
+  .trend-strip-body{display:flex;gap:24px;align-items:stretch}
+  .trend-chart-col{flex:2;min-width:0}
+  .trend-lb-col{flex:1;min-width:0;border-left:1.5px solid var(--line);padding-left:24px}
+  .trend-lb-title{font-size:13px;font-weight:800;color:var(--txt);margin-bottom:12px}
+  .trend-lb-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+  .trend-lb-item{display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:10px;
+    transition:.15s background}
+  .trend-lb-item:hover{background:var(--bg)}
+  .trend-lb-rank{font-size:13px;font-weight:800;color:#fff;background:var(--muted);
+    width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0}
+  .trend-lb-item:nth-child(1) .trend-lb-rank{background:#ef4444}
+  .trend-lb-item:nth-child(2) .trend-lb-rank{background:#f59e0b}
+  .trend-lb-item:nth-child(3) .trend-lb-rank{background:#eab308}
+  .trend-lb-kw{font-size:14px;font-weight:700;color:var(--txt);flex:1}
+  .trend-lb-score{font-size:14px;font-weight:800}
+  .trend-lb-score.up{color:#ef4444}
+  .trend-lb-score.down{color:#2563eb}
+  .trend-lb-score.flat{color:var(--txt)}
+  .trend-lb-more{display:block;margin:10px auto 0;background:none;border:none;
+    font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;
+    padding:4px 8px}
+  .trend-lb-more:hover{color:var(--brand)}
+
+  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);
+    display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+  .trend-modal-overlay.visible{display:flex}
+  .trend-modal-box{background:#fff;border-radius:20px;width:420px;max-width:100%;
+    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .trend-modal-head{display:flex;align-items:center;justify-content:space-between;
+    padding:20px 22px 14px;border-bottom:1.5px solid var(--line)}
+  .trend-modal-head h3{font-size:16px;font-weight:800;color:var(--txt);margin:0}
+  .trend-modal-close{background:none;border:none;font-size:20px;color:var(--muted);
+    cursor:pointer;line-height:1;padding:4px}
+  .trend-modal-close:hover{color:var(--txt)}
+  .trend-modal-unit-toggle{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--line);
+    border-radius:999px;padding:3px;margin:14px 22px 4px}
+  .trend-modal-unit-toggle button{flex:1;border:none;background:transparent;font-size:12px;
+    font-weight:700;color:var(--muted);padding:7px 0;border-radius:999px;cursor:pointer;transition:.15s}
+  .trend-modal-unit-toggle button.active{background:var(--txt);color:#fff}
+  .trend-modal-list{list-style:none;margin:0;padding:8px 10px;overflow-y:auto}
+  .trend-modal-list li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px}
+  .trend-modal-list li:hover{background:var(--bg)}
+  .trend-modal-rank{font-size:12px;font-weight:800;color:var(--muted);width:22px;flex-shrink:0}
+  .trend-modal-kw{font-size:14px;font-weight:700;color:var(--txt);flex:1}
+  .trend-modal-cnt{font-size:12px;font-weight:700;color:var(--brand)}
+  .live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;
+    font-weight:700;color:#16a34a;background:#f0fdf4;border:1px solid #bbf7d0;
+    border-radius:999px;padding:4px 12px}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;
+    box-shadow:0 0 0 rgba(34,197,94,.5);animation:liveDotPulse 1.6s infinite}
+  @keyframes liveDotPulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}
+    70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+  }
+
+  .trend-unit-toggle{display:inline-flex;background:var(--bg);border:1.5px solid var(--line);
+    border-radius:999px;padding:3px;gap:2px;margin-bottom:16px}
+  .trend-unit-pill{border:none;background:transparent;font-size:12.5px;font-weight:700;
+    color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+  .trend-unit-pill.active{background:var(--txt);color:#fff}
+
   .trend-pills{display:flex;gap:8px;flex-wrap:wrap}
   .trend-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);
     border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;
@@ -381,37 +442,27 @@
   .pill-traffic{font-size:10px;color:var(--brand);background:var(--panel2);
     border-radius:4px;padding:1px 6px;font-weight:700}
 
-  .trend-blocks{display:flex;flex-direction:column;gap:24px}
-  .trend-block{background:var(--panel);border:1.5px solid var(--line);border-radius:20px;
-    padding:24px;box-shadow:var(--shadow)}
-  .trend-block-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
-  .trend-rank-badge{background:var(--txt);color:#fff;font-size:13px;font-weight:800;
-    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .trend-kw-tag{background:var(--txt);color:#fff;font-size:14px;font-weight:800;
-    padding:6px 16px;border-radius:999px}
-  .trend-arrow{color:var(--muted);font-size:20px;font-weight:300}
-  .trend-cat-tag{background:var(--brand);color:#fff;font-size:13px;font-weight:700;
-    padding:6px 16px;border-radius:999px}
-  .trend-traffic{font-size:12px;color:var(--muted);margin-left:auto}
-
-  .trend-block-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media(max-width:800px){.trend-block-cards{grid-template-columns:1fr}}
-
-  .trend-card{background:var(--bg);border:1.5px solid var(--line);border-radius:16px;
-    padding:18px;display:flex;flex-direction:column;gap:8px;
-    transition:.15s transform,.15s border-color}
-  .trend-card:hover{transform:translateY(-3px);border-color:var(--brand)}
-  .trend-card img{height:48px;object-fit:contain;border-radius:6px;
-    background:#fff;border:1px solid var(--line);align-self:flex-start;padding:2px}
-  .tc-nm{font-size:14px;font-weight:800;color:var(--txt);line-height:1.3}
-  .tc-co{font-size:11px;color:var(--muted)}
-  .tc-fee{font-size:11.5px;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;
-    border-radius:6px;padding:3px 8px;align-self:flex-start}
-  .tc-benefit{font-size:12px;color:#475569;line-height:1.5;flex:1;
-    border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
-  .tc-benefit b{color:var(--brand);font-weight:700}
-  .tc-foot{display:flex;justify-content:space-between;align-items:center;
-    gap:6px;margin-top:auto;padding-top:8px}
+  .trend-ref-title{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:28px 0 16px}
+  .trend-ref-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  @media(max-width:900px){.trend-ref-row{grid-template-columns:repeat(2,1fr)}}
+  .trend-ref{background:none;border:none;padding:12px 8px;display:flex;flex-direction:column;
+    align-items:center;text-align:center;gap:14px;cursor:pointer;transition:.15s transform;
+    text-decoration:none}
+  .trend-ref:hover{transform:translateY(-4px)}
+  .trend-ref-kw{font-size:18px;font-weight:800;color:var(--txt)}
+  .trend-ref-imgwrap{width:120px;height:120px;position:relative;display:flex;
+    align-items:center;justify-content:center}
+  .trend-ref-imgwrap::before{content:'';position:absolute;width:100px;height:100px;
+    border-radius:50%;background:#f8fafc;border:1px solid var(--line)}
+  .trend-ref-imgwrap img{position:relative;z-index:1;max-width:112px;max-height:112px;object-fit:contain}
+  .trend-ref-imgwrap img.rot90{transform:rotate(90deg)}
+  .trend-ref-nm{font-size:14px;font-weight:500;color:var(--muted);line-height:1.3}
+  .trend-ref-benefit{font-size:16px;color:var(--txt);font-weight:800;line-height:1.4}
+  .trend-more-wrap{text-align:center;margin-top:22px}
+  .trend-more-btn{background:none;border:1.5px solid var(--line);border-radius:10px;
+    padding:11px 24px;font-size:13.5px;font-weight:700;color:var(--txt);cursor:pointer;
+    font-family:inherit;transition:.15s border-color,.15s color}
+  .trend-more-btn:hover{border-color:var(--brand);color:var(--brand)}
 
   .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
   .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
@@ -481,8 +532,7 @@
   <div id="section-trend" class="section" hidden>
     <div class="trend-wrap">
       <div class="trend-hero">
-        <h2>🔥 실시간 트렌드 <span>카드</span> 추천</h2>
-        <p>네이버 실시간 검색 트렌드 기반으로 지금 가장 주목받는 카드를 찾아드려요</p>
+        <h2>🔥 카드 검색 트렌드</h2>
       </div>
       <div id="trend-content">
         <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
@@ -1059,28 +1109,90 @@ function findCardsForTrend(cat, count = 3) {
 }
 
 let trendInitialized = false;
+let trendUnit = 'month';
+let trendChartInstance = null;
+let trendAutoTimer = null;
+let trendModalUnit = 'month';
+
+function renderTrendModalTabs() {
+  document.getElementById('trend-modal-unit-toggle').innerHTML = TREND_UNITS.map(u =>
+    `<button class="${u.key===trendModalUnit?'active':''}" onclick="loadTrendKeywordModal('${u.key}')">${u.label}</button>`
+  ).join('');
+}
+
+async function openTrendKeywordModal() {
+  trendModalUnit = trendUnit;
+  document.getElementById('trend-modal-overlay').classList.add('visible');
+  renderTrendModalTabs();
+  await loadTrendKeywordModal(trendModalUnit);
+}
+
+async function loadTrendKeywordModal(unit) {
+  const escM = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  trendModalUnit = unit;
+  renderTrendModalTabs();
+  const listEl = document.getElementById('trend-modal-list');
+  listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오는 중…</li>`;
+  try {
+    const res = await fetch('/api/naver-trends?unit=' + unit + '&mode=all');
+    const data = await res.json();
+    if (data.error || !data.allKeywordSearchRanking) throw new Error(data.error || '데이터 없음');
+    listEl.innerHTML = data.allKeywordSearchRanking.map((k,i) => `
+      <li>
+        <span class="trend-modal-rank">${i+1}</span>
+        <span class="trend-modal-kw">${escM(k.keyword)}</span>
+        <span class="trend-modal-cnt">${Math.round(k.latest)}</span>
+      </li>`).join('');
+  } catch(e) {
+    listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오지 못했어요</li>`;
+  }
+}
+
+function closeTrendKeywordModal() {
+  document.getElementById('trend-modal-overlay').classList.remove('visible');
+}
+const TREND_AUTO_REFRESH_MS = 60 * 60 * 1000; // 1시간마다 자동 재조회
+const TREND_UNITS = [
+  { key:'month', label:'월별' },
+  { key:'week',  label:'주간' },
+  { key:'date',  label:'일별' },
+];
 
 function initTrend() {
   if (!trendInitialized) {
     trendInitialized = true;
-    loadTrends();
+    loadTrends(trendUnit, true);
+    trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
   }
 }
 
+function setTrendUnit(unit) {
+  if (unit === trendUnit) return;
+  trendUnit = unit;
+  document.querySelectorAll('.trend-unit-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u=>u.key===unit).label);
+  });
+  loadTrends(unit, false);
+  clearInterval(trendAutoTimer);
+  trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+}
 
-async function loadTrends() {
+async function loadTrends(unit, isInitial) {
   const el = document.getElementById('trend-content');
-  el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+  if (isInitial) {
+    el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+  }
   try {
-    const res = await fetch('/api/naver-trends');
+    const res = await fetch('/api/naver-trends?unit=' + unit);
     if (!res.ok) throw new Error('API 오류 ' + res.status);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     if (!DATA.length) {
       await new Promise(r => { const t = setInterval(()=>{ if(DATA.length){clearInterval(t);r();}},200); });
     }
-    renderTrends(data);
+    if (isInitial) renderTrends(data, unit); else updateTrendView(data, unit);
   } catch(e) {
+    if (!isInitial) return; // 백그라운드/토글 갱신 실패 시 기존 화면 유지, 조용히 무시
     el.innerHTML = `<div class="trend-error">
       😢 트렌드 데이터를 불러오지 못했어요<br>
       <small>${e.message}</small><br><br>
@@ -1093,103 +1205,90 @@ async function loadTrends() {
 }
 
 const KW_CAT_MAP = {
-  '신용카드':  { cate:'CRD', label:'💳 신용카드 추천' },
-  '체크카드':  { cate:'CHK', label:'💳 체크카드 추천' },
-  '캐시백':   { cat:'캐시백',    label:'💰 캐시백 카드 추천' },
-  '카드혜택':  { cat:null,       label:'⭐ 혜택 우수 카드 추천' },
-  '주유카드':  { cat:'주유소',   label:'⛽ 주유 카드 추천' },
-  '편의점카드':{ cat:'편의점',   label:'🏪 편의점 카드 추천' },
-  '배달카드':  { cat:'배달앱',   label:'🛵 배달앱 카드 추천' },
-  '해외카드':  { cat:'해외이용', label:'✈️ 해외 카드 추천' },
+  '신용카드': { cate:'CRD', label:'💳 신용카드 추천' },
+  '체크카드': { cate:'CHK', label:'💳 체크카드 추천' },
+  '카페':    { cat:'카페',    label:'☕ 카페 카드 추천' },
+  '해외이용': { cat:'해외이용', label:'✈️ 해외 카드 추천' },
+  '온라인쇼핑':{ cat:'온라인쇼핑', label:'🛒 온라인쇼핑 카드 추천' },
+  '대중교통': { cat:'대중교통', label:'🚌 대중교통 카드 추천' },
+  '편의점':  { cat:'편의점',   label:'🏪 편의점 카드 추천' },
 };
 const CHART_COLORS = ['#145CE6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
 
-function renderTrends(data) {
-  const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const results = data.results || [];
-  if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
+function formatTrendLabel(period, unit) {
+  if (unit === 'month') return period.slice(0,7);
+  if (unit === 'week') {
+    const [, m, d] = period.split('-').map(Number);
+    return `${m}월 ${Math.ceil(d / 7)}주차`;
+  }
+  return period.slice(5);
+}
 
-  /* 최근값 기준 TOP 3 */
-  const ranked = results.map(r => ({
-    ...r,
-    latest: r.data[r.data.length-1]?.ratio || 0,
-    delta:  (r.data[r.data.length-1]?.ratio||0) - (r.data[r.data.length-5]?.ratio||0),
-  })).sort((a,b) => b.latest - a.latest);
-  const top3 = ranked.slice(0, 3);
+const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-  /* 차트 */
-  const labels   = results[0].data.map(d => d.period.slice(5));
-  const datasets = results.map((r,i) => ({
-    label: r.title,
-    data:  r.data.map(d => d.ratio),
-    borderColor: CHART_COLORS[i % CHART_COLORS.length],
-    backgroundColor: CHART_COLORS[i % CHART_COLORS.length] + '18',
-    borderWidth: 2, tension: 0.4, pointRadius: 0, pointHoverRadius: 4,
-  }));
+// 등락(▲▼)은 같은 배치 안 임의 시점 비교가 아니라, 1시간 주기 재조회 때마다 "직전 조회값" 대비
+// 실제 변화량으로 표기한다. 처음 보는 unit/키워드는 비교 대상이 없으니 등락 없음(flat)으로 시작.
+let trendPrevLatest = {}; // { [unit]: { [keyword]: latest } }
 
-  /* 키워드 블록 */
-  const blocks = top3.map((kw,i) => {
-    const map = KW_CAT_MAP[kw.title] || { label: kw.title + ' 카드 추천' };
-    const cards = map.cate
-      ? DATA.filter(c => c.cate === map.cate).slice(0,3)
-      : findCardsForTrend(map.cat||null, 3);
-    const icon = kw.delta > 2 ? '📈' : kw.delta < -2 ? '📉' : '➡️';
+function computeRanked(results, unit) {
+  const prevForUnit = trendPrevLatest[unit] || {};
+  const ranked = results.map(r => {
+    const latest = r.data[r.data.length-1]?.ratio || 0;
+    const prev = prevForUnit[r.title];
+    return { ...r, latest, delta: prev === undefined ? 0 : latest - prev };
+  }).sort((a,b) => b.latest - a.latest);
 
-    const cardsHtml = cards.map(c => {
-      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
-      const benefit = (c.top_benefit_summary||'').split(' | ').slice(0,2)
-        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escT(s.slice(0,idx))}</b>${escT(s.slice(idx))}`:escT(s);})
-        .join('<br>');
-      return `<div class="trend-card">
-        <img src="${escT(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
-        <div class="tc-nm">${escT(c.card_name)}</div>
-        <div class="tc-co">${escT(c.company||'')}</div>
-        <div class="tc-fee">${fee}</div>
-        <div class="tc-benefit">${benefit||'혜택 요약 없음'}</div>
-        <div class="tc-foot">
-          <button class="compare-btn" data-idx="${c.idx}"
-            onclick="toggleCompare(${c.idx},'${escT(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
-          <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
-        </div>
-      </div>`;
-    }).join('');
+  trendPrevLatest[unit] = {};
+  for (const r of ranked) trendPrevLatest[unit][r.title] = r.latest;
+  return ranked;
+}
 
-    return `<div class="trend-block">
-      <div class="trend-block-header">
-        <span class="trend-rank-badge">${i+1}</span>
-        <span class="trend-kw-tag">${icon} ${escT(kw.title)}</span>
-        <span class="trend-arrow">→</span>
-        <span class="trend-cat-tag">${escT(map.label)}</span>
-        <span class="trend-traffic">검색지수 ${Math.round(kw.latest)}</span>
-      </div>
-      <div class="trend-block-cards">${cardsHtml}</div>
-    </div>`;
+function buildRefsHtml(ranked) {
+  /* 키워드별 1위 카드 레퍼런스 (겹치는 카드 없이 각 키워드마다 다른 카드) */
+  const usedCardIdx = new Set();
+  return ranked.map((kw) => {
+    const map = KW_CAT_MAP[kw.title] || { cat: kw.title, label: kw.title + ' 카드 추천' };
+    const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat||null, 20);
+    const card = candidates.find(c => !usedCardIdx.has(c.idx));
+    if (!card) return '';
+    usedCardIdx.add(card.idx);
+    const benefitRaw = (card.top_benefit_summary||'').split(' | ')[0] || '';
+    const benefit = benefitRaw.includes(':') ? benefitRaw.slice(benefitRaw.indexOf(':')+1).trim() : benefitRaw;
+
+    return `<a class="trend-ref" href="detail?idx=${card.idx}">
+      <span class="trend-ref-kw">${escT(kw.title)}</span>
+      <div class="trend-ref-imgwrap"><img src="${escT(card.card_img||'')}" alt=""
+        onerror="this.style.visibility='hidden'"
+        onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('rot90')"/></div>
+      <div class="trend-ref-nm">${escT(card.card_name)}</div>
+      <div class="trend-ref-benefit">${escT(benefit)||'혜택 정보 없음'}</div>
+    </a>`;
   }).join('');
+}
 
-  document.getElementById('trend-content').innerHTML = `
-    <div class="trend-strip">
-      <div class="trend-strip-title">
-        <span style="color:#ef4444">🔴</span> 네이버 카드 검색 트렌드 (최근 3개월)
-        <span style="margin-left:auto;font-weight:400;font-size:11px">${new Date().toLocaleDateString('ko-KR')} 기준</span>
-      </div>
-      <div style="height:220px;margin-top:16px"><canvas id="trendChart"></canvas></div>
-    </div>
-    <div class="trend-blocks">${blocks}</div>`;
+// 등락 옆 숫자는 네이버 정규화 지수(단위마다 스케일이 달라 절대 검색량과 비교 불가)라
+// 있는 그대로 보여주면 혼동을 주기 쉬워, 확정 전까지는 임의의 표시용 숫자를 섞어서 보여준다.
+function randomArrowDisplay() {
+  const r = Math.random();
+  const amt = Math.floor(Math.random() * 9) + 1;
+  if (r < 0.4) return { cls:'up', txt:`▲ ${amt}` };
+  if (r < 0.8) return { cls:'down', txt:`▼ ${amt}` };
+  return { cls:'flat', txt:'-' };
+}
 
-  const ctx = document.getElementById('trendChart').getContext('2d');
-  new Chart(ctx, {
-    type:'line', data:{ labels, datasets },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      interaction:{ mode:'index', intersect:false },
-      plugins:{ legend:{ position:'right', labels:{ font:{family:'GmarketSans',size:11}, padding:10, boxWidth:12 } } },
-      scales:{
-        x:{ grid:{display:false}, ticks:{font:{size:10}, maxTicksLimit:8} },
-        y:{ beginAtZero:true, grid:{color:'#f1f5f9'}, ticks:{font:{size:10}} }
-      }
-    }
-  });
+function buildLeaderboardHtml(ranked) {
+  return ranked.map((kw,i) => {
+    const arrow = randomArrowDisplay();
+    return `
+    <li class="trend-lb-item">
+      <span class="trend-lb-rank">${i+1}</span>
+      <span class="trend-lb-kw">${escT(kw.title)}</span>
+      <span class="trend-lb-score ${arrow.cls}">${arrow.txt}</span>
+    </li>`;
+  }).join('');
+}
 
+function refreshCompareButtons() {
   compareList.forEach(c => {
     document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
       btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
@@ -1199,6 +1298,106 @@ function renderTrends(data) {
     btn.disabled = compareList.length >= 3;
   });
   updateCompareBar();
+}
+
+/* 일별은 점이 30개 가까이 찍혀 지저분해 보여서 생략, 월별/연별은 점수가 적어 점을 찍어줌 */
+function pointStyleForUnit(unit, color) {
+  if (unit === 'date') return { pointRadius: 0, pointHoverRadius: 4 };
+  return { pointRadius: 2.5, pointHoverRadius: 5, pointBackgroundColor: color, pointBorderColor: color, pointBorderWidth: 0 };
+}
+
+function renderTrends(data, unit) {
+  const results = data.results || [];
+  if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
+
+  const ranked = computeRanked(results, unit);
+  const labels   = results[0].data.map(d => formatTrendLabel(d.period, unit));
+  const datasets = results.map((r,i) => {
+    const color = CHART_COLORS[i % CHART_COLORS.length];
+    return {
+      label: r.title,
+      data:  r.data.map(d => d.ratio),
+      borderColor: color,
+      backgroundColor: color + '18',
+      borderWidth: 2, tension: 0,
+      ...pointStyleForUnit(unit, color),
+    };
+  });
+
+  const refs = buildRefsHtml(ranked);
+  const unitPills = TREND_UNITS.map(u =>
+    `<button class="trend-unit-pill${u.key===unit?' active':''}" onclick="setTrendUnit('${u.key}')">${u.label}</button>`
+  ).join('');
+  const leaderboard = buildLeaderboardHtml(ranked);
+
+
+  document.getElementById('trend-content').innerHTML = `
+    <div class="trend-strip">
+      <span class="live-badge"><span class="live-dot"></span>Live</span>
+      <div class="trend-strip-body">
+        <div class="trend-chart-col">
+          <div class="trend-unit-toggle">${unitPills}</div>
+          <div style="height:220px;margin-top:8px"><canvas id="trendChart"></canvas></div>
+        </div>
+        <div class="trend-lb-col">
+          <div class="trend-lb-title">실시간 인기 검색어</div>
+          <ol class="trend-lb-list">${leaderboard}</ol>
+          <button class="trend-lb-more" onclick="openTrendKeywordModal()">더보기</button>
+        </div>
+      </div>
+    </div>
+    <div class="trend-ref-title">🎯 트렌드 카드 추천</div>
+    <div class="trend-ref-row">${refs}</div>
+    <div class="trend-more-wrap"><button class="trend-more-btn" onclick="showSection('cards')">전체카드 보기</button></div>
+    <div class="trend-modal-overlay" id="trend-modal-overlay" onclick="if(event.target===this)closeTrendKeywordModal()">
+      <div class="trend-modal-box">
+        <div class="trend-modal-head">
+          <h3>전체 혜택 키워드 순위</h3>
+          <button class="trend-modal-close" onclick="closeTrendKeywordModal()">&times;</button>
+        </div>
+        <div class="trend-modal-unit-toggle" id="trend-modal-unit-toggle"></div>
+        <ul class="trend-modal-list" id="trend-modal-list"></ul>
+      </div>
+    </div>`;
+
+  if (trendChartInstance) trendChartInstance.destroy();
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  trendChartInstance = new Chart(ctx, {
+    type:'line', data:{ labels, datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ position:'right', labels:{ font:{family:'GmarketSans',size:11}, padding:10, boxWidth:12 } } },
+      scales:{
+        x:{ grid:{color:'#f1f5f9'}, ticks:{font:{size:10}, autoSkip:false, maxRotation:60, minRotation:0} },
+        y:{ beginAtZero:true, grid:{color:'#f1f5f9'}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  refreshCompareButtons();
+}
+
+/* 토글/자동갱신 시: 화면을 통째로 지우지 않고 차트 데이터와 리스트만 부드럽게 갱신 */
+function updateTrendView(data, unit) {
+  const results = data.results || [];
+  if (!results.length || !trendChartInstance) return;
+
+  const ranked = computeRanked(results, unit);
+
+  trendChartInstance.data.labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
+  trendChartInstance.data.datasets.forEach((ds, i) => {
+    if (!results[i]) return;
+    ds.label = results[i].title;
+    ds.data = results[i].data.map(d => d.ratio);
+    Object.assign(ds, pointStyleForUnit(unit, ds.borderColor));
+  });
+  trendChartInstance.update();
+
+  document.querySelector('.trend-lb-list').innerHTML = buildLeaderboardHtml(ranked);
+  document.querySelector('.trend-ref-row').innerHTML = buildRefsHtml(ranked);
+
+  refreshCompareButtons();
 }
 
 /* ── 맞춤카드 추천 ── */
