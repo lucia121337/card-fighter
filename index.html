@@ -6,6 +6,7 @@
 <title>카드 파이터 — 신용카드 비교</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
   :root{
@@ -258,6 +259,163 @@
   .cb-company-card .co-amount{font-size:16px;font-weight:800;color:#FF6B35;letter-spacing:-.3px}
   .cb-header{min-height:80px}
   .cb-empty{text-align:center;color:var(--muted);padding:60px 0;font-size:14px}
+
+  /* ── 맞춤카드 섹션 ── */
+  .rec-wrap{max-width:1100px;margin:0 auto;padding:0 4px}
+  .rec-hero{text-align:center;margin-bottom:40px;padding-top:10px}
+  .rec-hero h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:var(--txt);margin:0 0 12px;line-height:1.3}
+  .rec-hero h2 span{color:var(--brand)}
+  .rec-hero p{font-size:16px;color:var(--muted);margin:0}
+
+  .avatar-nav{display:flex;justify-content:flex-start;gap:20px;margin-bottom:50px;
+    flex-wrap:nowrap;overflow-x:auto;padding:0 10px 16px;scrollbar-width:none;-ms-overflow-style:none}
+  .avatar-nav::-webkit-scrollbar{display:none}
+  @media(min-width:768px){.avatar-nav{justify-content:center}}
+  .avatar-item{display:flex;flex-direction:column;align-items:center;gap:12px;
+    cursor:pointer;transition:.2s transform;flex-shrink:0}
+  .avatar-item:hover{transform:translateY(-5px)}
+  .avatar-img-wrap{width:80px;height:80px;border-radius:40px;background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);border:3px solid transparent;padding:4px;
+    transition:.3s all;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .avatar-img-wrap img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#f1f5f9}
+  .avatar-item.active .avatar-img-wrap{border-color:var(--brand);box-shadow:0 8px 20px rgba(20,92,230,.3)}
+  .avatar-label{font-size:15px;font-weight:700;color:var(--muted);transition:.2s color}
+  .avatar-item.active .avatar-label{color:var(--brand)}
+
+  #result-container{display:none}
+  #result-container.active{display:block;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) forwards}
+  @keyframes fadeUp{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+
+  #skeleton-container{display:none;opacity:0;transition:opacity .3s}
+  #skeleton-container.active{display:block;opacity:1;animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards}
+  .skeleton-box{background:#e2e8f0;border-radius:8px;position:relative;overflow:hidden}
+  .skeleton-box::after{content:"";position:absolute;top:0;left:-100%;right:0;bottom:0;
+    background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 50%,rgba(255,255,255,0) 100%);
+    animation:shimmer 1.5s infinite}
+  @keyframes shimmer{100%{left:100%}}
+  .sk-title{height:36px;max-width:60%;margin:0 auto 40px}
+  .sk-chart{width:220px;height:220px;border-radius:50%;margin:0 auto}
+  .sk-text{height:16px;margin-bottom:12px}
+  .sk-text.short{width:60%}
+  .sk-text.med{width:80%}
+  .sk-card{height:200px;border-radius:20px}
+
+  .mag-container{background:var(--panel);border:1.5px solid var(--line);border-radius:28px;
+    padding:40px;box-shadow:0 12px 40px rgba(20,92,230,.08)}
+  @media(max-width:768px){.mag-container{padding:24px}}
+  .mag-title{font-size:28px;font-weight:800;color:var(--txt);margin:0 0 30px;line-height:1.4;
+    word-break:keep-all;text-align:center}
+  .mag-title .highlight{background:linear-gradient(180deg,rgba(255,255,255,0) 60%,#ffeaa7 40%);padding:0 4px}
+  @media(max-width:768px){.mag-title{font-size:22px}}
+  .mag-subtitle{font-size:20px;font-weight:800;color:var(--brand);margin-bottom:12px;
+    display:flex;align-items:center;gap:8px}
+  .mag-subtitle::before{content:"";display:block;width:6px;height:20px;background:var(--brand);border-radius:4px}
+
+  .analysis-section{display:grid;grid-template-columns:1fr 1fr;gap:30px;
+    background:#f8fafc;padding:30px;border-radius:20px;border:1px solid var(--line);margin-bottom:40px}
+  @media(max-width:900px){.analysis-section{grid-template-columns:1fr}}
+  .chart-area{display:flex;flex-direction:column;align-items:center}
+  .chart-inner{width:100%;max-width:280px;aspect-ratio:1/1}
+  .text-area{display:flex;flex-direction:column;justify-content:center;gap:24px}
+  .fact-box h4{margin:0 0 8px;font-size:17px;color:var(--txt);display:flex;align-items:center;gap:6px}
+  .fact-box p{margin:0;font-size:14px;line-height:1.6;color:#475569}
+  .fact-box.highlight{background:#fffbea;padding:22px;border-radius:16px;
+    box-shadow:0 4px 12px rgba(211,84,0,.08);border:1.5px solid #fde68a;margin-top:4px}
+  .fact-box.highlight h4{color:#d35400;font-size:18px}
+  .fact-box.highlight p{color:#475569;font-weight:600}
+
+  .mag-cards-section{margin-bottom:40px}
+  .mag-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:900px){
+    .mag-cards-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+      padding-bottom:20px;scrollbar-width:none;-ms-overflow-style:none;gap:16px}
+    .mag-cards-grid::-webkit-scrollbar{display:none}
+    .c-card{flex:0 0 85%;scroll-snap-align:center}
+  }
+  .c-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:24px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;
+    transition:.3s transform,.3s box-shadow;position:relative}
+  .c-card:hover{transform:translateY(-6px);border-color:var(--brand);box-shadow:0 16px 32px rgba(19,85,255,.15)}
+  .c-rank{position:absolute;top:-12px;left:24px;background:var(--txt);color:#fff;font-weight:800;
+    font-size:13px;padding:6px 14px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+  .c-card.rank-1 .c-rank{background:#e74c3c}
+  .c-card img.card-thumb{height:64px;object-fit:contain;margin-bottom:8px;align-self:flex-start}
+  .c-card .c-nm{font-size:17px;font-weight:800;line-height:1.3}
+  .c-card .c-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+  .c-card .c-chip{background:var(--chip);border:1px solid var(--line);border-radius:6px;
+    padding:4px 8px;font-size:12px;color:var(--muted);font-weight:600}
+  .c-card .c-chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+  .c-card .c-benefit{font-size:13.5px;color:#475569;line-height:1.5;flex:1;
+    border-top:1px dashed var(--line);padding-top:12px}
+  .c-card .c-benefit b{color:var(--brand);font-weight:700}
+  .c-card .c-review{background:#fffbea;padding:12px;border-radius:10px;
+    font-size:13.5px;font-weight:600;color:#d35400;margin-top:auto;position:relative}
+  .c-card .c-review::before{content:"🗣️";margin-right:6px}
+  .c-card .c-detail-btn{background:var(--brand);color:#fff;border:none;border-radius:10px;
+    padding:12px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;
+    text-align:center;display:block;margin-top:12px;transition:.15s background}
+  .c-card .c-detail-btn:hover{background:var(--brand-deep)}
+  .mag-tip{background:#1e293b;color:#fff;padding:24px 30px;border-radius:16px;
+    font-size:16px;line-height:1.5;display:flex;align-items:flex-start;gap:12px;
+    animation:pulseTip 2s infinite alternate}
+  @media(max-width:768px){.mag-tip{flex-direction:column}}
+  @keyframes pulseTip{0%{box-shadow:0 0 0 rgba(0,0,0,0)}100%{box-shadow:0 8px 24px rgba(30,41,59,.4)}}
+  .mag-tip strong{color:#f1c40f;font-weight:800;font-size:19px;flex-shrink:0}
+
+  /* ── 트렌드분석 섹션 ── */
+  .trend-wrap{max-width:1100px;margin:0 auto;padding:10px 4px}
+  .trend-hero{text-align:center;margin-bottom:32px;padding-top:10px}
+  .trend-hero h2{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:0 0 10px}
+  .trend-hero h2 span{color:var(--brand)}
+  .trend-hero p{font-size:14px;color:var(--muted);margin:0}
+
+  .trend-strip{background:var(--panel);border-radius:18px;padding:20px 24px;
+    margin-bottom:32px;border:1.5px solid var(--line);box-shadow:var(--shadow)}
+  .trend-strip-title{font-size:12px;font-weight:700;color:var(--muted);
+    margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .trend-pills{display:flex;gap:8px;flex-wrap:wrap}
+  .trend-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);
+    border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;
+    font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap}
+  .pill-rank{font-size:11px;color:var(--muted);font-weight:600}
+  .pill-traffic{font-size:10px;color:var(--brand);background:var(--panel2);
+    border-radius:4px;padding:1px 6px;font-weight:700}
+
+  .trend-blocks{display:flex;flex-direction:column;gap:24px}
+  .trend-block{background:var(--panel);border:1.5px solid var(--line);border-radius:20px;
+    padding:24px;box-shadow:var(--shadow)}
+  .trend-block-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+  .trend-rank-badge{background:var(--txt);color:#fff;font-size:13px;font-weight:800;
+    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .trend-kw-tag{background:var(--txt);color:#fff;font-size:14px;font-weight:800;
+    padding:6px 16px;border-radius:999px}
+  .trend-arrow{color:var(--muted);font-size:20px;font-weight:300}
+  .trend-cat-tag{background:var(--brand);color:#fff;font-size:13px;font-weight:700;
+    padding:6px 16px;border-radius:999px}
+  .trend-traffic{font-size:12px;color:var(--muted);margin-left:auto}
+
+  .trend-block-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:800px){.trend-block-cards{grid-template-columns:1fr}}
+
+  .trend-card{background:var(--bg);border:1.5px solid var(--line);border-radius:16px;
+    padding:18px;display:flex;flex-direction:column;gap:8px;
+    transition:.15s transform,.15s border-color}
+  .trend-card:hover{transform:translateY(-3px);border-color:var(--brand)}
+  .trend-card img{height:48px;object-fit:contain;border-radius:6px;
+    background:#fff;border:1px solid var(--line);align-self:flex-start;padding:2px}
+  .tc-nm{font-size:14px;font-weight:800;color:var(--txt);line-height:1.3}
+  .tc-co{font-size:11px;color:var(--muted)}
+  .tc-fee{font-size:11.5px;color:#1d4ed8;background:#eff6ff;border:1px solid #bfdbfe;
+    border-radius:6px;padding:3px 8px;align-self:flex-start}
+  .tc-benefit{font-size:12px;color:#475569;line-height:1.5;flex:1;
+    border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
+  .tc-benefit b{color:var(--brand);font-weight:700}
+  .tc-foot{display:flex;justify-content:space-between;align-items:center;
+    gap:6px;margin-top:auto;padding-top:8px}
+
+  .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
+  .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
+  .trend-no-match{color:var(--muted);font-size:13px;padding:20px 0}
 </style>
 </head>
 <body>
@@ -281,8 +439,8 @@
       <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
       <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
       <a href="#">할인가맹점</a>
-      <a href="#">맞춤카드찾기</a>
-      <a href="#">트렌드분석</a>
+      <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 소비 데이터로 보는 연령대별 맞춤 카드</a>
+      <a href="#" data-section="trend" onclick="showSection('trend');return false">트렌드분석</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -316,9 +474,77 @@
       <div class="cs-icon">🏗️</div>
       <span class="cs-badge">준비중</span>
       <h2>홈 화면을 준비하고 있어요</h2>
-      <p>더 멋진 메인 페이지로 곧 찾아올게요!<br>지금은 <strong>전체카드</strong> 탭에서 카드를 탐색해보세요.</p>
+      <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
     </div>
   </div>
+  <!-- 트렌드분석 섹션 -->
+  <div id="section-trend" class="section" hidden>
+    <div class="trend-wrap">
+      <div class="trend-hero">
+        <h2>🔥 실시간 트렌드 <span>카드</span> 추천</h2>
+        <p>네이버 실시간 검색 트렌드 기반으로 지금 가장 주목받는 카드를 찾아드려요</p>
+      </div>
+      <div id="trend-content">
+        <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 맞춤카드 섹션 -->
+  <div id="section-recommend" class="section" hidden>
+    <div class="rec-wrap">
+      <div class="rec-hero">
+        <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
+        <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
+      </div>
+      <div class="avatar-nav">
+        <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
+          <div class="avatar-label">20대 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
+          <div class="avatar-label">20대 남성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
+          <div class="avatar-label">30대 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
+          <div class="avatar-label">30대 남성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성"></div>
+          <div class="avatar-label">4050 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
+          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성"></div>
+          <div class="avatar-label">4050 남성</div>
+        </div>
+      </div>
+      <div id="skeleton-container" class="mag-container">
+        <div class="skeleton-box sk-title"></div>
+        <div class="analysis-section">
+          <div class="chart-area" style="justify-content:center;align-items:center">
+            <div class="skeleton-box sk-chart"></div>
+          </div>
+          <div class="text-area">
+            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
+            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
+            <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+          </div>
+        </div>
+        <div class="mag-cards-grid">
+          <div class="skeleton-box sk-card"></div>
+          <div class="skeleton-box sk-card"></div>
+          <div class="skeleton-box sk-card"></div>
+        </div>
+      </div>
+      <div id="result-container"></div>
+    </div>
+  </div>
+
   <!-- 전체카드 섹션 -->
   <div id="section-cards" class="section" hidden>
     <div class="cards-layout">
@@ -515,6 +741,8 @@ function showSection(name){
   document.querySelectorAll('.gnb a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   if(name === 'cashback') renderCashback();
+  if(name === 'recommend') initRecommend();
+  if(name === 'trend') initTrend();
   // 섹션 변경 시 팝업 닫기 + 바/버블 전환
   popupOpen = false;
   document.getElementById('compare-popup').classList.remove('visible');
@@ -790,6 +1018,361 @@ fetch('cards_list.json')
     document.getElementById('empty').hidden=false;
     document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
   });
+</script>
+
+<script>
+/* ── 트렌드분석 ── */
+const TREND_CATS = [
+  { match:['스타벅스','카페','커피','할리스','이디야','투썸','공차','메가커피','빽다방'], cat:'카페', label:'☕ 카페/커피' },
+  { match:['배달','배달의민족','쿠팡이츠','요기요','땡겨요'], cat:'배달앱', label:'🛵 배달앱' },
+  { match:['편의점','GS25','CU','세븐일레븐','이마트24'], cat:'편의점', label:'🏪 편의점' },
+  { match:['이마트','홈플러스','코스트코','롯데마트','트레이더스'], cat:'대형마트', label:'🛒 대형마트' },
+  { match:['쿠팡','11번가','G마켓','옥션','SSG','네이버쇼핑','온라인쇼핑'], cat:'온라인쇼핑', label:'🛍️ 온라인쇼핑' },
+  { match:['백화점','롯데백화점','현대백화점','신세계','갤러리아'], cat:'백화점', label:'🏬 백화점' },
+  { match:['주유','기름값','휘발유','경유','GS칼텍스','SK에너지','S-OIL','오일뱅크'], cat:'주유소', label:'⛽ 주유소' },
+  { match:['지하철','버스','대중교통','교통카드','티머니'], cat:'대중교통', label:'🚇 대중교통' },
+  { match:['택시','카카오택시','우버','타다'], cat:'택시', label:'🚕 택시' },
+  { match:['여행','항공','해외','공항','인천공항','제주','비행기','면세점'], cat:'해외이용', label:'✈️ 여행/해외' },
+  { match:['영화','CGV','롯데시네마','메가박스'], cat:'영화', label:'🎬 영화' },
+  { match:['넷플릭스','유튜브','OTT','왓챠','디즈니플러스','티빙','스트리밍'], cat:'디지털구독', label:'📺 스트리밍' },
+  { match:['병원','약국','의료','건강검진','한의원'], cat:'병원', label:'🏥 병원/의료' },
+  { match:['통신','KT','SKT','LG유플러스','휴대폰요금','알뜰폰'], cat:'SKT', label:'📱 통신비' },
+  { match:['학원','교육','공부','영어','수학','과외'], cat:'학원', label:'📚 교육/학원' },
+  { match:['치킨','피자','음식점','한식','분식','고기','삼겹살'], cat:'일반음식점', label:'🍽️ 음식점' },
+];
+
+function matchTrendCat(keyword) {
+  const kw = keyword.toLowerCase();
+  return TREND_CATS.find(tc => tc.match.some(m => kw.includes(m.toLowerCase()))) || null;
+}
+
+function findCardsForTrend(cat, count = 3) {
+  if (!DATA || !DATA.length) return [];
+  if (!cat) {
+    return DATA.filter(c => !c.pre_month_money || c.pre_month_money <= 300000)
+      .slice(0, count);
+  }
+  return DATA.filter(c => {
+    const txt = (c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'');
+    return txt.includes(cat);
+  }).slice(0, count);
+}
+
+let trendInitialized = false;
+
+function initTrend() {
+  if (!trendInitialized) {
+    trendInitialized = true;
+    loadTrends();
+  }
+}
+
+
+async function loadTrends() {
+  const el = document.getElementById('trend-content');
+  el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+  try {
+    const res = await fetch('/api/naver-trends');
+    if (!res.ok) throw new Error('API 오류 ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (!DATA.length) {
+      await new Promise(r => { const t = setInterval(()=>{ if(DATA.length){clearInterval(t);r();}},200); });
+    }
+    renderTrends(data);
+  } catch(e) {
+    el.innerHTML = `<div class="trend-error">
+      😢 트렌드 데이터를 불러오지 못했어요<br>
+      <small>${e.message}</small><br><br>
+      <button onclick="trendInitialized=false;initTrend()"
+        style="background:var(--brand);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer">
+        다시 시도
+      </button>
+    </div>`;
+  }
+}
+
+const KW_CAT_MAP = {
+  '신용카드':  { cate:'CRD', label:'💳 신용카드 추천' },
+  '체크카드':  { cate:'CHK', label:'💳 체크카드 추천' },
+  '캐시백':   { cat:'캐시백',    label:'💰 캐시백 카드 추천' },
+  '카드혜택':  { cat:null,       label:'⭐ 혜택 우수 카드 추천' },
+  '주유카드':  { cat:'주유소',   label:'⛽ 주유 카드 추천' },
+  '편의점카드':{ cat:'편의점',   label:'🏪 편의점 카드 추천' },
+  '배달카드':  { cat:'배달앱',   label:'🛵 배달앱 카드 추천' },
+  '해외카드':  { cat:'해외이용', label:'✈️ 해외 카드 추천' },
+};
+const CHART_COLORS = ['#145CE6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+
+function renderTrends(data) {
+  const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const results = data.results || [];
+  if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
+
+  /* 최근값 기준 TOP 3 */
+  const ranked = results.map(r => ({
+    ...r,
+    latest: r.data[r.data.length-1]?.ratio || 0,
+    delta:  (r.data[r.data.length-1]?.ratio||0) - (r.data[r.data.length-5]?.ratio||0),
+  })).sort((a,b) => b.latest - a.latest);
+  const top3 = ranked.slice(0, 3);
+
+  /* 차트 */
+  const labels   = results[0].data.map(d => d.period.slice(5));
+  const datasets = results.map((r,i) => ({
+    label: r.title,
+    data:  r.data.map(d => d.ratio),
+    borderColor: CHART_COLORS[i % CHART_COLORS.length],
+    backgroundColor: CHART_COLORS[i % CHART_COLORS.length] + '18',
+    borderWidth: 2, tension: 0.4, pointRadius: 0, pointHoverRadius: 4,
+  }));
+
+  /* 키워드 블록 */
+  const blocks = top3.map((kw,i) => {
+    const map = KW_CAT_MAP[kw.title] || { label: kw.title + ' 카드 추천' };
+    const cards = map.cate
+      ? DATA.filter(c => c.cate === map.cate).slice(0,3)
+      : findCardsForTrend(map.cat||null, 3);
+    const icon = kw.delta > 2 ? '📈' : kw.delta < -2 ? '📉' : '➡️';
+
+    const cardsHtml = cards.map(c => {
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      const benefit = (c.top_benefit_summary||'').split(' | ').slice(0,2)
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escT(s.slice(0,idx))}</b>${escT(s.slice(idx))}`:escT(s);})
+        .join('<br>');
+      return `<div class="trend-card">
+        <img src="${escT(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div class="tc-nm">${escT(c.card_name)}</div>
+        <div class="tc-co">${escT(c.company||'')}</div>
+        <div class="tc-fee">${fee}</div>
+        <div class="tc-benefit">${benefit||'혜택 요약 없음'}</div>
+        <div class="tc-foot">
+          <button class="compare-btn" data-idx="${c.idx}"
+            onclick="toggleCompare(${c.idx},'${escT(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
+          <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="trend-block">
+      <div class="trend-block-header">
+        <span class="trend-rank-badge">${i+1}</span>
+        <span class="trend-kw-tag">${icon} ${escT(kw.title)}</span>
+        <span class="trend-arrow">→</span>
+        <span class="trend-cat-tag">${escT(map.label)}</span>
+        <span class="trend-traffic">검색지수 ${Math.round(kw.latest)}</span>
+      </div>
+      <div class="trend-block-cards">${cardsHtml}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('trend-content').innerHTML = `
+    <div class="trend-strip">
+      <div class="trend-strip-title">
+        <span style="color:#ef4444">🔴</span> 네이버 카드 검색 트렌드 (최근 3개월)
+        <span style="margin-left:auto;font-weight:400;font-size:11px">${new Date().toLocaleDateString('ko-KR')} 기준</span>
+      </div>
+      <div style="height:220px;margin-top:16px"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="trend-blocks">${blocks}</div>`;
+
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  new Chart(ctx, {
+    type:'line', data:{ labels, datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{ legend:{ position:'right', labels:{ font:{family:'GmarketSans',size:11}, padding:10, boxWidth:12 } } },
+      scales:{
+        x:{ grid:{display:false}, ticks:{font:{size:10}, maxTicksLimit:8} },
+        y:{ beginAtZero:true, grid:{color:'#f1f5f9'}, ticks:{font:{size:10}} }
+      }
+    }
+  });
+
+  compareList.forEach(c => {
+    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
+      btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
+    });
+  });
+  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
+    btn.disabled = compareList.length >= 3;
+  });
+  updateCompareBar();
+}
+
+/* ── 맞춤카드 추천 ── */
+const REC_CARDS = [
+  {idx:2235,card_name:"삼성 iD ON 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:300000,top_benefit_summary:"할인: 많이쓰는 영역 자동맞춤 30% 할인 | 생활: 교통/이동통신/스트리밍 10% 할인 | 모든가맹점: 온라인간편결제/해외 3%·1% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png"},
+  {idx:2736,card_name:"현대홈쇼핑 현대카드",company:"현대카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [10,000]원",pre_month_money:0,top_benefit_summary:"홈쇼핑: 현대홈쇼핑 3% 적립 | 적립: 그 외 가맹점 1% 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2736/card_img/36643/2736card_1.png"},
+  {idx:2523,card_name:"LG U+ 우리카드",company:"우리카드",annual_fee:"국내전용 [10,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 페밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png"},
+  {idx:2346,card_name:"BC 바로 클리어 플러스",company:"BC 바로카드",annual_fee:"국내전용 [5,000]원 / 해외겸용 [5,000]원",pre_month_money:150000,top_benefit_summary:"푸드: 점심식사/배달앱 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 통신: 휴대폰요금/스트리밍 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2346/card_img/32523/2346card.png"},
+  {idx:2348,card_name:"BC 바로 페이백 플러스",company:"BC 바로카드",annual_fee:"국내전용 [15,000]원 / 해외겸용 [15,000]원",pre_month_money:400000,top_benefit_summary:"모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png"},
+  {idx:2483,card_name:"IBK DC히어로즈 카드(신용)",company:"IBK기업은행",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:500000,top_benefit_summary:"푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png"},
+  {idx:2687,card_name:"카드의정석 SHOPPING+",company:"우리카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:300000,top_benefit_summary:"온라인쇼핑: 온라인 쇼핑 10% 청구할인 | 쇼핑: 백화점・대형할인점・슈퍼마켓 등 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2687/card_img/33239/2687card.png"},
+  {idx:2502,card_name:"UPTURN카드",company:"BC 바로카드",annual_fee:"해외겸용 [7,000원]",pre_month_money:300000,top_benefit_summary:"KT: KT이동통신요금 14,000원 할인 | 온라인쇼핑: 온라인·모바일 쇼핑 5% 할인 | 주유소: 주유 60원/L 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2502/card_img/28620/2502card.png"},
+  {idx:2358,card_name:"삼성 iD EDU 카드",company:"삼성카드",annual_fee:"국내전용 [30,000원] / 해외겸용 [30,000원]",pre_month_money:500000,top_benefit_summary:"교육/육아: 교육 10% 할인 | 공과금/렌탈: 아파트관리비 5,000원 할인 | 배달앱: 배달앱 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2358/card_img/27724/2359card.png"},
+  {idx:39,card_name:"신한카드 Deep Oil",company:"신한카드",annual_fee:"해외겸용 [10,000]원",pre_month_money:300000,top_benefit_summary:"주유: 4개정유사 10% 할인 | 자동차/하이패스: 차량서비스 10% 할인 | 생활: 편의점/커피/택시 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/39/card_img/31864/39card.png"},
+  {idx:2525,card_name:"만나 우리카드",company:"우리카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [12,000원]",pre_month_money:0,top_benefit_summary:"주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png"},
+  {idx:2503,card_name:"키자니아 에듀카드",company:"BC 바로카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"교육/육아: 학원·유치원 10% 할인 | 주유: 주유 60원/L 할인 | 테마파크: 키자니아 무료 입장권",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2503/card_img/28621/2503card.png"},
+  {idx:2330,card_name:"LOCA 365 카드",company:"롯데카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"공과금/렌탈: 아파트관리비, 공과금 10% 할인 | 생활: 교통, 통신, 배달앱 10% 할인 | 디지털구독: 스트리밍 1,500원 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2330/card_img/24131/2330card.png"},
+  {idx:2292,card_name:"현대카드 MY BUSINESS ZERO Food&Drink",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 마트/편의점: 대형마트/슈퍼마켓 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2292/card_img/22779/2292card.png"},
+  {idx:2293,card_name:"현대카드 MY BUSINESS ZERO Retail&Service",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 통신: 통신요금 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2293/card_img/23896/2293card.png"},
+];
+const recCardMap = {};
+REC_CARDS.forEach(c => recCardMap[c.idx] = c);
+
+const PERSONA_DB = {
+  "20대_여성": {
+    magTitle: "20대 여성이라면? <span class='highlight'>쇼핑과 뷰티, 트렌드</span>를 놓치지 않는 카드 TOP 3",
+    chartData: { labels:['온라인쇼핑(패션/뷰티)','여가/여행','카페/디저트','전문서비스(뷰티)','한식'], data:[35,20,15,12,8] },
+    fact:"압도적인 1위는 패션/뷰티 중심의 '인터넷 쇼핑'입니다. 이어서 여행, 카페, 그리고 미용실이나 네일아트 같은 전문 서비스 결제 비중이 매우 높습니다.",
+    need:"온라인 플랫폼 결제 시 높은 할인율과, 카페/베이커리 등 일상적인 소확행에 특화된 혜택이 가장 유리합니다.",
+    reason:"쇼핑과 카페에서 가장 강력한 체감 할인을 제공하며, 트렌디한 가맹점을 두루 커버하는 알짜 카드들입니다.",
+    cardIds:[2235,2736,2523],
+    reviews:["자주 쓰는 영역에서 자동으로 30% 할인을 맞춰주는 똑똑한 카드!","트렌디한 쇼핑몰과 온라인 결제에서 확실한 혜택을 제공합니다.","카페와 디저트를 사랑한다면 필수적인 알짜 카드입니다."],
+    tip:"쇼핑 특화 카드를 고를 때는 내가 자주 쓰는 간편결제(네이버페이, 카카오페이 등)가 추가 할인 대상인지 꼭 확인하세요!"
+  },
+  "20대_남성": {
+    magTitle: "20대 남성이라면? <span class='highlight'>가성비 든든한 식비와 전자기기</span> 쇼핑 카드 TOP 3",
+    chartData: { labels:['인터넷쇼핑(IT/기기)','종합쇼핑몰','한식(점심/외식)','패스트푸드','주점/유흥'], data:[30,22,18,15,10] },
+    fact:"가장 눈에 띄는 지출은 '식비(점심, 패스트푸드)'와 '온라인 쇼핑(전자기기 등)'입니다. 게임이나 취미 생활 관련 결제도 돋보입니다.",
+    need:"매일 발생하는 식비와 배달앱 할인이 필수적이며, 교통비나 통신비 같은 고정비를 아껴줄 서브 혜택이 필요합니다.",
+    reason:"가성비 좋게 매일 식비를 깎아주거나, 복잡한 조건 없이 알아서 캐시백 해주는 실용성 갑 카드들입니다.",
+    cardIds:[2346,2348,2483],
+    reviews:["매일 먹는 점심값과 배달앱에서 무려 7%를 깎아주는 든든한 국밥같은 카드!","교통비와 통신비를 아껴서 취미 생활에 보탤 수 있습니다.","복잡한 조건 없이 제일 많이 쓴 곳에서 알아서 캐시백 해줍니다."],
+    tip:"식비 할인 카드를 고를 때는 '점심시간(오전 11시~오후 2시)' 등 특정 시간대 조건이 있는지 꼭 체크하세요!"
+  },
+  "30대_여성": {
+    magTitle: "30대 여성이라면? <span class='highlight'>리빙, 육아, 프리미엄 쇼핑</span> 혜택 카드 TOP 3",
+    chartData: { labels:['인터넷쇼핑(리빙/육아)','종합쇼핑몰(가전)','보육/교육','의료/약국','대형마트'], data:[28,25,18,12,10] },
+    fact:"가전, 가구 등 단가가 높은 리빙 상품과 가족 단위 대형마트 쇼핑의 비중이 큽니다. 자녀 교육비나 병원비 결제도 눈에 띕니다.",
+    need:"건당 결제 금액이 크기 때문에 '할인 한도'가 높은 대형마트/온라인 쇼핑 특화 혜택과 교육비 할인이 필요합니다.",
+    reason:"굵직한 지출에서 시원하게 할인받고, 생활비 방어까지 챙겨주는 프리미엄 밸런스 카드들입니다.",
+    cardIds:[2687,2502,2358],
+    reviews:["온·오프라인 쇼핑 10% 청구할인으로 굵직한 결제에 강합니다.","통신비 할인과 쇼핑 할인을 밸런스 있게 갖춘 카드입니다.","아이들 교육비와 아파트 관리비를 든든히 방어해주는 효자 카드!"],
+    tip:"가족 단위 마트 쇼핑이 많다면, 백화점/대형마트 청구할인 한도가 넉넉한지 확인하는 것이 가장 중요합니다."
+  },
+  "30대_남성": {
+    magTitle: "30대 남성 직장인이라면? <span class='highlight'>주유비와 점심값</span>을 아껴주는 카드 TOP 3",
+    chartData: { labels:['종합쇼핑몰','주유소/차량유지','자동차정비','인터넷쇼핑','한식(모임/외식)'], data:[30,25,15,12,8] },
+    fact:"자차 출퇴근과 외근이 많아 '주유비' 비중이 매우 높습니다. 직장 동료와의 회식이나 점심 식사 결제도 상당합니다.",
+    need:"차량 유지비(주유/정비)를 확실하게 아껴줄 혜택과, 소소한 커피/대중교통 할인이 어우러진 직장인 특화 카드가 필요합니다.",
+    reason:"주유 할인은 기본, 생활 밀착형 혜택까지 두루 갖춰 자동차 오너에게 최고의 만족을 줍니다.",
+    cardIds:[39,2525,2503],
+    reviews:["내가 고른 정유사 10% 할인과 정비소 혜택으로 자차 운전자 필수템!","기본적인 주유 혜택에 더해 대중교통과 커피 할인까지 쏠쏠합니다.","주말마다 자녀와 놀러갈 때 유용한 테마파크와 주유 혜택의 조합."],
+    tip:"주유 할인 카드를 선택할 때는 '리터당 할인'인지 '결제 금액의 % 할인'인지에 따라 혜택 체감이 크게 달라집니다!"
+  },
+  "40~50대 이상_여성": {
+    magTitle: "40·50대 여성이라면? <span class='highlight'>병원비와 아파트 관리비</span> 꽉 잡는 카드 TOP 3",
+    chartData: { labels:['의료/병원/약국','대형마트/생필품','종합쇼핑몰','공과금/보험','교육/학원'], data:[35,25,15,12,8] },
+    fact:"가족 건강을 위한 의료비 지출이 1위입니다. 아파트 관리비, 보험 등 고정성 생활 지출과 마트 장보기가 뒤를 잇습니다.",
+    need:"복잡한 조건 없이 관리비, 통신비 등 피할 수 없는 '고정비'를 줄여주는 혜택이 최고입니다.",
+    reason:"공과금과 마트 지출을 크게 줄여주어 팍팍한 가계부에 큰 보탬이 되는 1등 공신 카드들입니다.",
+    cardIds:[2330,2292,2293],
+    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 매달 돈 버는 느낌을 줍니다.","어디서 긁든 조건 없는 기본 할인에 대형마트 추가 혜택이 좋습니다.","복잡한 실적 계산 없이 깔끔하게 통신비와 기본 생활비를 챙겨줍니다."],
+    tip:"공과금 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
+  },
+  "40~50대 이상_남성": {
+    magTitle: "40·50대 남성이라면? <span class='highlight'>병원비와 생활 고정비</span> 꽉 잡는 알짜 카드 TOP 3",
+    chartData: { labels:['의료/병원/약국','대형마트','주유소/자동차','공과금/보험','골프/레저'], data:[30,22,18,15,10] },
+    fact:"'의료비'와 '공과금' 비중이 큽니다. 여기에 주유비와 골프 같은 레저/스포츠 관련 소비가 특징적입니다.",
+    need:"골치 아픈 실적 계산 없이 긁을 때마다 무조건 할인되거나, 고정비를 크게 깎아주는 듬직한 카드가 좋습니다.",
+    reason:"까다로운 실적 조건 없이 생활 속에서 무조건 할인을 받거나, 고정비를 꽉 잡아주는 듬직한 카드들입니다.",
+    cardIds:[2330,2292,2293],
+    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 고정비를 강력하게 방어합니다.","사업이나 일상 등 가리지 않고 쓸 수 있는 무조건 할인 카드입니다.","통신비와 기본 생활비를 실적 조건 없이 편안하게 할인받을 수 있습니다."],
+    tip:"고정비 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
+  }
+};
+
+let recChart = null, recTimeout = null, recInitialized = false;
+
+function initRecommend(){
+  if(!recInitialized){
+    recInitialized = true;
+    renderPersona('20대_여성');
+  }
+}
+
+function selectPersona(key, el){
+  document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderPersona(key);
+}
+
+function renderPersona(key){
+  const p = PERSONA_DB[key];
+  if(!p) return;
+  const resultEl = document.getElementById('result-container');
+  const skeletonEl = document.getElementById('skeleton-container');
+  resultEl.classList.remove('active');
+  resultEl.innerHTML = '';
+  skeletonEl.classList.add('active');
+  if(recTimeout) clearTimeout(recTimeout);
+  recTimeout = setTimeout(()=>{
+    skeletonEl.classList.remove('active');
+    const escR = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let cardsHTML = '';
+    p.cardIds.forEach((id, i)=>{
+      const c = recCardMap[id];
+      if(!c) return;
+      const benefit = (c.top_benefit_summary||'').split(' | ')
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escR(s.slice(0,idx))}</b>${escR(s.slice(idx))}`:escR(s);})
+        .join('<br>');
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      cardsHTML += `
+        <div class="c-card${i===0?' rank-1':''}">
+          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
+          <img class="card-thumb" src="${escR(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company||'')}</span></div>
+          <div class="c-chip-row">
+            <span class="c-chip fee">연회비 ${fee}</span>
+            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+          </div>
+          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
+          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
+        </div>`;
+    });
+    resultEl.innerHTML = `
+      <div class="mag-container">
+        <h2 class="mag-title">${p.magTitle}</h2>
+        <div class="analysis-section">
+          <div class="chart-area">
+            <div class="mag-subtitle" style="align-self:flex-start">이들의 소비 패턴 엿보기</div>
+            <div class="chart-inner"><canvas id="personaChart"></canvas></div>
+          </div>
+          <div class="text-area">
+            <div class="fact-box"><h4>✔️ 소비 팩트체크</h4><p>${escR(p.fact)}</p></div>
+            <div class="fact-box"><h4>🎯 어떤 혜택이 필요할까?</h4><p>${escR(p.need)}</p></div>
+            <div class="fact-box highlight"><h4>💡 카드 파이터의 추천 이유</h4><p>${escR(p.reason)}</p></div>
+          </div>
+        </div>
+        <div class="mag-cards-section">
+          <div class="mag-subtitle">추천 카드 3선</div>
+          <div class="mag-cards-grid">${cardsHTML}</div>
+        </div>
+        <div class="mag-tip"><strong>Tip</strong><div>${escR(p.tip)}</div></div>
+      </div>`;
+    resultEl.classList.add('active');
+    if(recChart) recChart.destroy();
+    const ctx = document.getElementById('personaChart').getContext('2d');
+    recChart = new Chart(ctx, {
+      type:'doughnut',
+      data:{
+        labels:p.chartData.labels,
+        datasets:[{data:p.chartData.data,backgroundColor:['#145CE6','#3498db','#9b59b6','#f1c40f','#e74c3c'],borderWidth:2,borderColor:'#f8fafc',hoverOffset:8}]
+      },
+      options:{responsive:true,maintainAspectRatio:true,
+        animation:{animateScale:true,animateRotate:true,duration:1200,easing:'easeOutBounce'},
+        plugins:{
+          legend:{position:'bottom',labels:{font:{family:'GmarketSans',size:12},padding:12}},
+          tooltip:{callbacks:{label:ctx=>' '+ctx.label+' ('+ctx.raw+'%)'}}
+        }
+      }
+    });
+  }, 800);
+}
 </script>
 </body>
 </html>
