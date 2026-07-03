@@ -20,11 +20,8 @@ export default async function handler(req, res) {
     keywordGroups: [
       { groupName: '신용카드',  keywords: ['신용카드'] },
       { groupName: '체크카드',  keywords: ['체크카드'] },
-      { groupName: '캐시백',   keywords: ['캐시백'] },
-      { groupName: '카드혜택',  keywords: ['카드혜택', '카드 혜택'] },
+      { groupName: '캐시백',   keywords: ['캐시백', '카드혜택'] },
       { groupName: '주유카드',  keywords: ['주유카드', '주유 카드'] },
-      { groupName: '편의점카드', keywords: ['편의점 카드', '편의점카드'] },
-      { groupName: '배달카드',  keywords: ['배달 카드', '배달앱 카드'] },
       { groupName: '해외카드',  keywords: ['해외 카드', '해외여행 카드', '해외결제'] },
     ],
   };
