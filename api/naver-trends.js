@@ -3,7 +3,8 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const { NAVER_CLIENT_ID, NAVER_CLIENT_SECRET } = process.env;
+  const NAVER_CLIENT_ID = (process.env.NAVER_CLIENT_ID || '').replace(/^﻿/, '').trim();
+  const NAVER_CLIENT_SECRET = (process.env.NAVER_CLIENT_SECRET || '').replace(/^﻿/, '').trim();
   if (!NAVER_CLIENT_ID || !NAVER_CLIENT_SECRET) {
     return res.status(500).json({ error: 'API 키가 설정되지 않았습니다.' });
   }
