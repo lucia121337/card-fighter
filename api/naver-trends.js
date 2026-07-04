@@ -1,41 +1,21 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-// 유사 혜택 태그 묶음 (카드별 benefit_categories 집계 시 동의어로 취급)
-const SYNONYM_GROUPS = {
-  '카페':      ['카페', '커피/디저트', '베이커리'],
-  '온라인쇼핑': ['온라인쇼핑', '소셜커머스', '홈쇼핑'],
-  '대중교통':   ['대중교통', '택시', '기차', '고속버스', '고속버스/기차', '하이패스'],
-  '편의점':    ['편의점', '마트/편의점'],
-  '주유소':    ['주유소', '충전소', '충전소(전기/LPG)'],
-  '영화':      ['영화', '공연/전시'],
-  '해외이용':   ['해외이용', '해외결제', '면세점', '공항라운지', '공항라운지/PP', 'PP', '항공권', '항공', '대한항공', '아시아나항공', '여행사', '온라인 여행사', '리조트', '환전・ATM', '저가항공', '제주항공', '진에어', '에어부산', '이스타항공', '티웨이항공'],
-  '대형마트':   ['대형마트', 'SSM'],
-  '백화점':    ['백화점', '백화점/아울렛', '아울렛'],
-  '통신비':    ['통신비', 'KT', 'LGU+', 'SKT'],
-  '디지털구독': ['디지털구독', '스트리밍(넷플릭스', '티빙 등)'],
-  '병원':      ['병원', '동물병원', '약국'],
-  '패밀리레스토랑': ['패밀리레스토랑', '일반음식점', '패스트푸드', '음식점'],
-};
-const GENERIC_TAGS = new Set(['기타', '국내외가맹점', '모든가맹점', '제휴/PLCC', '적립', '생활', '프리미엄 서비스', '프리미엄서비스', '할인', '수수료우대', '무이자할부', '선택형', '유의사항']);
+// benefit_categories는 24개 표준 카테고리로 이미 정리(중복 제거)되어 있어 동의어 병합이 필요 없다.
+// 검색 트렌드 키워드로는 너무 범용적인 카테고리만 제외한다.
+const EXCLUDE_FROM_TRENDS = new Set(['모든가맹점', '무실적']);
 
 function benefitKeywordRanking() {
-  const TAG_TO_GROUP = {};
-  for (const [group, tags] of Object.entries(SYNONYM_GROUPS)) {
-    for (const tag of tags) TAG_TO_GROUP[tag] = group;
-  }
   const cards = JSON.parse(readFileSync(join(process.cwd(), 'cards_list.json'), 'utf-8'));
-  const cardCountByGroup = {};
+  const cardCountByCategory = {};
   for (const card of cards) {
-    const tags = (card.benefit_categories || '').split(',').map(s => s.trim()).filter(Boolean);
-    const groupsInCard = new Set();
-    for (const tag of tags) {
-      if (GENERIC_TAGS.has(tag)) continue;
-      groupsInCard.add(TAG_TO_GROUP[tag] || tag);
+    const cats = (card.benefit_categories || '').split(',').map(s => s.trim()).filter(Boolean);
+    for (const cat of cats) {
+      if (EXCLUDE_FROM_TRENDS.has(cat)) continue;
+      cardCountByCategory[cat] = (cardCountByCategory[cat] || 0) + 1;
     }
-    for (const group of groupsInCard) cardCountByGroup[group] = (cardCountByGroup[group] || 0) + 1;
   }
-  return Object.entries(cardCountByGroup)
+  return Object.entries(cardCountByCategory)
     .sort((a, b) => b[1] - a[1])
     .map(([keyword, count]) => ({ keyword, count }));
 }
