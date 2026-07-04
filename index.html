@@ -86,7 +86,8 @@
          border-radius:999px;padding:6px 18px;font-size:13px;box-shadow:0 2px 10px rgba(19,85,255,.3)}
 
   /* ── 전체카드 레이아웃 ── */
-  .cards-layout{display:flex;flex-direction:column;gap:0}
+  /* 카드연구소/트렌드분석의 rec-wrap·trend-wrap과 폭을 맞춰서 헤더(GNB)보다 좁게 중앙 정렬 — 안 그러면 이 두 섹션만 옆으로 튀어나와 보인다 */
+  .cards-layout{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;width:100%}
 
   /* LNB — 언더라인 탭 */
   .lnb{display:flex;align-items:center;gap:0;border-bottom:2px solid var(--line);margin-bottom:20px}
@@ -102,9 +103,25 @@
             transition:.15s color,.15s border-color}
   .lnb-item:hover{color:var(--brand)}
   .lnb-item.active{color:var(--brand);border-bottom-color:var(--brand)}
-  .lnb-item .lnb-count{font-size:11.5px;font-weight:700;
-        background:var(--panel2);color:var(--brand);border-radius:999px;padding:1px 8px}
-  .lnb-item.active .lnb-count{background:var(--brand);color:#fff}
+
+  .cards-title-row{margin:8px 0 28px}
+  .cards-title{font-size:26px;font-weight:800;color:var(--txt);margin:0 0 6px;letter-spacing:-1px}
+  .cards-subtitle{font-size:14px;color:var(--muted);margin:0}
+  .cards-subtitle b{color:var(--brand);font-weight:800}
+
+  /* 혜택 카테고리 알약 토글 (복수선택) */
+  .cat-filter-box{background:var(--panel2);border:1.5px solid var(--line);border-radius:16px;
+    padding:16px 18px;margin-bottom:20px}
+  .cat-filter-label{font-size:12.5px;font-weight:800;color:var(--muted);margin-bottom:11px;
+    display:flex;align-items:center;gap:6px}
+  .cat-filter-row{display:flex;flex-wrap:wrap;gap:3px;justify-content:space-between}
+  .cat-filter-break{flex-basis:100%;height:0}
+  .cat-pill{display:inline-flex;align-items:center;gap:3px;background:var(--bg);
+    border:1.5px solid var(--line);border-radius:999px;padding:5px 8px;
+    font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;font-family:inherit;
+    transition:.15s background,.15s border-color,.15s color}
+  .cat-pill:hover{border-color:var(--brand)}
+  .cat-pill.active{background:var(--brand);border-color:var(--brand);color:#fff}
 
   /* 카드 그리드 */
   .cards-main{}
@@ -228,6 +245,8 @@
   .cbar-count{font-size:12px;color:var(--muted);white-space:nowrap}
 
   /* ── 캐시백 섹션 ── */
+  /* 카드연구소/트렌드분석과 폭을 맞춰 헤더보다 좁게 중앙 정렬 */
+  .cb-wrap{max-width:1100px;margin:0 auto;padding:0 4px}
   .cb-platform-tabs{display:flex;align-items:center;gap:0;
         border-bottom:2px solid var(--line);margin-bottom:28px}
   .cb-platform-tab{display:inline-flex;align-items:center;gap:6px;
@@ -307,7 +326,7 @@
     word-break:keep-all;text-align:center}
   .mag-title .highlight{background:linear-gradient(180deg,rgba(255,255,255,0) 60%,#ffeaa7 40%);padding:0 4px}
   @media(max-width:768px){.mag-title{font-size:22px}}
-  .mag-subtitle{font-size:20px;font-weight:800;color:var(--brand);margin-bottom:12px;
+  .mag-subtitle{font-size:20px;font-weight:800;color:var(--brand);margin-bottom:24px;
     display:flex;align-items:center;gap:8px}
   .mag-subtitle::before{content:"";display:block;width:6px;height:20px;background:var(--brand);border-radius:4px}
 
@@ -364,9 +383,6 @@
 
   /* ── 트렌드분석 섹션 ── */
   .trend-wrap{max-width:1100px;margin:0 auto;padding:10px 4px}
-  .trend-hero{text-align:left;margin-bottom:24px}
-  .trend-hero h2{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:0}
-  .trend-hero h2 span{color:var(--brand)}
 
   .trend-strip{background:var(--panel);border-radius:18px;padding:20px 24px;
     margin-bottom:32px;border:1.5px solid var(--line);box-shadow:var(--shadow);position:relative}
@@ -433,6 +449,7 @@
   .trend-unit-pill{border:none;background:transparent;font-size:12.5px;font-weight:700;
     color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;transition:.15s}
   .trend-unit-pill.active{background:var(--txt);color:#fff}
+  .trend-unit-pill:disabled{opacity:.5;cursor:wait}
 
   .trend-pills{display:flex;gap:8px;flex-wrap:wrap}
   .trend-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);
@@ -442,27 +459,7 @@
   .pill-traffic{font-size:10px;color:var(--brand);background:var(--panel2);
     border-radius:4px;padding:1px 6px;font-weight:700}
 
-  .trend-ref-title{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--txt);margin:28px 0 16px}
-  .trend-ref-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-  @media(max-width:900px){.trend-ref-row{grid-template-columns:repeat(2,1fr)}}
-  .trend-ref{background:none;border:none;padding:12px 8px;display:flex;flex-direction:column;
-    align-items:center;text-align:center;gap:14px;cursor:pointer;transition:.15s transform;
-    text-decoration:none}
-  .trend-ref:hover{transform:translateY(-4px)}
-  .trend-ref-kw{font-size:18px;font-weight:800;color:var(--txt)}
-  .trend-ref-imgwrap{width:120px;height:120px;position:relative;display:flex;
-    align-items:center;justify-content:center}
-  .trend-ref-imgwrap::before{content:'';position:absolute;width:100px;height:100px;
-    border-radius:50%;background:#f8fafc;border:1px solid var(--line)}
-  .trend-ref-imgwrap img{position:relative;z-index:1;max-width:112px;max-height:112px;object-fit:contain}
-  .trend-ref-imgwrap img.rot90{transform:rotate(90deg)}
-  .trend-ref-nm{font-size:14px;font-weight:500;color:var(--muted);line-height:1.3}
-  .trend-ref-benefit{font-size:16px;color:var(--txt);font-weight:800;line-height:1.4}
-  .trend-more-wrap{text-align:center;margin-top:22px}
-  .trend-more-btn{background:none;border:1.5px solid var(--line);border-radius:10px;
-    padding:11px 24px;font-size:13.5px;font-weight:700;color:var(--txt);cursor:pointer;
-    font-family:inherit;transition:.15s border-color,.15s color}
-  .trend-more-btn:hover{border-color:var(--brand);color:var(--brand)}
+  .trend-ref-row{display:block}
 
   .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
   .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
@@ -490,8 +487,7 @@
       <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
       <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
       <a href="#">할인가맹점</a>
-      <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 소비 데이터로 보는 연령대별 맞춤 카드</a>
-      <a href="#" data-section="trend" onclick="showSection('trend');return false">트렌드분석</a>
+      <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 연구소</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -511,12 +507,14 @@
 <main>
   <!-- 캐시백 섹션 -->
   <div id="section-cashback" class="section" hidden>
-    <div class="cb-platform-tabs" id="cb-tabs"></div>
-    <div class="cb-header">
-      <p class="cb-title">최대 <span id="cb-max-amt"></span>만원 용돈 받기! 🎉</p>
-      <p class="cb-subtitle" id="cb-subtitle"></p>
+    <div class="cb-wrap">
+      <div class="cb-platform-tabs" id="cb-tabs"></div>
+      <div class="cb-header">
+        <p class="cb-title">최대 <span id="cb-max-amt"></span>만원 용돈 받기! 🎉</p>
+        <p class="cb-subtitle" id="cb-subtitle"></p>
+      </div>
+      <div class="cb-grid" id="cb-grid"></div>
     </div>
-    <div class="cb-grid" id="cb-grid"></div>
   </div>
 
   <!-- 홈 섹션 -->
@@ -528,70 +526,73 @@
       <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
     </div>
   </div>
-  <!-- 트렌드분석 섹션 -->
-  <div id="section-trend" class="section" hidden>
-    <div class="trend-wrap">
-      <div class="trend-hero">
-        <h2>🔥 카드 검색 트렌드</h2>
-      </div>
-      <div id="trend-content">
-        <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 맞춤카드 섹션 -->
+  <!-- 카드 연구소 섹션 (LNB: 맞춤카드 / 실시간 검색 트렌드) -->
   <div id="section-recommend" class="section" hidden>
     <div class="rec-wrap">
-      <div class="rec-hero">
-        <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
-        <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
-      </div>
-      <div class="avatar-nav">
-        <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
-          <div class="avatar-label">20대 여성</div>
+      <nav class="lnb">
+        <button class="lnb-item active" data-recview="persona" onclick="setRecommendView('persona',this)">카드 소비 데이터로 보는 연령대별 맞춤 카드</button>
+        <button class="lnb-item" data-recview="trend" onclick="setRecommendView('trend',this)">실시간 검색 키워드로 보는 추천 카드</button>
+      </nav>
+      <div id="recview-persona">
+        <div class="rec-hero">
+          <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
+          <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
         </div>
-        <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
-          <div class="avatar-label">20대 남성</div>
-        </div>
-        <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
-          <div class="avatar-label">30대 여성</div>
-        </div>
-        <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
-          <div class="avatar-label">30대 남성</div>
-        </div>
-        <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성"></div>
-          <div class="avatar-label">4050 여성</div>
-        </div>
-        <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
-          <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성"></div>
-          <div class="avatar-label">4050 남성</div>
-        </div>
-      </div>
-      <div id="skeleton-container" class="mag-container">
-        <div class="skeleton-box sk-title"></div>
-        <div class="analysis-section">
-          <div class="chart-area" style="justify-content:center;align-items:center">
-            <div class="skeleton-box sk-chart"></div>
+        <div class="avatar-nav">
+          <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
+            <div class="avatar-label">20대 여성</div>
           </div>
-          <div class="text-area">
-            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
-            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
-            <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+          <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
+            <div class="avatar-label">20대 남성</div>
+          </div>
+          <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
+            <div class="avatar-label">30대 여성</div>
+          </div>
+          <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
+            <div class="avatar-label">30대 남성</div>
+          </div>
+          <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성"></div>
+            <div class="avatar-label">4050 여성</div>
+          </div>
+          <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
+            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성"></div>
+            <div class="avatar-label">4050 남성</div>
           </div>
         </div>
-        <div class="mag-cards-grid">
-          <div class="skeleton-box sk-card"></div>
-          <div class="skeleton-box sk-card"></div>
-          <div class="skeleton-box sk-card"></div>
+        <div id="skeleton-container" class="mag-container">
+          <div class="skeleton-box sk-title"></div>
+          <div class="analysis-section">
+            <div class="chart-area" style="justify-content:center;align-items:center">
+              <div class="skeleton-box sk-chart"></div>
+            </div>
+            <div class="text-area">
+              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
+              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
+              <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+            </div>
+          </div>
+          <div class="mag-cards-grid">
+            <div class="skeleton-box sk-card"></div>
+            <div class="skeleton-box sk-card"></div>
+            <div class="skeleton-box sk-card"></div>
+          </div>
+        </div>
+        <div id="result-container"></div>
+      </div>
+      <div id="recview-trend" hidden>
+        <div class="rec-hero">
+          <h2>실시간 검색 데이터로 알아보는 인기 키워드<br><span>"지금 이 순간, 가장 핫한 카드는?"</span></h2>
+          <p>아래에서 월별, 주간, 일별 트렌드를 확인해보세요!</p>
+        </div>
+        <div id="trend-content">
+          <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
         </div>
       </div>
-      <div id="result-container"></div>
     </div>
   </div>
 
@@ -600,16 +601,19 @@
     <div class="cards-layout">
       <!-- LNB 수평 탭 -->
       <nav class="lnb">
-<button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">
-          전체카드 <span class="lnb-count" id="cnt-all"></span>
-        </button>
-        <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">
-          신용카드 <span class="lnb-count" id="cnt-credit"></span>
-        </button>
-        <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">
-          체크카드 <span class="lnb-count" id="cnt-debit"></span>
-        </button>
+<button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">전체카드</button>
+        <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
+        <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
       </nav>
+      <div class="cards-title-row">
+        <h2 class="cards-title" id="cards-title">전체카드</h2>
+        <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
+      </div>
+      <!-- 혜택 카테고리 필터 (복수선택) -->
+      <div class="cat-filter-box">
+        <div class="cat-filter-label">🎯 혜택으로 찾기</div>
+        <div class="cat-filter-row" id="cat-filter-row"></div>
+      </div>
       <!-- 카드 목록 -->
       <div class="cards-main">
         <div class="cards-toolbar">
@@ -780,6 +784,87 @@ function goCompare(){
 
 const PAGE = 60;
 let DATA = [], view = [], shown = 0, activeCardType = '';
+const activeCategories = new Set();
+
+/* 혜택 카테고리 24종 (아이콘 매핑) */
+const BENEFIT_CATEGORIES = [
+  {name:'간편결제', icon:'📲'}, {name:'공과금/렌탈', icon:'📄'}, {name:'공항라운지/PP', icon:'🛋️'},
+  {name:'교육/육아', icon:'✏️'}, {name:'교통', icon:'🚌'}, {name:'레저/스포츠', icon:'⚽'},
+  {name:'마트/편의점', icon:'🛒'}, {name:'모든가맹점', icon:'🏬'}, {name:'무실적', icon:'💰'},
+  {name:'병원/약국', icon:'💊'}, {name:'뷰티/피트니스', icon:'💄'}, {name:'비즈니스', icon:'💼'},
+  {name:'쇼핑', icon:'🎁'}, {name:'애완동물', icon:'🐱'}, {name:'여행/숙박', icon:'🧳'},
+  {name:'자동차/하이패스', icon:'🚗'}, {name:'주유', icon:'⛽'}, {name:'카페/디저트', icon:'☕'},
+  {name:'통신', icon:'📶'}, {name:'푸드', icon:'🍔'}, {name:'프리미엄', icon:'💎'},
+  {name:'항공마일리지', icon:'✈️'}, {name:'해외', icon:'🌍'}, {name:'OTT/영화/문화', icon:'🎬'},
+];
+
+function renderCatFilterRow(){
+  const allPill = `<button class="cat-pill active" data-cat="" onclick="toggleCatFilter('')">전체</button>`;
+  const pills = BENEFIT_CATEGORIES.map(c =>
+    `<button class="cat-pill" data-cat="${c.name}" onclick="toggleCatFilter('${c.name}')">${c.icon} ${c.name}</button>`
+  ).join('');
+  document.getElementById('cat-filter-row').innerHTML = allPill + pills;
+}
+
+// 화면 폭에 따라 알약이 몇 줄에 걸쳐야 하는지(2줄일 수도, 창이 좁으면 3~4줄일 수도) 미리 고정할 수
+// 없다. 그래서 실제 렌더된 폭을 재서 "지금 폭에 필요한 최소 줄 수"를 구하고, 그 줄 수만큼 폭 합이
+// 최대한 고르게 나뉘도록 줄바꿈을 넣는다 — 창 크기가 바뀌어도, 몇 줄이 되든 항상 균등하게 맞는다.
+function balanceCatFilterRows(){
+  const row = document.getElementById('cat-filter-row');
+  if (!row || !row.offsetParent) return; // 섹션이 숨겨져 있으면(폭 0) 측정 불가 — 보일 때만 계산
+  row.querySelectorAll('.cat-filter-break').forEach(b => b.remove());
+
+  const pills = [...row.querySelectorAll('.cat-pill')];
+  const gap = 3; // .cat-filter-row 의 gap 값과 일치시켜야 함
+  const containerWidth = row.clientWidth;
+  const widths = pills.map(p => p.offsetWidth);
+  const n = widths.length;
+  if (!n || !containerWidth) return;
+
+  const totalWidth = widths.reduce((a,b)=>a+b, 0) + (n-1)*gap;
+  const lineCount = Math.max(1, Math.ceil(totalWidth / containerWidth));
+  if (lineCount <= 1) return; // 한 줄에 다 들어가면 나눌 필요 없음
+
+  // 목표 폭을 처음에 한 번만 고정하면(totalWidth/lineCount) 앞줄들이 조금씩 초과해서 끊길 때마다
+  // 오차가 누적돼 마지막 줄만 텅 비는 경우가 생긴다. 그래서 매 줄마다 "남은 폭 ÷ 남은 줄 수"로
+  // 목표치를 다시 계산해 오차가 쌓이지 않게 한다.
+  let lineStart = 0, lineWidth = 0, breaksLeft = lineCount - 1, remainingWidth = totalWidth;
+  for (let i = 0; i < n; i++) {
+    const addW = widths[i] + (i > lineStart ? gap : 0);
+    const target = remainingWidth / (breaksLeft + 1);
+    if (breaksLeft > 0 && i > lineStart && lineWidth + addW > target) {
+      const brk = document.createElement('div');
+      brk.className = 'cat-filter-break';
+      pills[i - 1].after(brk);
+      remainingWidth -= lineWidth;
+      breaksLeft--;
+      lineStart = i;
+      lineWidth = widths[i];
+    } else {
+      lineWidth += addW;
+    }
+  }
+}
+
+let catFilterResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(catFilterResizeTimer);
+  catFilterResizeTimer = setTimeout(balanceCatFilterRows, 150);
+});
+
+function toggleCatFilter(cat){
+  if(!cat){
+    activeCategories.clear();
+  } else {
+    if(activeCategories.has(cat)) activeCategories.delete(cat);
+    else activeCategories.add(cat);
+  }
+  document.querySelectorAll('.cat-pill').forEach(btn=>{
+    const isAll = btn.dataset.cat === '';
+    btn.classList.toggle('active', isAll ? activeCategories.size === 0 : activeCategories.has(btn.dataset.cat));
+  });
+  applyFilters();
+}
 
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
@@ -791,18 +876,27 @@ function showSection(name){
   document.querySelectorAll('.gnb a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   if(name === 'cashback') renderCashback();
-  if(name === 'recommend') initRecommend();
-  if(name === 'trend') initTrend();
+  if(name === 'recommend') {
+    // 트렌드(실시간 검색 트렌드) 탭에 있다가 다른 GNB로 나갔다 돌아와도 항상 첫 번째 탭(맞춤카드)부터 보이게 초기화
+    document.querySelectorAll('#section-recommend .lnb-item').forEach((b,i) => b.classList.toggle('active', i===0));
+    document.getElementById('recview-persona').hidden = false;
+    document.getElementById('recview-trend').hidden = true;
+    initRecommend();
+  }
+  if(name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
   // 섹션 변경 시 팝업 닫기 + 바/버블 전환
   popupOpen = false;
   document.getElementById('compare-popup').classList.remove('visible');
   updateCompareBar();
+  // 다른 탭으로 이동할 땐 이전 탭에서 스크롤해 내려간 위치가 그대로 남아있지 않도록 최상단으로 이동
+  window.scrollTo(0, 0);
 }
 
 function setCardType(el){
   document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
+  document.getElementById('cards-title').textContent = el.textContent.trim();
   applyFilters();
 }
 
@@ -816,6 +910,10 @@ function applyFilters(){
 
   view = DATA.filter(c=>{
     if(activeCardType && c.cate !== activeCardType) return false;
+    if(activeCategories.size){
+      const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
+      if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
+    }
     if(co && c.company!==co) return false;
     if(q){
       const hay=(c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
@@ -838,19 +936,11 @@ function applyFilters(){
   else if(sort==='preAsc') view.sort((a,b)=>(a.pre_month_money||0)-(b.pre_month_money||0));
 
   document.getElementById('count').textContent = view.length.toLocaleString();
+  document.getElementById('cards-total-count').textContent = view.length.toLocaleString();
   shown = 0;
   document.getElementById('grid').innerHTML = '';
   document.getElementById('empty').hidden = view.length > 0;
   render();
-}
-
-function updateLnbCounts(){
-  const all    = DATA.length;
-  const credit = DATA.filter(c=>c.cate==='CRD').length;
-  const debit  = DATA.filter(c=>c.cate==='CHK').length;
-  document.getElementById('cnt-all').textContent    = all    ? all.toLocaleString()    : '';
-  document.getElementById('cnt-credit').textContent = credit ? credit.toLocaleString() : '';
-  document.getElementById('cnt-debit').textContent  = debit  ? debit.toLocaleString()  : '';
 }
 
 function render(){
@@ -1052,6 +1142,7 @@ document.querySelectorAll('.lnb-item').forEach(btn=>{
   const map={'':'','신용':'CRD','체크':'CHK'};
   if(btn.dataset.cardtype in map) btn.dataset.cardtype = map[btn.dataset.cardtype];
 });
+renderCatFilterRow();
 
 /* ── 초기 로드: cards_full.json ── */
 fetch('cards_list.json')
@@ -1061,7 +1152,6 @@ fetch('cards_list.json')
     const cos=[...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
     const sel=document.getElementById('company');
     cos.forEach(c=>{ const o=document.createElement('option'); o.value=o.textContent=c; sel.appendChild(o); });
-    updateLnbCounts();
     applyFilters();
   })
   .catch(e=>{
@@ -1113,6 +1203,10 @@ let trendUnit = 'month';
 let trendChartInstance = null;
 let trendAutoTimer = null;
 let trendModalUnit = 'month';
+// "실시간 인기 검색어"/"트렌드 카드 추천"용 랭킹 — 그래프의 월별/주간/일별 토글과는 무관하게
+// 항상 일별(오늘) 기준으로 1시간마다 독립적으로 갱신된다. 검색창 placeholder도 이 값을 사용한다.
+let realtimeRanked = [];
+let realtimeTimer = null;
 
 function renderTrendModalTabs() {
   document.getElementById('trend-modal-unit-toggle').innerHTML = TREND_UNITS.map(u =>
@@ -1158,6 +1252,32 @@ const TREND_UNITS = [
   { key:'date',  label:'일별' },
 ];
 
+// 검색창 placeholder에 "지금" 가장 많이 검색되는 키워드 1~2위를 보여준다.
+function updateSearchPlaceholder(ranked) {
+  const input = document.getElementById('q');
+  if (!input || !ranked || ranked.length < 2) return;
+  input.placeholder = `${ranked[0].title}, ${ranked[1].title} 등 관심 혜택을 검색해보세요!`;
+}
+
+// 트렌드분석 탭을 아직 열어보지 않았어도(헤더 검색창은 모든 페이지에 보이므로) 페이지 로드 시 바로 실행하고,
+// 이후 1시간마다 독립적으로 갱신한다. 그래프의 월별/주간/일별 토글이나 자동갱신 타이머와는 완전히 분리되어 있다.
+async function loadRealtimeKeywords() {
+  try {
+    const res = await fetch('/api/naver-trends?unit=date');
+    if (!res.ok) throw new Error('API 오류 ' + res.status);
+    const data = await res.json();
+    if (data.error || !data.results?.length) throw new Error(data.error || '데이터 없음');
+    realtimeRanked = computeRanked(data.results, 'realtime', data.anchorLatest);
+    updateSearchPlaceholder(realtimeRanked);
+    // "실시간 인기 검색어" 리더보드만 항상 실시간(일별) 고정 — 추천카드는 그래프의 월별/주간/일별
+    // 토글을 따라가야 하므로 여기서 건드리지 않는다 (renderTrends/updateTrendView가 담당).
+    const lbList = document.querySelector('.trend-lb-list');
+    if (lbList) lbList.innerHTML = buildLeaderboardHtml(realtimeRanked);
+  } catch(e) {
+    console.error('[실시간 검색어] 갱신 실패:', e.message);
+  }
+}
+
 function initTrend() {
   if (!trendInitialized) {
     trendInitialized = true;
@@ -1169,16 +1289,33 @@ function initTrend() {
 function setTrendUnit(unit) {
   if (unit === trendUnit) return;
   trendUnit = unit;
-  document.querySelectorAll('.trend-unit-pill').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u=>u.key===unit).label);
-  });
+  // 캐시가 없는 unit은 네이버 API를 새로 호출하느라 몇 초 걸릴 수 있는데, 그동안 pill에
+  // 아무 반응이 없으면 "눌러도 안 눌림"으로 보인다. 그래서 클릭 즉시 pill을 비활성화해
+  // "처리 중"임을 바로 보여주고, 활성 표시 자체는 loadTrends가 성공한 뒤에만 옮긴다
+  // (실패 시 pill은 새 unit인데 화면은 이전 unit 그대로인 불일치를 막기 위해).
+  setTrendPillsBusy(true);
   loadTrends(unit, false);
   clearInterval(trendAutoTimer);
   trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
 }
 
+function setTrendPillsBusy(busy) {
+  document.querySelectorAll('.trend-unit-pill').forEach(btn => { btn.disabled = busy; });
+}
+
+function setActiveTrendPill(unit) {
+  document.querySelectorAll('.trend-unit-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u=>u.key===unit).label);
+  });
+}
+
+// 토글을 빠르게 여러 번 누르면 먼저 보낸 요청이 나중에 도착해 최신 화면을 덮어쓸 수 있어(응답 순서 역전),
+// 요청마다 일련번호를 매겨 가장 마지막에 보낸 요청의 응답만 화면에 반영한다.
+let trendReqSeq = 0;
+
 async function loadTrends(unit, isInitial) {
   const el = document.getElementById('trend-content');
+  const reqId = ++trendReqSeq;
   if (isInitial) {
     el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
   }
@@ -1190,9 +1327,17 @@ async function loadTrends(unit, isInitial) {
     if (!DATA.length) {
       await new Promise(r => { const t = setInterval(()=>{ if(DATA.length){clearInterval(t);r();}},200); });
     }
-    if (isInitial) renderTrends(data, unit); else updateTrendView(data, unit);
+    if (reqId !== trendReqSeq) return; // 그 사이 더 최신 토글 요청이 나갔으면 이 응답은 낡은 것이므로 버린다
+    if (isInitial) {
+      renderTrends(data, unit);
+    } else {
+      updateTrendView(data, unit);
+      setActiveTrendPill(unit);
+    }
   } catch(e) {
-    if (!isInitial) return; // 백그라운드/토글 갱신 실패 시 기존 화면 유지, 조용히 무시
+    if (reqId !== trendReqSeq) return;
+    console.error('[트렌드] 갱신 실패:', e.message);
+    if (!isInitial) return; // 배경/토글 갱신 실패 시 기존 화면(마지막 성공 unit) 그대로 유지 — pill도 그대로라 화면과 어긋나지 않음
     el.innerHTML = `<div class="trend-error">
       😢 트렌드 데이터를 불러오지 못했어요<br>
       <small>${e.message}</small><br><br>
@@ -1201,6 +1346,8 @@ async function loadTrends(unit, isInitial) {
         다시 시도
       </button>
     </div>`;
+  } finally {
+    if (!isInitial && reqId === trendReqSeq) setTrendPillsBusy(false);
   }
 }
 
@@ -1241,59 +1388,87 @@ function formatTrendLabel(period, unit) {
 
 const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-// 등락(▲▼)은 같은 배치 안 임의 시점 비교가 아니라, 1시간 주기 재조회 때마다 "직전 조회값" 대비
-// 실제 변화량으로 표기한다. 처음 보는 unit/키워드는 비교 대상이 없으니 등락 없음(flat)으로 시작.
-let trendPrevLatest = {}; // { [unit]: { [keyword]: latest } }
+// 등락(▲▼)은 검색량 증감이 아니라 "1시간 주기 재조회 때마다 직전 조회 대비 순위가 몇 계단
+// 올랐/내렸는지"를 의미한다. 예: 1위→5위 = ▼4, 3위→1위 = ▲2, 그대로면 '-'.
+// 처음 보는 unit/키워드는 비교 대상(직전 순위)이 없으니 등락 없음(flat)으로 시작.
+let trendPrevRank = {}; // { [unit]: { [keyword]: rank(1-based) } }
 
-function computeRanked(results, unit) {
-  const prevForUnit = trendPrevLatest[unit] || {};
+// r.data[last].ratio는 키워드마다 따로 요청한 값이라 서로 절대 비교가 불가능하다(각자 자기 자신 기준 0~100).
+// 순위는 반드시 서버가 anchor 정규화로 계산해 내려준 anchorLatest를 기준으로 매겨야
+// 더보기 모달의 전체 순위와 항상 일치한다.
+function computeRanked(results, unit, anchorLatest) {
+  const anchorMap = new Map((anchorLatest||[]).map(a => [a.keyword, a.latest]));
   const ranked = results.map(r => {
-    const latest = r.data[r.data.length-1]?.ratio || 0;
-    const prev = prevForUnit[r.title];
-    return { ...r, latest, delta: prev === undefined ? 0 : latest - prev };
+    const latest = anchorMap.has(r.title) ? anchorMap.get(r.title) : (r.data[r.data.length-1]?.ratio || 0);
+    return { ...r, latest };
   }).sort((a,b) => b.latest - a.latest);
 
-  trendPrevLatest[unit] = {};
-  for (const r of ranked) trendPrevLatest[unit][r.title] = r.latest;
+  const prevRankForUnit = trendPrevRank[unit] || {};
+  ranked.forEach((r, i) => {
+    r.rank = i + 1;
+    const prevRank = prevRankForUnit[r.title];
+    r.rankDelta = prevRank === undefined ? null : prevRank - r.rank; // 양수=상승, 음수=하락, 0=변동없음
+  });
+  trendPrevRank[unit] = {};
+  for (const r of ranked) trendPrevRank[unit][r.title] = r.rank;
+
   return ranked;
 }
 
-function buildRefsHtml(ranked) {
-  /* 키워드별 1위 카드 레퍼런스 (겹치는 카드 없이 각 키워드마다 다른 카드) */
+// 실시간 검색어 1~5위마다 "추천 카드 3선" 카드(순위 배지/혜택 태그/팁 말풍선)를 3장씩 보여준다.
+// 카드 연구소 첫 번째 탭(renderPersona)의 .c-card 마크업을 그대로 재사용해 두 탭의 카드 디자인을 통일한다.
+function buildTrendCardSections(ranked) {
   const usedCardIdx = new Set();
-  return ranked.map((kw) => {
-    const map = KW_CAT_MAP[kw.title] || { cat: kw.title, label: kw.title + ' 카드 추천' };
-    const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat||null, 20);
-    const card = candidates.find(c => !usedCardIdx.has(c.idx));
-    if (!card) return '';
-    usedCardIdx.add(card.idx);
-    const benefitRaw = (card.top_benefit_summary||'').split(' | ')[0] || '';
-    const benefit = benefitRaw.includes(':') ? benefitRaw.slice(benefitRaw.indexOf(':')+1).trim() : benefitRaw;
+  return ranked.map((kw, ki) => {
+    const map = KW_CAT_MAP[kw.title] || { cat: kw.title };
+    const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat||null, 30);
+    const picks = [];
+    for (const c of candidates) {
+      if (usedCardIdx.has(c.idx)) continue;
+      picks.push(c);
+      usedCardIdx.add(c.idx);
+      if (picks.length === 3) break;
+    }
+    if (!picks.length) return '';
 
-    return `<a class="trend-ref" href="detail?idx=${card.idx}">
-      <span class="trend-ref-kw">${escT(kw.title)}</span>
-      <div class="trend-ref-imgwrap"><img src="${escT(card.card_img||'')}" alt=""
-        onerror="this.style.visibility='hidden'"
-        onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('rot90')"/></div>
-      <div class="trend-ref-nm">${escT(card.card_name)}</div>
-      <div class="trend-ref-benefit">${escT(benefit)||'혜택 정보 없음'}</div>
-    </a>`;
+    const cardsHTML = picks.map((c, i) => {
+      const benefit = (c.top_benefit_summary||'').split(' | ')
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escT(s.slice(0,idx))}</b>${escT(s.slice(idx))}`:escT(s);})
+        .join('<br>');
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      return `
+        <div class="c-card${i===0?' rank-1':''}">
+          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
+          <img class="card-thumb" src="${escT(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escT(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escT(c.company||'')}</span></div>
+          <div class="c-chip-row">
+            <span class="c-chip fee">연회비 ${fee}</span>
+            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+          </div>
+          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="mag-cards-section">
+        <div class="mag-container">
+          <div class="mag-subtitle">${ki+1}위 "${escT(kw.title)}" 추천 카드 3선</div>
+          <div class="mag-cards-grid">${cardsHTML}</div>
+        </div>
+      </div>`;
   }).join('');
 }
 
-// 등락 옆 숫자는 네이버 정규화 지수(단위마다 스케일이 달라 절대 검색량과 비교 불가)라
-// 있는 그대로 보여주면 혼동을 주기 쉬워, 확정 전까지는 임의의 표시용 숫자를 섞어서 보여준다.
-function randomArrowDisplay() {
-  const r = Math.random();
-  const amt = Math.floor(Math.random() * 9) + 1;
-  if (r < 0.4) return { cls:'up', txt:`▲ ${amt}` };
-  if (r < 0.8) return { cls:'down', txt:`▼ ${amt}` };
-  return { cls:'flat', txt:'-' };
+function rankArrowDisplay(rankDelta) {
+  if (!rankDelta) return { cls:'flat', txt:'-' }; // null(첫 조회) 또는 0(변동없음)
+  if (rankDelta > 0) return { cls:'up', txt:`▲ ${rankDelta}` };
+  return { cls:'down', txt:`▼ ${Math.abs(rankDelta)}` };
 }
 
 function buildLeaderboardHtml(ranked) {
   return ranked.map((kw,i) => {
-    const arrow = randomArrowDisplay();
+    const arrow = rankArrowDisplay(kw.rankDelta);
     return `
     <li class="trend-lb-item">
       <span class="trend-lb-rank">${i+1}</span>
@@ -1321,29 +1496,51 @@ function pointStyleForUnit(unit, color) {
   return { pointRadius: 2.5, pointHoverRadius: 5, pointBackgroundColor: color, pointBorderColor: color, pointBorderWidth: 0 };
 }
 
+// 5개 선을 전부 원점까지 채우면 겹치는 영역에 반투명이 여러 겹 쌓여 탁한 회색으로 보인다.
+// 그래서 1위(가장 위) 선만 위→아래로 옅어지는 그라데이션 영역을 채우고, 나머지는 깔끔한 선으로만 표시한다.
+function areaFillFor(isTop, color) {
+  if (!isTop) return 'transparent';
+  return (ctx) => {
+    const area = ctx.chart.chartArea;
+    if (!area) return color + '40';
+    const g = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+    g.addColorStop(0, color + '55');
+    g.addColorStop(1, color + '00');
+    return g;
+  };
+}
+
 function renderTrends(data, unit) {
   const results = data.results || [];
   if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
 
-  const ranked = computeRanked(results, unit);
+  const ranked = computeRanked(results, unit, data.anchorLatest);
   const labels   = results[0].data.map(d => formatTrendLabel(d.period, unit));
-  const datasets = results.map((r,i) => {
+  // 그래프 안의 5개 선끼리는 서로 다른 기준으로 정렬되면 범례 순서가 어긋나 보이므로,
+  // 실제 네이버 검색 비율(latest) 내림차순인 ranked를 그래프 전용 기준으로 사용한다.
+  const datasets = ranked.map((r,i) => {
     const color = CHART_COLORS[i % CHART_COLORS.length];
+    const isTop = i === 0;
     return {
       label: r.title,
       data:  r.data.map(d => d.ratio),
       borderColor: color,
-      backgroundColor: color + '18',
-      borderWidth: 2, tension: 0,
+      backgroundColor: areaFillFor(isTop, color),
+      borderWidth: isTop ? 2.5 : 2, tension: 0, fill: isTop,
       ...pointStyleForUnit(unit, color),
     };
   });
 
-  const refs = buildRefsHtml(ranked);
   const unitPills = TREND_UNITS.map(u =>
     `<button class="trend-unit-pill${u.key===unit?' active':''}" onclick="setTrendUnit('${u.key}')">${u.label}</button>`
   ).join('');
-  const leaderboard = buildLeaderboardHtml(ranked);
+  // "실시간 인기 검색어"는 지금 이 순간의 랭킹(1시간 배치)이라 그래프 unit과 무관하게 항상
+  // realtimeRanked(loadRealtimeKeywords가 별도로 채움) 기준으로 고정 표시한다.
+  // 반면 "추천카드"는 그래프(월별/주간/일별)와 같은 히스토리 뷰이므로 그래프 전용 ranked를 따라간다.
+  const leaderboard = realtimeRanked.length
+    ? buildLeaderboardHtml(realtimeRanked)
+    : '<li style="justify-content:center;color:var(--muted);padding:12px 0">불러오는 중…</li>';
+  const refs = buildTrendCardSections(ranked);
 
 
   document.getElementById('trend-content').innerHTML = `
@@ -1361,9 +1558,7 @@ function renderTrends(data, unit) {
         </div>
       </div>
     </div>
-    <div class="trend-ref-title">🎯 트렌드 카드 추천</div>
     <div class="trend-ref-row">${refs}</div>
-    <div class="trend-more-wrap"><button class="trend-more-btn" onclick="showSection('cards')">전체카드 보기</button></div>
     <div class="trend-modal-overlay" id="trend-modal-overlay" onclick="if(event.target===this)closeTrendKeywordModal()">
       <div class="trend-modal-box">
         <div class="trend-modal-head">
@@ -1398,20 +1593,25 @@ function updateTrendView(data, unit) {
   const results = data.results || [];
   if (!results.length || !trendChartInstance) return;
 
-  const ranked = computeRanked(results, unit);
+  // 그래프 전용 순위 — "실시간 인기 검색어"는 realtimeRanked(loadRealtimeKeywords)로 따로 고정 갱신되므로
+  // 여기서는 건드리지 않지만, "추천카드"는 그래프와 같은 히스토리 뷰라 이 unit별 ranked를 따라간다.
+  const ranked = computeRanked(results, unit, data.anchorLatest);
 
   trendChartInstance.data.labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
+  // 그래프 안 5개 선끼리의 범례 순서만 ranked(실제 검색 비율 내림차순) 기준으로 맞춘다.
   trendChartInstance.data.datasets.forEach((ds, i) => {
-    if (!results[i]) return;
-    ds.label = results[i].title;
-    ds.data = results[i].data.map(d => d.ratio);
+    if (!ranked[i]) return;
+    const isTop = i === 0;
+    ds.label = ranked[i].title;
+    ds.data = ranked[i].data.map(d => d.ratio);
+    ds.fill = isTop;
+    ds.backgroundColor = areaFillFor(isTop, ds.borderColor);
+    ds.borderWidth = isTop ? 2.5 : 2;
     Object.assign(ds, pointStyleForUnit(unit, ds.borderColor));
   });
   trendChartInstance.update();
 
-  document.querySelector('.trend-lb-list').innerHTML = buildLeaderboardHtml(ranked);
-  document.querySelector('.trend-ref-row').innerHTML = buildRefsHtml(ranked);
-
+  document.querySelector('.trend-ref-row').innerHTML = buildTrendCardSections(ranked);
   refreshCompareButtons();
 }
 
@@ -1508,6 +1708,15 @@ function initRecommend(){
   }
 }
 
+// 카드 연구소 LNB: 맞춤카드(persona) / 실시간 검색 트렌드(trend) 두 뷰를 같은 섹션 안에서 전환
+function setRecommendView(view, btn){
+  document.querySelectorAll('#section-recommend .lnb-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('recview-persona').hidden = view !== 'persona';
+  document.getElementById('recview-trend').hidden = view !== 'trend';
+  if(view === 'trend') initTrend();
+}
+
 function selectPersona(key, el){
   document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
   if(el) el.classList.add('active');
@@ -1587,6 +1796,11 @@ function renderPersona(key){
     });
   }, 800);
 }
+
+// 검색창 placeholder·실시간 인기 검색어는 트렌드분석 탭을 열어보지 않아도 항상 최신이어야 하므로
+// 페이지 로드 시 바로 실행하고, 1시간마다 독립적으로 갱신한다.
+loadRealtimeKeywords();
+realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
 </script>
 </body>
 </html>
