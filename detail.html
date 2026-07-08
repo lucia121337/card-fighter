@@ -205,40 +205,111 @@ function extractAmount(html){
   return max;
 }
 
-function buildCalc(kb){
+function buildCalc(kb, preMonthMoney){
   const EXCLUDE = ['유의사항','주의사항','안내','참고','발급','약관','유의'];
   const items = kb
     .filter(b=>!EXCLUDE.some(k=>(b.title||'').includes(k)))
     .map((b,i)=>({
       id:i, title:b.title||'혜택 '+(i+1),
       amount: extractAmount(b.info||''),
+      detail: b.info || '',
       checked:true
     }));
 
-  function renderTotal(){
-    const total = items.filter(it=>it.checked).reduce((s,it)=>s+it.amount,0);
-    document.getElementById('calc-total-amt').textContent =
-      total ? '최대 '+total.toLocaleString()+'원' : '-';
+  // 1. 진짜 카드 혜택 정보 데이터에서 실제 실적 구간들을 똑똑하게 자동 수집/파싱하기!
+  function extractPerformanceSections(kb, basePerf) {
+    const sections = new Set();
+    if (basePerf > 0) sections.add(basePerf);
+    
+    kb.forEach(b => {
+      const text = (b.info || '').replace(/<[^>]+>/g, ' ');
+      // "N만원" 패턴 검색
+      const p1 = /(\d+)\s*만원/g;
+      let m;
+      while ((m = p1.exec(text)) !== null) {
+        const val = parseInt(m[1]) * 10000;
+        // 5만원 이상 300만원 이하의 타당한 범위만 수집
+        if (val >= 50000 && val <= 3000000) sections.add(val);
+      }
+      // "N,NNN,NNN원" 패턴 검색
+      const p2 = /([\d,]+)\s*원/g;
+      while ((m = p2.exec(text)) !== null) {
+        const val = parseInt(m[1].replace(/,/g, ''));
+        if (val >= 50000 && val <= 3000000 && val % 10000 === 0) sections.add(val);
+      }
+    });
+
+    const sorted = Array.from(sections).sort((a, b) => a - b);
+    // 만약 파싱된 구간이 기본실적 외에 없다면 기존 배수 공식 적용
+    if (sorted.length <= 1 && basePerf > 0) {
+      return [0, basePerf, basePerf * 2, basePerf * 3];
+    }
+    return [0, ...sorted];
   }
+
+  const basePerf = preMonthMoney || 0;
+  const perfSections = extractPerformanceSections(kb, basePerf);
+  window._calcPerfMultiplier = 1; // 기본 실적 배율 1배
+
+  function renderTotal(){
+    const mult = window._calcPerfMultiplier;
+    const total = items.filter(it=>it.checked).reduce((s,it)=>s + (it.amount * mult), 0);
+    document.getElementById('calc-total-amt').textContent =
+      total ? '최대 '+total.toLocaleString()+'원' : '0원';
+  }
+
+  // 실적 선택시 혜택 금액 라벨들을 일괄 업데이트해주는 함수
+  window._changePerfLimit = function(val){
+    const selectedPerf = Number(val);
+    // 선택한 실적 금액에 따라 배율 계산 (기본 실적 기준 대비 배율)
+    window._calcPerfMultiplier = basePerf > 0 ? (selectedPerf / basePerf) : 1;
+    if (selectedPerf === 0) window._calcPerfMultiplier = 0;
+
+    window._calcItems.forEach(it => {
+      const el = document.getElementById(`calc-amt-${it.id}`);
+      if(el && it.amount){
+        const newAmt = Math.round(it.amount * window._calcPerfMultiplier);
+        el.textContent = newAmt ? '최대 ' + newAmt.toLocaleString() + '원' : '0원';
+        el.className = newAmt ? 'calc-amount' : 'calc-amount zero';
+      }
+    });
+    window._calcRender();
+  };
 
   const rows = items.map(it=>`
     <div class="calc-row">
       <label class="calc-toggle">
         <input type="checkbox" id="calc-${it.id}" checked onchange="
-          document.getElementById('calc-${it.id}').closest('.calc-row');
           window._calcItems[${it.id}].checked=this.checked;
           window._calcRender();">
         <span class="calc-slider"></span>
       </label>
       <span class="calc-name">${esc(it.title)}</span>
-      <span class="calc-amount${!it.amount?' zero':''}">${it.amount?'최대 '+it.amount.toLocaleString()+'원':'확인 필요'}</span>
+      <span id="calc-amt-${it.id}" class="calc-amount${!it.amount?' zero':''}">${it.amount?'최대 '+it.amount.toLocaleString()+'원':'확인 필요'}</span>
     </div>`).join('');
+
+  // 동적 파싱된 실적 구간으로 드롭다운 옵션 HTML 생성
+  const optionsHTML = perfSections.map(val => {
+    if (val === 0) return `<option value="0">실적 미충족 (혜택 0원)</option>`;
+    const label = val >= 10000 ? (val / 10000) + '만원 이상' : val.toLocaleString() + '원 이상';
+    const isSelected = val === basePerf ? 'selected' : '';
+    return `<option value="${val}" ${isSelected}>${label}</option>`;
+  }).join('');
+
+  const selectHTML = `
+    <div class="calc-row" style="background-color: #f8fafc; border-radius: 12px; padding: 12px; margin-bottom: 15px; border: 1.5px solid #e2e8f0; flex-direction: column; align-items: stretch; gap: 8px;">
+      <div style="font-size: 13px; font-weight: bold; color: #475569; text-align: left;">📊 내 목표 전월 실적 선택</div>
+      <select id="calc-perf-select" onchange="window._changePerfLimit(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b; outline: none; background-color: #fff; cursor: pointer;">
+        ${optionsHTML}
+      </select>
+    </div>`;
 
   window._calcItems = items;
   window._calcRender = renderTotal;
 
   return `<div class="calc-box">
     <h3>🧮 혜택 계산기</h3>
+    ${basePerf > 0 ? selectHTML : ''}
     ${rows}
     <div class="calc-total">
       <span class="tot-label">예상 혜택 합계</span>
@@ -310,7 +381,7 @@ function render(d){
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}
     </div>
-    ${kb.length ? buildCalc(kb) : ''}
+    ${kb.length ? buildCalc(kb, d.pre_month_money) : ''}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}
