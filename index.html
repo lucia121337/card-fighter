@@ -141,6 +141,8 @@
         padding:4px 9px;font-size:11.5px;color:var(--muted)}
   .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
+  .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
   .benefit{font-size:12.5px;color:#475569;line-height:1.55;
            border-top:1px dashed var(--line);padding-top:10px;flex:1}
   .benefit b{color:var(--brand);font-weight:700}
@@ -604,6 +606,7 @@
 <button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">전체카드</button>
         <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
         <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
+        <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
       </nav>
       <div class="cards-title-row">
         <h2 class="cards-title" id="cards-title">전체카드</h2>
@@ -868,6 +871,10 @@ function toggleCatFilter(cat){
 
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
+// 연회비 최댓값(대괄호/원 위치 무관) + 프리미엄 판별
+const feeMax = s => { const m=[...String(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+x[0].replace(/,/g,'')).filter(v=>v>=1000); return m.length?Math.max(...m):0; };
+const PREMIUM_FEE = 150000;
+const isPremium = c => feeMax(c.annual_fee) >= PREMIUM_FEE;
 
 /* ── 섹션 전환 ── */
 function showSection(name){
@@ -909,7 +916,12 @@ function applyFilters(){
   const sort= document.getElementById('sort').value;
 
   view = DATA.filter(c=>{
-    if(activeCardType && c.cate !== activeCardType) return false;
+    if(activeCardType === '프리미엄'){
+      if(!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
+    } else if(activeCardType){
+      if(c.card_type !== activeCardType) return false; // 신용/체크: card_type 으로 필터(기존 cate 오류 수정)
+      if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
+    }
     if(activeCategories.size){
       const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
       if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
@@ -955,7 +967,7 @@ function render(){
         <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
         <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
       </div>
-      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span></div>
+      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span>${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}</div>
       <div class="row">
         <span class="chip pre">전월실적 ${c.pre_month_money ? Math.round(c.pre_month_money/10000)+'만원 이상' : '없음'}</span>
         ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
