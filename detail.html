@@ -192,40 +192,51 @@ function extractAmount(html){
   const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
   let max = 0;
 
-  // 1순위: 한도 N만원
-  const p1 = /한도\s+(\d+(?:\.\d+)?)\s*만원/g;
+  // 1순위: 한도 N만원 / N만 N천원 / N원
+  const p1 = /(?:한도|최대|할인|적립)\s+(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/g;
   let m;
   while((m=p1.exec(text))!==null){
-    const v = parseFloat(m[1])*10000;
+    const v = parseKoreanAmount(m[1]);
     if(v>max && v<=5000000) max=v;
   }
 
-  // 2순위: 한도 N,NNN원
-  const p2 = /한도\s+([\d,]+)\s*원/g;
-  while((m=p2.exec(text))!==null){
-    const v = parseInt(m[1].replace(/,/g,''));
-    if(v>max && v<=5000000) max=v;
-  }
-
-  // 3순위: 최대 N만원
-  if(!max){
-    const p3 = /최대\s+(\d+(?:\.\d+)?)\s*만원/g;
-    while((m=p3.exec(text))!==null){
-      const v = parseFloat(m[1])*10000;
-      if(v>max && v<=5000000) max=v;
-    }
-  }
-
-  // 4순위: N만원 중 가장 큰 값
-  if(!max){
-    const p4 = /(\d+(?:\.\d+)?)\s*만원/g;
-    while((m=p4.exec(text))!==null){
-      const v = parseFloat(m[1])*10000;
+  // 2순위: N만원 / N만 N천원 한도/최대
+  if(!max) {
+    const p2 = /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:한도|최대|할인|적립)/g;
+    while((m=p2.exec(text))!==null){
+      const v = parseKoreanAmount(m[1]);
       if(v>max && v<=5000000) max=v;
     }
   }
 
   return max;
+}
+
+// 한글 금액 (예: 1만 5천, 1.5만, 15,000 등)을 숫자로 변환하는 헬퍼 함수
+function parseKoreanAmount(str) {
+  if (!str) return 0;
+  let total = 0;
+  const cleaned = str.replace(/,/g, '').trim();
+  const manMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*만/);
+  if (manMatch) {
+    total += parseFloat(manMatch[1]) * 10000;
+    // "만" 뒤에 "천" 단위가 더 있는지 확인 (예: 1만 5천)
+    const chunMatch = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*천/);
+    if (chunMatch) {
+      total += parseFloat(chunMatch[1]) * 1000;
+    } else {
+      const numMatch = cleaned.match(/만\s*(\d+)/);
+      if (numMatch) {
+        total += parseInt(numMatch[1], 10);
+      }
+    }
+  } else {
+    const numOnly = cleaned.match(/\d+/);
+    if (numOnly) {
+      total = parseInt(numOnly[0], 10);
+    }
+  }
+  return total;
 }
 
 function buildCalc(kb, preMonthMoney, preMonthCondition){
@@ -258,32 +269,135 @@ function buildCalc(kb, preMonthMoney, preMonthCondition){
     return text.length > 50 ? text.slice(0, 50) + '...' : text;
   }
 
-  // 원본 kb 배열을 훼손하지 않기 위해 얕은 복사 후 계산기 전용 필터링 수행
-  const items = [...kb]
-    .filter(b => {
-      const title = b.title || '';
-      const info = b.info || '';
-      return !EXCLUDE.some(k => title.includes(k) || info.includes(k));
-    })
-    .map((b,i)=>({
-      id:i,
-      title:b.title||'혜택 '+(i+1),
-      summary: extractSummary(b.info || ''),
-      amount: extractAmount(b.info||''),
-      detail: b.info || '',
-      checked:true
-    }));
+  // 구간별 한도액 파싱 로직
+  function extractAmountForPerf(benefitObj, selectedPerf) {
+    if (selectedPerf === 0) return 0; // 실적 미충족 시 한도는 0원
+    const html = benefitObj.info || '';
 
-  /* ── 금액 포맷 헬퍼 ── */
-  function moneyLabel(v) {
-    if (v >= 10000 && v % 10000 === 0) return (v / 10000) + '만 원';
-    return v.toLocaleString() + '원';
+    // 0) 구조화된 데이터가 존재할 경우 직접 매칭 (배열 혹은 객체)
+    const structLimit = benefitObj.limits || benefitObj.benefit_limit || benefitObj.limit_by_perf || benefitObj.limit;
+    if (structLimit && typeof structLimit === 'object') {
+      if (!Array.isArray(structLimit)) {
+        if (structLimit[selectedPerf] !== undefined) {
+          return Number(structLimit[selectedPerf]);
+        }
+        // 가장 알맞은 실적 구간 찾기
+        const sortedKeys = Object.keys(structLimit).map(Number).sort((a,b)=>b-a);
+        for (const k of sortedKeys) {
+          if (selectedPerf >= k) return Number(structLimit[k]);
+        }
+      } else {
+        const sortedTiers = [...structLimit].sort((a,b) => {
+          const perfA = a.perf || a.performance || a.min_perf || a.pre_month_money || 0;
+          const perfB = b.perf || b.performance || b.min_perf || b.pre_month_money || 0;
+          return perfB - perfA;
+        });
+        for (const tier of sortedTiers) {
+          const p = tier.perf || tier.performance || tier.min_perf || tier.pre_month_money || 0;
+          if (selectedPerf >= p) {
+            return tier.limit || tier.amount || tier.value || 0;
+          }
+        }
+      }
+    }
+
+    // 1) 테이블(표) 구조 분석
+    if (html.includes('<table')) {
+      const rows = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || [];
+      const perfMan = selectedPerf / 10000;
+      const perfComma = selectedPerf.toLocaleString();
+
+      for (const row of rows) {
+        const cols = row.match(/<td[^>]*>([\s\S]*?)<\/td>/gi) || [];
+        if (cols.length >= 2) {
+          const leftCol = cols[0].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+          const rightCol = cols[1].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+          
+          const isTargetPerf = leftCol.includes(perfMan + '만') || 
+                               leftCol.includes(perfComma) || 
+                               (perfMan === 30 && leftCol.includes('30만')) || 
+                               (perfMan === 60 && leftCol.includes('60만')) || 
+                               (perfMan === 100 && leftCol.includes('100만'));
+                               
+          if (isTargetPerf && !leftCol.includes('미만')) {
+            const pMan = /(\d+(?:\.\d+)?)\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?/i;
+            const pWon = /([\d,]+)\s*(?:원|점|포인트)/i;
+            let m = pMan.exec(rightCol);
+            if (m) return parseKoreanAmount(m[0]);
+            m = pWon.exec(rightCol);
+            if (m) return parseKoreanAmount(m[0]);
+          }
+        }
+      }
+    }
+
+    // 2) 일반 텍스트 분석
+    const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
+
+    // 실적 조건용 및 건당 조건용(1만원 이상, 건당 등) 제외 대상 수집
+    const excludePatterns = [
+      /(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?/gi,
+      /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)/gi
+    ];
+    const excludedValues = new Set();
+    
+    // 강제 제외: 선택된 실적 금액 및 추출된 실적 티어 금액들은 한도가 될 수 없으므로 무조건 제외 목록에 추가
+    if (selectedPerf) excludedValues.add(selectedPerf);
+    if (typeof tiers !== 'undefined' && Array.isArray(tiers)) {
+      tiers.forEach(t => excludedValues.add(t));
+    }
+    if (typeof basePerf !== 'undefined') excludedValues.add(basePerf);
+
+    for (const pat of excludePatterns) {
+      let m;
+      while ((m = pat.exec(text)) !== null) {
+        excludedValues.add(parseKoreanAmount(m[1]));
+      }
+    }
+
+    // 통합한도, 월 할인한도 중심의 정밀 한도 추출 정규식
+    const limitRegs = [
+      /(?:통합할인한도|할인한도|적립한도|월\s*한도|통합\s*한도|월\s*최대|혜택\s*한도|최대\s*혜택)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/i,
+      /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))\s*(?:할인한도|적립한도|통합한도|월\s*한도|혜택\s*한도)/i,
+      /(?:최대|한도|제공)\s*(?:월|통합)?\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/i
+    ];
+
+    for (const pat of limitRegs) {
+      let m;
+      while ((m = pat.exec(text)) !== null) {
+        const val = parseKoreanAmount(m[1]);
+        if (!excludedValues.has(val) && val > 0 && val <= 5000000) {
+          return val;
+        }
+      }
+    }
+
+    return extractAmount(html);
   }
 
-  /* ── 전월실적 구간 추출 헬퍼 ─────────────────────────────────────────
-   * 혜택 설명 텍스트(key_benefit[].info)와 pre_month_condition 문자열을
-   * 정규식으로 스캔하여 실적 구간 숫자(원 단위)를 추출합니다.
-   *──────────────────────────────────────────────────────────────────── */
+  // 무제한 혜택 및 라벨 포맷 예외 처리 함수
+  function getLimitLabel(html, amount) {
+    if (amount > 0) {
+      return '최대 ' + amount.toLocaleString() + '원';
+    }
+    
+    const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
+    
+    if (text.includes('무제한') || text.includes('제한 없음') || text.includes('한도 없음') || text.includes('제한없이')) {
+      return '무제한';
+    }
+    
+    const ratePattern = /(\d+(?:\.\d+)?%)\s*(?:적립|할인|청구할인|캐시백|청구 할인)/;
+    const match = text.match(ratePattern);
+    if (match) {
+      return match[0];
+    }
+    
+    return '무제한';
+  }
+
+  const basePerf = preMonthMoney || 0;
+  
   function extractPerfTiers(basePerf, kb, conditionStr) {
     if (!basePerf || basePerf <= 0) return [];
 
