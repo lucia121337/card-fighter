@@ -106,13 +106,36 @@
         box-shadow:0 1px 4px rgba(0,0,0,.2)}
   .calc-toggle input:checked+.calc-slider{background:var(--brand)}
   .calc-toggle input:checked+.calc-slider::before{transform:translateX(20px)}
-  .calc-name{flex:1;font-size:14px;font-weight:600;color:var(--txt)}
+  .calc-name{flex:1;display:flex;flex-direction:column;gap:4px;justify-content:center}
+  .benefit-title{font-size:14px;font-weight:700;color:var(--txt)}
+  .benefit-summary{font-size:12px;font-weight:400;color:var(--muted);line-height:1.4}
   .calc-amount{font-size:14px;font-weight:800;color:var(--brand);flex-shrink:0;min-width:80px;text-align:right}
   .calc-amount.zero{color:var(--muted);font-weight:600}
   .calc-total{display:flex;justify-content:space-between;align-items:center;
         margin-top:16px;padding:16px 18px;background:var(--panel2);border-radius:12px}
   .calc-total .tot-label{font-size:14px;font-weight:700;color:var(--txt)}
   .calc-total .tot-amt{font-size:20px;font-weight:800;color:var(--brand)}
+
+  /* 전월실적 선택 콤보박스 */
+  .calc-perf-wrap{background:#f8fafc;border:1.5px solid var(--line);border-radius:12px;
+        padding:14px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px}
+  .calc-perf-label{font-size:12.5px;font-weight:700;color:var(--muted);
+        letter-spacing:.03em;display:flex;align-items:center;gap:6px}
+  .calc-perf-select{width:100%;padding:9px 12px;border-radius:8px;
+        border:1.5px solid var(--line);font-size:14px;font-weight:700;
+        color:var(--txt);background:#fff;outline:none;cursor:pointer;
+        font-family:inherit;transition:.15s border-color;appearance:none;
+        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+  .calc-perf-select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
+  .calc-perf-input{width:100%;padding:9px 12px;border-radius:8px;
+        border:1.5px solid var(--line);font-size:14px;font-weight:700;
+        color:var(--txt);background:#fff;outline:none;
+        font-family:inherit;transition:.15s border-color}
+  .calc-perf-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
+  .calc-perf-badge{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);
+        border:1px solid #bfdbfe;border-radius:6px;padding:3px 10px;
+        font-size:12px;font-weight:700;color:var(--brand);align-self:flex-start}
 </style>
 </head>
 <body>
@@ -205,111 +228,182 @@ function extractAmount(html){
   return max;
 }
 
-function buildCalc(kb, preMonthMoney){
-  const EXCLUDE = ['유의사항','주의사항','안내','참고','발급','약관','유의'];
-  const items = kb
-    .filter(b=>!EXCLUDE.some(k=>(b.title||'').includes(k)))
+function buildCalc(kb, preMonthMoney, preMonthCondition){
+  const EXCLUDE = ['유의사항','주의사항','안내','참고','발급','약관','유의','무이자'];
+  
+  // 혜택 설명(info) HTML에서 세부 요약 문구 추출 헬퍼 함수
+  function extractSummary(html) {
+    if (!html) return '상세 혜택 참고';
+    
+    // 1. strong 태그 내용 먼저 찾기
+    const strongMatch = html.match(/<strong[^>]*>([\s\S]*?)<\/strong>/i);
+    if (strongMatch && strongMatch[1]) {
+      const txt = strongMatch[1].replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim();
+      if (txt && txt.length > 5 && txt.length < 100) return txt;
+    }
+    
+    // 2. strong 태그가 없거나 유효하지 않으면 일반 텍스트 추출 후 첫째 문장 또는 적절한 자르기
+    let text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!text) return '상세 혜택 참고';
+    
+    // 문장 기호나 대시(-) 등으로 분리 시도
+    const splitters = ['. ', '! ', '? ', ' - ', ' · '];
+    for (const sp of splitters) {
+      const parts = text.split(sp);
+      if (parts[0] && parts[0].length > 5 && parts[0].length < 100) {
+        return parts[0].trim();
+      }
+    }
+    
+    return text.length > 50 ? text.slice(0, 50) + '...' : text;
+  }
+
+  // 원본 kb 배열을 훼손하지 않기 위해 얕은 복사 후 계산기 전용 필터링 수행
+  const items = [...kb]
+    .filter(b => {
+      const title = b.title || '';
+      const info = b.info || '';
+      return !EXCLUDE.some(k => title.includes(k) || info.includes(k));
+    })
     .map((b,i)=>({
-      id:i, title:b.title||'혜택 '+(i+1),
+      id:i,
+      title:b.title||'혜택 '+(i+1),
+      summary: extractSummary(b.info || ''),
       amount: extractAmount(b.info||''),
       detail: b.info || '',
       checked:true
     }));
 
-  // 1. 진짜 카드 혜택 정보 데이터에서 실제 실적 구간들을 똑똑하게 자동 수집/파싱하기!
-  function extractPerformanceSections(kb, basePerf) {
-    const sections = new Set();
-    if (basePerf > 0) sections.add(basePerf);
-    
-    kb.forEach(b => {
-      const text = (b.info || '').replace(/<[^>]+>/g, ' ');
-      // "N만원" 패턴 검색
-      const p1 = /(\d+)\s*만원/g;
-      let m;
-      while ((m = p1.exec(text)) !== null) {
-        const val = parseInt(m[1]) * 10000;
-        // 5만원 이상 300만원 이하의 타당한 범위만 수집
-        if (val >= 50000 && val <= 3000000) sections.add(val);
-      }
-      // "N,NNN,NNN원" 패턴 검색
-      const p2 = /([\d,]+)\s*원/g;
-      while ((m = p2.exec(text)) !== null) {
-        const val = parseInt(m[1].replace(/,/g, ''));
-        if (val >= 50000 && val <= 3000000 && val % 10000 === 0) sections.add(val);
-      }
-    });
+  /* ── 금액 포맷 헬퍼 ── */
+  function moneyLabel(v) {
+    if (v >= 10000 && v % 10000 === 0) return (v / 10000) + '만 원';
+    return v.toLocaleString() + '원';
+  }
 
-    const sorted = Array.from(sections).sort((a, b) => a - b);
-    // 만약 파싱된 구간이 기본실적 외에 없다면 기존 배수 공식 적용
-    if (sorted.length <= 1 && basePerf > 0) {
-      return [0, basePerf, basePerf * 2, basePerf * 3];
+  /* ── 전월실적 구간 추출 헬퍼 ─────────────────────────────────────────
+   * 혜택 설명 텍스트(key_benefit[].info)와 pre_month_condition 문자열을
+   * 정규식으로 스캔하여 실적 구간 숫자(원 단위)를 추출합니다.
+   *──────────────────────────────────────────────────────────────────── */
+  function extractPerfTiers(basePerf, kb, conditionStr) {
+    if (!basePerf || basePerf <= 0) return [];
+
+    const rawText = [
+      ...(kb || []).map(b => (b.info || '').replace(/<[^>]+>/g, ' ')),
+      conditionStr || ''
+    ].join(' ');
+
+    const nums = new Set();
+    const pMan = /(\d+(?:\.\d+)?)\s*만\s*원/g;
+    let m;
+    while ((m = pMan.exec(rawText)) !== null) {
+      const v = Math.round(parseFloat(m[1]) * 10000);
+      nums.add(v);
     }
-    return [0, ...sorted];
+    const pWon = /([\d,]+)\s*원/g;
+    while ((m = pWon.exec(rawText)) !== null) {
+      const v = parseInt(m[1].replace(/,/g, ''), 10);
+      if (v % 10000 === 0) nums.add(v);
+    }
+
+    const filtered = Array.from(nums)
+      .filter(v => v >= basePerf && v <= 30000000 && v % 10000 === 0)
+      .sort((a, b) => a - b);
+
+    if (filtered.length <= 1) return [basePerf];
+    return filtered;
   }
 
   const basePerf = preMonthMoney || 0;
-  const perfSections = extractPerformanceSections(kb, basePerf);
-  window._calcPerfMultiplier = 1; // 기본 실적 배율 1배
+  const tiers    = extractPerfTiers(basePerf, kb, preMonthCondition);
 
+  // 초기 배율: basePerf > 0이면 기준실적(1배) 선택 상태, 아니면 1
+  window._calcPerfMultiplier = (basePerf > 0) ? 1 : 1;
+
+  /* ── 예상 혜택 합계 렌더링 ── */
   function renderTotal(){
-    const mult = window._calcPerfMultiplier;
+    const mult  = window._calcPerfMultiplier;
     const total = items.filter(it=>it.checked).reduce((s,it)=>s + (it.amount * mult), 0);
     document.getElementById('calc-total-amt').textContent =
-      total ? '최대 '+total.toLocaleString()+'원' : '0원';
+      total ? '최대 ' + total.toLocaleString() + '원' : '0원';
   }
 
-  // 실적 선택시 혜택 금액 라벨들을 일괄 업데이트해주는 함수
-  window._changePerfLimit = function(val){
+  /* ── 콤보박스 change 이벤트 핸들러 ── */
+  window._changePerfLimit = function(val) {
     const selectedPerf = Number(val);
-    // 선택한 실적 금액에 따라 배율 계산 (기본 실적 기준 대비 배율)
-    window._calcPerfMultiplier = basePerf > 0 ? (selectedPerf / basePerf) : 1;
-    if (selectedPerf === 0) window._calcPerfMultiplier = 0;
+    if (selectedPerf === 0) {
+      window._calcPerfMultiplier = 0;
+    } else if (basePerf > 0) {
+      window._calcPerfMultiplier = selectedPerf / basePerf;
+    } else {
+      window._calcPerfMultiplier = 1;
+    }
 
     window._calcItems.forEach(it => {
-      const el = document.getElementById(`calc-amt-${it.id}`);
-      if(el && it.amount){
+      const el = document.getElementById('calc-amt-' + it.id);
+      if (el && it.amount) {
         const newAmt = Math.round(it.amount * window._calcPerfMultiplier);
         el.textContent = newAmt ? '최대 ' + newAmt.toLocaleString() + '원' : '0원';
-        el.className = newAmt ? 'calc-amount' : 'calc-amount zero';
+        el.className   = newAmt ? 'calc-amount' : 'calc-amount zero';
       }
     });
     window._calcRender();
   };
 
-  const rows = items.map(it=>`
+  /* ── 혜택 항목 행 HTML ── */
+  const rows = items.map(it => `
     <div class="calc-row">
       <label class="calc-toggle">
-        <input type="checkbox" id="calc-${it.id}" checked onchange="
-          window._calcItems[${it.id}].checked=this.checked;
-          window._calcRender();">
+        <input type="checkbox" id="calc-${it.id}" checked
+          onchange="window._calcItems[${it.id}].checked=this.checked; window._calcRender();">
         <span class="calc-slider"></span>
       </label>
-      <span class="calc-name">${esc(it.title)}</span>
-      <span id="calc-amt-${it.id}" class="calc-amount${!it.amount?' zero':''}">${it.amount?'최대 '+it.amount.toLocaleString()+'원':'확인 필요'}</span>
+      <span class="calc-name">
+        <div class="benefit-title">${esc(it.title)}</div>
+        <div class="benefit-summary">${esc(it.summary)}</div>
+      </span>
+      <span id="calc-amt-${it.id}" class="calc-amount${!it.amount ? ' zero' : ''}">
+        ${it.amount ? '최대 ' + it.amount.toLocaleString() + '원' : '확인 필요'}
+      </span>
     </div>`).join('');
 
-  // 동적 파싱된 실적 구간으로 드롭다운 옵션 HTML 생성
-  const optionsHTML = perfSections.map(val => {
-    if (val === 0) return `<option value="0">실적 미충족 (혜택 0원)</option>`;
-    const label = val >= 10000 ? (val / 10000) + '만원 이상' : val.toLocaleString() + '원 이상';
-    const isSelected = val === basePerf ? 'selected' : '';
-    return `<option value="${val}" ${isSelected}>${label}</option>`;
-  }).join('');
+  /* ── 전월실적 콤보박스 HTML ──────────────────────────────────────────
+   * tiers 배열이 비어있으면(무실적 카드) 콤보박스를 렌더링하지 않습니다.
+   * 옵션: [실적 미충족] + extractPerfTiers()로 추출된 구간 목록
+   *──────────────────────────────────────────────────────────────────── */
+  let perfSelectHTML = '';
+  if (tiers.length > 0) {
+    const optionsHTML = [
+      `<option value="0">실적 미충족 (혜택 없음)</option>`,
+      ...tiers.map(v => {
+        const sel = (v === basePerf) ? 'selected' : '';
+        return `<option value="${v}" ${sel}>${esc(moneyLabel(v))} 이상</option>`;
+      })
+    ].join('');
 
-  const selectHTML = `
-    <div class="calc-row" style="background-color: #f8fafc; border-radius: 12px; padding: 12px; margin-bottom: 15px; border: 1.5px solid #e2e8f0; flex-direction: column; align-items: stretch; gap: 8px;">
-      <div style="font-size: 13px; font-weight: bold; color: #475569; text-align: left;">📊 내 목표 전월 실적 선택</div>
-      <select id="calc-perf-select" onchange="window._changePerfLimit(this.value)" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold; color: #1e293b; outline: none; background-color: #fff; cursor: pointer;">
-        ${optionsHTML}
-      </select>
-    </div>`;
+    perfSelectHTML = `
+      <div class="calc-perf-wrap">
+        <div class="calc-perf-label">
+          <span>📊</span>
+          <span>전월 실적 구간 선택</span>
+          <span class="calc-perf-badge">기준 ${moneyLabel(basePerf)}</span>
+        </div>
+        <select
+          id="calc-perf-select"
+          class="calc-perf-select"
+          onchange="window._changePerfLimit(this.value)"
+          aria-label="전월 실적 구간 선택"
+        >
+          ${optionsHTML}
+        </select>
+      </div>`;
+  }
 
   window._calcItems = items;
   window._calcRender = renderTotal;
 
   return `<div class="calc-box">
     <h3>🧮 혜택 계산기</h3>
-    ${basePerf > 0 ? selectHTML : ''}
+    ${perfSelectHTML}
     ${rows}
     <div class="calc-total">
       <span class="tot-label">예상 혜택 합계</span>
@@ -381,7 +475,7 @@ function render(d){
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}
     </div>
-    ${kb.length ? buildCalc(kb, d.pre_month_money) : ''}
+    ${kb.length ? buildCalc(kb, d.pre_month_money, d.pre_month_condition) : ''}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}
@@ -402,15 +496,37 @@ if(!idx){
   document.getElementById('wrap').innerHTML =
     '<div class="status">잘못된 접근입니다.<br><a href="index.html">← 목록으로</a></div>';
 } else {
-  fetch('card_detail/' + idx + '.json')
-    .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(d=>{ render(d); if(window._calcRender) window._calcRender(); })
-    .catch(e => {
-      document.getElementById('wrap').innerHTML =
-        `<div class="status">카드 정보를 불러오지 못했습니다.<br>
-        <small style="color:#94a3b8">${esc(String(e))}</small><br><br>
-        <a href="index.html">← 목록으로</a></div>`;
-    });
+  /* ── 카드 상세 + 목록 메타데이터를 병렬 fetch ────────────────────────
+   * card_detail/{idx}.json 에는 pre_month_money 필드가 없는 카드가 있습니다.
+   * cards_list.json 에서 해당 카드의 pre_month_money / pre_month_condition을
+   * 찾아 상세 데이터에 병합한 뒤 render()를 호출합니다.
+   *──────────────────────────────────────────────────────────────────── */
+  Promise.all([
+    fetch('card_detail/' + idx + '.json')
+      .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
+    fetch('cards_list.json')
+      .then(r => r.ok ? r.json() : [])
+      .catch(() => [])   // 실패해도 상세 렌더링은 진행
+  ])
+  .then(([detail, list]) => {
+    /* cards_list.json 에서 일치하는 카드 메타데이터 탐색 */
+    const meta = list.find(c => String(c.idx) === String(idx));
+    if (meta) {
+      /* pre_month_money가 상세 JSON에 없거나 undefined인 경우에만 보완 */
+      if (detail.pre_month_money === undefined || detail.pre_month_money === null) {
+        detail.pre_month_money  = meta.pre_month_money  ?? 0;
+        detail.pre_month_condition = meta.pre_month_condition ?? '없음';
+      }
+    }
+    render(detail);
+    if (window._calcRender) window._calcRender();
+  })
+  .catch(e => {
+    document.getElementById('wrap').innerHTML =
+      `<div class="status">카드 정보를 불러오지 못했습니다.<br>
+      <small style="color:#94a3b8">${esc(String(e))}</small><br><br>
+      <a href="index.html">← 목록으로</a></div>`;
+  });
 }
 </script>
 </body>

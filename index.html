@@ -1,1356 +1,3014 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>카드 파이터 — 신용카드 비교</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
-  :root{
-    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
-    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
-    --chip:#f1f5f9; --shadow:0 4px 18px rgba(20,92,230,.07);
-  }
-  *{box-sizing:border-box}
-  html{overflow-y:scroll}
-  ::-webkit-scrollbar{width:5px}
-  ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:99px}
-  ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
-  body{margin:0;background:var(--bg);color:var(--txt);
-       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>카드 파이터 — 신용카드 비교</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
 
-  /* ── 헤더 ── */
-  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
-         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
+    :root {
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --panel2: #e8f0fd;
+      --line: #e2e8f0;
+      --txt: #1e293b;
+      --muted: #64748b;
+      --brand: #145CE6;
+      --brand-deep: #0E47C0;
+      --chip: #f1f5f9;
+      --shadow: 0 4px 18px rgba(20, 92, 230, .07);
+    }
 
-  .header-top{display:flex;align-items:center;flex-wrap:nowrap}
-  .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
-  .brand-left .logo{width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(19,85,255,.3))}
-  .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
-    cursor:pointer;transition:.15s color}
-  .brand-left h1:hover{color:var(--brand)}
-  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
+    * {
+      box-sizing: border-box
+    }
 
-  /* GNB */
-  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
-  .gnb a{color:var(--muted);font-size:15px;font-weight:600;text-decoration:none;
-         padding:7px 14px;border-radius:10px;transition:.15s background,.15s color;white-space:nowrap}
-  .gnb a:hover{background:var(--panel2);color:var(--brand)}
-  .gnb a.active{background:var(--brand);color:#fff}
-  @keyframes coin-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-  .gnb .coin-icon{display:inline-block;animation:coin-bounce 1s ease-in-out infinite;margin-right:3px}
+    html {
+      overflow-y: scroll
+    }
 
-  /* 검색창 */
-  .header-search{flex:1;min-width:0;padding-left:20px}
-  .search-box{display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);
-    border-radius:12px;overflow:hidden;transition:.15s border-color,.15s box-shadow;height:42px}
-  .search-box:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
-  .search-box input{flex:1;border:none;outline:none;padding:0 16px;font-size:14px;height:100%;
-    font-family:inherit;color:var(--txt);background:transparent}
-  .search-box input::placeholder{color:#b0bec5}
-  .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
-  .search-box .search-btn{display:flex;align-items:center;justify-content:center;
-    width:48px;height:100%;background:none;border:none;cursor:pointer;
-    color:var(--muted);flex-shrink:0;transition:.15s color}
-  .search-box .search-btn:hover{color:var(--brand)}
-  .search-box .search-btn svg{width:20px;height:20px}
+    ::-webkit-scrollbar {
+      width: 5px
+    }
 
-  /* 카드 툴바 (그리드 위 오른쪽) */
-  .cards-toolbar{display:flex;align-items:center;justify-content:flex-end;
-    gap:10px;flex-wrap:wrap;margin-bottom:16px}
-  .controls{display:flex;gap:8px;flex-wrap:wrap}
-  .controls select{background:var(--panel);color:var(--txt);
-        border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;outline:none;
-        cursor:pointer;font-family:inherit;transition:.15s border-color}
-  .controls select:focus{border-color:var(--brand)}
-  .stat{color:var(--muted);font-size:12.5px;white-space:nowrap;flex-shrink:0;margin-left:4px}
-  .stat b{color:var(--brand);font-weight:700}
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
 
-  /* ── 메인 ── */
-  main{max-width:1340px;margin:0 auto;padding:24px 22px}
-  .section{display:block}
-  .section[hidden]{display:none}
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, .15);
+      border-radius: 99px
+    }
 
-  /* 준비중 */
-  .coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;
-               min-height:62vh;text-align:center;gap:18px}
-  @keyframes float-icon{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-  .coming-soon .cs-icon{font-size:90px;animation:float-icon 2s ease-in-out infinite;line-height:1}
-  .coming-soon h2{font-size:30px;font-weight:800;color:var(--txt);margin:0;letter-spacing:-1px}
-  .coming-soon p{color:var(--muted);font-size:15px;margin:0;line-height:1.8}
-  .coming-soon .cs-badge{background:var(--brand);color:#fff;font-weight:700;
-         border-radius:999px;padding:6px 18px;font-size:13px;box-shadow:0 2px 10px rgba(19,85,255,.3)}
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, .3)
+    }
 
-  /* ── 전체카드 레이아웃 ── */
-  /* 카드연구소/트렌드분석의 rec-wrap·trend-wrap과 폭을 맞춰서 헤더(GNB)보다 좁게 중앙 정렬 — 안 그러면 이 두 섹션만 옆으로 튀어나와 보인다 */
-  .cards-layout{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;width:100%}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "GmarketSans", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif
+    }
 
-  /* LNB — 언더라인 탭 */
-  .lnb{display:flex;align-items:center;gap:0;border-bottom:2px solid var(--line);margin-bottom:20px}
-  .lnb-title{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;
-             padding:0 16px 0 0;margin-right:8px;border-right:1px solid var(--line);
-             line-height:42px}
-  .lnb-divider{display:none}
-  .lnb-item{display:inline-flex;align-items:center;gap:7px;
-            padding:10px 18px;font-size:14px;font-weight:600;
-            color:var(--muted);cursor:pointer;text-decoration:none;
-            border:none;background:none;font-family:inherit;white-space:nowrap;
-            border-bottom:2.5px solid transparent;margin-bottom:-2px;
-            transition:.15s color,.15s border-color}
-  .lnb-item:hover{color:var(--brand)}
-  .lnb-item.active{color:var(--brand);border-bottom-color:var(--brand)}
+    /* ── 헤더 ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, .93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 22px
+    }
 
-  .cards-title-row{margin:8px 0 28px}
-  .cards-title{font-size:26px;font-weight:800;color:var(--txt);margin:0 0 6px;letter-spacing:-1px}
-  .cards-subtitle{font-size:14px;color:var(--muted);margin:0}
-  .cards-subtitle b{color:var(--brand);font-weight:800}
+    .header-top {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap
+    }
 
-  /* 혜택 카테고리 알약 토글 (복수선택) */
-  .cat-filter-box{background:var(--panel2);border:1.5px solid var(--line);border-radius:16px;
-    padding:16px 18px;margin-bottom:20px}
-  .cat-filter-label{font-size:12.5px;font-weight:800;color:var(--muted);margin-bottom:11px;
-    display:flex;align-items:center;gap:6px}
-  .cat-filter-row{display:flex;flex-wrap:wrap;gap:3px;justify-content:space-between}
-  .cat-filter-break{flex-basis:100%;height:0}
-  .cat-pill{display:inline-flex;align-items:center;gap:3px;background:var(--bg);
-    border:1.5px solid var(--line);border-radius:999px;padding:5px 8px;
-    font-size:11px;font-weight:600;color:var(--txt);cursor:pointer;font-family:inherit;
-    transition:.15s background,.15s border-color,.15s color}
-  .cat-pill:hover{border-color:var(--brand)}
-  .cat-pill.active{background:var(--brand);border-color:var(--brand);color:#fff}
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0
+    }
 
-  /* 카드 그리드 */
-  .cards-main{}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-  .card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
-        padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);
-        transition:.16s transform,.16s box-shadow,.16s border-color}
-  .card:hover{transform:translateY(-4px);border-color:var(--brand);
-              box-shadow:0 12px 28px rgba(19,85,255,.12)}
-  .card .top{display:flex;gap:14px;align-items:center}
-  .card img{width:78px;height:50px;object-fit:contain;border-radius:7px;
-            background:#f8fafc;border:1px solid var(--line);flex-shrink:0}
-  .card .nm{font-weight:700;font-size:15px;line-height:1.35}
-  .card .co{color:var(--muted);font-size:12px;margin-top:3px}
-  .row{display:flex;gap:7px;flex-wrap:wrap}
-  .chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;
-        padding:4px 9px;font-size:11.5px;color:var(--muted)}
-  .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
-  .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
-  .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
-  .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
-  .benefit{font-size:12.5px;color:#475569;line-height:1.55;
-           border-top:1px dashed var(--line);padding-top:10px;flex:1}
-  .benefit b{color:var(--brand);font-weight:700}
-  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;gap:8px}
-  .foot .dt{color:#94a3b8;font-size:11px}
-  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:9px;
-        padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
-        box-shadow:0 2px 8px rgba(19,85,255,.28);white-space:nowrap;display:inline-block;
-        transition:.15s background}
-  .detail-btn:hover{background:var(--brand-deep)}
-  #more{display:block;margin:26px auto;background:var(--brand);
-        color:#fff;border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
-        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:.15s background}
-  #more:hover{background:var(--brand-deep)}
-  .empty{text-align:center;color:var(--muted);padding:60px}
+    .brand-left .logo {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 10px rgba(19, 85, 255, .3))
+    }
 
-  /* ── 플로팅 버블 ── */
-  #compare-bubble{position:fixed;bottom:28px;right:28px;z-index:200;display:none}
-  #compare-bubble.visible{display:block}
-  .bubble-wrap{position:relative;display:inline-block}
-  .bubble-btn{width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;
-        border:none;cursor:pointer;font-size:22px;display:flex;align-items:center;
-        justify-content:center;box-shadow:0 6px 24px rgba(20,92,230,.4);
-        font-family:inherit;transition:.15s transform}
-  .bubble-btn:hover{transform:scale(1.08)}
-  .bubble-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;
-        background:#ef4444;color:#fff;font-size:11px;font-weight:800;
-        display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+    .brand-left h1 {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--txt);
+      cursor: pointer;
+      transition: .15s color
+    }
 
-  /* ── 비교 팝업 패널 ── */
-  #compare-popup{position:fixed;bottom:98px;right:28px;z-index:199;
-        background:#fff;border-radius:20px;padding:20px;width:420px;
-        box-shadow:0 12px 48px rgba(0,0,0,.18);display:none;
-        border:1.5px solid var(--line)}
-  #compare-popup.visible{display:block}
-  .popup-title{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px;
-        display:flex;align-items:center;justify-content:space-between}
-  .popup-slots{display:flex;gap:10px;margin-bottom:14px}
-  .popup-slot{flex:1;border:1.5px dashed var(--line);border-radius:14px;
-        padding:12px 8px;display:flex;flex-direction:column;align-items:center;
-        gap:6px;min-height:100px;position:relative;background:var(--bg)}
-  .popup-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
-  .popup-slot img{width:64px;height:40px;object-fit:contain;border-radius:6px}
-  .popup-slot .ps-name{font-size:11px;font-weight:700;color:var(--txt);
-        text-align:center;line-height:1.4;word-break:keep-all}
-  .popup-slot .ps-remove{position:absolute;top:-7px;right:-7px;width:20px;height:20px;
-        border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
-        font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
-  .popup-slot.empty{cursor:pointer;border-style:dashed;transition:.14s border-color;
-        justify-content:center}
-  .popup-slot.empty:hover{border-color:var(--brand)}
-  .popup-slot .ps-plus{font-size:28px;color:#cbd5e1;line-height:1;margin-bottom:2px}
-  .popup-slot .ps-label{font-size:11px;color:var(--muted)}
-  .popup-actions{display:flex;gap:8px}
-  .popup-reset{flex:1;background:none;border:1.5px solid var(--line);border-radius:10px;
-        padding:9px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
-        font-family:inherit;transition:.14s}
-  .popup-reset:hover{border-color:var(--brand);color:var(--brand)}
-  .popup-compare{flex:2;background:var(--brand);color:#fff;border:none;border-radius:10px;
-        padding:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
-        box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.14s background}
-  .popup-compare:hover{background:var(--brand-deep)}
-  .popup-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
+    .brand-left h1:hover {
+      color: var(--brand)
+    }
 
-  /* ── 비교함 버튼 ── */
-  .compare-btn{background:none;border:1.5px solid var(--line);border-radius:9px;
-        padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;color:var(--muted);
-        font-family:inherit;transition:.15s all;white-space:nowrap}
-  .compare-btn:hover{border-color:var(--brand);color:var(--brand)}
-  .compare-btn.selected{background:var(--brand);color:#fff;border-color:var(--brand)}
-  .compare-btn:disabled{opacity:.4;cursor:not-allowed}
+    .gnb-divider {
+      width: 1px;
+      height: 22px;
+      background: var(--line);
+      margin: 0 20px;
+      flex-shrink: 0
+    }
 
-  /* ── 하단 비교바 ── */
-  #compare-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;
-        background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
-        border-top:1.5px solid var(--line);padding:14px 24px;
-        display:none;align-items:center;gap:16px;
-        box-shadow:0 -4px 24px rgba(20,92,230,.1)}
-  #compare-bar.visible{display:flex}
-  .cbar-slots{display:flex;gap:10px;flex:1}
-  .cbar-slot{width:180px;height:60px;border:1.5px dashed var(--line);border-radius:12px;
-        display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);
-        flex-shrink:0;position:relative}
-  .cbar-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
-  .cbar-slot img{width:44px;height:28px;object-fit:contain;border-radius:4px;flex-shrink:0}
-  .cbar-slot .slot-name{font-size:12px;font-weight:700;color:var(--txt);
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-  .cbar-slot .slot-remove{position:absolute;top:-6px;right:-6px;width:18px;height:18px;
-        border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
-        font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
-  .cbar-slot.empty .slot-label{font-size:12px;color:#b0bec5;margin:auto}
-  .cbar-actions{display:flex;gap:8px;flex-shrink:0}
-  .cbar-reset{background:none;border:1.5px solid var(--line);border-radius:10px;
-        padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
-        font-family:inherit;transition:.15s all}
-  .cbar-reset:hover{border-color:var(--brand);color:var(--brand)}
-  .cbar-compare{background:var(--brand);color:#fff;border:none;border-radius:10px;
-        padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
-        box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.15s background}
-  .cbar-compare:hover{background:var(--brand-deep)}
-  .cbar-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
-  .cbar-count{font-size:12px;color:var(--muted);white-space:nowrap}
+    /* GNB */
+    .gnb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap
+    }
 
-  /* ── 캐시백 섹션 ── */
-  /* 카드연구소/트렌드분석과 폭을 맞춰 헤더보다 좁게 중앙 정렬 */
-  .cb-wrap{max-width:1100px;margin:0 auto;padding:0 4px}
-  .cb-platform-tabs{display:flex;align-items:center;gap:0;
-        border-bottom:2px solid var(--line);margin-bottom:28px}
-  .cb-platform-tab{display:inline-flex;align-items:center;gap:6px;
-        padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;
-        border:none;background:none;color:var(--muted);font-family:inherit;white-space:nowrap;
-        border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:.15s color,.15s border-color}
-  .cb-platform-tab:hover{color:var(--brand)}
-  .cb-platform-tab.active{color:var(--brand);border-bottom-color:var(--brand)}
-  .cb-platform-tab img{width:18px;height:18px;border-radius:4px;object-fit:contain}
+    .gnb a {
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 10px;
+      transition: .15s background, .15s color;
+      white-space: nowrap
+    }
 
-  .cb-title{font-size:26px;font-weight:800;color:var(--txt);margin:0 0 6px;letter-spacing:-1px}
-  .cb-subtitle{font-size:14px;color:var(--muted);margin:0 0 28px}
-  .cb-title span{color:var(--brand)}
+    .gnb a:hover {
+      background: var(--panel2);
+      color: var(--brand)
+    }
 
-  /* 5×2 카드사 그리드 */
-  .cb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-  .cb-company-card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
-        padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;
-        justify-content:center;gap:14px;min-height:220px;
-        cursor:pointer;transition:.15s transform,.15s box-shadow,.15s border-color;
-        box-shadow:var(--shadow)}
-  .cb-company-card:hover{transform:translateY(-4px);border-color:var(--brand);
-        box-shadow:0 12px 28px rgba(20,92,230,.12)}
-  .cb-company-card .co-logo{width:90px;height:90px;object-fit:contain;border-radius:14px}
-  .cb-company-card .co-logo-placeholder{width:80px;height:80px;border-radius:14px;
-        background:var(--panel2);display:flex;align-items:center;justify-content:center;
-        font-size:22px;font-weight:800;color:var(--brand)}
-  .cb-company-card .co-name{font-size:13px;font-weight:600;color:var(--muted)}
-  .cb-company-card .co-amount{font-size:16px;font-weight:800;color:#FF6B35;letter-spacing:-.3px}
-  .cb-header{min-height:80px}
-  .cb-empty{text-align:center;color:var(--muted);padding:60px 0;font-size:14px}
+    .gnb a.active {
+      background: var(--brand);
+      color: #fff
+    }
 
-  /* ── 맞춤카드 섹션 ── */
-  .rec-wrap{max-width:1100px;margin:0 auto;padding:0 4px}
-  .rec-hero{text-align:center;margin-bottom:40px;padding-top:10px}
-  .rec-hero h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:var(--txt);margin:0 0 12px;line-height:1.3}
-  .rec-hero h2 span{color:var(--brand)}
-  .rec-hero p{font-size:16px;color:var(--muted);margin:0}
+    @keyframes coin-bounce {
 
-  .avatar-nav{display:flex;justify-content:flex-start;gap:20px;margin-bottom:50px;
-    flex-wrap:nowrap;overflow-x:auto;padding:0 10px 16px;scrollbar-width:none;-ms-overflow-style:none}
-  .avatar-nav::-webkit-scrollbar{display:none}
-  @media(min-width:768px){.avatar-nav{justify-content:center}}
-  .avatar-item{display:flex;flex-direction:column;align-items:center;gap:12px;
-    cursor:pointer;transition:.2s transform;flex-shrink:0}
-  .avatar-item:hover{transform:translateY(-5px)}
-  .avatar-img-wrap{width:80px;height:80px;border-radius:40px;background:#fff;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);border:3px solid transparent;padding:4px;
-    transition:.3s all;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .avatar-img-wrap img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#f1f5f9}
-  .avatar-item.active .avatar-img-wrap{border-color:var(--brand);box-shadow:0 8px 20px rgba(20,92,230,.3)}
-  .avatar-label{font-size:15px;font-weight:700;color:var(--muted);transition:.2s color}
-  .avatar-item.active .avatar-label{color:var(--brand)}
+      0%,
+      100% {
+        transform: translateY(0)
+      }
 
-  #result-container{display:none}
-  #result-container.active{display:block;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) forwards}
-  @keyframes fadeUp{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+      50% {
+        transform: translateY(-5px)
+      }
+    }
 
-  #skeleton-container{display:none;opacity:0;transition:opacity .3s}
-  #skeleton-container.active{display:block;opacity:1;animation:fadeUp .4s cubic-bezier(.16,1,.3,1) forwards}
-  .skeleton-box{background:#e2e8f0;border-radius:8px;position:relative;overflow:hidden}
-  .skeleton-box::after{content:"";position:absolute;top:0;left:-100%;right:0;bottom:0;
-    background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.4) 50%,rgba(255,255,255,0) 100%);
-    animation:shimmer 1.5s infinite}
-  @keyframes shimmer{100%{left:100%}}
-  .sk-title{height:36px;max-width:60%;margin:0 auto 40px}
-  .sk-chart{width:220px;height:220px;border-radius:50%;margin:0 auto}
-  .sk-text{height:16px;margin-bottom:12px}
-  .sk-text.short{width:60%}
-  .sk-text.med{width:80%}
-  .sk-card{height:200px;border-radius:20px}
+    .gnb .coin-icon {
+      display: inline-block;
+      animation: coin-bounce 1s ease-in-out infinite;
+      margin-right: 3px
+    }
 
-  .mag-container{background:var(--panel);border:1.5px solid var(--line);border-radius:28px;
-    padding:40px;box-shadow:0 12px 40px rgba(20,92,230,.08)}
-  @media(max-width:768px){.mag-container{padding:24px}}
-  .mag-title{font-size:28px;font-weight:800;color:var(--txt);margin:0 0 30px;line-height:1.4;
-    word-break:keep-all;text-align:center}
-  .mag-title .highlight{background:linear-gradient(180deg,rgba(255,255,255,0) 60%,#ffeaa7 40%);padding:0 4px}
-  @media(max-width:768px){.mag-title{font-size:22px}}
-  .mag-subtitle{font-size:20px;font-weight:800;color:var(--brand);margin-bottom:24px;
-    display:flex;align-items:center;gap:8px}
-  .mag-subtitle::before{content:"";display:block;width:6px;height:20px;background:var(--brand);border-radius:4px}
+    /* 검색창 */
+    .header-search {
+      flex: 1;
+      min-width: 0;
+      padding-left: 20px
+    }
 
-  .analysis-section{display:grid;grid-template-columns:1fr 1fr;gap:30px;
-    background:#f8fafc;padding:30px;border-radius:20px;border:1px solid var(--line);margin-bottom:40px}
-  @media(max-width:900px){.analysis-section{grid-template-columns:1fr}}
-  .chart-area{display:flex;flex-direction:column;align-items:center}
-  .chart-inner{width:100%;max-width:280px;aspect-ratio:1/1}
-  .text-area{display:flex;flex-direction:column;justify-content:center;gap:24px}
-  .fact-box h4{margin:0 0 8px;font-size:17px;color:var(--txt);display:flex;align-items:center;gap:6px}
-  .fact-box p{margin:0;font-size:14px;line-height:1.6;color:#475569}
-  .fact-box.highlight{background:#fffbea;padding:22px;border-radius:16px;
-    box-shadow:0 4px 12px rgba(211,84,0,.08);border:1.5px solid #fde68a;margin-top:4px}
-  .fact-box.highlight h4{color:#d35400;font-size:18px}
-  .fact-box.highlight p{color:#475569;font-weight:600}
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: .15s border-color, .15s box-shadow;
+      height: 42px
+    }
 
-  .mag-cards-section{margin-bottom:40px}
-  .mag-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  @media(max-width:900px){
-    .mag-cards-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
-      padding-bottom:20px;scrollbar-width:none;-ms-overflow-style:none;gap:16px}
-    .mag-cards-grid::-webkit-scrollbar{display:none}
-    .c-card{flex:0 0 85%;scroll-snap-align:center}
-  }
-  .c-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:24px;
-    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;
-    transition:.3s transform,.3s box-shadow;position:relative}
-  .c-card:hover{transform:translateY(-6px);border-color:var(--brand);box-shadow:0 16px 32px rgba(19,85,255,.15)}
-  .c-rank{position:absolute;top:-12px;left:24px;background:var(--txt);color:#fff;font-weight:800;
-    font-size:13px;padding:6px 14px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
-  .c-card.rank-1 .c-rank{background:#e74c3c}
-  .c-card img.card-thumb{height:64px;object-fit:contain;margin-bottom:8px;align-self:flex-start}
-  .c-card .c-nm{font-size:17px;font-weight:800;line-height:1.3}
-  .c-card .c-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
-  .c-card .c-chip{background:var(--chip);border:1px solid var(--line);border-radius:6px;
-    padding:4px 8px;font-size:12px;color:var(--muted);font-weight:600}
-  .c-card .c-chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
-  .c-card .c-benefit{font-size:13.5px;color:#475569;line-height:1.5;flex:1;
-    border-top:1px dashed var(--line);padding-top:12px}
-  .c-card .c-benefit b{color:var(--brand);font-weight:700}
-  .c-card .c-review{background:#fffbea;padding:12px;border-radius:10px;
-    font-size:13.5px;font-weight:600;color:#d35400;margin-top:auto;position:relative}
-  .c-card .c-review::before{content:"🗣️";margin-right:6px}
-  .c-card .c-detail-btn{background:var(--brand);color:#fff;border:none;border-radius:10px;
-    padding:12px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;
-    text-align:center;display:block;margin-top:12px;transition:.15s background}
-  .c-card .c-detail-btn:hover{background:var(--brand-deep)}
-  .mag-tip{background:#1e293b;color:#fff;padding:24px 30px;border-radius:16px;
-    font-size:16px;line-height:1.5;display:flex;align-items:flex-start;gap:12px;
-    animation:pulseTip 2s infinite alternate}
-  @media(max-width:768px){.mag-tip{flex-direction:column}}
-  @keyframes pulseTip{0%{box-shadow:0 0 0 rgba(0,0,0,0)}100%{box-shadow:0 8px 24px rgba(30,41,59,.4)}}
-  .mag-tip strong{color:#f1c40f;font-weight:800;font-size:19px;flex-shrink:0}
+    .search-box:focus-within {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(20, 92, 230, .1)
+    }
 
-  /* ── 트렌드분석 섹션 ── */
-  .trend-wrap{max-width:1100px;margin:0 auto;padding:10px 4px}
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0 16px;
+      font-size: 14px;
+      height: 100%;
+      font-family: inherit;
+      color: var(--txt);
+      background: transparent
+    }
 
-  .trend-strip{background:var(--panel);border-radius:18px;padding:20px 24px;
-    margin-bottom:32px;border:1.5px solid var(--line);box-shadow:var(--shadow);position:relative}
-  .trend-strip .live-badge{position:absolute;top:20px;right:24px}
-  .trend-strip-body{display:flex;gap:24px;align-items:stretch}
-  .trend-chart-col{flex:2;min-width:0}
-  .trend-lb-col{flex:1;min-width:0;border-left:1.5px solid var(--line);padding-left:24px}
-  .trend-lb-title{font-size:13px;font-weight:800;color:var(--txt);margin-bottom:12px}
-  .trend-lb-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
-  .trend-lb-item{display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:10px;
-    transition:.15s background}
-  .trend-lb-item:hover{background:var(--bg)}
-  .trend-lb-rank{font-size:13px;font-weight:800;color:#fff;background:var(--muted);
-    width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    flex-shrink:0}
-  .trend-lb-item:nth-child(1) .trend-lb-rank{background:#ef4444}
-  .trend-lb-item:nth-child(2) .trend-lb-rank{background:#f59e0b}
-  .trend-lb-item:nth-child(3) .trend-lb-rank{background:#eab308}
-  .trend-lb-kw{font-size:14px;font-weight:700;color:var(--txt);flex:1}
-  .trend-lb-score{font-size:14px;font-weight:800}
-  .trend-lb-score.up{color:#ef4444}
-  .trend-lb-score.down{color:#2563eb}
-  .trend-lb-score.flat{color:var(--txt)}
-  .trend-lb-more{display:block;margin:10px auto 0;background:none;border:none;
-    font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;
-    padding:4px 8px}
-  .trend-lb-more:hover{color:var(--brand)}
+    .search-box input::placeholder {
+      color: #b0bec5
+    }
 
-  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);
-    display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
-  .trend-modal-overlay.visible{display:flex}
-  .trend-modal-box{background:#fff;border-radius:20px;width:420px;max-width:100%;
-    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-  .trend-modal-head{display:flex;align-items:center;justify-content:space-between;
-    padding:20px 22px 14px;border-bottom:1.5px solid var(--line)}
-  .trend-modal-head h3{font-size:16px;font-weight:800;color:var(--txt);margin:0}
-  .trend-modal-close{background:none;border:none;font-size:20px;color:var(--muted);
-    cursor:pointer;line-height:1;padding:4px}
-  .trend-modal-close:hover{color:var(--txt)}
-  .trend-modal-unit-toggle{display:flex;gap:2px;background:var(--bg);border:1.5px solid var(--line);
-    border-radius:999px;padding:3px;margin:14px 22px 4px}
-  .trend-modal-unit-toggle button{flex:1;border:none;background:transparent;font-size:12px;
-    font-weight:700;color:var(--muted);padding:7px 0;border-radius:999px;cursor:pointer;transition:.15s}
-  .trend-modal-unit-toggle button.active{background:var(--txt);color:#fff}
-  .trend-modal-list{list-style:none;margin:0;padding:8px 10px;overflow-y:auto}
-  .trend-modal-list li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px}
-  .trend-modal-list li:hover{background:var(--bg)}
-  .trend-modal-rank{font-size:12px;font-weight:800;color:var(--muted);width:22px;flex-shrink:0}
-  .trend-modal-kw{font-size:14px;font-weight:700;color:var(--txt);flex:1}
-  .trend-modal-cnt{font-size:12px;font-weight:700;color:var(--brand)}
-  .live-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;
-    font-weight:700;color:#16a34a;background:#f0fdf4;border:1px solid #bbf7d0;
-    border-radius:999px;padding:4px 12px}
-  .live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;
-    box-shadow:0 0 0 rgba(34,197,94,.5);animation:liveDotPulse 1.6s infinite}
-  @keyframes liveDotPulse{
-    0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}
-    70%{box-shadow:0 0 0 6px rgba(34,197,94,0)}
-    100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
-  }
+    .search-box .search-divider {
+      width: 1px;
+      height: 22px;
+      background: var(--line);
+      flex-shrink: 0
+    }
 
-  .trend-unit-toggle{display:inline-flex;background:var(--bg);border:1.5px solid var(--line);
-    border-radius:999px;padding:3px;gap:2px;margin-bottom:16px}
-  .trend-unit-pill{border:none;background:transparent;font-size:12.5px;font-weight:700;
-    color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;transition:.15s}
-  .trend-unit-pill.active{background:var(--txt);color:#fff}
-  .trend-unit-pill:disabled{opacity:.5;cursor:wait}
+    .search-box .search-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: .15s color
+    }
 
-  .trend-pills{display:flex;gap:8px;flex-wrap:wrap}
-  .trend-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);
-    border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;
-    font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap}
-  .pill-rank{font-size:11px;color:var(--muted);font-weight:600}
-  .pill-traffic{font-size:10px;color:var(--brand);background:var(--panel2);
-    border-radius:4px;padding:1px 6px;font-weight:700}
+    .search-box .search-btn:hover {
+      color: var(--brand)
+    }
 
-  .trend-ref-row{display:block}
+    .search-box .search-btn svg {
+      width: 20px;
+      height: 20px
+    }
 
-  .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
-  .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
-  .trend-no-match{color:var(--muted);font-size:13px;padding:20px 0}
-</style>
+    /* 카드 툴바 (그리드 위 오른쪽) */
+    .cards-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .controls select {
+      background: var(--panel);
+      color: var(--txt);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s border-color
+    }
+
+    .controls select:focus {
+      border-color: var(--brand)
+    }
+
+    .stat {
+      color: var(--muted);
+      font-size: 12.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: 4px
+    }
+
+    .stat b {
+      color: var(--brand);
+      font-weight: 700
+    }
+
+    /* ── 메인 ── */
+    main {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: 24px 22px
+    }
+
+    .section {
+      display: block
+    }
+
+    .section[hidden] {
+      display: none
+    }
+
+    /* 준비중 */
+    .coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 62vh;
+      text-align: center;
+      gap: 18px
+    }
+
+    @keyframes float-icon {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-14px)
+      }
+    }
+
+    .coming-soon .cs-icon {
+      font-size: 90px;
+      animation: float-icon 2s ease-in-out infinite;
+      line-height: 1
+    }
+
+    .coming-soon h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0;
+      letter-spacing: -1px
+    }
+
+    .coming-soon p {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0;
+      line-height: 1.8
+    }
+
+    .coming-soon .cs-badge {
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 13px;
+      box-shadow: 0 2px 10px rgba(19, 85, 255, .3)
+    }
+
+    /* ── 전체카드 레이아웃 ── */
+    /* 카드연구소/트렌드분석의 rec-wrap·trend-wrap과 폭을 맞춰서 헤더(GNB)보다 좁게 중앙 정렬 — 안 그러면 이 두 섹션만 옆으로 튀어나와 보인다 */
+    .cards-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%
+    }
+
+    /* LNB — 언더라인 탭 */
+    .lnb {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 2px solid var(--line);
+      margin-bottom: 20px
+    }
+
+    .lnb-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      padding: 0 16px 0 0;
+      margin-right: 8px;
+      border-right: 1px solid var(--line);
+      line-height: 42px
+    }
+
+    .lnb-divider {
+      display: none
+    }
+
+    .lnb-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap;
+      border-bottom: 2.5px solid transparent;
+      margin-bottom: -2px;
+      transition: .15s color, .15s border-color
+    }
+
+    .lnb-item:hover {
+      color: var(--brand)
+    }
+
+    .lnb-item.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand)
+    }
+
+    .cards-title-row {
+      margin: 8px 0 28px
+    }
+
+    .cards-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 6px;
+      letter-spacing: -1px
+    }
+
+    .cards-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0
+    }
+
+    .cards-subtitle b {
+      color: var(--brand);
+      font-weight: 800
+    }
+
+    /* 혜택 카테고리 알약 토글 (복수선택) */
+    .cat-filter-box {
+      background: var(--panel2);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 20px
+    }
+
+    .cat-filter-label {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .cat-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      justify-content: space-between
+    }
+
+    .cat-filter-break {
+      flex-basis: 100%;
+      height: 0
+    }
+
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--txt);
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s background, .15s border-color, .15s color
+    }
+
+    .cat-pill:hover {
+      border-color: var(--brand)
+    }
+
+    .cat-pill.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff
+    }
+
+    /* 카드 그리드 */
+    .cards-main {}
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 17px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      box-shadow: var(--shadow);
+      transition: .16s transform, .16s box-shadow, .16s border-color
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--brand);
+      box-shadow: 0 12px 28px rgba(19, 85, 255, .12)
+    }
+
+    .card .top {
+      display: flex;
+      gap: 14px;
+      align-items: center
+    }
+
+    .card img {
+      width: 78px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 7px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      flex-shrink: 0
+    }
+
+    .card .nm {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.35
+    }
+
+    .card .co {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px
+    }
+
+    .row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap
+    }
+
+    .chip {
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 4px 9px;
+      font-size: 11.5px;
+      color: var(--muted)
+    }
+
+    .chip.fee {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8
+    }
+
+    .chip.pre {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      color: #15803d
+    }
+
+    .chip.prem {
+      background: linear-gradient(90deg, #b8860b, #e3b448);
+      border: none;
+      color: #fff;
+      font-weight: 700
+    }
+
+    .lnb-item.lnb-prem.active {
+      background: linear-gradient(90deg, #b8860b, #e3b448);
+      border-color: #b8860b;
+      color: #fff
+    }
+
+    .benefit {
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.55;
+      border-top: 1px dashed var(--line);
+      padding-top: 10px;
+      flex: 1
+    }
+
+    .benefit b {
+      color: var(--brand);
+      font-weight: 700
+    }
+
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 10px;
+      gap: 8px
+    }
+
+    .foot .dt {
+      color: #94a3b8;
+      font-size: 11px
+    }
+
+    .detail-btn {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 7px 14px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(19, 85, 255, .28);
+      white-space: nowrap;
+      display: inline-block;
+      transition: .15s background
+    }
+
+    .detail-btn:hover {
+      background: var(--brand-deep)
+    }
+
+    #more {
+      display: block;
+      margin: 26px auto;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 30px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(19, 85, 255, .28);
+      transition: .15s background
+    }
+
+    #more:hover {
+      background: var(--brand-deep)
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 60px
+    }
+
+    /* ── 플로팅 버블 ── */
+    #compare-bubble {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      display: none
+    }
+
+    #compare-bubble.visible {
+      display: block
+    }
+
+    .bubble-wrap {
+      position: relative;
+      display: inline-block
+    }
+
+    .bubble-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(20, 92, 230, .4);
+      font-family: inherit;
+      transition: .15s transform
+    }
+
+    .bubble-btn:hover {
+      transform: scale(1.08)
+    }
+
+    .bubble-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff
+    }
+
+    /* ── 비교 팝업 패널 ── */
+    #compare-popup {
+      position: fixed;
+      bottom: 98px;
+      right: 28px;
+      z-index: 199;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      width: 420px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, .18);
+      display: none;
+      border: 1.5px solid var(--line)
+    }
+
+    #compare-popup.visible {
+      display: block
+    }
+
+    .popup-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .popup-slots {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .popup-slot {
+      flex: 1;
+      border: 1.5px dashed var(--line);
+      border-radius: 14px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-height: 100px;
+      position: relative;
+      background: var(--bg)
+    }
+
+    .popup-slot.filled {
+      border-style: solid;
+      border-color: var(--brand);
+      background: #fff
+    }
+
+    .popup-slot img {
+      width: 64px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 6px
+    }
+
+    .popup-slot .ps-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--txt);
+      text-align: center;
+      line-height: 1.4;
+      word-break: keep-all
+    }
+
+    .popup-slot .ps-remove {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .popup-slot.empty {
+      cursor: pointer;
+      border-style: dashed;
+      transition: .14s border-color;
+      justify-content: center
+    }
+
+    .popup-slot.empty:hover {
+      border-color: var(--brand)
+    }
+
+    .popup-slot .ps-plus {
+      font-size: 28px;
+      color: #cbd5e1;
+      line-height: 1;
+      margin-bottom: 2px
+    }
+
+    .popup-slot .ps-label {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .popup-actions {
+      display: flex;
+      gap: 8px
+    }
+
+    .popup-reset {
+      flex: 1;
+      background: none;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: inherit;
+      transition: .14s
+    }
+
+    .popup-reset:hover {
+      border-color: var(--brand);
+      color: var(--brand)
+    }
+
+    .popup-compare {
+      flex: 2;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 9px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(20, 92, 230, .3);
+      transition: .14s background
+    }
+
+    .popup-compare:hover {
+      background: var(--brand-deep)
+    }
+
+    .popup-compare:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      background: var(--muted)
+    }
+
+    /* ── 비교함 버튼 ── */
+    .compare-btn {
+      background: none;
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: inherit;
+      transition: .15s all;
+      white-space: nowrap
+    }
+
+    .compare-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand)
+    }
+
+    .compare-btn.selected {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand)
+    }
+
+    .compare-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    /* ── 하단 비교바 ── */
+    #compare-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, .96);
+      backdrop-filter: blur(12px);
+      border-top: 1.5px solid var(--line);
+      padding: 14px 24px;
+      display: none;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 -4px 24px rgba(20, 92, 230, .1)
+    }
+
+    #compare-bar.visible {
+      display: flex
+    }
+
+    .cbar-slots {
+      display: flex;
+      gap: 10px;
+      flex: 1
+    }
+
+    .cbar-slot {
+      width: 180px;
+      height: 60px;
+      border: 1.5px dashed var(--line);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--bg);
+      flex-shrink: 0;
+      position: relative
+    }
+
+    .cbar-slot.filled {
+      border-style: solid;
+      border-color: var(--brand);
+      background: #fff
+    }
+
+    .cbar-slot img {
+      width: 44px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 4px;
+      flex-shrink: 0
+    }
+
+    .cbar-slot .slot-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--txt);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1
+    }
+
+    .cbar-slot .slot-remove {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1
+    }
+
+    .cbar-slot.empty .slot-label {
+      font-size: 12px;
+      color: #b0bec5;
+      margin: auto
+    }
+
+    .cbar-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0
+    }
+
+    .cbar-reset {
+      background: none;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: inherit;
+      transition: .15s all
+    }
+
+    .cbar-reset:hover {
+      border-color: var(--brand);
+      color: var(--brand)
+    }
+
+    .cbar-compare {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(20, 92, 230, .3);
+      transition: .15s background
+    }
+
+    .cbar-compare:hover {
+      background: var(--brand-deep)
+    }
+
+    .cbar-compare:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      background: var(--muted)
+    }
+
+    .cbar-count {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap
+    }
+
+    /* ── 캐시백 섹션 ── */
+    /* 카드연구소/트렌드분석과 폭을 맞춰 헤더보다 좁게 중앙 정렬 */
+    .cb-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 4px
+    }
+
+    .cb-platform-tabs {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 2px solid var(--line);
+      margin-bottom: 28px
+    }
+
+    .cb-platform-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--muted);
+      font-family: inherit;
+      white-space: nowrap;
+      border-bottom: 2.5px solid transparent;
+      margin-bottom: -2px;
+      transition: .15s color, .15s border-color
+    }
+
+    .cb-platform-tab:hover {
+      color: var(--brand)
+    }
+
+    .cb-platform-tab.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand)
+    }
+
+    .cb-platform-tab img {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      object-fit: contain
+    }
+
+    .cb-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 6px;
+      letter-spacing: -1px
+    }
+
+    .cb-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0 0 28px
+    }
+
+    .cb-title span {
+      color: var(--brand)
+    }
+
+    /* 5×2 카드사 그리드 */
+    .cb-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px
+    }
+
+    .cb-company-card {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 24px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 220px;
+      cursor: pointer;
+      transition: .15s transform, .15s box-shadow, .15s border-color;
+      box-shadow: var(--shadow)
+    }
+
+    .cb-company-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--brand);
+      box-shadow: 0 12px 28px rgba(20, 92, 230, .12)
+    }
+
+    .cb-company-card .co-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 14px
+    }
+
+    .cb-company-card .co-logo-placeholder {
+      width: 80px;
+      height: 80px;
+      border-radius: 14px;
+      background: var(--panel2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--brand)
+    }
+
+    .cb-company-card .co-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted)
+    }
+
+    .cb-company-card .co-amount {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FF6B35;
+      letter-spacing: -.3px
+    }
+
+    .cb-header {
+      min-height: 80px
+    }
+
+    .cb-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 60px 0;
+      font-size: 14px
+    }
+
+    /* ── 맞춤카드 섹션 ── */
+    .rec-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 4px
+    }
+
+    .rec-hero {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 10px
+    }
+
+    .rec-hero h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: var(--txt);
+      margin: 0 0 12px;
+      line-height: 1.3
+    }
+
+    .rec-hero h2 span {
+      color: var(--brand)
+    }
+
+    .rec-hero p {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0
+    }
+
+    .avatar-nav {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      margin-bottom: 50px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 0 10px 16px;
+      scrollbar-width: none;
+      -ms-overflow-style: none
+    }
+
+    .avatar-nav::-webkit-scrollbar {
+      display: none
+    }
+
+    @media(min-width:768px) {
+      .avatar-nav {
+        justify-content: center
+      }
+    }
+
+    .avatar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: .2s transform;
+      flex-shrink: 0
+    }
+
+    .avatar-item:hover {
+      transform: translateY(-5px)
+    }
+
+    .avatar-img-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 40px;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+      border: 3px solid transparent;
+      padding: 4px;
+      transition: .3s all;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .avatar-img-wrap img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #f1f5f9
+    }
+
+    .avatar-item.active .avatar-img-wrap {
+      border-color: var(--brand);
+      box-shadow: 0 8px 20px rgba(20, 92, 230, .3)
+    }
+
+    .avatar-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: .2s color
+    }
+
+    .avatar-item.active .avatar-label {
+      color: var(--brand)
+    }
+
+    #result-container {
+      display: none
+    }
+
+    #result-container.active {
+      display: block;
+      animation: fadeUp .6s cubic-bezier(.16, 1, .3, 1) forwards
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px)
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    #skeleton-container {
+      display: none;
+      opacity: 0;
+      transition: opacity .3s
+    }
+
+    #skeleton-container.active {
+      display: block;
+      opacity: 1;
+      animation: fadeUp .4s cubic-bezier(.16, 1, .3, 1) forwards
+    }
+
+    .skeleton-box {
+      background: #e2e8f0;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .skeleton-box::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .4) 50%, rgba(255, 255, 255, 0) 100%);
+      animation: shimmer 1.5s infinite
+    }
+
+    @keyframes shimmer {
+      100% {
+        left: 100%
+      }
+    }
+
+    .sk-title {
+      height: 36px;
+      max-width: 60%;
+      margin: 0 auto 40px
+    }
+
+    .sk-chart {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      margin: 0 auto
+    }
+
+    .sk-text {
+      height: 16px;
+      margin-bottom: 12px
+    }
+
+    .sk-text.short {
+      width: 60%
+    }
+
+    .sk-text.med {
+      width: 80%
+    }
+
+    .sk-card {
+      height: 200px;
+      border-radius: 20px
+    }
+
+    .mag-container {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 12px 40px rgba(20, 92, 230, .08)
+    }
+
+    @media(max-width:768px) {
+      .mag-container {
+        padding: 24px
+      }
+    }
+
+    .mag-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 30px;
+      line-height: 1.4;
+      word-break: keep-all;
+      text-align: center
+    }
+
+    .mag-title .highlight {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #ffeaa7 40%);
+      padding: 0 4px
+    }
+
+    @media(max-width:768px) {
+      .mag-title {
+        font-size: 22px
+      }
+    }
+
+    .mag-subtitle {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--brand);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .mag-subtitle::before {
+      content: "";
+      display: block;
+      width: 6px;
+      height: 20px;
+      background: var(--brand);
+      border-radius: 4px
+    }
+
+    .analysis-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      background: #f8fafc;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      margin-bottom: 40px
+    }
+
+    @media(max-width:900px) {
+      .analysis-section {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .chart-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    .chart-inner {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1/1
+    }
+
+    .text-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px
+    }
+
+    .fact-box h4 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      color: var(--txt);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .fact-box p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #475569
+    }
+
+    .fact-box.highlight {
+      background: #fffbea;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(211, 84, 0, .08);
+      border: 1.5px solid #fde68a;
+      margin-top: 4px
+    }
+
+    .fact-box.highlight h4 {
+      color: #d35400;
+      font-size: 18px
+    }
+
+    .fact-box.highlight p {
+      color: #475569;
+      font-weight: 600
+    }
+
+    .mag-cards-section {
+      margin-bottom: 40px
+    }
+
+    .mag-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px
+    }
+
+    @media(max-width:900px) {
+      .mag-cards-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 20px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 16px
+      }
+
+      .mag-cards-grid::-webkit-scrollbar {
+        display: none
+      }
+
+      .c-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center
+      }
+    }
+
+    .c-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: .3s transform, .3s box-shadow;
+      position: relative
+    }
+
+    .c-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--brand);
+      box-shadow: 0 16px 32px rgba(19, 85, 255, .15)
+    }
+
+    .c-rank {
+      position: absolute;
+      top: -12px;
+      left: 24px;
+      background: var(--txt);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, .2)
+    }
+
+    .c-card.rank-1 .c-rank {
+      background: #e74c3c
+    }
+
+    .c-card img.card-thumb {
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      align-self: flex-start
+    }
+
+    .c-card .c-nm {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.3
+    }
+
+    .c-card .c-chip-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 4px 0
+    }
+
+    .c-card .c-chip {
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .c-card .c-chip.fee {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8
+    }
+
+    .c-card .c-benefit {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.5;
+      flex: 1;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px
+    }
+
+    .c-card .c-benefit b {
+      color: var(--brand);
+      font-weight: 700
+    }
+
+    .c-card .c-review {
+      background: #fffbea;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #d35400;
+      margin-top: auto;
+      position: relative
+    }
+
+    .c-card .c-review::before {
+      content: "🗣️";
+      margin-right: 6px
+    }
+
+    .c-card .c-detail-btn {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: block;
+      margin-top: 12px;
+      transition: .15s background
+    }
+
+    .c-card .c-detail-btn:hover {
+      background: var(--brand-deep)
+    }
+
+    .mag-tip {
+      background: #1e293b;
+      color: #fff;
+      padding: 24px 30px;
+      border-radius: 16px;
+      font-size: 16px;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      animation: pulseTip 2s infinite alternate
+    }
+
+    @media(max-width:768px) {
+      .mag-tip {
+        flex-direction: column
+      }
+    }
+
+    @keyframes pulseTip {
+      0% {
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0)
+      }
+
+      100% {
+        box-shadow: 0 8px 24px rgba(30, 41, 59, .4)
+      }
+    }
+
+    .mag-tip strong {
+      color: #f1c40f;
+      font-weight: 800;
+      font-size: 19px;
+      flex-shrink: 0
+    }
+
+    /* ── 트렌드분석 섹션 ── */
+    .trend-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 4px
+    }
+
+    .trend-strip {
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      border: 1.5px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative
+    }
+
+    .trend-strip .live-badge {
+      position: absolute;
+      top: 20px;
+      right: 24px
+    }
+
+    .trend-strip-body {
+      display: flex;
+      gap: 24px;
+      align-items: stretch
+    }
+
+    .trend-chart-col {
+      flex: 2;
+      min-width: 0
+    }
+
+    .trend-lb-col {
+      flex: 1;
+      min-width: 0;
+      border-left: 1.5px solid var(--line);
+      padding-left: 24px
+    }
+
+    .trend-lb-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--txt);
+      margin-bottom: 12px
+    }
+
+    .trend-lb-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .trend-lb-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 6px;
+      border-radius: 10px;
+      transition: .15s background
+    }
+
+    .trend-lb-item:hover {
+      background: var(--bg)
+    }
+
+    .trend-lb-rank {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--muted);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .trend-lb-item:nth-child(1) .trend-lb-rank {
+      background: #ef4444
+    }
+
+    .trend-lb-item:nth-child(2) .trend-lb-rank {
+      background: #f59e0b
+    }
+
+    .trend-lb-item:nth-child(3) .trend-lb-rank {
+      background: #eab308
+    }
+
+    .trend-lb-kw {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt);
+      flex: 1
+    }
+
+    .trend-lb-score {
+      font-size: 14px;
+      font-weight: 800
+    }
+
+    .trend-lb-score.up {
+      color: #ef4444
+    }
+
+    .trend-lb-score.down {
+      color: #2563eb
+    }
+
+    .trend-lb-score.flat {
+      color: var(--txt)
+    }
+
+    .trend-lb-more {
+      display: block;
+      margin: 10px auto 0;
+      background: none;
+      border: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      padding: 4px 8px
+    }
+
+    .trend-lb-more:hover {
+      color: var(--brand)
+    }
+
+    .trend-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+      padding: 20px
+    }
+
+    .trend-modal-overlay.visible {
+      display: flex
+    }
+
+    .trend-modal-box {
+      background: #fff;
+      border-radius: 20px;
+      width: 420px;
+      max-width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .25)
+    }
+
+    .trend-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 22px 14px;
+      border-bottom: 1.5px solid var(--line)
+    }
+
+    .trend-modal-head h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0
+    }
+
+    .trend-modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px
+    }
+
+    .trend-modal-close:hover {
+      color: var(--txt)
+    }
+
+    .trend-modal-unit-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 3px;
+      margin: 14px 22px 4px
+    }
+
+    .trend-modal-unit-toggle button {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 7px 0;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .15s
+    }
+
+    .trend-modal-unit-toggle button.active {
+      background: var(--txt);
+      color: #fff
+    }
+
+    .trend-modal-list {
+      list-style: none;
+      margin: 0;
+      padding: 8px 10px;
+      overflow-y: auto
+    }
+
+    .trend-modal-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px
+    }
+
+    .trend-modal-list li:hover {
+      background: var(--bg)
+    }
+
+    .trend-modal-rank {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      width: 22px;
+      flex-shrink: 0
+    }
+
+    .trend-modal-kw {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt);
+      flex: 1
+    }
+
+    .trend-modal-cnt {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand)
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #16a34a;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      padding: 4px 12px
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 rgba(34, 197, 94, .5);
+      animation: liveDotPulse 1.6s infinite
+    }
+
+    @keyframes liveDotPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, .5)
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0)
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0)
+      }
+    }
+
+    .trend-unit-toggle {
+      display: inline-flex;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+      margin-bottom: 16px
+    }
+
+    .trend-unit-pill {
+      border: none;
+      background: transparent;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .15s
+    }
+
+    .trend-unit-pill.active {
+      background: var(--txt);
+      color: #fff
+    }
+
+    .trend-unit-pill:disabled {
+      opacity: .5;
+      cursor: wait
+    }
+
+    .trend-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .trend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--txt);
+      white-space: nowrap
+    }
+
+    .pill-rank {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .pill-traffic {
+      font-size: 10px;
+      color: var(--brand);
+      background: var(--panel2);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-weight: 700
+    }
+
+    .trend-ref-row {
+      display: block
+    }
+
+    .trend-loading {
+      text-align: center;
+      padding: 80px 0;
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .trend-error {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 2
+    }
+
+    .trend-no-match {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px 0
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="header-top">
-    <div class="brand-left">
-      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
-        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-        </g>
-        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-              fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-      </svg>
-      <h1 onclick="showSection('home')">카드 파이터</h1>
-    </div>
-    <div class="gnb-divider"></div>
-    <nav class="gnb">
-      <a href="#" class="active" data-section="home" onclick="showSection('home');return false">홈</a>
-      <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
-      <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
-      <a href="#">할인가맹점</a>
-      <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 연구소</a>
-    </nav>
-    <div class="header-search">
-      <div class="search-box">
-        <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" />
-        <div class="search-divider"></div>
-        <button class="search-btn" onclick="document.getElementById('q').focus()">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </button>
+  <header>
+    <div class="header-top">
+      <div class="brand-left">
+        <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
+          <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6" />
+          <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
+            <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)" />
+            <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)" />
+          </g>
+          <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z" fill="#ffffff" stroke="#aac4ff" stroke-width="1"
+            stroke-linejoin="round" />
+        </svg>
+        <h1 onclick="showSection('home')">카드 파이터</h1>
       </div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <!-- 캐시백 섹션 -->
-  <div id="section-cashback" class="section" hidden>
-    <div class="cb-wrap">
-      <div class="cb-platform-tabs" id="cb-tabs"></div>
-      <div class="cb-header">
-        <p class="cb-title">최대 <span id="cb-max-amt"></span>만원 용돈 받기! 🎉</p>
-        <p class="cb-subtitle" id="cb-subtitle"></p>
-      </div>
-      <div class="cb-grid" id="cb-grid"></div>
-    </div>
-  </div>
-
-  <!-- 홈 섹션 -->
-  <div id="section-home" class="section">
-    <div class="coming-soon">
-      <div class="cs-icon">🏗️</div>
-      <span class="cs-badge">준비중</span>
-      <h2>홈 화면을 준비하고 있어요</h2>
-      <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
-    </div>
-  </div>
-  <!-- 카드 연구소 섹션 (LNB: 맞춤카드 / 실시간 검색 트렌드) -->
-  <div id="section-recommend" class="section" hidden>
-    <div class="rec-wrap">
-      <nav class="lnb">
-        <button class="lnb-item active" data-recview="persona" onclick="setRecommendView('persona',this)">카드 소비 데이터로 보는 연령대별 맞춤 카드</button>
-        <button class="lnb-item" data-recview="trend" onclick="setRecommendView('trend',this)">실시간 검색 키워드로 보는 추천 카드</button>
+      <div class="gnb-divider"></div>
+      <nav class="gnb">
+        <a href="#" class="active" data-section="home" onclick="showSection('home');return false">홈</a>
+        <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
+        <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span
+            class="coin-icon">🪙</span>캐시백</a>
+        <a href="#">할인가맹점</a>
+        <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 연구소</a>
       </nav>
-      <div id="recview-persona">
-        <div class="rec-hero">
-          <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
-          <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
+      <div class="header-search">
+        <div class="search-box">
+          <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" />
+          <div class="search-divider"></div>
+          <button class="search-btn" onclick="document.getElementById('q').focus()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8" />
+              <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+          </button>
         </div>
-        <div class="avatar-nav">
-          <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
-            <div class="avatar-label">20대 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
-            <div class="avatar-label">20대 남성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
-            <div class="avatar-label">30대 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
-            <div class="avatar-label">30대 남성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성"></div>
-            <div class="avatar-label">4050 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성"></div>
-            <div class="avatar-label">4050 남성</div>
-          </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 캐시백 섹션 -->
+    <div id="section-cashback" class="section" hidden>
+      <div class="cb-wrap">
+        <div class="cb-platform-tabs" id="cb-tabs"></div>
+        <div class="cb-header">
+          <p class="cb-title">최대 <span id="cb-max-amt"></span>만원 용돈 받기! 🎉</p>
+          <p class="cb-subtitle" id="cb-subtitle"></p>
         </div>
-        <div id="skeleton-container" class="mag-container">
-          <div class="skeleton-box sk-title"></div>
-          <div class="analysis-section">
-            <div class="chart-area" style="justify-content:center;align-items:center">
-              <div class="skeleton-box sk-chart"></div>
+        <div class="cb-grid" id="cb-grid"></div>
+      </div>
+    </div>
+
+    <!-- 홈 섹션 -->
+    <div id="section-home" class="section">
+      <div class="coming-soon">
+        <div class="cs-icon">🏗️</div>
+        <span class="cs-badge">준비중</span>
+        <h2>홈 화면을 준비하고 있어요</h2>
+        <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
+      </div>
+    </div>
+    <!-- 카드 연구소 섹션 (LNB: 맞춤카드 / 실시간 검색 트렌드) -->
+    <div id="section-recommend" class="section" hidden>
+      <div class="rec-wrap">
+        <nav class="lnb">
+          <button class="lnb-item active" data-recview="persona" onclick="setRecommendView('persona',this)">카드 소비 데이터로
+            보는 연령대별 맞춤 카드</button>
+          <button class="lnb-item" data-recview="trend" onclick="setRecommendView('trend',this)">실시간 검색 키워드로 보는 추천
+            카드</button>
+        </nav>
+        <div id="recview-persona">
+          <div class="rec-hero">
+            <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
+            <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
+          </div>
+          <div class="avatar-nav">
+            <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
+              <div class="avatar-label">20대 여성</div>
             </div>
-            <div class="text-area">
-              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
-              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
-              <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+            <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
+              <div class="avatar-label">20대 남성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
+              <div class="avatar-label">30대 여성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
+              <div class="avatar-label">30대 남성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성">
+              </div>
+              <div class="avatar-label">4050 여성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
+              <div class="avatar-img-wrap"><img
+                  src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성">
+              </div>
+              <div class="avatar-label">4050 남성</div>
             </div>
           </div>
-          <div class="mag-cards-grid">
-            <div class="skeleton-box sk-card"></div>
-            <div class="skeleton-box sk-card"></div>
-            <div class="skeleton-box sk-card"></div>
+          <div id="skeleton-container" class="mag-container">
+            <div class="skeleton-box sk-title"></div>
+            <div class="analysis-section">
+              <div class="chart-area" style="justify-content:center;align-items:center">
+                <div class="skeleton-box sk-chart"></div>
+              </div>
+              <div class="text-area">
+                <div class="skeleton-box sk-text"></div>
+                <div class="skeleton-box sk-text med"></div>
+                <div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
+                <div class="skeleton-box sk-text"></div>
+                <div class="skeleton-box sk-text med"></div>
+                <div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
+                <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="mag-cards-grid">
+              <div class="skeleton-box sk-card"></div>
+              <div class="skeleton-box sk-card"></div>
+              <div class="skeleton-box sk-card"></div>
+            </div>
+          </div>
+          <div id="result-container"></div>
+        </div>
+        <div id="recview-trend" hidden>
+          <div class="rec-hero">
+            <h2>실시간 검색 데이터로 알아보는 인기 키워드<br><span>"지금 이 순간, 가장 핫한 카드는?"</span></h2>
+            <p>아래에서 월별, 주간, 일별 트렌드를 확인해보세요!</p>
+          </div>
+          <div id="trend-content">
+            <div class="trend-loading">
+              <div class="spinner"></div>Google Trends 데이터를 불러오는 중…
+            </div>
           </div>
         </div>
-        <div id="result-container"></div>
-      </div>
-      <div id="recview-trend" hidden>
-        <div class="rec-hero">
-          <h2>실시간 검색 데이터로 알아보는 인기 키워드<br><span>"지금 이 순간, 가장 핫한 카드는?"</span></h2>
-          <p>아래에서 월별, 주간, 일별 트렌드를 확인해보세요!</p>
-        </div>
-        <div id="trend-content">
-          <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
-        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 전체카드 섹션 -->
-  <div id="section-cards" class="section" hidden>
-    <div class="cards-layout">
-      <!-- LNB 수평 탭 -->
-      <nav class="lnb">
-<button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">전체카드</button>
-        <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
-        <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
-        <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
-      </nav>
-      <div class="cards-title-row">
-        <h2 class="cards-title" id="cards-title">전체카드</h2>
-        <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
-      </div>
-      <!-- 혜택 카테고리 필터 (복수선택) -->
-      <div class="cat-filter-box">
-        <div class="cat-filter-label">🎯 혜택으로 찾기</div>
-        <div class="cat-filter-row" id="cat-filter-row"></div>
-      </div>
-      <!-- 카드 목록 -->
-      <div class="cards-main">
-        <div class="cards-toolbar">
-          <div class="controls">
-            <select id="company"><option value="">전체 카드사</option></select>
-            <select id="fee">
-              <option value="">연회비 전체</option>
-              <option value="free">연회비 없음/저가(~1만원)</option>
-              <option value="mid">1만~5만원</option>
-              <option value="high">5만원 이상</option>
-            </select>
-            <select id="pre">
-              <option value="">전월실적 전체</option>
-              <option value="none">실적 조건 없음</option>
-              <option value="le30">30만원 이하</option>
-              <option value="gt30">30만원 초과</option>
-            </select>
-            <select id="sort">
-              <option value="default">기본(인기순)</option>
-              <option value="name">카드명순</option>
-              <option value="feeAsc">연회비 낮은순</option>
-              <option value="feeDesc">연회비 높은순</option>
-              <option value="preAsc">전월실적 낮은순</option>
-            </select>
+    <!-- 전체카드 섹션 -->
+    <div id="section-cards" class="section" hidden>
+      <div class="cards-layout">
+        <!-- LNB 수평 탭 -->
+        <nav class="lnb">
+          <button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">전체카드</button>
+          <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
+          <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
+          <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
+        </nav>
+        <div class="cards-title-row">
+          <h2 class="cards-title" id="cards-title">전체카드</h2>
+          <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
+        </div>
+        <!-- 혜택 카테고리 필터 (복수선택) -->
+        <div class="cat-filter-box">
+          <div class="cat-filter-label">🎯 혜택으로 찾기</div>
+          <div class="cat-filter-row" id="cat-filter-row"></div>
+        </div>
+        <!-- 카드 목록 -->
+        <div class="cards-main">
+          <div class="cards-toolbar">
+            <div class="controls">
+              <select id="company">
+                <option value="">전체 카드사</option>
+              </select>
+              <select id="fee">
+                <option value="">연회비 전체</option>
+                <option value="free">연회비 없음/저가(~1만원)</option>
+                <option value="mid">1만~5만원</option>
+                <option value="high">5만원 이상</option>
+              </select>
+              <select id="pre">
+                <option value="">전월실적 전체</option>
+                <option value="none">실적 조건 없음</option>
+                <option value="le30">30만원 이하</option>
+                <option value="gt30">30만원 초과</option>
+              </select>
+              <select id="sort">
+                <option value="default">기본(인기순)</option>
+                <option value="name">카드명순</option>
+                <option value="feeAsc">연회비 낮은순</option>
+                <option value="feeDesc">연회비 높은순</option>
+                <option value="preAsc">전월실적 낮은순</option>
+              </select>
+            </div>
+            <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
           </div>
-          <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
+          <div class="grid" id="grid"></div>
+          <button id="more" hidden>더 보기</button>
+          <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
         </div>
-        <div class="grid" id="grid"></div>
-        <button id="more" hidden>더 보기</button>
-        <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<!-- 플로팅 버블 -->
-<div id="compare-bubble">
-  <div class="bubble-wrap">
-    <button class="bubble-btn" onclick="togglePopup()">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="7" x2="21" y2="7"/>
-        <path d="M6 7l-3 7a3 3 0 0 0 6 0L6 7z"/><path d="M18 7l-3 7a3 3 0 0 0 6 0L18 7z"/>
-      </svg>
-    </button>
-    <span class="bubble-badge" id="bubble-badge">0</span>
-  </div>
-</div>
-
-<!-- 비교 팝업 -->
-<div id="compare-popup">
-  <div class="popup-title">
-    <span>비교함</span>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span id="popup-count" style="color:var(--brand)"></span>
-      <button onclick="togglePopup()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:0">✕</button>
+  <!-- 플로팅 버블 -->
+  <div id="compare-bubble">
+    <div class="bubble-wrap">
+      <button class="bubble-btn" onclick="togglePopup()">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="3" x2="12" y2="21" />
+          <line x1="3" y1="7" x2="21" y2="7" />
+          <path d="M6 7l-3 7a3 3 0 0 0 6 0L6 7z" />
+          <path d="M18 7l-3 7a3 3 0 0 0 6 0L18 7z" />
+        </svg>
+      </button>
+      <span class="bubble-badge" id="bubble-badge">0</span>
     </div>
   </div>
-  <div class="popup-slots" id="popup-slots"></div>
-  <div class="popup-actions">
-    <button class="popup-reset" onclick="resetCompare()">초기화</button>
-    <button class="popup-compare" id="popup-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+
+  <!-- 비교 팝업 -->
+  <div id="compare-popup">
+    <div class="popup-title">
+      <span>비교함</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <span id="popup-count" style="color:var(--brand)"></span>
+        <button onclick="togglePopup()"
+          style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:0">✕</button>
+      </div>
+    </div>
+    <div class="popup-slots" id="popup-slots"></div>
+    <div class="popup-actions">
+      <button class="popup-reset" onclick="resetCompare()">초기화</button>
+      <button class="popup-compare" id="popup-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+    </div>
   </div>
-</div>
 
-<!-- 하단 비교바 -->
-<div id="compare-bar">
-  <div class="cbar-slots" id="cbar-slots"></div>
-  <div class="cbar-actions">
-    <span class="cbar-count" id="cbar-count"></span>
-    <button class="cbar-reset" onclick="resetCompare()">초기화</button>
-    <button class="cbar-compare" id="cbar-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+  <!-- 하단 비교바 -->
+  <div id="compare-bar">
+    <div class="cbar-slots" id="cbar-slots"></div>
+    <div class="cbar-actions">
+      <span class="cbar-count" id="cbar-count"></span>
+      <button class="cbar-reset" onclick="resetCompare()">초기화</button>
+      <button class="cbar-compare" id="cbar-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+    </div>
   </div>
-</div>
 
-<script>
-/* ── 비교함 (localStorage 연동) ── */
-let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+  <script>
+    /* ── 비교함 (localStorage 연동) ── */
+    let compareList = JSON.parse(localStorage.getItem('compareList') || '[]');
 
-function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
+    function saveCompare() { localStorage.setItem('compareList', JSON.stringify(compareList)); }
 
-function toggleCompare(idx, name, img){
-  const i = compareList.findIndex(c=>c.idx===idx);
-  if(i > -1){
-    compareList.splice(i,1);
-  } else {
-    if(compareList.length >= 3) return;
-    compareList.push({idx, name, img});
-  }
-  saveCompare();
-  updateCompareBar();
-  document.querySelectorAll(`.compare-btn[data-idx="${idx}"]`).forEach(btn=>{
-    btn.classList.toggle('selected', compareList.some(c=>c.idx===idx));
-    btn.textContent = compareList.some(c=>c.idx===idx) ? '✓ 담겼어요' : '비교함 담기';
-  });
-  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn=>{
-    btn.disabled = compareList.length >= 3;
-  });
-}
+    function toggleCompare(idx, name, img) {
+      const i = compareList.findIndex(c => c.idx === idx);
+      if (i > -1) {
+        compareList.splice(i, 1);
+      } else {
+        if (compareList.length >= 3) return;
+        compareList.push({ idx, name, img });
+      }
+      saveCompare();
+      updateCompareBar();
+      document.querySelectorAll(`.compare-btn[data-idx="${idx}"]`).forEach(btn => {
+        btn.classList.toggle('selected', compareList.some(c => c.idx === idx));
+        btn.textContent = compareList.some(c => c.idx === idx) ? '✓ 담겼어요' : '비교함 담기';
+      });
+      document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
+        btn.disabled = compareList.length >= 3;
+      });
+    }
 
-let popupOpen = false;
+    let popupOpen = false;
 
-function togglePopup(){
-  popupOpen = !popupOpen;
-  document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
-}
+    function togglePopup() {
+      popupOpen = !popupOpen;
+      document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+    }
 
-function updateCompareBar(){
-  const isCards = !document.getElementById('section-cards').hidden;
-  const hasItems = compareList.length > 0;
+    function updateCompareBar() {
+      const isCards = !document.getElementById('section-cards').hidden;
+      const hasItems = compareList.length > 0;
 
-  // 하단 바 숨김
-  document.getElementById('compare-bar').classList.remove('visible');
+      // 하단 바 숨김
+      document.getElementById('compare-bar').classList.remove('visible');
 
-  // 버블: 모든 섹션에서 표시
-  const bubble = document.getElementById('compare-bubble');
-  bubble.classList.toggle('visible', hasItems);
-  document.getElementById('bubble-badge').textContent = compareList.length;
+      // 버블: 모든 섹션에서 표시
+      const bubble = document.getElementById('compare-bubble');
+      bubble.classList.toggle('visible', hasItems);
+      document.getElementById('bubble-badge').textContent = compareList.length;
 
-  // 하단 바 슬롯
-  const slots = Array.from({length:3},(_,i)=>{
-    const c = compareList[i];
-    if(c) return `<div class="cbar-slot filled">
-      <img src="${esc(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      // 하단 바 슬롯
+      const slots = Array.from({ length: 3 }, (_, i) => {
+        const c = compareList[i];
+        if (c) return `<div class="cbar-slot filled">
+      <img src="${esc(c.img || '')}" alt="" onerror="this.style.visibility='hidden'">
       <span class="slot-name">${esc(c.name)}</span>
-      <button class="slot-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img||'')}')">×</button>
+      <button class="slot-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img || '')}')">×</button>
     </div>`;
-    return `<div class="cbar-slot empty"><span class="slot-label">카드 선택</span></div>`;
-  }).join('');
-  document.getElementById('cbar-slots').innerHTML = slots;
-  document.getElementById('cbar-count').textContent = `${compareList.length}/3`;
-  document.getElementById('cbar-compare-btn').disabled = compareList.length < 2;
+        return `<div class="cbar-slot empty"><span class="slot-label">카드 선택</span></div>`;
+      }).join('');
+      document.getElementById('cbar-slots').innerHTML = slots;
+      document.getElementById('cbar-count').textContent = `${compareList.length}/3`;
+      document.getElementById('cbar-compare-btn').disabled = compareList.length < 2;
 
-  // 팝업 슬롯
-  const pslots = Array.from({length:3},(_,i)=>{
-    const c = compareList[i];
-    if(c) return `<div class="popup-slot filled">
-      <img src="${esc(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      // 팝업 슬롯
+      const pslots = Array.from({ length: 3 }, (_, i) => {
+        const c = compareList[i];
+        if (c) return `<div class="popup-slot filled">
+      <img src="${esc(c.img || '')}" alt="" onerror="this.style.visibility='hidden'">
       <span class="ps-name">${esc(c.name)}</span>
-      <button class="ps-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img||'')}')">×</button>
+      <button class="ps-remove" onclick="toggleCompare(${c.idx},'${esc(c.name)}','${esc(c.img || '')}')">×</button>
     </div>`;
-    return `<div class="popup-slot empty" onclick="showSection('cards');popupOpen=false;document.getElementById('compare-popup').classList.remove('visible')">
+        return `<div class="popup-slot empty" onclick="showSection('cards');popupOpen=false;document.getElementById('compare-popup').classList.remove('visible')">
       <span class="ps-plus">+</span>
       <span class="ps-label">카드 추가</span>
     </div>`;
-  }).join('');
-  document.getElementById('popup-slots').innerHTML = pslots;
-  document.getElementById('popup-count').textContent = `${compareList.length}/3`;
-  const pcb = document.getElementById('popup-compare-btn');
-  if(pcb) pcb.disabled = compareList.length < 2;
-}
-
-function resetCompare(){
-  compareList = [];
-  saveCompare();
-  document.querySelectorAll('.compare-btn').forEach(btn=>{
-    btn.classList.remove('selected');
-    btn.textContent = '비교함 담기';
-    btn.disabled = false;
-  });
-  updateCompareBar();
-}
-
-function goCompare(){
-  if(compareList.length < 2) return;
-  const slot = compareList.map(c=>c.idx).join(',');
-  window.open(`compare?slot=${slot}`, '_blank');
-}
-
-const PAGE = 60;
-let DATA = [], view = [], shown = 0, activeCardType = '';
-const activeCategories = new Set();
-
-/* 혜택 카테고리 24종 (아이콘 매핑) */
-const BENEFIT_CATEGORIES = [
-  {name:'간편결제', icon:'📲'}, {name:'공과금/렌탈', icon:'📄'}, {name:'공항라운지/PP', icon:'🛋️'},
-  {name:'교육/육아', icon:'✏️'}, {name:'교통', icon:'🚌'}, {name:'레저/스포츠', icon:'⚽'},
-  {name:'마트/편의점', icon:'🛒'}, {name:'모든가맹점', icon:'🏬'}, {name:'무실적', icon:'💰'},
-  {name:'병원/약국', icon:'💊'}, {name:'뷰티/피트니스', icon:'💄'}, {name:'비즈니스', icon:'💼'},
-  {name:'쇼핑', icon:'🎁'}, {name:'애완동물', icon:'🐱'}, {name:'여행/숙박', icon:'🧳'},
-  {name:'자동차/하이패스', icon:'🚗'}, {name:'주유', icon:'⛽'}, {name:'카페/디저트', icon:'☕'},
-  {name:'통신', icon:'📶'}, {name:'푸드', icon:'🍔'}, {name:'프리미엄', icon:'💎'},
-  {name:'항공마일리지', icon:'✈️'}, {name:'해외', icon:'🌍'}, {name:'OTT/영화/문화', icon:'🎬'},
-];
-
-function renderCatFilterRow(){
-  const allPill = `<button class="cat-pill active" data-cat="" onclick="toggleCatFilter('')">전체</button>`;
-  const pills = BENEFIT_CATEGORIES.map(c =>
-    `<button class="cat-pill" data-cat="${c.name}" onclick="toggleCatFilter('${c.name}')">${c.icon} ${c.name}</button>`
-  ).join('');
-  document.getElementById('cat-filter-row').innerHTML = allPill + pills;
-}
-
-// 화면 폭에 따라 알약이 몇 줄에 걸쳐야 하는지(2줄일 수도, 창이 좁으면 3~4줄일 수도) 미리 고정할 수
-// 없다. 그래서 실제 렌더된 폭을 재서 "지금 폭에 필요한 최소 줄 수"를 구하고, 그 줄 수만큼 폭 합이
-// 최대한 고르게 나뉘도록 줄바꿈을 넣는다 — 창 크기가 바뀌어도, 몇 줄이 되든 항상 균등하게 맞는다.
-function balanceCatFilterRows(){
-  const row = document.getElementById('cat-filter-row');
-  if (!row || !row.offsetParent) return; // 섹션이 숨겨져 있으면(폭 0) 측정 불가 — 보일 때만 계산
-  row.querySelectorAll('.cat-filter-break').forEach(b => b.remove());
-
-  const pills = [...row.querySelectorAll('.cat-pill')];
-  const gap = 3; // .cat-filter-row 의 gap 값과 일치시켜야 함
-  const containerWidth = row.clientWidth;
-  const widths = pills.map(p => p.offsetWidth);
-  const n = widths.length;
-  if (!n || !containerWidth) return;
-
-  const totalWidth = widths.reduce((a,b)=>a+b, 0) + (n-1)*gap;
-  const lineCount = Math.max(1, Math.ceil(totalWidth / containerWidth));
-  if (lineCount <= 1) return; // 한 줄에 다 들어가면 나눌 필요 없음
-
-  // 목표 폭을 처음에 한 번만 고정하면(totalWidth/lineCount) 앞줄들이 조금씩 초과해서 끊길 때마다
-  // 오차가 누적돼 마지막 줄만 텅 비는 경우가 생긴다. 그래서 매 줄마다 "남은 폭 ÷ 남은 줄 수"로
-  // 목표치를 다시 계산해 오차가 쌓이지 않게 한다.
-  let lineStart = 0, lineWidth = 0, breaksLeft = lineCount - 1, remainingWidth = totalWidth;
-  for (let i = 0; i < n; i++) {
-    const addW = widths[i] + (i > lineStart ? gap : 0);
-    const target = remainingWidth / (breaksLeft + 1);
-    if (breaksLeft > 0 && i > lineStart && lineWidth + addW > target) {
-      const brk = document.createElement('div');
-      brk.className = 'cat-filter-break';
-      pills[i - 1].after(brk);
-      remainingWidth -= lineWidth;
-      breaksLeft--;
-      lineStart = i;
-      lineWidth = widths[i];
-    } else {
-      lineWidth += addW;
+      }).join('');
+      document.getElementById('popup-slots').innerHTML = pslots;
+      document.getElementById('popup-count').textContent = `${compareList.length}/3`;
+      const pcb = document.getElementById('popup-compare-btn');
+      if (pcb) pcb.disabled = compareList.length < 2;
     }
-  }
-}
 
-let catFilterResizeTimer = null;
-window.addEventListener('resize', () => {
-  clearTimeout(catFilterResizeTimer);
-  catFilterResizeTimer = setTimeout(balanceCatFilterRows, 150);
-});
-
-function toggleCatFilter(cat){
-  if(!cat){
-    activeCategories.clear();
-  } else {
-    if(activeCategories.has(cat)) activeCategories.delete(cat);
-    else activeCategories.add(cat);
-  }
-  document.querySelectorAll('.cat-pill').forEach(btn=>{
-    const isAll = btn.dataset.cat === '';
-    btn.classList.toggle('active', isAll ? activeCategories.size === 0 : activeCategories.has(btn.dataset.cat));
-  });
-  applyFilters();
-}
-
-const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
-// 연회비 최댓값(대괄호/원 위치 무관) + 프리미엄 판별
-const feeMax = s => { const m=[...String(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+x[0].replace(/,/g,'')).filter(v=>v>=1000); return m.length?Math.max(...m):0; };
-const PREMIUM_FEE = 150000;
-const isPremium = c => feeMax(c.annual_fee) >= PREMIUM_FEE;
-
-/* ── 섹션 전환 ── */
-function showSection(name){
-  document.querySelectorAll('.section').forEach(s => s.hidden = true);
-  document.getElementById('section-'+name).hidden = false;
-  document.querySelectorAll('.gnb a[data-section]').forEach(a =>
-    a.classList.toggle('active', a.dataset.section === name));
-  if(name === 'cashback') renderCashback();
-  if(name === 'recommend') {
-    // 트렌드(실시간 검색 트렌드) 탭에 있다가 다른 GNB로 나갔다 돌아와도 항상 첫 번째 탭(맞춤카드)부터 보이게 초기화
-    document.querySelectorAll('#section-recommend .lnb-item').forEach((b,i) => b.classList.toggle('active', i===0));
-    document.getElementById('recview-persona').hidden = false;
-    document.getElementById('recview-trend').hidden = true;
-    initRecommend();
-  }
-  if(name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
-  // 섹션 변경 시 팝업 닫기 + 바/버블 전환
-  popupOpen = false;
-  document.getElementById('compare-popup').classList.remove('visible');
-  updateCompareBar();
-  // 다른 탭으로 이동할 땐 이전 탭에서 스크롤해 내려간 위치가 그대로 남아있지 않도록 최상단으로 이동
-  window.scrollTo(0, 0);
-}
-
-function setCardType(el){
-  document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  activeCardType = el.dataset.cardtype;
-  document.getElementById('cards-title').textContent = el.textContent.trim();
-  applyFilters();
-}
-
-/* ── 필터 & 렌더 ── */
-function applyFilters(){
-  const q   = document.getElementById('q').value.trim().toLowerCase();
-  const co  = document.getElementById('company').value;
-  const fee = document.getElementById('fee').value;
-  const pre = document.getElementById('pre').value;
-  const sort= document.getElementById('sort').value;
-
-  view = DATA.filter(c=>{
-    if(activeCardType === '프리미엄'){
-      if(!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
-    } else if(activeCardType){
-      if(c.card_type !== activeCardType) return false; // 신용/체크: card_type 으로 필터(기존 cate 오류 수정)
-      if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
+    function resetCompare() {
+      compareList = [];
+      saveCompare();
+      document.querySelectorAll('.compare-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        btn.textContent = '비교함 담기';
+        btn.disabled = false;
+      });
+      updateCompareBar();
     }
-    if(activeCategories.size){
-      const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
-      if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
+
+    function goCompare() {
+      if (compareList.length < 2) return;
+      const slot = compareList.map(c => c.idx).join(',');
+      window.open(`compare?slot=${slot}`, '_blank');
     }
-    if(co && c.company!==co) return false;
-    if(q){
-      const hay=(c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
-      if(!hay.includes(q)) return false;
+
+    const PAGE = 60;
+    let DATA = [], view = [], shown = 0, activeCardType = '';
+    const activeCategories = new Set();
+
+    /* 혜택 카테고리 24종 (아이콘 매핑) */
+    const BENEFIT_CATEGORIES = [
+      { name: '간편결제', icon: '📲' }, { name: '공과금/렌탈', icon: '📄' }, { name: '공항라운지/PP', icon: '🛋️' },
+      { name: '교육/육아', icon: '✏️' }, { name: '교통', icon: '🚌' }, { name: '레저/스포츠', icon: '⚽' },
+      { name: '마트/편의점', icon: '🛒' }, { name: '모든가맹점', icon: '🏬' }, { name: '무실적', icon: '💰' },
+      { name: '병원/약국', icon: '💊' }, { name: '뷰티/피트니스', icon: '💄' }, { name: '비즈니스', icon: '💼' },
+      { name: '쇼핑', icon: '🎁' }, { name: '애완동물', icon: '🐱' }, { name: '여행/숙박', icon: '🧳' },
+      { name: '자동차/하이패스', icon: '🚗' }, { name: '주유', icon: '⛽' }, { name: '카페/디저트', icon: '☕' },
+      { name: '통신', icon: '📶' }, { name: '푸드', icon: '🍔' }, { name: '프리미엄', icon: '💎' },
+      { name: '항공마일리지', icon: '✈️' }, { name: '해외', icon: '🌍' }, { name: 'OTT/영화/문화', icon: '🎬' },
+    ];
+
+    function renderCatFilterRow() {
+      const allPill = `<button class="cat-pill active" data-cat="" onclick="toggleCatFilter('')">전체</button>`;
+      const pills = BENEFIT_CATEGORIES.map(c =>
+        `<button class="cat-pill" data-cat="${c.name}" onclick="toggleCatFilter('${c.name}')">${c.icon} ${c.name}</button>`
+      ).join('');
+      document.getElementById('cat-filter-row').innerHTML = allPill + pills;
     }
-    const f=feeNum(c.annual_fee);
-    if(fee==='free'&&f>10000) return false;
-    if(fee==='mid'&&!(f>10000&&f<50000)) return false;
-    if(fee==='high'&&f<50000) return false;
-    const p=c.pre_month_money||0;
-    if(pre==='none'&&p) return false;
-    if(pre==='le30'&&(p===0||p>300000)) return false;
-    if(pre==='gt30'&&p<=300000) return false;
-    return true;
-  });
 
-  if(sort==='name') view.sort((a,b)=>a.card_name.localeCompare(b.card_name,'ko'));
-  else if(sort==='feeAsc') view.sort((a,b)=>feeNum(a.annual_fee)-feeNum(b.annual_fee));
-  else if(sort==='feeDesc') view.sort((a,b)=>feeNum(b.annual_fee)-feeNum(a.annual_fee));
-  else if(sort==='preAsc') view.sort((a,b)=>(a.pre_month_money||0)-(b.pre_month_money||0));
+    // 화면 폭에 따라 알약이 몇 줄에 걸쳐야 하는지(2줄일 수도, 창이 좁으면 3~4줄일 수도) 미리 고정할 수
+    // 없다. 그래서 실제 렌더된 폭을 재서 "지금 폭에 필요한 최소 줄 수"를 구하고, 그 줄 수만큼 폭 합이
+    // 최대한 고르게 나뉘도록 줄바꿈을 넣는다 — 창 크기가 바뀌어도, 몇 줄이 되든 항상 균등하게 맞는다.
+    function balanceCatFilterRows() {
+      const row = document.getElementById('cat-filter-row');
+      if (!row || !row.offsetParent) return; // 섹션이 숨겨져 있으면(폭 0) 측정 불가 — 보일 때만 계산
+      row.querySelectorAll('.cat-filter-break').forEach(b => b.remove());
 
-  document.getElementById('count').textContent = view.length.toLocaleString();
-  document.getElementById('cards-total-count').textContent = view.length.toLocaleString();
-  shown = 0;
-  document.getElementById('grid').innerHTML = '';
-  document.getElementById('empty').hidden = view.length > 0;
-  render();
-}
+      const pills = [...row.querySelectorAll('.cat-pill')];
+      const gap = 3; // .cat-filter-row 의 gap 값과 일치시켜야 함
+      const containerWidth = row.clientWidth;
+      const widths = pills.map(p => p.offsetWidth);
+      const n = widths.length;
+      if (!n || !containerWidth) return;
 
-function render(){
-  const grid  = document.getElementById('grid');
-  const slice = view.slice(shown, shown+PAGE);
-  const html  = slice.map(c=>{
-    const benefit=(c.top_benefit_summary||'').split(' | ')
-      .map(s=>{const i=s.indexOf(':');return i>0?`<b>${esc(s.slice(0,i))}</b>${esc(s.slice(i))}`:esc(s);})
-      .join('<br>');
-    return `<div class="card">
+      const totalWidth = widths.reduce((a, b) => a + b, 0) + (n - 1) * gap;
+      const lineCount = Math.max(1, Math.ceil(totalWidth / containerWidth));
+      if (lineCount <= 1) return; // 한 줄에 다 들어가면 나눌 필요 없음
+
+      // 목표 폭을 처음에 한 번만 고정하면(totalWidth/lineCount) 앞줄들이 조금씩 초과해서 끊길 때마다
+      // 오차가 누적돼 마지막 줄만 텅 비는 경우가 생긴다. 그래서 매 줄마다 "남은 폭 ÷ 남은 줄 수"로
+      // 목표치를 다시 계산해 오차가 쌓이지 않게 한다.
+      let lineStart = 0, lineWidth = 0, breaksLeft = lineCount - 1, remainingWidth = totalWidth;
+      for (let i = 0; i < n; i++) {
+        const addW = widths[i] + (i > lineStart ? gap : 0);
+        const target = remainingWidth / (breaksLeft + 1);
+        if (breaksLeft > 0 && i > lineStart && lineWidth + addW > target) {
+          const brk = document.createElement('div');
+          brk.className = 'cat-filter-break';
+          pills[i - 1].after(brk);
+          remainingWidth -= lineWidth;
+          breaksLeft--;
+          lineStart = i;
+          lineWidth = widths[i];
+        } else {
+          lineWidth += addW;
+        }
+      }
+    }
+
+    let catFilterResizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(catFilterResizeTimer);
+      catFilterResizeTimer = setTimeout(balanceCatFilterRows, 150);
+    });
+
+    function toggleCatFilter(cat) {
+      if (!cat) {
+        activeCategories.clear();
+      } else {
+        if (activeCategories.has(cat)) activeCategories.delete(cat);
+        else activeCategories.add(cat);
+      }
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        const isAll = btn.dataset.cat === '';
+        btn.classList.toggle('active', isAll ? activeCategories.size === 0 : activeCategories.has(btn.dataset.cat));
+      });
+      applyFilters();
+    }
+
+    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const feeNum = s => { const m = String(s || '').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g, '') : 0; };
+    // 연회비 최댓값(대괄호/원 위치 무관) + 프리미엄 판별
+    const feeMax = s => { const m = [...String(s || '').matchAll(/[\d,]{3,}/g)].map(x => +x[0].replace(/,/g, '')).filter(v => v >= 1000); return m.length ? Math.max(...m) : 0; };
+    const PREMIUM_FEE = 150000;
+    const isPremium = c => feeMax(c.annual_fee) >= PREMIUM_FEE;
+
+    /* ── 섹션 전환 ── */
+    function showSection(name) {
+      document.querySelectorAll('.section').forEach(s => s.hidden = true);
+      document.getElementById('section-' + name).hidden = false;
+      document.querySelectorAll('.gnb a[data-section]').forEach(a =>
+        a.classList.toggle('active', a.dataset.section === name));
+      if (name === 'cashback') renderCashback();
+      if (name === 'recommend') {
+        // 트렌드(실시간 검색 트렌드) 탭에 있다가 다른 GNB로 나갔다 돌아와도 항상 첫 번째 탭(맞춤카드)부터 보이게 초기화
+        document.querySelectorAll('#section-recommend .lnb-item').forEach((b, i) => b.classList.toggle('active', i === 0));
+        document.getElementById('recview-persona').hidden = false;
+        document.getElementById('recview-trend').hidden = true;
+        initRecommend();
+      }
+      if (name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
+      // 섹션 변경 시 팝업 닫기 + 바/버블 전환
+      popupOpen = false;
+      document.getElementById('compare-popup').classList.remove('visible');
+      updateCompareBar();
+      // 다른 탭으로 이동할 땐 이전 탭에서 스크롤해 내려간 위치가 그대로 남아있지 않도록 최상단으로 이동
+      window.scrollTo(0, 0);
+    }
+
+    function setCardType(el) {
+      document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      activeCardType = el.dataset.cardtype;
+      document.getElementById('cards-title').textContent = el.textContent.trim();
+      applyFilters();
+    }
+
+    /* ── 필터 & 렌더 ── */
+    function applyFilters() {
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const co = document.getElementById('company').value;
+      const fee = document.getElementById('fee').value;
+      const pre = document.getElementById('pre').value;
+      const sort = document.getElementById('sort').value;
+
+      view = DATA.filter(c => {
+        if (activeCardType === '프리미엄') {
+          if (!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
+        } else if (activeCardType) {
+          if (c.card_type !== activeCardType) return false; // 신용/체크: card_type 으로 필터(기존 cate 오류 수정)
+          if (isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
+        }
+        if (activeCategories.size) {
+          const cardCats = (c.benefit_categories || '').split(',').map(s => s.trim());
+          if (![...activeCategories].every(cat => cardCats.includes(cat))) return false;
+        }
+        if (co && c.company !== co) return false;
+        if (q) {
+          const hay = (c.card_name + ' ' + c.company + ' ' + c.top_benefit_summary + ' ' + (c.benefit_categories || '')).toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        const f = feeNum(c.annual_fee);
+        if (fee === 'free' && f > 10000) return false;
+        if (fee === 'mid' && !(f > 10000 && f < 50000)) return false;
+        if (fee === 'high' && f < 50000) return false;
+        const p = c.pre_month_money || 0;
+        if (pre === 'none' && p) return false;
+        if (pre === 'le30' && (p === 0 || p > 300000)) return false;
+        if (pre === 'gt30' && p <= 300000) return false;
+        return true;
+      });
+
+      if (sort === 'name') view.sort((a, b) => a.card_name.localeCompare(b.card_name, 'ko'));
+      else if (sort === 'feeAsc') view.sort((a, b) => feeNum(a.annual_fee) - feeNum(b.annual_fee));
+      else if (sort === 'feeDesc') view.sort((a, b) => feeNum(b.annual_fee) - feeNum(a.annual_fee));
+      else if (sort === 'preAsc') view.sort((a, b) => (a.pre_month_money || 0) - (b.pre_month_money || 0));
+
+      document.getElementById('count').textContent = view.length.toLocaleString();
+      document.getElementById('cards-total-count').textContent = view.length.toLocaleString();
+      shown = 0;
+      document.getElementById('grid').innerHTML = '';
+      document.getElementById('empty').hidden = view.length > 0;
+      render();
+    }
+
+    function render() {
+      const grid = document.getElementById('grid');
+      const slice = view.slice(shown, shown + PAGE);
+      const html = slice.map(c => {
+        const benefit = (c.top_benefit_summary || '').split(' | ')
+          .map(s => { const i = s.indexOf(':'); return i > 0 ? `<b>${esc(s.slice(0, i))}</b>${esc(s.slice(i))}` : esc(s); })
+          .join('<br>');
+        return `<div class="card">
       <div class="top">
-        <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
-        <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
+        <img loading="lazy" src="${c.card_img || ''}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company || '')}</div></div>
       </div>
-      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span>${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}</div>
+      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee || '-').replace(/\[([\d,]+)\]원/g, '$1원').replace(/\s*\/\s*/g, ' / ')}</span>${isPremium(c) ? '<span class="chip prem">👑 프리미엄</span>' : ''}</div>
       <div class="row">
-        <span class="chip pre">전월실적 ${c.pre_month_money ? Math.round(c.pre_month_money/10000)+'만원 이상' : '없음'}</span>
-        ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
-        ${c.only_online?`<span class="chip">온라인전용</span>`:''}
+        <span class="chip pre">전월실적 ${c.pre_month_money ? Math.round(c.pre_month_money / 10000) + '만원 이상' : '없음'}</span>
+        ${c.brands ? `<span class="chip">${esc(c.brands)}</span>` : ''}
+        ${c.only_online ? `<span class="chip">온라인전용</span>` : ''}
       </div>
-      <div class="benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+      <div class="benefit">${benefit || '<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
       <div class="foot">
         <button class="compare-btn" data-idx="${c.idx}"
-          onclick="toggleCompare(${c.idx},'${esc(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
-        <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
+          onclick="toggleCompare(${c.idx},'${esc(c.card_name)}','${c.card_img || ''}')">비교함 담기</button>
+        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
       </div>
     </div>`;
-  }).join('');
-  grid.insertAdjacentHTML('beforeend', html);
-  shown += slice.length;
-  document.getElementById('more').hidden = shown >= view.length;
-  // localStorage 상태 반영
-  compareList.forEach(c=>{
-    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn=>{
-      btn.classList.add('selected');
-      btn.textContent = '✓ 담겼어요';
-    });
-  });
-  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn=>{
-    btn.disabled = compareList.length >= 3;
-  });
-  updateCompareBar();
-}
+      }).join('');
+      grid.insertAdjacentHTML('beforeend', html);
+      shown += slice.length;
+      document.getElementById('more').hidden = shown >= view.length;
+      // localStorage 상태 반영
+      compareList.forEach(c => {
+        document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
+          btn.classList.add('selected');
+          btn.textContent = '✓ 담겼어요';
+        });
+      });
+      document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
+        btn.disabled = compareList.length >= 3;
+      });
+      updateCompareBar();
+    }
 
-/* ── 캐시백 더미 데이터 ── */
-const COMPANIES = [
-  { name:'삼성카드',        logo:'image/삼성.png',   amount:112.5 },
-  { name:'신한카드',        logo:'image/신한.png',   amount:30    },
-  { name:'현대카드',        logo:'image/현대.png',   amount:25    },
-  { name:'KB국민카드',      logo:'image/KB국민.png', amount:20    },
-  { name:'롯데카드',        logo:'image/롯데.png',   amount:15    },
-  { name:'NH농협카드',      logo:'image/NH농협.png', amount:12    },
-  { name:'우리카드',        logo:'image/우리.png',   amount:10    },
-  { name:'하나카드',        logo:'image/하나.png',   amount:8     },
-  { name:'BC바로카드',      logo:'image/BC.png',     amount:5     },
-  { name:'IBK기업은행카드', logo:'image/IBK기업.png', amount:3 },
-].sort((a,b)=>b.amount-a.amount);
+    /* ── 캐시백 더미 데이터 ── */
+    const COMPANIES = [
+      { name: '삼성카드', logo: 'image/삼성.png', amount: 112.5 },
+      { name: '신한카드', logo: 'image/신한.png', amount: 30 },
+      { name: '현대카드', logo: 'image/현대.png', amount: 25 },
+      { name: 'KB국민카드', logo: 'image/KB국민.png', amount: 20 },
+      { name: '롯데카드', logo: 'image/롯데.png', amount: 15 },
+      { name: 'NH농협카드', logo: 'image/NH농협.png', amount: 12 },
+      { name: '우리카드', logo: 'image/우리.png', amount: 10 },
+      { name: '하나카드', logo: 'image/하나.png', amount: 8 },
+      { name: 'BC바로카드', logo: 'image/BC.png', amount: 5 },
+      { name: 'IBK기업은행카드', logo: 'image/IBK기업.png', amount: 3 },
+    ].sort((a, b) => b.amount - a.amount);
 
-const CASHBACK = {
-  '카카오페이': {
-    icon: 'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png',
-    url: 'https://pay.kakao.com',
-    maxAmount: 112.5,
-    companies: [
-      { name: '신한카드', cards: [
-        { name: '신한카드 Deep Dream', img: '', amount: 30000 },
-        { name: '신한카드 Mr.Life', img: '', amount: 20000 },
-      ]},
-      { name: 'KB국민카드', cards: [
-        { name: 'KB국민 노리카드', img: '', amount: 20000 },
-      ]},
-      { name: '현대카드', cards: [
-        { name: '현대카드 Z WORK', img: '', amount: 15000 },
-      ]},
-    ]
-  },
-  '네이버페이': {
-    icon: 'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png',
-    url: 'https://card.pay.naver.com/home/promotion/event?from=menu_event',
-    maxAmount: 112.5,
-    companies: [
-      { name: '신한카드', cards: [
-        { name: '신한카드 Deep Oil', img: '', amount: 20000 },
-      ]},
-      { name: '하나카드', cards: [
-        { name: '하나카드 1Q', img: '', amount: 15000 },
-      ]},
-    ]
-  },
-  '토스': {
-    icon: 'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico',
-    url: 'https://card-lounge.toss.im/?utm_source=naverbrand&utm_campaign=webtraffic_cardpcbs_performance&utm_content=search_cardpc_cardlounge_250701',
-    maxAmount: 112.5,
-    companies: [
-      { name: '토스뱅크', cards: [
-        { name: '토스뱅크 체크카드', img: '', amount: 10000 },
-      ]},
-    ]
-  },
-  '카드고릴라': {
-    icon: '',
-    url: 'https://www.card-gorilla.com',
-    maxAmount: 112.5,
-    companies: [
-      { name: '삼성카드', cards: [
-        { name: '삼성카드 taptap O', img: '', amount: 50000 },
-      ]},
-      { name: '롯데카드', cards: [
-        { name: '롯데카드 DCCO', img: '', amount: 30000 },
-      ]},
-    ]
-  },
-  '아정당카드': {
-    icon: '',
-    url: 'https://ajd.co.kr/card',
-    maxAmount: 112.5,
-    companies: [
-      { name: '우리카드', cards: [
-        { name: '우리카드 카드의정석 POINT', img: '', amount: 20000 },
-      ]},
-    ]
-  },
-  '뱅크샐러드': {
-    icon: '',
-    url: 'https://www.banksalad.com/chart/cards?tab=event',
-    maxAmount: 112.5,
-    companies: [
-      { name: 'KB국민카드', cards: [
-        { name: 'KB국민 리브 Next 카드', img: '', amount: 10000 },
-      ]},
-    ]
-  },
-};
+    const CASHBACK = {
+      '카카오페이': {
+        icon: 'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png',
+        url: 'https://pay.kakao.com',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: '신한카드', cards: [
+              { name: '신한카드 Deep Dream', img: '', amount: 30000 },
+              { name: '신한카드 Mr.Life', img: '', amount: 20000 },
+            ]
+          },
+          {
+            name: 'KB국민카드', cards: [
+              { name: 'KB국민 노리카드', img: '', amount: 20000 },
+            ]
+          },
+          {
+            name: '현대카드', cards: [
+              { name: '현대카드 Z WORK', img: '', amount: 15000 },
+            ]
+          },
+        ]
+      },
+      '네이버페이': {
+        icon: 'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png',
+        url: 'https://card.pay.naver.com/home/promotion/event?from=menu_event',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: '신한카드', cards: [
+              { name: '신한카드 Deep Oil', img: '', amount: 20000 },
+            ]
+          },
+          {
+            name: '하나카드', cards: [
+              { name: '하나카드 1Q', img: '', amount: 15000 },
+            ]
+          },
+        ]
+      },
+      '토스': {
+        icon: 'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico',
+        url: 'https://card-lounge.toss.im/?utm_source=naverbrand&utm_campaign=webtraffic_cardpcbs_performance&utm_content=search_cardpc_cardlounge_250701',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: '토스뱅크', cards: [
+              { name: '토스뱅크 체크카드', img: '', amount: 10000 },
+            ]
+          },
+        ]
+      },
+      '카드고릴라': {
+        icon: '',
+        url: 'https://www.card-gorilla.com',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: '삼성카드', cards: [
+              { name: '삼성카드 taptap O', img: '', amount: 50000 },
+            ]
+          },
+          {
+            name: '롯데카드', cards: [
+              { name: '롯데카드 DCCO', img: '', amount: 30000 },
+            ]
+          },
+        ]
+      },
+      '아정당카드': {
+        icon: '',
+        url: 'https://ajd.co.kr/card',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: '우리카드', cards: [
+              { name: '우리카드 카드의정석 POINT', img: '', amount: 20000 },
+            ]
+          },
+        ]
+      },
+      '뱅크샐러드': {
+        icon: '',
+        url: 'https://www.banksalad.com/chart/cards?tab=event',
+        maxAmount: 112.5,
+        companies: [
+          {
+            name: 'KB국민카드', cards: [
+              { name: 'KB국민 리브 Next 카드', img: '', amount: 10000 },
+            ]
+          },
+        ]
+      },
+    };
 
-let activePlatform = '전체보기';
+    let activePlatform = '전체보기';
 
-const CB_ALL_MAX = Math.max(...Object.values(CASHBACK).map(d=>d.maxAmount));
+    const CB_ALL_MAX = Math.max(...Object.values(CASHBACK).map(d => d.maxAmount));
 
-let cbInitialized = false;
+    let cbInitialized = false;
 
-function renderCashback(){
-  if(!cbInitialized){
-    /* 탭 + 그리드 최초 1회만 생성 */
-    const allTab = `<button class="cb-platform-tab active" data-platform="전체보기"
+    function renderCashback() {
+      if (!cbInitialized) {
+        /* 탭 + 그리드 최초 1회만 생성 */
+        const allTab = `<button class="cb-platform-tab active" data-platform="전체보기"
       onclick="setCbPlatform('전체보기')">전체보기</button>`;
-    const platformTabs = Object.keys(CASHBACK).map(name => {
-      const d = CASHBACK[name];
-      const icon = d.icon ? `<img src="${esc(d.icon)}" alt="" onerror="this.style.display='none'">` : '';
-      return `<button class="cb-platform-tab" data-platform="${esc(name)}"
+        const platformTabs = Object.keys(CASHBACK).map(name => {
+          const d = CASHBACK[name];
+          const icon = d.icon ? `<img src="${esc(d.icon)}" alt="" onerror="this.style.display='none'">` : '';
+          return `<button class="cb-platform-tab" data-platform="${esc(name)}"
         onclick="setCbPlatform('${esc(name)}')">${icon}${esc(name)}</button>`;
-    }).join('');
-    document.getElementById('cb-tabs').innerHTML = allTab + platformTabs;
+        }).join('');
+        document.getElementById('cb-tabs').innerHTML = allTab + platformTabs;
 
-    document.getElementById('cb-grid').innerHTML = COMPANIES.map(co => {
-      const logoEl = co.logo
-        ? `<img class="co-logo" src="${esc(co.logo)}" alt="${esc(co.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(co.name[0])}</div>'">`
-        : `<div class="co-logo-placeholder">${esc(co.name[0])}</div>`;
-      return `<div class="cb-company-card">
+        document.getElementById('cb-grid').innerHTML = COMPANIES.map(co => {
+          const logoEl = co.logo
+            ? `<img class="co-logo" src="${esc(co.logo)}" alt="${esc(co.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(co.name[0])}</div>'">`
+            : `<div class="co-logo-placeholder">${esc(co.name[0])}</div>`;
+          return `<div class="cb-company-card">
         ${logoEl}
         <div class="co-name">${esc(co.name)}</div>
         <div class="co-amount">최대 ${co.amount}만원 받기</div>
       </div>`;
-    }).join('');
+        }).join('');
 
-    cbInitialized = true;
-  }
+        cbInitialized = true;
+      }
 
-  /* 이후엔 텍스트·클래스만 업데이트 */
-  document.querySelectorAll('#cb-tabs .cb-platform-tab').forEach(btn =>
-    btn.classList.toggle('active', btn.dataset.platform === activePlatform));
+      /* 이후엔 텍스트·클래스만 업데이트 */
+      document.querySelectorAll('#cb-tabs .cb-platform-tab').forEach(btn =>
+        btn.classList.toggle('active', btn.dataset.platform === activePlatform));
 
-  const isAll = activePlatform === '전체보기';
-  const data  = isAll ? null : CASHBACK[activePlatform];
-  const maxAmt = isAll ? CB_ALL_MAX : data.maxAmount;
-  const subtitle = isAll
-    ? '나는 얼마나 받을 수 있을까?'
-    : `🏠 <a href="${esc(data.url)}" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700"><span style="color:var(--brand)">${esc(activePlatform)}</span> <span style="color:var(--muted)">바로가기</span></a>`;
+      const isAll = activePlatform === '전체보기';
+      const data = isAll ? null : CASHBACK[activePlatform];
+      const maxAmt = isAll ? CB_ALL_MAX : data.maxAmount;
+      const subtitle = isAll
+        ? '나는 얼마나 받을 수 있을까?'
+        : `🏠 <a href="${esc(data.url)}" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700"><span style="color:var(--brand)">${esc(activePlatform)}</span> <span style="color:var(--muted)">바로가기</span></a>`;
 
-  document.getElementById('cb-max-amt').textContent = maxAmt;
-  document.getElementById('cb-subtitle').innerHTML = subtitle;
-}
+      document.getElementById('cb-max-amt').textContent = maxAmt;
+      document.getElementById('cb-subtitle').innerHTML = subtitle;
+    }
 
-function setCbPlatform(name){
-  activePlatform = name;
-  renderCashback();
-}
+    function setCbPlatform(name) {
+      activePlatform = name;
+      renderCashback();
+    }
 
-/* ── 이벤트 ── */
-document.getElementById('q').addEventListener('input',()=>{
-  if(document.getElementById('section-cards').hidden) showSection('cards');
-  applyFilters();
-});
-['company','fee','pre','sort'].forEach(id=>
-  document.getElementById(id).addEventListener('input',applyFilters));
-document.getElementById('more').addEventListener('click',render);
+    /* ── 이벤트 ── */
+    document.getElementById('q').addEventListener('input', () => {
+      if (document.getElementById('section-cards').hidden) showSection('cards');
+      applyFilters();
+    });
+    ['company', 'fee', 'pre', 'sort'].forEach(id =>
+      document.getElementById(id).addEventListener('input', applyFilters));
+    document.getElementById('more').addEventListener('click', render);
 
-/* LNB data-cardtype: 한글→코드 */
-document.querySelectorAll('.lnb-item').forEach(btn=>{
-  const map={'':'','신용':'CRD','체크':'CHK'};
-  if(btn.dataset.cardtype in map) btn.dataset.cardtype = map[btn.dataset.cardtype];
-});
-renderCatFilterRow();
+    /* LNB data-cardtype: 한글→코드 */
+    document.querySelectorAll('.lnb-item').forEach(btn => {
+      const map = { '': '', '신용': 'CRD', '체크': 'CHK' };
+      if (btn.dataset.cardtype in map) btn.dataset.cardtype = map[btn.dataset.cardtype];
+    });
+    renderCatFilterRow();
 
-/* ── 초기 로드: cards_full.json ── */
-fetch('cards_list.json')
-  .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-  .then(d=>{
-    DATA = d;
-    const cos=[...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
-    const sel=document.getElementById('company');
-    cos.forEach(c=>{ const o=document.createElement('option'); o.value=o.textContent=c; sel.appendChild(o); });
-    applyFilters();
-  })
-  .catch(e=>{
-    document.getElementById('empty').hidden=false;
-    document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
-  });
-</script>
+    /* ── 초기 로드: cards_full.json ── */
+    fetch('cards_list.json')
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(d => {
+        DATA = d;
+        const cos = [...new Set(d.map(c => c.company).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ko'));
+        const sel = document.getElementById('company');
+        cos.forEach(c => { const o = document.createElement('option'); o.value = o.textContent = c; sel.appendChild(o); });
+        applyFilters();
+      })
+      .catch(e => {
+        document.getElementById('empty').hidden = false;
+        document.getElementById('empty').textContent = '데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. (' + e + ')';
+      });
+  </script>
 
-<script>
-/* ── 트렌드분석 ── */
-const TREND_CATS = [
-  { match:['스타벅스','카페','커피','할리스','이디야','투썸','공차','메가커피','빽다방'], cat:'카페', label:'☕ 카페/커피' },
-  { match:['배달','배달의민족','쿠팡이츠','요기요','땡겨요'], cat:'배달앱', label:'🛵 배달앱' },
-  { match:['편의점','GS25','CU','세븐일레븐','이마트24'], cat:'편의점', label:'🏪 편의점' },
-  { match:['이마트','홈플러스','코스트코','롯데마트','트레이더스'], cat:'대형마트', label:'🛒 대형마트' },
-  { match:['쿠팡','11번가','G마켓','옥션','SSG','네이버쇼핑','온라인쇼핑'], cat:'온라인쇼핑', label:'🛍️ 온라인쇼핑' },
-  { match:['백화점','롯데백화점','현대백화점','신세계','갤러리아'], cat:'백화점', label:'🏬 백화점' },
-  { match:['주유','기름값','휘발유','경유','GS칼텍스','SK에너지','S-OIL','오일뱅크'], cat:'주유소', label:'⛽ 주유소' },
-  { match:['지하철','버스','대중교통','교통카드','티머니'], cat:'대중교통', label:'🚇 대중교통' },
-  { match:['택시','카카오택시','우버','타다'], cat:'택시', label:'🚕 택시' },
-  { match:['여행','항공','해외','공항','인천공항','제주','비행기','면세점'], cat:'해외이용', label:'✈️ 여행/해외' },
-  { match:['영화','CGV','롯데시네마','메가박스'], cat:'영화', label:'🎬 영화' },
-  { match:['넷플릭스','유튜브','OTT','왓챠','디즈니플러스','티빙','스트리밍'], cat:'디지털구독', label:'📺 스트리밍' },
-  { match:['병원','약국','의료','건강검진','한의원'], cat:'병원', label:'🏥 병원/의료' },
-  { match:['통신','KT','SKT','LG유플러스','휴대폰요금','알뜰폰'], cat:'SKT', label:'📱 통신비' },
-  { match:['학원','교육','공부','영어','수학','과외'], cat:'학원', label:'📚 교육/학원' },
-  { match:['치킨','피자','음식점','한식','분식','고기','삼겹살'], cat:'일반음식점', label:'🍽️ 음식점' },
-];
+  <script>
+    /* ── 트렌드분석 ── */
+    const TREND_CATS = [
+      { match: ['스타벅스', '카페', '커피', '할리스', '이디야', '투썸', '공차', '메가커피', '빽다방'], cat: '카페', label: '☕ 카페/커피' },
+      { match: ['배달', '배달의민족', '쿠팡이츠', '요기요', '땡겨요'], cat: '배달앱', label: '🛵 배달앱' },
+      { match: ['편의점', 'GS25', 'CU', '세븐일레븐', '이마트24'], cat: '편의점', label: '🏪 편의점' },
+      { match: ['이마트', '홈플러스', '코스트코', '롯데마트', '트레이더스'], cat: '대형마트', label: '🛒 대형마트' },
+      { match: ['쿠팡', '11번가', 'G마켓', '옥션', 'SSG', '네이버쇼핑', '온라인쇼핑'], cat: '온라인쇼핑', label: '🛍️ 온라인쇼핑' },
+      { match: ['백화점', '롯데백화점', '현대백화점', '신세계', '갤러리아'], cat: '백화점', label: '🏬 백화점' },
+      { match: ['주유', '기름값', '휘발유', '경유', 'GS칼텍스', 'SK에너지', 'S-OIL', '오일뱅크'], cat: '주유소', label: '⛽ 주유소' },
+      { match: ['지하철', '버스', '대중교통', '교통카드', '티머니'], cat: '대중교통', label: '🚇 대중교통' },
+      { match: ['택시', '카카오택시', '우버', '타다'], cat: '택시', label: '🚕 택시' },
+      { match: ['여행', '항공', '해외', '공항', '인천공항', '제주', '비행기', '면세점'], cat: '해외이용', label: '✈️ 여행/해외' },
+      { match: ['영화', 'CGV', '롯데시네마', '메가박스'], cat: '영화', label: '🎬 영화' },
+      { match: ['넷플릭스', '유튜브', 'OTT', '왓챠', '디즈니플러스', '티빙', '스트리밍'], cat: '디지털구독', label: '📺 스트리밍' },
+      { match: ['병원', '약국', '의료', '건강검진', '한의원'], cat: '병원', label: '🏥 병원/의료' },
+      { match: ['통신', 'KT', 'SKT', 'LG유플러스', '휴대폰요금', '알뜰폰'], cat: 'SKT', label: '📱 통신비' },
+      { match: ['학원', '교육', '공부', '영어', '수학', '과외'], cat: '학원', label: '📚 교육/학원' },
+      { match: ['치킨', '피자', '음식점', '한식', '분식', '고기', '삼겹살'], cat: '일반음식점', label: '🍽️ 음식점' },
+    ];
 
-function matchTrendCat(keyword) {
-  const kw = keyword.toLowerCase();
-  return TREND_CATS.find(tc => tc.match.some(m => kw.includes(m.toLowerCase()))) || null;
-}
+    function matchTrendCat(keyword) {
+      const kw = keyword.toLowerCase();
+      return TREND_CATS.find(tc => tc.match.some(m => kw.includes(m.toLowerCase()))) || null;
+    }
 
-function findCardsForTrend(cat, count = 3) {
-  if (!DATA || !DATA.length) return [];
-  if (!cat) {
-    return DATA.filter(c => !c.pre_month_money || c.pre_month_money <= 300000)
-      .slice(0, count);
-  }
-  return DATA.filter(c => {
-    const txt = (c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'');
-    return txt.includes(cat);
-  }).slice(0, count);
-}
+    function findCardsForTrend(cat, count = 3) {
+      if (!DATA || !DATA.length) return [];
+      if (!cat) {
+        return DATA.filter(c => !c.pre_month_money || c.pre_month_money <= 300000)
+          .slice(0, count);
+      }
+      return DATA.filter(c => {
+        const txt = (c.benefit_categories || '') + ' ' + (c.top_benefit_summary || '');
+        return txt.includes(cat);
+      }).slice(0, count);
+    }
 
-let trendInitialized = false;
-let trendUnit = 'month';
-let trendChartInstance = null;
-let trendAutoTimer = null;
-let trendModalUnit = 'month';
-// "실시간 인기 검색어"/"트렌드 카드 추천"용 랭킹 — 그래프의 월별/주간/일별 토글과는 무관하게
-// 항상 일별(오늘) 기준으로 1시간마다 독립적으로 갱신된다. 검색창 placeholder도 이 값을 사용한다.
-let realtimeRanked = [];
-let realtimeTimer = null;
+    let trendInitialized = false;
+    let trendUnit = 'month';
+    let trendChartInstance = null;
+    let trendAutoTimer = null;
+    let trendModalUnit = 'month';
+    // "실시간 인기 검색어"/"트렌드 카드 추천"용 랭킹 — 그래프의 월별/주간/일별 토글과는 무관하게
+    // 항상 일별(오늘) 기준으로 1시간마다 독립적으로 갱신된다. 검색창 placeholder도 이 값을 사용한다.
+    let realtimeRanked = [];
+    let realtimeTimer = null;
 
-function renderTrendModalTabs() {
-  document.getElementById('trend-modal-unit-toggle').innerHTML = TREND_UNITS.map(u =>
-    `<button class="${u.key===trendModalUnit?'active':''}" onclick="loadTrendKeywordModal('${u.key}')">${u.label}</button>`
-  ).join('');
-}
+    function renderTrendModalTabs() {
+      document.getElementById('trend-modal-unit-toggle').innerHTML = TREND_UNITS.map(u =>
+        `<button class="${u.key === trendModalUnit ? 'active' : ''}" onclick="loadTrendKeywordModal('${u.key}')">${u.label}</button>`
+      ).join('');
+    }
 
-async function openTrendKeywordModal() {
-  trendModalUnit = trendUnit;
-  document.getElementById('trend-modal-overlay').classList.add('visible');
-  renderTrendModalTabs();
-  await loadTrendKeywordModal(trendModalUnit);
-}
+    async function openTrendKeywordModal() {
+      trendModalUnit = trendUnit;
+      document.getElementById('trend-modal-overlay').classList.add('visible');
+      renderTrendModalTabs();
+      await loadTrendKeywordModal(trendModalUnit);
+    }
 
-async function loadTrendKeywordModal(unit) {
-  const escM = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  trendModalUnit = unit;
-  renderTrendModalTabs();
-  const listEl = document.getElementById('trend-modal-list');
-  listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오는 중…</li>`;
-  try {
-    const res = await fetch('/api/naver-trends?unit=' + unit + '&mode=all');
-    const data = await res.json();
-    if (data.error || !data.allKeywordSearchRanking) throw new Error(data.error || '데이터 없음');
-    listEl.innerHTML = data.allKeywordSearchRanking.map((k,i) => `
+    async function loadTrendKeywordModal(unit) {
+      const escM = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      trendModalUnit = unit;
+      renderTrendModalTabs();
+      const listEl = document.getElementById('trend-modal-list');
+      listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오는 중…</li>`;
+      try {
+        const res = await fetch('/api/naver-trends?unit=' + unit + '&mode=all');
+        const data = await res.json();
+        if (data.error || !data.allKeywordSearchRanking) throw new Error(data.error || '데이터 없음');
+        listEl.innerHTML = data.allKeywordSearchRanking.map((k, i) => `
       <li>
-        <span class="trend-modal-rank">${i+1}</span>
+        <span class="trend-modal-rank">${i + 1}</span>
         <span class="trend-modal-kw">${escM(k.keyword)}</span>
         <span class="trend-modal-cnt">${Math.round(k.latest)}</span>
       </li>`).join('');
-  } catch(e) {
-    listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오지 못했어요</li>`;
-  }
-}
-
-function closeTrendKeywordModal() {
-  document.getElementById('trend-modal-overlay').classList.remove('visible');
-}
-const TREND_AUTO_REFRESH_MS = 60 * 60 * 1000; // 1시간마다 자동 재조회
-const TREND_UNITS = [
-  { key:'month', label:'월별' },
-  { key:'week',  label:'주간' },
-  { key:'date',  label:'일별' },
-];
-
-// 검색창 placeholder에 "지금" 가장 많이 검색되는 키워드 1~2위를 보여준다.
-function updateSearchPlaceholder(ranked) {
-  const input = document.getElementById('q');
-  if (!input || !ranked || ranked.length < 2) return;
-  input.placeholder = `${ranked[0].title}, ${ranked[1].title} 등 관심 혜택을 검색해보세요!`;
-}
-
-// 트렌드분석 탭을 아직 열어보지 않았어도(헤더 검색창은 모든 페이지에 보이므로) 페이지 로드 시 바로 실행하고,
-// 이후 1시간마다 독립적으로 갱신한다. 그래프의 월별/주간/일별 토글이나 자동갱신 타이머와는 완전히 분리되어 있다.
-async function loadRealtimeKeywords() {
-  try {
-    const res = await fetch('/api/naver-trends?unit=date');
-    if (!res.ok) throw new Error('API 오류 ' + res.status);
-    const data = await res.json();
-    if (data.error || !data.results?.length) throw new Error(data.error || '데이터 없음');
-    realtimeRanked = computeRanked(data.results, 'realtime', data.anchorLatest);
-    updateSearchPlaceholder(realtimeRanked);
-    // "실시간 인기 검색어" 리더보드만 항상 실시간(일별) 고정 — 추천카드는 그래프의 월별/주간/일별
-    // 토글을 따라가야 하므로 여기서 건드리지 않는다 (renderTrends/updateTrendView가 담당).
-    const lbList = document.querySelector('.trend-lb-list');
-    if (lbList) lbList.innerHTML = buildLeaderboardHtml(realtimeRanked);
-  } catch(e) {
-    console.error('[실시간 검색어] 갱신 실패:', e.message);
-  }
-}
-
-function initTrend() {
-  if (!trendInitialized) {
-    trendInitialized = true;
-    loadTrends(trendUnit, true);
-    trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
-  }
-}
-
-function setTrendUnit(unit) {
-  if (unit === trendUnit) return;
-  trendUnit = unit;
-  // 캐시가 없는 unit은 네이버 API를 새로 호출하느라 몇 초 걸릴 수 있는데, 그동안 pill에
-  // 아무 반응이 없으면 "눌러도 안 눌림"으로 보인다. 그래서 클릭 즉시 pill을 비활성화해
-  // "처리 중"임을 바로 보여주고, 활성 표시 자체는 loadTrends가 성공한 뒤에만 옮긴다
-  // (실패 시 pill은 새 unit인데 화면은 이전 unit 그대로인 불일치를 막기 위해).
-  setTrendPillsBusy(true);
-  loadTrends(unit, false);
-  clearInterval(trendAutoTimer);
-  trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
-}
-
-function setTrendPillsBusy(busy) {
-  document.querySelectorAll('.trend-unit-pill').forEach(btn => { btn.disabled = busy; });
-}
-
-function setActiveTrendPill(unit) {
-  document.querySelectorAll('.trend-unit-pill').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u=>u.key===unit).label);
-  });
-}
-
-// 토글을 빠르게 여러 번 누르면 먼저 보낸 요청이 나중에 도착해 최신 화면을 덮어쓸 수 있어(응답 순서 역전),
-// 요청마다 일련번호를 매겨 가장 마지막에 보낸 요청의 응답만 화면에 반영한다.
-let trendReqSeq = 0;
-
-async function loadTrends(unit, isInitial) {
-  const el = document.getElementById('trend-content');
-  const reqId = ++trendReqSeq;
-  if (isInitial) {
-    el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
-  }
-  try {
-    const res = await fetch('/api/naver-trends?unit=' + unit);
-    if (!res.ok) throw new Error('API 오류 ' + res.status);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    if (!DATA.length) {
-      await new Promise(r => { const t = setInterval(()=>{ if(DATA.length){clearInterval(t);r();}},200); });
+      } catch (e) {
+        listEl.innerHTML = `<li style="justify-content:center;color:var(--muted);padding:24px 0">불러오지 못했어요</li>`;
+      }
     }
-    if (reqId !== trendReqSeq) return; // 그 사이 더 최신 토글 요청이 나갔으면 이 응답은 낡은 것이므로 버린다
-    if (isInitial) {
-      renderTrends(data, unit);
-    } else {
-      updateTrendView(data, unit);
-      setActiveTrendPill(unit);
+
+    function closeTrendKeywordModal() {
+      document.getElementById('trend-modal-overlay').classList.remove('visible');
     }
-  } catch(e) {
-    if (reqId !== trendReqSeq) return;
-    console.error('[트렌드] 갱신 실패:', e.message);
-    if (!isInitial) return; // 배경/토글 갱신 실패 시 기존 화면(마지막 성공 unit) 그대로 유지 — pill도 그대로라 화면과 어긋나지 않음
-    el.innerHTML = `<div class="trend-error">
+    const TREND_AUTO_REFRESH_MS = 60 * 60 * 1000; // 1시간마다 자동 재조회
+    const TREND_UNITS = [
+      { key: 'month', label: '월별' },
+      { key: 'week', label: '주간' },
+      { key: 'date', label: '일별' },
+    ];
+
+    // 검색창 placeholder에 "지금" 가장 많이 검색되는 키워드 1~2위를 보여준다.
+    function updateSearchPlaceholder(ranked) {
+      const input = document.getElementById('q');
+      if (!input || !ranked || ranked.length < 2) return;
+      input.placeholder = `${ranked[0].title}, ${ranked[1].title} 등 관심 혜택을 검색해보세요!`;
+    }
+
+    // 트렌드분석 탭을 아직 열어보지 않았어도(헤더 검색창은 모든 페이지에 보이므로) 페이지 로드 시 바로 실행하고,
+    // 이후 1시간마다 독립적으로 갱신한다. 그래프의 월별/주간/일별 토글이나 자동갱신 타이머와는 완전히 분리되어 있다.
+    async function loadRealtimeKeywords() {
+      try {
+        const res = await fetch('/api/naver-trends?unit=date');
+        if (!res.ok) throw new Error('API 오류 ' + res.status);
+        const data = await res.json();
+        if (data.error || !data.results?.length) throw new Error(data.error || '데이터 없음');
+        realtimeRanked = computeRanked(data.results, 'realtime', data.anchorLatest);
+        updateSearchPlaceholder(realtimeRanked);
+        // "실시간 인기 검색어" 리더보드만 항상 실시간(일별) 고정 — 추천카드는 그래프의 월별/주간/일별
+        // 토글을 따라가야 하므로 여기서 건드리지 않는다 (renderTrends/updateTrendView가 담당).
+        const lbList = document.querySelector('.trend-lb-list');
+        if (lbList) lbList.innerHTML = buildLeaderboardHtml(realtimeRanked);
+      } catch (e) {
+        console.error('[실시간 검색어] 갱신 실패:', e.message);
+      }
+    }
+
+    function initTrend() {
+      if (!trendInitialized) {
+        trendInitialized = true;
+        loadTrends(trendUnit, true);
+        trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+      }
+    }
+
+    function setTrendUnit(unit) {
+      if (unit === trendUnit) return;
+      trendUnit = unit;
+      // 캐시가 없는 unit은 네이버 API를 새로 호출하느라 몇 초 걸릴 수 있는데, 그동안 pill에
+      // 아무 반응이 없으면 "눌러도 안 눌림"으로 보인다. 그래서 클릭 즉시 pill을 비활성화해
+      // "처리 중"임을 바로 보여주고, 활성 표시 자체는 loadTrends가 성공한 뒤에만 옮긴다
+      // (실패 시 pill은 새 unit인데 화면은 이전 unit 그대로인 불일치를 막기 위해).
+      setTrendPillsBusy(true);
+      loadTrends(unit, false);
+      clearInterval(trendAutoTimer);
+      trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+    }
+
+    function setTrendPillsBusy(busy) {
+      document.querySelectorAll('.trend-unit-pill').forEach(btn => { btn.disabled = busy; });
+    }
+
+    function setActiveTrendPill(unit) {
+      document.querySelectorAll('.trend-unit-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u => u.key === unit).label);
+      });
+    }
+
+    // 토글을 빠르게 여러 번 누르면 먼저 보낸 요청이 나중에 도착해 최신 화면을 덮어쓸 수 있어(응답 순서 역전),
+    // 요청마다 일련번호를 매겨 가장 마지막에 보낸 요청의 응답만 화면에 반영한다.
+    let trendReqSeq = 0;
+
+    async function loadTrends(unit, isInitial) {
+      const el = document.getElementById('trend-content');
+      const reqId = ++trendReqSeq;
+      if (isInitial) {
+        el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+      }
+      try {
+        const res = await fetch('/api/naver-trends?unit=' + unit);
+        if (!res.ok) throw new Error('API 오류 ' + res.status);
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        if (!DATA.length) {
+          await new Promise(r => { const t = setInterval(() => { if (DATA.length) { clearInterval(t); r(); } }, 200); });
+        }
+        if (reqId !== trendReqSeq) return; // 그 사이 더 최신 토글 요청이 나갔으면 이 응답은 낡은 것이므로 버린다
+        if (isInitial) {
+          renderTrends(data, unit);
+        } else {
+          updateTrendView(data, unit);
+          setActiveTrendPill(unit);
+        }
+      } catch (e) {
+        if (reqId !== trendReqSeq) return;
+        console.error('[트렌드] 갱신 실패:', e.message);
+        if (!isInitial) return; // 배경/토글 갱신 실패 시 기존 화면(마지막 성공 unit) 그대로 유지 — pill도 그대로라 화면과 어긋나지 않음
+        el.innerHTML = `<div class="trend-error">
       😢 트렌드 데이터를 불러오지 못했어요<br>
       <small>${e.message}</small><br><br>
       <button onclick="trendInitialized=false;initTrend()"
@@ -1358,204 +3016,183 @@ async function loadTrends(unit, isInitial) {
         다시 시도
       </button>
     </div>`;
-  } finally {
-    if (!isInitial && reqId === trendReqSeq) setTrendPillsBusy(false);
-  }
-}
-
-const KW_CAT_MAP = {
-  '카페/디저트':  { cat:'카페/디저트',  label:'☕ 카페/디저트 카드 추천' },
-  '쇼핑':        { cat:'쇼핑',        label:'🛒 쇼핑 카드 추천' },
-  '마트/편의점':  { cat:'마트/편의점',  label:'🏪 마트/편의점 카드 추천' },
-  'OTT/영화/문화':{ cat:'OTT/영화/문화', label:'🎬 OTT/영화/문화 카드 추천' },
-  '푸드':        { cat:'푸드',        label:'🍔 푸드 카드 추천' },
-  '교통':        { cat:'교통',        label:'🚌 교통 카드 추천' },
-  '해외':        { cat:'해외',        label:'✈️ 해외 카드 추천' },
-  '통신':        { cat:'통신',        label:'📱 통신 카드 추천' },
-  '주유':        { cat:'주유',        label:'⛽ 주유 카드 추천' },
-  '레저/스포츠':  { cat:'레저/스포츠',  label:'🏀 레저/스포츠 카드 추천' },
-  '교육/육아':    { cat:'교육/육아',    label:'📚 교육/육아 카드 추천' },
-  '뷰티/피트니스': { cat:'뷰티/피트니스', label:'💄 뷰티/피트니스 카드 추천' },
-  '공항라운지/PP': { cat:'공항라운지/PP', label:'🛋️ 공항라운지 카드 추천' },
-  '항공마일리지':  { cat:'항공마일리지',  label:'🛫 항공마일리지 카드 추천' },
-  '공과금/렌탈':  { cat:'공과금/렌탈',  label:'🧾 공과금/렌탈 카드 추천' },
-  '여행/숙박':    { cat:'여행/숙박',    label:'🧳 여행/숙박 카드 추천' },
-  '프리미엄':     { cat:'프리미엄',     label:'💎 프리미엄 카드 추천' },
-  '간편결제':     { cat:'간편결제',     label:'📲 간편결제 카드 추천' },
-  '병원/약국':    { cat:'병원/약국',    label:'🏥 병원/약국 카드 추천' },
-  '자동차/하이패스':{ cat:'자동차/하이패스', label:'🚗 자동차/하이패스 카드 추천' },
-  '애완동물':     { cat:'애완동물',     label:'🐾 애완동물 카드 추천' },
-  '비즈니스':     { cat:'비즈니스',     label:'💼 비즈니스 카드 추천' },
-};
-const CHART_COLORS = ['#145CE6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
-
-function formatTrendLabel(period, unit) {
-  if (unit === 'month') return period.slice(0,7);
-  if (unit === 'week') {
-    const [, m, d] = period.split('-').map(Number);
-    return `${m}월 ${Math.ceil(d / 7)}주차`;
-  }
-  return period.slice(5);
-}
-
-const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-// 등락(▲▼)은 검색량 증감이 아니라 "1시간 주기 재조회 때마다 직전 조회 대비 순위가 몇 계단
-// 올랐/내렸는지"를 의미한다. 예: 1위→5위 = ▼4, 3위→1위 = ▲2, 그대로면 '-'.
-// 처음 보는 unit/키워드는 비교 대상(직전 순위)이 없으니 등락 없음(flat)으로 시작.
-let trendPrevRank = {}; // { [unit]: { [keyword]: rank(1-based) } }
-
-// r.data[last].ratio는 키워드마다 따로 요청한 값이라 서로 절대 비교가 불가능하다(각자 자기 자신 기준 0~100).
-// 순위는 반드시 서버가 anchor 정규화로 계산해 내려준 anchorLatest를 기준으로 매겨야
-// 더보기 모달의 전체 순위와 항상 일치한다.
-function computeRanked(results, unit, anchorLatest) {
-  const anchorMap = new Map((anchorLatest||[]).map(a => [a.keyword, a.latest]));
-  const ranked = results.map(r => {
-    const latest = anchorMap.has(r.title) ? anchorMap.get(r.title) : (r.data[r.data.length-1]?.ratio || 0);
-    return { ...r, latest };
-  }).sort((a,b) => b.latest - a.latest);
-
-  const prevRankForUnit = trendPrevRank[unit] || {};
-  ranked.forEach((r, i) => {
-    r.rank = i + 1;
-    const prevRank = prevRankForUnit[r.title];
-    r.rankDelta = prevRank === undefined ? null : prevRank - r.rank; // 양수=상승, 음수=하락, 0=변동없음
-  });
-  trendPrevRank[unit] = {};
-  for (const r of ranked) trendPrevRank[unit][r.title] = r.rank;
-
-  return ranked;
-}
-
-// 실시간 검색어 1~5위마다 "추천 카드 3선" 카드(순위 배지/혜택 태그/팁 말풍선)를 3장씩 보여준다.
-// 카드 연구소 첫 번째 탭(renderPersona)의 .c-card 마크업을 그대로 재사용해 두 탭의 카드 디자인을 통일한다.
-function buildTrendCardSections(ranked) {
-  const usedCardIdx = new Set();
-  return ranked.map((kw, ki) => {
-    const map = KW_CAT_MAP[kw.title] || { cat: kw.title };
-    const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat||null, 30);
-    const picks = [];
-    for (const c of candidates) {
-      if (usedCardIdx.has(c.idx)) continue;
-      picks.push(c);
-      usedCardIdx.add(c.idx);
-      if (picks.length === 3) break;
+      } finally {
+        if (!isInitial && reqId === trendReqSeq) setTrendPillsBusy(false);
+      }
     }
-    if (!picks.length) return '';
 
-    const cardsHTML = picks.map((c, i) => {
-      const benefit = (c.top_benefit_summary||'').split(' | ')
-        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escT(s.slice(0,idx))}</b>${escT(s.slice(idx))}`:escT(s);})
-        .join('<br>');
-      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
-      return `
-        <div class="c-card${i===0?' rank-1':''}">
-          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
-          <img class="card-thumb" src="${escT(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
-          <div class="c-nm">${escT(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escT(c.company||'')}</span></div>
-          <div class="c-chip-row">
-            <span class="c-chip fee">연회비 ${fee}</span>
-            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
-          </div>
-          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
-        </div>`;
-    }).join('');
+    const KW_CAT_MAP = {
+      '카페/디저트': { cat: '카페/디저트', label: '☕ 카페/디저트 카드 추천' },
+      '쇼핑': { cat: '쇼핑', label: '🛒 쇼핑 카드 추천' },
+      '마트/편의점': { cat: '마트/편의점', label: '🏪 마트/편의점 카드 추천' },
+      'OTT/영화/문화': { cat: 'OTT/영화/문화', label: '🎬 OTT/영화/문화 카드 추천' },
+      '푸드': { cat: '푸드', label: '🍔 푸드 카드 추천' },
+      '교통': { cat: '교통', label: '🚌 교통 카드 추천' },
+      '해외': { cat: '해외', label: '✈️ 해외 카드 추천' },
+      '통신': { cat: '통신', label: '📱 통신 카드 추천' },
+      '주유': { cat: '주유', label: '⛽ 주유 카드 추천' },
+      '레저/스포츠': { cat: '레저/스포츠', label: '🏀 레저/스포츠 카드 추천' },
+      '교육/육아': { cat: '교육/육아', label: '📚 교육/육아 카드 추천' },
+      '뷰티/피트니스': { cat: '뷰티/피트니스', label: '💄 뷰티/피트니스 카드 추천' },
+      '공항라운지/PP': { cat: '공항라운지/PP', label: '🛋️ 공항라운지 카드 추천' },
+      '항공마일리지': { cat: '항공마일리지', label: '🛫 항공마일리지 카드 추천' },
+      '공과금/렌탈': { cat: '공과금/렌탈', label: '🧾 공과금/렌탈 카드 추천' },
+      '여행/숙박': { cat: '여행/숙박', label: '🧳 여행/숙박 카드 추천' },
+      '프리미엄': { cat: '프리미엄', label: '💎 프리미엄 카드 추천' },
+      '간편결제': { cat: '간편결제', label: '📲 간편결제 카드 추천' },
+      '병원/약국': { cat: '병원/약국', label: '🏥 병원/약국 카드 추천' },
+      '자동차/하이패스': { cat: '자동차/하이패스', label: '🚗 자동차/하이패스 카드 추천' },
+      '애완동물': { cat: '애완동물', label: '🐾 애완동물 카드 추천' },
+      '비즈니스': { cat: '비즈니스', label: '💼 비즈니스 카드 추천' },
+    };
+    const CHART_COLORS = ['#145CE6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
 
-    return `
-      <div class="mag-cards-section">
-        <div class="mag-container">
-          <div class="mag-subtitle">${ki+1}위 "${escT(kw.title)}" 추천 카드 3선</div>
-          <div class="mag-cards-grid">${cardsHTML}</div>
-        </div>
-      </div>`;
-  }).join('');
-}
+    function formatTrendLabel(period, unit) {
+      if (unit === 'month') return period.slice(0, 7);
+      if (unit === 'week') {
+        const [, m, d] = period.split('-').map(Number);
+        return `${m}월 ${Math.ceil(d / 7)}주차`;
+      }
+      return period.slice(5);
+    }
 
-function rankArrowDisplay(rankDelta) {
-  if (!rankDelta) return { cls:'flat', txt:'-' }; // null(첫 조회) 또는 0(변동없음)
-  if (rankDelta > 0) return { cls:'up', txt:`▲ ${rankDelta}` };
-  return { cls:'down', txt:`▼ ${Math.abs(rankDelta)}` };
-}
+    const escT = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-function buildLeaderboardHtml(ranked) {
-  return ranked.map((kw,i) => {
-    const arrow = rankArrowDisplay(kw.rankDelta);
-    return `
+    // 등락(▲▼)은 검색량 증감이 아니라 "1시간 주기 재조회 때마다 직전 조회 대비 순위가 몇 계단
+    // 올랐/내렸는지"를 의미한다. 예: 1위→5위 = ▼4, 3위→1위 = ▲2, 그대로면 '-'.
+    // 처음 보는 unit/키워드는 비교 대상(직전 순위)이 없으니 등락 없음(flat)으로 시작.
+    let trendPrevRank = {}; // { [unit]: { [keyword]: rank(1-based) } }
+
+    // r.data[last].ratio는 키워드마다 따로 요청한 값이라 서로 절대 비교가 불가능하다(각자 자기 자신 기준 0~100).
+    // 순위는 반드시 서버가 anchor 정규화로 계산해 내려준 anchorLatest를 기준으로 매겨야
+    // 더보기 모달의 전체 순위와 항상 일치한다.
+    function computeRanked(results, unit, anchorLatest) {
+      const anchorMap = new Map((anchorLatest || []).map(a => [a.keyword, a.latest]));
+      const ranked = results.map(r => {
+        const latest = anchorMap.has(r.title) ? anchorMap.get(r.title) : (r.data[r.data.length - 1]?.ratio || 0);
+        return { ...r, latest };
+      }).sort((a, b) => b.latest - a.latest);
+
+      const prevRankForUnit = trendPrevRank[unit] || {};
+      ranked.forEach((r, i) => {
+        r.rank = i + 1;
+        const prevRank = prevRankForUnit[r.title];
+        r.rankDelta = prevRank === undefined ? null : prevRank - r.rank; // 양수=상승, 음수=하락, 0=변동없음
+      });
+      trendPrevRank[unit] = {};
+      for (const r of ranked) trendPrevRank[unit][r.title] = r.rank;
+
+      return ranked;
+    }
+
+    // 실시간 검색어 1~5위마다 "추천 카드 3선" 카드(순위 배지/혜택 태그/팁 말풍선)를 3장씩 보여준다.
+    // 카드 연구소 첫 번째 탭(renderPersona)의 .c-card 마크업을 그대로 재사용해 두 탭의 카드 디자인을 통일한다.
+    function buildTrendCardSections(ranked) {
+      const usedCardIdx = new Set();
+      return ranked.map((kw) => {
+        const map = KW_CAT_MAP[kw.title] || { cat: kw.title, label: kw.title + ' 카드 추천' };
+        const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat || null, 20);
+        const card = candidates.find(c => !usedCardIdx.has(c.idx));
+        if (!card) return '';
+        usedCardIdx.add(card.idx);
+        const benefitRaw = (card.top_benefit_summary || '').split(' | ')[0] || '';
+        const benefit = benefitRaw.includes(':') ? benefitRaw.slice(benefitRaw.indexOf(':') + 1).trim() : benefitRaw;
+
+        return `<a class="trend-ref" href="detail?idx=${card.idx}">
+      <span class="trend-ref-kw">${escT(kw.title)}</span>
+      <div class="trend-ref-imgwrap"><img src="${escT(card.card_img || '')}" alt=""
+        onerror="this.style.visibility='hidden'"
+        onload="if(this.naturalWidth>this.naturalHeight)this.classList.add('rot90')"/></div>
+      <div class="trend-ref-nm">${escT(card.card_name)}</div>
+      <div class="trend-ref-benefit">${escT(benefit) || '혜택 정보 없음'}</div>
+    </a>`;
+      }).join('');
+    }
+
+    function rankArrowDisplay(rankDelta) {
+      if (!rankDelta) return { cls: 'flat', txt: '-' }; // null(첫 조회) 또는 0(변동없음)
+      if (rankDelta > 0) return { cls: 'up', txt: `▲ ${rankDelta}` };
+      return { cls: 'down', txt: `▼ ${Math.abs(rankDelta)}` };
+    }
+
+    function buildLeaderboardHtml(ranked) {
+      return ranked.map((kw, i) => {
+        const arrow = rankArrowDisplay(kw.rankDelta);
+        return `
     <li class="trend-lb-item">
-      <span class="trend-lb-rank">${i+1}</span>
+      <span class="trend-lb-rank">${i + 1}</span>
       <span class="trend-lb-kw">${escT(kw.title)}</span>
       <span class="trend-lb-score ${arrow.cls}">${arrow.txt}</span>
     </li>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function refreshCompareButtons() {
-  compareList.forEach(c => {
-    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
-      btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
-    });
-  });
-  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
-    btn.disabled = compareList.length >= 3;
-  });
-  updateCompareBar();
-}
+    function refreshCompareButtons() {
+      compareList.forEach(c => {
+        document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
+          btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
+        });
+      });
+      document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
+        btn.disabled = compareList.length >= 3;
+      });
+      updateCompareBar();
+    }
 
-/* 일별은 점이 30개 가까이 찍혀 지저분해 보여서 생략, 월별/연별은 점수가 적어 점을 찍어줌 */
-function pointStyleForUnit(unit, color) {
-  if (unit === 'date') return { pointRadius: 0, pointHoverRadius: 4 };
-  return { pointRadius: 2.5, pointHoverRadius: 5, pointBackgroundColor: color, pointBorderColor: color, pointBorderWidth: 0 };
-}
+    /* 일별은 점이 30개 가까이 찍혀 지저분해 보여서 생략, 월별/연별은 점수가 적어 점을 찍어줌 */
+    function pointStyleForUnit(unit, color) {
+      if (unit === 'date') return { pointRadius: 0, pointHoverRadius: 4 };
+      return { pointRadius: 2.5, pointHoverRadius: 5, pointBackgroundColor: color, pointBorderColor: color, pointBorderWidth: 0 };
+    }
 
-// 5개 선을 전부 원점까지 채우면 겹치는 영역에 반투명이 여러 겹 쌓여 탁한 회색으로 보인다.
-// 그래서 1위(가장 위) 선만 위→아래로 옅어지는 그라데이션 영역을 채우고, 나머지는 깔끔한 선으로만 표시한다.
-function areaFillFor(isTop, color) {
-  if (!isTop) return 'transparent';
-  return (ctx) => {
-    const area = ctx.chart.chartArea;
-    if (!area) return color + '40';
-    const g = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
-    g.addColorStop(0, color + '55');
-    g.addColorStop(1, color + '00');
-    return g;
-  };
-}
+    // 5개 선을 전부 원점까지 채우면 겹치는 영역에 반투명이 여러 겹 쌓여 탁한 회색으로 보인다.
+    // 그래서 1위(가장 위) 선만 위→아래로 옅어지는 그라데이션 영역을 채우고, 나머지는 깔끔한 선으로만 표시한다.
+    function areaFillFor(isTop, color) {
+      if (!isTop) return 'transparent';
+      return (ctx) => {
+        const area = ctx.chart.chartArea;
+        if (!area) return color + '40';
+        const g = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+        g.addColorStop(0, color + '55');
+        g.addColorStop(1, color + '00');
+        return g;
+      };
+    }
 
-function renderTrends(data, unit) {
-  const results = data.results || [];
-  if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
+    function renderTrends(data, unit) {
+      const results = data.results || [];
+      if (!results.length) { document.getElementById('trend-content').innerHTML = '<div class="trend-error">데이터 없음</div>'; return; }
 
-  const ranked = computeRanked(results, unit, data.anchorLatest);
-  const labels   = results[0].data.map(d => formatTrendLabel(d.period, unit));
-  // 그래프 안의 5개 선끼리는 서로 다른 기준으로 정렬되면 범례 순서가 어긋나 보이므로,
-  // 실제 네이버 검색 비율(latest) 내림차순인 ranked를 그래프 전용 기준으로 사용한다.
-  const datasets = ranked.map((r,i) => {
-    const color = CHART_COLORS[i % CHART_COLORS.length];
-    const isTop = i === 0;
-    return {
-      label: r.title,
-      data:  r.data.map(d => d.ratio),
-      borderColor: color,
-      backgroundColor: areaFillFor(isTop, color),
-      borderWidth: isTop ? 2.5 : 2, tension: 0, fill: isTop,
-      ...pointStyleForUnit(unit, color),
-    };
-  });
+      const ranked = computeRanked(results, unit, data.anchorLatest);
+      const labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
+      // 그래프 안의 5개 선끼리는 서로 다른 기준으로 정렬되면 범례 순서가 어긋나 보이므로,
+      // 실제 네이버 검색 비율(latest) 내림차순인 ranked를 그래프 전용 기준으로 사용한다.
+      const datasets = ranked.map((r, i) => {
+        const color = CHART_COLORS[i % CHART_COLORS.length];
+        const isTop = i === 0;
+        return {
+          label: r.title,
+          data: r.data.map(d => d.ratio),
+          borderColor: color,
+          backgroundColor: areaFillFor(isTop, color),
+          borderWidth: isTop ? 2.5 : 2, tension: 0, fill: isTop,
+          ...pointStyleForUnit(unit, color),
+        };
+      });
 
-  const unitPills = TREND_UNITS.map(u =>
-    `<button class="trend-unit-pill${u.key===unit?' active':''}" onclick="setTrendUnit('${u.key}')">${u.label}</button>`
-  ).join('');
-  // "실시간 인기 검색어"는 지금 이 순간의 랭킹(1시간 배치)이라 그래프 unit과 무관하게 항상
-  // realtimeRanked(loadRealtimeKeywords가 별도로 채움) 기준으로 고정 표시한다.
-  // 반면 "추천카드"는 그래프(월별/주간/일별)와 같은 히스토리 뷰이므로 그래프 전용 ranked를 따라간다.
-  const leaderboard = realtimeRanked.length
-    ? buildLeaderboardHtml(realtimeRanked)
-    : '<li style="justify-content:center;color:var(--muted);padding:12px 0">불러오는 중…</li>';
-  const refs = buildTrendCardSections(ranked);
+      const unitPills = TREND_UNITS.map(u =>
+        `<button class="trend-unit-pill${u.key === unit ? ' active' : ''}" onclick="setTrendUnit('${u.key}')">${u.label}</button>`
+      ).join('');
+      // "실시간 인기 검색어"는 지금 이 순간의 랭킹(1시간 배치)이라 그래프 unit과 무관하게 항상
+      // realtimeRanked(loadRealtimeKeywords가 별도로 채움) 기준으로 고정 표시한다.
+      // 반면 "추천카드"는 그래프(월별/주간/일별)와 같은 히스토리 뷰이므로 그래프 전용 ranked를 따라간다.
+      const leaderboard = realtimeRanked.length
+        ? buildLeaderboardHtml(realtimeRanked)
+        : '<li style="justify-content:center;color:var(--muted);padding:12px 0">불러오는 중…</li>';
+      const refs = buildTrendCardSections(ranked);
 
 
-  document.getElementById('trend-content').innerHTML = `
+      document.getElementById('trend-content').innerHTML = `
     <div class="trend-strip">
       <span class="live-badge"><span class="live-dot"></span>Live</span>
       <div class="trend-strip-body">
@@ -1582,194 +3219,194 @@ function renderTrends(data, unit) {
       </div>
     </div>`;
 
-  if (trendChartInstance) trendChartInstance.destroy();
-  const ctx = document.getElementById('trendChart').getContext('2d');
-  trendChartInstance = new Chart(ctx, {
-    type:'line', data:{ labels, datasets },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      interaction:{ mode:'index', intersect:false },
-      plugins:{ legend:{ position:'right', labels:{ font:{family:'GmarketSans',size:11}, padding:10, boxWidth:12 } } },
-      scales:{
-        x:{ grid:{color:'#f1f5f9'}, ticks:{font:{size:10}, autoSkip:false, maxRotation:60, minRotation:0} },
-        y:{ beginAtZero:true, grid:{color:'#f1f5f9'}, ticks:{font:{size:10}} }
+      if (trendChartInstance) trendChartInstance.destroy();
+      const ctx = document.getElementById('trendChart').getContext('2d');
+      trendChartInstance = new Chart(ctx, {
+        type: 'line', data: { labels, datasets },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { position: 'right', labels: { font: { family: 'GmarketSans', size: 11 }, padding: 10, boxWidth: 12 } } },
+          scales: {
+            x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 60, minRotation: 0 } },
+            y: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } }
+          }
+        }
+      });
+
+      refreshCompareButtons();
+    }
+
+    /* 토글/자동갱신 시: 화면을 통째로 지우지 않고 차트 데이터와 리스트만 부드럽게 갱신 */
+    function updateTrendView(data, unit) {
+      const results = data.results || [];
+      if (!results.length || !trendChartInstance) return;
+
+      // 그래프 전용 순위 — "실시간 인기 검색어"는 realtimeRanked(loadRealtimeKeywords)로 따로 고정 갱신되므로
+      // 여기서는 건드리지 않지만, "추천카드"는 그래프와 같은 히스토리 뷰라 이 unit별 ranked를 따라간다.
+      const ranked = computeRanked(results, unit, data.anchorLatest);
+
+      trendChartInstance.data.labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
+      // 그래프 안 5개 선끼리의 범례 순서만 ranked(실제 검색 비율 내림차순) 기준으로 맞춘다.
+      trendChartInstance.data.datasets.forEach((ds, i) => {
+        if (!ranked[i]) return;
+        const isTop = i === 0;
+        ds.label = ranked[i].title;
+        ds.data = ranked[i].data.map(d => d.ratio);
+        ds.fill = isTop;
+        ds.backgroundColor = areaFillFor(isTop, ds.borderColor);
+        ds.borderWidth = isTop ? 2.5 : 2;
+        Object.assign(ds, pointStyleForUnit(unit, ds.borderColor));
+      });
+      trendChartInstance.update();
+
+      document.querySelector('.trend-ref-row').innerHTML = buildTrendCardSections(ranked);
+      refreshCompareButtons();
+    }
+
+    /* ── 맞춤카드 추천 ── */
+    const REC_CARDS = [
+      { idx: 2235, card_name: "삼성 iD ON 카드", company: "삼성카드", annual_fee: "국내전용 [20,000]원 / 해외겸용 [20,000]원", pre_month_money: 300000, top_benefit_summary: "할인: 많이쓰는 영역 자동맞춤 30% 할인 | 생활: 교통/이동통신/스트리밍 10% 할인 | 모든가맹점: 온라인간편결제/해외 3%·1% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png" },
+      { idx: 2736, card_name: "현대홈쇼핑 현대카드", company: "현대카드", annual_fee: "국내전용 [10,000]원 / 해외겸용 [10,000]원", pre_month_money: 0, top_benefit_summary: "홈쇼핑: 현대홈쇼핑 3% 적립 | 적립: 그 외 가맹점 1% 적립", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2736/card_img/36643/2736card_1.png" },
+      { idx: 2523, card_name: "LG U+ 우리카드", company: "우리카드", annual_fee: "국내전용 [10,000원] / 해외겸용 [15,000원]", pre_month_money: 300000, top_benefit_summary: "LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 페밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png" },
+      { idx: 2346, card_name: "BC 바로 클리어 플러스", company: "BC 바로카드", annual_fee: "국내전용 [5,000]원 / 해외겸용 [5,000]원", pre_month_money: 150000, top_benefit_summary: "푸드: 점심식사/배달앱 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 통신: 휴대폰요금/스트리밍 10% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2346/card_img/32523/2346card.png" },
+      { idx: 2348, card_name: "BC 바로 페이백 플러스", company: "BC 바로카드", annual_fee: "국내전용 [15,000]원 / 해외겸용 [15,000]원", pre_month_money: 400000, top_benefit_summary: "모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png" },
+      { idx: 2483, card_name: "IBK DC히어로즈 카드(신용)", company: "IBK기업은행", annual_fee: "국내전용 [10,000]원 / 해외겸용 [12,000]원", pre_month_money: 500000, top_benefit_summary: "푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png" },
+      { idx: 2687, card_name: "카드의정석 SHOPPING+", company: "우리카드", annual_fee: "국내전용 [10,000]원 / 해외겸용 [12,000]원", pre_month_money: 300000, top_benefit_summary: "온라인쇼핑: 온라인 쇼핑 10% 청구할인 | 쇼핑: 백화점・대형할인점・슈퍼마켓 등 10% 청구할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2687/card_img/33239/2687card.png" },
+      { idx: 2502, card_name: "UPTURN카드", company: "BC 바로카드", annual_fee: "해외겸용 [7,000원]", pre_month_money: 300000, top_benefit_summary: "KT: KT이동통신요금 14,000원 할인 | 온라인쇼핑: 온라인·모바일 쇼핑 5% 할인 | 주유소: 주유 60원/L 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2502/card_img/28620/2502card.png" },
+      { idx: 2358, card_name: "삼성 iD EDU 카드", company: "삼성카드", annual_fee: "국내전용 [30,000원] / 해외겸용 [30,000원]", pre_month_money: 500000, top_benefit_summary: "교육/육아: 교육 10% 할인 | 공과금/렌탈: 아파트관리비 5,000원 할인 | 배달앱: 배달앱 5% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2358/card_img/27724/2359card.png" },
+      { idx: 39, card_name: "신한카드 Deep Oil", company: "신한카드", annual_fee: "해외겸용 [10,000]원", pre_month_money: 300000, top_benefit_summary: "주유: 4개정유사 10% 할인 | 자동차/하이패스: 차량서비스 10% 할인 | 생활: 편의점/커피/택시 5% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/39/card_img/31864/39card.png" },
+      { idx: 2525, card_name: "만나 우리카드", company: "우리카드", annual_fee: "국내전용 [12,000원] / 해외겸용 [12,000원]", pre_month_money: 0, top_benefit_summary: "주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png" },
+      { idx: 2503, card_name: "키자니아 에듀카드", company: "BC 바로카드", annual_fee: "국내전용 [12,000원] / 해외겸용 [15,000원]", pre_month_money: 300000, top_benefit_summary: "교육/육아: 학원·유치원 10% 할인 | 주유: 주유 60원/L 할인 | 테마파크: 키자니아 무료 입장권", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2503/card_img/28621/2503card.png" },
+      { idx: 2330, card_name: "LOCA 365 카드", company: "롯데카드", annual_fee: "국내전용 [20,000]원 / 해외겸용 [20,000]원", pre_month_money: 500000, top_benefit_summary: "공과금/렌탈: 아파트관리비, 공과금 10% 할인 | 생활: 교통, 통신, 배달앱 10% 할인 | 디지털구독: 스트리밍 1,500원 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2330/card_img/24131/2330card.png" },
+      { idx: 2292, card_name: "현대카드 MY BUSINESS ZERO Food&Drink", company: "현대카드", annual_fee: "국내전용 [30,000]원 / 해외겸용 [30,000]원", pre_month_money: 0, top_benefit_summary: "모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 마트/편의점: 대형마트/슈퍼마켓 1.5% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2292/card_img/22779/2292card.png" },
+      { idx: 2293, card_name: "현대카드 MY BUSINESS ZERO Retail&Service", company: "현대카드", annual_fee: "국내전용 [30,000]원 / 해외겸용 [30,000]원", pre_month_money: 0, top_benefit_summary: "모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 통신: 통신요금 1.5% 할인", card_img: "https://d1c5n4ri2guedi.cloudfront.net/card/2293/card_img/23896/2293card.png" },
+    ];
+    const recCardMap = {};
+    REC_CARDS.forEach(c => recCardMap[c.idx] = c);
+
+    const PERSONA_DB = {
+      "20대_여성": {
+        magTitle: "20대 여성이라면? <span class='highlight'>쇼핑과 뷰티, 트렌드</span>를 놓치지 않는 카드 TOP 3",
+        chartData: { labels: ['온라인쇼핑(패션/뷰티)', '여가/여행', '카페/디저트', '전문서비스(뷰티)', '한식'], data: [35, 20, 15, 12, 8] },
+        fact: "압도적인 1위는 패션/뷰티 중심의 '인터넷 쇼핑'입니다. 이어서 여행, 카페, 그리고 미용실이나 네일아트 같은 전문 서비스 결제 비중이 매우 높습니다.",
+        need: "온라인 플랫폼 결제 시 높은 할인율과, 카페/베이커리 등 일상적인 소확행에 특화된 혜택이 가장 유리합니다.",
+        reason: "쇼핑과 카페에서 가장 강력한 체감 할인을 제공하며, 트렌디한 가맹점을 두루 커버하는 알짜 카드들입니다.",
+        cardIds: [2235, 2736, 2523],
+        reviews: ["자주 쓰는 영역에서 자동으로 30% 할인을 맞춰주는 똑똑한 카드!", "트렌디한 쇼핑몰과 온라인 결제에서 확실한 혜택을 제공합니다.", "카페와 디저트를 사랑한다면 필수적인 알짜 카드입니다."],
+        tip: "쇼핑 특화 카드를 고를 때는 내가 자주 쓰는 간편결제(네이버페이, 카카오페이 등)가 추가 할인 대상인지 꼭 확인하세요!"
+      },
+      "20대_남성": {
+        magTitle: "20대 남성이라면? <span class='highlight'>가성비 든든한 식비와 전자기기</span> 쇼핑 카드 TOP 3",
+        chartData: { labels: ['인터넷쇼핑(IT/기기)', '종합쇼핑몰', '한식(점심/외식)', '패스트푸드', '주점/유흥'], data: [30, 22, 18, 15, 10] },
+        fact: "가장 눈에 띄는 지출은 '식비(점심, 패스트푸드)'와 '온라인 쇼핑(전자기기 등)'입니다. 게임이나 취미 생활 관련 결제도 돋보입니다.",
+        need: "매일 발생하는 식비와 배달앱 할인이 필수적이며, 교통비나 통신비 같은 고정비를 아껴줄 서브 혜택이 필요합니다.",
+        reason: "가성비 좋게 매일 식비를 깎아주거나, 복잡한 조건 없이 알아서 캐시백 해주는 실용성 갑 카드들입니다.",
+        cardIds: [2346, 2348, 2483],
+        reviews: ["매일 먹는 점심값과 배달앱에서 무려 7%를 깎아주는 든든한 국밥같은 카드!", "교통비와 통신비를 아껴서 취미 생활에 보탤 수 있습니다.", "복잡한 조건 없이 제일 많이 쓴 곳에서 알아서 캐시백 해줍니다."],
+        tip: "식비 할인 카드를 고를 때는 '점심시간(오전 11시~오후 2시)' 등 특정 시간대 조건이 있는지 꼭 체크하세요!"
+      },
+      "30대_여성": {
+        magTitle: "30대 여성이라면? <span class='highlight'>리빙, 육아, 프리미엄 쇼핑</span> 혜택 카드 TOP 3",
+        chartData: { labels: ['인터넷쇼핑(리빙/육아)', '종합쇼핑몰(가전)', '보육/교육', '의료/약국', '대형마트'], data: [28, 25, 18, 12, 10] },
+        fact: "가전, 가구 등 단가가 높은 리빙 상품과 가족 단위 대형마트 쇼핑의 비중이 큽니다. 자녀 교육비나 병원비 결제도 눈에 띕니다.",
+        need: "건당 결제 금액이 크기 때문에 '할인 한도'가 높은 대형마트/온라인 쇼핑 특화 혜택과 교육비 할인이 필요합니다.",
+        reason: "굵직한 지출에서 시원하게 할인받고, 생활비 방어까지 챙겨주는 프리미엄 밸런스 카드들입니다.",
+        cardIds: [2687, 2502, 2358],
+        reviews: ["온·오프라인 쇼핑 10% 청구할인으로 굵직한 결제에 강합니다.", "통신비 할인과 쇼핑 할인을 밸런스 있게 갖춘 카드입니다.", "아이들 교육비와 아파트 관리비를 든든히 방어해주는 효자 카드!"],
+        tip: "가족 단위 마트 쇼핑이 많다면, 백화점/대형마트 청구할인 한도가 넉넉한지 확인하는 것이 가장 중요합니다."
+      },
+      "30대_남성": {
+        magTitle: "30대 남성 직장인이라면? <span class='highlight'>주유비와 점심값</span>을 아껴주는 카드 TOP 3",
+        chartData: { labels: ['종합쇼핑몰', '주유소/차량유지', '자동차정비', '인터넷쇼핑', '한식(모임/외식)'], data: [30, 25, 15, 12, 8] },
+        fact: "자차 출퇴근과 외근이 많아 '주유비' 비중이 매우 높습니다. 직장 동료와의 회식이나 점심 식사 결제도 상당합니다.",
+        need: "차량 유지비(주유/정비)를 확실하게 아껴줄 혜택과, 소소한 커피/대중교통 할인이 어우러진 직장인 특화 카드가 필요합니다.",
+        reason: "주유 할인은 기본, 생활 밀착형 혜택까지 두루 갖춰 자동차 오너에게 최고의 만족을 줍니다.",
+        cardIds: [39, 2525, 2503],
+        reviews: ["내가 고른 정유사 10% 할인과 정비소 혜택으로 자차 운전자 필수템!", "기본적인 주유 혜택에 더해 대중교통과 커피 할인까지 쏠쏠합니다.", "주말마다 자녀와 놀러갈 때 유용한 테마파크와 주유 혜택의 조합."],
+        tip: "주유 할인 카드를 선택할 때는 '리터당 할인'인지 '결제 금액의 % 할인'인지에 따라 혜택 체감이 크게 달라집니다!"
+      },
+      "40~50대 이상_여성": {
+        magTitle: "40·50대 여성이라면? <span class='highlight'>병원비와 아파트 관리비</span> 꽉 잡는 카드 TOP 3",
+        chartData: { labels: ['의료/병원/약국', '대형마트/생필품', '종합쇼핑몰', '공과금/보험', '교육/학원'], data: [35, 25, 15, 12, 8] },
+        fact: "가족 건강을 위한 의료비 지출이 1위입니다. 아파트 관리비, 보험 등 고정성 생활 지출과 마트 장보기가 뒤를 잇습니다.",
+        need: "복잡한 조건 없이 관리비, 통신비 등 피할 수 없는 '고정비'를 줄여주는 혜택이 최고입니다.",
+        reason: "공과금과 마트 지출을 크게 줄여주어 팍팍한 가계부에 큰 보탬이 되는 1등 공신 카드들입니다.",
+        cardIds: [2330, 2292, 2293],
+        reviews: ["아파트 관리비와 공과금을 알아서 10% 깎아주어 매달 돈 버는 느낌을 줍니다.", "어디서 긁든 조건 없는 기본 할인에 대형마트 추가 혜택이 좋습니다.", "복잡한 실적 계산 없이 깔끔하게 통신비와 기본 생활비를 챙겨줍니다."],
+        tip: "공과금 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
+      },
+      "40~50대 이상_남성": {
+        magTitle: "40·50대 남성이라면? <span class='highlight'>병원비와 생활 고정비</span> 꽉 잡는 알짜 카드 TOP 3",
+        chartData: { labels: ['의료/병원/약국', '대형마트', '주유소/자동차', '공과금/보험', '골프/레저'], data: [30, 22, 18, 15, 10] },
+        fact: "'의료비'와 '공과금' 비중이 큽니다. 여기에 주유비와 골프 같은 레저/스포츠 관련 소비가 특징적입니다.",
+        need: "골치 아픈 실적 계산 없이 긁을 때마다 무조건 할인되거나, 고정비를 크게 깎아주는 듬직한 카드가 좋습니다.",
+        reason: "까다로운 실적 조건 없이 생활 속에서 무조건 할인을 받거나, 고정비를 꽉 잡아주는 듬직한 카드들입니다.",
+        cardIds: [2330, 2292, 2293],
+        reviews: ["아파트 관리비와 공과금을 알아서 10% 깎아주어 고정비를 강력하게 방어합니다.", "사업이나 일상 등 가리지 않고 쓸 수 있는 무조건 할인 카드입니다.", "통신비와 기본 생활비를 실적 조건 없이 편안하게 할인받을 수 있습니다."],
+        tip: "고정비 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
+      }
+    };
+
+    let recChart = null, recTimeout = null, recInitialized = false;
+
+    function initRecommend() {
+      if (!recInitialized) {
+        recInitialized = true;
+        renderPersona('20대_여성');
       }
     }
-  });
 
-  refreshCompareButtons();
-}
+    // 카드 연구소 LNB: 맞춤카드(persona) / 실시간 검색 트렌드(trend) 두 뷰를 같은 섹션 안에서 전환
+    function setRecommendView(view, btn) {
+      document.querySelectorAll('#section-recommend .lnb-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('recview-persona').hidden = view !== 'persona';
+      document.getElementById('recview-trend').hidden = view !== 'trend';
+      if (view === 'trend') initTrend();
+    }
 
-/* 토글/자동갱신 시: 화면을 통째로 지우지 않고 차트 데이터와 리스트만 부드럽게 갱신 */
-function updateTrendView(data, unit) {
-  const results = data.results || [];
-  if (!results.length || !trendChartInstance) return;
+    function selectPersona(key, el) {
+      document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderPersona(key);
+    }
 
-  // 그래프 전용 순위 — "실시간 인기 검색어"는 realtimeRanked(loadRealtimeKeywords)로 따로 고정 갱신되므로
-  // 여기서는 건드리지 않지만, "추천카드"는 그래프와 같은 히스토리 뷰라 이 unit별 ranked를 따라간다.
-  const ranked = computeRanked(results, unit, data.anchorLatest);
-
-  trendChartInstance.data.labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
-  // 그래프 안 5개 선끼리의 범례 순서만 ranked(실제 검색 비율 내림차순) 기준으로 맞춘다.
-  trendChartInstance.data.datasets.forEach((ds, i) => {
-    if (!ranked[i]) return;
-    const isTop = i === 0;
-    ds.label = ranked[i].title;
-    ds.data = ranked[i].data.map(d => d.ratio);
-    ds.fill = isTop;
-    ds.backgroundColor = areaFillFor(isTop, ds.borderColor);
-    ds.borderWidth = isTop ? 2.5 : 2;
-    Object.assign(ds, pointStyleForUnit(unit, ds.borderColor));
-  });
-  trendChartInstance.update();
-
-  document.querySelector('.trend-ref-row').innerHTML = buildTrendCardSections(ranked);
-  refreshCompareButtons();
-}
-
-/* ── 맞춤카드 추천 ── */
-const REC_CARDS = [
-  {idx:2235,card_name:"삼성 iD ON 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:300000,top_benefit_summary:"할인: 많이쓰는 영역 자동맞춤 30% 할인 | 생활: 교통/이동통신/스트리밍 10% 할인 | 모든가맹점: 온라인간편결제/해외 3%·1% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png"},
-  {idx:2736,card_name:"현대홈쇼핑 현대카드",company:"현대카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [10,000]원",pre_month_money:0,top_benefit_summary:"홈쇼핑: 현대홈쇼핑 3% 적립 | 적립: 그 외 가맹점 1% 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2736/card_img/36643/2736card_1.png"},
-  {idx:2523,card_name:"LG U+ 우리카드",company:"우리카드",annual_fee:"국내전용 [10,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 페밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png"},
-  {idx:2346,card_name:"BC 바로 클리어 플러스",company:"BC 바로카드",annual_fee:"국내전용 [5,000]원 / 해외겸용 [5,000]원",pre_month_money:150000,top_benefit_summary:"푸드: 점심식사/배달앱 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 통신: 휴대폰요금/스트리밍 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2346/card_img/32523/2346card.png"},
-  {idx:2348,card_name:"BC 바로 페이백 플러스",company:"BC 바로카드",annual_fee:"국내전용 [15,000]원 / 해외겸용 [15,000]원",pre_month_money:400000,top_benefit_summary:"모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png"},
-  {idx:2483,card_name:"IBK DC히어로즈 카드(신용)",company:"IBK기업은행",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:500000,top_benefit_summary:"푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png"},
-  {idx:2687,card_name:"카드의정석 SHOPPING+",company:"우리카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:300000,top_benefit_summary:"온라인쇼핑: 온라인 쇼핑 10% 청구할인 | 쇼핑: 백화점・대형할인점・슈퍼마켓 등 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2687/card_img/33239/2687card.png"},
-  {idx:2502,card_name:"UPTURN카드",company:"BC 바로카드",annual_fee:"해외겸용 [7,000원]",pre_month_money:300000,top_benefit_summary:"KT: KT이동통신요금 14,000원 할인 | 온라인쇼핑: 온라인·모바일 쇼핑 5% 할인 | 주유소: 주유 60원/L 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2502/card_img/28620/2502card.png"},
-  {idx:2358,card_name:"삼성 iD EDU 카드",company:"삼성카드",annual_fee:"국내전용 [30,000원] / 해외겸용 [30,000원]",pre_month_money:500000,top_benefit_summary:"교육/육아: 교육 10% 할인 | 공과금/렌탈: 아파트관리비 5,000원 할인 | 배달앱: 배달앱 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2358/card_img/27724/2359card.png"},
-  {idx:39,card_name:"신한카드 Deep Oil",company:"신한카드",annual_fee:"해외겸용 [10,000]원",pre_month_money:300000,top_benefit_summary:"주유: 4개정유사 10% 할인 | 자동차/하이패스: 차량서비스 10% 할인 | 생활: 편의점/커피/택시 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/39/card_img/31864/39card.png"},
-  {idx:2525,card_name:"만나 우리카드",company:"우리카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [12,000원]",pre_month_money:0,top_benefit_summary:"주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png"},
-  {idx:2503,card_name:"키자니아 에듀카드",company:"BC 바로카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"교육/육아: 학원·유치원 10% 할인 | 주유: 주유 60원/L 할인 | 테마파크: 키자니아 무료 입장권",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2503/card_img/28621/2503card.png"},
-  {idx:2330,card_name:"LOCA 365 카드",company:"롯데카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"공과금/렌탈: 아파트관리비, 공과금 10% 할인 | 생활: 교통, 통신, 배달앱 10% 할인 | 디지털구독: 스트리밍 1,500원 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2330/card_img/24131/2330card.png"},
-  {idx:2292,card_name:"현대카드 MY BUSINESS ZERO Food&Drink",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 마트/편의점: 대형마트/슈퍼마켓 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2292/card_img/22779/2292card.png"},
-  {idx:2293,card_name:"현대카드 MY BUSINESS ZERO Retail&Service",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 통신: 통신요금 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2293/card_img/23896/2293card.png"},
-];
-const recCardMap = {};
-REC_CARDS.forEach(c => recCardMap[c.idx] = c);
-
-const PERSONA_DB = {
-  "20대_여성": {
-    magTitle: "20대 여성이라면? <span class='highlight'>쇼핑과 뷰티, 트렌드</span>를 놓치지 않는 카드 TOP 3",
-    chartData: { labels:['온라인쇼핑(패션/뷰티)','여가/여행','카페/디저트','전문서비스(뷰티)','한식'], data:[35,20,15,12,8] },
-    fact:"압도적인 1위는 패션/뷰티 중심의 '인터넷 쇼핑'입니다. 이어서 여행, 카페, 그리고 미용실이나 네일아트 같은 전문 서비스 결제 비중이 매우 높습니다.",
-    need:"온라인 플랫폼 결제 시 높은 할인율과, 카페/베이커리 등 일상적인 소확행에 특화된 혜택이 가장 유리합니다.",
-    reason:"쇼핑과 카페에서 가장 강력한 체감 할인을 제공하며, 트렌디한 가맹점을 두루 커버하는 알짜 카드들입니다.",
-    cardIds:[2235,2736,2523],
-    reviews:["자주 쓰는 영역에서 자동으로 30% 할인을 맞춰주는 똑똑한 카드!","트렌디한 쇼핑몰과 온라인 결제에서 확실한 혜택을 제공합니다.","카페와 디저트를 사랑한다면 필수적인 알짜 카드입니다."],
-    tip:"쇼핑 특화 카드를 고를 때는 내가 자주 쓰는 간편결제(네이버페이, 카카오페이 등)가 추가 할인 대상인지 꼭 확인하세요!"
-  },
-  "20대_남성": {
-    magTitle: "20대 남성이라면? <span class='highlight'>가성비 든든한 식비와 전자기기</span> 쇼핑 카드 TOP 3",
-    chartData: { labels:['인터넷쇼핑(IT/기기)','종합쇼핑몰','한식(점심/외식)','패스트푸드','주점/유흥'], data:[30,22,18,15,10] },
-    fact:"가장 눈에 띄는 지출은 '식비(점심, 패스트푸드)'와 '온라인 쇼핑(전자기기 등)'입니다. 게임이나 취미 생활 관련 결제도 돋보입니다.",
-    need:"매일 발생하는 식비와 배달앱 할인이 필수적이며, 교통비나 통신비 같은 고정비를 아껴줄 서브 혜택이 필요합니다.",
-    reason:"가성비 좋게 매일 식비를 깎아주거나, 복잡한 조건 없이 알아서 캐시백 해주는 실용성 갑 카드들입니다.",
-    cardIds:[2346,2348,2483],
-    reviews:["매일 먹는 점심값과 배달앱에서 무려 7%를 깎아주는 든든한 국밥같은 카드!","교통비와 통신비를 아껴서 취미 생활에 보탤 수 있습니다.","복잡한 조건 없이 제일 많이 쓴 곳에서 알아서 캐시백 해줍니다."],
-    tip:"식비 할인 카드를 고를 때는 '점심시간(오전 11시~오후 2시)' 등 특정 시간대 조건이 있는지 꼭 체크하세요!"
-  },
-  "30대_여성": {
-    magTitle: "30대 여성이라면? <span class='highlight'>리빙, 육아, 프리미엄 쇼핑</span> 혜택 카드 TOP 3",
-    chartData: { labels:['인터넷쇼핑(리빙/육아)','종합쇼핑몰(가전)','보육/교육','의료/약국','대형마트'], data:[28,25,18,12,10] },
-    fact:"가전, 가구 등 단가가 높은 리빙 상품과 가족 단위 대형마트 쇼핑의 비중이 큽니다. 자녀 교육비나 병원비 결제도 눈에 띕니다.",
-    need:"건당 결제 금액이 크기 때문에 '할인 한도'가 높은 대형마트/온라인 쇼핑 특화 혜택과 교육비 할인이 필요합니다.",
-    reason:"굵직한 지출에서 시원하게 할인받고, 생활비 방어까지 챙겨주는 프리미엄 밸런스 카드들입니다.",
-    cardIds:[2687,2502,2358],
-    reviews:["온·오프라인 쇼핑 10% 청구할인으로 굵직한 결제에 강합니다.","통신비 할인과 쇼핑 할인을 밸런스 있게 갖춘 카드입니다.","아이들 교육비와 아파트 관리비를 든든히 방어해주는 효자 카드!"],
-    tip:"가족 단위 마트 쇼핑이 많다면, 백화점/대형마트 청구할인 한도가 넉넉한지 확인하는 것이 가장 중요합니다."
-  },
-  "30대_남성": {
-    magTitle: "30대 남성 직장인이라면? <span class='highlight'>주유비와 점심값</span>을 아껴주는 카드 TOP 3",
-    chartData: { labels:['종합쇼핑몰','주유소/차량유지','자동차정비','인터넷쇼핑','한식(모임/외식)'], data:[30,25,15,12,8] },
-    fact:"자차 출퇴근과 외근이 많아 '주유비' 비중이 매우 높습니다. 직장 동료와의 회식이나 점심 식사 결제도 상당합니다.",
-    need:"차량 유지비(주유/정비)를 확실하게 아껴줄 혜택과, 소소한 커피/대중교통 할인이 어우러진 직장인 특화 카드가 필요합니다.",
-    reason:"주유 할인은 기본, 생활 밀착형 혜택까지 두루 갖춰 자동차 오너에게 최고의 만족을 줍니다.",
-    cardIds:[39,2525,2503],
-    reviews:["내가 고른 정유사 10% 할인과 정비소 혜택으로 자차 운전자 필수템!","기본적인 주유 혜택에 더해 대중교통과 커피 할인까지 쏠쏠합니다.","주말마다 자녀와 놀러갈 때 유용한 테마파크와 주유 혜택의 조합."],
-    tip:"주유 할인 카드를 선택할 때는 '리터당 할인'인지 '결제 금액의 % 할인'인지에 따라 혜택 체감이 크게 달라집니다!"
-  },
-  "40~50대 이상_여성": {
-    magTitle: "40·50대 여성이라면? <span class='highlight'>병원비와 아파트 관리비</span> 꽉 잡는 카드 TOP 3",
-    chartData: { labels:['의료/병원/약국','대형마트/생필품','종합쇼핑몰','공과금/보험','교육/학원'], data:[35,25,15,12,8] },
-    fact:"가족 건강을 위한 의료비 지출이 1위입니다. 아파트 관리비, 보험 등 고정성 생활 지출과 마트 장보기가 뒤를 잇습니다.",
-    need:"복잡한 조건 없이 관리비, 통신비 등 피할 수 없는 '고정비'를 줄여주는 혜택이 최고입니다.",
-    reason:"공과금과 마트 지출을 크게 줄여주어 팍팍한 가계부에 큰 보탬이 되는 1등 공신 카드들입니다.",
-    cardIds:[2330,2292,2293],
-    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 매달 돈 버는 느낌을 줍니다.","어디서 긁든 조건 없는 기본 할인에 대형마트 추가 혜택이 좋습니다.","복잡한 실적 계산 없이 깔끔하게 통신비와 기본 생활비를 챙겨줍니다."],
-    tip:"공과금 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
-  },
-  "40~50대 이상_남성": {
-    magTitle: "40·50대 남성이라면? <span class='highlight'>병원비와 생활 고정비</span> 꽉 잡는 알짜 카드 TOP 3",
-    chartData: { labels:['의료/병원/약국','대형마트','주유소/자동차','공과금/보험','골프/레저'], data:[30,22,18,15,10] },
-    fact:"'의료비'와 '공과금' 비중이 큽니다. 여기에 주유비와 골프 같은 레저/스포츠 관련 소비가 특징적입니다.",
-    need:"골치 아픈 실적 계산 없이 긁을 때마다 무조건 할인되거나, 고정비를 크게 깎아주는 듬직한 카드가 좋습니다.",
-    reason:"까다로운 실적 조건 없이 생활 속에서 무조건 할인을 받거나, 고정비를 꽉 잡아주는 듬직한 카드들입니다.",
-    cardIds:[2330,2292,2293],
-    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 고정비를 강력하게 방어합니다.","사업이나 일상 등 가리지 않고 쓸 수 있는 무조건 할인 카드입니다.","통신비와 기본 생활비를 실적 조건 없이 편안하게 할인받을 수 있습니다."],
-    tip:"고정비 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
-  }
-};
-
-let recChart = null, recTimeout = null, recInitialized = false;
-
-function initRecommend(){
-  if(!recInitialized){
-    recInitialized = true;
-    renderPersona('20대_여성');
-  }
-}
-
-// 카드 연구소 LNB: 맞춤카드(persona) / 실시간 검색 트렌드(trend) 두 뷰를 같은 섹션 안에서 전환
-function setRecommendView(view, btn){
-  document.querySelectorAll('#section-recommend .lnb-item').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('recview-persona').hidden = view !== 'persona';
-  document.getElementById('recview-trend').hidden = view !== 'trend';
-  if(view === 'trend') initTrend();
-}
-
-function selectPersona(key, el){
-  document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
-  if(el) el.classList.add('active');
-  renderPersona(key);
-}
-
-function renderPersona(key){
-  const p = PERSONA_DB[key];
-  if(!p) return;
-  const resultEl = document.getElementById('result-container');
-  const skeletonEl = document.getElementById('skeleton-container');
-  resultEl.classList.remove('active');
-  resultEl.innerHTML = '';
-  skeletonEl.classList.add('active');
-  if(recTimeout) clearTimeout(recTimeout);
-  recTimeout = setTimeout(()=>{
-    skeletonEl.classList.remove('active');
-    const escR = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    let cardsHTML = '';
-    p.cardIds.forEach((id, i)=>{
-      const c = recCardMap[id];
-      if(!c) return;
-      const benefit = (c.top_benefit_summary||'').split(' | ')
-        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escR(s.slice(0,idx))}</b>${escR(s.slice(idx))}`:escR(s);})
-        .join('<br>');
-      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
-      cardsHTML += `
-        <div class="c-card${i===0?' rank-1':''}">
-          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
-          <img class="card-thumb" src="${escR(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
-          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company||'')}</span></div>
+    function renderPersona(key) {
+      const p = PERSONA_DB[key];
+      if (!p) return;
+      const resultEl = document.getElementById('result-container');
+      const skeletonEl = document.getElementById('skeleton-container');
+      resultEl.classList.remove('active');
+      resultEl.innerHTML = '';
+      skeletonEl.classList.add('active');
+      if (recTimeout) clearTimeout(recTimeout);
+      recTimeout = setTimeout(() => {
+        skeletonEl.classList.remove('active');
+        const escR = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        let cardsHTML = '';
+        p.cardIds.forEach((id, i) => {
+          const c = recCardMap[id];
+          if (!c) return;
+          const benefit = (c.top_benefit_summary || '').split(' | ')
+            .map(s => { const idx = s.indexOf(':'); return idx > 0 ? `<b>${escR(s.slice(0, idx))}</b>${escR(s.slice(idx))}` : escR(s); })
+            .join('<br>');
+          const fee = (c.annual_fee || '-').replace(/\[([\d,]+)\]원/g, '$1원').replace(/\s*\/\s*/g, ' / ');
+          cardsHTML += `
+        <div class="c-card${i === 0 ? ' rank-1' : ''}">
+          <span class="c-rank">${i === 0 ? '🥇 1위' : '🏆 ' + (i + 1) + '위'}</span>
+          <img class="card-thumb" src="${escR(c.card_img || '')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company || '')}</span></div>
           <div class="c-chip-row">
             <span class="c-chip fee">연회비 ${fee}</span>
-            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+            ${c.pre_month_money ? `<span class="c-chip">실적 ${Math.round(c.pre_month_money / 10000)}만</span>` : ''}
           </div>
-          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
-          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
+          <div class="c-benefit">${benefit || '<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <div class="c-review">${escR(p.reviews[i] || '강력 추천합니다!')}</div>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
         </div>`;
-    });
-    resultEl.innerHTML = `
+        });
+        resultEl.innerHTML = `
       <div class="mag-container">
         <h2 class="mag-title">${p.magTitle}</h2>
         <div class="analysis-section">
@@ -1789,30 +3426,32 @@ function renderPersona(key){
         </div>
         <div class="mag-tip"><strong>Tip</strong><div>${escR(p.tip)}</div></div>
       </div>`;
-    resultEl.classList.add('active');
-    if(recChart) recChart.destroy();
-    const ctx = document.getElementById('personaChart').getContext('2d');
-    recChart = new Chart(ctx, {
-      type:'doughnut',
-      data:{
-        labels:p.chartData.labels,
-        datasets:[{data:p.chartData.data,backgroundColor:['#145CE6','#3498db','#9b59b6','#f1c40f','#e74c3c'],borderWidth:2,borderColor:'#f8fafc',hoverOffset:8}]
-      },
-      options:{responsive:true,maintainAspectRatio:true,
-        animation:{animateScale:true,animateRotate:true,duration:1200,easing:'easeOutBounce'},
-        plugins:{
-          legend:{position:'bottom',labels:{font:{family:'GmarketSans',size:12},padding:12}},
-          tooltip:{callbacks:{label:ctx=>' '+ctx.label+' ('+ctx.raw+'%)'}}
-        }
-      }
-    });
-  }, 800);
-}
+        resultEl.classList.add('active');
+        if (recChart) recChart.destroy();
+        const ctx = document.getElementById('personaChart').getContext('2d');
+        recChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: p.chartData.labels,
+            datasets: [{ data: p.chartData.data, backgroundColor: ['#145CE6', '#3498db', '#9b59b6', '#f1c40f', '#e74c3c'], borderWidth: 2, borderColor: '#f8fafc', hoverOffset: 8 }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: true,
+            animation: { animateScale: true, animateRotate: true, duration: 1200, easing: 'easeOutBounce' },
+            plugins: {
+              legend: { position: 'bottom', labels: { font: { family: 'GmarketSans', size: 12 }, padding: 12 } },
+              tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ' (' + ctx.raw + '%)' } }
+            }
+          }
+        });
+      }, 800);
+    }
 
-// 검색창 placeholder·실시간 인기 검색어는 트렌드분석 탭을 열어보지 않아도 항상 최신이어야 하므로
-// 페이지 로드 시 바로 실행하고, 1시간마다 독립적으로 갱신한다.
-loadRealtimeKeywords();
-realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
-</script>
+    // 검색창 placeholder·실시간 인기 검색어는 트렌드분석 탭을 열어보지 않아도 항상 최신이어야 하므로
+    // 페이지 로드 시 바로 실행하고, 1시간마다 독립적으로 갱신한다.
+    loadRealtimeKeywords();
+    realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
+  </script>
 </body>
+
 </html>
