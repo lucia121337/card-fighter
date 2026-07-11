@@ -400,6 +400,19 @@
   .cbm-sub{color:var(--muted);font-size:12.5px;margin-bottom:12px}
   .cbm-text{white-space:pre-line;font-size:13px;color:#475569;line-height:1.65}
   .cbm-link{display:inline-block;margin-top:14px;color:var(--brand);font-weight:700}
+  /* 우리 카드 DB 연결 */
+  .cbm-cardlink{display:flex;align-items:center;gap:12px;margin:16px 0 4px;padding:12px 14px;
+    background:var(--panel2);border:1.5px solid #bfdbfe;border-radius:12px;text-decoration:none;
+    transition:.15s;cursor:pointer}
+  .cbm-cardlink:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(20,92,230,.14)}
+  .cbm-cardlink img{width:46px;height:30px;object-fit:contain;flex-shrink:0}
+  .cbm-cardlink .cl-txt{flex:1;min-width:0}
+  .cbm-cardlink .cl-eyebrow{font-size:11px;font-weight:700;color:var(--brand)}
+  .cbm-cardlink .cl-name{font-size:13.5px;font-weight:700;color:var(--txt);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cbm-cardlink .cl-arrow{color:var(--brand);font-weight:800;flex-shrink:0}
+  .cbc-link-badge{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;
+    background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
   .cb-company-card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
         padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;
         justify-content:center;gap:14px;min-height:220px;
@@ -1389,13 +1402,31 @@ function renderCbCards(co){
     const badge = card.type ? `<span class="cbc-badge ${card.type==='캐시백'?'cbk':''}">${esc(card.type)}</span>` : '';
     const amt = card.amount>0 ? `<span class="cbc-amt">최대 ${card.amount}만원</span>` : '';
     const click = card.event_idx ? `onclick="openCbDetail(${card.event_idx})"` : '';
+    const ev = card.event_idx ? CB_EVENTS.find(x=>x.idx===card.event_idx) : null;
+    const linked = resolveOurCard(ev) ? '<span class="cbc-link-badge">📇 카드정보</span>' : '';
     return `<div class="cb-event-card" ${click}>
-      <div class="cbc-top">${badge}${amt}</div>
+      <div class="cbc-top">${badge}${amt}${linked}</div>
       <div class="cbc-title">${esc(card.name)}</div>
       <div class="cbc-subject">${esc(card.subject||'')}</div>
       ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : ''}
     </div>`;
   }).join('') || '<div class="empty">카드가 없어요.</div>';
+}
+
+/* ── 캐시백 이벤트 ↔ 우리 카드 DB 연결 ── */
+let CARD_BY_IDX = new Map(), CARD_BY_NAME = new Map();
+const normName = s => (s||'').replace(/\s+/g,'').toLowerCase();
+function buildCardIndex(){
+  CARD_BY_IDX = new Map(DATA.map(c=>[c.idx, c]));
+  CARD_BY_NAME = new Map(DATA.map(c=>[normName(c.card_name), c]));
+}
+// 이벤트 → 우리 카드(있으면). 카드명 정확일치 우선, 없으면 card_idxs 중 우리 DB에 있는 첫 카드.
+function resolveOurCard(e){
+  if(!e) return null;
+  const byName = CARD_BY_NAME.get(normName(e.title));
+  if(byName) return byName;
+  for(const id of (e.card_idxs||[])){ const c = CARD_BY_IDX.get(id); if(c) return c; }
+  return null;
 }
 
 function setCbPlatform(name){ activePlatform=name; cbView='companies'; drillCompany=null; renderCashback(); }
@@ -1406,11 +1437,18 @@ function openCbDetail(idx){
   const e = CB_EVENTS.find(x=>x.idx===idx); if(!e) return;
   const imgs = (e.detail_images||[]).map(u=>`<img src="${esc(u)}" alt="" style="max-width:100%;border-radius:10px;margin:8px 0" onerror="this.style.display='none'">`).join('');
   const text = e.detail_text ? `<div class="cbm-text">${esc(e.detail_text)}</div>` : (imgs ? '' : '<div class="cbm-text" style="color:#94a3b8">상세 내용은 카드고릴라에서 확인하세요.</div>');
+  const oc = resolveOurCard(e);
+  const cardLink = oc ? `<a class="cbm-cardlink" href="detail?idx=${oc.idx}">
+       <img src="${esc(oc.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+       <div class="cl-txt"><div class="cl-eyebrow">📇 카드 파이터에서 이 카드 보기</div>
+         <div class="cl-name">${esc(oc.card_name)}</div></div>
+       <span class="cl-arrow">상세보기 →</span></a>` : '';
   document.getElementById('cb-modal-body').innerHTML =
     `<button class="cbm-close" onclick="closeCbModal()">닫기 ✕</button>
      <div class="cbm-tag">${esc(e.type)} · ${esc(e.corp_name||'')}</div>
      <h3 class="cbm-title">${esc(e.title||'')}</h3>
      <div class="cbm-sub">${esc(e.subject||'')} · ${esc(e.start||'')} ~ ${esc(e.end||'')}</div>
+     ${cardLink}
      ${text}${imgs}
      <a class="cbm-link" href="${esc(e.detail_url)}" target="_blank" rel="noopener">카드고릴라에서 자세히 보기 →</a>`;
   document.getElementById('cb-modal').classList.add('on');
@@ -1433,6 +1471,7 @@ fetch('cards_list.json')
   .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
   .then(d=>{
     DATA = d;
+    buildCardIndex();      // 캐시백↔카드 DB 연결용 인덱스
     renderCompanyList();   // 카드사 체크박스 목록
     renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
     updateFeeUI();         // 연회비 슬라이더 초기 표시

@@ -158,11 +158,14 @@ def main():
         detail_html = e.get("detail") or ""
         detail_text = strip_html(detail_html)
         company = resolve_company(e, detail_text)
+        cids = e.get("card_idxs")
+        cids = cids if isinstance(cids, list) else []
         rows.append({
             "idx": e.get("idx"),
             "type": e.get("type_txt"),                 # 캐시백 등
             "company": company,                        # ★ 복원한 실제 카드사
             "corp_name": e.get("corp_name"),           # 원본 그룹명(트래블/JCB 등)
+            "card_idxs": cids,                         # ★ 이벤트 대상 카드 idx(우리 카드 DB 연결용)
             "title": e.get("title"),
             "subject": e.get("subject"),
             "start": e.get("evt_start_time"),
@@ -196,7 +199,7 @@ def main():
         json.dump({**meta, "events": prod}, f, ensure_ascii=False, indent=1)
 
     # 3) 요약 CSV
-    cols = ["idx", "type", "company", "corp_name", "title", "subject", "start", "end",
+    cols = ["idx", "type", "company", "corp_name", "card_idxs", "title", "subject", "start", "end",
             "status", "is_live", "detail_url", "logo_img"]
     with open(os.path.join(HERE, "cashback_events.csv"), "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=cols, extrasaction="ignore")
