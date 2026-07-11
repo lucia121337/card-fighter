@@ -187,6 +187,13 @@ def main():
         for x in unresolved:
             print("  [미복원]", x["corp_name"], "|", x["title"])
 
+    # 사이트에 노출할 카드사는 우리가 실제로 다루는 10개뿐 (JCB, 현대백화점 등 제휴/브랜드 그룹은 제외).
+    VALID_COMPANIES = set(REAL_CORP.values())
+    excluded = [x for x in rows if x["company"] not in VALID_COMPANIES]
+    if excluded:
+        print(f"제외(10개 카드사 아님): {len(excluded)}건 —", dict(Counter(x["company"] for x in excluded).most_common()))
+    rows = [x for x in rows if x["company"] in VALID_COMPANIES]
+
     meta = {"total": len(rows), "date": j.get("date")}
 
     # 1) 분석용(전체, detail_html 포함)

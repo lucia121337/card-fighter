@@ -1345,6 +1345,9 @@ async function loadGorilla(){
 function getPlatformCompanies(platform){
   if(platform !== '전체보기') return (CASHBACK[platform] && CASHBACK[platform].companies) || [];
   const m = {};
+  // 전체보기는 이벤트 유무와 상관없이 우리가 다루는 10개 카드사가 항상 다 나와야 한다
+  // (플랫폼 탭들은 반대로 이벤트가 있는 카드사만 노출 — 아래 각 platform.companies가 이미 그렇게 구성됨).
+  COMPANIES.forEach(c => { m[c.name] = {name:c.name, cards:[], maxAmount:0}; });
   Object.values(CASHBACK).forEach(p => (p.companies||[]).forEach(c=>{
     (m[c.name] = m[c.name] || {name:c.name, cards:[], maxAmount:0});
     m[c.name].cards.push(...c.cards);
@@ -1389,7 +1392,7 @@ function renderCbCompanies(companies){
     const logo = COMPANY_LOGO[c.name]
       ? `<img class="co-logo" src="${esc(COMPANY_LOGO[c.name])}" alt="${esc(c.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(c.name[0])}</div>'">`
       : `<div class="co-logo-placeholder">${esc(c.name[0])}</div>`;
-    const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : `${c.cards.length}개 이벤트`;
+    const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : (c.cards.length ? `${c.cards.length}개 이벤트` : '이벤트 없음');
     return `<div class="cb-company-card" onclick="drillCb('${esc(c.name)}')">
       ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
   }).join('') || '<div class="empty">이벤트가 없어요.</div>';
