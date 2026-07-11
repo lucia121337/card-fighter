@@ -13,6 +13,13 @@ node_modules/
 # Vercel
 .vercel
 
+# 트렌드 수집 SQLite DB — main에는 커밋하지 않음.
+# GitHub Actions(collect-trends.yml)가 bot/trends-data 브랜치에서만 강제로(git add -f) 커밋함.
+data/trends.db
+data/trends.db-journal
+data/trends.db-wal
+data/trends.db-shm
+
 # OS
 Thumbs.db
 .DS_Store
