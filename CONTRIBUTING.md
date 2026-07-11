@@ -74,8 +74,10 @@ main에 바로 합치지 말고 PR로. 제목: `[feat] 트렌드분석 탭 추�
 git pull origin main                       # ① 최신 main 반영
 
 # ② 정적 화면 미리보기 (index/detail/compare)
-python -m http.server 5500                 #   → http://localhost:5500
+python serve.py                            #   → http://localhost:5500 (권장)
 #   (파일 더블클릭(file://)은 cards.json 로드가 막혀 카드가 안 뜸 → 반드시 서버로)
+#   ※ 그냥 `python -m http.server` 로 띄우면 /detail·/compare 링크(카드 상세보기)가
+#     404("Error response") 난다. serve.py 는 vercel.json 리라이트를 재현해 배포와 동일하게 보임.
 
 # ③ api/ 서버리스(네이버 트렌드 등)를 건드렸다면
 npm install
