@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>카드 연구소 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --chip:#f1f5f9; --shadow:0 4px 18px rgba(20,92,230,.07);
+  }
+  *{box-sizing:border-box}
+  html{overflow-y:scroll}
+  ::-webkit-scrollbar{width:5px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:99px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+  /* 헤더 */
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
+
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap}
+  .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .brand-left .logo{width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(19,85,255,.3))}
+  .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
+    cursor:pointer;transition:.15s color}
+  .brand-left h1:hover{color:var(--brand)}
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
+
+  /* GNB */
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+  .gnb a{color:var(--muted);font-size:15px;font-weight:600;text-decoration:none;
+         padding:7px 14px;border-radius:10px;transition:.15s background,.15s color;white-space:nowrap}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  .gnb a.active{background:var(--brand);color:#fff}
+  @keyframes coin-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .gnb .coin-icon{display:inline-block;animation:coin-bounce 1s ease-in-out infinite;margin-right:3px}
+  /* LNB — 언더라인 탭 */
+  .lnb{display:flex;align-items:center;gap:0;border-bottom:2px solid var(--line);margin-bottom:20px}
+  .lnb-title{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;
+             padding:0 16px 0 0;margin-right:8px;border-right:1px solid var(--line);
+             line-height:42px}
+  .lnb-divider{display:none}
+  .lnb-item{display:inline-flex;align-items:center;gap:7px;
+             padding:10px 18px;font-size:14px;font-weight:600;
+             color:var(--muted);cursor:pointer;text-decoration:none;
+             border:none;background:none;font-family:inherit;white-space:nowrap;
+             border-bottom:2.5px solid transparent;margin-bottom:-2px;
+             transition:.15s color,.15s border-color}
+  .lnb-item:hover{color:var(--brand)}
+  .lnb-item.active{color:var(--brand);border-bottom-color:var(--brand)}
+
+  /* 검색창 */
+  .header-search{flex:1;min-width:0;padding-left:20px}
+  .search-box{display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);
+    border-radius:14px;padding:2px 14px 2px 18px;max-width:540px;height:46px;box-shadow:0 2px 10px rgba(0,0,0,.02);
+    transition:.18s border-color,.18s box-shadow}
+  .search-box:focus-within{border-color:var(--brand);box-shadow:0 4px 14px rgba(20,92,230,.12)}
+  .search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:14px;
+    font-weight:600;color:var(--txt);padding:0;background:transparent}
+  .search-box input::placeholder{color:#94a3b8;font-weight:500}
+  .search-divider{width:1px;height:16px;background:var(--line);margin:0 12px;flex-shrink:0}
+  .search-btn{border:none;background:transparent;padding:6px;cursor:pointer;
+    color:var(--muted);transition:.15s color;display:flex;align-items:center;justify-content:center}
+  .search-btn:hover{color:var(--brand)}
+  .search-btn svg{width:20px;height:20px}
+
+  main{max-width:1200px;margin:30px auto;padding:0 20px;display:flex;flex-direction:column;gap:50px}
+
+  /* 카드 연구소 전반 스타일 */
+  .lab-section{background:var(--panel);border-radius:24px;box-shadow:var(--shadow);padding:35px;border:1px solid var(--line)}
+  .section-title{font-size:24px;font-weight:800;margin-top:0;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .section-title span{font-size:28px}
+  .section-desc{color:var(--muted);font-size:15px;margin-top:0;margin-bottom:30px;line-height:1.6}
+
+  /* 이달의 카드 추천 관련 */
+  .rec-wrap{max-width:1100px;margin:0 auto;padding:0 4px}
+  .rec-hero{text-align:center;margin-bottom:40px;padding-top:10px}
+  .rec-hero h2{font-size:32px;font-weight:800;letter-spacing:-1.5px;color:var(--txt);margin:0 0 12px;line-height:1.3}
+  .rec-hero h2 span{color:var(--brand)}
+  .rec-hero p{font-size:16px;color:var(--muted);margin:0}
+
+  .avatar-nav{display:flex;justify-content:flex-start;gap:20px;margin-bottom:50px;
+    flex-wrap:nowrap;overflow-x:auto;padding:0 10px 16px;scrollbar-width:none;-ms-overflow-style:none}
+  .avatar-nav::-webkit-scrollbar{display:none}
+  @media(min-width:768px){.avatar-nav{justify-content:center}}
+  .avatar-item{display:flex;flex-direction:column;align-items:center;gap:12px;
+    cursor:pointer;transition:.2s transform;flex-shrink:0}
+  .avatar-item:hover{transform:translateY(-5px)}
+  .avatar-img-wrap{width:80px;height:80px;border-radius:50%;background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);border:3px solid transparent;padding:8px;box-sizing:border-box;
+    transition:.3s all;display:flex;align-items:center;justify-content:center;overflow:hidden;
+    font-size:36px;line-height:1;user-select:none}
+  .avatar-img-wrap img{display:block;width:100%;height:100%;object-fit:contain;margin:0;padding:0;box-sizing:border-box}
+  .avatar-img-wrap svg{color:var(--muted);fill:none;transition:.2s all}
+  .avatar-img-wrap svg .filled-path{fill:#f1f5f9;transition:.2s fill}
+  .avatar-item.active .avatar-img-wrap{border-color:var(--brand);box-shadow:0 8px 20px rgba(20,92,230,.3)}
+  .avatar-item.active .avatar-img-wrap svg{color:var(--brand)}
+  .avatar-item.active .avatar-img-wrap svg .filled-path{fill:#eff6ff}
+  .avatar-label{font-size:15px;font-weight:700;color:var(--muted);transition:.2s color}
+  .avatar-item.active .avatar-label{color:var(--brand)}
+
+  /* 매거진 뷰 스타일 */
+  .mag-container{animation:fade-in .3s ease-out forwards;opacity:0}
+  @keyframes fade-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  
+  .mag-title{font-size:20px;font-weight:800;color:var(--txt);text-align:center;
+    margin:0 0 30px 0;padding-bottom:15px;border-bottom:2px dashed var(--line)}
+  .mag-title .highlight{color:var(--brand);position:relative}
+
+  .analysis-section{display:grid;grid-template-columns:1.1fr 1fr;gap:35px;margin-bottom:45px}
+  @media(max-width:850px){.analysis-section{grid-template-columns:1fr;gap:30px}}
+
+  .chart-area{background:#f8fafc;border:1.5px solid var(--line);border-radius:20px;
+    padding:24px;display:flex;flex-direction:column;min-height:360px}
+  .mag-subtitle{font-size:16px;font-weight:800;color:var(--txt);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+  .chart-inner{flex:1;position:relative;display:flex;justify-content:center;align-items:center;max-height:260px}
+  #personaChart{max-width:100%;max-height:100%}
+
+  .text-area{display:flex;flex-direction:column;gap:16px}
+  .fact-box{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px 20px;transition:.2s}
+  .fact-box:hover{transform:translateX(3px);border-color:#cbd5e1}
+  .fact-box h4{margin:0 0 8px 0;font-size:14.5px;font-weight:800;color:var(--txt)}
+  .fact-box p{margin:0;font-size:13.5px;font-weight:600;color:var(--muted);line-height:1.6;word-break:keep-all}
+  .fact-box.highlight{border-color:#acc8fc;background:#f1f6ff}
+  .fact-box.highlight h4{color:var(--brand)}
+  .fact-box.highlight p{color:#2a53a3}
+
+  .mag-cards-section{margin-bottom:40px}
+  .mag-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:900px){
+    .mag-cards-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+      padding-bottom:20px;scrollbar-width:none;-ms-overflow-style:none;gap:16px}
+    .mag-cards-grid::-webkit-scrollbar{display:none}
+    .c-card{flex:0 0 85%;scroll-snap-align:center}
+  }
+  .c-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:24px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;
+    transition:.3s transform,.3s box-shadow;position:relative}
+  .c-card:hover{transform:translateY(-6px);border-color:var(--brand);box-shadow:0 16px 32px rgba(19,85,255,.15)}
+  .c-rank{position:absolute;top:-12px;left:24px;background:var(--txt);color:#fff;font-weight:800;
+    font-size:13px;padding:6px 14px;border-radius:99px;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+  .c-card.rank-1 .c-rank{background:#e74c3c}
+  .c-card img.card-thumb{height:64px;object-fit:contain;margin-bottom:8px;align-self:flex-start}
+  .c-card .c-nm{font-size:17px;font-weight:800;line-height:1.3;text-align:left;margin-bottom:0}
+  .c-card .c-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;justify-content:flex-start}
+  .c-card .c-chip{background:var(--chip);border:1px solid var(--line);border-radius:6px;
+    padding:4px 8px;font-size:12px;color:var(--muted);font-weight:600}
+  .c-card .c-chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+  .c-card .c-benefit{font-size:13.5px;color:#475569;line-height:1.5;flex:1;
+    border-top:1px dashed var(--line);padding-top:12px;text-align:left;height:auto;overflow-y:visible;display:block}
+  .c-card .c-benefit b{color:var(--brand);font-weight:700}
+  .c-card .c-review{background:#fffbea;padding:12px;border-radius:10px;
+    font-size:13.5px;font-weight:600;color:#d35400;margin-top:auto;position:relative;
+    border:1.5px solid #fef3c7;text-align:left;min-height:0;display:block}
+  .c-card .c-review::before{content:"🗣️";margin-right:6px}
+  .c-card .c-detail-btn{background:var(--brand);color:#fff;border:none;border-radius:10px;
+    padding:12px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;
+    text-align:center;display:block;margin-top:12px;transition:.15s background}
+  .c-card .c-detail-btn:hover{background:var(--brand-deep)}
+
+  .mag-tip{background:#f8fafc;border-radius:16px;padding:18px 24px;
+    display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line)}
+  .mag-tip strong{font-size:13px;font-weight:800;color:var(--brand);background:var(--panel2);
+    padding:3px 9px;border-radius:6px;flex-shrink:0}
+  .mag-tip div{font-size:13px;font-weight:600;color:var(--muted);line-height:1.6;word-break:keep-all}
+
+  /* 스켈레톤 로딩 */
+  #skeleton-container{display:none}
+  #skeleton-container.active{display:block}
+  #result-container{display:none}
+  #result-container.active{display:block}
+  
+  .skeleton-box{background:linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:10px}
+  @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .sk-title{height:28px;width:60%;margin:0 auto 30px auto}
+  .sk-chart{width:220px;height:220px;border-radius:50%}
+  .sk-text{height:14px;margin-bottom:10px;width:100%}
+  .sk-text.med{width:80%}
+  .sk-text.short{width:50%}
+  .sk-card{height:380px;border-radius:20px}
+
+  /* 실시간 트렌드 관련 스타일 */
+  .trend-grid{display:grid;grid-template-columns:1fr 2fr;gap:30px}
+  @media(max-width:900px){.trend-grid{grid-template-columns:1fr}}
+  
+  .trend-col{display:flex;flex-direction:column;gap:24px}
+  .trend-card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.01)}
+  .trend-card-header{display:flex;justify-content:between;align-items:center;margin-bottom:20px;gap:10px}
+  .trend-card-title{font-size:16px;font-weight:800;margin:0;color:var(--txt)}
+
+  .trend-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+  .trend-item{display:flex;align-items:center;background:#f8fafc;border:1px solid var(--line);
+    border-radius:12px;padding:12px 16px;cursor:pointer;transition:.15s}
+  .trend-item:hover{transform:translateX(3px);border-color:#cbd5e1}
+  .trend-item.active{background:var(--panel2);border-color:var(--brand)}
+  .trend-num{font-size:14px;font-weight:800;color:var(--brand);width:24px}
+  .trend-name{font-size:14px;font-weight:700;color:var(--txt);flex:1}
+  .trend-meta{font-size:12px;color:var(--muted);font-weight:600}
+
+  .trend-unit-box{display:inline-flex;background:#f1f5f9;border-radius:999px;padding:3px;gap:2px;margin-bottom:16px}
+  .trend-unit-pill{border:none;background:transparent;font-size:12.5px;font-weight:700;
+    color:var(--muted);padding:7px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+  .trend-unit-pill.active{background:var(--txt);color:#fff}
+  .trend-unit-pill:disabled{opacity:.5;cursor:wait}
+
+  .trend-pills{display:flex;gap:8px;flex-wrap:wrap}
+  .trend-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);
+    border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;
+    font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap}
+  .pill-rank{font-size:11px;color:var(--muted);font-weight:600}
+  .pill-traffic{font-size:10px;color:var(--brand);background:var(--panel2);
+    border-radius:4px;padding:1px 6px;font-weight:700}
+
+  .trend-ref-row{display:block}
+  .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
+  .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
+  .trend-no-match{color:var(--muted);font-size:13px;padding:20px 0}
+  
+  .spinner{width:32px;height:32px;border:3px solid var(--line);border-top-color:var(--brand);
+    border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 15px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="brand-left">
+      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
+        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
+        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
+          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
+          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
+        </g>
+        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
+              fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
+      </svg>
+      <h1 onclick="location.href='index.html'">카드 파이터</h1>
+    </div>
+    <div class="gnb-divider"></div>
+    <nav class="gnb">
+      <a href="index.html">홈</a>
+      <a href="index.html#cards">전체카드</a>
+      <a href="index.html#cashback"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="index.html#merchant">할인가맹점</a>
+      <a href="cardlab.html" class="active">카드 연구소</a>
+    </nav>
+    <div class="header-search">
+      <div class="search-box">
+        <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" onkeydown="if(event.key==='Enter') doGlobalSearch()" />
+        <div class="search-divider"></div>
+        <button class="search-btn" onclick="doGlobalSearch()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- 카드 연구소 섹션 (LNB: 맞춤카드 / 실시간 검색 트렌드) -->
+  <section class="lab-section">
+    <div class="rec-wrap">
+      <nav class="lnb">
+        <button class="lnb-item active" id="tabBtnRecommend" onclick="switchTab('recommend')">카드 소비 데이터로 보는 연령대별 맞춤 카드</button>
+        <button class="lnb-item" id="tabBtnTrend" onclick="switchTab('trend')">실시간 검색 키워드로 보는 추천 카드</button>
+      </nav>
+      
+      <!-- 탭 1: 카드 소비 데이터로 보는 연령대별 맞춤 카드 -->
+      <div id="tabRecommend">
+        <div id="recview-persona">
+          <div class="rec-hero">
+            <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
+            <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
+          </div>
+          <div class="avatar-nav">
+            <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
+              <div class="avatar-img-wrap">💄</div>
+              <div class="avatar-label">20대 여성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
+              <div class="avatar-img-wrap">🎮</div>
+              <div class="avatar-label">20대 남성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
+              <div class="avatar-img-wrap">🏠</div>
+              <div class="avatar-label">30대 여성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
+              <div class="avatar-img-wrap">🚗</div>
+              <div class="avatar-label">30대 남성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
+              <div class="avatar-img-wrap">🛒</div>
+              <div class="avatar-label">4050 여성</div>
+            </div>
+            <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
+              <div class="avatar-img-wrap">⛳</div>
+              <div class="avatar-label">4050 남성</div>
+            </div>
+          </div>
+          
+          <!-- 스켈레톤 로더 -->
+          <div id="skeleton-container" class="mag-container">
+            <div class="skeleton-box sk-title"></div>
+            <div class="analysis-section">
+              <div class="chart-area" style="justify-content:center;align-items:center">
+                <div class="skeleton-box sk-chart"></div>
+              </div>
+              <div class="text-area">
+                <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
+                <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
+                <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+              </div>
+            </div>
+            <div class="mag-cards-grid">
+              <div class="skeleton-box sk-card"></div>
+              <div class="skeleton-box sk-card"></div>
+              <div class="skeleton-box sk-card"></div>
+            </div>
+          </div>
+          
+          <div id="result-container"></div>
+        </div>
+      </div>
+      
+      <!-- 탭 2: 실시간 검색 키워드로 보는 추천 카드 -->
+      <div id="tabTrend" style="display:none;">
+        <div id="recview-trend">
+          <div class="rec-hero">
+            <h2>실시간 검색 데이터로 알아보는 인기 키워드<br><span>"지금 이 순간, 가장 핫한 카드는?"</span></h2>
+            <p>아래에서 월별, 주간, 일별 트렌드를 확인해보세요!</p>
+          </div>
+          <div id="trend-content">
+            <div class="trend-loading"><div class="spinner"></div>데이터를 불러오는 중…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+function switchTab(tabId) {
+  const tabRec = document.getElementById('tabRecommend');
+  const tabTrd = document.getElementById('tabTrend');
+  const btnRec = document.getElementById('tabBtnRecommend');
+  const btnTrd = document.getElementById('tabBtnTrend');
+  
+  if (tabId === 'recommend') {
+    tabRec.style.display = 'block';
+    tabTrd.style.display = 'none';
+    btnRec.classList.add('active');
+    btnTrd.classList.remove('active');
+  } else {
+    tabRec.style.display = 'none';
+    tabTrd.style.display = 'block';
+    btnRec.classList.remove('active');
+    btnTrd.classList.add('active');
+  }
+}
+
+let PERSONA_DB = null;
+let recChart = null, recTimeout = null;
+
+// 추천 카드 정보
+const REC_CARDS = [
+  {idx:2235,card_name:"삼성 iD ON 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:300000,top_benefit_summary:"할인: 많이쓰는 영역 자동맞춤 30% 할인 | 생활: 교통/이동통신/스트리밍 10% 할인 | 모든가맹점: 온라인간편결제/해외 3%·1% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png"},
+  {idx:2736,card_name:"현대홈쇼핑 현대카드",company:"현대카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [10,000]원",pre_month_money:0,top_benefit_summary:"홈쇼핑: 현대홈쇼핑 3% 적립 | 적립: 그 외 가맹점 1% 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2736/card_img/36643/2736card_1.png"},
+  {idx:2523,card_name:"LG U+ 우리카드",company:"우리카드",annual_fee:"국내전용 [10,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 패밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png"},
+  {idx:2346,card_name:"BC 바로 클리어 플러스",company:"BC 바로카드",annual_fee:"국내전용 [5,000]원 / 해외겸용 [5,000]원",pre_month_money:150000,top_benefit_summary:"푸드: 점심식사/배달앱 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 통신: 휴대폰요금/스트리밍 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2346/card_img/32523/2346card.png"},
+  {idx:2348,card_name:"BC 바로 페이백 플러스",company:"BC 바로카드",annual_fee:"국내전용 [15,000]원 / 해외겸용 [15,000]원",pre_month_money:400000,top_benefit_summary:"모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png"},
+  {idx:2483,card_name:"IBK DC히어로즈 카드(신용)",company:"IBK기업은행",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:500000,top_benefit_summary:"푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png"},
+  {idx:2687,card_name:"카드의정석 SHOPPING+",company:"우리카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:300000,top_benefit_summary:"온라인쇼핑: 온라인 쇼핑 10% 청구할인 | 쇼핑: 백화점・대형할인점・슈퍼마켓 등 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2687/card_img/33239/2687card.png"},
+  {idx:2502,card_name:"UPTURN카드",company:"BC 바로카드",annual_fee:"해외겸용 [7,000원]",pre_month_money:300000,top_benefit_summary:"KT: KT이동통신요금 14,000원 할인 | 온라인쇼핑: 온라인·모바일 쇼핑 5% 할인 | 주유소: 주유 60원/L 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2502/card_img/28620/2502card.png"},
+  {idx:2358,card_name:"삼성 iD EDU 카드",company:"삼성카드",annual_fee:"국내전용 [30,000원] / 해외겸용 [30,000원]",pre_month_money:500000,top_benefit_summary:"교육/육아: 교육 10% 할인 | 공과금/렌탈: 아파트관리비 5,000원 할인 | 배달앱: 배달앱 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2358/card_img/27724/2359card.png"},
+  {idx:39,card_name:"신한카드 Deep Oil",company:"신한카드",annual_fee:"해외겸용 [10,000]원",pre_month_money:300000,top_benefit_summary:"주유: 4개정유사 10% 할인 | 자동차/하이패스: 차량서비스 10% 할인 | 생활: 편의점/커피/택시 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/39/card_img/31864/39card.png"},
+  {idx:2525,card_name:"만나 우리카드",company:"우리카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [12,000원]",pre_month_money:0,top_benefit_summary:"주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png"},
+  {idx:2503,card_name:"키자니아 에듀카드",company:"BC 바로카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"교육/육아: 학원·유치원 10% 할인 | 주유: 주유 60원/L 할인 | 테마파크: 키자니아 무료 입장권",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2503/card_img/28621/2503card.png"},
+  {idx:2330,card_name:"LOCA 365 카드",company:"롯데카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"공과금/렌탈: 아파트관리비, 공과금 10% 할인 | 생활: 교통, 통신, 배달앱 10% 할인 | 디지털구독: 스트리밍 1,500원 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2330/card_img/24131/2330card.png"},
+  {idx:2292,card_name:"현대카드 MY BUSINESS ZERO Food&Drink",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 마트/편의점: 대형마트/슈퍼마켓 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2292/card_img/22779/2292card.png"},
+  {idx:2293,card_name:"현대카드 MY BUSINESS ZERO Retail&Service",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 통신: 통신요금 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2293/card_img/23896/2293card.png"}
+];
+
+const recCardMap = {};
+REC_CARDS.forEach(c => recCardMap[c.idx] = c);
+
+let DATA = [];
+
+// 1. DOM 로드 완료 후 페르소나 및 전체 카드 데이터 비동기 조회 및 초기화
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const [personaRes, cardsRes] = await Promise.all([
+      fetch('data/persona_db.json'),
+      fetch('cards_list.json')
+    ]);
+    
+    if (!personaRes.ok) throw new Error("페르소나 데이터를 불러오지 못했습니다.");
+    if (!cardsRes.ok) throw new Error("카드 리스트 데이터를 불러오지 못했습니다.");
+    
+    PERSONA_DB = await personaRes.json();
+    DATA = await cardsRes.json();
+    
+    // 첫 화면 20대 여성 렌더링
+    renderPersona('20대_여성');
+    
+    // 트렌드 로드
+    initTrend();
+  } catch (error) {
+    console.error("데이터 로드 실패:", error);
+    document.getElementById('result-container').innerHTML = `
+      <div style="text-align:center;padding:50px;color:var(--muted)">
+        ⚠️ 데이터를 불러오는 중 오류가 발생했습니다.
+      </div>`;
+    document.getElementById('result-container').classList.add('active');
+  }
+});
+
+function selectPersona(key, el){
+  document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderPersona(key);
+}
+
+function renderPersona(key){
+  if (!PERSONA_DB) return;
+  const p = PERSONA_DB[key];
+  if(!p) return;
+  const resultEl = document.getElementById('result-container');
+  const skeletonEl = document.getElementById('skeleton-container');
+  resultEl.classList.remove('active');
+  resultEl.innerHTML = '';
+  skeletonEl.classList.add('active');
+  
+  if(recTimeout) clearTimeout(recTimeout);
+  recTimeout = setTimeout(()=>{
+    skeletonEl.classList.remove('active');
+    const escR = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let cardsHTML = '';
+    p.cardIds.forEach((id, i)=>{
+      const c = recCardMap[id];
+      if(!c) return;
+      const benefit = (c.top_benefit_summary||'').split(' | ')
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escR(s.slice(0,idx))}</b>${escR(s.slice(idx))}`:escR(s);})
+        .join('<br>');
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)(원)?\]원?/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      cardsHTML += `
+        <div class="c-card${i===0?' rank-1':''}">
+          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
+          <img class="card-thumb" src="${escR(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company||'')}</span></div>
+          <div class="c-chip-row">
+            <span class="c-chip fee">연회비 ${fee}</span>
+            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+          </div>
+          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+        </div>`;
+    });
+    resultEl.innerHTML = `
+      <div class="mag-container">
+        <h2 class="mag-title">${p.magTitle}</h2>
+        <div class="analysis-section">
+          <div class="chart-area">
+            <div class="mag-subtitle" style="align-self:flex-start">이들의 소비 패턴 엿보기</div>
+            <div class="chart-inner"><canvas id="personaChart"></canvas></div>
+          </div>
+          <div class="text-area">
+            <div class="fact-box"><h4>✔️ 소비 팩트체크</h4><p>${escR(p.fact)}</p></div>
+            <div class="fact-box"><h4>🎯 어떤 혜택이 필요할까?</h4><p>${escR(p.need)}</p></div>
+            <div class="fact-box highlight"><h4>💡 카드 파이터의 추천 이유</h4><p>${escR(p.reason)}</p></div>
+          </div>
+        </div>
+        <div class="mag-cards-section">
+          <div class="mag-subtitle">추천 카드 3선</div>
+          <div class="mag-cards-grid">${cardsHTML}</div>
+        </div>
+        <div class="mag-tip"><strong>Tip</strong><div>${escR(p.tip)}</div></div>
+      </div>`;
+    resultEl.classList.add('active');
+    if(recChart) recChart.destroy();
+    const ctx = document.getElementById('personaChart').getContext('2d');
+    recChart = new Chart(ctx, {
+      type:'doughnut',
+      data:{
+        labels:p.chartData.labels,
+        datasets:[{data:p.chartData.data,backgroundColor:['#145CE6','#3498db','#9b59b6','#f1c40f','#e74c3c'],borderWidth:2,borderColor:'#f8fafc',hoverOffset:8}]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{legend:{position:'right',labels:{font:{family:'GmarketSans',size:11},boxWidth:12,boxHeight:12}}}
+      }
+    });
+  }, 400);
+}
+
+// ── 실시간 검색 트렌드 자바스크립트 로직 (기존 소스 이식) ──
+let trendInitialized = false;
+let trendAutoTimer = null;
+let trendUnit = 'month';
+let trendChartInstance = null;
+let realtimeRanked = [];
+
+const TREND_AUTO_REFRESH_MS = 60 * 60 * 1000; // 1시간
+const TREND_UNITS = [
+  { key:'month', label:'월별' },
+  { key:'week',  label:'주간' },
+  { key:'date',  label:'일별' },
+];
+
+const TREND_CATS = [
+  { match:['스타벅스','카페','커피','할리스','이디야','투썸','공차','메가커피','빽다방'], cat:'카페/디저트', label:'☕ 카페/커피' },
+  { match:['배달','배달의민족','쿠팡이츠','요기요','땡겨요'], cat:'푸드', label:'🍔 푸드/배달앱' },
+  { match:['편의점','GS25','CU','세븐일레븐','이마트24'], cat:'마트/편의점', label:'🏪 편의점' },
+  { match:['이마트','홈플러스','코스트코','롯데마트','트레이더스'], cat:'마트/편의점', label:'🛒 대형마트' },
+  { match:['쿠팡','11번가','G마켓','옥션','SSG','네이버쇼핑','온라인쇼핑'], cat:'쇼핑', label:'🛍️ 온라인쇼핑' },
+  { match:['백화점','롯데백화점','현대백화점','신세계','갤러리아'], cat:'쇼핑', label:'🏬 백화점' },
+  { match:['주유','기름값','휘발유','경유','GS칼텍스','SK에너지','S-OIL','오일뱅크'], cat:'주유', label:'⛽ 주유소' },
+  { match:['지하철','버스','대중교통','교통카드','티머니'], cat:'교통', label:'🚇 대중교통' }
+];
+
+const KW_CAT_MAP = {
+  '카페/디저트':  { cat:'카페/디저트',  label:'☕ 카페/디저트 카드 추천' },
+  '쇼핑':        { cat:'쇼핑',        label:'🛒 쇼핑 카드 추천' },
+  '마트/편의점':  { cat:'마트/편의점',  label:'🏪 마트/편의점 카드 추천' },
+  'OTT/영화/문화':{ cat:'OTT/영화/문화', label:'🎬 OTT/영화/문화 카드 추천' },
+  '푸드':        { cat:'푸드',        label:'🍔 푸드 카드 추천' },
+  '교통':        { cat:'교통',        label:'🚌 교통 카드 추천' },
+  '해외':        { cat:'해외',        label:'✈️ 해외 카드 추천' },
+  '통신':        { cat:'통신',        label:'📱 통신 카드 추천' },
+  '주유':        { cat:'주유',        label:'⛽ 주유 카드 추천' },
+  '레저/스포츠':  { cat:'레저/스포츠',  label:'🏀 레저/스포츠 카드 추천' },
+  '교육/육아':    { cat:'교육/육아',    label:'📚 교육/육아 카드 추천' },
+  '뷰티/피트니스': { cat:'뷰티/피트니스', label:'💄 뷰티/피트니스 카드 추천' },
+  '공항라운지/PP': { cat:'공항라운지/PP', label:'🛋️ 공항라운지 카드 추천' },
+  '항공마일리지':  { cat:'항공마일리지',  label:'🛫 항공마일리지 카드 추천' },
+  '공과금/렌탈':  { cat:'공과금/렌탈',  label:'🧾 공과금/렌탈 카드 추천' },
+  '여행/숙박':    { cat:'여행/숙박',    label:'🧳 여행/숙박 카드 추천' },
+  '프리미엄':     { cat:'프리미엄',     label:'💎 프리미엄 카드 추천' },
+  '간편결제':     { cat:'간편결제',     label:'📲 간편결제 카드 추천' },
+  '병원/약국':    { cat:'병원/약국',    label:'🏥 병원/약국 카드 추천' },
+  '자동차/하이패스':{ cat:'자동차/하이패스', label:'🚗 자동차/하이패스 카드 추천' },
+  '애완동물':     { cat:'애완동물',     label:'🐾 애완동물 카드 추천' },
+  '비즈니스':     { cat:'비즈니스',     label:'💼 비즈니스 카드 추천' },
+};
+
+const CHART_COLORS = ['#145CE6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+let trendPrevRank = {};
+
+function initTrend() {
+  if (!trendInitialized) {
+    trendInitialized = true;
+    loadTrends(trendUnit, true);
+    trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+  }
+}
+
+function setTrendPillsBusy(busy) {
+  document.querySelectorAll('.trend-unit-pill').forEach(btn => { btn.disabled = busy; });
+}
+
+function setActiveTrendPill(unit) {
+  document.querySelectorAll('.trend-unit-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === TREND_UNITS.find(u=>u.key===unit).label);
+  });
+}
+
+let trendReqSeq = 0;
+
+async function loadTrends(unit, isInitial) {
+  const el = document.getElementById('trend-content');
+  const reqId = ++trendReqSeq;
+  if (isInitial) {
+    el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+  }
+  try {
+    const res = await fetch('/api/naver-trends?unit=' + unit);
+    if (!res.ok) throw new Error('API 오류 ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    if (reqId !== trendReqSeq) return;
+    
+    if (isInitial) {
+      renderTrends(data, unit);
+    } else {
+      updateTrendView(data, unit);
+      setActiveTrendPill(unit);
+    }
+  } catch(e) {
+    if (reqId !== trendReqSeq) return;
+    console.error('[트렌드] 갱신 실패:', e.message);
+    if (!isInitial) return;
+    el.innerHTML = `<div class="trend-error">
+      😢 트렌드 데이터를 불러오지 못했어요<br>
+      <small>${e.message}</small><br><br>
+      <button onclick="trendInitialized=false;initTrend()"
+        style="background:var(--brand);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer">
+        다시 시도
+      </button>
+    </div>`;
+  } finally {
+    if (!isInitial && reqId === trendReqSeq) setTrendPillsBusy(false);
+  }
+}
+
+function formatTrendLabel(period, unit) {
+  if (unit === 'month') return period.slice(0,7);
+  if (unit === 'week') {
+    const [, m, d] = period.split('-').map(Number);
+    return `${m}월 ${Math.ceil(d / 7)}주차`;
+  }
+  return period.slice(5);
+}
+
+function matchTrendCat(keyword) {
+  const kw = keyword.toLowerCase();
+  return TREND_CATS.find(tc => tc.match.some(m => kw.includes(m.toLowerCase()))) || null;
+}
+
+function findCardsForTrend(cat, count = 3) {
+  if (!DATA || !DATA.length) return [];
+  if (!cat) {
+    return DATA.filter(c => !c.pre_month_money || c.pre_month_money <= 300000)
+      .slice(0, count);
+  }
+  return DATA.filter(c => {
+    const txt = (c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'');
+    return txt.includes(cat);
+  }).slice(0, count);
+}
+
+function computeRanked(results, unit, anchorLatest) {
+  const anchorMap = new Map((anchorLatest||[]).map(a => [a.keyword, a.latest]));
+  const ranked = results.map(r => {
+    const latest = anchorMap.has(r.title) ? anchorMap.get(r.title) : (r.data[r.data.length-1]?.ratio || 0);
+    return { ...r, latest };
+  }).sort((a,b) => b.latest - a.latest);
+
+  const prevRankForUnit = trendPrevRank[unit] || {};
+  ranked.forEach((r, i) => {
+    r.rank = i + 1;
+    const prevRank = prevRankForUnit[r.title];
+    r.rankDelta = prevRank === undefined ? null : prevRank - r.rank;
+  });
+  trendPrevRank[unit] = {};
+  for (const r of ranked) trendPrevRank[unit][r.title] = r.rank;
+
+  return ranked;
+}
+
+function buildTrendCardSections(ranked) {
+  const usedCardIdx = new Set();
+  const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  
+  return ranked.map((kw, ki) => {
+    const map = KW_CAT_MAP[kw.title] || { cat: kw.title };
+    const candidates = map.cate ? DATA.filter(c => c.cate === map.cate) : findCardsForTrend(map.cat||null, 30);
+    const picks = [];
+    for (const c of candidates) {
+      if (usedCardIdx.has(c.idx)) continue;
+      picks.push(c);
+      usedCardIdx.add(c.idx);
+      if (picks.length === 3) break;
+    }
+    if (!picks.length) return '';
+
+    const cardsHTML = picks.map((c, i) => {
+      const benefit = (c.top_benefit_summary||'').split(' | ')
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escT(s.slice(0,idx))}</b>${escT(s.slice(idx))}`:escT(s);})
+        .join('<br>');
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)(원)?\]원?/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      return `
+        <div class="c-card${i===0?' rank-1':''}">
+          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
+          <img class="card-thumb" src="${escT(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escT(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escT(c.company||'')}</span></div>
+          <div class="c-chip-row">
+            <span class="c-chip fee">연회비 ${fee}</span>
+            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+          </div>
+          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="mag-cards-section">
+        <div class="mag-container">
+          <div class="mag-subtitle">${ki+1}위 "${escT(kw.title)}" 추천 카드 3선</div>
+          <div class="mag-cards-grid">${cardsHTML}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function rankArrowDisplay(rankDelta) {
+  if (!rankDelta) return { cls:'flat', txt:'-' };
+  if (rankDelta > 0) return { cls:'up', txt:`▲ ${rankDelta}` };
+  return { cls:'down', txt:`▼ ${Math.abs(rankDelta)}` };
+}
+
+function buildLeaderboardHtml(ranked) {
+  const escT = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  return ranked.map((kw, i) => {
+    const arrow = rankArrowDisplay(kw.rankDelta);
+    return `
+    <li class="trend-item" onclick="alert('${kw.title}의 상세 페이지는 준비 중입니다.')">
+      <span class="trend-num">${i+1}</span>
+      <span class="trend-name">${escT(kw.title)}</span>
+      <span class="trend-meta ${arrow.cls}">${arrow.txt}</span>
+    </li>`;
+  }).join('');
+}
+
+function pointStyleForUnit(unit, color) {
+  if (unit === 'date') return { pointRadius: 0, pointHoverRadius: 4 };
+  return { pointRadius: 2.5, pointHoverRadius: 5, pointBackgroundColor: color, pointBorderColor: color, pointBorderWidth: 0 };
+}
+
+function areaFillFor(isTop, color) {
+  if (!isTop) return 'transparent';
+  return (ctx) => {
+    const area = ctx.chart.chartArea;
+    if (!area) return color + '40';
+    const g = ctx.chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+    g.addColorStop(0, color + '55');
+    g.addColorStop(1, color + '00');
+    return g;
+  };
+}
+
+function renderTrends(data, unit) {
+  const results = data.results || [];
+  if (!results.length) {
+    document.getElementById('trend-content').innerHTML = '<div class="trend-no-match">트렌드 데이터가 비어 있습니다.</div>';
+    return;
+  }
+  const ranked = computeRanked(results, unit, data.anchorLatest);
+  
+  let unitPillsHTML = TREND_UNITS.map(u => `
+    <button class="trend-unit-pill${u.key===unit?' active':''}" onclick="setTrendUnit('${u.key}')">${u.label}</button>
+  `).join('');
+
+  document.getElementById('trend-content').innerHTML = `
+    <div style="text-align:center">${unitPillsHTML}</div>
+    <div class="trend-grid">
+      <div class="trend-col">
+        <div class="trend-card" style="flex:1">
+          <div class="trend-card-header">
+            <h4 class="trend-card-title">🔥 인기 검색 키워드</h4>
+          </div>
+          <ul class="trend-lb-list">
+            ${buildLeaderboardHtml(ranked)}
+          </ul>
+        </div>
+      </div>
+      <div class="trend-col">
+        <div class="trend-card" style="flex:1; display:flex; flex-direction:column">
+          <div class="trend-card-header">
+            <h4 class="trend-card-title">📊 검색 지수 추이</h4>
+          </div>
+          <div style="flex:1; position:relative; min-height:280px">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="trend-ref-row" style="margin-top: 30px;">
+      ${buildTrendCardSections(ranked)}
+    </div>
+  `;
+
+  // Chart.js 트렌드 그래프 생성
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  const datasets = ranked.map((r, i) => {
+    const color = CHART_COLORS[i % CHART_COLORS.length];
+    const isTop = i === 0;
+    return {
+      label: r.title,
+      data: r.data.map(d => d.ratio),
+      borderColor: color,
+      backgroundColor: areaFillFor(isTop, color),
+      borderWidth: isTop ? 2.5 : 2,
+      tension: 0.35,
+      fill: isTop,
+      ...pointStyleForUnit(unit, color)
+    };
+  });
+
+  trendChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: results[0].data.map(d => formatTrendLabel(d.period, unit)),
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, max: 100 }
+      },
+      plugins: {
+        legend: { position: 'top' }
+      }
+    }
+  });
+}
+
+function updateTrendView(data, unit) {
+  const results = data.results || [];
+  if (!results.length || !trendChartInstance) return;
+  const ranked = computeRanked(results, unit, data.anchorLatest);
+  
+  trendChartInstance.data.labels = results[0].data.map(d => formatTrendLabel(d.period, unit));
+  trendChartInstance.data.datasets.forEach((ds, i) => {
+    if (!ranked[i]) return;
+    const isTop = i === 0;
+    ds.label = ranked[i].title;
+    ds.data = ranked[i].data.map(d => d.ratio);
+    ds.fill = isTop;
+    ds.backgroundColor = areaFillFor(isTop, ds.borderColor);
+    ds.borderWidth = isTop ? 2.5 : 2;
+    Object.assign(ds, pointStyleForUnit(unit, ds.borderColor));
+  });
+  trendChartInstance.update();
+
+  const lbList = document.querySelector('.trend-lb-list');
+  if (lbList) lbList.innerHTML = buildLeaderboardHtml(ranked);
+
+  const refRow = document.querySelector('.trend-ref-row');
+  if (refRow) refRow.innerHTML = buildTrendCardSections(ranked);
+}
+
+function setTrendUnit(unit) {
+  if (unit === trendUnit) return;
+  trendUnit = unit;
+  setTrendPillsBusy(true);
+  loadTrends(unit, false);
+  clearInterval(trendAutoTimer);
+  trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+}
+
+function doGlobalSearch() {
+  const query = document.getElementById('q').value.trim();
+  if (query) {
+    location.href = `index.html?q=${encodeURIComponent(query)}`;
+  }
+}
+</script>
+</body>
+</html>
