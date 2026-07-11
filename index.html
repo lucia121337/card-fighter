@@ -637,7 +637,7 @@
       <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
       <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
       <a href="#">할인가맹점</a>
-      <a href="#" data-section="recommend" onclick="showSection('recommend');return false">카드 연구소</a>
+      <a href="cardlab.html">카드 연구소</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -678,75 +678,6 @@
       <span class="cs-badge">준비중</span>
       <h2>홈 화면을 준비하고 있어요</h2>
       <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
-    </div>
-  </div>
-  <!-- 카드 연구소 섹션 (LNB: 맞춤카드 / 실시간 검색 트렌드) -->
-  <div id="section-recommend" class="section" hidden>
-    <div class="rec-wrap">
-      <nav class="lnb">
-        <button class="lnb-item active" data-recview="persona" onclick="setRecommendView('persona',this)">카드 소비 데이터로 보는 연령대별 맞춤 카드</button>
-        <button class="lnb-item" data-recview="trend" onclick="setRecommendView('trend',this)">실시간 검색 키워드로 보는 추천 카드</button>
-      </nav>
-      <div id="recview-persona">
-        <div class="rec-hero">
-          <h2>데이터가 증명하는 찰떡 카드 매칭<br><span>"나와 비슷한 사람들은 어디에 돈을 쓸까?"</span></h2>
-          <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
-        </div>
-        <div class="avatar-nav">
-          <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe&backgroundColor=ffdfbf" alt="20대 여성"></div>
-            <div class="avatar-label">20대 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=c0aede" alt="20대 남성"></div>
-            <div class="avatar-label">20대 남성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/lorelei/svg?seed=Jasmine&backgroundColor=ffdfbf" alt="30대 여성"></div>
-            <div class="avatar-label">30대 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/micah/svg?seed=Jack&backgroundColor=b6e3f4" alt="30대 남성"></div>
-            <div class="avatar-label">30대 남성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Maria&backgroundColor=ffdfbf" alt="4050 여성"></div>
-            <div class="avatar-label">4050 여성</div>
-          </div>
-          <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
-            <div class="avatar-img-wrap"><img src="https://api.dicebear.com/7.x/notionists/svg?seed=Robert&backgroundColor=c0aede" alt="4050 남성"></div>
-            <div class="avatar-label">4050 남성</div>
-          </div>
-        </div>
-        <div id="skeleton-container" class="mag-container">
-          <div class="skeleton-box sk-title"></div>
-          <div class="analysis-section">
-            <div class="chart-area" style="justify-content:center;align-items:center">
-              <div class="skeleton-box sk-chart"></div>
-            </div>
-            <div class="text-area">
-              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
-              <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
-              <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
-            </div>
-          </div>
-          <div class="mag-cards-grid">
-            <div class="skeleton-box sk-card"></div>
-            <div class="skeleton-box sk-card"></div>
-            <div class="skeleton-box sk-card"></div>
-          </div>
-        </div>
-        <div id="result-container"></div>
-      </div>
-      <div id="recview-trend" hidden>
-        <div class="rec-hero">
-          <h2>실시간 검색 데이터로 알아보는 인기 키워드<br><span>"지금 이 순간, 가장 핫한 카드는?"</span></h2>
-          <p>아래에서 월별, 주간, 일별 트렌드를 확인해보세요!</p>
-        </div>
-        <div id="trend-content">
-          <div class="trend-loading"><div class="spinner"></div>Google Trends 데이터를 불러오는 중…</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1063,13 +994,7 @@ function showSection(name){
   document.querySelectorAll('.gnb a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   if(name === 'cashback') renderCashback();
-  if(name === 'recommend') {
-    // 트렌드(실시간 검색 트렌드) 탭에 있다가 다른 GNB로 나갔다 돌아와도 항상 첫 번째 탭(맞춤카드)부터 보이게 초기화
-    document.querySelectorAll('#section-recommend .lnb-item').forEach((b,i) => b.classList.toggle('active', i===0));
-    document.getElementById('recview-persona').hidden = false;
-    document.getElementById('recview-trend').hidden = true;
-    initRecommend();
-  }
+
   if(name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
   // 섹션 변경 시 팝업 닫기 + 바/버블 전환
   popupOpen = false;
@@ -1345,6 +1270,9 @@ async function loadGorilla(){
 function getPlatformCompanies(platform){
   if(platform !== '전체보기') return (CASHBACK[platform] && CASHBACK[platform].companies) || [];
   const m = {};
+  // 전체보기는 이벤트 유무와 상관없이 우리가 다루는 10개 카드사가 항상 다 나와야 한다
+  // (플랫폼 탭들은 반대로 이벤트가 있는 카드사만 노출 — 아래 각 platform.companies가 이미 그렇게 구성됨).
+  COMPANIES.forEach(c => { m[c.name] = {name:c.name, cards:[], maxAmount:0}; });
   Object.values(CASHBACK).forEach(p => (p.companies||[]).forEach(c=>{
     (m[c.name] = m[c.name] || {name:c.name, cards:[], maxAmount:0});
     m[c.name].cards.push(...c.cards);
@@ -1389,7 +1317,7 @@ function renderCbCompanies(companies){
     const logo = COMPANY_LOGO[c.name]
       ? `<img class="co-logo" src="${esc(COMPANY_LOGO[c.name])}" alt="${esc(c.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(c.name[0])}</div>'">`
       : `<div class="co-logo-placeholder">${esc(c.name[0])}</div>`;
-    const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : `${c.cards.length}개 이벤트`;
+    const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : (c.cards.length ? `${c.cards.length}개 이벤트` : '이벤트 없음');
     return `<div class="cb-company-card" onclick="drillCb('${esc(c.name)}')">
       ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
   }).join('') || '<div class="empty">이벤트가 없어요.</div>';
@@ -1959,166 +1887,7 @@ const REC_CARDS = [
 const recCardMap = {};
 REC_CARDS.forEach(c => recCardMap[c.idx] = c);
 
-const PERSONA_DB = {
-  "20대_여성": {
-    magTitle: "20대 여성이라면? <span class='highlight'>쇼핑과 뷰티, 트렌드</span>를 놓치지 않는 카드 TOP 3",
-    chartData: { labels:['온라인쇼핑(패션/뷰티)','여가/여행','카페/디저트','전문서비스(뷰티)','한식'], data:[35,20,15,12,8] },
-    fact:"압도적인 1위는 패션/뷰티 중심의 '인터넷 쇼핑'입니다. 이어서 여행, 카페, 그리고 미용실이나 네일아트 같은 전문 서비스 결제 비중이 매우 높습니다.",
-    need:"온라인 플랫폼 결제 시 높은 할인율과, 카페/베이커리 등 일상적인 소확행에 특화된 혜택이 가장 유리합니다.",
-    reason:"쇼핑과 카페에서 가장 강력한 체감 할인을 제공하며, 트렌디한 가맹점을 두루 커버하는 알짜 카드들입니다.",
-    cardIds:[2235,2736,2523],
-    reviews:["자주 쓰는 영역에서 자동으로 30% 할인을 맞춰주는 똑똑한 카드!","트렌디한 쇼핑몰과 온라인 결제에서 확실한 혜택을 제공합니다.","카페와 디저트를 사랑한다면 필수적인 알짜 카드입니다."],
-    tip:"쇼핑 특화 카드를 고를 때는 내가 자주 쓰는 간편결제(네이버페이, 카카오페이 등)가 추가 할인 대상인지 꼭 확인하세요!"
-  },
-  "20대_남성": {
-    magTitle: "20대 남성이라면? <span class='highlight'>가성비 든든한 식비와 전자기기</span> 쇼핑 카드 TOP 3",
-    chartData: { labels:['인터넷쇼핑(IT/기기)','종합쇼핑몰','한식(점심/외식)','패스트푸드','주점/유흥'], data:[30,22,18,15,10] },
-    fact:"가장 눈에 띄는 지출은 '식비(점심, 패스트푸드)'와 '온라인 쇼핑(전자기기 등)'입니다. 게임이나 취미 생활 관련 결제도 돋보입니다.",
-    need:"매일 발생하는 식비와 배달앱 할인이 필수적이며, 교통비나 통신비 같은 고정비를 아껴줄 서브 혜택이 필요합니다.",
-    reason:"가성비 좋게 매일 식비를 깎아주거나, 복잡한 조건 없이 알아서 캐시백 해주는 실용성 갑 카드들입니다.",
-    cardIds:[2346,2348,2483],
-    reviews:["매일 먹는 점심값과 배달앱에서 무려 7%를 깎아주는 든든한 국밥같은 카드!","교통비와 통신비를 아껴서 취미 생활에 보탤 수 있습니다.","복잡한 조건 없이 제일 많이 쓴 곳에서 알아서 캐시백 해줍니다."],
-    tip:"식비 할인 카드를 고를 때는 '점심시간(오전 11시~오후 2시)' 등 특정 시간대 조건이 있는지 꼭 체크하세요!"
-  },
-  "30대_여성": {
-    magTitle: "30대 여성이라면? <span class='highlight'>리빙, 육아, 프리미엄 쇼핑</span> 혜택 카드 TOP 3",
-    chartData: { labels:['인터넷쇼핑(리빙/육아)','종합쇼핑몰(가전)','보육/교육','의료/약국','대형마트'], data:[28,25,18,12,10] },
-    fact:"가전, 가구 등 단가가 높은 리빙 상품과 가족 단위 대형마트 쇼핑의 비중이 큽니다. 자녀 교육비나 병원비 결제도 눈에 띕니다.",
-    need:"건당 결제 금액이 크기 때문에 '할인 한도'가 높은 대형마트/온라인 쇼핑 특화 혜택과 교육비 할인이 필요합니다.",
-    reason:"굵직한 지출에서 시원하게 할인받고, 생활비 방어까지 챙겨주는 프리미엄 밸런스 카드들입니다.",
-    cardIds:[2687,2502,2358],
-    reviews:["온·오프라인 쇼핑 10% 청구할인으로 굵직한 결제에 강합니다.","통신비 할인과 쇼핑 할인을 밸런스 있게 갖춘 카드입니다.","아이들 교육비와 아파트 관리비를 든든히 방어해주는 효자 카드!"],
-    tip:"가족 단위 마트 쇼핑이 많다면, 백화점/대형마트 청구할인 한도가 넉넉한지 확인하는 것이 가장 중요합니다."
-  },
-  "30대_남성": {
-    magTitle: "30대 남성 직장인이라면? <span class='highlight'>주유비와 점심값</span>을 아껴주는 카드 TOP 3",
-    chartData: { labels:['종합쇼핑몰','주유소/차량유지','자동차정비','인터넷쇼핑','한식(모임/외식)'], data:[30,25,15,12,8] },
-    fact:"자차 출퇴근과 외근이 많아 '주유비' 비중이 매우 높습니다. 직장 동료와의 회식이나 점심 식사 결제도 상당합니다.",
-    need:"차량 유지비(주유/정비)를 확실하게 아껴줄 혜택과, 소소한 커피/대중교통 할인이 어우러진 직장인 특화 카드가 필요합니다.",
-    reason:"주유 할인은 기본, 생활 밀착형 혜택까지 두루 갖춰 자동차 오너에게 최고의 만족을 줍니다.",
-    cardIds:[39,2525,2503],
-    reviews:["내가 고른 정유사 10% 할인과 정비소 혜택으로 자차 운전자 필수템!","기본적인 주유 혜택에 더해 대중교통과 커피 할인까지 쏠쏠합니다.","주말마다 자녀와 놀러갈 때 유용한 테마파크와 주유 혜택의 조합."],
-    tip:"주유 할인 카드를 선택할 때는 '리터당 할인'인지 '결제 금액의 % 할인'인지에 따라 혜택 체감이 크게 달라집니다!"
-  },
-  "40~50대 이상_여성": {
-    magTitle: "40·50대 여성이라면? <span class='highlight'>병원비와 아파트 관리비</span> 꽉 잡는 카드 TOP 3",
-    chartData: { labels:['의료/병원/약국','대형마트/생필품','종합쇼핑몰','공과금/보험','교육/학원'], data:[35,25,15,12,8] },
-    fact:"가족 건강을 위한 의료비 지출이 1위입니다. 아파트 관리비, 보험 등 고정성 생활 지출과 마트 장보기가 뒤를 잇습니다.",
-    need:"복잡한 조건 없이 관리비, 통신비 등 피할 수 없는 '고정비'를 줄여주는 혜택이 최고입니다.",
-    reason:"공과금과 마트 지출을 크게 줄여주어 팍팍한 가계부에 큰 보탬이 되는 1등 공신 카드들입니다.",
-    cardIds:[2330,2292,2293],
-    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 매달 돈 버는 느낌을 줍니다.","어디서 긁든 조건 없는 기본 할인에 대형마트 추가 혜택이 좋습니다.","복잡한 실적 계산 없이 깔끔하게 통신비와 기본 생활비를 챙겨줍니다."],
-    tip:"공과금 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
-  },
-  "40~50대 이상_남성": {
-    magTitle: "40·50대 남성이라면? <span class='highlight'>병원비와 생활 고정비</span> 꽉 잡는 알짜 카드 TOP 3",
-    chartData: { labels:['의료/병원/약국','대형마트','주유소/자동차','공과금/보험','골프/레저'], data:[30,22,18,15,10] },
-    fact:"'의료비'와 '공과금' 비중이 큽니다. 여기에 주유비와 골프 같은 레저/스포츠 관련 소비가 특징적입니다.",
-    need:"골치 아픈 실적 계산 없이 긁을 때마다 무조건 할인되거나, 고정비를 크게 깎아주는 듬직한 카드가 좋습니다.",
-    reason:"까다로운 실적 조건 없이 생활 속에서 무조건 할인을 받거나, 고정비를 꽉 잡아주는 듬직한 카드들입니다.",
-    cardIds:[2330,2292,2293],
-    reviews:["아파트 관리비와 공과금을 알아서 10% 깎아주어 고정비를 강력하게 방어합니다.","사업이나 일상 등 가리지 않고 쓸 수 있는 무조건 할인 카드입니다.","통신비와 기본 생활비를 실적 조건 없이 편안하게 할인받을 수 있습니다."],
-    tip:"고정비 할인 카드는 혜택 받은 결제 건이 다음 달 '전월 실적'에 포함되는지(실적 인정 여부) 확인하는 것이 핵심입니다!"
-  }
-};
 
-let recChart = null, recTimeout = null, recInitialized = false;
-
-function initRecommend(){
-  if(!recInitialized){
-    recInitialized = true;
-    renderPersona('20대_여성');
-  }
-}
-
-// 카드 연구소 LNB: 맞춤카드(persona) / 실시간 검색 트렌드(trend) 두 뷰를 같은 섹션 안에서 전환
-function setRecommendView(view, btn){
-  document.querySelectorAll('#section-recommend .lnb-item').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('recview-persona').hidden = view !== 'persona';
-  document.getElementById('recview-trend').hidden = view !== 'trend';
-  if(view === 'trend') initTrend();
-}
-
-function selectPersona(key, el){
-  document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
-  if(el) el.classList.add('active');
-  renderPersona(key);
-}
-
-function renderPersona(key){
-  const p = PERSONA_DB[key];
-  if(!p) return;
-  const resultEl = document.getElementById('result-container');
-  const skeletonEl = document.getElementById('skeleton-container');
-  resultEl.classList.remove('active');
-  resultEl.innerHTML = '';
-  skeletonEl.classList.add('active');
-  if(recTimeout) clearTimeout(recTimeout);
-  recTimeout = setTimeout(()=>{
-    skeletonEl.classList.remove('active');
-    const escR = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    let cardsHTML = '';
-    p.cardIds.forEach((id, i)=>{
-      const c = recCardMap[id];
-      if(!c) return;
-      const benefit = (c.top_benefit_summary||'').split(' | ')
-        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escR(s.slice(0,idx))}</b>${escR(s.slice(idx))}`:escR(s);})
-        .join('<br>');
-      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ');
-      cardsHTML += `
-        <div class="c-card${i===0?' rank-1':''}">
-          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
-          <img class="card-thumb" src="${escR(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
-          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company||'')}</span></div>
-          <div class="c-chip-row">
-            <span class="c-chip fee">연회비 ${fee}</span>
-            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
-          </div>
-          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
-          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
-        </div>`;
-    });
-    resultEl.innerHTML = `
-      <div class="mag-container">
-        <h2 class="mag-title">${p.magTitle}</h2>
-        <div class="analysis-section">
-          <div class="chart-area">
-            <div class="mag-subtitle" style="align-self:flex-start">이들의 소비 패턴 엿보기</div>
-            <div class="chart-inner"><canvas id="personaChart"></canvas></div>
-          </div>
-          <div class="text-area">
-            <div class="fact-box"><h4>✔️ 소비 팩트체크</h4><p>${escR(p.fact)}</p></div>
-            <div class="fact-box"><h4>🎯 어떤 혜택이 필요할까?</h4><p>${escR(p.need)}</p></div>
-            <div class="fact-box highlight"><h4>💡 카드 파이터의 추천 이유</h4><p>${escR(p.reason)}</p></div>
-          </div>
-        </div>
-        <div class="mag-cards-section">
-          <div class="mag-subtitle">추천 카드 3선</div>
-          <div class="mag-cards-grid">${cardsHTML}</div>
-        </div>
-        <div class="mag-tip"><strong>Tip</strong><div>${escR(p.tip)}</div></div>
-      </div>`;
-    resultEl.classList.add('active');
-    if(recChart) recChart.destroy();
-    const ctx = document.getElementById('personaChart').getContext('2d');
-    recChart = new Chart(ctx, {
-      type:'doughnut',
-      data:{
-        labels:p.chartData.labels,
-        datasets:[{data:p.chartData.data,backgroundColor:['#145CE6','#3498db','#9b59b6','#f1c40f','#e74c3c'],borderWidth:2,borderColor:'#f8fafc',hoverOffset:8}]
-      },
-      options:{responsive:true,maintainAspectRatio:true,
-        animation:{animateScale:true,animateRotate:true,duration:1200,easing:'easeOutBounce'},
-        plugins:{
-          legend:{position:'bottom',labels:{font:{family:'GmarketSans',size:12},padding:12}},
-          tooltip:{callbacks:{label:ctx=>' '+ctx.label+' ('+ctx.raw+'%)'}}
-        }
-      }
-    });
-  }, 800);
-}
 
 // 검색창 placeholder·실시간 인기 검색어는 트렌드분석 탭을 열어보지 않아도 항상 최신이어야 하므로
 // 페이지 로드 시 바로 실행하고, 1시간마다 독립적으로 갱신한다.
