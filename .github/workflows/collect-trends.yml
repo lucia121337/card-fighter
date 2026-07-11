@@ -1,0 +1,64 @@
+name: Collect Naver trends
+
+# 매시간 네이버 DataLab 트렌드 데이터를 미리 계산해 Redis(실서비스가 읽는 곳)와
+# data/trends.db(SQLite, 기록/보관용, bot/trends-data 브랜치에만 커밋)에 저장한다.
+# main 브랜치에는 절대 직접 커밋하지 않는다(CONTRIBUTING.md 규칙).
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect trends (writes Redis + local data/trends.db)
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+        run: node --experimental-sqlite scripts/collect-trends.js
+
+      - name: Commit data/trends.db to bot/trends-data branch
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -e
+          cp data/trends.db /tmp/trends.db
+
+          if git fetch origin bot/trends-data:refs/remotes/origin/bot/trends-data 2>/dev/null; then
+            git checkout -B bot/trends-data origin/bot/trends-data
+          else
+            git checkout --orphan bot/trends-data
+            git reset --hard
+          fi
+
+          mkdir -p data
+          cp /tmp/trends.db data/trends.db
+          git add -f data/trends.db
+
+          if git diff --cached --quiet; then
+            echo "변경 없음, 커밋 생략"
+          else
+            git commit -m "chore(data): update trends.db snapshot ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git push origin bot/trends-data
+          fi
