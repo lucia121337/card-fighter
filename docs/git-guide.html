@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>비개발자를 위한 Git 협업 가이드 — card-fighter</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#fff; --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+    --brand:#4f46e5; --brand2:#6366f1; --good:#059669; --goodbg:#ecfdf5;
+    --warn:#dc2626; --warnbg:#fef2f2; --amber:#d97706; --amberbg:#fffbeb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 18px 60px}
+  header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;
+    padding:40px 24px;text-align:center;border-radius:0 0 28px 28px;margin-bottom:8px}
+  header h1{margin:0 0 8px;font-size:26px;font-weight:800}
+  header p{margin:0;opacity:.92;font-size:15px}
+  .badge{display:inline-block;margin-top:14px;background:rgba(255,255,255,.2);
+    padding:6px 14px;border-radius:99px;font-size:13px;font-weight:600}
+  section{background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:24px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.03)}
+  h2{font-size:19px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h2 .n{background:var(--brand);color:#fff;width:30px;height:30px;border-radius:9px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 18px 40px}
+
+  /* 벽화 비유 흐름 */
+  .analogy{display:flex;gap:12px;align-items:stretch;flex-wrap:wrap}
+  .step-box{flex:1;min-width:150px;background:#f8fafc;border:1px solid var(--line);
+    border-radius:14px;padding:16px;text-align:center}
+  .step-box .emoji{font-size:34px;display:block;margin-bottom:8px}
+  .step-box b{display:block;font-size:15px;margin-bottom:4px}
+  .step-box span{font-size:13px;color:var(--muted)}
+  .arrow{display:flex;align-items:center;font-size:22px;color:var(--brand);font-weight:800}
+
+  /* 용어 카드 */
+  .terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .term{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .term .t{font-weight:800;color:var(--brand);font-size:15px}
+  .term .d{font-size:13.5px;color:var(--ink);margin-top:4px}
+
+  /* 단계 리스트 */
+  .flow{list-style:none;padding:0;margin:0;counter-reset:s}
+  .flow li{position:relative;padding:14px 14px 14px 58px;border:1px solid var(--line);
+    border-radius:12px;margin-bottom:10px;background:#fff;counter-increment:s}
+  .flow li::before{content:counter(s);position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    width:30px;height:30px;background:var(--brand);color:#fff;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .flow b{font-size:15px}
+  .flow .say{color:var(--muted);font-size:13.5px}
+  code{background:#eef2ff;color:#3730a3;padding:2px 7px;border-radius:6px;
+    font-family:"Consolas","Menlo",monospace;font-size:13px}
+
+  /* 머지 4박자 */
+  .beat{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
+  .beat:last-child{border-bottom:0}
+  .beat .num{background:var(--good);color:#fff;width:26px;height:26px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+  .beat div b{font-size:14.5px}
+  .beat div span{font-size:13.5px;color:var(--muted)}
+
+  /* 금지 */
+  .nos{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+  .no{background:var(--warnbg);border:1px solid #fecaca;border-radius:12px;padding:12px 14px;
+    font-size:14px;display:flex;gap:8px;align-items:flex-start}
+  .no .x{color:var(--warn);font-weight:800;flex-shrink:0}
+  .no small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+
+  .callout{background:var(--amberbg);border:1px solid #fde68a;border-radius:12px;
+    padding:14px 16px;font-size:14px;margin-top:16px}
+
+  /* 요약 */
+  .summary{background:var(--goodbg);border:2px solid #a7f3d0;border-radius:18px;
+    padding:22px 24px;margin-top:22px}
+  .summary h2{color:var(--good)}
+  .summary h2 .n{background:var(--good)}
+  .summary ol{margin:10px 0 0;padding-left:22px;font-size:16px;font-weight:600}
+  .summary li{margin:6px 0}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:26px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎨 비개발자를 위한 협업 가이드</h1>
+  <p>Git 몰라도 괜찮아요. 이 페이지만 따라오면 됩니다.</p>
+  <div class="badge">card-fighter 팀 · 신용카드 비교 프로젝트</div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2><span class="n">💡</span> 딱 한 가지 원리</h2>
+    <p class="sub">우리는 <b>큰 벽화 하나</b>를 여럿이 같이 그려요. 진짜 벽에 다 같이 그리면 덧칠돼서 엉망이 되죠.</p>
+    <div class="analogy">
+      <div class="step-box"><span class="emoji">🖼️</span><b>원본 벽화</b><span>모두의 최종본</span></div>
+      <div class="arrow">→</div>
+      <div class="step-box"><span class="emoji">📄</span><b>내 복사본</b><span>여기서만 그림</span></div>
+      <div class="arrow">→</div>
+      <div class="step-box"><span class="emoji">🤝</span><b>순서대로 합치기</b><span>한 명씩 원본에</span></div>
+    </div>
+    <div class="callout">👉 <b>“원본에 직접 그리지 말고, 내 복사본에 그린 뒤 순서대로 합친다.”</b> 이거 하나면 다 이해한 거예요.</div>
+  </section>
+
+  <section>
+    <h2><span class="n">📖</span> 알아둘 단어 5개</h2>
+    <p class="sub">어려워 보이지만 뜻은 쉬워요.</p>
+    <div class="terms">
+      <div class="term"><div class="t">브랜치</div><div class="d">원본을 복사한 <b>내 작업용 복사본</b></div></div>
+      <div class="term"><div class="t">풀 (pull)</div><div class="d">원본의 <b>최신본 내려받기</b></div></div>
+      <div class="term"><div class="t">커밋 (commit)</div><div class="d">작업 <b>중간 저장</b> (세이브)</div></div>
+      <div class="term"><div class="t">푸시 (push)</div><div class="d">내 복사본 <b>서버에 올리기</b></div></div>
+      <div class="term"><div class="t">PR</div><div class="d">“합쳐도 될까요?” <b>검토 요청</b></div></div>
+      <div class="term"><div class="t">충돌</div><div class="d">두 명이 <b>같은 자리</b>를 다르게 고친 상태</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">🔁</span> 매번 하는 5단계</h2>
+    <p class="sub">작업할 때마다 이 순서 그대로.</p>
+    <ol class="flow">
+      <li><b>최신본부터 받기</b> &nbsp;<code>git pull origin develop</code><br><span class="say">남들이 한 최신 작업부터 내려받아요.</span></li>
+      <li><b>내 복사본(브랜치) 만들기</b> &nbsp;<code>git checkout -b feature/내작업</code><br><span class="say">여기서만 작업해요. 원본은 절대 직접 X</span></li>
+      <li><b>작업하고 중간 저장</b> &nbsp;<code>git commit -m "feat: ○○ 추가"</code><br><span class="say">의미 단위로. “최종”, “수정” 같은 메시지 금지.</span></li>
+      <li><b>내 복사본 올리기</b> &nbsp;<code>git push origin feature/내작업</code></li>
+      <li><b>“합쳐주세요” 요청 (PR)</b><br><span class="say">무엇을 했는지 + 어떻게 확인하는지 적어요.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span class="n">🥁</span> 합칠 때 — “머지 4박자”</h2>
+    <p class="sub">동시에 두 명이 합치면 충돌나요. <b>한 명씩 순서대로!</b></p>
+    <div class="beat"><span class="num">1</span><div><b>합치기 전, 최신본을 내 복사본에 먼저 반영</b><br><span>바뀐 게 뭔지 확인하고 정리 (<code>git pull origin develop</code>)</span></div></div>
+    <div class="beat"><span class="num">2</span><div><b>잘 돌아가는지 확인 후 PR</b><br><span>앱 실행해서 기능 되는지 보기</span></div></div>
+    <div class="beat"><span class="num">3</span><div><b>내 차례에만 합치기</b><br><span>작업보드에 “머지중 🔴” 켜고, 앞사람 끝난 뒤 진행</span></div></div>
+    <div class="beat"><span class="num">4</span><div><b>합친 뒤엔 다들 다시 받기</b><br><span>방금 합쳐진 최신본을 각자 <code>git pull</code></span></div></div>
+  </section>
+
+  <section>
+    <h2><span class="n">🚫</span> 이건 절대 하지 마세요</h2>
+    <p class="sub">사고의 대부분이 여기서 나요.</p>
+    <div class="nos">
+      <div class="no"><span class="x">✕</span><div>원본(main/develop)에 직접 올리기<small>검토 없이 원본 훼손 = 다 같이 망함</small></div></div>
+      <div class="no"><span class="x">✕</span><div>받기(pull) 안 하고 시작<small>옛날 버전 위에 작업 → 남 작업 덮어씀</small></div></div>
+      <div class="no"><span class="x">✕</span><div>공통 파일 말없이 수정<small>“저 이거 손댈게요” 한마디면 예방</small></div></div>
+      <div class="no"><span class="x">✕</span><div>비밀번호·키(.env) 올리기<small>금고 비번을 게시판에 붙이는 격</small></div></div>
+      <div class="no"><span class="x">✕</span><div>큰 데이터(3.7GB) 올리기<small>서버가 터져요</small></div></div>
+      <div class="no"><span class="x">✕</span><div>“최종”, “진짜최종” 저장<small>나중에 뭘 바꿨는지 못 찾음</small></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">🆘</span> 막히면?</h2>
+    <p class="sub" style="margin-bottom:10px">혼자 끙끙대지 마세요.</p>
+    <ul style="margin:0;padding-left:20px;font-size:14.5px">
+      <li><b>충돌(<code>&lt;&lt;&lt;&lt;&lt;</code> 표시)이 났다</b> → 같은 파일 건드린 사람에게 바로 물어보기. 대충 덮어쓰기 X</li>
+      <li><b>처음이라 무섭다</b> → 팀이 <b>더미(연습용) 브랜치</b>로 한 번 같이 리허설해보기</li>
+      <li><b>뭘 하는 중인지 모르겠다</b> → 작업보드(누가·뭘·상태) 확인</li>
+    </ul>
+  </section>
+
+  <section class="summary">
+    <h2><span class="n">⭐</span> 딱 3가지만 기억하세요</h2>
+    <ol>
+      <li>작업 전 <b>“받기(pull)”</b> — 남들 최신부터</li>
+      <li><b>내 복사본에서만</b> 작업 — 원본 직접 X</li>
+      <li>공통 파일 손대기 전 <b>“한마디”</b> + 합칠 땐 <b>순서대로</b></li>
+    </ol>
+  </section>
+
+  <footer>card-fighter 팀 협업 가이드 · 자세한 규칙은 CONTRIBUTING.md 참고</footer>
+</div>
+</body>
+</html>
