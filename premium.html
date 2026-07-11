@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>프리미엄 카드 관 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
+  /* ── 카드 파이터 디자인 토큰 (index.html과 동일) ── */
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --chip:#f1f5f9; --shadow:0 4px 18px rgba(20,92,230,.07);
+    --gold:#b8860b; --gold2:#e3b448;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  a{text-decoration:none;color:inherit}
+
+  /* ── 상단 (탭 헤더 컨셉) ── */
+  .head{max-width:1160px;margin:0 auto;padding:30px 22px 8px}
+  .back{font-size:13px;color:var(--muted)}
+  .back:hover{color:var(--brand)}
+  .title{display:flex;align-items:center;gap:10px;margin:14px 0 4px}
+  .title h1{margin:0;font-size:23px;font-weight:800}
+  .crown{font-size:22px}
+  .gold-line{height:3px;width:56px;border-radius:2px;
+    background:linear-gradient(90deg,var(--gold2),var(--gold));margin:6px 0 8px}
+  .desc{color:var(--muted);font-size:13.5px;margin:0}
+  .count{color:var(--muted);font-size:13px;margin:14px 0 0}
+  .count b{color:var(--brand)}
+
+  /* ── 카드 그리드 (index.html과 동일) ── */
+  .wrap{max-width:1160px;margin:0 auto;padding:16px 22px 70px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
+        padding:17px;display:flex;flex-direction:column;gap:11px;box-shadow:var(--shadow);
+        transition:.16s transform,.16s box-shadow,.16s border-color;position:relative}
+  .card:hover{transform:translateY(-4px);border-color:var(--gold2);
+              box-shadow:0 12px 28px rgba(184,134,11,.16)}
+  .card .top{display:flex;gap:14px;align-items:center}
+  .card img{width:78px;height:50px;object-fit:contain;border-radius:7px;
+            background:#f8fafc;border:1px solid var(--line);flex-shrink:0}
+  .card .nm{font-weight:700;font-size:15px;line-height:1.35}
+  .card .co{color:var(--muted);font-size:12px;margin-top:3px}
+  .row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;
+        padding:4px 9px;font-size:11.5px;color:var(--muted)}
+  .chip.fee{background:#fdf6e3;border-color:#f0d896;color:#9a6a08;font-weight:700}
+  .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  /* 프리미엄 배지 (골드) */
+  .pbadge{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:4px;
+    background:linear-gradient(90deg,var(--gold),var(--gold2));color:#fff;
+    border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700;
+    box-shadow:0 2px 8px rgba(184,134,11,.3)}
+  .rank{font-size:11.5px;color:var(--gold);font-weight:700}
+  .benefit{font-size:12.5px;color:#475569;line-height:1.55;
+           border-top:1px dashed var(--line);padding-top:10px;flex:1}
+  .benefit b{color:var(--brand);font-weight:700}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;gap:8px}
+  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:9px;
+        padding:7px 14px;font-size:12.5px;font-weight:700;cursor:pointer;
+        box-shadow:0 2px 8px rgba(19,85,255,.28);white-space:nowrap;display:inline-block;transition:.15s background}
+  .detail-btn:hover{background:var(--brand-deep)}
+  .empty{text-align:center;color:var(--muted);padding:60px}
+</style>
+</head>
+<body>
+<div class="head">
+  <a class="back" href="/">← 전체 카드로 돌아가기</a>
+  <div class="title"><span class="crown">👑</span><h1>프리미엄 카드 관</h1></div>
+  <div class="gold-line"></div>
+  <p class="desc">연회비 15만원 이상, 최상위 프리미엄 카드만 모았습니다.</p>
+  <div class="count" id="count">불러오는 중…</div>
+</div>
+
+<div class="wrap"><div class="grid" id="grid"></div></div>
+
+<script>
+const THRESHOLD = 150000;
+const won = n => (n||0).toLocaleString('ko-KR');
+const esc = s => String(s??'').replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+// 연회비: 대괄호/원 위치 무관하게 숫자 추출 후 최댓값
+function maxFee(s){
+  const m = [...(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+x[0].replace(/,/g,'')).filter(v=>v>=1000);
+  return m.length ? Math.max(...m) : 0;
+}
+function feeText(s){
+  return (s||'-').replace(/\[([\d,]+)원?\]원?/g,'$1원').replace(/\s*\/\s*/g,' / ');
+}
+function benefitHtml(s){
+  return (s||'').split(' | ').map(x=>{const i=x.indexOf(':');
+    return i>0?`<b>${esc(x.slice(0,i))}</b>${esc(x.slice(i))}`:esc(x);}).join('<br>') || '<span style="color:#94a3b8">혜택 요약 없음</span>';
+}
+
+async function load(){
+  let cards=[];
+  try { cards = await (await fetch('cards_list.json')).json(); }
+  catch(e){ document.getElementById('count').textContent='카드 데이터를 불러오지 못했어요. (주소창이 http://localhost:… 인지 확인)'; return; }
+
+  const premium = cards.map(c=>({...c,_fee:maxFee(c.annual_fee)}))
+    .filter(c=>c._fee>THRESHOLD).sort((a,b)=>b._fee-a._fee);
+
+  document.getElementById('count').innerHTML = `연회비 <b>15만원 이상</b> · 총 <b>${premium.length}</b>장`;
+  document.getElementById('grid').innerHTML = premium.map((c,i)=>`
+    <div class="card">
+      <span class="pbadge">👑 프리미엄</span>
+      <div class="top">
+        <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
+      </div>
+      <div class="row">
+        <span class="chip fee">연회비 ${esc(feeText(c.annual_fee))}</span>
+        <span class="rank">TOP ${i+1}</span>
+      </div>
+      <div class="row">
+        <span class="chip pre">전월실적 ${c.pre_month_money?Math.round(c.pre_month_money/10000)+'만원 이상':'없음'}</span>
+        ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
+      </div>
+      <div class="benefit">${benefitHtml(c.top_benefit_summary)}</div>
+      <div class="foot">
+        <span class="rank">💳 ${won(c._fee)}원</span>
+        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
+      </div>
+    </div>`).join('') || '<div class="empty">조건에 맞는 카드가 없어요.</div>';
+}
+load();
+</script>
+</body>
+</html>

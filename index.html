@@ -70,6 +70,60 @@
   .stat{color:var(--muted);font-size:12.5px;white-space:nowrap;flex-shrink:0;margin-left:4px}
   .stat b{color:var(--brand);font-weight:700}
 
+  /* ── 고도화 필터 (카드사/연회비/전월실적) ── */
+  .filter-dd{position:relative}
+  .filter-btn{display:inline-flex;align-items:center;gap:7px;background:var(--panel);color:var(--txt);
+    border:1.5px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;
+    font-family:inherit;transition:.15s border-color;white-space:nowrap}
+  .filter-btn:hover{border-color:var(--brand)}
+  .filter-dd.on .filter-btn{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
+  .filter-btn.has-val{border-color:var(--brand);color:var(--brand);font-weight:700}
+  .fb-caret{font-size:10px;color:var(--muted);transition:.2s transform}
+  .filter-dd.on .fb-caret{transform:rotate(180deg)}
+  .filter-pop{position:absolute;top:calc(100% + 6px);left:0;z-index:40;min-width:230px;
+    background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:12px;
+    box-shadow:0 12px 34px rgba(15,23,42,.16);display:none}
+  .filter-dd.on .filter-pop{display:block;animation:ddpop .14s ease}
+  @keyframes ddpop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .fp-search input{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:8px 11px;
+    font-size:13px;outline:none;font-family:inherit}
+  .fp-search input:focus{border-color:var(--brand)}
+  .fp-actions{display:flex;gap:6px;margin:9px 0 6px}
+  .fp-actions button{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+    padding:6px 0;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit;font-weight:600}
+  .fp-actions button:hover{color:var(--brand);border-color:var(--brand)}
+  .fp-list{max-height:264px;overflow-y:auto;display:flex;flex-direction:column;gap:1px}
+  .fp-item{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:8px;cursor:pointer;
+    font-size:13px;color:var(--txt);user-select:none}
+  .fp-item:hover{background:var(--panel2)}
+  .fp-item input{accent-color:var(--brand);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+  .fp-item .fp-count{margin-left:auto;font-size:11px;color:var(--muted)}
+  .fp-empty{padding:14px 6px;text-align:center;color:var(--muted);font-size:12.5px}
+  /* 연회비 듀얼 슬라이더 */
+  .filter-pop-fee{min-width:280px}
+  .fee-range-label{font-size:13px;color:var(--muted);margin-bottom:14px;text-align:center}
+  .fee-range-label b{color:var(--brand);font-weight:800}
+  .dual-slider{position:relative;height:22px;margin:0 6px}
+  .ds-track,.ds-fill{position:absolute;top:9px;height:4px;border-radius:99px}
+  .ds-track{left:0;right:0;background:var(--line)}
+  .ds-fill{background:var(--brand)}
+  .dual-slider input[type=range]{position:absolute;top:0;left:0;width:100%;margin:0;height:22px;
+    background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+  .dual-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:auto;
+    width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--brand);cursor:pointer;
+    box-shadow:0 2px 6px rgba(20,92,230,.35);margin-top:0}
+  .dual-slider input[type=range]::-moz-range-thumb{pointer-events:auto;width:18px;height:18px;border-radius:50%;
+    background:#fff;border:3px solid var(--brand);cursor:pointer;box-shadow:0 2px 6px rgba(20,92,230,.35)}
+  .ds-ticks{display:flex;justify-content:space-between;margin:8px 2px 0;font-size:10.5px;color:var(--muted)}
+  /* 전월실적 세그먼트 */
+  .seg-group{display:flex;flex-direction:column;gap:5px;min-width:180px}
+  .seg-btn{display:flex;align-items:center;gap:9px;background:var(--panel2);border:1.5px solid var(--line);
+    border-radius:9px;padding:9px 12px;font-size:13px;color:var(--txt);cursor:pointer;font-family:inherit;
+    text-align:left;transition:.13s}
+  .seg-btn:hover{border-color:var(--brand)}
+  .seg-btn.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
+  .seg-btn .seg-count{margin-left:auto;font-size:11px;opacity:.7}
+
   /* ── 메인 ── */
   main{max-width:1340px;margin:0 auto;padding:24px 22px}
   .section{display:block}
@@ -143,6 +197,57 @@
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
   .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
+  /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
+  #section-cards.prem-theme{background:radial-gradient(120% 60% at 50% 0%,#1b1d26 0%,#0e0f13 60%);
+    border:1px solid #2a2d38;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  .prem-theme .cards-title{color:#e8c886}
+  .prem-theme .cards-subtitle{color:#9aa0ac}.prem-theme .cards-subtitle b{color:#e8c886}
+  .prem-theme .lnb-item{background:#181a22;border-color:#2a2d38;color:#c8ccd4}
+  /* 프리미엄: '혜택으로 찾기' 박스 골드 처리 */
+  .prem-theme .cat-filter-box{background:linear-gradient(180deg,#181a22,#111219);
+    border:1.5px solid #5c4a1f;box-shadow:0 8px 26px rgba(201,164,92,.1),inset 0 1px 0 rgba(232,200,134,.06)}
+  .prem-theme .cat-filter-label{color:#e8c886;letter-spacing:.3px}
+  .prem-theme .cat-pill{background:#20222c;border-color:#3a3320;color:#c8b489}
+  .prem-theme .cat-pill:hover{border-color:#c9a45c;color:#e8c886}
+  .prem-theme .cat-pill.active{background:linear-gradient(90deg,#b8860b,#e3b448);
+    border-color:#e3b448;color:#1a150a;font-weight:800;box-shadow:0 3px 10px rgba(201,164,92,.3)}
+  .prem-theme .cat-chip{background:#20222c;border-color:#2f333f;color:#c8ccd4}
+  .prem-theme .controls select{background:#181a22;border-color:#2a2d38;color:#e5e7ea}
+  /* 프리미엄: 고도화 필터 골드 처리 */
+  .prem-theme .filter-btn{background:#181a22;border-color:#2a2d38;color:#e5e7ea}
+  .prem-theme .filter-btn:hover{border-color:#c9a45c}
+  .prem-theme .filter-dd.on .filter-btn{border-color:#e3b448;box-shadow:0 0 0 3px rgba(201,164,92,.16)}
+  .prem-theme .filter-btn.has-val{border-color:#e3b448;color:#e8c886}
+  .prem-theme .filter-pop{background:#161821;border-color:#5c4a1f;box-shadow:0 14px 36px rgba(0,0,0,.5)}
+  .prem-theme .fp-search input{background:#0f1014;border-color:#2a2d38;color:#e5e7ea}
+  .prem-theme .fp-search input:focus{border-color:#e3b448}
+  .prem-theme .fp-actions button{background:#20222c;border-color:#3a3320;color:#c8b489}
+  .prem-theme .fp-actions button:hover{color:#e8c886;border-color:#c9a45c}
+  .prem-theme .fp-item{color:#d8dae0}
+  .prem-theme .fp-item:hover{background:#20222c}
+  .prem-theme .fp-item input{accent-color:#e3b448}
+  .prem-theme .fp-item .fp-count{color:#8a8f9a}
+  .prem-theme .fee-range-label{color:#9aa0ac}
+  .prem-theme .fee-range-label b{color:#e8c886}
+  .prem-theme .ds-track{background:#2f333f}
+  .prem-theme .ds-fill{background:linear-gradient(90deg,#b8860b,#e3b448)}
+  .prem-theme .dual-slider input[type=range]::-webkit-slider-thumb{background:#1a150a;border-color:#e3b448;box-shadow:0 2px 6px rgba(201,164,92,.4)}
+  .prem-theme .dual-slider input[type=range]::-moz-range-thumb{background:#1a150a;border-color:#e3b448}
+  .prem-theme .seg-btn{background:#20222c;border-color:#3a3320;color:#c8b489}
+  .prem-theme .seg-btn:hover{border-color:#c9a45c;color:#e8c886}
+  .prem-theme .seg-btn.on{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#e3b448;color:#1a150a}
+  .prem-theme .card{background:linear-gradient(180deg,#191b23,#141519);border-color:#2a2d38;box-shadow:none}
+  .prem-theme .card:hover{border-color:#c9a45c;box-shadow:0 12px 30px rgba(201,164,92,.18)}
+  .prem-theme .card img{background:#0f1014;border-color:#2a2d38}
+  .prem-theme .card .nm{color:#f5f3ee}
+  .prem-theme .card .co{color:#9aa0ac}
+  .prem-theme .chip{background:#20222c;border-color:#2f333f;color:#c8ccd4}
+  .prem-theme .chip.fee{background:#2a2213;border-color:#5c4a1f;color:#e8c886}
+  .prem-theme .chip.pre{background:#14261a;border-color:#255c39;color:#7fe0a5}
+  .prem-theme .benefit{color:#c1c6cf;border-top-color:#2a2d38}
+  .prem-theme .benefit b{color:#e8c886}
+  .prem-theme .detail-btn{background:linear-gradient(90deg,#b8860b,#e3b448);box-shadow:0 2px 10px rgba(201,164,92,.3)}
+  .prem-theme #more{background:linear-gradient(90deg,#b8860b,#e3b448);box-shadow:none}
   .benefit{font-size:12.5px;color:#475569;line-height:1.55;
            border-top:1px dashed var(--line);padding-top:10px;flex:1}
   .benefit b{color:var(--brand);font-weight:700}
@@ -264,7 +369,50 @@
   .cb-title span{color:var(--brand)}
 
   /* 5×2 카드사 그리드 */
-  .cb-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .cb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+  /* 캐시백 이벤트 카드 (카드고릴라 실데이터) */
+  .cb-event-card{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
+    padding:15px;cursor:pointer;display:flex;flex-direction:column;gap:8px;
+    box-shadow:var(--shadow);transition:.16s transform,.16s border-color,.16s box-shadow}
+  .cb-event-card:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:0 12px 26px rgba(19,85,255,.12)}
+  .cbc-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .cbc-logo{width:44px;height:28px;object-fit:contain;border-radius:5px}
+  .cbc-logo.ph{display:flex;align-items:center;justify-content:center;font-size:18px;background:#f1f5f9}
+  .cbc-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px;background:#eef2ff;color:var(--brand)}
+  .cbc-badge.cbk{background:#fff4ec;color:#e8590c}
+  .cbc-title{font-weight:700;font-size:14px;line-height:1.35;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .cbc-subject{font-size:12px;color:var(--muted);line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:16px}
+  .cbc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:6px}
+  .cbc-amt{font-size:12.5px;font-weight:800;color:#e8590c}
+  .cbc-more{font-size:12px;font-weight:700;color:var(--brand);margin-top:6px}
+  .cbc-period{font-size:11px;color:#94a3b8}
+  /* 캐시백 상세 모달 */
+  .cb-modal{position:fixed;inset:0;background:rgba(15,23,42,.5);display:none;z-index:300;
+    align-items:center;justify-content:center;padding:20px}
+  .cb-modal.on{display:flex}
+  .cb-modal-inner{background:#fff;border-radius:16px;max-width:620px;width:100%;max-height:86vh;
+    overflow:auto;padding:22px;position:relative}
+  .cbm-close{float:right;background:#f1f5f9;color:#334155;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700}
+  .cbm-tag{font-size:12px;color:var(--brand);font-weight:700}
+  .cbm-title{margin:4px 0}
+  .cbm-sub{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+  .cbm-text{white-space:pre-line;font-size:13px;color:#475569;line-height:1.65}
+  .cbm-link{display:inline-block;margin-top:14px;color:var(--brand);font-weight:700}
+  /* 우리 카드 DB 연결 */
+  .cbm-cardlink{display:flex;align-items:center;gap:12px;margin:16px 0 4px;padding:12px 14px;
+    background:var(--panel2);border:1.5px solid #bfdbfe;border-radius:12px;text-decoration:none;
+    transition:.15s;cursor:pointer}
+  .cbm-cardlink:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(20,92,230,.14)}
+  .cbm-cardlink img{width:46px;height:30px;object-fit:contain;flex-shrink:0}
+  .cbm-cardlink .cl-txt{flex:1;min-width:0}
+  .cbm-cardlink .cl-eyebrow{font-size:11px;font-weight:700;color:var(--brand)}
+  .cbm-cardlink .cl-name{font-size:13.5px;font-weight:700;color:var(--txt);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cbm-cardlink .cl-arrow{color:var(--brand);font-weight:800;flex-shrink:0}
+  .cbc-link-badge{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:99px;
+    background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
   .cb-company-card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;
         padding:24px 16px 20px;display:flex;flex-direction:column;align-items:center;
         justify-content:center;gap:14px;min-height:220px;
@@ -518,6 +666,10 @@
       <div class="cb-grid" id="cb-grid"></div>
     </div>
   </div>
+  <!-- 캐시백 상세 모달 -->
+  <div id="cb-modal" class="cb-modal" onclick="if(event.target===this)closeCbModal()">
+    <div class="cb-modal-inner" id="cb-modal-body"></div>
+  </div>
 
   <!-- 홈 섹션 -->
   <div id="section-home" class="section">
@@ -620,20 +772,48 @@
       <!-- 카드 목록 -->
       <div class="cards-main">
         <div class="cards-toolbar">
-          <div class="controls">
-            <select id="company"><option value="">전체 카드사</option></select>
-            <select id="fee">
-              <option value="">연회비 전체</option>
-              <option value="free">연회비 없음/저가(~1만원)</option>
-              <option value="mid">1만~5만원</option>
-              <option value="high">5만원 이상</option>
-            </select>
-            <select id="pre">
-              <option value="">전월실적 전체</option>
-              <option value="none">실적 조건 없음</option>
-              <option value="le30">30만원 이하</option>
-              <option value="gt30">30만원 초과</option>
-            </select>
+          <div class="controls" id="filter-controls">
+            <!-- 카드사: 검색 + 체크박스 다중선택 -->
+            <div class="filter-dd" id="dd-company">
+              <button type="button" class="filter-btn" onclick="toggleDd('company')">
+                <span id="company-label">전체 카드사</span><span class="fb-caret">▾</span>
+              </button>
+              <div class="filter-pop" id="company-pop">
+                <div class="fp-search">
+                  <input type="text" id="company-search" placeholder="카드사 검색…" oninput="renderCompanyList()" autocomplete="off">
+                </div>
+                <div class="fp-actions">
+                  <button type="button" onclick="setAllCompanies(true)">전체 선택</button>
+                  <button type="button" onclick="setAllCompanies(false)">전체 해제</button>
+                </div>
+                <div class="fp-list" id="company-list"></div>
+              </div>
+            </div>
+            <!-- 연회비: 구간 슬라이더 -->
+            <div class="filter-dd" id="dd-fee">
+              <button type="button" class="filter-btn" onclick="toggleDd('fee')">
+                <span id="fee-label">연회비 전체</span><span class="fb-caret">▾</span>
+              </button>
+              <div class="filter-pop filter-pop-fee" id="fee-pop">
+                <div class="fee-range-label">연회비 <b id="fee-min-label">무료</b> ~ <b id="fee-max-label">무제한</b></div>
+                <div class="dual-slider" id="fee-slider">
+                  <div class="ds-track"></div>
+                  <div class="ds-fill" id="fee-fill"></div>
+                  <input type="range" id="fee-min" min="0" max="6" step="1" value="0" oninput="onFeeSlide('min')">
+                  <input type="range" id="fee-max" min="0" max="6" step="1" value="6" oninput="onFeeSlide('max')">
+                </div>
+                <div class="ds-ticks"><span>무료</span><span>1만</span><span>2만</span><span>3만</span><span>5만</span><span>10만</span><span>무제한</span></div>
+              </div>
+            </div>
+            <!-- 전월실적: 특징 구간 다중선택 -->
+            <div class="filter-dd" id="dd-pre">
+              <button type="button" class="filter-btn" onclick="toggleDd('pre')">
+                <span id="pre-label">전월실적 전체</span><span class="fb-caret">▾</span>
+              </button>
+              <div class="filter-pop" id="pre-pop">
+                <div class="seg-group" id="pre-seg"></div>
+              </div>
+            </div>
             <select id="sort">
               <option value="default">기본(인기순)</option>
               <option value="name">카드명순</option>
@@ -904,16 +1084,107 @@ function setCardType(el){
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
+  document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
   applyFilters();
 }
 
 /* ── 필터 & 렌더 ── */
+/* ── 고도화 필터 상태 ── */
+const FEE_STOPS  = [0, 10000, 20000, 30000, 50000, 100000, Infinity];
+const FEE_LABELS = ['무료', '1만원', '2만원', '3만원', '5만원', '10만원', '무제한'];
+let feeIdx = [0, 6];                       // [min, max] 슬라이더 인덱스
+let selCompanies = new Set();              // 선택된 카드사
+let selPre = new Set();                    // 선택된 전월실적 구간
+// 전월실적 특징 구간 (cards_list.json 분포 분석 기반)
+const PRE_BUCKETS = {
+  none: { label:'무실적',   test:p=>p===0 },
+  le20: { label:'20만원↓',  test:p=>p>0 && p<=200000 },
+  p30:  { label:'30만원대',  test:p=>p>200000 && p<=300000 },
+  p45:  { label:'40~50만원', test:p=>p>300000 && p<=500000 },
+  gt50: { label:'50만원↑',  test:p=>p>500000 },
+};
+
+/* 드롭다운 열고닫기 */
+function toggleDd(name){
+  const dd = document.getElementById('dd-'+name);
+  const wasOpen = dd.classList.contains('on');
+  closeAllDd();
+  if(!wasOpen){
+    dd.classList.add('on');
+    if(name==='company'){ const s=document.getElementById('company-search'); s.value=''; renderCompanyList(); s.focus(); }
+  }
+}
+function closeAllDd(){ document.querySelectorAll('.filter-dd.on').forEach(d=>d.classList.remove('on')); }
+document.addEventListener('click', e=>{ if(!e.target.closest('.filter-dd')) closeAllDd(); });
+
+/* 카드사: 검색 + 체크박스 */
+function companyList(){
+  const cnt = {};
+  DATA.forEach(c=>{ if(c.company) cnt[c.company]=(cnt[c.company]||0)+1; });
+  return Object.keys(cnt).sort((a,b)=> cnt[b]-cnt[a] || a.localeCompare(b,'ko')).map(n=>({name:n,count:cnt[n]}));
+}
+function renderCompanyList(){
+  const kw = (document.getElementById('company-search').value||'').trim().toLowerCase();
+  const list = companyList().filter(x=>!kw || x.name.toLowerCase().includes(kw));
+  const box = document.getElementById('company-list');
+  box.innerHTML = list.length ? list.map(x=>`
+    <label class="fp-item">
+      <input type="checkbox" ${selCompanies.has(x.name)?'checked':''} onchange="toggleCompany('${esc(x.name)}',this.checked)">
+      <span>${esc(x.name)}</span><span class="fp-count">${x.count}</span>
+    </label>`).join('') : '<div class="fp-empty">검색 결과가 없어요</div>';
+}
+function toggleCompany(name, on){ on ? selCompanies.add(name) : selCompanies.delete(name); updateCompanyBtn(); applyFilters(); }
+function setAllCompanies(on){
+  const kw = (document.getElementById('company-search').value||'').trim().toLowerCase();
+  companyList().filter(x=>!kw || x.name.toLowerCase().includes(kw))
+    .forEach(x=> on ? selCompanies.add(x.name) : selCompanies.delete(x.name));
+  renderCompanyList(); updateCompanyBtn(); applyFilters();
+}
+function updateCompanyBtn(){
+  const n = selCompanies.size, btn = document.getElementById('dd-company').querySelector('.filter-btn');
+  document.getElementById('company-label').textContent = n===0 ? '전체 카드사' : (n===1 ? [...selCompanies][0] : `카드사 ${n}곳`);
+  btn.classList.toggle('has-val', n>0);
+}
+
+/* 연회비: 듀얼 슬라이더 */
+function onFeeSlide(which){
+  let lo = +document.getElementById('fee-min').value, hi = +document.getElementById('fee-max').value;
+  if(lo>hi){ if(which==='min') hi=lo; else lo=hi; document.getElementById('fee-min').value=lo; document.getElementById('fee-max').value=hi; }
+  feeIdx=[lo,hi]; updateFeeUI(); applyFilters();
+}
+function updateFeeUI(){
+  const [lo,hi]=feeIdx, max=FEE_STOPS.length-1;
+  document.getElementById('fee-fill').style.left  = (lo/max*100)+'%';
+  document.getElementById('fee-fill').style.width = ((hi-lo)/max*100)+'%';
+  document.getElementById('fee-min-label').textContent = FEE_LABELS[lo];
+  document.getElementById('fee-max-label').textContent = FEE_LABELS[hi];
+  const active = !(lo===0 && hi===max);
+  const btn = document.getElementById('dd-fee').querySelector('.filter-btn');
+  document.getElementById('fee-label').textContent = active ? `연회비 ${FEE_LABELS[lo]}~${FEE_LABELS[hi]}` : '연회비 전체';
+  btn.classList.toggle('has-val', active);
+}
+
+/* 전월실적: 특징 구간 세그먼트 */
+function renderPreSeg(){
+  const cnt = {}; Object.keys(PRE_BUCKETS).forEach(k=>cnt[k]=0);
+  DATA.forEach(c=>{ const p=c.pre_month_money||0; Object.keys(PRE_BUCKETS).forEach(k=>{ if(PRE_BUCKETS[k].test(p)) cnt[k]++; }); });
+  document.getElementById('pre-seg').innerHTML = Object.keys(PRE_BUCKETS).map(k=>`
+    <button type="button" class="seg-btn ${selPre.has(k)?'on':''}" onclick="togglePre('${k}')">
+      <span>${PRE_BUCKETS[k].label}</span><span class="seg-count">${cnt[k]}</span>
+    </button>`).join('');
+}
+function togglePre(k){ selPre.has(k)?selPre.delete(k):selPre.add(k); renderPreSeg(); updatePreBtn(); applyFilters(); }
+function updatePreBtn(){
+  const n=selPre.size, btn=document.getElementById('dd-pre').querySelector('.filter-btn');
+  document.getElementById('pre-label').textContent = n===0 ? '전월실적 전체'
+    : (n===1 ? '실적 '+PRE_BUCKETS[[...selPre][0]].label : `실적 ${n}개 구간`);
+  btn.classList.toggle('has-val', n>0);
+}
+
 function applyFilters(){
   const q   = document.getElementById('q').value.trim().toLowerCase();
-  const co  = document.getElementById('company').value;
-  const fee = document.getElementById('fee').value;
-  const pre = document.getElementById('pre').value;
   const sort= document.getElementById('sort').value;
+  const feeLo = FEE_STOPS[feeIdx[0]], feeHi = FEE_STOPS[feeIdx[1]];
 
   view = DATA.filter(c=>{
     if(activeCardType === '프리미엄'){
@@ -926,19 +1197,20 @@ function applyFilters(){
       const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
       if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
     }
-    if(co && c.company!==co) return false;
+    // 카드사: 다중선택(OR). 하나도 안 고르면 전체.
+    if(selCompanies.size && !selCompanies.has(c.company)) return false;
     if(q){
       const hay=(c.card_name+' '+c.company+' '+c.top_benefit_summary+' '+(c.benefit_categories||'')).toLowerCase();
       if(!hay.includes(q)) return false;
     }
-    const f=feeNum(c.annual_fee);
-    if(fee==='free'&&f>10000) return false;
-    if(fee==='mid'&&!(f>10000&&f<50000)) return false;
-    if(fee==='high'&&f<50000) return false;
-    const p=c.pre_month_money||0;
-    if(pre==='none'&&p) return false;
-    if(pre==='le30'&&(p===0||p>300000)) return false;
-    if(pre==='gt30'&&p<=300000) return false;
+    // 연회비: 슬라이더 구간 [feeLo, feeHi] (대표 연회비=최대값 기준)
+    const f=feeMax(c.annual_fee);
+    if(f<feeLo || f>feeHi) return false;
+    // 전월실적: 특징 구간 다중선택(OR). 하나도 안 고르면 전체.
+    if(selPre.size){
+      const p=c.pre_month_money||0;
+      if(![...selPre].some(k=>PRE_BUCKETS[k].test(p))) return false;
+    }
     return true;
   });
 
@@ -1011,149 +1283,187 @@ const COMPANIES = [
   { name:'IBK기업은행카드', logo:'image/IBK기업.png', amount:3 },
 ].sort((a,b)=>b.amount-a.amount);
 
+/* ── 캐시백: 플랫폼 탭 (카드고릴라는 실데이터, 나머지는 예시) ── */
 const CASHBACK = {
-  '카카오페이': {
-    icon: 'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png',
-    url: 'https://pay.kakao.com',
-    maxAmount: 112.5,
-    companies: [
-      { name: '신한카드', cards: [
-        { name: '신한카드 Deep Dream', img: '', amount: 30000 },
-        { name: '신한카드 Mr.Life', img: '', amount: 20000 },
-      ]},
-      { name: 'KB국민카드', cards: [
-        { name: 'KB국민 노리카드', img: '', amount: 20000 },
-      ]},
-      { name: '현대카드', cards: [
-        { name: '현대카드 Z WORK', img: '', amount: 15000 },
-      ]},
-    ]
-  },
-  '네이버페이': {
-    icon: 'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png',
-    url: 'https://card.pay.naver.com/home/promotion/event?from=menu_event',
-    maxAmount: 112.5,
-    companies: [
-      { name: '신한카드', cards: [
-        { name: '신한카드 Deep Oil', img: '', amount: 20000 },
-      ]},
-      { name: '하나카드', cards: [
-        { name: '하나카드 1Q', img: '', amount: 15000 },
-      ]},
-    ]
-  },
-  '토스': {
-    icon: 'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico',
-    url: 'https://card-lounge.toss.im/?utm_source=naverbrand&utm_campaign=webtraffic_cardpcbs_performance&utm_content=search_cardpc_cardlounge_250701',
-    maxAmount: 112.5,
-    companies: [
-      { name: '토스뱅크', cards: [
-        { name: '토스뱅크 체크카드', img: '', amount: 10000 },
-      ]},
-    ]
-  },
-  '카드고릴라': {
-    icon: '',
-    url: 'https://www.card-gorilla.com',
-    maxAmount: 112.5,
-    companies: [
-      { name: '삼성카드', cards: [
-        { name: '삼성카드 taptap O', img: '', amount: 50000 },
-      ]},
-      { name: '롯데카드', cards: [
-        { name: '롯데카드 DCCO', img: '', amount: 30000 },
-      ]},
-    ]
-  },
-  '아정당카드': {
-    icon: '',
-    url: 'https://ajd.co.kr/card',
-    maxAmount: 112.5,
-    companies: [
-      { name: '우리카드', cards: [
-        { name: '우리카드 카드의정석 POINT', img: '', amount: 20000 },
-      ]},
-    ]
-  },
-  '뱅크샐러드': {
-    icon: '',
-    url: 'https://www.banksalad.com/chart/cards?tab=event',
-    maxAmount: 112.5,
-    companies: [
-      { name: 'KB국민카드', cards: [
-        { name: 'KB국민 리브 Next 카드', img: '', amount: 10000 },
-      ]},
-    ]
-  },
+  '카카오페이': { icon:'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png', url:'https://pay.kakao.com', real:false, companies:[
+    { name:'신한카드', cards:[{name:'신한카드 Deep Dream', amount:3},{name:'신한카드 Mr.Life', amount:2}] },
+    { name:'KB국민카드', cards:[{name:'KB국민 노리카드', amount:2}] },
+    { name:'현대카드', cards:[{name:'현대카드 Z WORK', amount:1.5}] },
+  ]},
+  '네이버페이': { icon:'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png', url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', real:false, companies:[
+    { name:'신한카드', cards:[{name:'신한카드 Deep Oil', amount:2}] },
+    { name:'하나카드', cards:[{name:'하나카드 1Q', amount:1.5}] },
+  ]},
+  '토스': { icon:'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico', url:'https://card-lounge.toss.im/', real:false, companies:[
+    { name:'하나카드', cards:[{name:'토스뱅크 체크카드', amount:1}] },
+  ]},
+  '카드고릴라': { icon:'', url:'https://www.card-gorilla.com/event', real:true, companies:[] },
+  '아정당카드': { icon:'', url:'https://ajd.co.kr/card', real:false, companies:[
+    { name:'우리카드', cards:[{name:'우리카드 카드의정석 POINT', amount:2}] },
+  ]},
+  '뱅크샐러드': { icon:'', url:'https://www.banksalad.com/chart/cards?tab=event', real:false, companies:[
+    { name:'KB국민카드', cards:[{name:'KB국민 리브 Next 카드', amount:1}] },
+  ]},
 };
 
-let activePlatform = '전체보기';
+const COMPANY_LOGO = {}; COMPANIES.forEach(c => COMPANY_LOGO[c.name] = c.logo);
+const CO_ALIAS = [['삼성','삼성카드'],['신한','신한카드'],['현대','현대카드'],['국민','KB국민카드'],['KB','KB국민카드'],
+  ['롯데','롯데카드'],['농협','NH농협카드'],['NH','NH농협카드'],['우리','우리카드'],['하나','하나카드'],
+  ['비씨','BC바로카드'],['BC','BC바로카드'],['기업','IBK기업은행카드'],['IBK','IBK기업은행카드'],
+  ['씨티','씨티카드'],['시티','씨티카드'],['카카오뱅크','카카오뱅크'],['토스','토스뱅크'],['케이뱅크','케이뱅크']];
+function extractCompany(title){ const t=title||''; for(const [a,n] of CO_ALIAS){ if(t.includes(a)) return n; } return '기타'; }
 
-const CB_ALL_MAX = Math.max(...Object.values(CASHBACK).map(d=>d.maxAmount));
+let CB_EVENTS = [];
+let activePlatform = '카드고릴라';
+let cbView = 'companies';   // companies | cards
+let drillCompany = null;
+let cbReady = false;
 
-let cbInitialized = false;
+function cbAmount(e){
+  const m = ((e.subject||'')+' '+(e.title||'')).match(/(\d[\d,]*)\s*만원/g) || [];
+  const nums = m.map(s=>parseInt(s.replace(/[^\d]/g,''),10)).filter(n=>n>0 && n<=1000);
+  return nums.length ? Math.max(...nums) : 0;
+}
 
-function renderCashback(){
-  if(!cbInitialized){
-    /* 탭 + 그리드 최초 1회만 생성 */
-    const allTab = `<button class="cb-platform-tab active" data-platform="전체보기"
-      onclick="setCbPlatform('전체보기')">전체보기</button>`;
-    const platformTabs = Object.keys(CASHBACK).map(name => {
-      const d = CASHBACK[name];
-      const icon = d.icon ? `<img src="${esc(d.icon)}" alt="" onerror="this.style.display='none'">` : '';
-      return `<button class="cb-platform-tab" data-platform="${esc(name)}"
-        onclick="setCbPlatform('${esc(name)}')">${icon}${esc(name)}</button>`;
+async function loadGorilla(){
+  const j = await (await fetch('cashback_events.json')).json();
+  CB_EVENTS = (j.events||[]);
+  const byco = {};
+  CB_EVENTS.forEach(e=>{
+    const co = e.company || extractCompany(e.title);   // 스크래퍼가 복원한 실제 카드사 우선
+    (byco[co] = byco[co] || {name:co, cards:[]});
+    byco[co].cards.push({name:e.title, amount:cbAmount(e), subject:e.subject, type:e.type, event_idx:e.idx});
+  });
+  const companies = Object.values(byco).map(c=>{
+    c.cards.sort((a,b)=>b.amount-a.amount);
+    c.maxAmount = Math.max(0, ...c.cards.map(x=>x.amount));
+    return c;
+  }).sort((a,b)=> b.maxAmount-a.maxAmount || b.cards.length-a.cards.length);
+  CASHBACK['카드고릴라'].companies = companies;
+}
+
+function getPlatformCompanies(platform){
+  if(platform !== '전체보기') return (CASHBACK[platform] && CASHBACK[platform].companies) || [];
+  const m = {};
+  Object.values(CASHBACK).forEach(p => (p.companies||[]).forEach(c=>{
+    (m[c.name] = m[c.name] || {name:c.name, cards:[], maxAmount:0});
+    m[c.name].cards.push(...c.cards);
+    m[c.name].maxAmount = Math.max(m[c.name].maxAmount, c.maxAmount || Math.max(0, ...c.cards.map(x=>x.amount||0)));
+  }));
+  return Object.values(m).sort((a,b)=>b.maxAmount-a.maxAmount);
+}
+
+async function renderCashback(){
+  if(!cbReady){
+    try { await loadGorilla(); } catch(e){}
+    cbReady = true;
+    const tabs = ['전체보기', ...Object.keys(CASHBACK)];
+    document.getElementById('cb-tabs').innerHTML = tabs.map(name=>{
+      if(name==='전체보기') return `<button class="cb-platform-tab" data-platform="전체보기" onclick="setCbPlatform('전체보기')">전체보기</button>`;
+      const d=CASHBACK[name]; const icon=d.icon?`<img src="${esc(d.icon)}" alt="" onerror="this.style.display='none'">`:'';
+      return `<button class="cb-platform-tab" data-platform="${esc(name)}" onclick="setCbPlatform('${esc(name)}')">${icon}${esc(name)}</button>`;
     }).join('');
-    document.getElementById('cb-tabs').innerHTML = allTab + platformTabs;
-
-    document.getElementById('cb-grid').innerHTML = COMPANIES.map(co => {
-      const logoEl = co.logo
-        ? `<img class="co-logo" src="${esc(co.logo)}" alt="${esc(co.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(co.name[0])}</div>'">`
-        : `<div class="co-logo-placeholder">${esc(co.name[0])}</div>`;
-      return `<div class="cb-company-card">
-        ${logoEl}
-        <div class="co-name">${esc(co.name)}</div>
-        <div class="co-amount">최대 ${co.amount}만원 받기</div>
-      </div>`;
-    }).join('');
-
-    cbInitialized = true;
   }
+  document.querySelectorAll('#cb-tabs .cb-platform-tab').forEach(b=>b.classList.toggle('active', b.dataset.platform===activePlatform));
 
-  /* 이후엔 텍스트·클래스만 업데이트 */
-  document.querySelectorAll('#cb-tabs .cb-platform-tab').forEach(btn =>
-    btn.classList.toggle('active', btn.dataset.platform === activePlatform));
+  const companies = getPlatformCompanies(activePlatform);
+  document.getElementById('cb-max-amt').textContent = Math.max(0, ...companies.map(c=>c.maxAmount)) || '–';
 
-  const isAll = activePlatform === '전체보기';
-  const data  = isAll ? null : CASHBACK[activePlatform];
-  const maxAmt = isAll ? CB_ALL_MAX : data.maxAmount;
-  const subtitle = isAll
-    ? '나는 얼마나 받을 수 있을까?'
-    : `🏠 <a href="${esc(data.url)}" target="_blank" rel="noopener" style="text-decoration:none;font-weight:700"><span style="color:var(--brand)">${esc(activePlatform)}</span> <span style="color:var(--muted)">바로가기</span></a>`;
-
-  document.getElementById('cb-max-amt').textContent = maxAmt;
-  document.getElementById('cb-subtitle').innerHTML = subtitle;
+  if(cbView==='cards' && drillCompany){
+    const co = companies.find(c=>c.name===drillCompany);
+    document.getElementById('cb-subtitle').innerHTML =
+      `<span onclick="backCb()" style="cursor:pointer;color:var(--brand);font-weight:700">← 카드사 목록</span> · <b>${esc(drillCompany)}</b> 캐시백 카드 ${co?co.cards.length:0}개`;
+    renderCbCards(co);
+  } else {
+    const plat = CASHBACK[activePlatform];
+    document.getElementById('cb-subtitle').innerHTML = activePlatform==='전체보기'
+      ? '카드사를 눌러 캐시백 카드를 확인하세요'
+      : (plat && plat.url ? `🏠 <a href="${esc(plat.url)}" target="_blank" rel="noopener" style="font-weight:700;color:var(--brand)">${esc(activePlatform)} 바로가기</a>` : '카드사를 눌러 확인하세요');
+    renderCbCompanies(companies);
+  }
 }
 
-function setCbPlatform(name){
-  activePlatform = name;
-  renderCashback();
+function renderCbCompanies(companies){
+  document.getElementById('cb-grid').className = 'cb-grid';
+  document.getElementById('cb-grid').innerHTML = companies.map(c=>{
+    const logo = COMPANY_LOGO[c.name]
+      ? `<img class="co-logo" src="${esc(COMPANY_LOGO[c.name])}" alt="${esc(c.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(c.name[0])}</div>'">`
+      : `<div class="co-logo-placeholder">${esc(c.name[0])}</div>`;
+    const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : `${c.cards.length}개 이벤트`;
+    return `<div class="cb-company-card" onclick="drillCb('${esc(c.name)}')">
+      ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
+  }).join('') || '<div class="empty">이벤트가 없어요.</div>';
 }
 
-/* ── 이벤트 ── */
+function renderCbCards(co){
+  if(!co){ cbView='companies'; drillCompany=null; return renderCashback(); }
+  document.getElementById('cb-grid').className = 'cb-grid';
+  document.getElementById('cb-grid').innerHTML = co.cards.map(card=>{
+    const badge = card.type ? `<span class="cbc-badge ${card.type==='캐시백'?'cbk':''}">${esc(card.type)}</span>` : '';
+    const amt = card.amount>0 ? `<span class="cbc-amt">최대 ${card.amount}만원</span>` : '';
+    const click = card.event_idx ? `onclick="openCbDetail(${card.event_idx})"` : '';
+    const ev = card.event_idx ? CB_EVENTS.find(x=>x.idx===card.event_idx) : null;
+    const linked = resolveOurCard(ev) ? '<span class="cbc-link-badge">📇 카드정보</span>' : '';
+    return `<div class="cb-event-card" ${click}>
+      <div class="cbc-top">${badge}${amt}${linked}</div>
+      <div class="cbc-title">${esc(card.name)}</div>
+      <div class="cbc-subject">${esc(card.subject||'')}</div>
+      ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : ''}
+    </div>`;
+  }).join('') || '<div class="empty">카드가 없어요.</div>';
+}
+
+/* ── 캐시백 이벤트 ↔ 우리 카드 DB 연결 ── */
+let CARD_BY_IDX = new Map(), CARD_BY_NAME = new Map();
+const normName = s => (s||'').replace(/\s+/g,'').toLowerCase();
+function buildCardIndex(){
+  CARD_BY_IDX = new Map(DATA.map(c=>[c.idx, c]));
+  CARD_BY_NAME = new Map(DATA.map(c=>[normName(c.card_name), c]));
+}
+// 이벤트 → 우리 카드(있으면). 카드명 정확일치 우선, 없으면 card_idxs 중 우리 DB에 있는 첫 카드.
+function resolveOurCard(e){
+  if(!e) return null;
+  const byName = CARD_BY_NAME.get(normName(e.title));
+  if(byName) return byName;
+  for(const id of (e.card_idxs||[])){ const c = CARD_BY_IDX.get(id); if(c) return c; }
+  return null;
+}
+
+function setCbPlatform(name){ activePlatform=name; cbView='companies'; drillCompany=null; renderCashback(); }
+function drillCb(name){ drillCompany=name; cbView='cards'; renderCashback(); }
+function backCb(){ cbView='companies'; drillCompany=null; renderCashback(); }
+
+function openCbDetail(idx){
+  const e = CB_EVENTS.find(x=>x.idx===idx); if(!e) return;
+  const imgs = (e.detail_images||[]).map(u=>`<img src="${esc(u)}" alt="" style="max-width:100%;border-radius:10px;margin:8px 0" onerror="this.style.display='none'">`).join('');
+  const text = e.detail_text ? `<div class="cbm-text">${esc(e.detail_text)}</div>` : (imgs ? '' : '<div class="cbm-text" style="color:#94a3b8">상세 내용은 카드고릴라에서 확인하세요.</div>');
+  const oc = resolveOurCard(e);
+  const cardLink = oc ? `<a class="cbm-cardlink" href="detail?idx=${oc.idx}">
+       <img src="${esc(oc.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+       <div class="cl-txt"><div class="cl-eyebrow">📇 카드 파이터에서 이 카드 보기</div>
+         <div class="cl-name">${esc(oc.card_name)}</div></div>
+       <span class="cl-arrow">상세보기 →</span></a>` : '';
+  document.getElementById('cb-modal-body').innerHTML =
+    `<button class="cbm-close" onclick="closeCbModal()">닫기 ✕</button>
+     <div class="cbm-tag">${esc(e.type)} · ${esc(e.corp_name||'')}</div>
+     <h3 class="cbm-title">${esc(e.title||'')}</h3>
+     <div class="cbm-sub">${esc(e.subject||'')} · ${esc(e.start||'')} ~ ${esc(e.end||'')}</div>
+     ${cardLink}
+     ${text}${imgs}
+     <a class="cbm-link" href="${esc(e.detail_url)}" target="_blank" rel="noopener">카드고릴라에서 자세히 보기 →</a>`;
+  document.getElementById('cb-modal').classList.add('on');
+}
+function closeCbModal(){ document.getElementById('cb-modal').classList.remove('on'); }
+
+  /* ── 이벤트 ── */
 document.getElementById('q').addEventListener('input',()=>{
   if(document.getElementById('section-cards').hidden) showSection('cards');
   applyFilters();
 });
-['company','fee','pre','sort'].forEach(id=>
-  document.getElementById(id).addEventListener('input',applyFilters));
+document.getElementById('sort').addEventListener('change',applyFilters);
 document.getElementById('more').addEventListener('click',render);
 
-/* LNB data-cardtype: 한글→코드 */
-document.querySelectorAll('.lnb-item').forEach(btn=>{
-  const map={'':'','신용':'CRD','체크':'CHK'};
-  if(btn.dataset.cardtype in map) btn.dataset.cardtype = map[btn.dataset.cardtype];
-});
+/* LNB의 data-cardtype('신용'/'체크')은 데이터의 card_type 값과 그대로 일치하므로 변환하지 않는다. */
 renderCatFilterRow();
 
 /* ── 초기 로드: cards_full.json ── */
@@ -1161,9 +1471,10 @@ fetch('cards_list.json')
   .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
   .then(d=>{
     DATA = d;
-    const cos=[...new Set(d.map(c=>c.company).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
-    const sel=document.getElementById('company');
-    cos.forEach(c=>{ const o=document.createElement('option'); o.value=o.textContent=c; sel.appendChild(o); });
+    buildCardIndex();      // 캐시백↔카드 DB 연결용 인덱스
+    renderCompanyList();   // 카드사 체크박스 목록
+    renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
+    updateFeeUI();         // 연회비 슬라이더 초기 표시
     applyFilters();
   })
   .catch(e=>{
