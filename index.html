@@ -636,7 +636,7 @@
       <a href="#" class="active" data-section="home" onclick="showSection('home');return false">홈</a>
       <a href="#" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
       <a href="#" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
-      <a href="#">할인가맹점</a>
+      <a href="#" data-section="shopping" onclick="showSection('shopping');return false">할인가맹점</a>
       <a href="cardlab.html">카드 연구소</a>
     </nav>
     <div class="header-search">
@@ -666,6 +666,11 @@
       <div class="cb-grid" id="cb-grid"></div>
     </div>
   </div>
+  <!-- 할인가맹점 섹션 -->
+  <div id="section-shopping" class="section" hidden>
+    <iframe id="shopping-frame" src="" title="할인가맹점" style="width:100%;min-height:calc(100vh - 140px);border:0;display:block"></iframe>
+  </div>
+
   <!-- 캐시백 상세 모달 -->
   <div id="cb-modal" class="cb-modal" onclick="if(event.target===this)closeCbModal()">
     <div class="cb-modal-inner" id="cb-modal-body"></div>
@@ -994,6 +999,10 @@ function showSection(name){
   document.querySelectorAll('.gnb a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   if(name === 'cashback') renderCashback();
+  if(name === 'shopping'){
+    const frame = document.getElementById('shopping-frame');
+    if(!frame.getAttribute('src')) frame.src = 'shopping_dashboard.html';
+  }
 
   if(name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
   // 섹션 변경 시 팝업 닫기 + 바/버블 전환
