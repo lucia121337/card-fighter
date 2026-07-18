@@ -1,7 +1,9 @@
 {
   "rewrites": [
     { "source": "/detail", "destination": "/detail.html" },
-    { "source": "/compare", "destination": "/compare.html" }
+    { "source": "/compare", "destination": "/compare.html" },
+    { "source": "/cardlab", "destination": "/cardlab.html" },
+    { "source": "/cardlab_detail", "destination": "/cardlab_detail.html" }
   ],
   "cleanUrls": false
 }
