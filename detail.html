@@ -513,26 +513,80 @@
       font-weight: 600
     }
 
-    .calc-total {
+    .calc-total-dashboard {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--panel2);
+      border-radius: 16px;
+      border: 1.5px solid var(--line);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .dashboard-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .dashboard-row.picking-rate-row {
       margin-top: 16px;
-      padding: 16px 18px;
-      background: var(--panel2);
-      border-radius: 12px
+      padding-top: 12px;
+      border-top: 1.5px dashed var(--line);
     }
 
-    .calc-total .tot-label {
-      font-size: 14px;
+    .db-label {
+      font-size: 13.5px;
       font-weight: 700;
-      color: var(--txt)
+      color: var(--muted);
     }
 
-    .calc-total .tot-amt {
-      font-size: 20px;
+    .db-value {
+      font-size: 16.5px;
       font-weight: 800;
-      color: var(--brand)
+      color: var(--txt);
+    }
+
+    .db-value.text-brand {
+      color: var(--brand);
+    }
+
+    .db-value.highlight {
+      font-size: 22px;
+      color: var(--brand);
+    }
+
+    .gauge-container {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .gauge-bar {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.4s ease, background-color 0.4s ease;
+    }
+
+    /* 피킹률 게이지 바 레벨별 색상 */
+    .gauge-bar.level-0 {
+      background-color: #cbd5e1;
+    }
+    .gauge-bar.level-1 {
+      background-color: #94a3b8;
+    }
+    .gauge-bar.level-2 {
+      background-color: #eab308;
+    }
+    .gauge-bar.level-3 {
+      background-color: #22c55e;
+    }
+    .gauge-bar.level-4 {
+      background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
     }
 
     /* 전월실적 선택 콤보박스 */
@@ -626,6 +680,9 @@
     }
 
     .calc-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 13px;
       font-weight: 800;
       color: #4f46e5;
@@ -633,6 +690,15 @@
       padding-bottom: 8px;
       border-bottom: 1.5px dashed #a5b4fc;
       letter-spacing: 0.01em;
+    }
+
+    .calc-group-limit-badge {
+      background: #e0e7ff;
+      color: #4f46e5;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     .calc-group-box .calc-row:last-of-type {
@@ -656,15 +722,7 @@
 <body>
   <header>
     <a class="back" href="index.html">← 목록으로</a>
-    <svg class="header-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-      <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6" />
-      <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-        <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)" />
-        <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)" />
-      </g>
-      <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z" fill="#ffffff" stroke="#aac4ff" stroke-width="1"
-        stroke-linejoin="round" />
-    </svg>
+    <span class="header-logo" role="img" aria-label="카드 파이터 로고">🥊</span>
     <span class="header-title">카드 파이터</span>
   </header>
 
@@ -740,24 +798,59 @@
       return max;
     }
 
+    function extractRate(html) {
+      if (!html) return 1.0;
+      try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const text = doc.body.textContent || '';
+        const m = text.match(/(\d+(?:\.\d+)?)\s*%/);
+        if (m) {
+          return parseFloat(m[1]) / 100;
+        }
+      } catch (e) {
+        console.error("Error in extractRate:", e);
+      }
+      return 1.0;
+    }
+
+    function checkExcluded(html) {
+      if (!html) return false;
+      try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const text = doc.body.textContent || '';
+        return text.includes('제외') || text.includes('포함되지 않');
+      } catch (e) {
+        console.error("Error in checkExcluded:", e);
+      }
+      return false;
+    }
+
     // 한글 금액 (예: 1만 5천, 1.5만, 15,000 등)을 숫자로 변환하는 헬퍼 함수
     function parseKoreanAmount(str) {
       if (!str) return 0;
       let total = 0;
-      const cleaned = str.replace(/,/g, '').trim();
+      const cleaned = str.replace(/,/g, '').replace(/\s+/g, '').trim();
+
       const manMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*만/);
+      const chunMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*천/);
+
       if (manMatch) {
         total += parseFloat(manMatch[1]) * 10000;
-        // "만" 뒤에 "천" 단위가 더 있는지 확인 (예: 1만 5천)
-        const chunMatch = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*천/);
-        if (chunMatch) {
-          total += parseFloat(chunMatch[1]) * 1000;
-        } else {
-          const numMatch = cleaned.match(/만\s*(\d+)/);
-          if (numMatch) {
-            total += parseInt(numMatch[1], 10);
+        const restChun = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*(?:천)?/);
+        if (restChun && cleaned.includes('천')) {
+          total += parseFloat(restChun[1]) * 1000;
+        } else if (restChun && restChun[1]) {
+          const val = parseFloat(restChun[1]);
+          if (val < 10) {
+            total += val * 1000; // 예: 1만5 -> 15000
+          } else {
+            total += val;
           }
         }
+      } else if (chunMatch) {
+        total += parseFloat(chunMatch[1]) * 1000; // 예: 5천 -> 5000
       } else {
         const numOnly = cleaned.match(/\d+/);
         if (numOnly) {
@@ -767,7 +860,7 @@
       return total;
     }
 
-    function buildCalc(kb, preMonthMoney, preMonthCondition) {
+    function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       try {
         /* ══════════════════════════════════════════════════════════════════
          * 상수
@@ -879,7 +972,57 @@
         function extractBenefitAmount(infoHtml) {
           if (!infoHtml) return 0;
 
-          // 테이블 파싱: <td>에서 금액만 추출 (단위가 원/점인 것)
+          // DOMParser를 이용해 순수 텍스트 정제
+          let text = '';
+          try {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(infoHtml, 'text/html');
+            text = doc.body.textContent || '';
+          } catch (e) {
+            text = infoHtml.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ');
+          }
+          const cleanedText = text.replace(/\s+/g, ' ').trim();
+
+          const tiers = [];
+
+          // 1. 실적 구간별 개별 한도 패턴 파싱 (예: "30~50만원 미만 시 3천원", "30만 이상 3천원")
+          // 패턴 A: 범위 구간형
+          const rangeRe = /([\d]+(?:\.[\d]+)?)\s*(?:~|내지)\s*([\d]+(?:\.[\d]+)?)\s*만\s*원?\s*(?:미만|이하|이상)?[^:：0-9]*[:：]\s*(?:월\s*|일\s*|日\s*)?([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+\s*(?:원|점|천|만)?)/gi;
+          let m;
+          let safeCount = 0;
+          while ((m = rangeRe.exec(cleanedText)) !== null && safeCount++ < 100) {
+            const lo = Math.round(parseFloat(m[1]) * 10000);
+            const isDaily = /일\s*[\d,]+원/.test(m[0]) || /日\s*[\d,]+원/.test(m[0]) || /일\s*[\d,]+원/.test(m[3]) || /日\s*[\d,]+원/.test(m[3]);
+            let lim = parseKoreanAmount(m[3]);
+            if (isDaily) lim = lim * 30; // 일 단위 -> 월 환산 (30일 기준)
+
+            if (lo > 0 && lim > 0 && lim < 5000000) {
+              tiers.push({ condition: lo, amount: lim });
+            }
+          }
+
+          // 패턴 B: 단일 구간형
+          const singleRe = /([\d]+(?:\.[\d]+)?)\s*만\s*원?\s*이상\s*[^:：0-9]*[:：]\s*(?:월\s*|일\s*|日\s*)?([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|만원|천원)?/gi;
+          safeCount = 0;
+          while ((m = singleRe.exec(cleanedText)) !== null && safeCount++ < 100) {
+            const lo = Math.round(parseFloat(m[1]) * 10000);
+            const isDaily = /일\s*[\d,]+원/.test(m[0]) || /日\s*[\d,]+원/.test(m[0]) || /일\s*[\d,]+원/.test(m[2]) || /日\s*[\d,]+원/.test(m[2]);
+            let lim = parseKoreanAmount(m[2]);
+            if (isDaily) lim = lim * 30; // 일 단위 -> 월 환산 (30일 기준)
+
+            if (lo > 0 && lim > 0 && lim < 5000000) {
+              if (!tiers.some(t => t.condition === lo)) {
+                tiers.push({ condition: lo, amount: lim });
+              }
+            }
+          }
+
+          if (tiers.length > 0) {
+            return tiers.sort((a, b) => a.condition - b.condition);
+          }
+
+          // 2. 구간 데이터가 없는 경우, 단일 금액 추출
+          // 테이블 구조에서의 <td> 금액 우선 파싱
           if (infoHtml.includes('<table')) {
             const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
             let tdm;
@@ -896,24 +1039,31 @@
             if (amounts.length > 0) return Math.max(...amounts);
           }
 
-          // 텍스트에서 한도 키워드 기반 추출
-          const text = infoHtml.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ');
+          // ⚠️ 실적 조건을 나타내는 텍스트 패턴들을 삭제하여 한도 오파싱 방지 (예: 50만원을 한도로 오인하는 것 방지)
+          const cleanTextForLimit = cleanedText
+            .replace(/전월\s*이용실적\s*[\d~\s만원이하미만초과]+/g, '')
+            .replace(/전월\s*이용금액\s*[\d~\s만원이하미만초과]+/g, '')
+            .replace(/실적\s*[\d~\s만원이하미만초과]+/g, '')
+            .replace(/[\d]+(?:~[\d]+)?\s*만\s*원\s*(?:이상|미만|이하|초과)/g, '');
 
-          // 통합한도/할인한도 키워드 앞에 오는 금액
-          const limKwRe = /(?:통합할인한도|할인한도|적립한도|월\s*한도|월\s*최대|최대\s*혜택)\s*[^\d]{0,10}([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점)/gi;
-          let lm;
-          let sc = 0;
-          while ((lm = limKwRe.exec(text)) !== null && sc++ < 50) {
-            const v = parseKoreanAmount(lm[1]);
-            if (v > 0 && v < 5000000) return v;
-          }
+          // 다양한 형태의 혜택/할인 한도 금액 추출 정규식
+          const limitRegs = [
+            /(?:월\s*|일\s*)?(?:할인|적립)?한도\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
+            /([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)\s*(?:할인|적립)?한도/i,
+            /(?:월\s*최대\s*|최대\s*월\s*|최대\s*|일\s*최대\s*)\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
+            /월\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
+            /(?:제공|할인|적립)\s*한도\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i
+          ];
 
-          // "최대 OOO원" 패턴
-          const maxRe = /최대\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점)/gi;
-          sc = 0;
-          while ((lm = maxRe.exec(text)) !== null && sc++ < 50) {
-            const v = parseKoreanAmount(lm[1]);
-            if (v > 100 && v < 5000000) return v;
+          for (const rx of limitRegs) {
+            const match = cleanTextForLimit.match(rx);
+            if (match) {
+              const isDaily = /일\s*[\d,]+원/.test(match[0]) || /日\s*[\d,]+원/.test(match[0]) || /일\s*[\d,]+원/.test(match[1]) || /日\s*[\d,]+원/.test(match[1]);
+              let val = parseKoreanAmount(match[1]);
+              if (isDaily) val = val * 30; // 일 단위 -> 월 환산
+
+              if (val > 0 && val < 5000000) return val;
+            }
           }
 
           return 0;
@@ -957,25 +1107,52 @@
         const items = [...kb]
           .filter(b => {
             if (!b) return false;
-            const text = ((b.title || '') + ' ' + (b.info || '')).toLowerCase();
-            if (BLACKLIST.some(kw => text.includes(kw.toLowerCase()))) return false;
+            const title = (b.title || '').toLowerCase();
+            const info = (b.info || '').toLowerCase();
+
+            // 대제목(title)에 블랙리스트 키워드가 있는 경우 제외
+            if (BLACKLIST.some(kw => title.includes(kw.toLowerCase()))) return false;
+
+            // 설명(info)에 비재무/선택형 혜택 단어가 있는 경우 제외 (유의사항 등 설명 용어는 필터링에서 배제)
+            const strictInfoBlack = ['바우처', '라운지', '발렛', '플레이트', '입장권'];
+            if (strictInfoBlack.some(kw => info.includes(kw.toLowerCase()))) return false;
+
+            const text = title + ' ' + info;
             return WHITELIST.some(kw => text.includes(kw.toLowerCase()));
           })
           .map((b, i) => {
             const isGroup = INTEGRATED_KW.some(k =>
               (b.info || '').replace(/<[^>]+>/g, ' ').includes(k)
             );
-            const amt = extractBenefitAmount(b.info);
+            const amtData = extractBenefitAmount(b.info);
+            let initAmt = 0;
+            if (Array.isArray(amtData)) {
+              let best = null;
+              for (const t of amtData) {
+                if (basePerf >= t.condition) best = t;
+              }
+              initAmt = best ? best.amount : 0;
+            } else {
+              initAmt = amtData;
+            }
+
+            const rate = extractRate(b.info);
+            const isExcluded = checkExcluded(b.info);
             return {
               id: i,
               origTitle: b.title || '혜택',
               title: b.title || '혜택',
               summary: extractSummary(b.info),
-              amount: amt,
+              amount: initAmt,
+              amountTiers: Array.isArray(amtData) ? amtData : null,
               checked: true,
               isGroup,
+              rate,
+              isExcluded
             };
           });
+
+        if (items.length === 0) return '';
 
         const groupItems = items.filter(it => it.isGroup);
         const soloItems = items.filter(it => !it.isGroup);
@@ -990,10 +1167,20 @@
           // 통합 한도 (현재 실적 기준)
           const groupCap = getLimitForPerf(cardTiers, currentPerf);
 
-          // 통합 그룹 서브토탈
+          // 통합 그룹 서브토탈 및 역산 결제금액 계산
           let groupSubtotal = 0;
+          let groupRequiredSum = 0;
+          let hasExcluded = false;
+
           groupItems.forEach(it => {
-            // 개별 금액 표시 (통합 그룹 내 개별 항목은 금액을 고정으로 표시)
+            if (it.amountTiers) {
+              let best = null;
+              for (const t of it.amountTiers) {
+                if (currentPerf >= t.condition) best = t;
+              }
+              it.amount = best ? best.amount : 0;
+            }
+
             const el = document.getElementById('calc-amt-' + it.id);
             if (el) {
               if (currentPerf === 0) {
@@ -1004,16 +1191,33 @@
                 el.className = it.amount ? 'calc-amount' : 'calc-amount zero';
               }
             }
-            if (it.checked && currentPerf > 0) groupSubtotal += it.amount;
+
+            let applied = 0;
+            if (it.checked && currentPerf > 0) {
+              const remaining = groupCap - groupSubtotal;
+              if (remaining > 0) {
+                applied = Math.min(it.amount, remaining);
+                groupSubtotal += applied;
+              }
+            }
+
+            const needed = it.rate > 0 ? (applied / it.rate) : 0;
+            groupRequiredSum += needed;
+
+            if (it.checked && it.isExcluded) {
+              hasExcluded = true;
+            }
           });
 
-          // 통합 한도 헤더 업데이트
+          // 통합 한도 헤더 업데이트 (우측 상단 뱃지)
           const titleEl = document.getElementById('calc-group-title');
           if (titleEl && groupItems.length > 0) {
-            const capLabel = (groupCap === Infinity || groupCap === 0)
-              ? '한도 없음'
-              : `최대 ${groupCap.toLocaleString()}원`;
-            titleEl.textContent = `👑 통합 한도: ${capLabel}`;
+            if (groupCap === Infinity || groupCap === 0) {
+              titleEl.style.display = 'none';
+            } else {
+              titleEl.style.display = 'inline-block';
+              titleEl.textContent = `최대 ${groupCap.toLocaleString()}원`;
+            }
           }
 
           // 캡핑 경고
@@ -1028,9 +1232,18 @@
             }
           }
 
-          // 독립 혜택 서브토탈
+          // 독립 혜택 서브토탈 및 역산 결제금액 계산
           let soloTotal = 0;
+          let soloRequiredSum = 0;
           soloItems.forEach(it => {
+            if (it.amountTiers) {
+              let best = null;
+              for (const t of it.amountTiers) {
+                if (currentPerf >= t.condition) best = t;
+              }
+              it.amount = best ? best.amount : 0;
+            }
+
             const el = document.getElementById('calc-amt-' + it.id);
             if (el) {
               if (currentPerf === 0) {
@@ -1041,16 +1254,98 @@
                 el.className = it.amount ? 'calc-amount' : 'calc-amount zero';
               }
             }
-            if (it.checked && currentPerf > 0) soloTotal += it.amount;
+
+            let applied = 0;
+            if (it.checked && currentPerf > 0) {
+              applied = it.amount;
+              soloTotal += applied;
+            }
+
+            const needed = it.rate > 0 ? (applied / it.rate) : 0;
+            soloRequiredSum += needed;
+
+            if (it.checked && it.isExcluded) {
+              hasExcluded = true;
+            }
           });
 
-          // 최종합계 = soloTotal + min(groupSubtotal, groupCap)
-          const cappedGroup = (groupCap !== Infinity && groupCap > 0 && groupSubtotal > groupCap)
-            ? groupCap : groupSubtotal;
-          const finalTotal = soloTotal + cappedGroup;
+          // 최종합계 = soloTotal + groupSubtotal (이미 groupSubtotal은 groupCap 내에서 캡핑되어 누적됨)
+          const finalTotal = soloTotal + groupSubtotal;
+
+          // ── 2단계 & 3단계: 역산 및 피킹률 수식 적용 & DOM 업데이트 ──
+          let annualFee = 0;
+          if (typeof cardData !== 'undefined' && cardData) {
+            const rawFee = cardData.annual_fee || cardData.annual_fee_detail || cardData.annual_fee_basic || '';
+            const feeMatch = rawFee.replace(/,/g, '').match(/\d+/);
+            if (feeMatch) {
+              annualFee = parseInt(feeMatch[0], 10);
+            }
+          }
+
+          const totalRequiredSum = groupRequiredSum + soloRequiredSum;
+          let realRequiredAmount = 0;
+          if (currentPerf > 0) {
+            if (hasExcluded) {
+              realRequiredAmount = currentPerf + totalRequiredSum;
+            } else {
+              realRequiredAmount = Math.max(currentPerf, totalRequiredSum);
+            }
+          }
+
+          let pickingRate = 0;
+          if (realRequiredAmount > 0) {
+            pickingRate = ((finalTotal - (annualFee / 12)) / realRequiredAmount) * 100;
+          }
+          if (pickingRate < 0 || isNaN(pickingRate) || !isFinite(pickingRate)) {
+            pickingRate = 0;
+          }
+
+          // DOM 업데이트
           document.getElementById('calc-total-amt').textContent =
             currentPerf === 0 ? '혜택 없음'
               : finalTotal ? '최대 ' + finalTotal.toLocaleString() + '원' : '0원';
+
+          const reqAmtEl = document.getElementById('calc-required-amt');
+          if (reqAmtEl) {
+            reqAmtEl.textContent = currentPerf === 0 ? '혜택 없음'
+              : realRequiredAmount ? realRequiredAmount.toLocaleString() + '원' : '0원';
+          }
+
+          const pickRateEl = document.getElementById('calc-picking-rate');
+          if (pickRateEl) {
+            pickRateEl.textContent = currentPerf === 0 ? '0.00%' : pickingRate.toFixed(2) + '%';
+          }
+
+          const gauge = document.getElementById('calc-gauge-bar');
+          if (gauge) {
+            if (currentPerf === 0) {
+              gauge.style.width = '0%';
+              gauge.className = 'gauge-bar level-0';
+            } else {
+              // 피킹률 10%를 100% 게이지 기준선으로 매핑
+              const displayPercent = Math.min(pickingRate * 10, 100);
+              gauge.style.width = displayPercent + '%';
+
+              if (pickingRate < 1) {
+                gauge.className = 'gauge-bar level-1';
+              } else if (pickingRate < 3) {
+                gauge.className = 'gauge-bar level-2';
+              } else if (pickingRate < 5) {
+                gauge.className = 'gauge-bar level-3';
+              } else {
+                gauge.className = 'gauge-bar level-4';
+              }
+            }
+          }
+
+          console.log(`[Picking Rate Engine 3단계 디버그]
+- 선택 실적(currentPerf): ${currentPerf}원
+- 혜택 총합(finalTotal): ${finalTotal}원
+- 연회비(annualFee): ${annualFee}원 (월 환산: ${Math.round(annualFee / 12)}원)
+- 역산 결제액 합계(totalRequiredSum): ${totalRequiredSum}원
+- 실질 필요 사용 금액(realRequiredAmount): ${realRequiredAmount}원
+- 최종 피킹률: ${pickingRate.toFixed(2)}%
+- 실적제외 혜택 포함 여부(hasExcluded): ${hasExcluded}`);
         }
 
         /* ── 콤보박스 change 핸들러 */
@@ -1083,12 +1378,13 @@
         let groupBoxHTML = '';
         if (groupItems.length > 0) {
           const initCap = getLimitForPerf(cardTiers, basePerf);
-          const initLabel = (initCap === Infinity || initCap === 0)
-            ? '한도 없음'
-            : `최대 ${initCap.toLocaleString()}원`;
+          const hasCap = initCap !== Infinity && initCap > 0;
           groupBoxHTML = `
     <div class="calc-group-box">
-      <div class="calc-group-header" id="calc-group-title">👑 통합 한도: ${initLabel}</div>
+      <div class="calc-group-header">
+        <span>👑 통합 한도 그룹</span>
+        <span class="calc-group-limit-badge" id="calc-group-title" style="${hasCap ? '' : 'display: none;'}">최대 ${initCap.toLocaleString()}원</span>
+      </div>
       ${groupItems.map(makeRow).join('')}
       <div id="calc-group-warning" class="calc-group-warn" style="display:none"></div>
     </div>`;
@@ -1105,10 +1401,7 @@
             `<option value="0">실적 미충족 (혜택 없음)</option>`,
             ...perfOptions.map(v => {
               const sel = (v === basePerf) ? 'selected' : '';
-              const lim = getLimitForPerf(cardTiers, v);
-              const limLabel = (lim === Infinity) ? '무제한' : lim > 0 ? `통합한도 ${lim.toLocaleString()}원` : '';
-              const suffix = limLabel ? ` · ${limLabel}` : '';
-              return `<option value="${v}" ${sel}>${esc(moneyLabel(v))} 이상${suffix}</option>`;
+              return `<option value="${v}" ${sel}>${esc(moneyLabel(v))} 이상</option>`;
             })
           ].join('');
 
@@ -1135,9 +1428,22 @@
     ${perfSelectHTML}
     ${groupBoxHTML}
     ${soloHTML}
-    <div class="calc-total">
-      <span class="tot-label">예상 혜택 합계</span>
-      <span class="tot-amt" id="calc-total-amt"></span>
+    <div class="calc-total-dashboard">
+      <div class="dashboard-row">
+        <span class="db-label">최종 예상 혜택 합계</span>
+        <span class="db-value text-brand" id="calc-total-amt">0원</span>
+      </div>
+      <div class="dashboard-row">
+        <span class="db-label">실질 필요 사용 금액 (최소)</span>
+        <span class="db-value" id="calc-required-amt">0원</span>
+      </div>
+      <div class="dashboard-row picking-rate-row">
+        <span class="db-label">실질 체감 피킹률</span>
+        <span class="db-value highlight" id="calc-picking-rate">0.00%</span>
+      </div>
+      <div class="gauge-container">
+        <div class="gauge-bar level-0" id="calc-gauge-bar" style="width: 0%;"></div>
+      </div>
     </div>
   </div>`;
       } catch (err) {
@@ -1209,7 +1515,7 @@
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt ? `<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>` : ''}
     </div>
-    ${kb.length ? buildCalc(kb, d.pre_month_money, d.pre_month_condition) : ''}
+    ${kb.length ? buildCalc(kb, d.pre_month_money, d.pre_month_condition, d) : ''}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}
