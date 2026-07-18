@@ -18,6 +18,9 @@
       --line: #e2e8f0;
       --shadow: 0 4px 18px rgba(20,92,230,.07);
     }
+    /* index.html/cardlab.html은 전역으로 이미 적용돼있는데 이 파일만 빠져있어서, padding이 붙은
+       요소(.header-top 등)의 실제 렌더링 폭이 max-width보다 padding만큼 더 커지는 원인이었다. */
+    *{ box-sizing: border-box; }
     @font-face {
       font-family: 'GmarketSans';
       font-weight: 500;
@@ -45,50 +48,65 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      padding: 0 16px; /* 뷰포트가 1200px보다 좁을 때 header-top이 화면 가장자리에 완전히 붙지 않도록 */
     }
     .header-top {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 14px 20px;
+      padding: 14px 0;
       display: flex;
       align-items: center;
     }
     .brand-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       cursor: pointer;
+      flex-shrink: 0;
     }
     .logo {
-      font-size: 26px;
+      font-size: 32px;
       line-height: 1;
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
     }
     .brand-left h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 800;
       color: var(--txt);
       letter-spacing: -1px;
     }
     .gnb-divider {
-      width: 1.5px;
-      height: 20px;
+      width: 1px;
+      height: 22px;
       background: var(--line);
       margin: 0 20px;
+      flex-shrink: 0;
     }
     .gnb {
       display: flex;
-      gap: 22px;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
     }
     .gnb a {
       text-decoration: none;
       color: var(--muted);
-      font-size: 14.5px;
-      font-weight: 700;
-      transition: .15s all;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 10px;
+      white-space: nowrap;
+      transition: .15s background, .15s color;
     }
-    .gnb a:hover, .gnb a.active {
+    .gnb a:hover {
+      background: var(--panel2);
       color: var(--brand);
+    }
+    .gnb a.active {
+      background: var(--brand);
+      color: #fff;
     }
     .header-search {
       flex: 1;
