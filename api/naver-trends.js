@@ -83,9 +83,13 @@ export default async function handler(req, res) {
   const mode = req.query.mode === 'all' ? 'all' : 'main';
   const cacheKey = `${mode}:${unit}`;
 
+  // 트렌드 데이터는 실시간성이 낮으므로(매시간 배치 수집) Vercel Edge/CDN에서 1시간 캐시하도록 허용한다.
+  // 이러면 캐시 HIT 시 서버리스 함수 자체를 호출하지 않고 엣지에서 바로 응답해 훨씬 빨라진다.
+  const setCdnCache = () => res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+
   try {
     const cached = await getCached(cacheKey);
-    if (cached) return res.status(200).json(cached);
+    if (cached) { setCdnCache(); return res.status(200).json(cached); }
 
     // 캐시 미스: 정상적으로는 매시간 GitHub Actions가 채워두지만, 최초 배포 직후(아직 한 번도
     // 수집이 안 돈 시점)나 Action 장애 상황을 대비한 안전망으로 여기서 직접 네이버를 호출해 채운다.
@@ -100,6 +104,7 @@ export default async function handler(req, res) {
         .finally(() => pendingCompute.delete(unit)));
     }
     const payloads = await pendingCompute.get(unit);
+    setCdnCache();
     return res.status(200).json(payloads[mode]);
   } catch (e) {
     // 네이버 호출이 실패해도(쿼터 초과 등) 화면이 통째로 비지 않도록, 마지막으로 성공했던 응답이

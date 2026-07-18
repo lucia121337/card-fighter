@@ -27,7 +27,7 @@
   header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
          backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
 
-  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto;padding:0 20px}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto;padding:0 20px 0 0}
   .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
   .brand-left .logo{font-size:32px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
   .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
@@ -223,6 +223,8 @@
 
   .trend-ref-row{display:block}
   .trend-loading{text-align:center;padding:80px 0;color:var(--muted);font-size:15px}
+  #trend-content{transition:opacity .15s}
+  #trend-content.trend-content-loading{opacity:.45;pointer-events:none}
   .trend-error{text-align:center;padding:60px 0;color:var(--muted);font-size:14px;line-height:2}
   .trend-no-match{color:var(--muted);font-size:13px;padding:20px 0}
   
@@ -637,6 +639,13 @@ function switchTab(tabId) {
   }
 }
 
+// 다른 페이지로 갔다가 브라우저 뒤로가기로 돌아오면(bfcache 복원) 마지막으로 보던 LNB 탭이
+// 그대로 남아있는데, 항상 맨 첫 번째 탭 + 맨 위로 리셋되어야 하므로 pageshow에서 강제로 되돌린다.
+window.addEventListener('pageshow', () => {
+  switchTab('recommend');
+  window.scrollTo(0, 0);
+});
+
 let DATA = [];
 
 // 1. DOM 로드 완료 후 전체 카드 데이터 비동기 조회 및 트렌드 초기화
@@ -659,6 +668,8 @@ let trendAutoTimer = null;
 let trendUnit = 'month';
 let trendChartInstance = null;
 let realtimeRanked = [];
+const trendCache = new Map(); // unit -> API 응답. 한 번 받은 기간은 재클릭해도 재요청하지 않고 즉시 표시.
+let trendAbortController = null; // 빠른 연속 토글 시 이전 진행 중 요청을 취소해 응답 순서 꼬임/쿼터 낭비 방지.
 
 const TREND_AUTO_REFRESH_MS = 60 * 60 * 1000; // 1시간
 const TREND_UNITS = [
@@ -709,9 +720,21 @@ let trendPrevRank = {};
 function initTrend() {
   if (!trendInitialized) {
     trendInitialized = true;
-    loadTrends(trendUnit, true);
-    trendAutoTimer = setInterval(() => loadTrends(trendUnit, false), TREND_AUTO_REFRESH_MS);
+    loadTrends(trendUnit, true).then(prefetchOtherTrendUnits);
+    // 자동 새로고침은 화면에 캐시된 값을 그대로 재사용하면 절대 갱신되지 않으므로 매번 강제로 새로 받아온다.
+    trendAutoTimer = setInterval(() => loadTrends(trendUnit, false, true), TREND_AUTO_REFRESH_MS);
   }
+}
+
+// 최초 진입 시 보고 있는 기간 외 나머지 기간도 백그라운드로 미리 받아 캐시에 넣어둔다 —
+// 화면에는 아무 영향 없이 조용히 진행하고, 실패해도 무시(토글할 때 정상 경로로 다시 시도됨).
+function prefetchOtherTrendUnits() {
+  TREND_UNITS.filter(u => u.key !== trendUnit && !trendCache.has(u.key)).forEach(u => {
+    fetch('/api/naver-trends?unit=' + u.key)
+      .then(res => res.ok ? res.json() : Promise.reject(new Error('API 오류 ' + res.status)))
+      .then(data => { if (!data.error && data.results?.length) trendCache.set(u.key, data); })
+      .catch(() => {});
+  });
 }
 
 function setTrendPillsBusy(busy) {
@@ -726,19 +749,38 @@ function setActiveTrendPill(unit) {
 
 let trendReqSeq = 0;
 
-async function loadTrends(unit, isInitial) {
+async function loadTrends(unit, isInitial, forceRefresh) {
   const el = document.getElementById('trend-content');
   const reqId = ++trendReqSeq;
+
+  // 캐시 히트(강제 새로고침이 아닌 경우) — 네트워크 요청 없이 즉시 반영.
+  if (!forceRefresh && trendCache.has(unit)) {
+    const cached = trendCache.get(unit);
+    if (isInitial) renderTrends(cached, unit);
+    else { updateTrendView(cached, unit); setActiveTrendPill(unit); }
+    return;
+  }
+
   if (isInitial) {
     el.innerHTML = `<div class="trend-loading"><div class="spinner"></div>네이버 카드 검색 트렌드를 불러오는 중…</div>`;
+  } else {
+    el.classList.add('trend-content-loading');
   }
+
+  // 빠르게 연속으로 토글하면 앞서 보낸 요청은 더 이상 필요 없으므로 취소한다
+  // (응답 순서 역전 방지 + 네이버 API 쿼터 낭비 방지).
+  if (trendAbortController) trendAbortController.abort();
+  trendAbortController = new AbortController();
+  const { signal } = trendAbortController;
+
   try {
-    const res = await fetch('/api/naver-trends?unit=' + unit);
+    const res = await fetch('/api/naver-trends?unit=' + unit, { signal });
     if (!res.ok) throw new Error('API 오류 ' + res.status);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     if (reqId !== trendReqSeq) return;
-    
+
+    trendCache.set(unit, data);
     if (isInitial) {
       renderTrends(data, unit);
     } else {
@@ -746,6 +788,7 @@ async function loadTrends(unit, isInitial) {
       setActiveTrendPill(unit);
     }
   } catch(e) {
+    if (e.name === 'AbortError') return; // 더 최신 요청으로 대체됨 — 조용히 무시
     if (reqId !== trendReqSeq) return;
     console.error('[트렌드] 갱신 실패:', e.message);
     if (!isInitial) return;
@@ -758,6 +801,7 @@ async function loadTrends(unit, isInitial) {
       </button>
     </div>`;
   } finally {
+    el.classList.remove('trend-content-loading');
     if (!isInitial && reqId === trendReqSeq) setTrendPillsBusy(false);
   }
 }
