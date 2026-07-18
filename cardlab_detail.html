@@ -16,6 +16,7 @@
       --txt: #0f172a;
       --muted: #64748b;
       --line: #e2e8f0;
+      --shadow: 0 4px 18px rgba(20,92,230,.07);
     }
     @font-face {
       font-family: 'GmarketSans';
@@ -59,14 +60,14 @@
       cursor: pointer;
     }
     .logo {
-      width: 32px;
-      height: 32px;
+      font-size: 26px;
+      line-height: 1;
     }
     .brand-left h1 {
       margin: 0;
       font-size: 20px;
       font-weight: 800;
-      color: var(--brand);
+      color: var(--txt);
       letter-spacing: -1px;
     }
     .gnb-divider {
@@ -90,7 +91,9 @@
       color: var(--brand);
     }
     .header-search {
-      margin-left: auto;
+      flex: 1;
+      min-width: 0;
+      padding-left: 20px;
     }
     .search-box {
       background: var(--panel2);
@@ -98,7 +101,7 @@
       padding: 6px 14px 6px 20px;
       display: flex;
       align-items: center;
-      width: 320px;
+      width: 100%;
       transition: .2s all;
       border: 1.5px solid transparent;
     }
@@ -113,10 +116,11 @@
       outline: none;
       font-family: inherit;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--txt);
       flex: 1;
     }
+    .search-box input::placeholder { color: #94a3b8; font-weight: 400; }
     .search-divider {
       width: 1px;
       height: 14px;
@@ -143,7 +147,7 @@
 
     /* 뒤로가기 링크 영역 */
     .back-nav-wrap {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 30px auto 10px;
       padding: 0 20px;
     }
@@ -166,9 +170,17 @@
     }
 
     main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    /* 카드연구소(cardlab.html)의 둥근 박스 카드 스타일과 통일 */
+    #detail-view-container {
+      background: var(--panel);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 35px;
     }
 
     /* ── 매거진 스타일 렌더링 영역 ── */
@@ -577,15 +589,7 @@
 <header>
   <div class="header-top">
     <div class="brand-left" onclick="location.href='index.html'">
-      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
-        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-        </g>
-        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-              fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-      </svg>
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
       <h1>카드 파이터</h1>
     </div>
     <div class="gnb-divider"></div>

@@ -27,9 +27,9 @@
   header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
          backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
 
-  .header-top{display:flex;align-items:center;flex-wrap:nowrap}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto}
   .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
-  .brand-left .logo{width:44px;height:44px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(19,85,255,.3))}
+  .brand-left .logo{font-size:32px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
   .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
     cursor:pointer;transition:.15s color}
   .brand-left h1:hover{color:var(--brand)}
@@ -46,12 +46,13 @@
 
   /* 검색창 */
   .header-search{flex:1;min-width:0;padding-left:20px}
-  .search-box{display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);
-    border-radius:12px;overflow:hidden;transition:.15s border-color,.15s box-shadow;height:42px}
-  .search-box:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
-  .search-box input{flex:1;border:none;outline:none;padding:0 16px;font-size:14px;height:100%;
-    font-family:inherit;color:var(--txt);background:transparent}
-  .search-box input::placeholder{color:#b0bec5}
+  .search-box{background:var(--panel2);border-radius:99px;padding:6px 14px 6px 20px;
+    display:flex;align-items:center;width:100%;
+    transition:.2s all;border:1.5px solid transparent}
+  .search-box:focus-within{background:#fff;border-color:var(--brand);box-shadow:0 4px 12px rgba(20,92,230,.08)}
+  .search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;
+    font-weight:500;color:var(--txt);background:transparent}
+  .search-box input::placeholder{color:#94a3b8;font-weight:400}
   .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
   .search-box .search-btn{display:flex;align-items:center;justify-content:center;
     width:48px;height:100%;background:none;border:none;cursor:pointer;
@@ -128,6 +129,23 @@
   main{max-width:1340px;margin:0 auto;padding:24px 22px}
   .section{display:block}
   .section[hidden]{display:none}
+
+  /* 할인가맹점 — 카드연구소(cardlab.html)의 main{max-width:1200px;margin:30px auto;padding:0 20px}
+     + .lab-section{padding:35px} 비율을 그대로 재현 (박스 크기·여백 비율을 동일하게 맞춤). */
+  .shopping-box{max-width:1200px;margin:0 auto}
+  .shopping-box .frame-card{background:var(--panel);border-radius:24px;box-shadow:var(--shadow);
+    border:1px solid var(--line);padding:35px}
+  .shopping-box .lnb{display:flex;align-items:center;gap:0;border-bottom:2px solid var(--line);
+    margin-bottom:20px}
+  .shopping-box .lnb-item{display:inline-flex;align-items:center;gap:7px;
+    padding:10px 18px;font-size:14px;font-weight:600;
+    color:var(--muted);cursor:pointer;text-decoration:none;
+    border:none;background:none;font-family:inherit;white-space:nowrap;
+    border-bottom:2.5px solid transparent;margin-bottom:-2px;
+    transition:.15s color,.15s border-color}
+  .shopping-box .lnb-item:hover{color:var(--brand)}
+  .shopping-box .lnb-item.active{color:var(--brand);border-bottom-color:var(--brand)}
+  .shopping-box iframe{display:block;width:100%;border:0;min-height:calc(100vh - 280px)}
 
   /* 준비중 */
   .coming-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -620,15 +638,7 @@
 <header>
   <div class="header-top">
     <div class="brand-left">
-      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-label="카드 파이터 로고">
-        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-        </g>
-        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-              fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-      </svg>
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
       <h1 onclick="showSection('home')">카드 파이터</h1>
     </div>
     <div class="gnb-divider"></div>
@@ -666,9 +676,16 @@
       <div class="cb-grid" id="cb-grid"></div>
     </div>
   </div>
-  <!-- 할인가맹점 섹션 -->
+  <!-- 할인가맹점 섹션 (카드연구소처럼 LNB 구조 — 지금은 탭 1개, 추후 확장 대비) -->
   <div id="section-shopping" class="section" hidden>
-    <iframe id="shopping-frame" src="" title="할인가맹점" style="width:100%;min-height:calc(100vh - 140px);border:0;display:block"></iframe>
+    <div class="shopping-box">
+      <div class="frame-card">
+        <nav class="lnb">
+          <button class="lnb-item active">쇼핑 데이터로 찾는 최적 쇼핑몰</button>
+        </nav>
+        <iframe id="shopping-frame" src="" title="할인가맹점"></iframe>
+      </div>
+    </div>
   </div>
 
   <!-- 캐시백 상세 모달 -->
@@ -992,6 +1009,15 @@ const feeMax = s => { const m=[...String(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+
 const PREMIUM_FEE = 150000;
 const isPremium = c => feeMax(c.annual_fee) >= PREMIUM_FEE;
 
+/* ── 할인가맹점 iframe: 자체 스크롤 없이 콘텐츠 높이만큼 늘려서 페이지 스크롤 하나로 통일 ── */
+function resizeShoppingFrame(){
+  const frame = document.getElementById('shopping-frame');
+  try {
+    const doc = frame.contentDocument;
+    if (doc && doc.documentElement) frame.style.height = doc.documentElement.scrollHeight + 'px';
+  } catch(e) { /* 동일 출처가 아니면(로컬 file:// 등) 조용히 무시 */ }
+}
+
 /* ── 섹션 전환 ── */
 function showSection(name){
   document.querySelectorAll('.section').forEach(s => s.hidden = true);
@@ -1001,7 +1027,17 @@ function showSection(name){
   if(name === 'cashback') renderCashback();
   if(name === 'shopping'){
     const frame = document.getElementById('shopping-frame');
-    if(!frame.getAttribute('src')) frame.src = 'shopping_dashboard.html';
+    if(!frame.getAttribute('src')){
+      frame.src = 'shopping_dashboard.html';
+      frame.addEventListener('load', () => {
+        resizeShoppingFrame();
+        // 이미지 로드 등으로 뒤늦게 콘텐츠 높이가 늘어나는 경우를 대비해 몇 차례 더 재측정
+        setTimeout(resizeShoppingFrame, 300);
+        setTimeout(resizeShoppingFrame, 1200);
+      });
+    } else {
+      resizeShoppingFrame();
+    }
   }
 
   if(name === 'cards') balanceCatFilterRows(); // 숨겨져 있을 땐 폭 측정이 안 되므로 보이게 된 시점에 계산
@@ -1418,6 +1454,14 @@ fetch('cards_list.json')
     document.getElementById('empty').hidden=false;
     document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
   });
+
+/* ── 다른 페이지(카드연구소 등)에서 index.html#해시로 들어왔을 때, 홈으로 고정되지 않고
+   해당 GNB 섹션으로 바로 이동하도록 초기 라우팅 ── */
+(function routeInitialHash(){
+  const HASH_SECTION = { cards:'cards', cashback:'cashback', shopping:'shopping', merchant:'shopping' };
+  const target = HASH_SECTION[location.hash.slice(1)];
+  if (target) showSection(target);
+})();
 </script>
 
 <script>
