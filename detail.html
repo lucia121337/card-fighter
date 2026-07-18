@@ -1,470 +1,998 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>카드 상세 — 카드 파이터</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
-  :root{
-    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
-    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
-    --shadow:0 4px 18px rgba(20,92,230,.07);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
-  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
-         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-         padding:12px 24px;display:flex;align-items:center;gap:14px}
-  .back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
-        background:var(--brand);font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
-        box-shadow:0 2px 8px rgba(20,92,230,.28);transition:.15s background;white-space:nowrap}
-  .back:hover{background:var(--brand-deep)}
-  .header-logo{width:34px;height:34px;flex-shrink:0}
-  .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px}
-  .wrap{max-width:820px;margin:0 auto;padding:28px 16px 80px}
-  .hero{background:var(--panel);border:1.5px solid var(--line);
-        border-radius:22px;padding:32px 28px;display:flex;gap:26px;align-items:center;
-        box-shadow:var(--shadow)}
-  .hero img{width:156px;height:100px;object-fit:contain;border-radius:12px;
-            background:var(--bg);padding:10px;border:1px solid var(--line);flex-shrink:0}
-  .hero .h-name{font-size:22px;font-weight:800;color:var(--txt);line-height:1.35}
-  .hero .h-corp{font-size:13.5px;color:var(--muted);margin-top:6px;font-weight:600}
-  .hero .h-tags{margin-top:12px;display:flex;gap:7px;flex-wrap:wrap}
-  .hero .h-tags span{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;border-radius:8px;
-             padding:4px 12px;font-size:12px;font-weight:700}
-  .summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px}
-  .sum-card{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
-        padding:18px 20px;box-shadow:var(--shadow)}
-  .sum-card .lab{font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:8px;letter-spacing:.05em}
-  .sum-card .val{font-size:15px;color:var(--txt);line-height:1.6;font-weight:700}
-  .sum-card .val.accent{color:var(--brand)}
-  .sec-box{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
-       padding:22px;margin-top:18px;box-shadow:var(--shadow)}
-  .sec-box h3{font-size:15px;font-weight:800;color:var(--txt);margin:0 0 16px;
-        padding-bottom:12px;border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:8px}
-  .kb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-  .kb-tab{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:10px;
-        font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--line);
-        background:var(--panel);color:var(--muted);transition:.14s all;font-family:inherit}
-  .kb-tab:hover{border-color:var(--brand);color:var(--brand)}
-  .kb-tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-  .kb-tab img{width:18px;height:18px;object-fit:contain;border-radius:4px}
-  .kb-panel{display:none}
-  .kb-panel.active{display:block}
-  .binfo{font-size:14px;line-height:1.85;color:#475569}
-  .binfo p{margin:8px 0}
-  .binfo strong{color:var(--txt);font-weight:700}
-  .binfo table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}
-  .binfo th,.binfo td{border:1px solid var(--line);padding:9px 12px;text-align:center}
-  .binfo th,.binfo .b-table-top{background:var(--panel2);font-weight:700;color:var(--txt)}
-  .binfo img{max-width:100%;height:auto;border-radius:8px}
-  .binfo ul{padding-left:20px;margin:8px 0}
-  .binfo li{margin:5px 0}
-  .cat-wrap{display:flex;flex-wrap:wrap;gap:8px}
-  .cat-chip{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;
-        border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:600}
-  .ext-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
-        color:var(--brand);font-size:13px;font-weight:700;margin-top:18px;
-        padding:10px 18px;border:1.5px solid var(--brand);border-radius:10px;transition:.15s background}
-  .ext-link:hover{background:var(--panel2)}
-  .disclaimer{margin-top:22px;padding:18px 20px;background:var(--panel2);
-        border:1.5px solid var(--line);border-radius:14px;font-size:12px;
-        line-height:1.9;color:var(--muted)}
-  .disclaimer .d-head{color:var(--brand);font-weight:800;margin-bottom:6px;font-size:12.5px}
-  .status{padding:80px 0;text-align:center;color:var(--muted);font-size:15px;line-height:2}
-  .status a{color:var(--brand);font-weight:700;text-decoration:none}
-  .spinner{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--brand);
-        border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
-  @keyframes spin{to{transform:rotate(360deg)}}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>카드 상세 — 카드 파이터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
 
-  /* 비교함 버튼 */
-  .compare-hero-btn{background:var(--brand);border:none;color:#fff;
-        border-radius:10px;padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;
-        font-family:inherit;transition:.15s background;width:156px;text-align:center;
-        box-shadow:0 2px 8px rgba(20,92,230,.3)}
-  .compare-hero-btn:hover{background:var(--brand-deep)}
-  .compare-hero-btn.selected{background:#10b981}
+    :root {
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --panel2: #e8f0fd;
+      --line: #e2e8f0;
+      --txt: #1e293b;
+      --muted: #64748b;
+      --brand: #145CE6;
+      --brand-deep: #0E47C0;
+      --shadow: 0 4px 18px rgba(20, 92, 230, .07);
+    }
 
-  /* 혜택 계산기 */
-  .calc-box{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
-        padding:22px;margin-top:18px;box-shadow:var(--shadow)}
-  .calc-box h3{font-size:15px;font-weight:800;color:var(--txt);margin:0 0 16px;
-        padding-bottom:12px;border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:8px}
-  .calc-row{display:flex;align-items:center;gap:12px;padding:12px 0;
-        border-bottom:1px solid var(--line)}
-  .calc-row:last-of-type{border-bottom:none}
-  .calc-toggle{position:relative;width:44px;height:24px;flex-shrink:0}
-  .calc-toggle input{opacity:0;width:0;height:0}
-  .calc-slider{position:absolute;inset:0;background:#cbd5e1;border-radius:999px;
-        cursor:pointer;transition:.2s}
-  .calc-slider::before{content:'';position:absolute;width:18px;height:18px;
-        background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s;
-        box-shadow:0 1px 4px rgba(0,0,0,.2)}
-  .calc-toggle input:checked+.calc-slider{background:var(--brand)}
-  .calc-toggle input:checked+.calc-slider::before{transform:translateX(20px)}
-  .calc-name{flex:1;display:flex;flex-direction:column;gap:4px;justify-content:center}
-  .benefit-title{font-size:14px;font-weight:700;color:var(--txt)}
-  .benefit-summary{font-size:12px;font-weight:400;color:var(--muted);line-height:1.4}
-  .calc-amount{font-size:14px;font-weight:800;color:var(--brand);flex-shrink:0;min-width:80px;text-align:right}
-  .calc-amount.zero{color:var(--muted);font-weight:600}
-  .calc-total{display:flex;justify-content:space-between;align-items:center;
-        margin-top:16px;padding:16px 18px;background:var(--panel2);border-radius:12px}
-  .calc-total .tot-label{font-size:14px;font-weight:700;color:var(--txt)}
-  .calc-total .tot-amt{font-size:20px;font-weight:800;color:var(--brand)}
+    * {
+      box-sizing: border-box
+    }
 
-  /* 전월실적 선택 콤보박스 */
-  .calc-perf-wrap{background:#f8fafc;border:1.5px solid var(--line);border-radius:12px;
-        padding:14px 16px;margin-bottom:14px;display:flex;flex-direction:column;gap:8px}
-  .calc-perf-label{font-size:12.5px;font-weight:700;color:var(--muted);
-        letter-spacing:.03em;display:flex;align-items:center;gap:6px}
-  .calc-perf-select{width:100%;padding:9px 12px;border-radius:8px;
-        border:1.5px solid var(--line);font-size:14px;font-weight:700;
-        color:var(--txt);background:#fff;outline:none;cursor:pointer;
-        font-family:inherit;transition:.15s border-color;appearance:none;
-        background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-        background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-  .calc-perf-select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
-  .calc-perf-input{width:100%;padding:9px 12px;border-radius:8px;
-        border:1.5px solid var(--line);font-size:14px;font-weight:700;
-        color:var(--txt);background:#fff;outline:none;
-        font-family:inherit;transition:.15s border-color}
-  .calc-perf-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(20,92,230,.1)}
-  .calc-perf-badge{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);
-        border:1px solid #bfdbfe;border-radius:6px;padding:3px 10px;
-        font-size:12px;font-weight:700;color:var(--brand);align-self:flex-start}
-</style>
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "GmarketSans", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, .93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(20, 92, 230, .28);
+      transition: .15s background;
+      white-space: nowrap
+    }
+
+    .back:hover {
+      background: var(--brand-deep)
+    }
+
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0
+    }
+
+    .header-title {
+      font-weight: 800;
+      color: var(--txt);
+      font-size: 16px;
+      letter-spacing: -.5px
+    }
+
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 28px 16px 80px
+    }
+
+    .hero {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 22px;
+      padding: 32px 28px;
+      display: flex;
+      gap: 26px;
+      align-items: center;
+      box-shadow: var(--shadow)
+    }
+
+    .hero img {
+      width: 156px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: var(--bg);
+      padding: 10px;
+      border: 1px solid var(--line);
+      flex-shrink: 0
+    }
+
+    .hero .h-name {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--txt);
+      line-height: 1.35
+    }
+
+    .hero .h-corp {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 600
+    }
+
+    .hero .h-tags {
+      margin-top: 12px;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap
+    }
+
+    .hero .h-tags span {
+      background: var(--panel2);
+      color: var(--brand);
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 20px
+    }
+
+    .sum-card {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow)
+    }
+
+    .sum-card .lab {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: .05em
+    }
+
+    .sum-card .val {
+      font-size: 15px;
+      color: var(--txt);
+      line-height: 1.6;
+      font-weight: 700
+    }
+
+    .sum-card .val.accent {
+      color: var(--brand)
+    }
+
+    .sec-box {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      margin-top: 18px;
+      box-shadow: var(--shadow)
+    }
+
+    .sec-box h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .kb-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 18px
+    }
+
+    .kb-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--line);
+      background: var(--panel);
+      color: var(--muted);
+      transition: .14s all;
+      font-family: inherit
+    }
+
+    .kb-tab:hover {
+      border-color: var(--brand);
+      color: var(--brand)
+    }
+
+    .kb-tab.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand)
+    }
+
+    .kb-tab img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      border-radius: 4px
+    }
+
+    .kb-panel {
+      display: none
+    }
+
+    .kb-panel.active {
+      display: block
+    }
+
+    .binfo {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #475569
+    }
+
+    .binfo p {
+      margin: 8px 0
+    }
+
+    .binfo strong {
+      color: var(--txt);
+      font-weight: 700
+    }
+
+    .binfo table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0;
+      font-size: 13px
+    }
+
+    .binfo th,
+    .binfo td {
+      border: 1px solid var(--line);
+      padding: 9px 12px;
+      text-align: center
+    }
+
+    .binfo th,
+    .binfo .b-table-top {
+      background: var(--panel2);
+      font-weight: 700;
+      color: var(--txt)
+    }
+
+    .binfo img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px
+    }
+
+    .binfo ul {
+      padding-left: 20px;
+      margin: 8px 0
+    }
+
+    .binfo li {
+      margin: 5px 0
+    }
+
+    .cat-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .cat-chip {
+      background: var(--panel2);
+      color: var(--brand);
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 12.5px;
+      font-weight: 600
+    }
+
+    .ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 18px;
+      padding: 10px 18px;
+      border: 1.5px solid var(--brand);
+      border-radius: 10px;
+      transition: .15s background
+    }
+
+    .ext-link:hover {
+      background: var(--panel2)
+    }
+
+    .disclaimer {
+      margin-top: 22px;
+      padding: 18px 20px;
+      background: var(--panel2);
+      border: 1.5px solid var(--line);
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1.9;
+      color: var(--muted)
+    }
+
+    .disclaimer .d-head {
+      color: var(--brand);
+      font-weight: 800;
+      margin-bottom: 6px;
+      font-size: 12.5px
+    }
+
+    .status {
+      padding: 80px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 2
+    }
+
+    .status a {
+      color: var(--brand);
+      font-weight: 700;
+      text-decoration: none
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--line);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 16px
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* 비교함 버튼 */
+    .compare-hero-btn {
+      background: var(--brand);
+      border: none;
+      color: #fff;
+      border-radius: 10px;
+      padding: 9px 0;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s background;
+      width: 156px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(20, 92, 230, .3)
+    }
+
+    .compare-hero-btn:hover {
+      background: var(--brand-deep)
+    }
+
+    .compare-hero-btn.selected {
+      background: #10b981
+    }
+
+    /* 혜택 계산기 */
+    .calc-box {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 22px;
+      margin-top: 18px;
+      box-shadow: var(--shadow)
+    }
+
+    .calc-box h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .calc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .calc-row:last-of-type {
+      border-bottom: none
+    }
+
+    .calc-toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0
+    }
+
+    .calc-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0
+    }
+
+    .calc-slider {
+      position: absolute;
+      inset: 0;
+      background: #cbd5e1;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .calc-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: .2s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2)
+    }
+
+    .calc-toggle input:checked+.calc-slider {
+      background: var(--brand)
+    }
+
+    .calc-toggle input:checked+.calc-slider::before {
+      transform: translateX(20px)
+    }
+
+    .calc-name {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      justify-content: center
+    }
+
+    .benefit-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt)
+    }
+
+    .benefit-summary {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.4
+    }
+
+    .calc-amount {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--brand);
+      flex-shrink: 0;
+      min-width: 80px;
+      text-align: right
+    }
+
+    .calc-amount.zero {
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .calc-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding: 16px 18px;
+      background: var(--panel2);
+      border-radius: 12px
+    }
+
+    .calc-total .tot-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt)
+    }
+
+    .calc-total .tot-amt {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--brand)
+    }
+
+    /* 전월실적 선택 콤보박스 */
+    .calc-perf-wrap {
+      background: #f8fafc;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .calc-perf-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .03em;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .calc-perf-select {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt);
+      background: #fff;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s border-color;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px
+    }
+
+    .calc-perf-select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(20, 92, 230, .1)
+    }
+
+    .calc-perf-input {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--txt);
+      background: #fff;
+      outline: none;
+      font-family: inherit;
+      transition: .15s border-color
+    }
+
+    .calc-perf-input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(20, 92, 230, .1)
+    }
+
+    .calc-perf-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--panel2);
+      border: 1px solid #bfdbfe;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--brand);
+      align-self: flex-start
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <a class="back" href="index.html">← 목록으로</a>
-  <svg class="header-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-    <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-      <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-      <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-    </g>
-    <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-          fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-  </svg>
-  <span class="header-title">카드 파이터</span>
-</header>
+  <header>
+    <a class="back" href="index.html">← 목록으로</a>
+    <svg class="header-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6" />
+      <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
+        <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)" />
+        <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)" />
+      </g>
+      <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z" fill="#ffffff" stroke="#aac4ff" stroke-width="1"
+        stroke-linejoin="round" />
+    </svg>
+    <span class="header-title">카드 파이터</span>
+  </header>
 
-<div class="wrap" id="wrap">
-  <div class="status"><div class="spinner"></div>카드 정보를 불러오는 중…</div>
-</div>
+  <div class="wrap" id="wrap">
+    <div class="status">
+      <div class="spinner"></div>카드 정보를 불러오는 중…
+    </div>
+  </div>
 
-<script>
-const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const won = n => n ? Number(n).toLocaleString()+'원' : '없음';
+  <script>
+    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const won = n => n ? Number(n).toLocaleString() + '원' : '없음';
+    const moneyLabel = won;
 
-/* ── 비교함 (localStorage) ── */
-function getCompareList(){ return JSON.parse(localStorage.getItem('compareList')||'[]'); }
-function saveCompareList(list){ localStorage.setItem('compareList', JSON.stringify(list)); }
+    /* ── 비교함 (localStorage) ── */
+    function getCompareList() { return JSON.parse(localStorage.getItem('compareList') || '[]'); }
+    function saveCompareList(list) { localStorage.setItem('compareList', JSON.stringify(list)); }
 
-function toggleCompareDetail(idx, name, img){
-  let list = getCompareList();
-  const i = list.findIndex(c=>String(c.idx)===String(idx));
-  if(i > -1){
-    list.splice(i,1);
-  } else {
-    if(list.length >= 3){ alert('최대 3개까지 비교할 수 있어요!'); return; }
-    list.push({idx, name, img});
-  }
-  saveCompareList(list);
-  updateCompareBtn(idx);
-}
-
-function updateCompareBtn(idx){
-  const list = getCompareList();
-  const btn = document.getElementById('detail-compare-btn');
-  if(!btn) return;
-  const added = list.some(c=>String(c.idx)===String(idx));
-  btn.textContent = added ? '✓ 비교함에 담겼어요' : '+ 비교함 담기';
-  btn.classList.toggle('selected', added);
-}
-
-/* ── 혜택 계산기 ── */
-function extractAmount(html){
-  const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
-  let max = 0;
-
-  // 1순위: 한도 N만원 / N만 N천원 / N원
-  const p1 = /(?:한도|최대|할인|적립)\s+(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/g;
-  let m;
-  while((m=p1.exec(text))!==null){
-    const v = parseKoreanAmount(m[1]);
-    if(v>max && v<=5000000) max=v;
-  }
-
-  // 2순위: N만원 / N만 N천원 한도/최대
-  if(!max) {
-    const p2 = /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:한도|최대|할인|적립)/g;
-    while((m=p2.exec(text))!==null){
-      const v = parseKoreanAmount(m[1]);
-      if(v>max && v<=5000000) max=v;
-    }
-  }
-
-  return max;
-}
-
-// 한글 금액 (예: 1만 5천, 1.5만, 15,000 등)을 숫자로 변환하는 헬퍼 함수
-function parseKoreanAmount(str) {
-  if (!str) return 0;
-  let total = 0;
-  const cleaned = str.replace(/,/g, '').trim();
-  const manMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*만/);
-  if (manMatch) {
-    total += parseFloat(manMatch[1]) * 10000;
-    // "만" 뒤에 "천" 단위가 더 있는지 확인 (예: 1만 5천)
-    const chunMatch = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*천/);
-    if (chunMatch) {
-      total += parseFloat(chunMatch[1]) * 1000;
-    } else {
-      const numMatch = cleaned.match(/만\s*(\d+)/);
-      if (numMatch) {
-        total += parseInt(numMatch[1], 10);
+    function toggleCompareDetail(idx, name, img) {
+      let list = getCompareList();
+      const i = list.findIndex(c => String(c.idx) === String(idx));
+      if (i > -1) {
+        list.splice(i, 1);
+      } else {
+        if (list.length >= 3) { alert('최대 3개까지 비교할 수 있어요!'); return; }
+        list.push({ idx, name, img });
       }
+      saveCompareList(list);
+      updateCompareBtn(idx);
     }
-  } else {
-    const numOnly = cleaned.match(/\d+/);
-    if (numOnly) {
-      total = parseInt(numOnly[0], 10);
-    }
-  }
-  return total;
-}
 
-function buildCalc(kb, preMonthMoney, preMonthCondition){
-  const EXCLUDE = ['유의사항','주의사항','안내','참고','발급','약관','유의','무이자'];
-  
-  // 혜택 설명(info) HTML에서 세부 요약 문구 추출 헬퍼 함수
-  function extractSummary(html) {
-    if (!html) return '상세 혜택 참고';
-    
-    // 1. strong 태그 내용 먼저 찾기
-    const strongMatch = html.match(/<strong[^>]*>([\s\S]*?)<\/strong>/i);
-    if (strongMatch && strongMatch[1]) {
-      const txt = strongMatch[1].replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim();
-      if (txt && txt.length > 5 && txt.length < 100) return txt;
+    function updateCompareBtn(idx) {
+      const list = getCompareList();
+      const btn = document.getElementById('detail-compare-btn');
+      if (!btn) return;
+      const added = list.some(c => String(c.idx) === String(idx));
+      btn.textContent = added ? '✓ 비교함에 담겼어요' : '+ 비교함 담기';
+      btn.classList.toggle('selected', added);
     }
-    
-    // 2. strong 태그가 없거나 유효하지 않으면 일반 텍스트 추출 후 첫째 문장 또는 적절한 자르기
-    let text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ').trim();
-    if (!text) return '상세 혜택 참고';
-    
-    // 문장 기호나 대시(-) 등으로 분리 시도
-    const splitters = ['. ', '! ', '? ', ' - ', ' · '];
-    for (const sp of splitters) {
-      const parts = text.split(sp);
-      if (parts[0] && parts[0].length > 5 && parts[0].length < 100) {
-        return parts[0].trim();
-      }
-    }
-    
-    return text.length > 50 ? text.slice(0, 50) + '...' : text;
-  }
 
-  // 구간별 한도액 파싱 로직
-  function extractAmountForPerf(benefitObj, selectedPerf) {
-    if (selectedPerf === 0) return 0; // 실적 미충족 시 한도는 0원
-    const html = benefitObj.info || '';
+    /* ── 혜택 계산기 ── */
+    function extractAmount(html) {
+      const text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ');
+      let max = 0;
 
-    // 0) 구조화된 데이터가 존재할 경우 직접 매칭 (배열 혹은 객체)
-    const structLimit = benefitObj.limits || benefitObj.benefit_limit || benefitObj.limit_by_perf || benefitObj.limit;
-    if (structLimit && typeof structLimit === 'object') {
-      if (!Array.isArray(structLimit)) {
-        if (structLimit[selectedPerf] !== undefined) {
-          return Number(structLimit[selectedPerf]);
+      // 1순위: 한도 N만원 / N만 N천원 / N원
+      const p1 = /(?:한도|최대|할인|적립)\s+(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/g;
+      let m;
+      let loopCount1 = 0;
+      while ((m = p1.exec(text)) !== null) {
+        if (loopCount1++ > 1000) {
+          console.error("Infinite loop detected in extractAmount p1");
+          break;
         }
-        // 가장 알맞은 실적 구간 찾기
-        const sortedKeys = Object.keys(structLimit).map(Number).sort((a,b)=>b-a);
-        for (const k of sortedKeys) {
-          if (selectedPerf >= k) return Number(structLimit[k]);
+        const v = parseKoreanAmount(m[1]);
+        if (v > max && v <= 5000000) max = v;
+      }
+
+      // 2순위: N만원 / N만 N천원 한도/최대
+      if (!max) {
+        const p2 = /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:한도|최대|할인|적립)/g;
+        let loopCount2 = 0;
+        while ((m = p2.exec(text)) !== null) {
+          if (loopCount2++ > 1000) {
+            console.error("Infinite loop detected in extractAmount p2");
+            break;
+          }
+          const v = parseKoreanAmount(m[1]);
+          if (v > max && v <= 5000000) max = v;
+        }
+      }
+
+      return max;
+    }
+
+    // 한글 금액 (예: 1만 5천, 1.5만, 15,000 등)을 숫자로 변환하는 헬퍼 함수
+    function parseKoreanAmount(str) {
+      if (!str) return 0;
+      let total = 0;
+      const cleaned = str.replace(/,/g, '').trim();
+      const manMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*만/);
+      if (manMatch) {
+        total += parseFloat(manMatch[1]) * 10000;
+        // "만" 뒤에 "천" 단위가 더 있는지 확인 (예: 1만 5천)
+        const chunMatch = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*천/);
+        if (chunMatch) {
+          total += parseFloat(chunMatch[1]) * 1000;
+        } else {
+          const numMatch = cleaned.match(/만\s*(\d+)/);
+          if (numMatch) {
+            total += parseInt(numMatch[1], 10);
+          }
         }
       } else {
-        const sortedTiers = [...structLimit].sort((a,b) => {
-          const perfA = a.perf || a.performance || a.min_perf || a.pre_month_money || 0;
-          const perfB = b.perf || b.performance || b.min_perf || b.pre_month_money || 0;
-          return perfB - perfA;
+        const numOnly = cleaned.match(/\d+/);
+        if (numOnly) {
+          total = parseInt(numOnly[0], 10);
+        }
+      }
+      return total;
+    }
+
+    function buildCalc(kb, preMonthMoney, preMonthCondition) {
+      const EXCLUDE = ['유의사항', '주의사항', '안내', '참고', '발급', '약관', '유의', '무이자'];
+
+      // 혜택 설명(info) HTML에서 세부 요약 문구 추출 헬퍼 함수
+      function extractSummary(html) {
+        if (!html) return '상세 혜택 참고';
+
+        // 1. strong 태그 내용 먼저 찾기
+        const strongMatch = html.match(/<strong[^>]*>([\s\S]*?)<\/strong>/i);
+        if (strongMatch && strongMatch[1]) {
+          const txt = strongMatch[1].replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim();
+          if (txt && txt.length > 5 && txt.length < 100) return txt;
+        }
+
+        // 2. strong 태그가 없거나 유효하지 않으면 일반 텍스트 추출 후 첫째 문장 또는 적절한 자르기
+        let text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ').trim();
+        if (!text) return '상세 혜택 참고';
+
+        // 문장 기호나 대시(-) 등으로 분리 시도
+        const splitters = ['. ', '! ', '? ', ' - ', ' · '];
+        for (const sp of splitters) {
+          const parts = text.split(sp);
+          if (parts[0] && parts[0].length > 5 && parts[0].length < 100) {
+            return parts[0].trim();
+          }
+        }
+
+        return text.length > 50 ? text.slice(0, 50) + '...' : text;
+      }
+
+      // 구간별 한도액 파싱 로직
+      function extractAmountForPerf(benefitObj, selectedPerf) {
+        if (selectedPerf === 0) return 0; // 실적 미충족 시 한도는 0원
+        const html = benefitObj.info || '';
+
+        // 0) 구조화된 데이터가 존재할 경우 직접 매칭 (배열 혹은 객체)
+        const structLimit = benefitObj.limits || benefitObj.benefit_limit || benefitObj.limit_by_perf || benefitObj.limit;
+        if (structLimit && typeof structLimit === 'object') {
+          if (!Array.isArray(structLimit)) {
+            if (structLimit[selectedPerf] !== undefined) {
+              return Number(structLimit[selectedPerf]);
+            }
+            // 가장 알맞은 실적 구간 찾기
+            const sortedKeys = Object.keys(structLimit).map(Number).sort((a, b) => b - a);
+            for (const k of sortedKeys) {
+              if (selectedPerf >= k) return Number(structLimit[k]);
+            }
+          } else {
+            const sortedTiers = [...structLimit].sort((a, b) => {
+              const perfA = a.perf || a.performance || a.min_perf || a.pre_month_money || 0;
+              const perfB = b.perf || b.performance || b.min_perf || b.pre_month_money || 0;
+              return perfB - perfA;
+            });
+            for (const tier of sortedTiers) {
+              const p = tier.perf || tier.performance || tier.min_perf || tier.pre_month_money || 0;
+              if (selectedPerf >= p) {
+                return tier.limit || tier.amount || tier.value || 0;
+              }
+            }
+          }
+        }
+
+        // 1) 테이블(표) 구조 분석
+        if (html.includes('<table')) {
+          const rows = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || [];
+          const perfMan = selectedPerf / 10000;
+          const perfComma = selectedPerf.toLocaleString();
+
+          for (const row of rows) {
+            const cols = row.match(/<td[^>]*>([\s\S]*?)<\/td>/gi) || [];
+            if (cols.length >= 2) {
+              const leftCol = cols[0].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+              const rightCol = cols[1].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+
+              const isTargetPerf = leftCol.includes(perfMan + '만') ||
+                leftCol.includes(perfComma) ||
+                (perfMan === 30 && leftCol.includes('30만')) ||
+                (perfMan === 60 && leftCol.includes('60만')) ||
+                (perfMan === 100 && leftCol.includes('100만'));
+
+              if (isTargetPerf && !leftCol.includes('미만')) {
+                const pMan = /(\d+(?:\.\d+)?)\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?/i;
+                const pWon = /([\d,]+)\s*(?:원|점|포인트)/i;
+                let m = pMan.exec(rightCol);
+                if (m) return parseKoreanAmount(m[0]);
+                m = pWon.exec(rightCol);
+                if (m) return parseKoreanAmount(m[0]);
+              }
+            }
+          }
+        }
+
+        // 2) 일반 텍스트 분석
+        const text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ');
+
+        // 실적 조건용 및 건당 조건용(1만원 이상, 건당 등) 제외 대상 수집
+        const excludePatterns = [
+          /(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?/gi,
+          /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)/gi
+        ];
+        const excludedValues = new Set();
+
+        // 강제 제외: 선택된 실적 금액 및 추출된 실적 티어 금액들은 한도가 될 수 없으므로 무조건 제외 목록에 추가
+        if (selectedPerf) excludedValues.add(selectedPerf);
+        if (typeof tiers !== 'undefined' && Array.isArray(tiers)) {
+          tiers.forEach(t => excludedValues.add(t));
+        }
+        if (typeof basePerf !== 'undefined') excludedValues.add(basePerf);
+
+        for (const pat of excludePatterns) {
+          let m;
+          let loopCount3 = 0;
+          while ((m = pat.exec(text)) !== null) {
+            if (loopCount3++ > 1000) {
+              console.error("Infinite loop detected in extractAmountForPerf excludePatterns", pat);
+              break;
+            }
+            excludedValues.add(parseKoreanAmount(m[1]));
+          }
+        }
+
+        // 통합한도, 월 할인한도 중심의 정밀 한도 추출 정규식
+        const limitRegs = [
+          /(?:통합할인한도|할인한도|적립한도|월\s*한도|통합\s*한도|월\s*최대|혜택\s*한도|최대\s*혜택)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/gi,
+          /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))\s*(?:할인한도|적립한도|통합한도|월\s*한도|혜택\s*한도)/gi,
+          /(?:최대|한도|제공)\s*(?:월|통합)?\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/gi
+        ];
+
+        for (const pat of limitRegs) {
+          let m;
+          let loopCount4 = 0;
+          while ((m = pat.exec(text)) !== null) {
+            if (loopCount4++ > 1000) {
+              console.error("Infinite loop detected in extractAmountForPerf limitRegs", pat);
+              break;
+            }
+            const val = parseKoreanAmount(m[1]);
+            if (!excludedValues.has(val) && val > 0 && val <= 5000000) {
+              return val;
+            }
+          }
+        }
+
+        return extractAmount(html);
+      }
+
+      // 무제한 혜택 및 라벨 포맷 예외 처리 함수
+      function getLimitLabel(html, amount) {
+        if (amount > 0) {
+          return '최대 ' + amount.toLocaleString() + '원';
+        }
+
+        const text = html.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ');
+
+        if (text.includes('무제한') || text.includes('제한 없음') || text.includes('한도 없음') || text.includes('제한없이')) {
+          return '무제한';
+        }
+
+        const ratePattern = /(\d+(?:\.\d+)?%)\s*(?:적립|할인|청구할인|캐시백|청구 할인)/;
+        const match = text.match(ratePattern);
+        if (match) {
+          return match[0];
+        }
+
+        return '무제한';
+      }
+
+      const basePerf = preMonthMoney || 0;
+
+      function extractPerfTiers(basePerf, kb, conditionStr) {
+        if (!basePerf || basePerf <= 0) return [];
+
+        const rawText = [
+          ...(kb || []).map(b => (b.info || '').replace(/<[^>]+>/g, ' ')),
+          conditionStr || ''
+        ].join(' ');
+
+        const nums = new Set();
+        const pMan = /(\d+(?:\.\d+)?)\s*만\s*원/g;
+        let m;
+        let loopCount5 = 0;
+        while ((m = pMan.exec(rawText)) !== null) {
+          if (loopCount5++ > 1000) {
+            console.error("Infinite loop detected in extractPerfTiers pMan");
+            break;
+          }
+          const v = Math.round(parseFloat(m[1]) * 10000);
+          nums.add(v);
+        }
+        const pWon = /([\d,]+)\s*원/g;
+        let loopCount6 = 0;
+        while ((m = pWon.exec(rawText)) !== null) {
+          if (loopCount6++ > 1000) {
+            console.error("Infinite loop detected in extractPerfTiers pWon");
+            break;
+          }
+          const v = parseInt(m[1].replace(/,/g, ''), 10);
+          if (v % 10000 === 0) nums.add(v);
+        }
+
+        const filtered = Array.from(nums)
+          .filter(v => v >= basePerf && v <= 30000000 && v % 10000 === 0)
+          .sort((a, b) => a - b);
+
+        if (filtered.length <= 1) return [basePerf];
+        return filtered;
+      }
+
+      const tiers = extractPerfTiers(basePerf, kb, preMonthCondition);
+
+      // 계산기 항목 생성 (유의사항 등 계산 제외 대상 필터링)
+      const items = kb
+        .filter(b => {
+          const t = b.title || '';
+          return !EXCLUDE.some(ex => t.includes(ex));
+        })
+        .map((b, i) => {
+          const amount = extractAmountForPerf(b, basePerf);
+          return {
+            id: i,
+            title: b.title || '혜택',
+            summary: extractSummary(b.info),
+            amount: amount,
+            checked: true
+          };
         });
-        for (const tier of sortedTiers) {
-          const p = tier.perf || tier.performance || tier.min_perf || tier.pre_month_money || 0;
-          if (selectedPerf >= p) {
-            return tier.limit || tier.amount || tier.value || 0;
+
+      // 초기 배율: basePerf > 0이면 기준실적(1배) 선택 상태, 아니면 1
+      window._calcPerfMultiplier = (basePerf > 0) ? 1 : 1;
+
+      /* ── 예상 혜택 합계 렌더링 ── */
+      function renderTotal() {
+        const mult = window._calcPerfMultiplier;
+        const total = items.filter(it => it.checked).reduce((s, it) => s + (it.amount * mult), 0);
+        document.getElementById('calc-total-amt').textContent =
+          total ? '최대 ' + total.toLocaleString() + '원' : '0원';
+      }
+
+      /* ── 콤보박스 change 이벤트 핸들러 ── */
+      window._changePerfLimit = function (val) {
+        const selectedPerf = Number(val);
+        if (selectedPerf === 0) {
+          window._calcPerfMultiplier = 0;
+        } else if (basePerf > 0) {
+          window._calcPerfMultiplier = selectedPerf / basePerf;
+        } else {
+          window._calcPerfMultiplier = 1;
+        }
+
+        window._calcItems.forEach(it => {
+          const el = document.getElementById('calc-amt-' + it.id);
+          if (el && it.amount) {
+            const newAmt = Math.round(it.amount * window._calcPerfMultiplier);
+            el.textContent = newAmt ? '최대 ' + newAmt.toLocaleString() + '원' : '0원';
+            el.className = newAmt ? 'calc-amount' : 'calc-amount zero';
           }
-        }
-      }
-    }
+        });
+        window._calcRender();
+      };
 
-    // 1) 테이블(표) 구조 분석
-    if (html.includes('<table')) {
-      const rows = html.match(/<tr[^>]*>([\s\S]*?)<\/tr>/gi) || [];
-      const perfMan = selectedPerf / 10000;
-      const perfComma = selectedPerf.toLocaleString();
-
-      for (const row of rows) {
-        const cols = row.match(/<td[^>]*>([\s\S]*?)<\/td>/gi) || [];
-        if (cols.length >= 2) {
-          const leftCol = cols[0].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
-          const rightCol = cols[1].replace(/<[^>]+>/g, '').replace(/\s+/g, '');
-          
-          const isTargetPerf = leftCol.includes(perfMan + '만') || 
-                               leftCol.includes(perfComma) || 
-                               (perfMan === 30 && leftCol.includes('30만')) || 
-                               (perfMan === 60 && leftCol.includes('60만')) || 
-                               (perfMan === 100 && leftCol.includes('100만'));
-                               
-          if (isTargetPerf && !leftCol.includes('미만')) {
-            const pMan = /(\d+(?:\.\d+)?)\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?/i;
-            const pWon = /([\d,]+)\s*(?:원|점|포인트)/i;
-            let m = pMan.exec(rightCol);
-            if (m) return parseKoreanAmount(m[0]);
-            m = pWon.exec(rightCol);
-            if (m) return parseKoreanAmount(m[0]);
-          }
-        }
-      }
-    }
-
-    // 2) 일반 텍스트 분석
-    const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
-
-    // 실적 조건용 및 건당 조건용(1만원 이상, 건당 등) 제외 대상 수집
-    const excludePatterns = [
-      /(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?/gi,
-      /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)?\s*(?:건당|이상|미만|충족|실적|전월|이용|기준|결제\s*시)/gi
-    ];
-    const excludedValues = new Set();
-    
-    // 강제 제외: 선택된 실적 금액 및 추출된 실적 티어 금액들은 한도가 될 수 없으므로 무조건 제외 목록에 추가
-    if (selectedPerf) excludedValues.add(selectedPerf);
-    if (typeof tiers !== 'undefined' && Array.isArray(tiers)) {
-      tiers.forEach(t => excludedValues.add(t));
-    }
-    if (typeof basePerf !== 'undefined') excludedValues.add(basePerf);
-
-    for (const pat of excludePatterns) {
-      let m;
-      while ((m = pat.exec(text)) !== null) {
-        excludedValues.add(parseKoreanAmount(m[1]));
-      }
-    }
-
-    // 통합한도, 월 할인한도 중심의 정밀 한도 추출 정규식
-    const limitRegs = [
-      /(?:통합할인한도|할인한도|적립한도|월\s*한도|통합\s*한도|월\s*최대|혜택\s*한도|최대\s*혜택)\s*(?:[^\d]*?)\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/i,
-      /(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))\s*(?:할인한도|적립한도|통합한도|월\s*한도|혜택\s*한도)/i,
-      /(?:최대|한도|제공)\s*(?:월|통합)?\s*(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?\s*(?:원|점|포인트)?|[\d,]+\s*(?:원|점|포인트))/i
-    ];
-
-    for (const pat of limitRegs) {
-      let m;
-      while ((m = pat.exec(text)) !== null) {
-        const val = parseKoreanAmount(m[1]);
-        if (!excludedValues.has(val) && val > 0 && val <= 5000000) {
-          return val;
-        }
-      }
-    }
-
-    return extractAmount(html);
-  }
-
-  // 무제한 혜택 및 라벨 포맷 예외 처리 함수
-  function getLimitLabel(html, amount) {
-    if (amount > 0) {
-      return '최대 ' + amount.toLocaleString() + '원';
-    }
-    
-    const text = html.replace(/<[^>]+>/g,' ').replace(/&[^;]+;/g,' ').replace(/\s+/g,' ');
-    
-    if (text.includes('무제한') || text.includes('제한 없음') || text.includes('한도 없음') || text.includes('제한없이')) {
-      return '무제한';
-    }
-    
-    const ratePattern = /(\d+(?:\.\d+)?%)\s*(?:적립|할인|청구할인|캐시백|청구 할인)/;
-    const match = text.match(ratePattern);
-    if (match) {
-      return match[0];
-    }
-    
-    return '무제한';
-  }
-
-  const basePerf = preMonthMoney || 0;
-  
-  function extractPerfTiers(basePerf, kb, conditionStr) {
-    if (!basePerf || basePerf <= 0) return [];
-
-    const rawText = [
-      ...(kb || []).map(b => (b.info || '').replace(/<[^>]+>/g, ' ')),
-      conditionStr || ''
-    ].join(' ');
-
-    const nums = new Set();
-    const pMan = /(\d+(?:\.\d+)?)\s*만\s*원/g;
-    let m;
-    while ((m = pMan.exec(rawText)) !== null) {
-      const v = Math.round(parseFloat(m[1]) * 10000);
-      nums.add(v);
-    }
-    const pWon = /([\d,]+)\s*원/g;
-    while ((m = pWon.exec(rawText)) !== null) {
-      const v = parseInt(m[1].replace(/,/g, ''), 10);
-      if (v % 10000 === 0) nums.add(v);
-    }
-
-    const filtered = Array.from(nums)
-      .filter(v => v >= basePerf && v <= 30000000 && v % 10000 === 0)
-      .sort((a, b) => a - b);
-
-    if (filtered.length <= 1) return [basePerf];
-    return filtered;
-  }
-
-  const basePerf = preMonthMoney || 0;
-  const tiers    = extractPerfTiers(basePerf, kb, preMonthCondition);
-
-  // 초기 배율: basePerf > 0이면 기준실적(1배) 선택 상태, 아니면 1
-  window._calcPerfMultiplier = (basePerf > 0) ? 1 : 1;
-
-  /* ── 예상 혜택 합계 렌더링 ── */
-  function renderTotal(){
-    const mult  = window._calcPerfMultiplier;
-    const total = items.filter(it=>it.checked).reduce((s,it)=>s + (it.amount * mult), 0);
-    document.getElementById('calc-total-amt').textContent =
-      total ? '최대 ' + total.toLocaleString() + '원' : '0원';
-  }
-
-  /* ── 콤보박스 change 이벤트 핸들러 ── */
-  window._changePerfLimit = function(val) {
-    const selectedPerf = Number(val);
-    if (selectedPerf === 0) {
-      window._calcPerfMultiplier = 0;
-    } else if (basePerf > 0) {
-      window._calcPerfMultiplier = selectedPerf / basePerf;
-    } else {
-      window._calcPerfMultiplier = 1;
-    }
-
-    window._calcItems.forEach(it => {
-      const el = document.getElementById('calc-amt-' + it.id);
-      if (el && it.amount) {
-        const newAmt = Math.round(it.amount * window._calcPerfMultiplier);
-        el.textContent = newAmt ? '최대 ' + newAmt.toLocaleString() + '원' : '0원';
-        el.className   = newAmt ? 'calc-amount' : 'calc-amount zero';
-      }
-    });
-    window._calcRender();
-  };
-
-  /* ── 혜택 항목 행 HTML ── */
-  const rows = items.map(it => `
+      /* ── 혜택 항목 행 HTML ── */
+      const rows = items.map(it => `
     <div class="calc-row">
       <label class="calc-toggle">
         <input type="checkbox" id="calc-${it.id}" checked
@@ -480,21 +1008,21 @@ function buildCalc(kb, preMonthMoney, preMonthCondition){
       </span>
     </div>`).join('');
 
-  /* ── 전월실적 콤보박스 HTML ──────────────────────────────────────────
-   * tiers 배열이 비어있으면(무실적 카드) 콤보박스를 렌더링하지 않습니다.
-   * 옵션: [실적 미충족] + extractPerfTiers()로 추출된 구간 목록
-   *──────────────────────────────────────────────────────────────────── */
-  let perfSelectHTML = '';
-  if (tiers.length > 0) {
-    const optionsHTML = [
-      `<option value="0">실적 미충족 (혜택 없음)</option>`,
-      ...tiers.map(v => {
-        const sel = (v === basePerf) ? 'selected' : '';
-        return `<option value="${v}" ${sel}>${esc(moneyLabel(v))} 이상</option>`;
-      })
-    ].join('');
+      /* ── 전월실적 콤보박스 HTML ──────────────────────────────────────────
+       * tiers 배열이 비어있으면(무실적 카드) 콤보박스를 렌더링하지 않습니다.
+       * 옵션: [실적 미충족] + extractPerfTiers()로 추출된 구간 목록
+       *──────────────────────────────────────────────────────────────────── */
+      let perfSelectHTML = '';
+      if (tiers.length > 0) {
+        const optionsHTML = [
+          `<option value="0">실적 미충족 (혜택 없음)</option>`,
+          ...tiers.map(v => {
+            const sel = (v === basePerf) ? 'selected' : '';
+            return `<option value="${v}" ${sel}>${esc(moneyLabel(v))} 이상</option>`;
+          })
+        ].join('');
 
-    perfSelectHTML = `
+        perfSelectHTML = `
       <div class="calc-perf-wrap">
         <div class="calc-perf-label">
           <span>📊</span>
@@ -510,12 +1038,12 @@ function buildCalc(kb, preMonthMoney, preMonthCondition){
           ${optionsHTML}
         </select>
       </div>`;
-  }
+      }
 
-  window._calcItems = items;
-  window._calcRender = renderTotal;
+      window._calcItems = items;
+      window._calcRender = renderTotal;
 
-  return `<div class="calc-box">
+      return `<div class="calc-box">
     <h3>🧮 혜택 계산기</h3>
     ${perfSelectHTML}
     ${rows}
@@ -524,70 +1052,70 @@ function buildCalc(kb, preMonthMoney, preMonthCondition){
       <span class="tot-amt" id="calc-total-amt"></span>
     </div>
   </div>`;
-}
+    }
 
 
-function switchTab(i){
-  document.querySelectorAll('.kb-tab').forEach((t,j)=>t.classList.toggle('active',i===j));
-  document.querySelectorAll('.kb-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
-}
+    function switchTab(i) {
+      document.querySelectorAll('.kb-tab').forEach((t, j) => t.classList.toggle('active', i === j));
+      document.querySelectorAll('.kb-panel').forEach((p, j) => p.classList.toggle('active', i === j));
+    }
 
-function render(d){
-  const name = d.card_name || d.name || '카드';
-  const corp = d.company || (d.corp&&d.corp.name) || '';
-  const img  = d.card_img || (d.card_img_obj&&d.card_img_obj.url) || '';
-  const tags = [];
-  if(d.brands) tags.push(d.brands);
-  if(d.only_online) tags.push('온라인전용');
-  if(d.cate==='CRD') tags.push('신용카드');
-  else if(d.cate==='CHK') tags.push('체크카드');
+    function render(d) {
+      const name = d.card_name || d.name || '카드';
+      const corp = d.company || (d.corp && d.corp.name) || '';
+      const img = d.card_img || (d.card_img_obj && d.card_img_obj.url) || '';
+      const tags = [];
+      if (d.brands) tags.push(d.brands);
+      if (d.only_online) tags.push('온라인전용');
+      if (d.cate === 'CRD') tags.push('신용카드');
+      else if (d.cate === 'CHK') tags.push('체크카드');
 
-  const kb = d.key_benefit || [];
-  let benefitHTML = '';
-  if(kb.length){
-    const tabs = kb.map((b,i)=>{
-      const icon = b.logo_url ? `<img src="${esc(b.logo_url)}" alt="">` : '';
-      return `<button class="kb-tab${i===0?' active':''}" onclick="switchTab(${i})">${icon}${esc(b.title||'혜택')}</button>`;
-    }).join('');
-    const panels = kb.map((b,i)=>`
-      <div class="kb-panel${i===0?' active':''}" id="kbp-${i}">
-        <div class="binfo">${b.info||'<p style="color:#94a3b8">내용 없음</p>'}</div>
+      const kb = d.key_benefit || [];
+      let benefitHTML = '';
+      if (kb.length) {
+        const tabs = kb.map((b, i) => {
+          const icon = b.logo_url ? `<img src="${esc(b.logo_url)}" alt="">` : '';
+          return `<button class="kb-tab${i === 0 ? ' active' : ''}" onclick="switchTab(${i})">${icon}${esc(b.title || '혜택')}</button>`;
+        }).join('');
+        const panels = kb.map((b, i) => `
+      <div class="kb-panel${i === 0 ? ' active' : ''}" id="kbp-${i}">
+        <div class="binfo">${b.info || '<p style="color:#94a3b8">내용 없음</p>'}</div>
       </div>`).join('');
-    benefitHTML = `<div class="kb-tabs">${tabs}</div>${panels}`;
-  } else {
-    benefitHTML = '<p style="color:#94a3b8;padding:8px 0">혜택 정보가 없습니다.</p>';
-  }
+        benefitHTML = `<div class="kb-tabs">${tabs}</div>${panels}`;
+      } else {
+        benefitHTML = '<p style="color:#94a3b8;padding:8px 0">혜택 정보가 없습니다.</p>';
+      }
 
-  const cats = (d.benefit_categories||'').split(',').map(s=>s.trim()).filter(Boolean);
-  const rawFee = d.annual_fee || d.annual_fee_detail || d.annual_fee_basic || '-';
-  const fee = rawFee
-    .replace(/\[([\d,]+)\]원/g, '$1원')
-    .replace(/\s*\/\s*/g, '\n')
-    .split('\n').map(s=>s.trim()).filter(Boolean).join('<br>');
-  const pre  = d.pre_month_money ? Math.round(d.pre_month_money/10000)+'만원 이상' : '없음';
+      const cats = (d.benefit_categories || '').split(',').map(s => s.trim()).filter(Boolean);
+      const rawFee = d.annual_fee || d.annual_fee_detail || d.annual_fee_basic || '-';
+      const fee = rawFee
+        .replace(/\[([\d,]+)\]원/g, '$1원')
+        .replace(/\s*\/\s*/g, '\n')
+        .split('\n').map(s => s.trim()).filter(Boolean).join('<br>');
+      const pre = d.pre_month_money ? Math.round(d.pre_month_money / 10000) + '만원 이상' : '없음';
 
-  document.title = name + ' — 카드 파이터';
-  const inCompare = getCompareList().some(c=>String(c.idx)===String(d.idx));
+      document.title = name + ' — 카드 파이터';
+      const inCompare = getCompareList().some(c => String(c.idx) === String(d.idx));
 
-  document.getElementById('wrap').innerHTML = `
+      document.getElementById('wrap').innerHTML = `
     <div class="hero">
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0">
         <img src="${esc(img)}" alt="" onerror="this.style.visibility='hidden'"/>
-        <button id="detail-compare-btn" class="compare-hero-btn${inCompare?' selected':''}"
+        <button id="detail-compare-btn" class="compare-hero-btn${inCompare ? ' selected' : ''}"
           onclick="toggleCompareDetail(${d.idx},'${esc(name)}','${esc(img)}')">
-          ${inCompare?'✓ 비교함에 담겼어요':'+ 비교함 담기'}
+          ${inCompare ? '✓ 비교함에 담겼어요' : '+ 비교함 담기'}
         </button>
       </div>
       <div>
         <div class="h-name">${esc(name)}</div>
         <div class="h-corp">${esc(corp)}</div>
-        <div class="h-tags">${tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+        <div class="h-tags">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
       </div>
     </div>
     <div class="summary">
       <div class="sum-card"><div class="lab">연회비</div><div class="val">${fee}</div></div>
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
-      ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}
+      ${d.release_dt ? `<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>` : ''}
     </div>
     ${kb.length ? buildCalc(kb, d.pre_month_money, d.pre_month_condition) : ''}
     <div class="sec-box">
@@ -595,53 +1123,54 @@ function render(d){
       ${benefitHTML}
     </div>
 
-    ${cats.length?`<div class="sec-box"><h3>🏷️ 혜택 카테고리</h3>
-      <div class="cat-wrap">${cats.map(c=>`<span class="cat-chip">${esc(c)}</span>`).join('')}</div>
-    </div>`:''}
+    ${cats.length ? `<div class="sec-box"><h3>🏷️ 혜택 카테고리</h3>
+      <div class="cat-wrap">${cats.map(c => `<span class="cat-chip">${esc(c)}</span>`).join('')}</div>
+    </div>`: ''}
     <div class="disclaimer">
       <div class="d-head">※ 본 게시물은 카드파이터에서 대가관계 없이 자체제작한 게시물입니다</div>
       * 본 카드의 서비스 내용은 카드사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.<br>
       * 카드 사용 전 반드시 상품설명서와 약관을 읽어 보시기 바랍니다.
     </div>`;
-}
-
-const idx = new URLSearchParams(location.search).get('idx');
-if(!idx){
-  document.getElementById('wrap').innerHTML =
-    '<div class="status">잘못된 접근입니다.<br><a href="index.html">← 목록으로</a></div>';
-} else {
-  /* ── 카드 상세 + 목록 메타데이터를 병렬 fetch ────────────────────────
-   * card_detail/{idx}.json 에는 pre_month_money 필드가 없는 카드가 있습니다.
-   * cards_list.json 에서 해당 카드의 pre_month_money / pre_month_condition을
-   * 찾아 상세 데이터에 병합한 뒤 render()를 호출합니다.
-   *──────────────────────────────────────────────────────────────────── */
-  Promise.all([
-    fetch('card_detail/' + idx + '.json')
-      .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
-    fetch('cards_list.json')
-      .then(r => r.ok ? r.json() : [])
-      .catch(() => [])   // 실패해도 상세 렌더링은 진행
-  ])
-  .then(([detail, list]) => {
-    /* cards_list.json 에서 일치하는 카드 메타데이터 탐색 */
-    const meta = list.find(c => String(c.idx) === String(idx));
-    if (meta) {
-      /* pre_month_money가 상세 JSON에 없거나 undefined인 경우에만 보완 */
-      if (detail.pre_month_money === undefined || detail.pre_month_money === null) {
-        detail.pre_month_money  = meta.pre_month_money  ?? 0;
-        detail.pre_month_condition = meta.pre_month_condition ?? '없음';
-      }
     }
-    render(detail);
-    if (window._calcRender) window._calcRender();
-  })
-  .catch(e => {
-    document.getElementById('wrap').innerHTML =
-      `<div class="status">카드 정보를 불러오지 못했습니다.<br>
+
+    const idx = new URLSearchParams(location.search).get('idx');
+    if (!idx) {
+      document.getElementById('wrap').innerHTML =
+        '<div class="status">잘못된 접근입니다.<br><a href="index.html">← 목록으로</a></div>';
+    } else {
+      /* ── 카드 상세 + 목록 메타데이터를 병렬 fetch ────────────────────────
+       * card_detail/{idx}.json 에는 pre_month_money 필드가 없는 카드가 있습니다.
+       * cards_list.json 에서 해당 카드의 pre_month_money / pre_month_condition을
+       * 찾아 상세 데이터에 병합한 뒤 render()를 호출합니다.
+       *──────────────────────────────────────────────────────────────────── */
+      Promise.all([
+        fetch('card_detail/' + idx + '.json')
+          .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+        fetch('cards_list.json')
+          .then(r => r.ok ? r.json() : [])
+          .catch(() => [])   // 실패해도 상세 렌더링은 진행
+      ])
+        .then(([detail, list]) => {
+          /* cards_list.json 에서 일치하는 카드 메타데이터 탐색 */
+          const meta = list.find(c => String(c.idx) === String(idx));
+          if (meta) {
+            /* pre_month_money가 상세 JSON에 없거나 undefined인 경우에만 보완 */
+            if (detail.pre_month_money === undefined || detail.pre_month_money === null) {
+              detail.pre_month_money = meta.pre_month_money ?? 0;
+              detail.pre_month_condition = meta.pre_month_condition ?? '없음';
+            }
+          }
+          render(detail);
+          if (window._calcRender) window._calcRender();
+        })
+        .catch(e => {
+          document.getElementById('wrap').innerHTML =
+            `<div class="status">카드 정보를 불러오지 못했습니다.<br>
       <small style="color:#94a3b8">${esc(String(e))}</small><br><br>
       <a href="index.html">← 목록으로</a></div>`;
-  });
-}
-</script>
+        });
+    }
+  </script>
 </body>
+
 </html>

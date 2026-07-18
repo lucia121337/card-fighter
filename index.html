@@ -1174,7 +1174,7 @@ function render(){
       <div class="foot">
         <button class="compare-btn" data-idx="${c.idx}"
           onclick="toggleCompare(${c.idx},'${esc(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
-        <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
+        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
       </div>
     </div>`;
   }).join('');
@@ -1366,7 +1366,7 @@ function openCbDetail(idx){
   const imgs = (e.detail_images||[]).map(u=>`<img src="${esc(u)}" alt="" style="max-width:100%;border-radius:10px;margin:8px 0" onerror="this.style.display='none'">`).join('');
   const text = e.detail_text ? `<div class="cbm-text">${esc(e.detail_text)}</div>` : (imgs ? '' : '<div class="cbm-text" style="color:#94a3b8">상세 내용은 카드고릴라에서 확인하세요.</div>');
   const oc = resolveOurCard(e);
-  const cardLink = oc ? `<a class="cbm-cardlink" href="detail?idx=${oc.idx}">
+  const cardLink = oc ? `<a class="cbm-cardlink" href="detail.html?idx=${oc.idx}">
        <img src="${esc(oc.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
        <div class="cl-txt"><div class="cl-eyebrow">📇 카드 파이터에서 이 카드 보기</div>
          <div class="cl-name">${esc(oc.card_name)}</div></div>
@@ -1697,7 +1697,7 @@ function buildTrendCardSections(ranked) {
             ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
           </div>
           <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
         </div>`;
     }).join('');
 
