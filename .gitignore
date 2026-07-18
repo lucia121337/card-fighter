@@ -23,3 +23,9 @@ data/trends.db-shm
 # OS
 Thumbs.db
 .DS_Store
+
+# Data & Large Files
+data/*.parquet
+data/*.csv
+docs/*.png
+images/*.png

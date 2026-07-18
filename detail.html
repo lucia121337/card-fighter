@@ -773,7 +773,7 @@
          * 상수
          * ════════════════════════════════════════════════════════════════ */
         const BLACKLIST = ['바우처', '무료', '입장권', '라운지', '발렛', '유의사항',
-                           '무이자할부', '현금서비스', '선택형', '플레이트'];
+          '무이자할부', '현금서비스', '선택형', '플레이트'];
         const WHITELIST = ['할인', '청구할인', '현장할인', '적립', '캐시백', '마일리지'];
         const INTEGRATED_KW = ['통합할인한도', '통합 할인한도', '통합한도', '통합 한도'];
 
@@ -787,8 +787,8 @@
           const plains = (kb || []).map(b => {
             const raw = b.info || '';
             return raw.replace(/<[^>]+>/g, ' ')
-                      .replace(/&[^;]+;/g, ' ')
-                      .replace(/\s+/g, ' ');
+              .replace(/&[^;]+;/g, ' ')
+              .replace(/\s+/g, ' ');
           });
           const fullText = plains.join(' ');
 
@@ -978,7 +978,7 @@
           });
 
         const groupItems = items.filter(it => it.isGroup);
-        const soloItems  = items.filter(it => !it.isGroup);
+        const soloItems = items.filter(it => !it.isGroup);
 
         /* ══════════════════════════════════════════════════════════════════
          * 7. 실시간 렌더링 함수
@@ -1050,7 +1050,7 @@
           const finalTotal = soloTotal + cappedGroup;
           document.getElementById('calc-total-amt').textContent =
             currentPerf === 0 ? '혜택 없음'
-            : finalTotal ? '최대 ' + finalTotal.toLocaleString() + '원' : '0원';
+              : finalTotal ? '최대 ' + finalTotal.toLocaleString() + '원' : '0원';
         }
 
         /* ── 콤보박스 change 핸들러 */
@@ -1127,7 +1127,7 @@
       </div>`;
         }
 
-        window._calcItems  = items;
+        window._calcItems = items;
         window._calcRender = renderTotal;
 
         return `<div class="calc-box">

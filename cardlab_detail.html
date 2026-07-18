@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카드 연구소 상세 분석 — 카드 파이터</title>
+  <!-- Chart.js 라이브러리 연동 (원형 그래프 및 트렌드용) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --brand: #145CE6;
+      --brand2: #5c8df6;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --panel2: #f1f5f9;
+      --txt: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --shadow: 0 4px 18px rgba(20,92,230,.07);
+    }
+    @font-face {
+      font-family: 'GmarketSans';
+      font-weight: 500;
+      font-style: normal;
+      src: url('https://fastly.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansMedium.woff2') format('woff2');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'GmarketSans';
+      font-weight: 800;
+      font-style: normal;
+      src: url('https://fastly.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansBold.woff2') format('woff2');
+      font-display: swap;
+    }
+    body {
+      margin: 0;
+      font-family: 'GmarketSans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--txt);
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      background: var(--panel);
+      border-bottom: 1.5px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .logo {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .brand-left h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--txt);
+      letter-spacing: -1px;
+    }
+    .gnb-divider {
+      width: 1.5px;
+      height: 20px;
+      background: var(--line);
+      margin: 0 20px;
+    }
+    .gnb {
+      display: flex;
+      gap: 22px;
+    }
+    .gnb a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14.5px;
+      font-weight: 700;
+      transition: .15s all;
+    }
+    .gnb a:hover, .gnb a.active {
+      color: var(--brand);
+    }
+    .header-search {
+      flex: 1;
+      min-width: 0;
+      padding-left: 20px;
+    }
+    .search-box {
+      background: var(--panel2);
+      border-radius: 99px;
+      padding: 6px 14px 6px 20px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      transition: .2s all;
+      border: 1.5px solid transparent;
+    }
+    .search-box:focus-within {
+      background: #fff;
+      border-color: var(--brand);
+      box-shadow: 0 4px 12px rgba(20,92,230,0.08);
+    }
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--txt);
+      flex: 1;
+    }
+    .search-box input::placeholder { color: #94a3b8; font-weight: 400; }
+    .search-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--line);
+      margin: 0 10px;
+    }
+    .search-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      transition: .15s all;
+    }
+    .search-btn:hover {
+      color: var(--brand);
+    }
+    .search-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* 뒤로가기 링크 영역 */
+    .back-nav-wrap {
+      max-width: 1200px;
+      margin: 30px auto 10px;
+      padding: 0 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .15s all;
+    }
+    .back-link:hover {
+      color: var(--brand);
+    }
+    .back-arrow {
+      width: 20px;
+      height: 20px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    /* 카드연구소(cardlab.html)의 둥근 박스 카드 스타일과 통일 */
+    #detail-view-container {
+      background: var(--panel);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 35px;
+    }
+
+    /* ── 매거진 스타일 렌더링 영역 ── */
+    .rec-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .rec-hero h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      color: var(--txt);
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .rec-hero h2 span {
+      color: var(--brand);
+    }
+    .rec-hero p {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* 6종 아바타 내비 */
+    .avatar-nav {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .avatar-item {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: .2s all;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+    }
+    .avatar-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--brand);
+    }
+    .avatar-item.active {
+      border-color: var(--brand);
+      background: var(--panel);
+      box-shadow: 0 8px 20px rgba(20,92,230,0.08);
+    }
+    .avatar-img-wrap {
+      font-size: 26px;
+      background: var(--bg);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s all;
+    }
+    .avatar-item.active .avatar-img-wrap {
+      background: var(--panel2);
+    }
+    .avatar-label {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--txt);
+    }
+
+    /* 여름 휴가철 탭 */
+    .vacation-hero h2 span {
+      color: #e67e22;
+    }
+    .vacation-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+    }
+    .vacation-tab-btn {
+      border: 1.5px solid var(--line);
+      background: #fff;
+      border-radius: 99px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      transition: .15s all;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+    .vacation-tab-btn:hover {
+      border-color: #e67e22;
+      color: #e67e22;
+    }
+    .vacation-tab-btn.active {
+      background: #e67e22;
+      border-color: #e67e22;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(230,126,34,0.3);
+    }
+    .vacation-result-box {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+      animation: fade-in .3s ease-out forwards;
+    }
+
+    /* 매거진 본체 */
+    .mag-container {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+      animation: fade-in .35s ease-out forwards;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mag-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--txt);
+      margin: 0 0 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--txt);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mag-title span.highlight {
+      color: var(--brand);
+    }
+    .vacation-result-box .mag-title span.highlight {
+      color: #e67e22;
+    }
+    .analysis-section {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 35px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 850px) {
+      .analysis-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chart-area {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1.5px solid var(--line);
+    }
+    .mag-subtitle {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--txt);
+      margin-bottom: 20px;
+    }
+    .chart-inner {
+      width: 100%;
+      height: 220px;
+      position: relative;
+    }
+    .text-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .fact-box {
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 22px;
+      text-align: left;
+    }
+    .fact-box.highlight {
+      border-color: #dce8ff;
+      background: #f0f5ff;
+    }
+    .vacation-result-box .fact-box.highlight {
+      border-color: #ffe8d6;
+      background: #fff8f2;
+    }
+    .fact-box h4 {
+      margin: 0 0 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--brand);
+    }
+    .vacation-result-box .fact-box h4 {
+      color: #e67e22;
+    }
+    .fact-box p {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--txt);
+      line-height: 1.6;
+    }
+    .mag-cards-section {
+      margin-top: 40px;
+    }
+    .mag-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .mag-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .c-card {
+      background: var(--panel);
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      transition: .2s all;
+      position: relative;
+    }
+    .mag-cards-grid .c-card:hover {
+      transform: translateY(-6px) !important;
+      border-color: var(--brand) !important;
+      box-shadow: 0 12px 28px rgba(20,92,230,0.15) !important;
+      z-index: 5;
+    }
+    .vacation-result-box .mag-cards-grid .c-card:hover {
+      border-color: #e67e22 !important;
+      box-shadow: 0 12px 28px rgba(230,126,34,0.15) !important;
+      z-index: 5;
+    }
+    .c-card.rank-1 {
+      border-color: var(--brand);
+      background: #fbfdff;
+    }
+    .vacation-result-box .c-card.rank-1 {
+      border-color: #e67e22;
+      background: #fffefe;
+    }
+    .c-rank {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--brand);
+      background: var(--panel2);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .vacation-result-box .c-rank {
+      color: #e67e22;
+      background: #fff3e0;
+    }
+    .card-thumb {
+      max-width: 120px;
+      height: 75px;
+      object-fit: contain;
+      margin-bottom: 20px;
+    }
+    .c-nm {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--txt);
+      margin-bottom: 8px;
+    }
+    .c-chip-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .c-chip {
+      background: var(--panel2);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .c-chip.fee {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .c-benefit {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--txt);
+      line-height: 1.55;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .c-review {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .c-detail-btn {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      background: var(--panel2);
+      color: var(--txt);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 10px 0;
+      border-radius: 10px;
+      transition: .15s all;
+    }
+    .c-detail-btn:hover {
+      background: var(--brand);
+      color: #fff;
+    }
+    .vacation-result-box .c-detail-btn:hover {
+      background: #e67e22;
+    }
+    .mag-tip {
+      margin-top: 30px;
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 12px;
+      text-align: left;
+    }
+    .mag-tip strong {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 800;
+      display: inline-block;
+      border: 1.5px solid var(--brand);
+      border-radius: 6px;
+      padding: 2px 6px;
+      align-self: flex-start;
+    }
+    .vacation-result-box .mag-tip strong {
+      color: #e67e22;
+      border-color: #e67e22;
+    }
+    .mag-tip div {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* 스켈레톤 로더 */
+    .skeleton-box {
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    #skeleton-container {
+      display: none;
+    }
+    #skeleton-container.active {
+      display: block;
+    }
+    #result-container {
+      display: none;
+    }
+    #result-container.active {
+      display: block;
+    }
+    .sk-title { height: 35px; width: 60%; margin-bottom: 30px; }
+    .sk-chart { width: 180px; height: 180px; border-radius: 50%; }
+    .sk-text { height: 16px; width: 100%; margin-bottom: 8px; }
+    .sk-text.med { width: 85%; }
+    .sk-text.short { width: 60%; }
+    .sk-card { height: 380px; border-radius: 20px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="brand-left" onclick="location.href='index.html'">
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
+      <h1>카드 파이터</h1>
+    </div>
+    <div class="gnb-divider"></div>
+    <nav class="gnb">
+      <a href="index.html">홈</a>
+      <a href="index.html#cards">전체카드</a>
+      <a href="index.html#cashback"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="index.html#merchant">할인가맹점</a>
+      <a href="cardlab.html" class="active">카드 연구소</a>
+    </nav>
+    <div class="header-search">
+      <div class="search-box">
+        <input id="q" type="text" placeholder="관심 혜택을 검색해보세요!" onkeydown="if(event.key==='Enter') doGlobalSearch()" />
+        <div class="search-divider"></div>
+        <button class="search-btn" onclick="doGlobalSearch()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="back-nav-wrap">
+  <a href="cardlab.html" class="back-link">
+    <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    카드 연구소 목록으로 돌아가기
+  </a>
+</div>
+
+<main id="detail-view-container">
+  <!-- 동적 컨텐츠 바디 삽입 지점 -->
+</main>
+
+<script>
+function doGlobalSearch() {
+  const query = document.getElementById('q').value.trim();
+  if (query) {
+    location.href = `index.html?q=${encodeURIComponent(query)}`;
+  }
+}
+
+// ── 공통 카드 정보 테이블 (상세 렌더링용) ──
+const REC_CARDS = [
+  {idx:2235,card_name:"삼성 iD ON 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:300000,top_benefit_summary:"할인: 많이쓰는 영역 자동맞춤 30% 할인 | 생활: 교통/이동통신/스트리밍 10% 할인 | 모든가맹점: 온라인간편결제/해외 3%·1% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png"},
+  {idx:2736,card_name:"현대홈쇼핑 현대카드",company:"현대카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [10,000]원",pre_month_money:0,top_benefit_summary:"홈쇼핑: 현대홈쇼핑 3% 적립 | 적립: 그 외 가맹점 1% 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2736/card_img/36643/2736card_1.png"},
+  {idx:2523,card_name:"LG U+ 우리카드",company:"우리카드",annual_fee:"국내전용 [10,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 패밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png"},
+  {idx:2346,card_name:"BC 바로 클리어 플러스",company:"BC 바로카드",annual_fee:"국내전용 [5,000]원 / 해외겸용 [5,000]원",pre_month_money:150000,top_benefit_summary:"푸드: 점심식사/배달앱 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 통신: 휴대폰요금/스트리밍 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2346/card_img/32523/2346card.png"},
+  {idx:2348,card_name:"BC 바로 페이백 플러스",company:"BC 바로카드",annual_fee:"국내전용 [15,000]원 / 해외겸용 [15,000]원",pre_month_money:400000,top_benefit_summary:"모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png"},
+  {idx:2483,card_name:"IBK DC히어로즈 카드(신용)",company:"IBK기업은행",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:500000,top_benefit_summary:"푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png"},
+  {idx:2687,card_name:"카드의정석 SHOPPING+",company:"우리카드",annual_fee:"국내전용 [10,000]원 / 해외겸용 [12,000]원",pre_month_money:300000,top_benefit_summary:"온라인쇼핑: 온라인 쇼핑 10% 청구할인 | 쇼핑: 백화점・대형할인점・슈퍼마켓 등 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2687/card_img/33239/2687card.png"},
+  {idx:2502,card_name:"UPTURN카드",company:"BC 바로카드",annual_fee:"해외겸용 [7,000원]",pre_month_money:300000,top_benefit_summary:"KT: KT이동통신요금 14,000원 할인 | 온라인쇼핑: 온라인·모바일 쇼핑 5% 할인 | 주유소: 주유 60원/L 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2502/card_img/28620/2502card.png"},
+  {idx:2358,card_name:"삼성 iD EDU 카드",company:"삼성카드",annual_fee:"국내전용 [30,000원] / 해외겸용 [30,000원]",pre_month_money:500000,top_benefit_summary:"교육/육아: 교육 10% 할인 | 공과금/렌탈: 아파트관리비 5,000원 할인 | 배달앱: 배달앱 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2358/card_img/27724/2359card.png"},
+  {idx:39,card_name:"신한카드 Deep Oil",company:"신한카드",annual_fee:"해외겸용 [10,000]원",pre_month_money:300000,top_benefit_summary:"주유: 4개정유사 10% 할인 | 자동차/하이패스: 차량서비스 10% 할인 | 생활: 편의점/커피/택시 5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/39/card_img/31864/39card.png"},
+  {idx:2525,card_name:"만나 우리카드",company:"우리카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [12,000원]",pre_month_money:0,top_benefit_summary:"주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png"},
+  {idx:2503,card_name:"키자니아 에듀카드",company:"BC 바로카드",annual_fee:"국내전용 [12,000원] / 해외겸용 [15,000원]",pre_month_money:300000,top_benefit_summary:"교육/육아: 학원·유치원 10% 할인 | 주유: 주유 60원/L 할인 | 테마파크: 키자니아 무료 입장권",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2503/card_img/28621/2503card.png"},
+  {idx:2330,card_name:"LOCA 365 카드",company:"롯데카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"공과금/렌탈: 아파트관리비, 공과금 10% 할인 | 생활: 교통, 통신, 배달앱 10% 할인 | 디지털구독: 스트리밍 1,500원 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2330/card_img/24131/2330card.png"},
+  {idx:2292,card_name:"현대카드 MY BUSINESS ZERO Food&Drink",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 마트/편의점: 대형마트/슈퍼마켓 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2292/card_img/22779/2292card.png"},
+  {idx:2293,card_name:"현대카드 MY BUSINESS ZERO Retail&Service",company:"현대카드",annual_fee:"국내전용 [30,000]원 / 해외겸용 [30,000]원",pre_month_money:0,top_benefit_summary:"모든가맹점: 모든가맹점 0.7% 할인 | 비즈니스: 사업성경비 1.5% 할인 | 통신: 통신요금 1.5% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2293/card_img/23896/2293card.png"},
+  {idx:2863,card_name:"디지로카 Travel",company:"롯데카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:0,top_benefit_summary:"적립: 기본적립 국내 1% 해외 1.2% 적립 | 여행/숙박: 특별적립 항공권 2% 호텔/렌터카 3% 적립 | 적립: 보너스적립 1.5만마일 적립 (연 1회)",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2863/card_img/43838/2863card.png"},
+  {idx:2864,card_name:"디지로카 Travel 프리미엄",company:"롯데카드",annual_fee:"국내전용 [100,000]원 / 해외겸용 [100,000]원",pre_month_money:0,top_benefit_summary:"적립: 기본적립 국내 1.2% 해외 1.5% 적립 | 여행/숙박: 특별적립 항공권 3% 호텔/렌터카 5% 적립 | 적립: 보너스적립 7만마일 적립 (연 1회)",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2864/card_img/43839/2864card.png"},
+  {idx:121,card_name:"다담카드",company:"KB국민카드",annual_fee:"해외겸용 [20,000]원",pre_month_money:300000,top_benefit_summary:"주유: SK에너지 리터당 60원 청구할인 | 대중교통: 버스/지하철 10% 할인 | 카페: 스타벅스 20% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/121/card_img/20353/121card.png"},
+  {idx:2762,card_name:"THE iD. TITANIUM (아시아나)",company:"삼성카드",annual_fee:"국내전용 [700,000]원 / 해외겸용 [700,000]원",pre_month_money:0,top_benefit_summary:"바우처: 바우처 연 2가지 제공 | 항공마일리지: 1,500원당 2 마일리지 기본 적립 | 항공마일리지: 여행/골프/면세점 1 마일리지 추가 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2762/card_img/37841/2761card.png"},
+  {idx:2667,card_name:"신한카드 SOL트래블 체크",company:"신한카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"수수료: 해외 이용/ATM 인출 수수료 100% 면제 | 공항라운지: 전세계 라운지 반기별 1회 무료 이용",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2667/card_img/32473/2660card.png"},
+  {idx:2905,card_name:"트래블러스 체크카드",company:"KB국민카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"환율우대: 전세계 56개 통화 100% 환율 우대 | 수수료: 해외 결제 및 ATM 인출 수수료 전액 면제",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2905/card_img/44879/2905card_3.png"},
+  {idx:281,card_name:"신한카드 Deep Dream 체크",company:"신한카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"적립: 전 가맹점 0.2% 기본 적립 | 대형마트: 이마트/홈플러스/롯데마트 최대 1.0% 특별 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/281/card_img/20503/281card.png"},
+  {idx:2290,card_name:"삼성 iD ENERGY 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"주유: 주유소 1만 원 청구할인 (월 2회) | 대중교통: 버스/지하철/택시 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2290/card_img/27723/2290card.png"}
+];
+
+const recCardMap = {};
+REC_CARDS.forEach(c => recCardMap[c.idx] = c);
+
+// ── 여름 휴가철 스페셜 데이터 ──
+let vacationChartInstance = null;
+const VACATION_STYLES = {
+  domestic: {
+    title: "🚙 국내여행족의 여름 휴가 소비 패턴",
+    fact: "빅데이터 분석 결과, 국내여행족은 맛집/카페 식도락에 35%, 호텔 및 펜션 숙박에 30%를 지출하며 힐링과 휴식을 가장 중요하게 생각합니다. 장거리 이동용 주유(20%)와 렌터카 결제가 그 뒤를 잇습니다.",
+    need: "국내 펜션/호텔/리조트 등 숙소 결제 혜택과 전국 어디서나 주유/충전 할인, 식음료(카페/맛집) 집중 할인 카드.",
+    reason: "숙박 특별 5% 할인 및 항공/렌터카 우대 혜택을 제공하는 카드와 리터당 60원 주유 할인을 제공하여 여행 경비를 실질적으로 절감해 줍니다.",
+    tip: "숙박권과 국내 렌터카 예약은 선결제 할인 혜택이 큰 카드를 활용해 최소 1개월 전에 준비하는 것이 가장 현명합니다.",
+    chartData: {
+      labels: ["맛집/카페 탐방", "숙박/호텔", "주유/연료", "렌터카/이동"],
+      data: [35, 30, 20, 15]
+    },
+    cards: [
+      { name: "디지로카 Travel", company: "롯데카드", fee: "해외겸용 20,000원", summary: "<b>적립</b>: 기본적립 국내 1% 해외 1.2%<br><b>여행/숙박</b>: 항공권 2% 호텔/렌터카 3% 특별적립", idx: 2863, review: "국내 모든 가맹점에서 기본 1% 적립을 지원하며, 여행/숙소 3% 특별적립으로 휴가지에서 혜택이 쏠쏠합니다." },
+      { name: "디지로카 Travel 프리미엄", company: "롯데카드", fee: "해외겸용 100,000원", summary: "<b>적립</b>: 기본적립 국내 1.2% 해외 1.5%<br><b>여행/숙박</b>: 항공권 3% 호텔/렌터카 5% 특별적립", idx: 2864, review: "호텔과 렌터카 예약 시 최고 수준인 5% 특별적립을 지원하여 프리미엄 힐링 여행에 최적화된 카드입니다." },
+      { name: "다담카드", company: "KB국민카드", fee: "해외겸용 20,000원", summary: "<b>주유</b>: SK에너지 리터당 60원 청구할인<br><b>대중교통</b>: 버스/지하철 10% 할인 | <b>카페</b>: 스타벅스 20% 할인", idx: 121, review: "장거리 이동을 위한 주유 리터당 60원 청구할인과 지친 몸을 식힐 스타벅스 20%의 알찬 혜택을 지니고 있습니다." }
+    ]
+  },
+  overseas: {
+    title: "✈️ 해외여행족의 여름 휴가 소비 패턴",
+    fact: "항공 및 패키지 선결제가 전체 예산의 45%를 차지하는 가장 거대한 지출원이며, 면세점 쇼핑(35%)과 현지 카드 사용이 그 뒤를 잇습니다. 선결제 타이밍인 5월에 매출 초피크를 띱니다.",
+    need: "해외 결제 및 ATM 출수수료 면제, 항공 마일리지 높은 적립률, 전 세계 공항 라운지 무료 이용 혜택.",
+    reason: "해외 이용 수수료 100% 면제와 공항 라운지 반기별 1회 무료 이용 등, 출국부터 귀국까지 모든 수수료를 극소화해 줍니다.",
+    tip: "해외이용 수수료 면제 체크카드는 연회비가 없으므로 주 카드 외에 비상용으로 2개 브랜드(VISA/Master)를 교차 준비하는 것이 유리합니다.",
+    chartData: {
+      labels: ["항공권/패키지", "면세점/쇼핑", "해외 현지결제"],
+      data: [45, 35, 20]
+    },
+    cards: [
+      { name: "THE iD. TITANIUM (아시아나)", company: "삼성카드", fee: "해외겸용 700,000원", summary: "<b>바우처</b>: 프리미엄 기프트 바우처 연 2회<br><b>항공마일리지</b>: 1,500원당 2마일리지 기본 적립 | 면세점 추가 적립", idx: 2762, review: "연 2회 제공되는 럭셔리 바우처 혜택과 해외 면세점 추가 적립으로 고급 해외여행에 품격을 더해줍니다." },
+      { name: "SOL트래블 체크카드", company: "신한카드", fee: "없음 (체크카드)", summary: "<b>수수료</b>: 해외 이용/ATM 인출 수수료 100% 면제<br><b>공항라운지</b>: 전세계 라운지 반기별 1회 무료 이용", idx: 2667, review: "해외 현지 가맹점 결제와 ATM 수수료 100% 면제에 더해 공항 라운지 무료 혜택까지 더해진 해외여행 필수템입니다." },
+      { name: "트래블러스 체크카드", company: "KB국민카드", fee: "없음 (체크카드)", summary: "<b>환율우대</b>: 전세계 56개 통화 100% 환율 우대<br><b>수수료</b>: 해외 결제 및 ATM 인출 수수료 전액 면제", idx: 2905, review: "연회비가 없는 순수 체크카드로서, 전 세계 56개 통화 100% 환율 우대 및 해외 결제 수수료 면제를 선사합니다." }
+    ]
+  },
+  family: {
+    title: "👪 가족여행족의 여름 휴가 소비 패턴",
+    fact: "여름방학 기간인 7월에 대형마트 장보기가 40%에 달하며 지출을 리드합니다. 가족 단위 외식비(30%)와 어린이 놀이시설 및 테마파크 물놀이 결제(30%)가 균형 있게 반반씩 뒤를 받칩니다.",
+    need: "대형마트(이마트/홈플러스/롯데마트) 높은 할인/적립, 패밀리 레스토랑 외식 할인, 아동 교육 및 테마파크 제휴 혜택.",
+    reason: "자녀 동반 테마파크 무료입장권 제공 및 패밀리 레스토랑 10% 청구할인, 대형마트 최대 2.1% 특별 적립 혜택으로 가계 부담을 덜어줍니다.",
+    tip: "대형마트와 외식 할인은 전월 실적 구간에 따라 혜택 한도가 정해지므로, 휴가 전 실적 조건을 미리 체크해두는 것이 좋습니다.",
+    chartData: {
+      labels: ["마트 장보기", "가족 외식", "키즈/테마파크"],
+      data: [40, 30, 30]
+    },
+    cards: [
+      { name: "키자니아 에듀카드", company: "BC 바로카드", fee: "해외겸용 15,000원", summary: "<b>교육/육아</b>: 학원 및 유치원 10% 청구할인<br><b>주유</b>: 주유 60원/L 할인 | <b>테마파크</b>: 키자니아 무료 입장권 제공", idx: 2503, review: "자녀와 함께하는 여름방학에 최적인 키자니아 무료 입장권과 주유 할인 혜택을 완벽하게 조합했습니다." },
+      { name: "LG U+ 우리카드", company: "우리카드", fee: "해외겸용 15,000원", summary: "<b>LGU+</b>: LG U+ 통신요금 최대 15,000원 할인<br><b>패밀리레스토랑</b>: VIPS/아웃백 10% 청구할인", idx: 2523, review: "휴가철 온 가족이 함께 식사할 때 유용한 패밀리 레스토랑 10% 청구할인과 통신비 할인까지 한 번에 챙겨줍니다." },
+      { name: "Deep Dream", company: "신한카드", fee: "없음 (체크카드)", summary: "<b>적립</b>: 전 가맹점 0.2% 기본 적립<br><b>대형마트</b>: 이마트/홈플러스/롯데마트 최대 1.0% 특별 적립", idx: 281, review: "연회비 없이 마트 장보기(최대 1% 적립)와 가족 외식 영역에서 알아서 챙겨주는 자동 특별적립 카드입니다." }
+    ]
+  },
+  camping: {
+    title: "⛺ 캠핑/레저족의 여름 휴가 소비 패턴",
+    fact: "장거리 이동용 주유 결제가 40%로 압도적인 비중을 차지하며, 캠핑 바비큐 식자재 구매(25%), 스포츠/레저 장비 보강(20%) 및 아웃도어 의류 구매(15%) 순으로 든든한 투자 성향을 보입니다.",
+    need: "캠핑/아웃도어 브랜드 제휴 할인, 전국 주유소 높은 할인/적립, 스포츠/레저 업종 특별 적립 혜택.",
+    reason: "4대 주유소 중 선택 1개사 10% 청구할인 또는 주유소 결제 시 1만 원 일시 할인 혜택 등을 탑재하여 유류비 부담을 획기적으로 낮춰줍니다.",
+    tip: "장거리 아웃도어 주유비는 실적 구간 충족 시 정액 할인 한도를 꽉 채워 사용할 수 있어 전용 주유 카드가 훨씬 이득입니다.",
+    chartData: {
+      labels: ["주유/연료", "대형마트 장보기", "스포츠/레저용품", "아웃도어/의류"],
+      data: [40, 25, 20, 15]
+    },
+    cards: [
+      { name: "Deep Oil", company: "신한카드", fee: "해외겸용 10,000원", summary: "<b>주유</b>: 4개정유사 10% 할인<br><b>자동차/하이패스</b>: 차량서비스 10% 할인 | <b>생활</b>: 편의점/커피/택시 5% 할인", idx: 39, review: "아웃도어 이동의 핵심인 4대 주유소 중 선택 1개사 10% 파격 청구할인 혜택으로 기름값 걱정을 시원하게 털어냅니다." },
+      { name: "UPTURN카드", company: "BC 바로카드", fee: "해외겸용 7,000원", summary: "<b>주유소</b>: 전국 주유소 리터당 60원 청구할인<br><b>온라인쇼핑</b>: 온라인·모바일 쇼핑 5% 할인", idx: 2502, review: "온라인/모바일 쇼핑 5% 혜택으로 캠핑 장비를 알뜰하게 영입하고 주유 리터당 60원 할인을 지원합니다." },
+      { name: "ID ENERGY 카드", company: "삼성카드", fee: "해외겸용 20,000원", summary: "<b>주유</b>: 주유소 1만 원 청구할인 (월 2회)<br><b>대중교통</b>: 버스/지하철/택시 10% 할인", idx: 2290, review: "주유소 1만 원 정액 청구할인(월 2회) 혜택을 탑재하여 장거리 레저 여정의 주유 부담을 획기적으로 덜어줍니다." }
+    ]
+  }
+};
+
+let PERSONA_DB = null;
+let recChart = null;
+let recTimeout = null;
+
+// DOM 로드 완료 후 파라미터 파싱 및 화면 초기화
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const viewType = urlParams.get('type') || 'persona';
+  
+  const container = document.getElementById('detail-view-container');
+  
+  if (viewType === 'persona') {
+    // 1) 맞춤카드 마크업 주입
+    container.innerHTML = `
+      <div class="rec-hero">
+        <h2>연령대별 소비 트렌드로 만나는 맞춤카드<br><span>"내 또래 사람들은 어떤 카드로 혜택을 받고 있을까요?"</span></h2>
+        <p>아래에서 나와 가장 비슷한 라이프스타일을 선택해보세요!</p>
+      </div>
+      <div class="avatar-nav">
+        <div class="avatar-item active" onclick="selectPersona('20대_여성',this)">
+          <div class="avatar-img-wrap">💄</div>
+          <div class="avatar-label">20대 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('20대_남성',this)">
+          <div class="avatar-img-wrap">🎮</div>
+          <div class="avatar-label">20대 남성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('30대_여성',this)">
+          <div class="avatar-img-wrap">🏠</div>
+          <div class="avatar-label">30대 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('30대_남성',this)">
+          <div class="avatar-img-wrap">🚗</div>
+          <div class="avatar-label">30대 남성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('40~50대 이상_여성',this)">
+          <div class="avatar-img-wrap">🛒</div>
+          <div class="avatar-label">4050 여성</div>
+        </div>
+        <div class="avatar-item" onclick="selectPersona('40~50대 이상_남성',this)">
+          <div class="avatar-img-wrap">⛳</div>
+          <div class="avatar-label">4050 남성</div>
+        </div>
+      </div>
+      
+      <!-- 스켈레톤 로더 -->
+      <div id="skeleton-container" class="mag-container">
+        <div class="skeleton-box sk-title"></div>
+        <div class="analysis-section">
+          <div class="chart-area" style="justify-content:center;align-items:center">
+            <div class="skeleton-box sk-chart"></div>
+          </div>
+          <div class="text-area">
+            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:30px"></div>
+            <div class="skeleton-box sk-text"></div><div class="skeleton-box sk-text med"></div><div class="skeleton-box sk-text short" style="margin-bottom:20px"></div>
+            <div class="skeleton-box" style="height:100px;border-radius:16px;margin-top:4px"></div>
+          </div>
+        </div>
+        <div class="mag-cards-grid">
+          <div class="skeleton-box sk-card"></div>
+          <div class="skeleton-box sk-card"></div>
+          <div class="skeleton-box sk-card"></div>
+        </div>
+      </div>
+      
+      <div id="result-container"></div>
+    `;
+    
+    // 데이터 불러오기 및 초기 렌더링
+    try {
+      const res = await fetch('data/persona_db.json');
+      if (!res.ok) throw new Error();
+      PERSONA_DB = await res.json();
+      renderPersona('20대_여성');
+    } catch (e) {
+      container.innerHTML = `<div style="text-align:center;padding:50px;color:var(--muted)">⚠️ 데이터를 불러오는 중 오류가 발생했습니다.</div>`;
+    }
+    
+  } else if (viewType === 'vacation') {
+    // 2) 여름 휴가철 맞춤 카드 마크업 주입
+    container.innerHTML = `
+      <div class="rec-hero vacation-hero">
+        <h2>실거래 빅데이터로 찾은 여름 휴가 지출 팩트<br><span>"내 여행 스타일(국내·해외·가족·레저)에 딱 맞는 카드 추천"</span></h2>
+        <p>1.47억 건의 경기도 카드 소비 데이터와 선결제 패턴을 분석해 찾아낸 여름철 여행 스타일별 찰떡 카드입니다.</p>
+      </div>
+
+      <div class="vacation-tabs">
+        <button class="vacation-tab-btn active" onclick="selectVacationStyle('domestic', this)">🚙 국내여행족</button>
+        <button class="vacation-tab-btn" onclick="selectVacationStyle('overseas', this)">✈️ 해외여행족</button>
+        <button class="vacation-tab-btn" onclick="selectVacationStyle('family', this)">👪 가족여행족</button>
+        <button class="vacation-tab-btn" onclick="selectVacationStyle('camping', this)">⛺ 캠핑/레저족</button>
+      </div>
+
+      <div id="vacation-result-container"></div>
+    `;
+    
+    // 초기 렌더링
+    renderVacationStyle('domestic');
+  }
+});
+
+// ── 맞춤카드 렌더링 로직 ──
+function selectPersona(key, el){
+  document.querySelectorAll('.avatar-item').forEach(d => d.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderPersona(key);
+}
+
+function renderPersona(key){
+  if (!PERSONA_DB) return;
+  const p = PERSONA_DB[key];
+  if(!p) return;
+  const resultEl = document.getElementById('result-container');
+  const skeletonEl = document.getElementById('skeleton-container');
+  resultEl.classList.remove('active');
+  resultEl.innerHTML = '';
+  skeletonEl.classList.add('active');
+  
+  if(recTimeout) clearTimeout(recTimeout);
+  recTimeout = setTimeout(()=>{
+    skeletonEl.classList.remove('active');
+    const escR = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let cardsHTML = '';
+    p.cardIds.forEach((id, i)=>{
+      const c = recCardMap[id];
+      if(!c) return;
+      const benefit = (c.top_benefit_summary||'').split(' | ')
+        .map(s=>{const idx=s.indexOf(':');return idx>0?`<b>${escR(s.slice(0,idx))}</b>${escR(s.slice(idx))}`:escR(s);})
+        .join('<br>');
+      const fee = (c.annual_fee||'-').replace(/\[([\d,]+)(원)?\]원?/g,'$1원').replace(/\s*\/\s*/g,' / ');
+      cardsHTML += `
+        <div class="c-card${i===0?' rank-1':''}">
+          <span class="c-rank">${i===0?'🥇 1위':'🏆 '+(i+1)+'위'}</span>
+          <img class="card-thumb" src="${escR(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="c-nm">${escR(c.card_name)} <span style="font-size:12px;color:#94a3b8">${escR(c.company||'')}</span></div>
+          <div class="c-chip-row">
+            <span class="c-chip fee">연회비 ${fee}</span>
+            ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
+          </div>
+          <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
+          <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+        </div>`;
+    });
+    resultEl.innerHTML = `
+      <div class="mag-container">
+        <h2 class="mag-title"><span class="highlight">${p.magTitle}</span></h2>
+        <div class="analysis-section">
+          <div class="chart-area">
+            <div class="mag-subtitle" style="align-self:flex-start">이들의 소비 패턴 엿보기</div>
+            <div class="chart-inner"><canvas id="personaChart"></canvas></div>
+          </div>
+          <div class="text-area">
+            <div class="fact-box"><h4>✔️ 소비 팩트체크</h4><p>${escR(p.fact)}</p></div>
+            <div class="fact-box"><h4>🎯 어떤 혜택이 필요할까?</h4><p>${escR(p.need)}</p></div>
+            <div class="fact-box highlight"><h4>💡 카드 파이터의 추천 이유</h4><p>${escR(p.reason)}</p></div>
+          </div>
+        </div>
+        <div class="mag-cards-section">
+          <div class="mag-subtitle">추천 카드 3선</div>
+          <div class="mag-cards-grid">${cardsHTML}</div>
+        </div>
+        <div class="mag-tip"><strong>Tip</strong><div>${escR(p.tip)}</div></div>
+      </div>`;
+    resultEl.classList.add('active');
+    if(recChart) recChart.destroy();
+    const ctx = document.getElementById('personaChart').getContext('2d');
+    recChart = new Chart(ctx, {
+      type:'doughnut',
+      data:{
+        labels:p.chartData.labels,
+        datasets:[{data:p.chartData.data,backgroundColor:['#145CE6','#3498db','#9b59b6','#f1c40f','#e74c3c'],borderWidth:2,borderColor:'#f8fafc',hoverOffset:8}]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{legend:{position:'right',labels:{font:{family:'GmarketSans',size:11},boxWidth:12,boxHeight:12}}}
+      }
+    });
+  }, 400);
+}
+
+// ── 여름 휴가철 맞춤 카드 렌더링 로직 ──
+function selectVacationStyle(key, el) {
+  document.querySelectorAll('.vacation-tab-btn').forEach(btn => btn.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderVacationStyle(key);
+}
+
+function renderVacationStyle(key) {
+  const style = VACATION_STYLES[key];
+  if (!style) return;
+  const container = document.getElementById('vacation-result-container');
+  
+  let cardsHTML = '';
+  style.cards.forEach((c, i) => {
+    const globalCard = recCardMap[c.idx] || {};
+    const thumbImg = globalCard.card_img || 'https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png';
+    
+    cardsHTML += `
+      <div class="c-card${i===0?' rank-1':''}">
+        <span class="c-rank">${i===0?'🥇 추천 1위':'🏆 추천 '+(i+1)+'위'}</span>
+        <img class="card-thumb" src="${thumbImg}" alt="" onerror="this.style.visibility='hidden'"/>
+        <div class="c-nm">${c.name} <span style="font-size:12px;color:#94a3b8">${c.company}</span></div>
+        <div class="c-chip-row">
+          <span class="c-chip fee">연회비 ${c.fee}</span>
+        </div>
+        <div class="c-benefit">${c.summary}</div>
+        <div class="c-review">${c.review || '여름철 휴가비 절감에 가장 탁월한 혜택을 갖추고 있습니다!'}</div>
+        <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+      </div>`;
+  });
+
+  container.innerHTML = `
+    <div class="vacation-result-box">
+      <h3 class="mag-title"><span class="highlight">${style.title}</span></h3>
+      <div class="analysis-section">
+        <div class="chart-area">
+          <div class="mag-subtitle">이들의 소비 패턴 엿보기</div>
+          <div class="chart-inner">
+            <canvas id="vacationChart"></canvas>
+          </div>
+        </div>
+        <div class="text-area">
+          <div class="fact-box"><h4>✔️ 소비 팩트체크</h4><p>${style.fact}</p></div>
+          <div class="fact-box"><h4>🎯 어떤 혜택이 필요할까?</h4><p>${style.need}</p></div>
+          <div class="fact-box highlight"><h4>💡 카드 파이터의 추천 이유</h4><p>${style.reason}</p></div>
+        </div>
+      </div>
+      <div class="mag-cards-section">
+        <div class="mag-subtitle">추천 카드 3선</div>
+        <div class="mag-cards-grid">${cardsHTML}</div>
+      </div>
+      <div class="mag-tip"><strong>Tip</strong><div>${style.tip}</div></div>
+    </div>`;
+
+  // Draw chart dynamically
+  if (vacationChartInstance) vacationChartInstance.destroy();
+  const ctx = document.getElementById('vacationChart').getContext('2d');
+  vacationChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: style.chartData.labels,
+      datasets: [{
+        data: style.chartData.data,
+        backgroundColor: ['#e67e22', '#f39c12', '#d35400', '#f1c40f', '#95a5a6'],
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            font: { family: 'GmarketSans', size: 11 },
+            boxWidth: 12,
+            boxHeight: 12
+          }
+        }
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

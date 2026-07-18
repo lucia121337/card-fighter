@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>카드 파이터 — 카드 소비 데이터로 보는 연령대별 맞춤 카드</title>
+<title>카드 파이터 — 카드 소비 데이터로 보는 맞춤카드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -21,9 +21,9 @@
 
   header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
          backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
-  .header-top{display:flex;align-items:center;flex-wrap:nowrap}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto}
   .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
-  .brand-left .logo{width:44px;height:44px;filter:drop-shadow(0 4px 10px rgba(19,85,255,.3))}
+  .brand-left .logo{font-size:32px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
   .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);cursor:pointer}
   .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
   .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
@@ -258,21 +258,14 @@
 <header>
   <div class="header-top">
     <div class="brand-left" onclick="location.href='index.html'">
-      <svg class="logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-        <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-          <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-          <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-        </g>
-        <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z" fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-      </svg>
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
       <h1>카드 파이터</h1>
     </div>
     <div class="gnb-divider"></div>
     <nav class="gnb">
       <a href="index.html">홈</a>
       <a href="index.html">전체카드</a>
-      <a href="#" class="active">카드 소비 데이터로 보는 연령대별 맞춤 카드</a>
+      <a href="#" class="active">카드 소비 데이터로 보는 맞춤카드</a>
     </nav>
   </div>
 </header>
