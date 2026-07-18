@@ -967,106 +967,43 @@
         }
 
         /* ══════════════════════════════════════════════════════════════════
-         * 3. 혜택 개별 금액 파싱 (info HTML → 숫자)
+         * 3. parseFromSummary(summaryText): 깔끔한 요약 텍스트 파싱기
          * ════════════════════════════════════════════════════════════════ */
-        function extractBenefitAmount(infoHtml) {
-          if (!infoHtml) return 0;
+        function parseFromSummary(summaryText) {
+          if (!summaryText) return { limits: [], rate: 1.0 };
+          
+          let rate = 1.0;
+          let amount = 0;
 
-          // DOMParser를 이용해 순수 텍스트 정제
-          let text = '';
-          try {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(infoHtml, 'text/html');
-            text = doc.body.textContent || '';
-          } catch (e) {
-            text = infoHtml.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ');
+          // 1. 할인율/적립률 (%) 판별
+          const percentMatch = summaryText.match(/(\d+(?:\.\d+)?)\s*%/);
+          if (percentMatch) {
+            rate = parseFloat(percentMatch[1]) / 100;
           }
-          const cleanedText = text.replace(/\s+/g, ' ').trim();
 
-          const tiers = [];
-
-          // 1. 실적 구간별 개별 한도 패턴 파싱 (예: "30~50만원 미만 시 3천원", "30만 이상 3천원")
-          // 패턴 A: 범위 구간형
-          const rangeRe = /([\d]+(?:\.[\d]+)?)\s*(?:~|내지)\s*([\d]+(?:\.[\d]+)?)\s*만\s*원?\s*(?:미만|이하|이상)?[^:：0-9]*[:：]\s*(?:월\s*|일\s*|日\s*)?([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+\s*(?:원|점|천|만)?)/gi;
-          let m;
-          let safeCount = 0;
-          while ((m = rangeRe.exec(cleanedText)) !== null && safeCount++ < 100) {
-            const lo = Math.round(parseFloat(m[1]) * 10000);
-            const isDaily = /일\s*[\d,]+원/.test(m[0]) || /日\s*[\d,]+원/.test(m[0]) || /일\s*[\d,]+원/.test(m[3]) || /日\s*[\d,]+원/.test(m[3]);
-            let lim = parseKoreanAmount(m[3]);
-            if (isDaily) lim = lim * 30; // 일 단위 -> 월 환산 (30일 기준)
-
-            if (lo > 0 && lim > 0 && lim < 5000000) {
-              tiers.push({ condition: lo, amount: lim });
+          // 2. 최대 혜택 금액(원, 만원 등) 추출
+          const amountMatch = summaryText.match(/(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/);
+          if (amountMatch) {
+            amount = parseKoreanAmount(amountMatch[1]);
+          } else {
+            // 주유 리터당 정액 할인 등 (예: 200원/L)
+            const lMatch = summaryText.match(/(\d+)\s*원\s*\/\s*L/i) || summaryText.match(/(\d+)\s*원\s*당/i);
+            if (lMatch) {
+              amount = parseInt(lMatch[1], 10);
             }
           }
 
-          // 패턴 B: 단일 구간형
-          const singleRe = /([\d]+(?:\.[\d]+)?)\s*만\s*원?\s*이상\s*[^:：0-9]*[:：]\s*(?:월\s*|일\s*|日\s*)?([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|만원|천원)?/gi;
-          safeCount = 0;
-          while ((m = singleRe.exec(cleanedText)) !== null && safeCount++ < 100) {
-            const lo = Math.round(parseFloat(m[1]) * 10000);
-            const isDaily = /일\s*[\d,]+원/.test(m[0]) || /日\s*[\d,]+원/.test(m[0]) || /일\s*[\d,]+원/.test(m[2]) || /日\s*[\d,]+원/.test(m[2]);
-            let lim = parseKoreanAmount(m[2]);
-            if (isDaily) lim = lim * 30; // 일 단위 -> 월 환산 (30일 기준)
-
-            if (lo > 0 && lim > 0 && lim < 5000000) {
-              if (!tiers.some(t => t.condition === lo)) {
-                tiers.push({ condition: lo, amount: lim });
-              }
-            }
+          // 3. 전월실적 조건이 텍스트에 포함되어 있다면 이를 실적 구간으로 인지
+          let condition = basePerf;
+          const condMatch = summaryText.match(/(?:실적|전월실적)\s*(\d+(?:\.\d+)?)\s*만\s*원?/);
+          if (condMatch) {
+            condition = Math.round(parseFloat(condMatch[1]) * 10000);
           }
 
-          if (tiers.length > 0) {
-            return tiers.sort((a, b) => a.condition - b.condition);
-          }
+          // limits 배열 구성 (금액 한도가 없으면 Infinity 처리)
+          const limits = [{ condition: condition, amount: amount || Infinity }];
 
-          // 2. 구간 데이터가 없는 경우, 단일 금액 추출
-          // 테이블 구조에서의 <td> 금액 우선 파싱
-          if (infoHtml.includes('<table')) {
-            const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-            let tdm;
-            const amounts = [];
-            let sc = 0;
-            while ((tdm = tdRe.exec(infoHtml)) !== null && sc++ < 200) {
-              const cell = tdm[1].replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').replace(/\s+/g, '');
-              const numMatch = cell.match(/^([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점)$/);
-              if (numMatch) {
-                const v = parseKoreanAmount(numMatch[1]);
-                if (v > 0 && v < 5000000) amounts.push(v);
-              }
-            }
-            if (amounts.length > 0) return Math.max(...amounts);
-          }
-
-          // ⚠️ 실적 조건을 나타내는 텍스트 패턴들을 삭제하여 한도 오파싱 방지 (예: 50만원을 한도로 오인하는 것 방지)
-          const cleanTextForLimit = cleanedText
-            .replace(/전월\s*이용실적\s*[\d~\s만원이하미만초과]+/g, '')
-            .replace(/전월\s*이용금액\s*[\d~\s만원이하미만초과]+/g, '')
-            .replace(/실적\s*[\d~\s만원이하미만초과]+/g, '')
-            .replace(/[\d]+(?:~[\d]+)?\s*만\s*원\s*(?:이상|미만|이하|초과)/g, '');
-
-          // 다양한 형태의 혜택/할인 한도 금액 추출 정규식
-          const limitRegs = [
-            /(?:월\s*|일\s*)?(?:할인|적립)?한도\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
-            /([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)\s*(?:할인|적립)?한도/i,
-            /(?:월\s*최대\s*|최대\s*월\s*|최대\s*|일\s*최대\s*)\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
-            /월\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i,
-            /(?:제공|할인|적립)\s*한도\s*([\d]+(?:\.[\d]+)?\s*만\s*(?:[\d]+\s*천)?|[\d,]+)\s*(?:원|점|포인트)/i
-          ];
-
-          for (const rx of limitRegs) {
-            const match = cleanTextForLimit.match(rx);
-            if (match) {
-              const isDaily = /일\s*[\d,]+원/.test(match[0]) || /日\s*[\d,]+원/.test(match[0]) || /일\s*[\d,]+원/.test(match[1]) || /日\s*[\d,]+원/.test(match[1]);
-              let val = parseKoreanAmount(match[1]);
-              if (isDaily) val = val * 30; // 일 단위 -> 월 환산
-
-              if (val > 0 && val < 5000000) return val;
-            }
-          }
-
-          return 0;
+          return { limits, rate };
         }
 
         /* ══════════════════════════════════════════════════════════════════
@@ -1104,53 +1041,41 @@
         /* ══════════════════════════════════════════════════════════════════
          * 6. 계산기용 items 배열 (원본 kb 보존, 복사본 필터링)
          * ════════════════════════════════════════════════════════════════ */
-        const items = [...kb]
-          .filter(b => {
-            if (!b) return false;
-            const title = (b.title || '').toLowerCase();
-            const info = (b.info || '').toLowerCase();
+        const summaryText = cardData.top_benefit_summary || '';
+        const rawItems = summaryText.split('|').map(s => s.trim()).filter(Boolean);
 
-            // 대제목(title)에 블랙리스트 키워드가 있는 경우 제외
-            if (BLACKLIST.some(kw => title.includes(kw.toLowerCase()))) return false;
+        const items = rawItems.map((raw, i) => {
+          const colonIdx = raw.indexOf(':');
+          const title = colonIdx > -1 ? raw.slice(0, colonIdx).trim() : '혜택';
+          const summary = colonIdx > -1 ? raw.slice(colonIdx + 1).trim() : raw;
 
-            // 설명(info)에 비재무/선택형 혜택 단어가 있는 경우 제외 (유의사항 등 설명 용어는 필터링에서 배제)
-            const strictInfoBlack = ['바우처', '라운지', '발렛', '플레이트', '입장권'];
-            if (strictInfoBlack.some(kw => info.includes(kw.toLowerCase()))) return false;
+          const parsed = parseFromSummary(summary);
+          const isGroup = INTEGRATED_KW.some(k => summary.includes(k)) || title.includes('통합');
 
-            const text = title + ' ' + info;
-            return WHITELIST.some(kw => text.includes(kw.toLowerCase()));
-          })
-          .map((b, i) => {
-            const isGroup = INTEGRATED_KW.some(k =>
-              (b.info || '').replace(/<[^>]+>/g, ' ').includes(k)
-            );
-            const amtData = extractBenefitAmount(b.info);
-            let initAmt = 0;
-            if (Array.isArray(amtData)) {
-              let best = null;
-              for (const t of amtData) {
-                if (basePerf >= t.condition) best = t;
-              }
-              initAmt = best ? best.amount : 0;
-            } else {
-              initAmt = amtData;
+          let initAmt = 0;
+          if (parsed.limits.length > 0) {
+            let best = null;
+            for (const t of parsed.limits) {
+              if (basePerf >= t.condition) best = t;
             }
+            initAmt = best ? best.amount : parsed.limits[0].amount;
+          }
 
-            const rate = extractRate(b.info);
-            const isExcluded = checkExcluded(b.info);
-            return {
-              id: i,
-              origTitle: b.title || '혜택',
-              title: b.title || '혜택',
-              summary: extractSummary(b.info),
-              amount: initAmt,
-              amountTiers: Array.isArray(amtData) ? amtData : null,
-              checked: true,
-              isGroup,
-              rate,
-              isExcluded
-            };
-          });
+          const isExcluded = checkExcluded(summary);
+
+          return {
+            id: i,
+            origTitle: title,
+            title: title,
+            summary: summary,
+            amount: initAmt,
+            amountTiers: parsed.limits,
+            checked: true,
+            isGroup,
+            rate: parsed.rate,
+            isExcluded
+          };
+        });
 
         if (items.length === 0) return '';
 
