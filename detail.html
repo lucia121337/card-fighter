@@ -732,7 +732,11 @@
     }
 
     function buildCalc(kb, preMonthMoney, preMonthCondition) {
-      const EXCLUDE = ['유의사항', '주의사항', '안내', '참고', '발급', '약관', '유의', '무이자'];
+      try {
+        const BLACKLIST = [
+          '바우처', '무료', '입장권', '라운지', '발렛', '유의사항', '무이자할부', '현금서비스', '선택형', '플레이트'
+        ];
+        const WHITELIST = ['할인', '청구할인', '현장할인', '적립', '캐시백', '마일리지'];
 
       // 혜택 설명(info) HTML에서 세부 요약 문구 추출 헬퍼 함수
       function extractSummary(html) {
@@ -762,7 +766,7 @@
       }
 
       // 구간별 한도액 파싱 로직
-      function extractAmountForPerf(benefitObj, selectedPerf) {
+      function extractAmountForPerf(benefitObj, selectedPerf, currentTiers) {
         if (selectedPerf === 0) return 0; // 실적 미충족 시 한도는 0원
         const html = benefitObj.info || '';
 
@@ -835,8 +839,8 @@
 
         // 강제 제외: 선택된 실적 금액 및 추출된 실적 티어 금액들은 한도가 될 수 없으므로 무조건 제외 목록에 추가
         if (selectedPerf) excludedValues.add(selectedPerf);
-        if (typeof tiers !== 'undefined' && Array.isArray(tiers)) {
-          tiers.forEach(t => excludedValues.add(t));
+        if (currentTiers && Array.isArray(currentTiers)) {
+          currentTiers.forEach(t => excludedValues.add(t));
         }
         if (typeof basePerf !== 'undefined') excludedValues.add(basePerf);
 
@@ -941,14 +945,24 @@
 
       const tiers = extractPerfTiers(basePerf, kb, preMonthCondition);
 
-      // 계산기 항목 생성 (유의사항 등 계산 제외 대상 필터링)
-      const items = kb
+      // 계산기 항목 생성 (블랙리스트 제외 및 화이트리스트 포함 대상 필터링)
+      const items = [...kb]
         .filter(b => {
-          const t = b.title || '';
-          return !EXCLUDE.some(ex => t.includes(ex));
+          if (!b) return false;
+          const title = (b.title || '').toLowerCase();
+          const info = (b.info || '').toLowerCase();
+          const textToSearch = title + ' ' + info;
+
+          // 1. 제외 조건
+          const hasBlacklist = BLACKLIST.some(kw => textToSearch.includes(kw.toLowerCase()));
+          if (hasBlacklist) return false;
+
+          // 2. 포함 조건
+          const hasWhitelist = WHITELIST.some(kw => textToSearch.includes(kw.toLowerCase()));
+          return hasWhitelist;
         })
         .map((b, i) => {
-          const amount = extractAmountForPerf(b, basePerf);
+          const amount = extractAmountForPerf(b, basePerf, tiers);
           return {
             id: i,
             title: b.title || '혜택',
@@ -1052,6 +1066,10 @@
       <span class="tot-amt" id="calc-total-amt"></span>
     </div>
   </div>`;
+      } catch (err) {
+        console.error("Error in buildCalc:", err);
+        return '';
+      }
     }
 
 
