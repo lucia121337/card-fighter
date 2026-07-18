@@ -1368,16 +1368,16 @@
         <div class="quiz-step-num" id="step-num-12">Question 11 / 13</div>
         <div class="quiz-question">매달 고정으로 납부하는 공과금(아파트 관리비, 가스/전기/수도세 등)은 얼마인가요?</div>
         <div class="slider-container">
-          <div class="slider-value-display" id="utility-val-display">12만 원</div>
+          <div class="slider-value-display" id="utility-val-display">20만 원</div>
           <div class="slider-controls-row">
-            <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('utility', -10000)">-</button>
-            <input type="range" min="0" max="300000" step="10000" value="120000" class="modern-slider" id="utility-slider" oninput="updateSliderDisplay('utility')">
-            <button type="button" class="slider-adj-btn plus" onclick="adjustSliderValue('utility', 10000)">+</button>
+            <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('utility', -20000)">-</button>
+            <input type="range" min="0" max="600000" step="20000" value="200000" class="modern-slider" id="utility-slider" oninput="updateSliderDisplay('utility')">
+            <button type="button" class="slider-adj-btn plus" onclick="adjustSliderValue('utility', 20000)">+</button>
           </div>
           <div class="slider-labels">
             <span>0원</span>
-            <span>15만 원</span>
-            <span>30만 원+</span>
+            <span>30만 원</span>
+            <span>60만 원+</span>
           </div>
         </div>
       </div>
@@ -1572,7 +1572,7 @@
     digital_spend: 25000,
     culture_spend: 60000,
     travel_spend: 200000,
-    utility_spend: 120000,
+    utility_spend: 200000,
     education_spend: 200000,
     keywords: []
   };
@@ -1849,7 +1849,7 @@
       x[8] / 150000.0,
       x[9] / 300000.0,  // culture_spend
       x[10] / 1000000.0, // travel_spend
-      x[11] / 300000.0,  // utility_spend
+      x[11] / 600000.0,  // utility_spend
       x[12] / 1000000.0  // education_spend
     ];
 
@@ -1882,7 +1882,7 @@
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
-      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 15000,
+      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 0,
       userAnswers.shopping_spend,
       userAnswers.convenience_spend,
       userAnswers.food_spend,
@@ -2105,17 +2105,19 @@
     renderRadarChart(features, mbti.color);
   }
 
-  // 13. Radar 차트 렌더링 (13차원 피처 데이터를 육각형 차트로 축약 매핑)
+  // 13. Radar 차트 렌더링 (13차원 피처 데이터를 8각형 차트로 축약 매핑)
   function renderRadarChart(features, themeColor) {
     const ctx = document.getElementById('mbtiRadarChart').getContext('2d');
     
-    // 6대 핵심 축 환산 점수 (0~100 스케일링)
-    const travelScore = features[0] === 1 ? 90 : 40;
-    const shoppingScore = Math.min(((features[3] + features[4]) / 1300000) * 100, 100);
-    const foodScore = Math.min(((features[5] + features[6]) / 1300000) * 100, 100);
-    const fixedScore = Math.min(((features[7] + features[8]) / 300000) * 100, 100); // 통신 + 구독
-    const utilityScore = Math.min((features[11] / 300000) * 100, 100); // 공과금 단독 축 격상!
-    const cultureScore = Math.min(((features[9] + features[10] + features[12]) / 2000000) * 100, 100); // 여가문화 + 여행 + 교육비
+    // 8대 핵심 축 환산 점수 (0~100 스케일링, 실지출 기반 왜곡 교정)
+    const mobilityScore = Math.min(((features[1] + features[2]) / 500000) * 100, 100);
+    const shoppingScore = Math.min((features[3] / 1000000) * 100, 100);
+    const foodScore = Math.min((features[5] / 1000000) * 100, 100);
+    const snackScore = Math.min(((features[4] + features[6]) / 500000) * 100, 100);
+    const digitalScore = Math.min(((features[7] + features[8]) / 250000) * 100, 100);
+    const travelScore = Math.min((features[10] / 1000000) * 100, 100);
+    const utilityScore = Math.min((features[11] / 600000) * 100, 100);
+    const cultureScore = Math.min(((features[9] + features[12]) / 1200000) * 100, 100);
 
     if (radarChartInstance) {
       radarChartInstance.destroy();
@@ -2124,10 +2126,10 @@
     radarChartInstance = new Chart(ctx, {
       type: 'radar',
       data: {
-        labels: ['이동/교통', '마트/생활', '외식/식비', '통신/구독', '공과금/납부', '교육/여가문화'],
+        labels: ['이동/교통', '쇼핑/생활', '외식/식비', '카페/소확행', '통신/구독', '여행/휴식', '공과금/납부', '교육/여가문화'],
         datasets: [{
           label: '나의 지출 에너지',
-          data: [travelScore, shoppingScore, foodScore, fixedScore, utilityScore, cultureScore],
+          data: [mobilityScore, shoppingScore, foodScore, snackScore, digitalScore, travelScore, utilityScore, cultureScore],
           backgroundColor: hexToRgbA(themeColor, 0.2),
           borderColor: themeColor,
           borderWidth: 2.5,
@@ -2240,7 +2242,7 @@
       digital_spend: 25000,
       culture_spend: 60000,
       travel_spend: 200000,
-      utility_spend: 120000,
+      utility_spend: 200000,
       education_spend: 200000,
       keywords: []
     };
