@@ -85,7 +85,15 @@ export default async function handler(req, res) {
 
   // 트렌드 데이터는 실시간성이 낮으므로(매시간 배치 수집) Vercel Edge/CDN에서 1시간 캐시하도록 허용한다.
   // 이러면 캐시 HIT 시 서버리스 함수 자체를 호출하지 않고 엣지에서 바로 응답해 훨씬 빨라진다.
-  const setCdnCache = () => res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  // Vercel은 일반 Cache-Control 하나만 쓰면 s-maxage/stale-while-revalidate를 브라우저에 보내기
+  // 전에 잘라내 버려서(문서 확인됨) 클라이언트에는 무조건 "max-age=0, must-revalidate"만 보인다 —
+  // 그건 정상이고 실제로 엣지 캐시가 도는지는 x-vercel-cache 헤더로만 확인 가능하다.
+  // Vercel 자체 엣지 캐시를 확실히 타게 하려면 Vercel-CDN-Cache-Control을 명시적으로 같이 줘야 한다.
+  const setCdnCache = () => {
+    res.setHeader('Vercel-CDN-Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('CDN-Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  };
 
   try {
     const cached = await getCached(cacheKey);
