@@ -614,6 +614,42 @@
       color: var(--brand);
       align-self: flex-start
     }
+
+    /* 통합 한도 그룹 박스 */
+    .calc-group-box {
+      border: 2px solid #6366f1;
+      border-radius: 14px;
+      padding: 14px 14px 8px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #eef2ff 0%, #f8faff 100%);
+      position: relative;
+    }
+
+    .calc-group-header {
+      font-size: 13px;
+      font-weight: 800;
+      color: #4f46e5;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px dashed #a5b4fc;
+      letter-spacing: 0.01em;
+    }
+
+    .calc-group-box .calc-row:last-of-type {
+      border-bottom: 1px solid #c7d2fe;
+    }
+
+    .calc-group-warn {
+      font-size: 12px;
+      font-weight: 700;
+      color: #dc2626;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -945,72 +981,175 @@
 
       const tiers = extractPerfTiers(basePerf, kb, preMonthCondition);
 
-      // 계산기 항목 생성 (블랙리스트 제외 및 화이트리스트 포함 대상 필터링)
+
+      // ── 통합한도 여부 판별: 혜택 info 안에 '통합할인한도' 텍스트가 있으면 true ──
+      const INTEGRATED_KEYWORDS = ['통합할인한도', '통합 할인한도', '통합한도', '통합 한도'];
+
+
+      function hasIntegratedLimitText(infoHtml) {
+        const t = (infoHtml || '').replace(/<[^>]+>/g, ' ');
+        return INTEGRATED_KEYWORDS.some(k => t.includes(k));
+      }
+
+      // ── 통합한도 금액을 실적 구간에 맞게 파싱 ────────────────────────────────
+      // 텍스트 형태: "전월 이용금액 30~50만원 : 월 5천원"  "50~100만원 : 월 1만 2천원" ...
+      function parseIntegratedLimitForPerf(infoHtml, selectedPerf) {
+        if (!infoHtml || selectedPerf === 0) return 0;
+        const rawText = infoHtml.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ');
+
+        // 구간 패턴: "(숫자~)숫자만원 이상/미만/초과 : 월 OOO원"  또는  "이상 : OOO원"
+        // 각 줄/단락을 파악해 선택 실적에 맞는 구간 탐색
+        const perfMan = selectedPerf / 10000;
+
+        // 실적 구간 및 한도를 한 줄로 표현한 패턴 매칭
+        const lineReg = /(\d+(?:\.\d+)?)\s*만\s*원\s*(?:이상|초과)[^:：0-9만천원]*[:：]\s*(?:월\s*)?([^가-힣\n]{1,30})/gi;
+        let best = 0; // 선택 실적 이하이면서 가장 큰 구간 하한
+        let bestAmt = 0;
+        let m;
+        let lc = 0;
+        while ((m = lineReg.exec(rawText)) !== null) {
+          if (lc++ > 200) break;
+          const threshold = parseFloat(m[1]) * 10000;
+          if (threshold <= selectedPerf) {
+            const amt = parseKoreanAmount(m[2]);
+            if (amt > 0 && threshold >= best) {
+              best = threshold;
+              bestAmt = amt;
+            }
+          }
+        }
+        if (bestAmt > 0) return bestAmt;
+
+        // fallback: "30~50만원 : 5천원" 형태
+        const rangeReg = /(\d+(?:\.\d+)?)\s*~\s*(\d+(?:\.\d+)?)\s*만\s*원[^:：0-9만천원]*[:：]\s*(?:월\s*)?([^가-힣\n]{1,30})/gi;
+        lc = 0;
+        while ((m = rangeReg.exec(rawText)) !== null) {
+          if (lc++ > 200) break;
+          const lo = parseFloat(m[1]) * 10000;
+          const hi = parseFloat(m[2]) * 10000;
+          if (selectedPerf >= lo && selectedPerf < hi) {
+            const amt = parseKoreanAmount(m[3]);
+            if (amt > 0) return amt;
+          }
+        }
+
+        // fallback: 단순 "통합할인한도 OO만원" 패턴
+        const simpleReg = /(?:통합할인한도|통합한도|통합\s*한도)[^\d]*?(\d+(?:\.\d+)?\s*만\s*(?:\d+\s*천)?|[\d,]+)\s*(?:원|점)/i;
+        const sm = simpleReg.exec(rawText);
+        if (sm) return parseKoreanAmount(sm[1]);
+
+        return 0;
+      }
+
+      // ── 계산기용 items 배열 생성 (원본 kb 복제본 필터링) ─────────────────────
       const items = [...kb]
         .filter(b => {
           if (!b) return false;
           const title = (b.title || '').toLowerCase();
-          const info = (b.info || '').toLowerCase();
-          const textToSearch = title + ' ' + info;
-
-          // 1. 제외 조건
-          const hasBlacklist = BLACKLIST.some(kw => textToSearch.includes(kw.toLowerCase()));
-          if (hasBlacklist) return false;
-
-          // 2. 포함 조건
-          const hasWhitelist = WHITELIST.some(kw => textToSearch.includes(kw.toLowerCase()));
-          return hasWhitelist;
+          const info  = (b.info  || '').toLowerCase();
+          const text  = title + ' ' + info;
+          if (BLACKLIST.some(kw => text.includes(kw.toLowerCase()))) return false;
+          return WHITELIST.some(kw => text.includes(kw.toLowerCase()));
         })
         .map((b, i) => {
-          const amount = extractAmountForPerf(b, basePerf, tiers);
+          const amount   = extractAmountForPerf(b, basePerf, tiers);
+          const isGroup  = hasIntegratedLimitText(b.info);
+          const groupLimit = isGroup ? parseIntegratedLimitForPerf(b.info, basePerf) : 0;
           return {
             id: i,
-            title: b.title || '혜택',
+            origTitle: b.title || '혜택',
+            title:  b.title || '혜택',
             summary: extractSummary(b.info),
-            amount: amount,
-            checked: true
+            amount,
+            checked: true,
+            isGroup,           // true면 통합 한도 그룹에 속함
+            groupLimit,        // 통합 한도 금액 (해당 실적 구간)
           };
         });
 
-      // 초기 배율: basePerf > 0이면 기준실적(1배) 선택 상태, 아니면 1
-      window._calcPerfMultiplier = (basePerf > 0) ? 1 : 1;
+      // ── 통합 그룹 / 독립 혜택으로 분리 ─────────────────────────────────────
+      const groupItems = items.filter(it => it.isGroup);
+      const soloItems  = items.filter(it => !it.isGroup);
 
-      /* ── 예상 혜택 합계 렌더링 ── */
+      // ── 실시간 합계 렌더링 ───────────────────────────────────────────────────
       function renderTotal() {
-        const mult = window._calcPerfMultiplier;
-        const total = items.filter(it => it.checked).reduce((s, it) => s + (it.amount * mult), 0);
-        document.getElementById('calc-total-amt').textContent =
-          total ? '최대 ' + total.toLocaleString() + '원' : '0원';
-      }
+        const currentPerf = Number(document.getElementById('calc-perf-select')?.value ?? basePerf);
 
-      /* ── 콤보박스 change 이벤트 핸들러 ── */
-      window._changePerfLimit = function (val) {
-        const selectedPerf = Number(val);
-        if (selectedPerf === 0) {
-          window._calcPerfMultiplier = 0;
-        } else if (basePerf > 0) {
-          window._calcPerfMultiplier = selectedPerf / basePerf;
-        } else {
-          window._calcPerfMultiplier = 1;
+        // 통합 그룹 서브토탈 계산 및 캡핑
+        let groupSubtotal = 0;
+        let groupCap = 0;
+
+        if (groupItems.length > 0) {
+          // 현재 실적에 맞는 통합한도 재계산 (콤보박스 변경 대응)
+          const sampleInfo = kb.find(b => b.title === groupItems[0].origTitle)?.info || '';
+          groupCap = parseIntegratedLimitForPerf(sampleInfo, currentPerf);
+
+          // 각 혜택 금액도 현재 실적에 맞게 갱신
+          groupItems.forEach(it => {
+            const origObj = kb.find(b => b.title === it.origTitle);
+            if (origObj) {
+              it.amount = extractAmountForPerf(origObj, currentPerf, tiers);
+              const el = document.getElementById('calc-amt-' + it.id);
+              if (el) {
+                el.textContent = it.amount ? '최대 ' + it.amount.toLocaleString() + '원' : '0원';
+                el.className = it.amount ? 'calc-amount' : 'calc-amount zero';
+              }
+            }
+            if (it.checked) groupSubtotal += it.amount;
+          });
+
+          // 통합 한도 헤더 업데이트
+          const titleEl = document.getElementById('calc-group-title');
+          if (titleEl) {
+            titleEl.textContent = groupCap
+              ? `👑 통합 한도: 최대 ${groupCap.toLocaleString()}원`
+              : '👑 통합 한도 그룹';
+          }
+
+          // 캡핑 경고 표시/숨김
+          const warnEl = document.getElementById('calc-group-warning');
+          if (warnEl) {
+            if (groupCap > 0 && groupSubtotal > groupCap) {
+              warnEl.textContent = `⚠️ 통합 한도 도달! (적용: ${groupCap.toLocaleString()}원)`;
+              warnEl.style.display = 'block';
+            } else {
+              warnEl.style.display = 'none';
+            }
+          }
         }
 
-        window._calcItems.forEach(it => {
-          const el = document.getElementById('calc-amt-' + it.id);
-          if (el && it.amount) {
-            const newAmt = Math.round(it.amount * window._calcPerfMultiplier);
-            el.textContent = newAmt ? '최대 ' + newAmt.toLocaleString() + '원' : '0원';
-            el.className = newAmt ? 'calc-amount' : 'calc-amount zero';
+        // 독립 혜택 서브토탈 계산 + 현재 실적 맞게 갱신
+        let soloTotal = 0;
+        soloItems.forEach(it => {
+          const origObj = kb.find(b => b.title === it.origTitle);
+          if (origObj) {
+            it.amount = extractAmountForPerf(origObj, currentPerf, tiers);
+            const el = document.getElementById('calc-amt-' + it.id);
+            if (el) {
+              el.textContent = it.amount ? '최대 ' + it.amount.toLocaleString() + '원' : '0원';
+              el.className = it.amount ? 'calc-amount' : 'calc-amount zero';
+            }
           }
+          if (it.checked) soloTotal += it.amount;
         });
-        window._calcRender();
-      };
 
-      /* ── 혜택 항목 행 HTML ── */
-      const rows = items.map(it => `
+        // 최종 합계 = 독립 혜택 합 + 캡핑된 통합 그룹 금액
+        const cappedGroup = (groupCap > 0 && groupSubtotal > groupCap) ? groupCap : groupSubtotal;
+        const finalTotal  = soloTotal + cappedGroup;
+        document.getElementById('calc-total-amt').textContent =
+          finalTotal ? '최대 ' + finalTotal.toLocaleString() + '원' : '0원';
+      }
+
+      /* ── 콤보박스 change 핸들러 ── */
+      window._changePerfLimit = function () { renderTotal(); };
+
+      /* ── 혜택 행 HTML 생성 헬퍼 ── */
+      function makeRow(it) {
+        return `
     <div class="calc-row">
       <label class="calc-toggle">
         <input type="checkbox" id="calc-${it.id}" checked
-          onchange="window._calcItems[${it.id}].checked=this.checked; window._calcRender();">
+          onchange="window._calcItems.find(x=>x.id===${it.id}).checked=this.checked; window._calcRender();">
         <span class="calc-slider"></span>
       </label>
       <span class="calc-name">
@@ -1020,12 +1159,27 @@
       <span id="calc-amt-${it.id}" class="calc-amount${!it.amount ? ' zero' : ''}">
         ${it.amount ? '최대 ' + it.amount.toLocaleString() + '원' : '확인 필요'}
       </span>
-    </div>`).join('');
+    </div>`;
+      }
 
-      /* ── 전월실적 콤보박스 HTML ──────────────────────────────────────────
-       * tiers 배열이 비어있으면(무실적 카드) 콤보박스를 렌더링하지 않습니다.
-       * 옵션: [실적 미충족] + extractPerfTiers()로 추출된 구간 목록
-       *──────────────────────────────────────────────────────────────────── */
+      /* ── 통합 그룹 박스 HTML ── */
+      let groupBoxHTML = '';
+      if (groupItems.length > 0) {
+        const initCap = groupItems[0].groupLimit;
+        groupBoxHTML = `
+    <div class="calc-group-box">
+      <div class="calc-group-header" id="calc-group-title">
+        👑 통합 한도: 최대 ${initCap ? initCap.toLocaleString() + '원' : '확인 필요'}
+      </div>
+      ${groupItems.map(makeRow).join('')}
+      <div id="calc-group-warning" class="calc-group-warn" style="display:none"></div>
+    </div>`;
+      }
+
+      /* ── 독립 혜택 행 HTML ── */
+      const soloHTML = soloItems.map(makeRow).join('');
+
+      /* ── 전월실적 콤보박스 HTML ── */
       let perfSelectHTML = '';
       if (tiers.length > 0) {
         const optionsHTML = [
@@ -1054,13 +1208,14 @@
       </div>`;
       }
 
-      window._calcItems = items;
+      window._calcItems  = items;
       window._calcRender = renderTotal;
 
       return `<div class="calc-box">
     <h3>🧮 혜택 계산기</h3>
     ${perfSelectHTML}
-    ${rows}
+    ${groupBoxHTML}
+    ${soloHTML}
     <div class="calc-total">
       <span class="tot-label">예상 혜택 합계</span>
       <span class="tot-amt" id="calc-total-amt"></span>
