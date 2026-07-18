@@ -1260,19 +1260,119 @@ const CASHBACK = {
     { name:'KB국민카드', cards:[{name:'KB국민 노리카드', amount:2}] },
     { name:'현대카드', cards:[{name:'현대카드 Z WORK', amount:1.5}] },
   ]},
-  '네이버페이': { icon:'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png', url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', real:false, companies:[
-    { name:'신한카드', cards:[{name:'신한카드 Deep Oil', amount:2}] },
-    { name:'하나카드', cards:[{name:'하나카드 1Q', amount:1.5}] },
+  // 2026-07-18 https://card.pay.naver.com/home/promotion/event?from=menu_event&expanded=true 직접 확인해 반영(22개 이벤트).
+  // "이 달의 대표 이벤트" 요약 카드 8개의 금액은 카드사별 실제 최댓값과 다를 때가 있어(예: 신한 요약엔 33만원인데
+  // 펼친 목록엔 신한 72만원 이벤트가 따로 있음) 요약 대신 펼친 목록(22개) 전체를 기준으로 카드사별 최댓값을 계산.
+  '네이버페이': { icon:'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png', url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', real:true, maxAmount:84, companies:[
+    { name:'KB국민카드', maxAmount:84, cards:[
+      {name:'KB국민카드 (최대 84만원 캐시백)', amount:84, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981668445&cardCompanyId=CCKM&cardIssuerCode=100&from=menu_event'},
+    ]},
+    { name:'현대카드', maxAmount:75, cards:[
+      {name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://card.pay.naver.com/home/promotion?promotionId=20260624001967393139&cardCompanyId=CCDI&cardIssuerCode=CCDI&from=menu_event'},
+      {name:'현대카드', amount:71.5}, {name:'현대카드', amount:62}, {name:'현대카드', amount:60},
+      {name:'현대카드', amount:40}, {name:'현대카드', amount:25},
+    ]},
+    { name:'신한카드', maxAmount:72, cards:[
+      {name:'신한카드 (최대 72만원 캐시백)', amount:72, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865356&cardCompanyId=CCLG&cardIssuerCode=CCLG&from=menu_event'},
+      {name:'신한카드', amount:71}, {name:'신한카드', amount:69}, {name:'신한카드', amount:33},
+    ]},
+    { name:'롯데카드', maxAmount:65, cards:[
+      {name:'롯데카드 (최대 65만원 캐시백)', amount:65, url:'https://card.pay.naver.com/home/promotion?promotionId=20260622001948134134&cardCompanyId=CCLO&cardIssuerCode=CCLO&from=menu_event'},
+      {name:'롯데카드', amount:62}, {name:'롯데카드', amount:18}, {name:'롯데카드', amount:11},
+    ]},
+    { name:'삼성카드', maxAmount:50.7, cards:[
+      {name:'삼성카드 (최대 50.7만원 캐시백)', amount:50.7, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865364&cardCompanyId=CCSS&cardIssuerCode=CCSS&from=menu_event'},
+      {name:'삼성카드', amount:19.7}, {name:'삼성카드', amount:15}, {name:'삼성카드', amount:12.7},
+    ]},
+    { name:'하나카드', maxAmount:57, cards:[
+      {name:'하나카드 (최대 57만원 캐시백)', amount:57, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865360&cardCompanyId=CCHN&cardIssuerCode=044&from=menu_event'},
+    ]},
+    { name:'NH농협카드', maxAmount:21.5, cards:[
+      {name:'NH농협카드 (최대 21.5만원 캐시백)', amount:21.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260625001974825484&cardCompanyId=CCNH&cardIssuerCode=CCNH&from=menu_event'},
+    ]},
+    { name:'IBK기업은행카드', maxAmount:12.5, cards:[
+      {name:'IBK기업은행 (최대 12.5만원 캐시백)', amount:12.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865358&cardCompanyId=CCBC&cardIssuerCode=0003&from=menu_event'},
+    ]},
   ]},
   '토스': { icon:'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico', url:'https://card-lounge.toss.im/', real:false, companies:[
     { name:'하나카드', cards:[{name:'토스뱅크 체크카드', amount:1}] },
   ]},
   '카드고릴라': { icon:'', url:'https://www.card-gorilla.com/event', real:true, companies:[] },
-  '아정당카드': { icon:'', url:'https://ajd.co.kr/card', real:false, companies:[
-    { name:'우리카드', cards:[{name:'우리카드 카드의정석 POINT', amount:2}] },
+  // 2026-07-18 https://www.ajd.co.kr/card/event/list 직접 확인해 반영(지난 이벤트 제외 20건).
+  // 연회비 100% 캐시백처럼 고정 금액이 없는 이벤트는 amount:0으로 두고, 카드사별 최대금액(maxAmount)은
+  // loadGorilla()와 동일한 방식으로 미리 계산해서 넣어둠(getPlatformCompanies가 그대로 읽어감).
+  '아정당카드': { icon:'', url:'https://www.ajd.co.kr/card/event/list', real:true, maxAmount:86, companies:[
+    { name:'KB국민카드', maxAmount:86, cards:[
+      {name:'KB국민 WE:SH Travel 카드 외 4종 (최대 86만원 캐시백)', amount:86, url:'https://www.ajd.co.kr/card/event/detail/289'},
+      {name:'KB국민카드 (체크) 9종', amount:3, url:'https://www.ajd.co.kr/card/event/detail/273'},
+    ]},
+    { name:'현대카드', maxAmount:75, cards:[
+      {name:'대한항공카드 the First Edition2', amount:75, url:'https://www.ajd.co.kr/card/event/detail/287'},
+      {name:'대한항공카드 120·300', amount:72, url:'https://www.ajd.co.kr/card/event/detail/286'},
+      {name:'대한항공카드 060', amount:69, url:'https://www.ajd.co.kr/card/event/detail/285'},
+      {name:'에너지플러스 현대카드', amount:60, url:'https://www.ajd.co.kr/card/event/detail/283'},
+      {name:'현대카드 (연회비 100% 캐시백)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/284'},
+    ]},
+    { name:'신한카드', maxAmount:74, cards:[
+      {name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/281'},
+      {name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/282'},
+      {name:'신한카드 5종', amount:73, url:'https://www.ajd.co.kr/card/event/detail/280'},
+    ]},
+    { name:'롯데카드', maxAmount:68, cards:[
+      {name:'LOCA LIKIT 1.5 외 1종', amount:68, url:'https://www.ajd.co.kr/card/event/detail/275'},
+      {name:'LOCA LIKIT 외 4종', amount:67, url:'https://www.ajd.co.kr/card/event/detail/276'},
+      {name:'Triple in LOCA', amount:42, url:'https://www.ajd.co.kr/card/event/detail/277'},
+    ]},
+    { name:'삼성카드', maxAmount:36.5, cards:[
+      {name:'삼성카드 9종', amount:36.5, url:'https://www.ajd.co.kr/card/event/detail/279'},
+    ]},
+    { name:'NH농협카드', maxAmount:26.5, cards:[
+      {name:'NH농협카드 3종', amount:26.5, url:'https://www.ajd.co.kr/card/event/detail/295'},
+      {name:'NH농협 렌탈 제휴카드 2종', amount:4.2, url:'https://www.ajd.co.kr/card/event/detail/294'},
+      {name:'NH농협 통신 제휴카드 3종', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/293'},
+    ]},
+    { name:'우리카드', maxAmount:2.6, cards:[
+      {name:'아정당 우리카드 월납 할인', amount:2.6, url:'https://www.ajd.co.kr/card/event/detail/296'},
+    ]},
+    // "연회비 100% 캐시백"은 문구에 고정 금액이 없고, 대상 3종 카드 중 가장 비싼 연회비(2.9만원)만큼
+    // 캐시백되는 구조 — 카드별 연회비를 직접 조회해 계산.
+    { name:'BC바로카드', maxAmount:2.9, cards:[
+      {name:'BC바로카드 3종 (연회비 100% 캐시백, 최대 연회비 2.9만원)', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/272'},
+      {name:'BC 바로 에어 맥스 카드 (마티나골드 라운지 무료)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/274'},
+    ]},
   ]},
-  '뱅크샐러드': { icon:'', url:'https://www.banksalad.com/chart/cards?tab=event', real:false, companies:[
-    { name:'KB국민카드', cards:[{name:'KB국민 리브 Next 카드', amount:1}] },
+  // 2026-07-18 https://www.banksalad.com/chart/cards?tab=event 직접 확인해 반영(22개 이벤트 타일).
+  // 현대백화점(1만원)은 10개 주요 카드사가 아니라서 제외.
+  '뱅크샐러드': { icon:'', url:'https://www.banksalad.com/chart/cards?tab=event', real:true, maxAmount:85, companies:[
+    { name:'롯데카드', maxAmount:85, cards:[
+      {name:'롯데카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1076'},
+      {name:'롯데카드 전용관', amount:84},
+      {name:'롯데카드', amount:79},
+    ]},
+    { name:'신한카드', maxAmount:85, cards:[
+      {name:'신한카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1081'},
+      {name:'신한카드', amount:84},
+      {name:'신한카드', amount:83},
+    ]},
+    { name:'KB국민카드', maxAmount:85, cards:[
+      {name:'KB국민카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1085'},
+      {name:'KB국민카드', amount:3},
+    ]},
+    { name:'현대카드', maxAmount:75, cards:[
+      {name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://www.banksalad.com/product/cards/event/1073'},
+      {name:'현대카드', amount:72}, {name:'현대카드', amount:71.5}, {name:'현대카드', amount:69},
+      {name:'현대카드', amount:62}, {name:'현대카드', amount:60}, {name:'현대카드', amount:40}, {name:'현대카드', amount:25},
+    ]},
+    { name:'삼성카드', maxAmount:25.7, cards:[
+      {name:'삼성카드 (최대 25.7만원 캐시백)', amount:25.7, url:'https://www.banksalad.com/product/cards/event/1074'},
+    ]},
+    { name:'NH농협카드', maxAmount:23.5, cards:[
+      {name:'NH농협카드 (최대 23.5만원 캐시백)', amount:23.5, url:'https://www.banksalad.com/product/cards/event/1086'},
+      {name:'NH농협카드', amount:12.5}, {name:'NH농협카드', amount:12.2},
+    ]},
+    { name:'IBK기업은행카드', maxAmount:15.5, cards:[
+      {name:'IBK기업은행 (최대 15.5만원 캐시백)', amount:15.5, url:'https://www.banksalad.com/product/cards/event/1083'},
+    ]},
   ]},
 };
 
@@ -1284,16 +1384,20 @@ const CO_ALIAS = [['삼성','삼성카드'],['신한','신한카드'],['현대',
 function extractCompany(title){ const t=title||''; for(const [a,n] of CO_ALIAS){ if(t.includes(a)) return n; } return '기타'; }
 
 let CB_EVENTS = [];
-let activePlatform = '카드고릴라';
+let activePlatform = '전체보기';
 let cbView = 'companies';   // companies | cards
 let drillCompany = null;
 let cbReady = false;
 
 function cbAmount(e){
-  const m = ((e.subject||'')+' '+(e.title||'')).match(/(\d[\d,]*)\s*만원/g) || [];
-  const nums = m.map(s=>parseInt(s.replace(/[^\d]/g,''),10)).filter(n=>n>0 && n<=1000);
+  // "20만원 이상 결제 시 최대 6만원 즉시 할인"처럼 "OO만원 이상"은 캐시백 금액이 아니라 조건(전월실적/
+  // 결제금액 등)을 나타내는 숫자라서 실제 혜택 금액보다 훨씬 클 때가 많다 — 그런 숫자는 후보에서 제외한다.
+  const m = ((e.subject||'')+' '+(e.title||'')).match(/(\d[\d,.]*)\s*만원(?!\s*(이상|이용|결제))/g) || [];
+  const nums = m.map(s=>parseFloat(s.replace(/[^\d.]/g,''))).filter(n=>n>0 && n<=1000);
   return nums.length ? Math.max(...nums) : 0;
 }
+
+const MAJOR_COMPANY_NAMES = new Set(COMPANIES.map(c => c.name)); // 우리가 다루는 10개 주요 카드사만 노출
 
 async function loadGorilla(){
   const j = await (await fetch('cashback_events.json')).json();
@@ -1301,6 +1405,7 @@ async function loadGorilla(){
   const byco = {};
   CB_EVENTS.forEach(e=>{
     const co = e.company || extractCompany(e.title);   // 스크래퍼가 복원한 실제 카드사 우선
+    if (!MAJOR_COMPANY_NAMES.has(co)) return;   // 10개 주요 카드사 외(기타/씨티카드/카카오뱅크 등)는 불러오지 않음
     (byco[co] = byco[co] || {name:co, cards:[]});
     byco[co].cards.push({name:e.title, amount:cbAmount(e), subject:e.subject, type:e.type, event_idx:e.idx});
   });
@@ -1317,20 +1422,46 @@ function getPlatformCompanies(platform){
   const m = {};
   // 전체보기는 이벤트 유무와 상관없이 우리가 다루는 10개 카드사가 항상 다 나와야 한다
   // (플랫폼 탭들은 반대로 이벤트가 있는 카드사만 노출 — 아래 각 platform.companies가 이미 그렇게 구성됨).
-  COMPANIES.forEach(c => { m[c.name] = {name:c.name, cards:[], maxAmount:0}; });
-  Object.values(CASHBACK).forEach(p => (p.companies||[]).forEach(c=>{
-    (m[c.name] = m[c.name] || {name:c.name, cards:[], maxAmount:0});
-    m[c.name].cards.push(...c.cards);
-    m[c.name].maxAmount = Math.max(m[c.name].maxAmount, c.maxAmount || Math.max(0, ...c.cards.map(x=>x.amount||0)));
+  COMPANIES.forEach(c => { m[c.name] = {name:c.name, cards:[], maxAmount:0, bestPlatform:null, _tied:[]}; });
+  // bestPlatform: 그 카드사의 maxAmount를 실제로 보여준 플랫폼 — 클릭 시 그 플랫폼의 랜딩으로 보낸다.
+  // 여러 플랫폼이 동점으로 1위면: 아정당카드 우선, 아니면 가나다순으로 첫 번째 플랫폼을 선택.
+  Object.entries(CASHBACK).forEach(([platformName, p]) => (p.companies||[]).forEach(c=>{
+    const entry = (m[c.name] = m[c.name] || {name:c.name, cards:[], maxAmount:0, bestPlatform:null, _tied:[]});
+    entry.cards.push(...c.cards);
+    const amt = c.maxAmount || Math.max(0, ...c.cards.map(x=>x.amount||0));
+    if (amt > entry.maxAmount) { entry.maxAmount = amt; entry._tied = [platformName]; }
+    else if (amt === entry.maxAmount && amt > 0) { entry._tied.push(platformName); }
   }));
+  Object.values(m).forEach(entry => {
+    entry.bestPlatform = entry._tied.includes('아정당카드')
+      ? '아정당카드'
+      : [...entry._tied].sort((a,b)=>a.localeCompare(b,'ko'))[0] || null;
+    delete entry._tied;
+  });
   return Object.values(m).sort((a,b)=>b.maxAmount-a.maxAmount);
+}
+
+// 플랫폼 탭 하나의 최댓값(그 플랫폼 안 카드사들 중 가장 큰 금액) — LNB 탭 정렬 기준.
+function platformMaxAmount(name){
+  const companies = (CASHBACK[name] && CASHBACK[name].companies) || [];
+  return Math.max(0, ...companies.map(c => c.maxAmount || Math.max(0, ...(c.cards||[]).map(x=>x.amount||0))));
+}
+// LNB 탭 순서: 최댓값 내림차순. 동점이면 아정당카드가 무조건 앞, 그 외 동점은 가나다순.
+function sortedPlatformNames(){
+  return Object.keys(CASHBACK).sort((a,b)=>{
+    const ma = platformMaxAmount(a), mb = platformMaxAmount(b);
+    if (ma !== mb) return mb - ma;
+    if (a==='아정당카드') return -1;
+    if (b==='아정당카드') return 1;
+    return a.localeCompare(b,'ko');
+  });
 }
 
 async function renderCashback(){
   if(!cbReady){
     try { await loadGorilla(); } catch(e){}
     cbReady = true;
-    const tabs = ['전체보기', ...Object.keys(CASHBACK)];
+    const tabs = ['전체보기', ...sortedPlatformNames()];
     document.getElementById('cb-tabs').innerHTML = tabs.map(name=>{
       if(name==='전체보기') return `<button class="cb-platform-tab" data-platform="전체보기" onclick="setCbPlatform('전체보기')">전체보기</button>`;
       const d=CASHBACK[name]; const icon=d.icon?`<img src="${esc(d.icon)}" alt="" onerror="this.style.display='none'">`:'';
@@ -1356,6 +1487,52 @@ async function renderCashback(){
   }
 }
 
+// 특정 플랫폼 탭에서 카드사 클릭 시 자체 드릴다운 대신 바로 이동시킬 랜딩 페이지.
+// 이벤트가 없는 카드사는 URL 없음(해당 카드사가 목록에 아예 안 뜨므로 자연히 빠짐).
+const PLATFORM_COMPANY_LANDING = {
+  '카드고릴라': {
+    '삼성카드':        'https://www.card-gorilla.com/event/detail/1',
+    '현대카드':        'https://www.card-gorilla.com/event/detail/7',
+    'KB국민카드':      'https://www.card-gorilla.com/event/detail/3',
+    '신한카드':        'https://www.card-gorilla.com/event/detail/2',
+    '롯데카드':        'https://www.card-gorilla.com/event/detail/4',
+    'BC바로카드':      'https://www.card-gorilla.com/event/detail/32',
+    '하나카드':        'https://www.card-gorilla.com/event/detail/8',
+    'IBK기업은행카드': 'https://www.card-gorilla.com/event/detail/10',
+    'NH농협카드':      'https://www.card-gorilla.com/event/detail/9',
+  },
+  '아정당카드': {
+    '삼성카드':   'https://www.ajd.co.kr/card/event/list?companies=3',
+    '현대카드':   'https://www.ajd.co.kr/card/event/list?companies=5',
+    'KB국민카드': 'https://www.ajd.co.kr/card/event/list?companies=7',
+    '신한카드':   'https://www.ajd.co.kr/card/event/list?companies=2',
+    '롯데카드':   'https://www.ajd.co.kr/card/event/list?companies=1',
+    'BC바로카드': 'https://www.ajd.co.kr/card/event/list?companies=6',
+    '하나카드':   'https://www.ajd.co.kr/card/event/list?companies=4',
+    '우리카드':   'https://www.ajd.co.kr/card/event/list?companies=8',
+    'NH농협카드': 'https://www.ajd.co.kr/card/event/list?companies=9',
+  },
+  '뱅크샐러드': {
+    '롯데카드':        'https://www.banksalad.com/product/cards/event/1076',
+    '신한카드':        'https://www.banksalad.com/product/cards/event/1081',
+    'KB국민카드':      'https://www.banksalad.com/product/cards/event/1085',
+    '현대카드':        'https://www.banksalad.com/product/cards/event/1073',
+    '삼성카드':        'https://www.banksalad.com/product/cards/event/1074',
+    'NH농협카드':      'https://www.banksalad.com/product/cards/event/1086',
+    'IBK기업은행카드': 'https://www.banksalad.com/product/cards/event/1083',
+  },
+  '네이버페이': {
+    'KB국민카드':      'https://card.pay.naver.com/home/promotion?promotionId=20260626001981668445&cardCompanyId=CCKM&cardIssuerCode=100&from=menu_event',
+    '현대카드':        'https://card.pay.naver.com/home/promotion?promotionId=20260624001967393139&cardCompanyId=CCDI&cardIssuerCode=CCDI&from=menu_event',
+    '신한카드':        'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865356&cardCompanyId=CCLG&cardIssuerCode=CCLG&from=menu_event',
+    '롯데카드':        'https://card.pay.naver.com/home/promotion?promotionId=20260622001948134134&cardCompanyId=CCLO&cardIssuerCode=CCLO&from=menu_event',
+    '삼성카드':        'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865364&cardCompanyId=CCSS&cardIssuerCode=CCSS&from=menu_event',
+    '하나카드':        'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865360&cardCompanyId=CCHN&cardIssuerCode=044&from=menu_event',
+    'NH농협카드':      'https://card.pay.naver.com/home/promotion?promotionId=20260625001974825484&cardCompanyId=CCNH&cardIssuerCode=CCNH&from=menu_event',
+    'IBK기업은행카드': 'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865358&cardCompanyId=CCBC&cardIssuerCode=0003&from=menu_event',
+  },
+};
+
 function renderCbCompanies(companies){
   document.getElementById('cb-grid').className = 'cb-grid';
   document.getElementById('cb-grid').innerHTML = companies.map(c=>{
@@ -1363,7 +1540,13 @@ function renderCbCompanies(companies){
       ? `<img class="co-logo" src="${esc(COMPANY_LOGO[c.name])}" alt="${esc(c.name)}" onerror="this.outerHTML='<div class=co-logo-placeholder>${esc(c.name[0])}</div>'">`
       : `<div class="co-logo-placeholder">${esc(c.name[0])}</div>`;
     const amt = c.maxAmount>0 ? `최대 ${c.maxAmount}만원` : (c.cards.length ? `${c.cards.length}개 이벤트` : '이벤트 없음');
-    return `<div class="cb-company-card" onclick="drillCb('${esc(c.name)}')">
+    // 전체보기에서는 카드사별 최댓값을 실제로 보여준 플랫폼(bestPlatform)의 랜딩으로 보낸다.
+    const sourcePlatform = activePlatform === '전체보기' ? c.bestPlatform : activePlatform;
+    const landing = (PLATFORM_COMPANY_LANDING[sourcePlatform] || {})[c.name];
+    const onclick = landing
+      ? `window.open('${esc(landing)}','_blank','noopener')`
+      : `drillCb('${esc(c.name)}')`;
+    return `<div class="cb-company-card" onclick="${onclick}">
       ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
   }).join('') || '<div class="empty">이벤트가 없어요.</div>';
 }
