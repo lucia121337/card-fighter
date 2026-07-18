@@ -25,7 +25,7 @@
         background:var(--brand);font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
         box-shadow:0 2px 8px rgba(20,92,230,.28);transition:.15s background;white-space:nowrap}
   .back:hover{background:var(--brand-deep)}
-  .header-logo{width:34px;height:34px;flex-shrink:0}
+  .header-logo{font-size:26px;line-height:1;flex-shrink:0}
   .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px}
 
   .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 80px}
@@ -77,15 +77,7 @@
 <body>
 <header>
   <a class="back" href="index.html">← 목록으로</a>
-  <svg class="header-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="3" width="42" height="42" rx="13" fill="#145CE6"/>
-    <g stroke="#aac4ff" stroke-width="2" stroke-linejoin="round">
-      <rect x="10.5" y="13" width="15" height="21" rx="3" fill="#ffffff" transform="rotate(-17 24 24)"/>
-      <rect x="22.5" y="13" width="15" height="21" rx="3" fill="#dce8ff" transform="rotate(17 24 24)"/>
-    </g>
-    <path d="M26.4 15.5 L20 25.2 h4.3 L22 33 L31 22.3 h-4.6 z"
-          fill="#ffffff" stroke="#aac4ff" stroke-width="1" stroke-linejoin="round"/>
-  </svg>
+  <span class="header-logo" role="img" aria-label="카드 파이터 로고">🥊</span>
   <span class="header-title">카드 비교</span>
 </header>
 
