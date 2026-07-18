@@ -67,6 +67,18 @@
   .cat-wrap{display:flex;flex-wrap:wrap;gap:8px}
   .cat-chip{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;
         border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:600}
+  /* 진행 중 캐시백 이벤트 */
+  .cb-list{display:flex;flex-direction:column;gap:10px}
+  .cb-item{display:flex;align-items:center;gap:12px;text-decoration:none;
+        background:var(--panel2);border:1.5px solid #bfdbfe;border-radius:12px;padding:12px 14px;transition:.15s}
+  .cb-item:hover{border-color:var(--brand);box-shadow:0 6px 18px rgba(20,92,230,.12)}
+  .cb-badge{flex-shrink:0;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;background:#eef2ff;color:var(--brand)}
+  .cb-badge.cbk{background:#fff4ec;color:#e8590c}
+  .cb-body{flex:1;min-width:0}
+  .cb-title{font-size:14px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cb-sub{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cb-amt{flex-shrink:0;font-size:13px;font-weight:800;color:#e8590c}
+  .cb-arrow{flex-shrink:0;color:var(--brand);font-weight:800}
   .ext-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
         color:var(--brand);font-size:13px;font-weight:700;margin-top:18px;
         padding:10px 18px;border:1.5px solid var(--brand);border-radius:10px;transition:.15s background}
@@ -311,11 +323,54 @@ function render(d){
     ${cats.length?`<div class="sec-box"><h3>🏷️ 혜택 카테고리</h3>
       <div class="cat-wrap">${cats.map(c=>`<span class="cat-chip">${esc(c)}</span>`).join('')}</div>
     </div>`:''}
+    <div id="cb-events-section"></div>
     <div class="disclaimer">
       <div class="d-head">※ 본 게시물은 카드파이터에서 대가관계 없이 자체제작한 게시물입니다</div>
       * 본 카드의 서비스 내용은 카드사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.<br>
       * 카드 사용 전 반드시 상품설명서와 약관을 읽어 보시기 바랍니다.
     </div>`;
+}
+
+/* ── 진행 중 캐시백 이벤트 (카드 → 캐시백 역연결) ── */
+const normName = s => String(s||'').replace(/\s+/g,'').toLowerCase();
+function cbAmount(e){
+  const m = ((e.subject||'')+' '+(e.title||'')).match(/(\d[\d,]*)\s*만원/g) || [];
+  const nums = m.map(s=>parseInt(s.replace(/[^\d]/g,''),10)).filter(n=>n>0 && n<=1000);
+  return nums.length ? Math.max(...nums) : 0;
+}
+function loadCardCashback(card){
+  const el = document.getElementById('cb-events-section');
+  if(!el) return;
+  fetch('cashback_events.json')
+    .then(r=> r.ok ? r.json() : null)
+    .then(j=>{
+      if(!j) return;
+      const cid = Number(card.idx);
+      const nm  = normName(card.card_name || card.name);
+      const events = (j.events||[]).filter(e=>
+        (Array.isArray(e.card_idxs) && e.card_idxs.map(Number).includes(cid)) ||
+        (nm && normName(e.title) === nm)
+      );
+      if(!events.length) return;
+      const items = events.map(e=>{
+        const amt = cbAmount(e);
+        const isCbk = e.type === '캐시백';
+        return `<a class="cb-item" href="${esc(e.detail_url)}" target="_blank" rel="noopener">
+          <span class="cb-badge${isCbk?' cbk':''}">${esc(e.type||'이벤트')}</span>
+          <div class="cb-body">
+            <div class="cb-title">${esc(e.title||'')}</div>
+            <div class="cb-sub">${esc(e.subject||'')}${e.start?` · ${esc(e.start)} ~ ${esc(e.end||'')}`:''}</div>
+          </div>
+          ${amt>0?`<span class="cb-amt">최대 ${amt}만원</span>`:''}
+          <span class="cb-arrow">→</span>
+        </a>`;
+      }).join('');
+      el.innerHTML = `<div class="sec-box">
+        <h3>🪙 진행 중인 캐시백 이벤트 <span style="font-weight:600;color:var(--muted);font-size:13px">(${events.length})</span></h3>
+        <div class="cb-list">${items}</div>
+      </div>`;
+    })
+    .catch(()=>{});
 }
 
 const idx = new URLSearchParams(location.search).get('idx');
@@ -325,7 +380,7 @@ if(!idx){
 } else {
   fetch('card_detail/' + idx + '.json')
     .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(d=>{ render(d); if(window._calcRender) window._calcRender(); })
+    .then(d=>{ render(d); if(window._calcRender) window._calcRender(); loadCardCashback(d); })
     .catch(e => {
       document.getElementById('wrap').innerHTML =
         `<div class="status">카드 정보를 불러오지 못했습니다.<br>
