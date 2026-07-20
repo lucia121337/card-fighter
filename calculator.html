@@ -77,6 +77,12 @@
   .rreason{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
   .rchip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--panel2);color:var(--brand)}
   .rchip.warn{background:#fff1f2;color:#e11d48;border:1px solid #fecdd3}
+  .rchip.mile{background:#ecfeff;color:#0891b2;border:1px solid #a5f3fc}
+  .sort-tabs{display:flex;gap:8px;margin-bottom:12px}
+  .sort-tab{background:var(--panel);border:1.5px solid var(--line);border-radius:99px;
+        padding:7px 16px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;transition:.13s}
+  .sort-tab:hover{border-color:var(--brand);color:var(--brand)}
+  .sort-tab.on{background:var(--brand);border-color:var(--brand);color:#fff}
   .rmoney{text-align:right;flex-shrink:0}
   .rmoney .net{font-size:18px;font-weight:800;color:var(--good)}
   .rmoney .lab{font-size:10.5px;color:var(--muted);font-weight:700}
@@ -120,7 +126,11 @@
         <h2>🏆 내게 이득인 카드</h2>
         <span class="cnt"><b id="res-count">0</b>장 계산</span>
       </div>
-      <div class="disc">ⓘ 금액은 <b>혜택 문구의 "최대 기준"</b>으로 계산한 <b>예상치</b>예요. 실제는 조건·한도에 따라 달라질 수 있어요. <b>순위 비교용</b>으로 봐주세요.</div>
+      <div class="sort-tabs">
+        <button class="sort-tab on" data-mode="money" onclick="setSort('money')">💰 돈 이득순</button>
+        <button class="sort-tab" data-mode="miles" onclick="setSort('miles')">✈️ 마일 적립순</button>
+      </div>
+      <div class="disc">ⓘ 금액은 <b>혜택 문구의 "최대 기준"</b>으로 계산한 <b>예상치</b>예요. 마일리지는 돈과 단위가 달라 <b>합산하지 않고 따로</b> 표시했어요. <b>순위 비교용</b>으로 봐주세요.</div>
       <div class="rank" id="rank"></div>
       <div class="empty" id="empty">왼쪽에 지출을 넣으면 결과가 나와요 🙂</div>
       <div class="ml-note">혜택율·카테고리는 카드 혜택 문구(<code>top_benefit_summary</code>)를 <b>자동 구조화</b>한 데이터로 계산했어요. 월 한도 미파악 카드는 기본 한도로 보정합니다.</div>
@@ -146,7 +156,12 @@ const PRESETS = {
   heavy:  {'푸드':60,'카페/디저트':15,'마트/편의점':35,'온라인쇼핑':40,'교통':7,'주유':20,'통신':10,'OTT/영화/문화':3,'여행/숙박':30,'해외':20}
 };
 
-let BEN=null, BYIDX={};
+let BEN=null, BYIDX={}, sortMode='money';
+function setSort(mode){
+  sortMode = mode;
+  document.querySelectorAll('.sort-tab').forEach(b=>b.classList.toggle('on', b.dataset.mode===mode));
+  recalc();
+}
 
 document.getElementById('spend-list').innerHTML = CATS.map(c=>`
   <div class="spend-row">
@@ -203,16 +218,20 @@ function recalc(){
         if(b.category_rates[cat]) matched.push({cat, rate:b.category_rates[cat]});
       }
     }
-    if(raw<=0) continue;
+    const miles = Math.round(total*(b.miles_per_won||0));
+    if(raw<=0 && miles<=0) continue;   // 돈 혜택도 마일도 없으면 제외
     const cap = b.monthly_cap || DEFAULT_CAP;
     const benefit = Math.min(raw, cap);
     const feeM = (b.annual_fee||0)/12;
     const net = benefit - feeM;
     const meets = total >= (b.pre_month_money||0);
-    results.push({idx, benefit, net, feeM, matched, meets, pre:b.pre_month_money||0, capped: raw>cap});
+    results.push({idx, benefit, net, feeM, matched, meets, pre:b.pre_month_money||0, capped: raw>cap,
+      miles, isMile: b.is_mileage, type: b.type});
   }
-  // 순이득순 → 동점이면 '정확히 매칭된 카테고리 많은(=내 소비에 잘 맞는)' → 연회비 낮은 순
-  results.sort((a,b)=> b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
+  if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
+    results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
+  else                    // 💰 돈 이득순 → 동점이면 매칭 잘 됨 → 낮은 연회비
+    results.sort((a,b)=> b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
   render(results.slice(0,12), results.length);
 }
 
@@ -222,6 +241,8 @@ function render(list, total){
     const c=BYIDX[r.idx];
     const reasons = r.matched.sort((a,b)=>b.rate-a.rate).slice(0,3)
       .map(m=>`<span class="rchip">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('');
+    const mile = r.miles>0 ? `<span class="rchip mile">✈️ 월 ${r.miles.toLocaleString()}마일</span>`
+               : (r.isMile ? `<span class="rchip mile">✈️ 마일적립</span>` : '');
     const warn = !r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '';
     return `<div class="rcard ${i===0?'top':''}">
       <div class="rnum">${i+1}</div>
@@ -229,7 +250,7 @@ function render(list, total){
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
         <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
-        <div class="rreason">${reasons}${warn}</div>
+        <div class="rreason">${reasons}${mile}${warn}</div>
       </div>
       <div class="rmoney">
         <div class="lab">월 예상 순이득</div>

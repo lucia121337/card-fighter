@@ -22,6 +22,19 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 RATE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 WON_RE = re.compile(r"(\d[\d,]*)\s*만\s*원")   # "2만원" 형태 (할인 한도)
+# 마일리지: "1,500원당 2마일", "1천원당 1마일", "1백만원당 200마일"
+MILE_RE = re.compile(r"(\d[\d,]*)\s*(백만|천)?\s*원\s*당\s*(\d+(?:\.\d+)?)\s*마일")
+
+
+def parse_miles(summary):
+    """지출 원당 마일 적립률(마일/원). 없으면 0. + 마일 카드 여부."""
+    is_mile = "마일" in (summary or "")
+    best = 0.0
+    for num, unit, mil in MILE_RE.findall(summary or ""):
+        base = int(num.replace(",", "")) * (1_000_000 if unit == "백만" else 1000 if unit == "천" else 1)
+        if base > 0:
+            best = max(best, float(mil) / base)
+    return round(best, 6), is_mile
 
 # ── card_detail 월 한도 파싱 (card-reco build_benefits.py 검증 로직 이식) ──
 DETAIL_DIR = os.path.join(ROOT, "card_detail")
@@ -150,10 +163,25 @@ def parse_card(card):
     cap_summary = max(caps) if caps else None
     monthly_cap = cap_detail or cap_summary
 
+    # 마일리지(원과 별개 단위) + 카드 성격
+    miles_per_won, is_mile = parse_miles(summary)
+    has_money = bool(category_rates) or base_rate > 0
+    if has_money and is_mile:
+        card_type = "적립+마일"
+    elif is_mile:
+        card_type = "마일리지"
+    elif has_money:
+        card_type = "할인·적립"
+    else:
+        card_type = "기타"
+
     return {
         "base_rate": round(base_rate, 4),
         "category_rates": {k: round(v, 4) for k, v in category_rates.items()},
         "monthly_cap": monthly_cap,
+        "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
+        "is_mileage": is_mile,
+        "type": card_type,                  # 할인·적립 / 마일리지 / 적립+마일 / 기타
         "covered": covered,
         "annual_fee": annual_fee,
         "pre_month_money": card.get("pre_month_money") or 0,
