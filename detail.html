@@ -358,8 +358,8 @@ function render(d){
 
 const idx = new URLSearchParams(location.search).get('idx');
 if(!idx){
-  // 카드 지정 없이 들어오면 막다른 에러 대신 소비 기반 계산기로 보낸다.
-  location.replace('calculator.html');
+  // 카드 지정 없이 들어오면 목록으로 (상세 화면은 항상 특정 카드 기준이어야 함)
+  location.replace('index.html');
 } else {
   Promise.all([
     fetch('card_detail/' + idx + '.json').then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
