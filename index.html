@@ -1034,6 +1034,14 @@ function showSection(name){
         // 이미지 로드 등으로 뒤늦게 콘텐츠 높이가 늘어나는 경우를 대비해 몇 차례 더 재측정
         setTimeout(resizeShoppingFrame, 300);
         setTimeout(resizeShoppingFrame, 1200);
+
+        // iframe(shopping_dashboard.html)에 카드 데이터를 postMessage로 전달
+        fetch('cards_full.json')
+          .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+          .then(cards => {
+            frame.contentWindow.postMessage({ type: 'CARD_DATA', cards }, location.origin);
+          })
+          .catch(e => console.error('cards_full.json 로드 실패:', e));
       });
     } else {
       resizeShoppingFrame();
