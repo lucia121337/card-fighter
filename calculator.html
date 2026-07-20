@@ -226,7 +226,7 @@ function recalc(){
     const net = benefit - feeM;
     const meets = total >= (b.pre_month_money||0);
     results.push({idx, benefit, net, feeM, matched, meets, pre:b.pre_month_money||0, capped: raw>cap,
-      miles, bonus: b.bonus_miles||0, isMile: b.is_mileage, type: b.type});
+      miles, bonus: b.bonus_miles||0, air: b.airline||'', isMile: b.is_mileage, type: b.type});
   }
   if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
     results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
@@ -242,9 +242,11 @@ function render(list, total){
     const reasons = r.matched.sort((a,b)=>b.rate-a.rate).slice(0,3)
       .map(m=>`<span class="rchip">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('');
     const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
-    const mile = r.miles>0 ? `<span class="rchip mile">✈️ 월 ${r.miles.toLocaleString()}마일</span>`
-               : (r.bonus>0 ? `<span class="rchip mile">✈️ 연 ${mm(r.bonus)}마일</span>`
-               : (r.isMile ? `<span class="rchip mile">✈️ 마일적립</span>` : ''));
+    const ico = r.air ? '✈️' : '🎫';
+    const nm  = r.air==='항공' ? '항공마일' : (r.air ? r.air+'마일' : '카드마일');
+    const mile = r.miles>0 ? `<span class="rchip mile">${ico} 월 ${r.miles.toLocaleString()}${nm}</span>`
+               : (r.bonus>0 ? `<span class="rchip mile">${ico} 연 ${mm(r.bonus)}${nm}</span>`
+               : (r.isMile ? `<span class="rchip mile">${ico} ${nm}적립</span>` : ''));
     const warn = !r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '';
     return `<div class="rcard ${i===0?'top':''}">
       <div class="rnum">${i+1}</div>

@@ -28,6 +28,18 @@ MILE_RE = re.compile(r"(\d[\d,]*)\s*(백만|천)?\s*원\s*당\s*(\d+(?:\.\d+)?)\
 BONUS_MILE_RE = re.compile(r"(\d[\d.,]*)\s*(만)?\s*마일")
 
 
+def detect_airline(text):
+    """마일리지가 어느 항공사인지. 항공사가 아니면 '' (카드·제휴 포인트성 마일)."""
+    t = text or ""
+    if "대한항공" in t or "스카이패스" in t or "스카이 패스" in t or "SKYPASS" in t.upper():
+        return "대한항공"
+    if "아시아나" in t:
+        return "아시아나"
+    if "항공마일리지" in t or "항공 마일" in t:
+        return "항공"
+    return ""
+
+
 def parse_miles(summary):
     """(원당 마일 적립률, 마일카드 여부, 연 보너스 마일). 원당율은 지출기반, 보너스는 정액."""
     s = summary or ""
@@ -177,8 +189,9 @@ def parse_card(card):
     cap_summary = max(caps) if caps else None
     monthly_cap = cap_detail or cap_summary
 
-    # 마일리지(원과 별개 단위) + 카드 성격
+    # 마일리지(원과 별개 단위) + 항공사 + 카드 성격
     miles_per_won, is_mile, bonus_miles = parse_miles(summary)
+    airline = detect_airline(f"{card.get('card_name','')} {summary} {card.get('benefit_categories') or ''}") if is_mile else ""
     has_money = bool(category_rates) or base_rate > 0
     if has_money and is_mile:
         card_type = "적립+마일"
@@ -195,6 +208,7 @@ def parse_card(card):
         "monthly_cap": monthly_cap,
         "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
         "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
+        "airline": airline,                 # 대한항공/아시아나/항공 or '' (카드·제휴 마일)
         "is_mileage": is_mile,
         "type": card_type,                  # 할인·적립 / 마일리지 / 적립+마일 / 기타
         "covered": covered,

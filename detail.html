@@ -232,6 +232,7 @@ function buildCalc(bs){
   window._calcFeeM = Math.round((bs.annual_fee||0)/12);
   window._calcMPW  = bs.miles_per_won || 0;
   window._calcBonus = bs.bonus_miles || 0;
+  window._calcAir  = bs.airline || '';
   window._calcIsMile = !!bs.is_mileage;
   window._calcRender = function(){
     let raw = 0, spend = 0;
@@ -256,9 +257,12 @@ function buildCalc(bs){
     const ml=document.getElementById('calc-miles');
     if(ml){
       const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
-      if(window._calcMPW>0){ ml.style.display=''; ml.textContent = '✈️ 예상 월 약 '+Math.round(spend*window._calcMPW).toLocaleString()+'마일 (별도 적립)'; }
-      else if(window._calcBonus>0){ ml.style.display=''; ml.textContent = '✈️ 연 '+mm(window._calcBonus)+'마일 보너스 적립 (별도)'; }
-      else if(window._calcIsMile){ ml.style.display=''; ml.textContent = '✈️ 마일리지 적립 카드 (적립률은 상세 혜택 참고)'; }
+      const air = window._calcAir;
+      const ico = air ? '✈️' : '🎫';
+      const nm  = air==='항공' ? '항공마일' : (air ? air+' 마일' : '카드 마일');
+      if(window._calcMPW>0){ ml.style.display=''; ml.textContent = ico+' 예상 월 약 '+Math.round(spend*window._calcMPW).toLocaleString()+' '+nm+' (별도 적립)'; }
+      else if(window._calcBonus>0){ ml.style.display=''; ml.textContent = ico+' 연 '+mm(window._calcBonus)+' '+nm+' 보너스 (별도)'; }
+      else if(window._calcIsMile){ ml.style.display=''; ml.textContent = air ? ico+' '+nm+' 적립 (적립률은 상세 혜택 참고)' : '🎫 카드사 자체 마일리지 — 항공사 마일 아님'; }
       else ml.style.display='none';
     }
   };
@@ -335,8 +339,9 @@ function render(d){
     const parts = [];
     if(ce.length) parts.push(`${Math.round(ce[0][1]*100)}% ${ce[0][0]}`);
     else if(_bs.base_rate>0) parts.push(`${Math.round(_bs.base_rate*100)}% 기본적립`);
-    if(_bs.miles_per_won>0) parts.push('마일 적립');
-    else if(_bs.bonus_miles>0) parts.push(`연 ${mm(_bs.bonus_miles)}마일`);
+    const _air = _bs.airline, _nm = _air==='항공' ? '항공마일' : (_air ? _air+'마일' : '카드마일');
+    if(_bs.miles_per_won>0) parts.push(`${_nm} 적립`);
+    else if(_bs.bonus_miles>0) parts.push(`연 ${mm(_bs.bonus_miles)} ${_nm}`);
     topBenefit = parts.join(' + ');
   }
 
