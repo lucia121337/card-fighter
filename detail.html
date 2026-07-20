@@ -231,6 +231,7 @@ function buildCalc(bs){
   window._calcCap  = bs.monthly_cap || 30000;
   window._calcFeeM = Math.round((bs.annual_fee||0)/12);
   window._calcMPW  = bs.miles_per_won || 0;
+  window._calcBonus = bs.bonus_miles || 0;
   window._calcIsMile = !!bs.is_mileage;
   window._calcRender = function(){
     let raw = 0, spend = 0;
@@ -248,7 +249,9 @@ function buildCalc(bs){
     const cn=document.getElementById('calc-capnote'); if(cn) cn.style.display = raw>window._calcCap ? '' : 'none';
     const ml=document.getElementById('calc-miles');
     if(ml){
+      const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
       if(window._calcMPW>0){ ml.style.display=''; ml.textContent = '✈️ 예상 월 약 '+Math.round(spend*window._calcMPW).toLocaleString()+'마일 (별도 적립)'; }
+      else if(window._calcBonus>0){ ml.style.display=''; ml.textContent = '✈️ 연 '+mm(window._calcBonus)+'마일 보너스 적립 (별도)'; }
       else if(window._calcIsMile){ ml.style.display=''; ml.textContent = '✈️ 마일리지 적립 카드 (적립률은 상세 혜택 참고)'; }
       else ml.style.display='none';
     }
@@ -317,6 +320,20 @@ function render(d){
     .split('\n').map(s=>s.trim()).filter(Boolean).join('<br>');
   const pre  = d.pre_month_money ? Math.round(d.pre_month_money/10000)+'만원 이상' : '없음';
 
+  // 대표 혜택(최대) — 구조화 데이터에서 최고 혜택율 + 마일
+  let topBenefit = '';
+  const _bs = window._CALC_BS;
+  if(_bs){
+    const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
+    const ce = Object.entries(_bs.category_rates||{}).sort((a,b)=>b[1]-a[1]);
+    const parts = [];
+    if(ce.length) parts.push(`${Math.round(ce[0][1]*100)}% ${ce[0][0]}`);
+    else if(_bs.base_rate>0) parts.push(`${Math.round(_bs.base_rate*100)}% 기본적립`);
+    if(_bs.miles_per_won>0) parts.push('마일 적립');
+    else if(_bs.bonus_miles>0) parts.push(`연 ${mm(_bs.bonus_miles)}마일`);
+    topBenefit = parts.join(' + ');
+  }
+
   document.title = name + ' — 카드 파이터';
   const inCompare = getCompareList().some(c=>String(c.idx)===String(d.idx));
 
@@ -336,6 +353,7 @@ function render(d){
       </div>
     </div>
     <div class="summary">
+      ${topBenefit?`<div class="sum-card"><div class="lab">대표 혜택 (최대)</div><div class="val accent">${esc(topBenefit)}</div></div>`:''}
       <div class="sum-card"><div class="lab">연회비</div><div class="val">${fee}</div></div>
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}

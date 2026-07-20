@@ -24,17 +24,31 @@ RATE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 WON_RE = re.compile(r"(\d[\d,]*)\s*만\s*원")   # "2만원" 형태 (할인 한도)
 # 마일리지: "1,500원당 2마일", "1천원당 1마일", "1백만원당 200마일"
 MILE_RE = re.compile(r"(\d[\d,]*)\s*(백만|천)?\s*원\s*당\s*(\d+(?:\.\d+)?)\s*마일")
+# 연 보너스 마일: "7만마일 적립 (연 1회)", "1.5만마일" 등 (원당이 아닌 정액)
+BONUS_MILE_RE = re.compile(r"(\d[\d.,]*)\s*(만)?\s*마일")
 
 
 def parse_miles(summary):
-    """지출 원당 마일 적립률(마일/원). 없으면 0. + 마일 카드 여부."""
-    is_mile = "마일" in (summary or "")
+    """(원당 마일 적립률, 마일카드 여부, 연 보너스 마일). 원당율은 지출기반, 보너스는 정액."""
+    s = summary or ""
+    is_mile = "마일" in s
     best = 0.0
-    for num, unit, mil in MILE_RE.findall(summary or ""):
+    for num, unit, mil in MILE_RE.findall(s):
         base = int(num.replace(",", "")) * (1_000_000 if unit == "백만" else 1000 if unit == "천" else 1)
         if base > 0:
             best = max(best, float(mil) / base)
-    return round(best, 6), is_mile
+    # 정액 보너스 마일 (원당 패턴은 제외)
+    bonus = 0
+    for m in BONUS_MILE_RE.finditer(s):
+        if "당" in s[max(0, m.start() - 6):m.start()]:   # "원당 N마일"은 지출기반이므로 제외
+            continue
+        try:
+            val = int(float(m.group(1).replace(",", "")) * (10000 if m.group(2) == "만" else 1))
+        except ValueError:
+            continue
+        if 100 <= val <= 1_000_000:
+            bonus = max(bonus, val)
+    return round(best, 6), is_mile, bonus
 
 # ── card_detail 월 한도 파싱 (card-reco build_benefits.py 검증 로직 이식) ──
 DETAIL_DIR = os.path.join(ROOT, "card_detail")
@@ -164,7 +178,7 @@ def parse_card(card):
     monthly_cap = cap_detail or cap_summary
 
     # 마일리지(원과 별개 단위) + 카드 성격
-    miles_per_won, is_mile = parse_miles(summary)
+    miles_per_won, is_mile, bonus_miles = parse_miles(summary)
     has_money = bool(category_rates) or base_rate > 0
     if has_money and is_mile:
         card_type = "적립+마일"
@@ -180,6 +194,7 @@ def parse_card(card):
         "category_rates": {k: round(v, 4) for k, v in category_rates.items()},
         "monthly_cap": monthly_cap,
         "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
+        "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
         "is_mileage": is_mile,
         "type": card_type,                  # 할인·적립 / 마일리지 / 적립+마일 / 기타
         "covered": covered,
