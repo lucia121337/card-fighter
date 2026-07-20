@@ -235,14 +235,20 @@ function buildCalc(bs){
   window._calcIsMile = !!bs.is_mileage;
   window._calcRender = function(){
     let raw = 0, spend = 0;
+    const per = [];
     window._calcRows.forEach((r,i)=>{
       const el = document.getElementById('calc-in-'+i);
       const won = (parseFloat(el && el.value)||0) * 10000; spend += won;
-      const b = won * r.rate; raw += b;
-      const out = document.getElementById('calc-out-'+i);
-      if(out){ out.textContent = r.rate>0 ? Math.round(b).toLocaleString()+'원' : '—'; out.classList.toggle('zero', b<=0); }
+      const b = won * r.rate; per.push(b); raw += b;
     });
     const capped = Math.min(raw, window._calcCap);
+    const scale = (raw > window._calcCap && raw > 0) ? window._calcCap / raw : 1;  // 한도 초과분은 행별 비례 축소(왜곡 방지)
+    window._calcRows.forEach((r,i)=>{
+      const out = document.getElementById('calc-out-'+i); if(!out) return;
+      const shown = per[i] * scale;
+      out.textContent = r.rate>0 ? Math.round(shown).toLocaleString()+'원' : '—';
+      out.classList.toggle('zero', shown<=0);
+    });
     const net = capped - window._calcFeeM;
     const t=document.getElementById('calc-total-amt'); if(t) t.textContent = Math.round(capped).toLocaleString()+'원';
     const n=document.getElementById('calc-net'); if(n) n.textContent = window._calcFeeM ? '연회비 빼면 순이득 약 '+Math.round(net).toLocaleString()+'원' : '';
