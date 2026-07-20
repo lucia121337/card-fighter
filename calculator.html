@@ -211,7 +211,8 @@ function recalc(){
     const meets = total >= (b.pre_month_money||0);
     results.push({idx, benefit, net, feeM, matched, meets, pre:b.pre_month_money||0, capped: raw>cap});
   }
-  results.sort((a,b)=> b.net - a.net);
+  // 순이득순 → 동점이면 '정확히 매칭된 카테고리 많은(=내 소비에 잘 맞는)' → 연회비 낮은 순
+  results.sort((a,b)=> b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
   render(results.slice(0,12), results.length);
 }
 

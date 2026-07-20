@@ -23,6 +23,61 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RATE_RE = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 WON_RE = re.compile(r"(\d[\d,]*)\s*만\s*원")   # "2만원" 형태 (할인 한도)
 
+# ── card_detail 월 한도 파싱 (card-reco build_benefits.py 검증 로직 이식) ──
+DETAIL_DIR = os.path.join(ROOT, "card_detail")
+_NUM = r"(\d[\d,]*만\s*\d*\s*천?|\d[\d,]*천|\d[\d,]*)"
+_CAP_PATS = [
+    re.compile(r"월\s*최대\s*" + _NUM + r"\s*(?:원)?\s*(?:캐시백|포인트|할인|적립)"),
+    re.compile(_NUM + r"\s*(?:원)?\s*(?:캐시백|할인|적립)?\s*한도"),
+    re.compile(r"할인\s*한도\s*" + _NUM),
+]
+CAP_MIN, CAP_MAX, CARD_CAP_CLAMP = 1000, 50000, 80000
+
+
+def strip_html(h):
+    h = re.sub(r"<[^>]+>", " ", h or "").replace("&nbsp;", " ").replace("&amp;", "&")
+    return re.sub(r"\s+", " ", h).strip()
+
+
+def _parse_won(tok):
+    t = tok.replace(",", "").replace(" ", "")
+    for pat, f in [
+        (r"^(\d+)만(\d+)천$", lambda m: int(m[1]) * 10000 + int(m[2]) * 1000),
+        (r"^(\d+)만(\d+)$", lambda m: int(m[1]) * 10000 + int(m[2])),
+        (r"^(\d+)만$", lambda m: int(m[1]) * 10000),
+        (r"^(\d+)천$", lambda m: int(m[1]) * 1000),
+        (r"^(\d+)$", lambda m: int(m[1])),
+    ]:
+        mm = re.match(pat, t)
+        if mm:
+            return f(mm)
+    return None
+
+
+def card_detail_cap(idx):
+    """card_detail/{idx}.json 의 key_benefit 본문에서 월 할인한도(원) 추출. 실패 시 None."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return None
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return None
+    # 카드의 월 한도는 보통 '합산'이 아니라 대표 한 값이므로, 과다계상을 피해 MAX를 취한다.
+    best, found = 0, False
+    for k in kb:
+        info = strip_html(k.get("info"))
+        for pat in _CAP_PATS:
+            for m in pat.finditer(info):
+                ctx = info[max(0, m.start() - 8):m.start()]
+                if "이용" in ctx or "건당" in ctx or "전월" in ctx:   # 이용금액/전월실적은 한도 아님
+                    continue
+                w = _parse_won(m.group(1))
+                if w and CAP_MIN <= w <= CAP_MAX:
+                    best = max(best, w)
+                    found = True
+    return best if found else None
+
 # I열 라벨/키워드 → card-fighter 카테고리 별칭 (라벨이 카테고리와 다를 때)
 LABEL_ALIAS = {
     "디지털구독": "OTT/영화/문화", "스트리밍": "OTT/영화/문화", "영화": "OTT/영화/문화",
@@ -90,10 +145,15 @@ def parse_card(card):
             fee_nums.append(int(v))
     annual_fee = min(fee_nums) if fee_nums else 0
 
+    # 월 한도: card_detail(정확) 우선, 없으면 I열에서 뽑은 값
+    cap_detail = card_detail_cap(card.get("idx"))
+    cap_summary = max(caps) if caps else None
+    monthly_cap = cap_detail or cap_summary
+
     return {
         "base_rate": round(base_rate, 4),
         "category_rates": {k: round(v, 4) for k, v in category_rates.items()},
-        "monthly_cap": max(caps) if caps else None,
+        "monthly_cap": monthly_cap,
         "covered": covered,
         "annual_fee": annual_fee,
         "pre_month_money": card.get("pre_month_money") or 0,
