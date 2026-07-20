@@ -262,7 +262,7 @@ function buildCalc(bs){
       const nm  = air==='항공' ? '항공마일' : (air ? air+' 마일' : '카드 마일');
       if(window._calcMPW>0){ ml.style.display=''; ml.textContent = ico+' 예상 월 약 '+Math.round(spend*window._calcMPW).toLocaleString()+' '+nm+' (별도 적립)'; }
       else if(window._calcBonus>0){ ml.style.display=''; ml.textContent = ico+' 연 '+mm(window._calcBonus)+' '+nm+' 보너스 (별도)'; }
-      else if(window._calcIsMile){ ml.style.display=''; ml.textContent = air ? ico+' '+nm+' 적립 (적립률은 상세 혜택 참고)' : '🎫 카드사 자체 마일리지 — 항공사 마일 아님'; }
+      else if(window._calcIsMile){ ml.style.display=''; ml.textContent = air ? ico+' '+nm+' 적립 (적립률은 상세 혜택 참고)' : '🎫 카드 마일리지 (항공사 직접 적립 아님)'; }
       else ml.style.display='none';
     }
   };

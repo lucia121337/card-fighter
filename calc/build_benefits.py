@@ -29,15 +29,14 @@ BONUS_MILE_RE = re.compile(r"(\d[\d.,]*)\s*(만)?\s*마일")
 
 
 def detect_airline(text):
-    """마일리지가 어느 항공사인지. 항공사가 아니면 '' (카드·제휴 포인트성 마일)."""
+    """마일리지가 '항공사 직접 적립'인지 판별. 항공사명이 명시된 경우만 항공 마일로 본다.
+    (예: 디지로카 트래블의 '트래블 마일'은 롯데 카드 프로그램이라 항공사 직접 마일이 아님 → '')"""
     t = text or ""
     if "대한항공" in t or "스카이패스" in t or "스카이 패스" in t or "SKYPASS" in t.upper():
         return "대한항공"
     if "아시아나" in t:
         return "아시아나"
-    if "항공마일리지" in t or "항공 마일" in t:
-        return "항공"
-    return ""
+    return ""   # '항공마일리지' 카테고리만으론 항공사 직접 마일로 단정 불가 → 카드/트래블 마일로 취급
 
 
 def parse_miles(summary):
