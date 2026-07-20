@@ -82,8 +82,12 @@ def parse_card(card):
         else:
             base_rate = max(base_rate, r)
 
-    # 연회비 대표값(최소 금액)
-    fee_nums = [int(x.replace(",", "")) for x in re.findall(r"([\d,]{3,})\s*원", card.get("annual_fee") or "")]
+    # 연회비 대표값(최소 금액). 형식이 "국내전용 [20,000]원" 처럼 대괄호라 숫자만 추출.
+    fee_nums = []
+    for x in re.findall(r"[\d,]{3,}", card.get("annual_fee") or ""):
+        v = x.replace(",", "")
+        if v.isdigit() and int(v) >= 1000:
+            fee_nums.append(int(v))
     annual_fee = min(fee_nums) if fee_nums else 0
 
     return {
