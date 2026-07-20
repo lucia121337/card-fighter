@@ -36,3 +36,4 @@ Rule-01 (데이터 분리): "계산 로직 내에서 원본 데이터(it.amount)
 Rule-02 (에러 방어): "파싱 결과가 Infinity이거나 계산 불가능한 값일 경우, 즉시 0 또는 예외 코드(-1)로 치환하여 NaN이나 Infinity가 UI에 노출되지 않도록 한다."
 
 Rule-03 (디버깅): "피킹률 계산 시, 계산에 사용된 최종 변수값(currentPerf, finalTotal, annualFee)을 반드시 console.log로 출력하여 추적 가능하게 한다."
+
