@@ -286,6 +286,47 @@ def parse_voucher(summary):
     return best_won, label
 
 
+_TIER_TXT = re.compile(r"(\d[\d,]*)\s*만\s*원\s*이상")
+
+
+def card_detail_text_tiers(idx):
+    """표가 아니라 텍스트 목록으로 쓰인 실적구간 한도 파싱.
+       '전월 이용금액대별 통합 월 할인한도 - 30만원 이상: 10,000원 - 60만원 이상: 20,000원'
+    혜택군이 여러 개면 구간별 최댓값을 취한다(카드 전체 상한 근사)."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return None, None, ""
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return None, None, ""
+    pairs = {}
+    for k in kb:
+        t = strip_html(k.get("info"))
+        if "한도" not in t:
+            continue
+        for m in _TIER_TXT.finditer(t):
+            mn = int(m.group(1).replace(",", "")) * 10000
+            tail = t[m.end():m.end() + 70]
+            am = (re.search(r"한도[^\d]{0,10}([\d,]{3,})\s*원", tail)
+                  or re.search(r"([\d,]{3,})\s*원", tail))
+            if not am:
+                continue
+            cap = int(am.group(1).replace(",", ""))
+            if not (1000 <= cap <= 500000):
+                continue
+            pairs[mn] = max(pairs.get(mn, 0), cap)
+    if len(pairs) < 2:
+        return None, None, ""
+    tiers = sorted(pairs.items())
+    caps = [c for _, c in tiers]
+    lo, hi = min(caps), max(caps)
+    if lo == hi:
+        return None, None, ""          # 구간별로 다르지 않으면 tier 의미 없음
+    note = f"전월실적별 {_won_str(lo)}~{_won_str(hi)}"
+    return [(m, c) for m, c in tiers], hi, note
+
+
 _LABEL_HDR = ("가맹점", "구분", "영역", "서비스", "대상", "업종", "점", "항목")
 
 
@@ -478,8 +519,10 @@ def parse_card(card):
             fee_nums.append(int(v))
     annual_fee = min(fee_nums) if fee_nums else 0
 
-    # 월 한도: 통합할인한도 표(tier·최정확) > card_detail 문구 > I열
+    # 월 한도: 통합할인한도 표(tier·최정확) > 텍스트형 구간표 > card_detail 문구 > I열
     cap_tiers, cap_tier_max, cap_note = card_detail_tier_cap(card.get("idx"))
+    if not cap_tiers:
+        cap_tiers, cap_tier_max, cap_note = card_detail_text_tiers(card.get("idx"))
     cap_detail = card_detail_cap(card.get("idx"))
     cap_summary = max(caps) if caps else None
     monthly_cap = cap_tier_max or cap_detail or cap_summary
