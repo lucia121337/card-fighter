@@ -138,11 +138,11 @@
   </div>
 </div>
 
+<script src="benefit-calc.js"></script>
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => Math.round(n).toLocaleString()+'원';
-const DEFAULT_CAP = 30000;   // 월 한도 미파악 카드 보정
-const RATE_CLAMP = 0.10;     // 카테고리 혜택율 상한(과대추정 방지)
+// 계산 규칙(율 상한·기본 한도·월한도 선택)은 benefit-calc.js(BenefitCalc) 공용 모듈에서 관리
 
 // 입력 카테고리(구조화 데이터의 카테고리명과 일치)
 const CATS = [
@@ -168,7 +168,12 @@ document.getElementById('spend-list').innerHTML = CATS.map(c=>`
     <div class="spend-ico">${c.icon}</div>
     <div class="spend-name">${esc(c.key)}</div>
     <div class="spend-input"><input type="number" min="0" inputmode="numeric" data-cat="${esc(c.key)}" oninput="recalc()"><span class="unit">만원</span></div>
-  </div>`).join('');
+  </div>`).join('') + `
+  <div class="spend-row" style="border-top:1px dashed #e2e8f0;margin-top:4px;padding-top:10px">
+    <div class="spend-ico">🧾</div>
+    <div class="spend-name">평소 월 카드 사용액 <small style="color:#94a3b8;font-weight:600">전월실적 · 비우면 합계로 계산</small></div>
+    <div class="spend-input"><input type="number" min="0" inputmode="numeric" id="prev-month" oninput="recalc()" placeholder="합계"><span class="unit">만원</span></div>
+  </div>`;
 
 Promise.all([
   fetch('benefits_structured.json').then(r=>r.json()),
@@ -204,29 +209,19 @@ function recalc(){
   }
   document.getElementById('empty').style.display='none';
 
+  // 전월실적: 별도 입력. 비우면 지출 합계로 간주. (한도 tier·실적조건 판정 기준)
+  const pv = parseFloat(document.getElementById('prev-month')?.value)||0;
+  const prevMonth = pv>0 ? pv*10000 : total;
+
   const results=[];
   for(const idx in BEN){
     const b=BEN[idx], card=BYIDX[idx]; if(!card) continue;
-    let raw=0; const matched=[];
-    for(const cat in spending){
-      const spend=spending[cat];
-      let rate = b.category_rates[cat];
-      if(rate==null) rate = b.base_rate || 0;   // 카테고리 특화 없으면 기본율
-      rate = Math.min(rate, RATE_CLAMP);
-      if(rate>0){
-        raw += spend*rate;
-        if(b.category_rates[cat]) matched.push({cat, rate:b.category_rates[cat]});
-      }
-    }
-    const miles = Math.round(total*(b.miles_per_won||0));
-    if(raw<=0 && miles<=0) continue;   // 돈 혜택도 마일도 없으면 제외
-    const cap = b.monthly_cap || DEFAULT_CAP;
-    const benefit = Math.min(raw, cap);
-    const feeM = (b.annual_fee||0)/12;
-    const net = benefit - feeM;
-    const meets = total >= (b.pre_month_money||0);
-    results.push({idx, benefit, net, feeM, matched, meets, pre:b.pre_month_money||0, capped: raw>cap,
-      miles, bonus: b.bonus_miles||0, air: b.airline||'', isMile: b.is_mileage, type: b.type});
+    const r = BenefitCalc.calc(b, spending, {prevMonth});
+    if(r.money<=0 && r.miles<=0 && r.points<=0) continue;   // 돈·마일·포인트 다 없으면 제외
+    results.push({idx, benefit:r.money, net:r.net, feeM:r.feeMonthly, matched:r.matched,
+      meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped,
+      miles:r.miles, bonus:r.milesBonus, air:r.airline, isMile:r.isMileage, type:b.type,
+      points:r.points, pointName:r.pointName});
   }
   if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
     results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
@@ -247,6 +242,7 @@ function render(list, total){
     const mile = r.miles>0 ? `<span class="rchip mile">${ico} 월 ${r.miles.toLocaleString()}${nm}</span>`
                : (r.bonus>0 ? `<span class="rchip mile">${ico} 연 ${mm(r.bonus)}${nm}</span>`
                : (r.isMile ? `<span class="rchip mile">${ico} ${nm}적립</span>` : ''));
+    const pointChip = r.points>0 ? `<span class="rchip mile">🅿️ 월 ${r.points.toLocaleString()} ${esc(r.pointName||'포인트')}</span>` : '';
     const warn = !r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '';
     return `<div class="rcard ${i===0?'top':''}">
       <div class="rnum">${i+1}</div>
@@ -254,7 +250,7 @@ function render(list, total){
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
         <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
-        <div class="rreason">${reasons}${mile}${warn}</div>
+        <div class="rreason">${reasons}${mile}${pointChip}${warn}</div>
       </div>
       <div class="rmoney">
         <div class="lab">월 예상 순이득</div>

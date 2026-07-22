@@ -142,6 +142,7 @@
   <div class="status"><div class="spinner"></div>카드 정보를 불러오는 중…</div>
 </div>
 
+<script src="benefit-calc.js"></script>
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => n ? Number(n).toLocaleString()+'원' : '없음';
@@ -213,80 +214,103 @@ function extractAmount(html){
   return max;
 }
 
-/* 구조화 혜택 데이터로 "내 지출 → 예상 혜택" 계산.
-   Option D: 할인/적립은 원으로 합산, 마일리지는 단위가 달라 따로 표시(원 환산 X). */
+/* 구조화 혜택 데이터로 "내 지출 → 예상 혜택" 계산. 계산은 전부 benefit-calc.js(BenefitCalc) 공용 모듈.
+   Option D: 할인/적립은 원으로 합산, 마일리지·포인트는 단위가 달라 따로 표시(원 환산 X). */
 function buildCalc(bs){
   if(!bs) return '';
-  const catRates = bs.category_rates || {};
-  const rows = Object.keys(catRates).sort((a,b)=>catRates[b]-catRates[a])
-    .map(c=>({cat:c, rate:Math.min(catRates[c], 0.10)}));      // 율 10% 상한(과대추정 방지)
-  if(bs.base_rate > 0) rows.push({cat:'그 외 모든 가맹점', rate:Math.min(bs.base_rate, 0.10)});
-  const hasMiles = (bs.miles_per_won||0) > 0;
-  if(!rows.length){
-    if(bs.is_mileage) rows.push({cat:'월 전체 지출', rate:0});  // 마일 전용 카드: 총지출만 받음
-    else return '';
-  }
+  const rows = BenefitCalc.buildRows(bs);
+  const isUnitOnly = !rows.length && BenefitCalc.track(bs)==='unit';
+  if(isUnitOnly) rows.push({cat:'월 전체 지출', rate:0, cap:0, isBase:false}); // 마일/포인트 전용: 총지출만 입력
+  if(!rows.length) return '';
 
   window._calcRows = rows;
-  window._calcCap  = bs.monthly_cap || 30000;
-  window._calcFeeM = Math.round((bs.annual_fee||0)/12);
-  window._calcMPW  = bs.miles_per_won || 0;
-  window._calcBonus = bs.bonus_miles || 0;
-  window._calcAir  = bs.airline || '';
-  window._calcIsMile = !!bs.is_mileage;
+  window._calcBS = bs;
+  const wonTxt = n => (n>=10000 && n%10000===0) ? (n/10000)+'만원' : Math.round(n).toLocaleString()+'원';
   window._calcRender = function(){
-    let raw = 0, spend = 0;
-    const per = [];
+    // 입력 수집: 행별 지출 + 전월실적(비우면 지출 합계로 간주)
+    const spending = {};
     window._calcRows.forEach((r,i)=>{
       const el = document.getElementById('calc-in-'+i);
-      const won = (parseFloat(el && el.value)||0) * 10000; spend += won;
-      const b = won * r.rate; per.push(b); raw += b;
+      spending[r.cat] = (parseFloat(el && el.value)||0) * 10000;
     });
-    const capped = Math.min(raw, window._calcCap);
-    const scale = (raw > window._calcCap && raw > 0) ? window._calcCap / raw : 1;  // 한도 초과분은 행별 비례 축소(왜곡 방지)
-    window._calcRows.forEach((r,i)=>{
+    const pv = document.getElementById('calc-prev');
+    let prevMonth = (parseFloat(pv && pv.value)||0) * 10000;
+    const totalSpend = Object.values(spending).reduce((s,v)=>s+v,0);
+    if(!prevMonth) prevMonth = totalSpend;
+
+    const r = BenefitCalc.calc(window._calcBS, spending, {prevMonth});
+
+    r.rows.forEach((row,i)=>{
       const out = document.getElementById('calc-out-'+i); if(!out) return;
-      const shown = per[i] * scale;
-      out.textContent = r.rate>0 ? Math.round(shown).toLocaleString()+'원' : '—';
-      out.classList.toggle('zero', shown<=0);
+      out.textContent = row.rate>0 ? Math.round(row.shown).toLocaleString()+'원' : '—';
+      out.classList.toggle('zero', row.shown<=0);
     });
-    const net = capped - window._calcFeeM;
-    const t=document.getElementById('calc-total-amt'); if(t) t.textContent = Math.round(capped).toLocaleString()+'원';
-    const n=document.getElementById('calc-net'); if(n) n.textContent = window._calcFeeM ? '연회비 빼면 순이득 약 '+Math.round(net).toLocaleString()+'원' : '';
-    const cn=document.getElementById('calc-capnote'); if(cn) cn.style.display = raw>window._calcCap ? '' : 'none';
+    // 돈 혜택이 아예 없는 카드(마일/포인트 전용)는 '0원'을 대표 숫자로 쓰지 않는다
+    const t=document.getElementById('calc-total-amt');
+    if(t) t.textContent = r.hasMoney ? Math.round(r.money).toLocaleString()+'원' : '—';
+    const n=document.getElementById('calc-net');
+    if(n) n.textContent = !r.feeMonthly ? ''
+      : r.hasMoney ? '연회비 빼면 순이득 약 '+Math.round(r.net).toLocaleString()+'원'
+                   : '연회비 월 '+r.feeMonthly.toLocaleString()+'원 (혜택은 아래 단위로 적립)';
+    const cn=document.getElementById('calc-capnote');
+    if(cn){
+      if(r.capped){ cn.style.display=''; cn.textContent = '· 월 한도 '+wonTxt(r.cap)+' 적용'; }
+      else cn.style.display='none';
+    }
+    const mm = x => x>=10000 ? (x/10000).toLocaleString()+'만' : x.toLocaleString();
     const ml=document.getElementById('calc-miles');
     if(ml){
-      const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
-      const air = window._calcAir;
-      const ico = air ? '✈️' : '🎫';
+      const air = r.airline, ico = air ? '✈️' : '🎫';
       const nm  = air==='항공' ? '항공마일' : (air ? air+' 마일' : '카드 마일');
-      if(window._calcMPW>0){ ml.style.display=''; ml.textContent = ico+' 예상 월 약 '+Math.round(spend*window._calcMPW).toLocaleString()+' '+nm+' (별도 적립)'; }
-      else if(window._calcBonus>0){ ml.style.display=''; ml.textContent = ico+' 연 '+mm(window._calcBonus)+' '+nm+' 보너스 (별도)'; }
-      else if(window._calcIsMile){ ml.style.display=''; ml.textContent = air ? ico+' '+nm+' 적립 (적립률은 상세 혜택 참고)' : '🎫 카드 마일리지 (항공사 직접 적립 아님)'; }
+      if(r.miles>0){ ml.style.display=''; ml.textContent = ico+' 예상 월 약 '+r.miles.toLocaleString()+' '+nm+' (별도 적립)'; }
+      else if(r.milesBonus>0){ ml.style.display=''; ml.textContent = ico+' 연 '+mm(r.milesBonus)+' '+nm+' 보너스 (별도)'; }
+      else if(r.isMileage){ ml.style.display=''; ml.textContent = air ? ico+' '+nm+' 적립 (적립률은 상세 혜택 참고)' : '🎫 카드 마일리지 (항공사 직접 적립 아님)'; }
       else ml.style.display='none';
+    }
+    const pt=document.getElementById('calc-points');
+    if(pt){
+      if(r.pointPer1k>0){
+        const u = ((r.pointName||'').match(/(포인트|머니|MR|P)\s*$/) || [,'P'])[1];
+        let s = '🅿️ 예상 월 약 '+r.points.toLocaleString()+' '+(r.pointName||'포인트');
+        s += ' (기본 '+r.pointPer1k+u+'/1천원 기준)';
+        if(r.pointTopPer1k > r.pointPer1k) s += ' · 특별가맹점 최대 '+r.pointTopPer1k+u+'/1천원';
+        if(r.pointBonus>0) s += ' · 연 '+mm(r.pointBonus)+'P 보너스(별도)';
+        pt.style.display=''; pt.textContent = s;
+      } else pt.style.display='none';
     }
   };
 
   const rowHTML = rows.map((r,i)=>{
     const pct = r.rate*100; const badge = r.rate>0 ? `<span class="calc-rate">${pct%1?pct.toFixed(1):pct}%</span>` : '';
+    const capBadge = r.cap ? `<span class="calc-rate" style="background:#eef2ff;color:#4338ca" title="이 카테고리 월 할인한도">한도 ${wonTxt(r.cap)}</span>` : '';
     return `<div class="calc-row">
-      <span class="calc-name">${esc(r.cat)} ${badge}</span>
+      <span class="calc-name">${esc(r.cat)} ${badge}${capBadge}</span>
       <span class="calc-inp"><input type="number" min="0" inputmode="numeric" id="calc-in-${i}" oninput="_calcRender()"><em>만원</em></span>
       <span class="calc-amount zero" id="calc-out-${i}">0원</span>
     </div>`;
   }).join('');
 
   const typeBadge = bs.type && bs.type!=='기타' ? `<span class="calc-type">${esc(bs.type)}형</span>` : '';
+  // 전월실적: 통합할인한도 구간 선택 기준. 비우면 위 지출 합계로 간주.
+  const prevRow = `<div class="calc-row" style="border-top:1px dashed var(--line);margin-top:6px;padding-top:10px">
+      <span class="calc-name" style="color:var(--muted)">평소 월 카드 사용액 <span class="calc-rate" title="통합할인한도 구간을 정하는 전월실적 기준. 비우면 위 지출 합계로 계산">전월실적</span></span>
+      <span class="calc-inp"><input type="number" min="0" inputmode="numeric" id="calc-prev" oninput="_calcRender()" placeholder="합계"><em>만원</em></span>
+      <span class="calc-amount" style="visibility:hidden">-</span>
+    </div>`;
   return `<div class="calc-box">
     <h3>🧮 혜택 계산기 ${typeBadge}<span class="calc-hint">내 월 지출을 넣어보세요</span></h3>
     ${rowHTML}
+    ${prevRow}
     <div class="calc-total">
       <div><span class="tot-label">예상 월 혜택 <span class="calc-capnote" id="calc-capnote" style="display:none">· 월 한도 적용</span></span>
         <div class="calc-net" id="calc-net"></div>
-        <div class="calc-miles" id="calc-miles" style="display:none"></div></div>
+        <div class="calc-miles" id="calc-miles" style="display:none"></div>
+        <div class="calc-miles" id="calc-points" style="display:none"></div></div>
       <span class="tot-amt" id="calc-total-amt">0원</span>
     </div>
-    <div class="calc-disc">ⓘ 금액은 '최대 기준' 예상치예요. 마일리지는 돈과 단위가 달라 <b>따로</b> 표시했어요.</div>
+    <div class="calc-disc">ⓘ 금액은 '최대 기준' 예상치예요. 마일리지는 돈과 단위가 달라 <b>따로</b> 표시했어요.${
+      bs.cap_note ? `<br>ⓘ 이 카드 월 할인한도는 <b>${esc(bs.cap_note)}</b> — 입력한 지출액에 맞는 구간을 자동 적용했어요.` : ''
+    }</div>
   </div>`;
 }
 
