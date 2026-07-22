@@ -1,0 +1,75 @@
+name: Daily Naver product refresh
+
+# 매일 한국시간 06:00(UTC 21:00)에 네이버쇼핑 검색 API로 상품을 재수집해
+# data/naver_products.json을 갱신한다. collect-trends.yml과 동일하게
+# main에는 직접 커밋하지 않고, bot/naver-data 브랜치에 커밋한 뒤 main으로
+# PR을 올린다(CONTRIBUTING.md 규칙). 데이터 전용 자동 PR이므로 충돌이
+# 없으면 사람 승인 없이 자동 merge되도록 auto-merge를 활성화한다.
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pandas requests python-dotenv
+
+      - name: Collect Naver products
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+        run: python scripts/naver-collector/collect_mall_products.py
+
+      - name: Commit data/naver_products.json to bot/naver-data branch
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -e
+          cp data/naver_products.json /tmp/naver_products.json
+
+          git checkout -B bot/naver-data origin/main
+
+          cp /tmp/naver_products.json data/naver_products.json
+          git add data/naver_products.json
+
+          if git diff --cached --quiet; then
+            echo "변경 없음, 커밋/PR 생략"
+            echo "SKIP=true" >> "$GITHUB_ENV"
+          else
+            git commit -m "chore(data): refresh naver_products.json ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git push --force origin bot/naver-data
+            echo "SKIP=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Create PR and enable auto-merge
+        if: env.SKIP == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          pr_number=$(gh pr list --head bot/naver-data --state open --json number -q '.[0].number')
+          if [ -z "$pr_number" ]; then
+            pr_number=$(gh pr create \
+              --title "chore(data): refresh naver_products.json" \
+              --body "네이버쇼핑 검색 API 자동 재수집 결과 (daily-naver-refresh 워크플로)" \
+              --base main --head bot/naver-data | grep -oE '[0-9]+$')
+          fi
+          gh pr merge "$pr_number" --auto --squash
