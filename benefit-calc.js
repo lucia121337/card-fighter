@@ -76,6 +76,7 @@
       rawMoney: 0, money: 0, cap: 0, capSrc: '', capped: false, scale: 1,
       miles: 0, milesBonus: 0, airline: '', isMileage: false,
       points: 0, pointName: '', pointPer1k: 0, pointTopPer1k: 0, pointBonus: 0,
+      voucherWon: 0, voucherLabel: '',
       feeMonthly: 0, net: 0, hasMoney: false,
       preMonth: 0, meetsPreMonth: true, totalSpend: 0
     };
@@ -130,15 +131,23 @@
     out.pointTopPer1k = Math.round(num(b.points_top_per_won) * 1000 * 100) / 100;
     out.pointBonus = num(b.bonus_points);
 
+    // 연간 바우처/기프트 — 지출과 무관한 기본 제공 베네핏 (월 순이득엔 합산하지 않고 별도 표시)
+    out.voucherWon = num(b.voucher_won);
+    out.voucherLabel = b.voucher_label || '';
+
     out.net = out.money - out.feeMonthly;
     return out;
   }
 
-  /* 토너먼트 후보 정렬용 점수. 트랙별로 비교 가능한 값만 쓴다. */
+  /* 토너먼트 후보 정렬용 점수. 트랙별로 비교 가능한 '같은 단위'만 합산한다.
+     - money: 월 순이득 + 연 바우처(금액권=원)의 월 환산. 연회비만 빼고 바우처를 안 치면
+              프리미엄 카드가 항상 탈락해 비교가 왜곡된다.
+     - unit : 월 적립 마일 + 연 보너스 마일 월 환산 (포인트도 동일). 마일과 원은 절대 안 섞음. */
   function score(r) {
     if (!r) return 0;
-    if (r.track === 'money') return r.net;                       // 원: 순이득
-    return r.miles > 0 ? r.miles : r.points;                     // 단위: 마일/포인트 적립량
+    if (r.track === 'money') return r.net + num(r.voucherWon) / 12;
+    if (r.miles > 0 || r.milesBonus > 0) return r.miles + num(r.milesBonus) / 12;
+    return r.points + num(r.pointBonus) / 12;
   }
 
   global.BenefitCalc = {

@@ -258,6 +258,34 @@ def card_detail_points(idx):
     return parse_points(" ".join(strip_html(k.get("info")) for k in kb))
 
 
+# ── 연간 바우처/기프트 (기본 제공 베네핏) ────────────────────────────────
+# I열 요약만 사용 — 상세 본문은 "상품권 구매 시 제외" 같은 부정 문맥 오탐 위험.
+_VOUCHER_KW = ("바우처", "기프트", "상품권", "교환권")
+_V_WON = re.compile(r"(\d[\d,]*)\s*만\s*원")          # "70만원", "20만원상당", "10만원권"
+_V_MAN = re.compile(r"(\d[\d,]*)\s*만(?!\s*원)")       # "연간 6만 바우처" (원 생략형)
+
+
+def parse_voucher(summary):
+    """(연 바우처 금액(원), 표시 라벨). 마일/포인트 표기는 별도 필드 담당이라 제외."""
+    best_won, label = 0, ""
+    for seg in (summary or "").split("|"):
+        seg = seg.strip()
+        if not any(k in seg for k in _VOUCHER_KW):
+            continue
+        if "마일" in seg or "포인트" in seg or re.search(r"\dP\b", seg):
+            continue   # 연 보너스 마일/포인트로 이미 구조화됨
+        text = seg.split(":", 1)[1].strip() if ":" in seg else seg
+        m = _V_WON.search(text) or _V_MAN.search(text)
+        won = int(m.group(1).replace(",", "")) * 10000 if m else 0
+        if not (0 < won <= 1_000_000):
+            won = 0
+        # 금액 있는 라벨 우선, 없으면 첫 라벨이라도 표시용으로 확보
+        if won > best_won or (not label and text):
+            label = text[:40]
+        best_won = max(best_won, won)
+    return best_won, label
+
+
 _LABEL_HDR = ("가맹점", "구분", "영역", "서비스", "대상", "업종", "점", "항목")
 
 
@@ -394,6 +422,9 @@ def parse_card(card):
     # 마일리지(원과 별개 단위) + 항공사 + 카드 성격
     miles_per_won, is_mile, bonus_miles = parse_miles(summary)
     airline = detect_airline(f"{card.get('card_name','')} {summary} {card.get('benefit_categories') or ''}") if is_mile else ""
+    # 연간 바우처/기프트 (I열 요약 기반)
+    voucher_won, voucher_label = parse_voucher(summary)
+
     # 포인트 적립(마일과 같은 별도 단위) — 상세 우선, 없으면 I열 요약
     pt_base, pt_top, pt_name, pt_bonus = card_detail_points(card.get("idx"))
     if pt_base <= 0:
@@ -422,6 +453,8 @@ def parse_card(card):
         "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
         "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
         "airline": airline,                 # 대한항공/아시아나/항공 or '' (카드·제휴 마일)
+        "voucher_won": voucher_won,         # 연 바우처/기프트 금액(원) — 기본 제공 베네핏
+        "voucher_label": voucher_label,     # 표시용 문구 (금액 미상이어도 존재 가능)
         "points_per_won": pt_base,          # 지출 1원당 포인트(기본적립 기준·보수적)
         "points_top_per_won": pt_top,       # 특별적립 등 최고 적립률
         "point_name": pt_name,              # 예: "메리어트 본보이", "TOP" / 기본 "포인트"

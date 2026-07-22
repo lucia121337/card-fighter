@@ -81,6 +81,7 @@
   .chip.rate{background:#eff6ff;color:var(--brand)}
   .chip.warn{background:#fef2f2;color:#dc2626}
   .chip.mile{background:#ecfeff;color:#0891b2}
+  .chip.gift{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
   .m-meta{margin-top:auto;padding-top:12px;font-size:12px;color:var(--muted);line-height:1.6}
   .pick{margin-top:12px;background:var(--panel2);border-radius:10px;font-size:13px;font-weight:800;
         color:var(--brand);padding:10px}
@@ -314,10 +315,15 @@ function renderMatch(){
   document.getElementById('vs-wrap').innerHTML =
     matchCard(A,0) + '<div class="vs-mid">VS</div>' + matchCard(B,1);
 }
+const signWon = n => (n<0?'−':'+') + won(Math.abs(n));
 function benefitLine(p){
   const r=p.r;
   if(TRACK==='money'){
-    return `<div class="m-benefit">월 +${won(r.net)}<small>예상 순이득(연회비 차감${r.capped?' · 월 한도 적용':''})</small></div>`;
+    const vMon = Math.round(r.voucherWon/12);
+    if(vMon>0){  // 바우처(금액권)는 월 환산해 합산 — 순위 점수와 표시를 일치시킨다
+      return `<div class="m-benefit">월 ${signWon(r.net+vMon)}<small>순이득 ${signWon(r.net)} + 연 바우처 월환산 +${won(vMon)}${r.capped?' · 월 한도 적용':''}</small></div>`;
+    }
+    return `<div class="m-benefit">월 ${signWon(r.net)}<small>예상 순이득(연회비 차감${r.capped?' · 월 한도 적용':''})</small></div>`;
   }
   if(r.miles>0){
     const nm=r.airline ? r.airline+' 마일' : '카드 마일';
@@ -330,11 +336,21 @@ function benefitLine(p){
            : r.pointBonus>0 ? `연 ${mm(r.pointBonus)} ${esc(r.pointName||'포인트')}` : '적립형';
   return `<div class="m-benefit">${bn}<small>보너스 기준(별도 단위)</small></div>`;
 }
+/* 지출과 무관하게 기본 제공되는 베네핏(연 바우처·보너스 마일·보너스 포인트) 칩 */
+function baseChips(r){
+  let s='';
+  if(r.voucherWon>0) s+=`<span class="chip gift" title="${esc(r.voucherLabel)}">🎁 연 바우처 ${mm(r.voucherWon)}원</span>`;
+  else if(r.voucherLabel) s+=`<span class="chip gift">🎁 ${esc(r.voucherLabel)}</span>`;
+  if(r.milesBonus>0) s+=`<span class="chip gift">✈️ 연 ${mm(r.milesBonus)}마일 기본 제공</span>`;
+  if(r.pointBonus>0) s+=`<span class="chip gift">🅿️ 연 ${mm(r.pointBonus)}P 기본 제공</span>`;
+  return s;
+}
 function matchCard(p, side){
   const c=p.card, r=p.r;
   const chips = r.matched.slice(0,3).map(m=>`<span class="chip rate">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('')
     + (r.miles>0?`<span class="chip mile">✈️ 마일</span>`:'')
     + (r.points>0?`<span class="chip mile">🅿️ ${esc(r.pointName||'포인트')}</span>`:'')
+    + baseChips(r)
     + (!r.meetsPreMonth?`<span class="chip warn">전월실적 ${mm(r.preMonth)}원 필요</span>`:'');
   return `<div class="mcard" onclick="pickWinner(${side})">
     <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
@@ -365,8 +381,10 @@ function showResult(p){
   const c=p.card, r=p.r;
   let benefit='';
   if(TRACK==='money'){
-    benefit = `<div class="b-num">월 약 +${won(r.net)}</div>
-      <div class="b-sub">예상 혜택 ${won(r.money)}${r.capped?' (월 한도 '+won(r.cap)+' 적용)':''} − 연회비 월 ${won(r.feeMonthly)}</div>`;
+    const vMon = Math.round(r.voucherWon/12);
+    benefit = `<div class="b-num">월 약 ${signWon(r.net+vMon)}</div>
+      <div class="b-sub">예상 혜택 ${won(r.money)}${r.capped?' (월 한도 '+won(r.cap)+' 적용)':''} − 연회비 월 ${won(r.feeMonthly)}${
+        vMon>0 ? ' + 연 바우처 '+mm(r.voucherWon)+'원의 월환산 '+won(vMon) : ''}</div>`;
   } else {
     const unit = r.miles>0 ? r.miles.toLocaleString()+' '+(r.airline?r.airline+' 마일':'카드 마일')
                : r.points>0 ? r.points.toLocaleString()+' '+esc(r.pointName||'포인트') : '적립형';
@@ -374,9 +392,16 @@ function showResult(p){
     benefit = `<div class="b-num">월 약 ${unit}</div>
       <div class="b-sub">원과 단위가 달라 따로 표시${bonus} · 연회비 월 ${won(r.feeMonthly)}</div>`;
   }
+  const baseBen = [
+    r.voucherWon>0 ? `🎁 연 바우처 <b>${mm(r.voucherWon)}원</b> (${esc(r.voucherLabel)})`
+      : (r.voucherLabel ? `🎁 ${esc(r.voucherLabel)}` : ''),
+    r.milesBonus>0 ? `✈️ 연 <b>${mm(r.milesBonus)}마일</b> 기본 제공` : '',
+    r.pointBonus>0 ? `🅿️ 연 <b>${mm(r.pointBonus)}P</b> 기본 제공` : '',
+  ].filter(Boolean);
   const why = [
     `선택하신 <b>${SELECTED.map(esc).join(', ')}</b> 중 <b>${p.hit.map(esc).join(', ')}</b> 혜택을 갖고 있어요.`,
     r.matched.length ? `매칭 혜택: ${r.matched.slice(0,4).map(m=>`${esc(m.cat)} ${Math.round(m.rate*100)}%`).join(' · ')}` : '',
+    baseBen.length ? `기본 제공: ${baseBen.join(' · ')} — 지출과 무관한 연간 베네핏이에요${TRACK==='money'&&r.voucherWon>0?' (바우처는 금액권이라 월 환산해 합산)':''}.` : '',
     r.meetsPreMonth ? `입력하신 실적 기준으로 <b>전월실적 조건을 충족</b>해요.`
                     : `⚠️ 전월실적 <b>${mm(r.preMonth)}원</b>이 필요해요 — 지금 실적으론 혜택을 못 받을 수 있어요.`,
   ].filter(Boolean).map(s=>`· ${s}`).join('<br>');
