@@ -33,12 +33,22 @@
     return 'none';
   }
 
-  /* 계산 행 구성: 카드의 카테고리별 율 + 기본율 행 */
+  /* 계산 행 구성: 카드의 카테고리별 율 + 택1 후보 + 기본율 행
+     택1(pick_one): '커피·배달·델리 중 이용 1위 1곳만 30%' 같은 자동맞춤 구조.
+     후보를 모두 행으로 만들되 pickGroup 표시를 달아, 계산 시 1곳만 적용한다. */
   function buildRows(b) {
     var catRates = b.category_rates || {}, catCaps = b.category_caps || {};
     var rows = Object.keys(catRates).map(function (c) {
       return { cat: c, rate: Math.min(num(catRates[c]), RATE_CLAMP), cap: num(catCaps[c]), isBase: false };
     });
+    var po = b.pick_one;
+    if (po && po.cats && po.cats.length) {
+      po.cats.forEach(function (c) {
+        if (rows.some(function (r) { return r.cat === c; })) return;
+        rows.push({ cat: c, rate: Math.min(num(po.rate), RATE_CLAMP), cap: num(catCaps[c]),
+                    isBase: false, pickGroup: true, pickRate: num(po.rate) });
+      });
+    }
     rows.sort(function (x, y) { return y.rate - x.rate; });
     if (num(b.base_rate) > 0) {
       rows.push({ cat: BASE_ROW, rate: Math.min(num(b.base_rate), RATE_CLAMP), cap: 0, isBase: true });
@@ -98,15 +108,25 @@
     var otherSpend = 0;
     Object.keys(spending).forEach(function (k) { if (!matchedCats[k]) otherSpend += num(spending[k]); });
 
+    // 택1 그룹: 후보 중 지출이 가장 큰 1곳만 혜택을 받는다 (나머지는 0)
+    var pickWinner = null, pickMax = -1;
+    rows.forEach(function (r) {
+      if (!r.pickGroup) return;
+      var sp = num(spending[r.cat]);
+      if (sp > pickMax) { pickMax = sp; pickWinner = r.cat; }
+    });
+
     var raw = 0;
     rows.forEach(function (r) {
       var spend = r.isBase ? otherSpend : num(spending[r.cat]);
       var ben = spend * r.rate;
+      if (r.pickGroup && r.cat !== pickWinner) { ben = 0; r.pickLost = true; }  // 1위 아닌 후보
       if (r.cap) ben = Math.min(ben, r.cap);   // 카테고리 개별 월한도
       r.spend = spend; r.raw = ben;
       raw += ben;
-      if (!r.isBase && spend > 0 && r.rate > 0) out.matched.push({ cat: r.cat, rate: r.rate });
+      if (!r.isBase && spend > 0 && r.rate > 0 && ben > 0) out.matched.push({ cat: r.cat, rate: r.rate });
     });
+    out.pickWinner = pickWinner;
 
     var c = resolveCap(b, rows, prevMonth);
     out.cap = c.cap; out.capSrc = c.src;

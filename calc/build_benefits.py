@@ -355,9 +355,54 @@ LABEL_ALIAS = {
     "병원": "병원/약국", "약국": "병원/약국", "교육": "교육/육아", "육아": "교육/육아",
     "자동차": "자동차/하이패스", "하이패스": "자동차/하이패스",
 }
-# 특정 카테고리가 아닌 '기본/전체' 성격 라벨 → base_rate 로
-BASE_LABELS = {"적립", "할인", "캐시백", "국내외가맹점", "국내외 가맹점", "모든가맹점",
-               "전가맹점", "기본", "국내", "해외겸용", "바우처", "혜택"}
+# 진짜 '전 가맹점' 스코프 라벨만 base_rate 로 (혜택 '종류' 라벨과 구분)
+ALL_MERCHANT_LABELS = {"국내외가맹점", "국내외 가맹점", "모든가맹점", "전가맹점", "기본"}
+# 종류 라벨(스코프 정보 없음) — 본문 텍스트를 보고 판단해야 한다
+TYPE_LABELS = {"적립", "할인", "캐시백", "청구할인", "혜택", "바우처", "기타", "선택형"}
+# 본문에 이런 표현이 있으면 전 가맹점 스코프
+ALL_MERCHANT_RE = re.compile(r"(모든|전)\s*가맹점|국내외\s*가맹점|국내\s*가맹점|전\s*업종|모든\s*업종")
+# '택1(자동 맞춤)' 구조 — 여러 영역 중 이용금액이 가장 큰 1곳에만 적용
+PICK_RE = re.compile(r"자동\s*맞춤|많이\s*쓰는\s*영역|중\s*1개|택\s*1|가장\s*큰\s*1개")
+
+
+def cats_from_text(text, covered):
+    """본문 텍스트에서 카테고리 추출. '교통·이동통신·스트리밍 10%' → [교통, 통신, OTT/영화/문화].
+    오탐을 막기 위해 J열(covered)에 실제로 있는 카테고리만 인정한다."""
+    found = []
+    for tok in re.split(r"[/·,、\s]+", text):
+        tok = tok.strip()
+        if len(tok) < 2:
+            continue
+        c = map_category(tok, covered)
+        if c and c in covered and c not in found:
+            found.append(c)
+    return found
+
+
+def card_detail_pick_one(idx, covered):
+    """상세 본문의 택1 구조 파싱.
+    '커피전문점·배달앱·델리 영역 중 월 이용금액이 가장 큰 1개 영역에 대해 30% 할인'
+      → {"rate":0.30, "cats":["카페/디저트","푸드"]}"""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return None
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return None
+    pat = re.compile(r"([가-힣A-Za-z·,/\s]{4,40}?)\s*영역\s*중[^.]{0,40}?(\d+(?:\.\d+)?)\s*%")
+    for k in kb:
+        t = strip_html(k.get("info"))
+        if not PICK_RE.search(t):
+            continue
+        m = pat.search(t)
+        if not m:
+            continue
+        cats = cats_from_text(m.group(1), covered)
+        rate = float(m.group(2)) / 100
+        if cats and 0 < rate <= 0.70:
+            return {"rate": round(rate, 4), "cats": cats}
+    return None
 
 
 def map_category(label, covered):
@@ -384,6 +429,7 @@ def parse_card(card):
 
     for seg in summary.split("|"):
         label = seg.split(":")[0].strip() if ":" in seg else ""
+        text = seg.split(":", 1)[1].strip() if ":" in seg else seg
         rates = [float(x) / 100 for x in RATE_RE.findall(seg)]
         r = max(rates) if rates else 0.0
         # 월 한도(만원) 추출 — 할인/캐시백 맥락일 때만
@@ -394,11 +440,30 @@ def parse_card(card):
                     caps.append(won)
         if r <= 0:
             continue
-        cat = None if label in BASE_LABELS else map_category(label, covered)
-        if cat:
-            category_rates[cat] = max(category_rates.get(cat, 0.0), r)
-        else:
+        # 수수료·환율의 %는 '수수료의 N%'라 지출 대비 적립률이 아니다.
+        # ('수수료 100% 청구할인'을 전 가맹점 100% 할인으로 읽던 오류)
+        if re.search(r"수수료|환율", label) or \
+           re.search(r"(수수료|환율)[^%]{0,8}\d+(?:\.\d+)?\s*%", text) or \
+           (re.search(r"면제|할부|이자", seg) and not re.search(r"적립|할인|캐시백|청구", seg)):
+            continue
+
+        # ① 진짜 전 가맹점 스코프만 기본율로
+        if label in ALL_MERCHANT_LABELS or ALL_MERCHANT_RE.search(text):
             base_rate = max(base_rate, r)
+            continue
+        # ② 라벨로 카테고리 매핑 (종류 라벨은 건너뛰고 본문을 본다)
+        cats = []
+        if label and label not in TYPE_LABELS:
+            c = map_category(label, covered)
+            if c:
+                cats = [c]
+        # ③ 라벨로 못 잡으면 본문에서 (복수 카테고리 나열 대응)
+        if not cats:
+            cats = cats_from_text(text, covered)
+        # ④ 그래도 못 잡으면 버린다. 예전엔 base_rate 로 흘려보내
+        #    '미용실 60% 할인'이 '전 가맹점 60%'가 되는 심각한 과대추정이 있었다.
+        for c in cats:
+            category_rates[c] = max(category_rates.get(c, 0.0), r)
 
     # card_detail 카테고리별 표에서 정확한 율/개별한도 보강 (I열 요약보다 정밀)
     det_rates, det_caps = card_detail_category_rates(card.get("idx"), covered)
@@ -422,6 +487,14 @@ def parse_card(card):
     # 마일리지(원과 별개 단위) + 항공사 + 카드 성격
     miles_per_won, is_mile, bonus_miles = parse_miles(summary)
     airline = detect_airline(f"{card.get('card_name','')} {summary} {card.get('benefit_categories') or ''}") if is_mile else ""
+    # 택1(자동 맞춤) 구조 — 여러 영역 중 이용금액 1위 1곳에만 적용.
+    # category_rates 에 넣으면 모든 영역에 동시 적용돼 과대추정되므로 분리해 둔다.
+    pick_one = card_detail_pick_one(card.get("idx"), covered)
+    if pick_one:
+        for c in pick_one["cats"]:
+            if category_rates.get(c, 0.0) <= pick_one["rate"]:
+                category_rates.pop(c, None)
+
     # 연간 바우처/기프트 (I열 요약 기반)
     voucher_won, voucher_label = parse_voucher(summary)
 
@@ -453,6 +526,7 @@ def parse_card(card):
         "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
         "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
         "airline": airline,                 # 대한항공/아시아나/항공 or '' (카드·제휴 마일)
+        "pick_one": pick_one,               # {rate, cats} — 여러 영역 중 이용 1위 1곳만 적용
         "voucher_won": voucher_won,         # 연 바우처/기프트 금액(원) — 기본 제공 베네핏
         "voucher_label": voucher_label,     # 표시용 문구 (금액 미상이어도 존재 가능)
         "points_per_won": pt_base,          # 지출 1원당 포인트(기본적립 기준·보수적)

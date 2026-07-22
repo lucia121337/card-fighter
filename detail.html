@@ -242,7 +242,9 @@ function buildCalc(bs){
 
     r.rows.forEach((row,i)=>{
       const out = document.getElementById('calc-out-'+i); if(!out) return;
-      out.textContent = row.rate>0 ? Math.round(row.shown).toLocaleString()+'원' : '—';
+      // 택1에서 밀린 후보는 왜 0원인지 알려준다
+      out.textContent = row.pickLost && row.spend>0 ? '택1 제외'
+        : (row.rate>0 ? Math.round(row.shown).toLocaleString()+'원' : '—');
       out.classList.toggle('zero', row.shown<=0);
     });
     // 돈 혜택이 아예 없는 카드(마일/포인트 전용)는 '0원'을 대표 숫자로 쓰지 않는다
@@ -283,8 +285,9 @@ function buildCalc(bs){
   const rowHTML = rows.map((r,i)=>{
     const pct = r.rate*100; const badge = r.rate>0 ? `<span class="calc-rate">${pct%1?pct.toFixed(1):pct}%</span>` : '';
     const capBadge = r.cap ? `<span class="calc-rate" style="background:#eef2ff;color:#4338ca" title="이 카테고리 월 할인한도">한도 ${wonTxt(r.cap)}</span>` : '';
+    const pickBadge = r.pickGroup ? `<span class="calc-rate" style="background:#f5f3ff;color:#6d28d9" title="이 영역들 중 이용금액이 가장 큰 1곳에만 적용돼요">택1 자동맞춤</span>` : '';
     return `<div class="calc-row">
-      <span class="calc-name">${esc(r.cat)} ${badge}${capBadge}</span>
+      <span class="calc-name">${esc(r.cat)} ${badge}${capBadge}${pickBadge}</span>
       <span class="calc-inp"><input type="number" min="0" inputmode="numeric" id="calc-in-${i}" oninput="_calcRender()"><em>만원</em></span>
       <span class="calc-amount zero" id="calc-out-${i}">0원</span>
     </div>`;
