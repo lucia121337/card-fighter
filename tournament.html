@@ -82,6 +82,7 @@
   .chip.warn{background:#fef2f2;color:#dc2626}
   .chip.mile{background:#ecfeff;color:#0891b2}
   .chip.gift{background:#fffbeb;color:#b45309;border:1px solid #fde68a}
+  .chip.spec{background:#f5f3ff;color:#6d28d9;border:1px solid #ddd6fe;font-weight:800}
   .m-meta{margin-top:auto;padding-top:12px;font-size:12px;color:var(--muted);line-height:1.6}
   .pick{margin-top:12px;background:var(--panel2);border-radius:10px;font-size:13px;font-weight:800;
         color:var(--brand);padding:10px}
@@ -347,7 +348,12 @@ function baseChips(r){
 }
 function matchCard(p, side){
   const c=p.card, r=p.r;
-  const chips = r.matched.slice(0,3).map(m=>`<span class="chip rate">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('')
+  // 특화 영역: 사용자가 고른 카테고리 밖의 강점도 보이도록 항상 맨 앞에 (매칭 칩과 중복 제거)
+  const sp = BenefitCalc.specialty(p.b);
+  const specChip = sp ? `<span class="chip spec">⭐ ${esc(sp.label)}</span>` : '';
+  const matched = sp && sp.kind==='cat' ? r.matched.filter(m=>m.cat!==sp.cat) : r.matched;
+  const chips = specChip
+    + matched.slice(0,3).map(m=>`<span class="chip rate">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('')
     + (r.miles>0?`<span class="chip mile">✈️ 마일</span>`:'')
     + (r.points>0?`<span class="chip mile">🅿️ ${esc(r.pointName||'포인트')}</span>`:'')
     + baseChips(r)
@@ -398,7 +404,9 @@ function showResult(p){
     r.milesBonus>0 ? `✈️ 연 <b>${mm(r.milesBonus)}마일</b> 기본 제공` : '',
     r.pointBonus>0 ? `🅿️ 연 <b>${mm(r.pointBonus)}P</b> 기본 제공` : '',
   ].filter(Boolean);
+  const sp = BenefitCalc.specialty(p.b);
   const why = [
+    sp ? `⭐ 이 카드는 <b>${esc(sp.label)}</b> 카드예요${sp.kind==='cat' && !SELECTED.includes(sp.cat) ? ` — 선택하신 카테고리 밖의 강점이니 참고하세요` : ''}.` : '',
     `선택하신 <b>${SELECTED.map(esc).join(', ')}</b> 중 <b>${p.hit.map(esc).join(', ')}</b> 혜택을 갖고 있어요.`,
     r.matched.length ? `매칭 혜택: ${r.matched.slice(0,4).map(m=>`${esc(m.cat)} ${Math.round(m.rate*100)}%`).join(' · ')}` : '',
     baseBen.length ? `기본 제공: ${baseBen.join(' · ')} — 지출과 무관한 연간 베네핏이에요${TRACK==='money'&&r.voucherWon>0?' (바우처는 금액권이라 월 환산해 합산)':''}.` : '',

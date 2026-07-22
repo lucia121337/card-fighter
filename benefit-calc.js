@@ -150,8 +150,33 @@
     return r.points + num(r.pointBonus) / 12;
   }
 
+  /* 특화 영역 판정 — "이 카드는 무엇에 강한 카드인가"
+     money: 최고 율 카테고리가 5%↑ 이고 상위권(최고율의 80%↑)이 2개 이하로 집중된 경우.
+            (여러 카테고리에 고르게 발리면 특화가 아니라 범용이므로 표시하지 않는다)
+     unit : 항공사 마일 / 포인트 프로그램 자체가 특화. */
+  function specialty(b) {
+    if (!b) return null;
+    var tr = track(b);
+    if (tr === 'unit') {
+      if (b.airline) return { kind: 'mile', label: b.airline + ' 마일 특화' };
+      if (b.point_name) return { kind: 'point', label: b.point_name + ' 특화' };
+      if (b.is_mileage) return { kind: 'mile', label: '마일리지 특화' };
+      return null;
+    }
+    var rates = b.category_rates || {};
+    var cats = Object.keys(rates).sort(function (x, y) { return rates[y] - rates[x]; });
+    if (!cats.length) return null;
+    var top = rates[cats[0]];
+    if (top < 0.05) return null;
+    var near = cats.filter(function (c) { return rates[c] >= top * 0.8; });
+    if (near.length > 2) return null;
+    return { kind: 'cat', cat: cats[0], rate: top,
+             label: cats[0] + ' 특화 ' + Math.round(top * 100) + '%' };
+  }
+
   global.BenefitCalc = {
     RATE_CLAMP: RATE_CLAMP, DEFAULT_CAP: DEFAULT_CAP, BASE_ROW: BASE_ROW,
-    track: track, buildRows: buildRows, resolveCap: resolveCap, calc: calc, score: score
+    track: track, buildRows: buildRows, resolveCap: resolveCap, calc: calc, score: score,
+    specialty: specialty
   };
 })(window);
