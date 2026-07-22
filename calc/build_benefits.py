@@ -16,7 +16,7 @@
 의존성 없음(순수 파이썬). 팀원 누구나 재실행 가능.
 ※ 혜택율은 문구의 '최대 N%'라 과대추정 경향 → 화면에서 "예상·최대 기준" 명시할 것.
 """
-import io, sys, os, re, json
+import io, sys, os, re, json, html
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -73,7 +73,8 @@ CAP_MIN, CAP_MAX, CARD_CAP_CLAMP = 1000, 50000, 80000
 
 
 def strip_html(h):
-    h = re.sub(r"<[^>]+>", " ", h or "").replace("&nbsp;", " ").replace("&amp;", "&")
+    # &trade; &middot; &lsquo; 등 엔티티를 모두 풀어야 '1 메리어트 본보이&trade; 포인트' 같은 문구가 파싱된다
+    h = html.unescape(re.sub(r"<[^>]+>", " ", h or ""))
     return re.sub(r"\s+", " ", h).strip()
 
 
@@ -115,6 +116,202 @@ def card_detail_cap(idx):
                     best = max(best, w)
                     found = True
     return best if found else None
+
+
+# ── 통합할인한도 2단 표(전월실적 tier별 한도) 파싱 ─────────────────────────
+_TABLE_RE = re.compile(r"<table[^>]*>(.*?)</table>", re.S)
+_TR_RE = re.compile(r"<tr[^>]*>(.*?)</tr>", re.S)
+_CELL_RE = re.compile(r"<t[dh][^>]*>(.*?)</t[dh]>", re.S)
+
+
+def _won_in(text):
+    t = strip_html(text).replace(" ", "")
+    m = re.search(r"(\d[\d,]*만\d*천|\d[\d,]*만|\d[\d,]*천|\d[\d,]*)원?", t)
+    return _parse_won(m.group(1).rstrip("원")) if m else None
+
+
+def _min_prev_in(text):
+    m = re.search(r"(\d[\d,]*)\s*만\s*원?\s*이상", strip_html(text))
+    return int(m.group(1).replace(",", "")) * 10000 if m else 0
+
+
+def _won_str(w):
+    return f"{w // 10000}만원" if w % 10000 == 0 and w >= 10000 else f"{w:,}원"
+
+
+def card_detail_tier_cap(idx):
+    """card_detail 의 '이용금액 | 할인한도' 2단 표 → (tiers[(전월실적min원,한도원)], 최대한도, 설명).
+    적립 금융거래표 등은 헤더에 '한도'+'이용금액'이 없어 자동 제외. 실패 시 (None,None,'')."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return None, None, ""
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return None, None, ""
+    for k in kb:
+        for tbl in _TABLE_RE.findall(k.get("info") or ""):
+            rows = _TR_RE.findall(tbl)
+            if len(rows) < 2:
+                continue
+            head = [strip_html(c) for c in _CELL_RE.findall(rows[0])]
+            if len(head) != 2:
+                continue
+            has_cap = any("한도" in h for h in head)
+            has_spend = any(("이용" in h and "금액" in h) or "실적" in h for h in head)
+            if not (has_cap and has_spend):
+                continue
+            cap_i = 0 if "한도" in head[0] else 1
+            spend_i = 1 - cap_i
+            tiers = []
+            for r in rows[1:]:
+                cells = _CELL_RE.findall(r)
+                if len(cells) != 2:
+                    continue
+                cap = _won_in(cells[cap_i])
+                if not cap or not (5000 <= cap <= 500000):
+                    continue
+                tiers.append((_min_prev_in(cells[spend_i]), cap))
+            if len(tiers) >= 2:
+                tiers.sort()
+                caps = [c for _, c in tiers]
+                lo, hi = min(caps), max(caps)
+                note = f"전월실적별 {_won_str(lo)}~{_won_str(hi)}" if lo != hi else f"월 최대 {_won_str(hi)}"
+                return tiers, hi, note
+    return None, None, ""
+
+
+# ── 포인트 적립률 파싱 (마일과 같은 구조, 단위만 다름 — 원 환산 금지) ──────
+# "1천원당): 1 메리어트 본보이 포인트", "1,200원당 10포인트", "1천원당 30P", "10P/1,200원"
+# 단위: 포인트 / 머니(하나) / MR(아멕스) / P.  '점'은 '가맹점·할인점' 오탐 위험이라 제외.
+_PT_U = r"(포인트|머니|MR|P)"
+_PT_NUM = r"(\d[\d,]*(?:\.\d+)?)"      # '5,000머니'처럼 쉼표 포함 값 허용
+_PT_A = re.compile(r"(\d[\d,]*)\s*(천|만)?\s*원\s*당[^\d%]{0,10}" + _PT_NUM + r"\s*([가-힣A-Za-z™®·\s]{0,20}?)" + _PT_U + r"\b")
+_PT_B = re.compile(r"(\d[\d,]*)\s*(천|만)?\s*원\s*당[^\d%]{0,10}" + _PT_NUM + r"\s*P\b")
+_PT_C = re.compile(_PT_NUM + r"\s*" + _PT_U + r"\s*/\s*(\d[\d,]*)\s*(천|만)?\s*원")
+_PT_BONUS = re.compile(r"(\d[\d,]{2,})\s*(?:[가-힣A-Za-z™®·\s]{0,20}?)포인트")
+_PT_BASE_HDR = re.compile(r"기본\s*적립")
+
+
+def _unit_won(num, unit):
+    return int(num.replace(",", "")) * (10000 if unit == "만" else 1000 if unit == "천" else 1)
+
+
+def parse_points(text):
+    """(기본 포인트/원, 최대 포인트/원, 포인트명, 연 보너스 포인트).
+    기본=가장 낮은 적립률(전 가맹점에 적용되는 값), 최대=특별적립 등 최고값."""
+    t = text or ""
+    rates, name = [], ""     # rates = [(문서상 위치, 적립률)]
+    for mt in _PT_A.finditer(t):
+        num, unit, pt, nm, u = mt.groups()
+        w = _unit_won(num, unit)
+        if w > 0:
+            rates.append((mt.start(), float(pt.replace(",", "")) / w))
+            if not name:
+                name = (f"{(nm or '').strip()} {u}").strip()   # 예: "메리어트 본보이™ 포인트", "머니"
+    for mt in _PT_B.finditer(t):
+        num, unit, pt = mt.groups()
+        w = _unit_won(num, unit)
+        if w > 0:
+            rates.append((mt.start(), float(pt.replace(",", "")) / w))
+    for mt in _PT_C.finditer(t):
+        pt, u, num, unit = mt.groups()
+        w = _unit_won(num, unit)
+        if w > 0:
+            rates.append((mt.start(), float(pt.replace(",", "")) / w))
+            if not name:
+                name = u
+    if not rates:
+        return 0.0, 0.0, "", 0
+
+    vals = [r for _, r in rates]
+    # 기본적립: '기본적립' 표기 뒤 첫 적립률(추가/특별적립과 혼동 방지). 없으면 최솟값(보수적).
+    base_rate_pt = min(vals)
+    hdr = _PT_BASE_HDR.search(t)
+    if hdr:
+        after = [r for pos, r in sorted(rates) if pos > hdr.end()]
+        if after:
+            base_rate_pt = after[0]
+    # 연 보너스(정액) — '원당'이 아닌 큰 정액 포인트
+    bonus = 0
+    for m in _PT_BONUS.finditer(t):
+        if "당" in t[max(0, m.start() - 8):m.start()]:
+            continue
+        try:
+            v = int(m.group(1).replace(",", ""))
+        except ValueError:
+            continue
+        if 1000 <= v <= 200000:
+            bonus = max(bonus, v)
+    return round(base_rate_pt, 8), round(max(vals), 8), (name or "포인트"), bonus
+
+
+def card_detail_points(idx):
+    """card_detail 본문에서 포인트 적립률 파싱 (I열 요약보다 정확)."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return 0.0, 0.0, "", 0
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return 0.0, 0.0, "", 0
+    return parse_points(" ".join(strip_html(k.get("info")) for k in kb))
+
+
+_LABEL_HDR = ("가맹점", "구분", "영역", "서비스", "대상", "업종", "점", "항목")
+
+
+def card_detail_category_rates(idx, covered):
+    """card_detail 의 카테고리별 표('가맹점|할인율|한도' 등) → ({cat:율}, {cat:개별월한도}).
+    율 파싱 성공 + 카테고리 매핑 성공 행만 채택(노이즈 차단). 실패 시 ({},{})."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    if not os.path.isfile(path):
+        return {}, {}
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return {}, {}
+    rates, caps = {}, {}
+    for k in kb:
+        for tbl in _TABLE_RE.findall(k.get("info") or ""):
+            rows = _TR_RE.findall(tbl)
+            if len(rows) < 2:
+                continue
+            head = [strip_html(c) for c in _CELL_RE.findall(rows[0])]
+            n = len(head)
+            if n < 2:
+                continue
+            rate_col = next((i for i, h in enumerate(head) if "율" in h or "률" in h), None)
+            if rate_col is None:
+                continue
+            cap_col = next((i for i, h in enumerate(head) if "한도" in h), None)
+            label_col = next((i for i, h in enumerate(head)
+                              if i != rate_col and any(w in h for w in _LABEL_HDR)), None)
+            if label_col is None:
+                continue
+            for r in rows[1:]:
+                cells = _CELL_RE.findall(r)
+                if len(cells) != n:              # 병합셀/불규칙 행은 스킵
+                    continue
+                rvals = [float(x) / 100 for x in RATE_RE.findall(strip_html(cells[rate_col]))]
+                if not rvals:
+                    continue
+                rate = max(rvals)
+                if not (0.001 <= rate <= 0.70):
+                    continue
+                label = strip_html(cells[label_col])
+                if not label or any(w in label for w in ("합계", "유의", "비고", "합산", "구분")):
+                    continue
+                cat = map_category(label, covered)
+                if not cat:
+                    continue
+                rates[cat] = max(rates.get(cat, 0.0), rate)
+                if cap_col is not None:
+                    cap = _won_in(cells[cap_col])
+                    if cap and 1000 <= cap <= 500000:
+                        caps[cat] = max(caps.get(cat, 0), cap)
+    return rates, caps
+
 
 # I열 라벨/키워드 → card-fighter 카테고리 별칭 (라벨이 카테고리와 다를 때)
 LABEL_ALIAS = {
@@ -175,6 +372,11 @@ def parse_card(card):
         else:
             base_rate = max(base_rate, r)
 
+    # card_detail 카테고리별 표에서 정확한 율/개별한도 보강 (I열 요약보다 정밀)
+    det_rates, det_caps = card_detail_category_rates(card.get("idx"), covered)
+    for cat, r in det_rates.items():
+        category_rates[cat] = max(category_rates.get(cat, 0.0), r)
+
     # 연회비 대표값(최소 금액). 형식이 "국내전용 [20,000]원" 처럼 대괄호라 숫자만 추출.
     fee_nums = []
     for x in re.findall(r"[\d,]{3,}", card.get("annual_fee") or ""):
@@ -183,31 +385,47 @@ def parse_card(card):
             fee_nums.append(int(v))
     annual_fee = min(fee_nums) if fee_nums else 0
 
-    # 월 한도: card_detail(정확) 우선, 없으면 I열에서 뽑은 값
+    # 월 한도: 통합할인한도 표(tier·최정확) > card_detail 문구 > I열
+    cap_tiers, cap_tier_max, cap_note = card_detail_tier_cap(card.get("idx"))
     cap_detail = card_detail_cap(card.get("idx"))
     cap_summary = max(caps) if caps else None
-    monthly_cap = cap_detail or cap_summary
+    monthly_cap = cap_tier_max or cap_detail or cap_summary
 
     # 마일리지(원과 별개 단위) + 항공사 + 카드 성격
     miles_per_won, is_mile, bonus_miles = parse_miles(summary)
     airline = detect_airline(f"{card.get('card_name','')} {summary} {card.get('benefit_categories') or ''}") if is_mile else ""
+    # 포인트 적립(마일과 같은 별도 단위) — 상세 우선, 없으면 I열 요약
+    pt_base, pt_top, pt_name, pt_bonus = card_detail_points(card.get("idx"))
+    if pt_base <= 0:
+        pt_base, pt_top, pt_name, pt_bonus = parse_points(summary)
+
     has_money = bool(category_rates) or base_rate > 0
+    has_point = pt_base > 0
     if has_money and is_mile:
         card_type = "적립+마일"
     elif is_mile:
         card_type = "마일리지"
     elif has_money:
         card_type = "할인·적립"
+    elif has_point:
+        card_type = "포인트"
     else:
         card_type = "기타"
 
     return {
         "base_rate": round(base_rate, 4),
         "category_rates": {k: round(v, 4) for k, v in category_rates.items()},
+        "category_caps": {k: int(v) for k, v in det_caps.items()},  # 카테고리별 개별 월한도(원)
         "monthly_cap": monthly_cap,
+        "cap_tiers": [[m, c] for m, c in cap_tiers] if cap_tiers else [],  # 전월실적별 한도
+        "cap_note": cap_note,               # 예: "전월실적별 1만원~10만원"
         "miles_per_won": miles_per_won,     # 지출 1원당 마일 (원 아님)
         "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
         "airline": airline,                 # 대한항공/아시아나/항공 or '' (카드·제휴 마일)
+        "points_per_won": pt_base,          # 지출 1원당 포인트(기본적립 기준·보수적)
+        "points_top_per_won": pt_top,       # 특별적립 등 최고 적립률
+        "point_name": pt_name,              # 예: "메리어트 본보이", "TOP" / 기본 "포인트"
+        "bonus_points": pt_bonus,           # 연 정액 보너스 포인트
         "is_mileage": is_mile,
         "type": card_type,                  # 할인·적립 / 마일리지 / 적립+마일 / 기타
         "covered": covered,
@@ -219,7 +437,7 @@ def parse_card(card):
 def main():
     cards = json.load(open(os.path.join(ROOT, "cards_list.json"), encoding="utf-8"))
     out = {}
-    stat_rate = stat_cap = stat_cat = 0
+    stat_rate = stat_cap = stat_cat = stat_tier = 0
     for c in cards:
         b = parse_card(c)
         out[str(c["idx"])] = b
@@ -229,10 +447,12 @@ def main():
             stat_cap += 1
         if b["category_rates"]:
             stat_cat += 1
+        if b["cap_tiers"]:
+            stat_tier += 1
     json.dump(out, open(os.path.join(ROOT, "benefits_structured.json"), "w", encoding="utf-8"),
               ensure_ascii=False)
     print(f"카드 {len(cards)}장 구조화 완료 → benefits_structured.json")
-    print(f"  혜택율 파싱됨: {stat_rate} · 카테고리별 율 있음: {stat_cat} · 월한도 파싱됨: {stat_cap}")
+    print(f"  혜택율 파싱됨: {stat_rate} · 카테고리별 율 있음: {stat_cat} · 월한도 파싱됨: {stat_cap} · 통합한도표(tier): {stat_tier}")
 
 
 if __name__ == "__main__":
