@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>카드 파이터 - 피킹률 연동 테스트</title>
+    <style>
+        body {
+            font-family: "Malgun Gothic", sans-serif;
+            background-color: #f4f6fb;
+            padding: 20px;
+            color: #1f2937;
+        }
+
+        .card-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .info-grid {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            flex: 1;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        h3 {
+            color: #1d4ed8;
+            margin-top: 0;
+            border-bottom: 2px solid #1d4ed8;
+            padding-bottom: 10px;
+        }
+
+        /* 토글 스위치 디자인 */
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #1d4ed8;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        .benefit-name {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .benefit-max {
+            color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .result-box {
+            background-color: #eff6ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .real-rate {
+            color: #dc2626;
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 이미지와 동일한 상단 카드 정보 -->
+    <div class="info-grid" style="max-width: 600px; margin: 0 auto 20px;">
+        <div class="info-card">
+            <div style="color:#6b7280; font-size:13px;">연회비</div>
+            <div style="font-weight:bold;">국내/해외 100,000원</div>
+        </div>
+        <div class="info-card">
+            <div style="color:#6b7280; font-size:13px;">전월실적 조건</div>
+            <div style="font-weight:bold; color:#1d4ed8;">없음 (0원)</div>
+        </div>
+    </div>
+
+    <!-- 혜택 계산기 영역 -->
+    <div class="card-box">
+        <h3>🧮 혜택 계산기 (피킹률 자동 연동)</h3>
+
+        <!-- 각 항목별 토글 (이미지와 동일) -->
+        <div class="toggle-row">
+            <div>
+                <label class="switch"><input type="checkbox" class="benefit-toggle" value="0"
+                        onchange="calculate()"><span class="slider"></span></label>
+                <span class="benefit-name">적립 (1.2% 기준)</span>
+            </div>
+            <div class="benefit-max">최대 1,000,000원</div>
+        </div>
+
+        <div class="toggle-row">
+            <div>
+                <label class="switch"><input type="checkbox" class="benefit-toggle" value="1"
+                        onchange="calculate()"><span class="slider"></span></label>
+                <span class="benefit-name">여행/숙박 (5% 기준)</span>
+            </div>
+            <div class="benefit-max">최대 1,000,000원</div>
+        </div>
+
+        <div class="toggle-row">
+            <div>
+                <label class="switch"><input type="checkbox" class="benefit-toggle" value="2"
+                        onchange="calculate()"><span class="slider"></span></label>
+                <span class="benefit-name">적립 (1.5% 기준)</span>
+            </div>
+            <div class="benefit-max">최대 4,000,000원</div>
+        </div>
+
+        <div class="toggle-row" style="border-bottom:none;">
+            <div>
+                <label class="switch"><input type="checkbox" class="benefit-toggle" value="3"
+                        onchange="calculate()"><span class="slider"></span></label>
+                <span class="benefit-name">공항라운지 (조건없음)</span>
+            </div>
+            <div class="benefit-max">최대 300,000원</div>
+        </div>
+
+        <!-- 결과 출력 영역 -->
+        <div class="result-box">
+            <div class="result-row">
+                <span>예상 혜택 합계</span>
+                <span id="totalBenefit" style="color: #1d4ed8;">0원</span>
+            </div>
+            <div class="result-row" style="border-top: 1px dashed #ccc; padding-top: 15px;">
+                <span>🔥 실질 체감 혜택률 (피킹률)</span>
+                <span id="pickingRate" class="real-rate">0.00%</span>
+            </div>
+            <div style="font-size: 13px; color: #6b7280; text-align: right; margin-top: 5px;">
+                (숨겨진 실적 조건을 역산한 진짜 혜택률입니다)
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 각 토글에 숨겨진 데이터 (할인율과 최대한도)
+        const benefitsData = [
+            { maxLimit: 1000000, rate: 0.012 }, // 적립 1.2%
+            { maxLimit: 1000000, rate: 0.05 },  // 여행숙박 5%
+            { maxLimit: 4000000, rate: 0.015 }, // 적립 1.5%
+            { maxLimit: 300000, rate: 1.0 }     // 라운지 (100% 혜택으로 가정)
+        ];
+
+        const annualFee = 100000;
+        const basePerf = 0; // 디지로카는 기본 실적이 없음
+        const isExcluded = false; // 실적 제외 항목 없음으로 가정
+
+        function calculate() {
+            let toggles = document.querySelectorAll('.benefit-toggle');
+            let totalMaxBenefit = 0;
+            let totalSpendNeeded = 0;
+
+            // 1. 켜져 있는 스위치만 찾아서 계산하기!
+            toggles.forEach((toggle) => {
+                if (toggle.checked) {
+                    let data = benefitsData[toggle.value];
+                    totalMaxBenefit += data.maxLimit;
+
+                    // 혜택을 다 받기 위해 써야 할 돈 역산
+                    totalSpendNeeded += (data.maxLimit / data.rate);
+                }
+            });
+
+            // 2. 진짜 필요 결제액 도출
+            let realTotalSpend = isExcluded ? (basePerf + totalSpendNeeded) : Math.max(basePerf, totalSpendNeeded);
+
+            // 3. 질문자님의 피킹률 로직 적용!
+            let pickingRate = 0;
+            if (realTotalSpend > 0) {
+                let monthlyFee = annualFee / 12;
+                pickingRate = ((totalMaxBenefit - monthlyFee) / realTotalSpend) * 100;
+            }
+
+            // 4. 화면에 예쁘게 숫자 찍어주기
+            document.getElementById('totalBenefit').innerText = totalMaxBenefit.toLocaleString() + "원";
+            document.getElementById('pickingRate').innerText = pickingRate.toFixed(2) + "%";
+        }
+    </script>
+
+</body>
+
+</html>
