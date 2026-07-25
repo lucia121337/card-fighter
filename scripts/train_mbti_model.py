@@ -223,10 +223,27 @@ def calculate_card_benefits(df_robots, card):
         utility_benefit = np.minimum(df_robots["utility_spend"] * 0.1, 10000)
         benefit += np.where(qualify_mask, utility_benefit, 0)
         
-    # 12) 교육
-    if "교육" in categories or "교육/육아" in categories:
-        education_benefit = np.minimum(df_robots["education_spend"] * 0.05, 30000)
-        benefit += np.where(qualify_mask, education_benefit, 0)
+    # 13) 통합 할인 한도 (Total Limit) 적용
+    # 모든 카드에 대해 실적 비례 한도를 일괄 적용하되, 연회비 10만원 이상 초고가 프리미엄만 특별 가중치 한도를 줍니다.
+    import re
+    fee_str = str(card.get("annual_fee") or "")
+    fees = [int(s.replace(",", "")) for s in re.findall(r'[\d,]+', fee_str) if s.replace(",", "").isdigit()]
+    max_fee = max(fees) if fees else 0
+
+    if pre_month_limit == 0:
+        total_limit = 15000
+    elif pre_month_limit <= 300000:
+        total_limit = 20000
+    elif pre_month_limit <= 500000:
+        total_limit = 35000
+    else:
+        total_limit = 50000
+        
+    # 연회비 10만원 이상 프리미엄 카드 한도 상향
+    if max_fee >= 100000:
+        total_limit = max(total_limit, 80000)
+        
+    benefit = np.minimum(benefit, total_limit)
         
     return np.round(benefit, -1)
 
