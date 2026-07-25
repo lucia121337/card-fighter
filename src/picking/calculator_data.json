@@ -1,0 +1,423 @@
+{
+  "cards": [
+    {
+      "card_id": 2300,
+      "card_name": "내맘대로 쁨 카드",
+      "company": "하나카드",
+      "annual_fee": 12000
+    },
+    {
+      "card_id": 2523,
+      "card_name": "LG U+ 우리카드",
+      "company": "우리카드",
+      "annual_fee": 15000
+    },
+    {
+      "card_id": 2525,
+      "card_name": "만나 우리카드",
+      "company": "우리카드",
+      "annual_fee": 12000
+    },
+    {
+      "card_id": 2862,
+      "card_name": "MG+ S 하나카드",
+      "company": "MG새마을금고",
+      "annual_fee": 17000
+    }
+  ],
+  "performance_tiers": [
+    {
+      "tier_id": 1,
+      "card_id": 2862,
+      "perf": 300000,
+      "total_limit": 180000
+    }
+  ],
+  "benefit_groups": [
+    {
+      "group_id": "group_ppeum",
+      "card_id": 2300,
+      "group_limit": 20000
+    }
+  ],
+  "benefit_items": [
+    {
+      "item_id": 1,
+      "card_id": 2523,
+      "title": "LGU+",
+      "detail": "LG U+ 통신요금 자동이체 결제액 100% 할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 1.0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 10000
+        },
+        {
+          "perf": 700000,
+          "limit": 15000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 2,
+      "card_id": 2523,
+      "title": "영화",
+      "detail": "12,000원 이상 결제 시 3,000원 정액 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 3000,
+      "fixedAmount": 3000,
+      "minPayment": 12000
+    },
+    {
+      "item_id": 3,
+      "card_id": 2523,
+      "title": "카페",
+      "detail": "스타벅스, 투썸플레이스 20% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.2
+        }
+      ],
+      "item_limit": 10000,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 4,
+      "card_id": 2523,
+      "title": "패밀리레스토랑",
+      "detail": "아웃백, TGIF 10% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 10000,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 5,
+      "card_id": 2525,
+      "title": "주유소",
+      "detail": "리터당 60~100원 할인 (유가 1,600원 기준 % 치환)",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.0375
+        },
+        {
+          "perf": 500000,
+          "rate": 0.05
+        },
+        {
+          "perf": 1000000,
+          "rate": 0.0625
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 7000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 6,
+      "card_id": 2525,
+      "title": "대중교통",
+      "detail": "버스, 지하철 10% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 3000,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 7,
+      "card_id": 2525,
+      "title": "카페",
+      "detail": "스타벅스, 폴바셋 10% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 5000,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 8,
+      "card_id": 2525,
+      "title": "모든가맹점",
+      "detail": "국내 가맹점 0.7% 기본 할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 0,
+          "rate": 0.007
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 9,
+      "card_id": 2862,
+      "title": "간편결제",
+      "detail": "네이버페이 등 10% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 10,
+      "card_id": 2862,
+      "title": "디지털구독",
+      "detail": "유튜브 등 50% 청구할인",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.5
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 11,
+      "card_id": 2300,
+      "title": "모든가맹점",
+      "detail": "국내외 전 가맹점 0.5% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 0,
+          "rate": 0.005
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 12,
+      "card_id": 2300,
+      "title": "간편결제 (기본)",
+      "detail": "페이결제 건 1% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 0,
+          "rate": 0.01
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 13,
+      "card_id": 2300,
+      "title": "간편결제 (추가)",
+      "detail": "페이결제 0.5% 추가 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 0,
+          "rate": 0.005
+        }
+      ],
+      "item_limit": 5000,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 14,
+      "card_id": 2300,
+      "title": "쇼핑 (쁨 서비스)",
+      "detail": "백화점, 홈쇼핑, 마트 5% 적립",
+      "group_id": "group_ppeum",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 15,
+      "card_id": 2300,
+      "title": "트렌디쇼핑 (쁨 서비스)",
+      "detail": "패션, 명품 5% 적립",
+      "group_id": "group_ppeum",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 16,
+      "card_id": 2300,
+      "title": "모빌리티 (쁨 서비스)",
+      "detail": "주유 5%, EV충전 20% 적립",
+      "group_id": "group_ppeum",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": -1,
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 17,
+      "card_id": 2300,
+      "title": "에듀 (내맘대로 서비스)",
+      "detail": "학원, 헬스장 5% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 18,
+      "card_id": 2300,
+      "title": "골프 (내맘대로 서비스)",
+      "detail": "골프장 10% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 19,
+      "card_id": 2300,
+      "title": "여행 (내맘대로 서비스)",
+      "detail": "숙박, KTX, 항공 10% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 10000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "item_id": 20,
+      "card_id": 2300,
+      "title": "케어 (내맘대로 서비스)",
+      "detail": "병원, 동물병원 10% 적립",
+      "group_id": null,
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 10000
+        }
+      ],
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
+}
