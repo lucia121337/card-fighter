@@ -280,6 +280,14 @@ function buildCalc(bs){
         pt.style.display=''; pt.textContent = s;
       } else pt.style.display='none';
     }
+    // 계산 불가 서비스/무이자 — 칩/라벨로만
+    const sv=document.getElementById('calc-svc');
+    if(sv){
+      const items=(r.services||[]).slice(0,4);
+      if(r.installment) items.push('💳 '+r.installment);
+      if(items.length){ sv.style.display=''; sv.textContent='🎫 '+items.join(' · '); }
+      else sv.style.display='none';
+    }
   };
 
   const rowHTML = rows.map((r,i)=>{
@@ -308,7 +316,8 @@ function buildCalc(bs){
       <div><span class="tot-label">예상 월 혜택 <span class="calc-capnote" id="calc-capnote" style="display:none">· 월 한도 적용</span></span>
         <div class="calc-net" id="calc-net"></div>
         <div class="calc-miles" id="calc-miles" style="display:none"></div>
-        <div class="calc-miles" id="calc-points" style="display:none"></div></div>
+        <div class="calc-miles" id="calc-points" style="display:none"></div>
+        <div class="calc-miles" id="calc-svc" style="display:none;color:#047857"></div></div>
       <span class="tot-amt" id="calc-total-amt">0원</span>
     </div>
     <div class="calc-disc">ⓘ 금액은 '최대 기준' 예상치예요. 마일리지는 돈과 단위가 달라 <b>따로</b> 표시했어요.${
