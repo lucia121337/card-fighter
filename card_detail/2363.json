@@ -75,6 +75,48 @@
   "item_limit": "7900 | 1000 | 5000 | 5000",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2363,
+      "title": "디지털구독",
+      "detail": "wavve 월 이용권 7,900원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "7900",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "푸드",
+      "detail": "식음료 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "디지털구독",
+      "detail": "멤버십 정기구독 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "생활",
+      "detail": "자기관리(미용/스포츠) 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

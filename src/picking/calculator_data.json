@@ -1,177 +1,1502 @@
 {
   "cards": [
     {
-      "card_id": 2455,
-      "card_name": "카카오뱅크 우리카드",
+      "card_id": 2525,
+      "card_name": "만나 우리카드",
       "company": "우리카드",
-      "annual_fee": 12000,
-      "is_calc_supported": "TRUE"
-    },
-    {
-      "card_id": 2718,
-      "card_name": "모바일엔디지로카",
-      "company": "롯데카드",
-      "annual_fee": 15000,
-      "is_calc_supported": "TRUE"
-    },
-    {
-      "card_id": 2522,
-      "card_name": "KT NU우리카드",
-      "company": "우리카드",
-      "annual_fee": 20000,
+      "annual_fee": 0,
       "is_calc_supported": "TRUE"
     },
     {
       "card_id": 2296,
       "card_name": "톡톡M 카드",
       "company": "KB국민카드",
-      "annual_fee": 12000,
+      "annual_fee": 0,
       "is_calc_supported": "TRUE"
     },
     {
       "card_id": 2297,
       "card_name": "톡톡F 카드",
       "company": "KB국민카드",
-      "annual_fee": 12000,
+      "annual_fee": 0,
       "is_calc_supported": "TRUE"
     },
     {
       "card_id": 2298,
       "card_name": "톡톡O 카드",
       "company": "KB국민카드",
-      "annual_fee": 12000,
+      "annual_fee": 0,
       "is_calc_supported": "TRUE"
     },
     {
       "card_id": 2299,
       "card_name": "톡톡D 카드",
       "company": "KB국민카드",
-      "annual_fee": 12000,
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2483,
+      "card_name": "IBK DC히어로즈 카드(신용)",
+      "company": "IBK기업은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2455,
+      "card_name": "카카오뱅크 우리카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2403,
+      "card_name": "NU I&U",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 587,
+      "card_name": "모두의 쇼핑",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 167,
+      "card_name": "BAZIC+(베이직플러스)카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 152,
+      "card_name": "에듀카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 86,
+      "card_name": "카드의정석 DISCOUNT",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 89,
+      "card_name": "우리Most카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 94,
+      "card_name": "LoL CHAMPIONS KOREA 우리카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 96,
+      "card_name": "씨티 리워드",
+      "company": "씨티카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2287,
+      "card_name": "현대카드 MX Black",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2265,
+      "card_name": "롯데홈쇼핑 벨리곰 카드",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 731,
+      "card_name": "현대카드Z work",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 732,
+      "card_name": "현대카드Z ontact",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 745,
+      "card_name": "알뜰교통 my pass 마패 신용카드(Hana-BC)",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 701,
+      "card_name": "현대카드 X BOOST",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1710,
+      "card_name": "카드의정석 HEROES",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2488,
+      "card_name": "베베쿡 신한카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 778,
+      "card_name": "GS SHOP KB국민카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2501,
+      "card_name": "부자되세요 The Oil 카드",
+      "company": "BC 바로카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2603,
+      "card_name": "KB차차차 신용카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2480,
+      "card_name": "수소차 충전할인 신한카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2180,
+      "card_name": "1st TRIPLE Platinum 카드",
+      "company": "전북은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 771,
+      "card_name": "L.pay 롯데카드 Ⅱ",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2463,
+      "card_name": "LOCA Mobility 반띵 카드",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2360,
+      "card_name": "LOCA in MEGACITY",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2869,
+      "card_name": "E1 우리카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2363,
+      "card_name": "wavve카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2365,
+      "card_name": "닥터구디 T&R(티앤알) 카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2277,
+      "card_name": "요기패스 신용카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 162,
+      "card_name": "#ing(샵핑)카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 164,
+      "card_name": "ME+(미플러스)카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2340,
+      "card_name": "쇼핑& 카드",
+      "company": "BC 바로카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2495,
+      "card_name": "신세계 The BLOSSOM 신한카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 612,
+      "card_name": "펫블리(PETvely) 카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2175,
+      "card_name": "SK OIL&LPG 카드",
+      "company": "전북은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 758,
+      "card_name": "다이소 신한카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2331,
+      "card_name": "땡겨요 신한카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 471,
+      "card_name": "LOTTE ONers 롯데카드",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 940,
+      "card_name": "CHALLENGE BAG KB국민카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2178,
+      "card_name": "1st TRIPLE 카드",
+      "company": "전북은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2761,
+      "card_name": "KB국민카드 KaPick",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2723,
+      "card_name": "롯데카드 KaPick",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 109,
+      "card_name": "SK에너지 러브유 KB국민카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 783,
+      "card_name": "SSG.COM카드",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2859,
+      "card_name": "KB 전통시장온누리카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 513,
+      "card_name": "올바른 POINT UP+ 카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2726,
+      "card_name": "배민 곱빼기카드",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1383,
+      "card_name": "반려愛카드(강아지)",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 148,
+      "card_name": "삼성페이 KB국민카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2763,
+      "card_name": "CU Npay 카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 652,
+      "card_name": "올바른 OIL&PASS",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2955,
+      "card_name": "삼성라이온즈카드",
+      "company": "삼성카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2484,
+      "card_name": "kt SUPER+ 카드",
+      "company": "BC 바로카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 188,
+      "card_name": "올바른OIL카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2288,
+      "card_name": "모두의 신세계 하나카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2336,
+      "card_name": "올바른지구 카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 699,
+      "card_name": "톡톡 with카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2131,
+      "card_name": "ON PLATINUM카드(포인트)",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2416,
+      "card_name": "이마트II KB국민카드(옐로우)",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2681,
+      "card_name": "K-패스 하나 신용카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1294,
+      "card_name": "가온 Biz카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2493,
+      "card_name": "zgm.rounding카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2409,
+      "card_name": "#MY WAY 카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2766,
+      "card_name": "신한 후불 기후동행 신용카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2308,
+      "card_name": "로스트아크 카드",
+      "company": "BC 바로카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2485,
+      "card_name": "kt SUPER 카드",
+      "company": "BC 바로카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1288,
+      "card_name": "toss KB국민카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2867,
+      "card_name": "갤러리아 Platinum 우리카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2645,
+      "card_name": "ZipL 신용카드",
+      "company": "BNK부산은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 895,
+      "card_name": "신한카드 주거래 신용",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 512,
+      "card_name": "올바른 POINT UP 카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2504,
+      "card_name": "팟(pod) 카드",
+      "company": "BNK부산은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2445,
+      "card_name": "원더카드 2.0 DAILY",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 736,
+      "card_name": "American Express® Reserve",
+      "company": "삼성카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 751,
+      "card_name": "KB국민 국민행복카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2449,
+      "card_name": "원더카드 2.0 T",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2992,
+      "card_name": "카드의정석2 DAILY",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2879,
+      "card_name": "현대카드H",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2684,
+      "card_name": "현대카드Z play",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2565,
+      "card_name": "I-PET",
+      "company": "IBK기업은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2828,
+      "card_name": "삼성 iD STATION 카드 (SK에너지)",
+      "company": "삼성카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2623,
+      "card_name": "American Express Rose Gold KB Kookmin Card",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2811,
+      "card_name": "더 심플 하나카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 470,
+      "card_name": "Easy on카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2884,
+      "card_name": "배민 신한카드 밥친구",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 142,
+      "card_name": "톡톡 Pay카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2881,
+      "card_name": "현대카드S",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2878,
+      "card_name": "현대카드D",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2654,
+      "card_name": "원더카드 2.0 LIFE",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 129,
+      "card_name": "청춘대로 톡톡카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2447,
+      "card_name": "원더카드 2.0 LIVING",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2883,
+      "card_name": "현대카드Z everyday",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2877,
+      "card_name": "MG+ BLACK 하나카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2680,
+      "card_name": "현대카드Z work Edition2",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2683,
+      "card_name": "현대카드Z family Edition2",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2228,
+      "card_name": "LOCA LIKIT",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2685,
+      "card_name": "WE:SH Travel",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2560,
+      "card_name": "K-패스카드(신용)",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2880,
+      "card_name": "현대카드O",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2235,
+      "card_name": "삼성 iD ON 카드",
+      "company": "삼성카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2688,
+      "card_name": "카드의정석 I&U+",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2706,
+      "card_name": "zgm 할인카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2699,
+      "card_name": "카드의정석 TEN",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2330,
+      "card_name": "LOCA 365 카드",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2851,
+      "card_name": "우리카드 7CORE",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2848,
+      "card_name": "카드의정석2",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2601,
+      "card_name": "더나은 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 344,
+      "card_name": "아이행복 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 326,
+      "card_name": "해피포인트 우리체크카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 317,
+      "card_name": "카드의정석 POINT CHECK",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 688,
+      "card_name": "카드의정석 POINT CHECK x 핑크퐁",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 656,
+      "card_name": "카드의 정석 SSO3 NEW-TRO CHECK",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 628,
+      "card_name": "카드의정석 POINT CHECK x 아기상어",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 369,
+      "card_name": "아이행복체크카드(비씨)",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2080,
+      "card_name": "PEACH 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2081,
+      "card_name": "MINT 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2082,
+      "card_name": "IN 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2075,
+      "card_name": "WITH 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2076,
+      "card_name": "WITH 후불교통 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2193,
+      "card_name": "유안타 CMA+ 체크카드",
+      "company": "유안타증권",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 644,
+      "card_name": "JYP Fan’s EDM 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 309,
+      "card_name": "EDIYA 신한카드 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1807,
+      "card_name": "LineageM 신한카드 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 757,
+      "card_name": "LIKIT on 체크카드",
+      "company": "롯데카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2530,
+      "card_name": "총무 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 306,
+      "card_name": "리디 신한카드 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2072,
+      "card_name": "시장愛 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2920,
+      "card_name": "커넥트 하나로 체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 357,
+      "card_name": "AK KB국민 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2333,
+      "card_name": "땡겨요 신한카드 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 328,
+      "card_name": "라떼 우리체크카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2868,
+      "card_name": "KB 전통시장온누리체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 366,
+      "card_name": "jumjum(점점) 체크카드(비씨)",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 523,
+      "card_name": "Liiv M 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2625,
+      "card_name": "토스 USS NEXT 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 372,
+      "card_name": "NC다이노스체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 770,
+      "card_name": "그린재킷 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2568,
+      "card_name": "TMAP & LOGI 행복 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2508,
+      "card_name": "올유닛 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1170,
+      "card_name": "이사배 카드",
+      "company": "IBK기업은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 1039,
+      "card_name": "카카오페이 체크카드",
+      "company": "광주은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 725,
+      "card_name": "새로이 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 752,
+      "card_name": "KB국민 국민행복체크",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2399,
+      "card_name": "리브 NEXT카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 442,
+      "card_name": "IBK 국민행복 체크카드",
+      "company": "IBK기업은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 517,
+      "card_name": "NH1934 체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2217,
+      "card_name": "미래에셋증권 체크카드 (캐시백 2)",
+      "company": "미래에셋증권",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2222,
+      "card_name": "한국투자 the More 체크카드",
+      "company": "한국투자증권",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2984,
+      "card_name": "현대카드 체크(Apple Pay Rewards)",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2665,
+      "card_name": "폼 체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2026,
+      "card_name": "카카오페이 체크카드",
+      "company": "IBK기업은행",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 375,
+      "card_name": "올바른GLOBAL체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2216,
+      "card_name": "미래에셋증권 체크카드(할인 2)",
+      "company": "미래에셋증권",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2550,
+      "card_name": "노리2 체크카드(Play)",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2332,
+      "card_name": "KB국민 우리동네 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 370,
+      "card_name": "BAZIC(베이직)체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2639,
+      "card_name": "카드의정석 DON CHECK",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2974,
+      "card_name": "현대카드 하이브리드(Apple Pay Rewards)",
+      "company": "현대카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2826,
+      "card_name": "우리 기후동행카드(체크)",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2767,
+      "card_name": "신한 후불 기후동행 체크카드",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2094,
+      "card_name": "카카오페이 체크카드",
+      "company": "MG새마을금고",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2809,
+      "card_name": "Young Hana+ 체크카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2588,
+      "card_name": "스타플러스 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 382,
+      "card_name": "카카오페이 체크카드",
+      "company": "하나카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2871,
+      "card_name": "우체국 LUCK-KEY 체크카드",
+      "company": "우체국",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 360,
+      "card_name": "올바른POINT체크카드",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2700,
+      "card_name": "위비트래블 체크카드",
+      "company": "우리카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2693,
+      "card_name": "K-패스 신한카드 체크",
+      "company": "신한카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2561,
+      "card_name": "K-패스카드(체크)",
+      "company": "NH농협카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2423,
+      "card_name": "노리2 체크카드(Global)",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2852,
+      "card_name": "KB 틴업 체크카드",
+      "company": "KB국민카드",
+      "annual_fee": 0,
+      "is_calc_supported": "TRUE"
+    },
+    {
+      "card_id": 2570,
+      "card_name": "카드의정석 오하CHECK",
+      "company": "우리카드",
+      "annual_fee": 0,
       "is_calc_supported": "TRUE"
     }
   ],
   "performance_tiers": [
     {
-      "card_id": 2718,
-      "perf": 400000,
-      "total_limit": 18000
-    },
-    {
-      "card_id": 2718,
-      "perf": 800000,
-      "total_limit": 20000
-    },
-    {
-      "card_id": 2522,
+      "card_id": 2265,
       "perf": 400000,
       "total_limit": 10000
     },
     {
-      "card_id": 2522,
+      "card_id": 2365,
       "perf": 800000,
       "total_limit": 15000
     },
     {
-      "card_id": 2522,
+      "card_id": 164,
+      "perf": 300000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 164,
+      "perf": 500000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 164,
+      "perf": 1000000,
+      "total_limit": 20000
+    },
+    {
+      "card_id": 164,
+      "perf": 1500000,
+      "total_limit": 30000
+    },
+    {
+      "card_id": 2175,
+      "perf": 300000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 2175,
+      "perf": 700000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 2336,
+      "perf": 800000,
+      "total_limit": 20000
+    },
+    {
+      "card_id": 2409,
+      "perf": 200000,
+      "total_limit": 10
+    },
+    {
+      "card_id": 2409,
+      "perf": 600000,
+      "total_limit": 20
+    },
+    {
+      "card_id": 2409,
+      "perf": 1000000,
+      "total_limit": 30
+    },
+    {
+      "card_id": 751,
+      "perf": 400000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 751,
+      "perf": 800000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 751,
       "perf": 1200000,
       "total_limit": 20000
+    },
+    {
+      "card_id": 2828,
+      "perf": 400000,
+      "total_limit": 1
+    },
+    {
+      "card_id": 470,
+      "perf": 500000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 470,
+      "perf": 1000000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 2235,
+      "perf": 300000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 2235,
+      "perf": 600000,
+      "total_limit": 20000
+    },
+    {
+      "card_id": 688,
+      "perf": 300000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 688,
+      "perf": 500000,
+      "total_limit": 20000
+    },
+    {
+      "card_id": 688,
+      "perf": 800000,
+      "total_limit": 30000
+    },
+    {
+      "card_id": 369,
+      "perf": 500000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 309,
+      "perf": 1200000,
+      "total_limit": 12000
+    },
+    {
+      "card_id": 757,
+      "perf": 300000,
+      "total_limit": 3
+    },
+    {
+      "card_id": 757,
+      "perf": 500000,
+      "total_limit": 4
+    },
+    {
+      "card_id": 357,
+      "perf": 500000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 328,
+      "perf": 250000,
+      "total_limit": 5000
+    },
+    {
+      "card_id": 328,
+      "perf": 500000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 328,
+      "perf": 700000,
+      "total_limit": 15000
+    },
+    {
+      "card_id": 372,
+      "perf": 500000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 725,
+      "perf": 600000,
+      "total_limit": 4
+    },
+    {
+      "card_id": 752,
+      "perf": 300000,
+      "total_limit": 1
+    },
+    {
+      "card_id": 752,
+      "perf": 400000,
+      "total_limit": 3
+    },
+    {
+      "card_id": 752,
+      "perf": 500000,
+      "total_limit": 5
+    },
+    {
+      "card_id": 2984,
+      "perf": 600000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 375,
+      "perf": 500000,
+      "total_limit": 1
+    },
+    {
+      "card_id": 2550,
+      "perf": 10000,
+      "total_limit": 2
+    },
+    {
+      "card_id": 2974,
+      "perf": 600000,
+      "total_limit": 10000
+    },
+    {
+      "card_id": 2588,
+      "perf": 10000,
+      "total_limit": 2
+    },
+    {
+      "card_id": 2423,
+      "perf": 10000,
+      "total_limit": 2
     }
   ],
   "benefit_groups": [],
   "benefit_items": [
     {
-      "card_id": 2455,
-      "title": "카카오톡 선물하기",
-      "detail": "카카오톡 선물하기 50% 할인",
+      "card_id": 2525,
+      "title": "주유소",
+      "detail": "[Daily 할인] 주유 리터당 60~100원 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 0.5
-        }
-      ],
-      "item_limit": "10000",
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
       "fixedAmount": 0,
       "minPayment": 0
     },
     {
-      "card_id": 2455,
-      "title": "카카오페이",
-      "detail": "카카오페이 결제 10% 할인",
+      "card_id": 2525,
+      "title": "대중교통",
+      "detail": "[Daily 할인] 대중교통 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 0.1
-        }
-      ],
-      "item_limit": "10000",
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
     },
     {
-      "card_id": 2718,
-      "title": "통신요금",
-      "detail": "SKT, KT, LG U+ 및 알뜰폰 이동통신 요금 자동납부 결제일 할인",
+      "card_id": 2525,
+      "title": "카페",
+      "detail": "[Daily 할인] 커피 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 1
-        }
-      ],
-      "item_limit": [
-        {
-          "perf": 400000,
-          "limit": 18000
-        },
-        {
-          "perf": 800000,
-          "limit": 20000
-        }
-      ],
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "card_id": 2522,
-      "title": "KT통신요금",
-      "detail": "KT 통신요금(이동통신, 인터넷, IPTV 등) 자동납부 청구할인",
-      "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 1
-        }
-      ],
-      "item_limit": [
-        {
-          "perf": 400000,
-          "limit": 10000
-        },
-        {
-          "perf": 800000,
-          "limit": 15000
-        },
-        {
-          "perf": 1200000,
-          "limit": 20000
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
     {
       "card_id": 2296,
       "title": "디지털구독",
-      "detail": "멤버십(네이버플러스, 쿠팡 로켓와우 등) 100% 청구할인",
+      "detail": "멤버십 100% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":1}]",
       "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -181,12 +1506,7 @@
       "title": "간편결제",
       "detail": "온라인 간편결제 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -194,14 +1514,9 @@
     {
       "card_id": 2296,
       "title": "편의점",
-      "detail": "편의점 업종 5% 청구할인",
+      "detail": "편의점 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -209,14 +1524,9 @@
     {
       "card_id": 2296,
       "title": "대중교통",
-      "detail": "버스, 지하철 5% 청구할인",
+      "detail": "대중교통 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -224,14 +1534,9 @@
     {
       "card_id": 2297,
       "title": "쇼핑",
-      "detail": "패션플랫폼(지그재그, 무신사, 브랜디, 에이블리) 50% 청구할인",
+      "detail": "패션플랫폼 50% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.5
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
       "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -241,12 +1546,7 @@
       "title": "간편결제",
       "detail": "온라인 간편결제 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -254,14 +1554,9 @@
     {
       "card_id": 2297,
       "title": "편의점",
-      "detail": "편의점 업종 5% 청구할인",
+      "detail": "편의점 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -269,14 +1564,9 @@
     {
       "card_id": 2297,
       "title": "대중교통",
-      "detail": "버스, 지하철 5% 청구할인",
+      "detail": "대중교통 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -286,12 +1576,7 @@
       "title": "디지털구독",
       "detail": "OTT 플랫폼 100% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":1}]",
       "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -301,12 +1586,7 @@
       "title": "간편결제",
       "detail": "온라인 간편결제 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -314,14 +1594,9 @@
     {
       "card_id": 2298,
       "title": "편의점",
-      "detail": "편의점 업종 5% 청구할인",
+      "detail": "편의점 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -329,14 +1604,9 @@
     {
       "card_id": 2298,
       "title": "대중교통",
-      "detail": "버스, 지하철 5% 청구할인",
+      "detail": "대중교통 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -344,14 +1614,9 @@
     {
       "card_id": 2299,
       "title": "배달앱",
-      "detail": "배달의민족, 요기요, 쿠팡이츠, 마켓컬리 50% 청구할인",
+      "detail": "배달앱 50% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.5
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
       "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -361,12 +1626,7 @@
       "title": "간편결제",
       "detail": "온라인 간편결제 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -374,14 +1634,9 @@
     {
       "card_id": 2299,
       "title": "편의점",
-      "detail": "편의점 업종 5% 청구할인",
+      "detail": "편의점 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -389,15 +1644,5950 @@
     {
       "card_id": 2299,
       "title": "대중교통",
-      "detail": "버스, 지하철 5% 청구할인",
+      "detail": "대중교통 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2483,
+      "title": "생활",
+      "detail": "6대 생활영역 이용금액 1% 기본캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2455,
+      "title": "기타",
+      "detail": "카카오톡 선물하기 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2455,
+      "title": "카카오페이",
+      "detail": "카카오페이 결제 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2403,
+      "title": "할인",
+      "detail": "국내가맹점 1.0%~0.7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "1000000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2403,
+      "title": "주유",
+      "detail": "주유 리터당 60~100원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2403,
+      "title": "대중교통",
+      "detail": "대중교통 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2403,
+      "title": "카페",
+      "detail": "커피 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 587,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 587,
+      "title": "쇼핑",
+      "detail": "생활 쇼핑 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 587,
+      "title": "아울렛",
+      "detail": "아울렛 쇼핑 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 167,
+      "title": "교통",
+      "detail": "대중교통 및 통신요금 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 152,
+      "title": "학원",
+      "detail": "교육 업종(학원, 학습지 등) 5~7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1000000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 152,
+      "title": "약국",
+      "detail": "약국 이용 시 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1000000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 86,
+      "title": "모든가맹점",
+      "detail": "할인의 정석",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "1000000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 86,
+      "title": "주유",
+      "detail": "생활밀착 할인의 정석",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 86,
+      "title": "대중교통",
+      "detail": "생활밀착 할인의 정석",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 86,
+      "title": "카페",
+      "detail": "생활밀착 할인의 정석",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 89,
+      "title": "주유",
+      "detail": "Most주유소 리터당 최대 200원 청구할인(SK주유소는 최대 80원 청구할인)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 89,
+      "title": "영화",
+      "detail": "영화관 업종 5,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 94,
+      "title": "주유",
+      "detail": "S-OIL, 현대오일뱅크 리터당 60~100원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 94,
+      "title": "대중교통",
+      "detail": "대중교통 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 94,
+      "title": "카페",
+      "detail": "스타벅스, 폴바셋 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 96,
+      "title": "모든가맹점",
+      "detail": "엔터테인먼트, 휴대폰 요금, 교통/주유, 쇼핑, 교육 등 5개의 항목에서 카드 사용 액의 4%~20%까지 특별 포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.04}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2287,
+      "title": "쇼핑",
+      "detail": "[MX Black Zone] Shopping Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2287,
+      "title": "푸드",
+      "detail": "[MX Black Zone] Food &amp; Drink Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2287,
+      "title": "기타",
+      "detail": "[MX Black Zone] Mobility Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2265,
+      "title": "홈쇼핑",
+      "detail": "롯데홈쇼핑에서 7% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2265,
+      "title": "홈쇼핑",
+      "detail": "롯데홈쇼핑 적립금 최대 3.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.035}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 731,
+      "title": "카페",
+      "detail": "[커피전문점 이용금액의 50% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 731,
+      "title": "편의점",
+      "detail": "[편의점 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 731,
+      "title": "대중교통",
+      "detail": "[대중교통 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 731,
+      "title": "간편결제",
+      "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 731,
+      "title": "통신",
+      "detail": "[이동통신요금 정기결제 시 7% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "간편결제",
+      "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "온라인쇼핑",
+      "detail": "[온라인쇼핑 멤버십 이용금액의 70% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.7}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "디지털구독",
+      "detail": "[디지털 콘텐츠 서비스 이용금액의 30% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "배달앱",
+      "detail": "[배달 앱 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "카페",
+      "detail": "[커피전문점 스마트오더 이용금액의 50% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 745,
+      "title": "대중교통",
+      "detail": "대중교통 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 745,
+      "title": "편의점",
+      "detail": "편의점 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 745,
+      "title": "카페",
+      "detail": "커피 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 701,
+      "title": "할인",
+      "detail": "온라인 간편결제서비스 이용 시 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1710,
+      "title": "적립",
+      "detail": "모아포인트 5% ~ 0.6% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1710,
+      "title": "간편결제",
+      "detail": "주요 간편결제 모아포인트 3% 추가적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2488,
+      "title": "기타",
+      "detail": "베베쿡 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2488,
+      "title": "쇼핑",
+      "detail": "일상생활 쇼핑 할 때에도 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2488,
+      "title": "쇼핑",
+      "detail": "주요 커피점, 잡화, 온라인서점 쇼핑할 때에도 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "온라인쇼핑",
+      "detail": "GS SHOP 12% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.12}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "대형마트",
+      "detail": "대형마트 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "통신",
+      "detail": "이동통신 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "카페",
+      "detail": "커피 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "편의점",
+      "detail": "편의점 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "택시",
+      "detail": "택시 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "레저/스포츠",
+      "detail": "미용실/화장품/문화센터/스포츠 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "주유소",
+      "detail": "GS칼텍스 리터당 최대 150원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "150",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "백화점",
+      "detail": "백화점업종 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "대형마트",
+      "detail": "대형마트 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "패밀리레스토랑",
+      "detail": "패밀리레스토랑 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "카페",
+      "detail": "커피 전문점 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "8000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "대중교통",
+      "detail": "대중교통 이용액 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2603,
+      "title": "주유",
+      "detail": "주유소(충전소 포함) 리터당 150원~300원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2603,
+      "title": "자동차",
+      "detail": "차량정비, 주차장, 세차장 업종 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2480,
+      "title": "충전소",
+      "detail": "수소차 충전요금 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2480,
+      "title": "자동차",
+      "detail": "주차장 업종 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2480,
+      "title": "마트/편의점",
+      "detail": "주요 할인점 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2480,
+      "title": "배달앱",
+      "detail": "배달의민족/쿠팡이츠/요기요/땡겨요 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2180,
+      "title": "적립",
+      "detail": "1. 후불교통(버스,지하철) 이용요금 5% J머니 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 771,
+      "title": "간편결제",
+      "detail": "지난달 실적 30만원 이상 시, 1.5%~1.0% L.POINT 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "200000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "대중교통",
+      "detail": "대중교통 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "카페",
+      "detail": "커피 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "헤어",
+      "detail": "미용실 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "디지털구독",
+      "detail": "스트리밍 서비스 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "테마파크",
+      "detail": "롯데월드 부산, 스카이라인루지 부산 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "경기관람",
+      "detail": "롯데자이언츠 관람권 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "쇼핑",
+      "detail": "오프라인 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2869,
+      "title": "충전소",
+      "detail": "E1 충전소 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2869,
+      "title": "편의점",
+      "detail": "편의점 업종 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2869,
+      "title": "카페",
+      "detail": "커피 업종 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "디지털구독",
+      "detail": "wavve 월 이용권 7,900원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "7900",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "푸드",
+      "detail": "식음료 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "디지털구독",
+      "detail": "멤버십 정기구독 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2363,
+      "title": "생활",
+      "detail": "자기관리(미용/스포츠) 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "통신",
+      "detail": "통신요금 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "렌탈",
+      "detail": "렌탈요금 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "보험사",
+      "detail": "손해보험사 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "기타",
+      "detail": "기타 자동이체 가맹점 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2277,
+      "title": "생활",
+      "detail": "생활업종 청구할인 5%",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 162,
+      "title": "쇼핑",
+      "detail": "전국 주요 쇼핑업종, 모든 해외가맹점 청구할인 5% 할인(월5천원~2만5천원)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "푸드",
+      "detail": "전국 음식점 7% 청구할인(해외포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "교통",
+      "detail": "전국 대중교통 7% 청구할인(해외포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "온라인쇼핑",
+      "detail": "국내외 온라인쇼핑 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "카페",
+      "detail": "국내외 커피전문점 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "온라인쇼핑",
+      "detail": "[온라인] 쿠팡, G마켓, 옥션 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "온라인쇼핑",
+      "detail": "[온라인] 로켓와우, 스마일클럽 멤버십 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "드럭스토어",
+      "detail": "[라이프] H&amp;B 스토어 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "디지털구독",
+      "detail": "[라이프] 디지털구독 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "편의점",
+      "detail": "[라이프] 편의점 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2495,
+      "title": "백화점",
+      "detail": "신세계백화점 최대 7% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2495,
+      "title": "쇼핑",
+      "detail": "신세계 계열사 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2495,
+      "title": "생활",
+      "detail": "커피&middot;배달앱&middot;온라인서점&middot;잡화 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 612,
+      "title": "카페",
+      "detail": "커피전문점 업종 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2175,
+      "title": "생활",
+      "detail": "주차장 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 758,
+      "title": "생활",
+      "detail": "다이소 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "15000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 758,
+      "title": "편의점",
+      "detail": "GS25, CU 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 758,
+      "title": "카페",
+      "detail": "스타벅스, 커피빈 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "50000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 758,
+      "title": "영화",
+      "detail": "CGV, 롯데시네마 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 758,
+      "title": "베이커리",
+      "detail": "파리바게뜨, 뚜레쥬르 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "50000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2331,
+      "title": "배달앱",
+      "detail": "땡겨요 앱 이용 금액 마이신한포인트 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2331,
+      "title": "편의점",
+      "detail": "편의점 이용금액 마이신한포인트 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 471,
+      "title": "생활",
+      "detail": "기본적립 0.5% L.POINT 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "100000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 471,
+      "title": "생활",
+      "detail": "특별적립 3% L.POINT 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 940,
+      "title": "OK캐쉬백",
+      "detail": "생활밀착업종 OK캐쉬백 5% 특별적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2178,
+      "title": "적립",
+      "detail": "1. 후불교통(버스,지하철) 이용요금 5% J머니 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "쇼핑",
+      "detail": "온라인 쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "통신",
+      "detail": "이동 통신 요금 자동납부 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "디지털구독",
+      "detail": "OTT 정기 결제 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "영화",
+      "detail": "OTT 정기 결제 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2723,
+      "title": "적립",
+      "detail": "카카오톡 선물하기/ 카카오T 카카오페이 결제시 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2723,
+      "title": "적립",
+      "detail": "생활/요식/교통영역 결제시 1~1.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.015}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 109,
+      "title": "주유소",
+      "detail": "SK 주유소 주유시 리터당 100원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 109,
+      "title": "대중교통",
+      "detail": "버스, 지하철요금 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "4000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 783,
+      "title": "온라인쇼핑",
+      "detail": "- 당월 이용금액 30만원 이상 시 2%",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 783,
+      "title": "생활",
+      "detail": "- 당월 이용금액 30만원 이상 시 3%",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2859,
+      "title": "전통시장",
+      "detail": "전통시장가맹점 이용 5~10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2859,
+      "title": "할인",
+      "detail": "온누리상품권 차감 이용 5~10% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2859,
+      "title": "쇼핑",
+      "detail": "KB Pay 쇼핑 이용 5~10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 513,
+      "title": "모든가맹점",
+      "detail": "기본적립 0.7% + 우대적립 0.1%~0.3%",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 513,
+      "title": "생활",
+      "detail": "생활영역 0.7%~1.2% 추가 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2726,
+      "title": "배달앱",
+      "detail": "[기본 혜택] 전월 이용 금액 40만원 이상 시 국내외 가맹점 이용 금액 0.5% 배민포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1383,
+      "title": "애완동물",
+      "detail": "반려동물 업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1383,
+      "title": "대형마트",
+      "detail": "이마트 &middot; 롯데마트 &middot; 홈플러스 5%청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1383,
+      "title": "온라인쇼핑",
+      "detail": "G마켓 &middot; 옥션 &middot; 인터파크 &middot; 11번가 5%청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 148,
+      "title": "삼성페이",
+      "detail": "삼성 페이 10% 할인서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 148,
+      "title": "생활",
+      "detail": "주요 생활영역 5% 할인서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2763,
+      "title": "적립",
+      "detail": "CU 편의점 외 최대 5% 네이버페이 포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 652,
+      "title": "카페",
+      "detail": "커피전문점 2,000원 청구할인(월 2회)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 652,
+      "title": "편의점",
+      "detail": "편의점 1,000원 청구할인(월 2회)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "삼성라이온즈 홈경기 입장권/팀스토어 50% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "대구삼성라이온즈파크 식음매장 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "디지털구독",
+      "detail": "삼성라이온즈 홈경기 입장권/팀스토어 50% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "커피전문점/편의점 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "교통",
+      "detail": "대중교통/택시 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "기차",
+      "detail": "철도 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "온라인쇼핑몰/배달앱 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "여행사",
+      "detail": "여행플랫폼 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2484,
+      "title": "KT",
+      "detail": "kt 통신요금 청구할인. 전월실적 별 월 최대 25,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2484,
+      "title": "주유소",
+      "detail": "SK 주유소 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 188,
+      "title": "주유",
+      "detail": "GS칼텍스, 농협주유소 리터당 100원~150원 청구할인 (LPG충전소 포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 188,
+      "title": "생활",
+      "detail": "커피(스타벅스/이디야) 10% NH포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "쇼핑",
+      "detail": "신세계백화점, 신세계 아카데미, 시코르닷컴 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "카페/디저트",
+      "detail": "커피/제과/택시 20% 할인(1만원 이상 결제 건)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "테마파크",
+      "detail": "놀이공원/워터파크 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "레저/스포츠",
+      "detail": "프로야구/프로축구 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "대중교통",
+      "detail": "버스/지하철/택시/철도 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "기타",
+      "detail": "공유모빌리티 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "충전소",
+      "detail": "전기차 충전 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "통신",
+      "detail": "이동통신요금 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "온라인쇼핑",
+      "detail": "오픈마켓/배달앱 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "생활",
+      "detail": "스포츠/H&amp;B매장 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 699,
+      "title": "카페",
+      "detail": "스타벅스 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 699,
+      "title": "디지털구독",
+      "detail": "구독 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 699,
+      "title": "간편결제",
+      "detail": "온라인 간편결제 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 699,
+      "title": "배달앱",
+      "detail": "배달 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 699,
+      "title": "대중교통",
+      "detail": "대중교통 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2131,
+      "title": "적립",
+      "detail": "기본적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2416,
+      "title": "대형마트",
+      "detail": "이마트/트레이더스 최대 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2416,
+      "title": "카페",
+      "detail": "스타벅스 최대 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2416,
+      "title": "생활",
+      "detail": "생활업종 최대 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2416,
+      "title": "디지털구독",
+      "detail": "구독서비스 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2681,
+      "title": "대중교통",
+      "detail": "버스/지하철 10% 청구할인 (월 1만원, 월 2만원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2681,
+      "title": "드럭스토어",
+      "detail": "다이소/올리브영 10% 청구할인 (일 1천원, 월 1만원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2681,
+      "title": "카페",
+      "detail": "스타벅스/커피빈 10% 청구할인 (월 5천원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1294,
+      "title": "적립",
+      "detail": "국내 가맹점 0.3% 기본적립",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.003}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1294,
+      "title": "적립",
+      "detail": "사업지원영역(주유/통신/전자상거래 업종) 0.6% 포인트리 추가적립",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.006}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2493,
+      "title": "골프",
+      "detail": "골프장&middot;골프연습장&middot;스크린골프 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2493,
+      "title": "골프",
+      "detail": "쇼골프 연습장 일 타석권 50% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2493,
+      "title": "카페",
+      "detail": "커피전문점 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "대중교통",
+      "detail": "대중교통 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "카페",
+      "detail": "커피 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "편의점",
+      "detail": "편의점 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "디지털구독",
+      "detail": "디지털 구독 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "주유",
+      "detail": "주유/충전 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "쇼핑",
+      "detail": "쇼핑 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "생활",
+      "detail": "생활요금 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2766,
+      "title": "할인",
+      "detail": "온라인 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2766,
+      "title": "할인",
+      "detail": "오프라인 10% 혜택",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2308,
+      "title": "게임",
+      "detail": "[로스트아크 모험가 전용 혜택] 로스트아크 모험가를 위한 로열 크리스탈 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2308,
+      "title": "할인",
+      "detail": "[기본 혜택] 전월실적 조건 없이 국내외 가맹점 0.5%, 국내 온라인 가맹점 1.5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2485,
+      "title": "KT",
+      "detail": "kt 통신요금 청구할인. 전월실적 별 월 최대 18,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2485,
+      "title": "주유소",
+      "detail": "SK 주유소 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1288,
+      "title": "카페",
+      "detail": "스타벅스 이용 시 추가 4.0% 토스포인트 추가적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.04}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2867,
+      "title": "생활",
+      "detail": "생활 영역 3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.03}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2645,
+      "title": "할인",
+      "detail": "생활요금・교육・병의원・교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 895,
+      "title": "모든가맹점",
+      "detail": "모든 가맹점 0.7% 포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.006999999999999999}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 895,
+      "title": "쇼핑",
+      "detail": "쇼핑 가맹점 1.3% 추가적립(총 2% 적립)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.013000000000000001}]",
+      "item_limit": "50000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 895,
+      "title": "해외",
+      "detail": "해외 이용금액 1.3% 추가적립(총 2% 적립)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.013000000000000001}]",
+      "item_limit": "50000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 895,
+      "title": "생활",
+      "detail": "생활 가맹점 3.3% 추가적립(총 4% 적립)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.033}]",
+      "item_limit": "50000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 512,
+      "title": "모든가맹점",
+      "detail": "기본적립 0.7% + 우대적립 0.1%~0.3%",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 512,
+      "title": "생활",
+      "detail": "생활영역 0.5%~1.0% 추가 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "간편결제",
+      "detail": "네이버페이&middot;카카오페이&middot;삼성페이 결제 시, 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "편의점",
+      "detail": "GS25, CU, 세븐일레븐, 이마트24에서 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "카페",
+      "detail": "스타벅스(사이렌오더 포함) 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "생활",
+      "detail": "인생네컷 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "디지털구독",
+      "detail": "넷플릭스, 멜론, 유튜브프리미엄, 디즈니플러스 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "생활",
+      "detail": "카카오웹툰, 카카오페이지, 네이버웹툰 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "온라인쇼핑",
+      "detail": "무신사, 에이블리, 지그재그, 마켓컬리, SSG, 쿠팡, G마켓, 옥션, 11번가 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2504,
+      "title": "배달앱",
+      "detail": "요기요, 배달의 민족 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "배달앱",
+      "detail": "딜리버리 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "편의점",
+      "detail": "편의점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "디지털구독",
+      "detail": "영상 스트리밍 40% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.4}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "교통",
+      "detail": "택시 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "푸드",
+      "detail": "하나페이 맛집 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "온라인쇼핑",
+      "detail": "온라인식품&amp;쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 736,
+      "title": "적립",
+      "detail": "국내외 가맹점 기본 1% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 736,
+      "title": "생활",
+      "detail": "Food&middot;Coffee&middot;Movie 30% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 751,
+      "title": "쇼핑",
+      "detail": "대형마트/온라인쇼핑몰/홈쇼핑 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 751,
+      "title": "교육/육아",
+      "detail": "키즈카페/문화센터/학습지 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 751,
+      "title": "공과금",
+      "detail": "통신료/아파트관리비 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "SKT",
+      "detail": "SKT통신요금 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "간편결제",
+      "detail": "T멤버십 바코드 결제 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "주유",
+      "detail": "SK주유&amp;쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "대형마트",
+      "detail": "마트 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "택시",
+      "detail": "택시 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2992,
+      "title": "국내외가맹점",
+      "detail": "국내외 가맹점 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2992,
+      "title": "할인",
+      "detail": "고정소비 영역 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2992,
+      "title": "할인",
+      "detail": "정기결제 50% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2879,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 교육, 병원 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2879,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 이동통신 요금, 아파트 관리비, 도시가스 요금 정기결제 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2684,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑몰 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2684,
+      "title": "일반음식점",
+      "detail": "[일반음식점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2684,
+      "title": "영화",
+      "detail": "[영화 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2684,
+      "title": "해외",
+      "detail": "[해외 가맹점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2684,
+      "title": "디지털구독",
+      "detail": "[디지털 콘텐츠 서비스 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "애완동물",
+      "detail": "동물병원/반려동물업종 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "애완동물",
+      "detail": "반려동물사진관 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "카페",
+      "detail": "커피 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "대형마트",
+      "detail": "대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "편의점",
+      "detail": "편의점 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2828,
+      "title": "주유",
+      "detail": "SK주유(충전)소에서 주유 시 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2828,
+      "title": "통신",
+      "detail": "통신요금 정기결제 시 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2828,
+      "title": "편의점",
+      "detail": "편의점 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2828,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑몰 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 10% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "카페",
+      "detail": "커피/편의점 10% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "쇼핑",
+      "detail": "오프라인 쇼핑 5% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "항공권",
+      "detail": "온라인 항공/면세점 5% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2811,
+      "title": "할인",
+      "detail": "월납 요금 최대 15,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "온라인쇼핑",
+      "detail": "인터넷 쇼핑몰",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "푸드",
+      "detail": "푸드 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "소셜커머스",
+      "detail": "소셜커머스",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "배달앱",
+      "detail": "배달앱",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "백화점",
+      "detail": "백화점",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "카페",
+      "detail": "커피",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "편의점",
+      "detail": "편의점",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "대중교통",
+      "detail": "대중교통",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "통신",
+      "detail": "이동통신",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "생활",
+      "detail": "온라인 음원",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 470,
+      "title": "APP",
+      "detail": "인터넷 쇼핑몰 앱카드 결제",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2884,
+      "title": "배달앱",
+      "detail": "배달의민족 이용금액 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2884,
+      "title": "국내외가맹점",
+      "detail": "국내/외 가맹점 이용금액 1% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 142,
+      "title": "간편결제",
+      "detail": "간편결제(Pay) 20~40% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.4}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 142,
+      "title": "대중교통",
+      "detail": "대중교통(버스, 지하철) 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 142,
+      "title": "편의점",
+      "detail": "편의점(GS25, CU) 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2881,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 온라인몰, 대형마트, 슈퍼마켓, 백화점, 프리미엄 아울렛 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2881,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 커피전문점, 편의점, 대중교통 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2878,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 일반음식점, 배달 앱 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2878,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 커피전문점, 편의점, 대중교통 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "할인",
+      "detail": "[자동이체] 영상 스트리밍 40% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.4}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "할인",
+      "detail": "[자동이체] 생활요금 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "배달앱",
+      "detail": "딜리버리 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "카페",
+      "detail": "커피 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2654,
+      "title": "편의점",
+      "detail": "편의점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 129,
+      "title": "카페/디저트",
+      "detail": "스타벅스 50% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 129,
+      "title": "패스트푸드",
+      "detail": "버거/패스트푸드 업종 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 129,
+      "title": "간편결제",
+      "detail": "간편결제 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 129,
+      "title": "생활",
+      "detail": "대중교통, 택시, 이동통신요금 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "공과금",
+      "detail": "생활요금 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "병원/약국",
+      "detail": "병원/약국 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "주유",
+      "detail": "주유/LPG충전 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "택시",
+      "detail": "택시 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "카페",
+      "detail": "커피 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2447,
+      "title": "생활",
+      "detail": "세탁 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2883,
+      "title": "할인",
+      "detail": "전월 이용 금액 50만원 이상 시 9개 영역 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2883,
+      "title": "할인",
+      "detail": "전월 이용 금액 50만원 이상 시 일반음식점, 주유, 대형마트 주말(토&middot;일요일) 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2877,
+      "title": "해외",
+      "detail": "해외여행 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2877,
+      "title": "쇼핑",
+      "detail": "쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2877,
+      "title": "골프",
+      "detail": "골프 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2877,
+      "title": "카페",
+      "detail": "커피 50% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2877,
+      "title": "택시",
+      "detail": "택시 50% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "온라인쇼핑",
+      "detail": "[온라인 쇼핑몰 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "편의점",
+      "detail": "[편의점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "카페",
+      "detail": "[커피전문점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "대중교통",
+      "detail": "[대중교통 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "도서",
+      "detail": "[도서 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "온라인쇼핑",
+      "detail": "[온라인 쇼핑몰 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "병원/약국",
+      "detail": "[병원&middot;약국 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "학원",
+      "detail": "[학원 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "주유",
+      "detail": "[주유 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "생활",
+      "detail": "[생활 요금 정기 결제 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2228,
+      "title": "카페",
+      "detail": "스타벅스 50% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2228,
+      "title": "영화",
+      "detail": "롯데시네마, CGV 50% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2228,
+      "title": "대중교통",
+      "detail": "시내버스, 지하철 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2228,
+      "title": "통신",
+      "detail": "SKT, KT, LG U+ 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2228,
+      "title": "배달앱",
+      "detail": "배달의 민족, 쿠팡이츠 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2685,
+      "title": "생활",
+      "detail": "자주 쓰는 일상 영역 10% 할인 (KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2685,
+      "title": "쇼핑",
+      "detail": "온라인 항공/면세점 5% 할인 (KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2685,
+      "title": "보험사",
+      "detail": "여행자보험 10% 할인 (KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "2500",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2685,
+      "title": "교통",
+      "detail": "철도・고속버스 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2560,
+      "title": "교통",
+      "detail": "버스/지하철/택시/철도 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2560,
+      "title": "통신",
+      "detail": "이동통신요금 5% 청구할인(월 1회)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2560,
+      "title": "카페",
+      "detail": "커피전문점 10% 청구할인(월 2천원, 2회 한)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2880,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 주유소, 충전소, 차량 정비소, 세차장 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2880,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 이동통신 요금, 아파트 관리비, 도시가스 요금 정기결제 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2235,
+      "title": "할인",
+      "detail": "많이 쓰는 영역 30% 자동 맞춤 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2235,
+      "title": "생활",
+      "detail": "교통&middot;이동통신&middot;스트리밍 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2235,
+      "title": "할인",
+      "detail": "온라인 간편결제&middot;해외 3% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2688,
+      "title": "할인",
+      "detail": "[Simple 할인] 국내 가맹점 1.0~0.7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.006999999999999999}]",
+      "item_limit": "1000000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2688,
+      "title": "주유",
+      "detail": "[Daily 할인] 주유 리터당 60~100원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2688,
+      "title": "대중교통",
+      "detail": "[Daily 할인] 대중교통 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2688,
+      "title": "카페",
+      "detail": "[Daily 할인] 커피 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2706,
+      "title": "할인",
+      "detail": "[기본할인] 국내 가맹점 1%, NH페이 및 해외 2% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2706,
+      "title": "생활",
+      "detail": "[생활할인] 매월 생활비 10%, 디지털 구독 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2699,
+      "title": "할인",
+      "detail": "[TEN Discount] 5대 일상영역 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2699,
+      "title": "할인",
+      "detail": "[ONE Discount] 음식점/주점 및 온라인 간편결제 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "공과금",
+      "detail": "아파트관리비 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "공과금",
+      "detail": "공과금(도시가스비, 전기료) 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "통신",
+      "detail": "SKT, KT, LG U+ 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "배달앱",
+      "detail": "배달의 민족, 요기요, 쿠팡이츠 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "보험사",
+      "detail": "생명보험, 손해보험 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "학습지",
+      "detail": "학습지 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "디지털구독",
+      "detail": "넷플릭스, 유튜브, 왓챠, 멜론, 지니뮤직, 디즈니 플러스 1,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2851,
+      "title": "할인",
+      "detail": "7대 생활영역 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2848,
+      "title": "국내외가맹점",
+      "detail": "국내외 가맹점 1.2% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.012}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2848,
+      "title": "할인",
+      "detail": "분기별 이용 실적에 따라 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2601,
+      "title": "간편결제",
+      "detail": "네이버페이, 카카오페이, 페이코 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2601,
+      "title": "온라인쇼핑",
+      "detail": "쿠팡, 무신사, 지그재그, W컨셉, 에이블리 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2601,
+      "title": "카페",
+      "detail": "스타벅스, 투썸플레이스, 커피빈, 메가커피, 빽다방, 컴포즈커피 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 344,
+      "title": "온라인쇼핑",
+      "detail": "인터넷쇼핑몰 5% 환급할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 344,
+      "title": "약국",
+      "detail": "약국 업종 5% 환급할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 326,
+      "title": "해피포인트",
+      "detail": "해피포인트 가맹점 5% 적립(해피포인트 현장 적립)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 326,
+      "title": "마트/편의점",
+      "detail": "5대 할인점 5% 청구 할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "90000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 317,
+      "title": "모든가맹점",
+      "detail": "모아포인트 0.3 ~ 1.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "1.5% 특별적립군",
+      "detail": "이동통신, 대중교통, 전기차충전, 커피, 영화 1.5% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "0.5% 특별적립군",
+      "detail": "백화점, 할인점, 온라인쇼핑, 주유, 해외 0.5% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "0.3% 기본적립군",
+      "detail": "기타 일반 가맹점 0.3% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":0,\"rate\":0.003}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "1.5% 간편결제 추가적립군",
+      "detail": "네이버페이, 카카오페이, PAYCO, SSGPAY 등 간편결제 1.5% 추가 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 656,
+      "title": "직장인",
+      "detail": "저녁 5시 ~ 11시 모든 음식점(주점 포함), 노래방 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "40000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 656,
+      "title": "교통",
+      "detail": "택시 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 656,
+      "title": "쇼핑",
+      "detail": "이마트, 롯데마트, 홈플러스 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "90000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 656,
+      "title": "해외",
+      "detail": "해외가맹점(해외직구 포함) 이용금액의 2.0%~0.5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 628,
+      "title": "모든가맹점",
+      "detail": "모아포인트 0.3 ~ 1.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 369,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑몰/소셜커머스 3~5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 369,
+      "title": "병원",
+      "detail": "전국 병원 업종 3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 369,
+      "title": "카페",
+      "detail": "커피전문점/제과점 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "백화점",
+      "detail": "백화점 7% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "카페",
+      "detail": "커피 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "화장품",
+      "detail": "뷰티업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "공연/전시",
+      "detail": "문화공연 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "학원",
+      "detail": "학원 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "대형마트",
+      "detail": "대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "편의점",
+      "detail": "편의점 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "통신",
+      "detail": "이동통신요금 5,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "골프",
+      "detail": "골프장, 골프연습장 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "기타",
+      "detail": "스포츠&middot;레저 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2081,
+      "title": "패밀리레스토랑",
+      "detail": "패밀리레스토랑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "통신",
+      "detail": "이동통신요금 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "학원",
+      "detail": "학원 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "병원",
+      "detail": "병원, 약국 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "온라인쇼핑",
+      "detail": "인터넷쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "백화점",
+      "detail": "백화점, 대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "도서",
+      "detail": "도서 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2082,
+      "title": "공연/전시",
+      "detail": "공연 3% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "기타",
+      "detail": "이동통신요금 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "기타",
+      "detail": "병원, 약국 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "골프",
+      "detail": "골프장, 골프연습장 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "대형마트",
+      "detail": "대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "호텔",
+      "detail": "숙박업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "정비",
+      "detail": "자동차정비 5,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "교통",
+      "detail": "교통 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2075,
+      "title": "베이커리",
+      "detail": "베이커리 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "기타",
+      "detail": "이동통신요금 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "기타",
+      "detail": "병원, 약국 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "골프",
+      "detail": "골프장, 골프연습장 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "대형마트",
+      "detail": "대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "호텔",
+      "detail": "숙박업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "정비",
+      "detail": "자동차정비 5,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "교통",
+      "detail": "교통 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2076,
+      "title": "베이커리",
+      "detail": "베이커리 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2193,
+      "title": "캐시백",
+      "detail": "당월 10만원 이상 ~ 30만원 미만 사용",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "공연/전시",
+      "detail": "국내콘서트/공연 예매 및 팬클럽 가입 이용금액의 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "음원사이트",
+      "detail": "음원, 스트리밍(멜론, FLO) 이용금액 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "대중교통",
+      "detail": "대중교통(버스-마을, 시내, 시외, 광역, 공항버스/지하철) 이용금액 3% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "카페",
+      "detail": "스타벅스(사이렌오더 포함)/JYP-Soulcup 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "마트/편의점",
+      "detail": "편의점(GS25), 올리브영 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "해외이용",
+      "detail": "해외 전가맹점(온라인 포함) 이용금액의 1% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "3",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 309,
+      "title": "카페",
+      "detail": "EDIYA COFFEE에서 결제 시 30% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1807,
+      "title": "게임",
+      "detail": "구글 플레이스토어, 애플 앱스토어, 원스토어 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1807,
+      "title": "카페",
+      "detail": "스타벅스 20% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 757,
+      "title": "온라인쇼핑",
+      "detail": "온라인 이용 건 3% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 757,
+      "title": "쇼핑",
+      "detail": "소셜커머스 &middot;오픈마켓(쿠팡, 티몬, 위메프, 11번가, 옥션, G마켓) 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "일반음식점",
+      "detail": "한식, 휴게음식점 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "카페",
+      "detail": "커피음료전문점 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "아이스크림",
+      "detail": "제과아이스크림 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "대중교통",
+      "detail": "대중교통(버스, 지하철) 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 306,
+      "title": "도서",
+      "detail": "리디북스 10% 할인(캐시백)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 306,
+      "title": "영화",
+      "detail": "영화 결제시 10% 할인 (캐시백)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 306,
+      "title": "패스트푸드",
+      "detail": "영푸드 이용 시 10% 할인 (캐시백)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2072,
+      "title": "전통시장",
+      "detail": "전통시장 15% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2072,
+      "title": "기타",
+      "detail": "나들가게 15% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2072,
+      "title": "통신",
+      "detail": "이동통신요금 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2072,
+      "title": "기타",
+      "detail": "교통 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2920,
+      "title": "할인",
+      "detail": "국내 가맹점 이용 시 0.2% ~ 0.3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.002}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 357,
+      "title": "백화점",
+      "detail": "AK플라자, AK몰 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 357,
+      "title": "항공권",
+      "detail": "제주항공 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 357,
+      "title": "카페",
+      "detail": "커피전문점 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 357,
+      "title": "영화",
+      "detail": "CGV 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 357,
+      "title": "해피포인트",
+      "detail": "해피포인트 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2333,
+      "title": "배달앱",
+      "detail": "땡겨요 앱 이용금액 마이신한포인트 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2333,
+      "title": "카페",
+      "detail": "스타벅스(사이렌오더 포함) 이용금액 마이신한포인트 2% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2333,
+      "title": "편의점",
+      "detail": "편의점 이용금액 2% 마이신한포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 328,
+      "title": "카페",
+      "detail": "커피전문점 1회당 1,000원 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2868,
+      "title": "전통시장",
+      "detail": "전통시장가맹점 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2868,
+      "title": "할인",
+      "detail": "온누리상품권 차감 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2868,
+      "title": "쇼핑",
+      "detail": "KB Pay 쇼핑 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 366,
+      "title": "모든가맹점",
+      "detail": "국내&middot;외 전 가맹점 0.2%~0.4% TOP포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.002}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 523,
+      "title": "통신",
+      "detail": "Liiv M 이동통신요금 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 523,
+      "title": "소셜커머스",
+      "detail": "11번가 3% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 523,
+      "title": "여행/숙박",
+      "detail": "야놀자 3% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 523,
+      "title": "편의점",
+      "detail": "CU편의점 3% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "카페",
+      "detail": "커피 업종 100원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "편의점",
+      "detail": "편의점 200원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "게임",
+      "detail": "모바일 200원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "배달앱",
+      "detail": "배달음식 500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "대중교통",
+      "detail": "대중교통 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 372,
+      "title": "카페",
+      "detail": "영화 &middot; 커피 10%할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "골프",
+      "detail": "골프연습장/스크린골프 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "주유소",
+      "detail": "주유소 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "보험사",
+      "detail": "보험료 자동납부 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "멤버십포인트",
+      "detail": "해피포인트 멤버쉽 최대 5% 현장적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "대중교통",
+      "detail": "버스&middot;지하철 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "통신",
+      "detail": "이동통신요금 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "영화",
+      "detail": "CGV 35% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.35}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "패밀리레스토랑",
+      "detail": "아웃백, VIPS 20% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "카페",
+      "detail": "스타벅스 20% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "테마파크",
+      "detail": "에버랜드&middot;롯데월드 50% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "편의점",
+      "detail": "GS25 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "도서",
+      "detail": "교보문고 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "통신",
+      "detail": "이동통신요금 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "레저/스포츠",
+      "detail": "레저 업종 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "병원/약국",
+      "detail": "의료비 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "캐시백",
+      "detail": "최대이용영역 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1170,
+      "title": "드럭스토어",
+      "detail": "H&amp;B스토어 최대 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1170,
+      "title": "화장품",
+      "detail": "Cosmetic 최대 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1170,
+      "title": "헤어",
+      "detail": "Beauty 최대 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1039,
+      "title": "카카오페이",
+      "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1039,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑몰 이용금액 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1039,
+      "title": "편의점",
+      "detail": "[오프라인쇼핑] 편의점 이용금액 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1039,
+      "title": "드럭스토어",
+      "detail": "[오프라인쇼핑] 드럭스토어, 다이소 이용금액 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 725,
+      "title": "편의점",
+      "detail": "GS25 편의점 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 725,
+      "title": "생활",
+      "detail": "쏘카, 야놀자, LiivM 이동통신 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 725,
+      "title": "카페",
+      "detail": "스타벅스, 파리바게뜨 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 725,
+      "title": "디지털구독",
+      "detail": "멜론, 지니, 넷플릭스, 웨이브 월정액 결제시 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 725,
+      "title": "도서",
+      "detail": "교보문고, 어학시험응시료(온라인접수) 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 752,
+      "title": "병원",
+      "detail": "병원 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 752,
+      "title": "교육/육아",
+      "detail": "키즈카페/문화센터/학습지 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2399,
+      "title": "푸드",
+      "detail": "편의점(GS25/CU), 커피/음료 전문점 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2399,
+      "title": "생활",
+      "detail": "올리브영, 다이소 결제 시 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2399,
+      "title": "게임",
+      "detail": "구글 플레이스토어, 앱스토어 결제 시 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 442,
+      "title": "모든가맹점",
+      "detail": "기본적립",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 442,
+      "title": "병원",
+      "detail": "병/의원, 조산원, 산후조리원 업종(정부지원금 제외) 3% 할인(캐시백)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 517,
+      "title": "모든가맹점",
+      "detail": "국내&middot;외 전 가맹점 0.2~0.3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.003}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2217,
+      "title": "모든가맹점",
+      "detail": "전월 사용금액에 따라 0.5~1% 캐시백 지급",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2222,
+      "title": "할인",
+      "detail": "전월 실적 제한없이 국내 가맹점 이용금액의 0.3% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.003}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2984,
+      "title": "간편결제",
+      "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2665,
+      "title": "할인",
+      "detail": "외식 200원 할인・뷰티 500원 할인・대중교통 5% 할인・NH페이 0.2% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2026,
+      "title": "카카오페이",
+      "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2026,
+      "title": "온라인쇼핑",
+      "detail": "[On-line 쇼핑] 온라인 쇼핑몰 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2026,
+      "title": "편의점",
+      "detail": "[Off-line 쇼핑] 편의점 및 드럭스토어 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 375,
+      "title": "해외이용",
+      "detail": "해외 물품 구매시 2% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 375,
+      "title": "생활",
+      "detail": "10대 업종 0.5~1.0% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2216,
+      "title": "카페",
+      "detail": "커피전문점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2216,
+      "title": "마트/편의점",
+      "detail": "편의점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2216,
+      "title": "디지털구독",
+      "detail": "디지털구독 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "카페",
+      "detail": "[일상] 스타벅스, 커피빈 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "게임",
+      "detail": "[일상] 구글플레이스토어, 앱스토어 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "공연/전시",
+      "detail": "[일상] 인터파크 티켓 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "헤어",
+      "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "편의점",
+      "detail": "[일상] GS25, CU 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "디지털구독",
+      "detail": "[일상] 넷플릭스, 유튜브프리미엄 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "배달앱",
+      "detail": "[일상] 배달의민족, 요기요 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "통신",
+      "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "영화",
+      "detail": "[일상] CGV 4,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "테마파크",
+      "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "게임",
+      "detail": "[Play] PC방 업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "패스트푸드",
+      "detail": "[Play] 패스트푸드 업종 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "생활",
+      "detail": "세탁소 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "기타",
+      "detail": "정육점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "SSM",
+      "detail": "슈퍼마켓 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "기타",
+      "detail": "반찬가게 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "기타",
+      "detail": "야채과일가게 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2332,
+      "title": "기타",
+      "detail": "번개장터(번개페이) 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 370,
+      "title": "모든가맹점",
+      "detail": "국내&middot;외 전 가맹점 0.2~0.3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.003}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2639,
+      "title": "푸드",
+      "detail": "[DO EAT] 편의점, 배달의민족 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2639,
+      "title": "쇼핑",
+      "detail": "[DO BUY] 쿠팡, 무신사 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2639,
+      "title": "게임",
+      "detail": "[DO PLAY] 구글 Play스토어, 애플 APP Store 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2974,
+      "title": "간편결제",
+      "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2826,
+      "title": "할인",
+      "detail": "생활 5% 캐시백 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2767,
+      "title": "할인",
+      "detail": "온라인 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2767,
+      "title": "할인",
+      "detail": "오프라인 5% 혜택",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "카카오페이",
+      "detail": "카카오페이 15% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "편의점",
+      "detail": "편의점 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "온라인쇼핑",
+      "detail": "소셜커머스 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "기타",
+      "detail": "어학응시료 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "카페",
+      "detail": "커피전문점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "패스트푸드",
+      "detail": "스타일푸드 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "간편결제",
+      "detail": "페이결제 0.5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "편의점",
+      "detail": "GS25, CU, 이마트24, 세븐일레븐 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "배달앱",
+      "detail": "배달의 민족, 요기요 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "대중교통",
+      "detail": "버스, 지하철 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "카페",
+      "detail": "스타벅스, 투썸플레이스 20% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "카페",
+      "detail": "스타벅스, 커피빈 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "게임",
+      "detail": "구글플레이스토어, 앱스토어 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "공연/전시",
+      "detail": "인터파크 티켓 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "드럭스토어",
+      "detail": "올리브영, 미용실 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "편의점",
+      "detail": "GS25, CU 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "디지털구독",
+      "detail": "넷플릭스, 유튜브프리미엄 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "배달앱",
+      "detail": "배달의 민족, 요기요 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "통신",
+      "detail": "SKT, KT, LG U+, Liiv M 2,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "영화",
+      "detail": "CGV 4,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "테마파크",
+      "detail": "에버랜드, 롯데월드 15,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2588,
+      "title": "해외이용",
+      "detail": "해외 가맹점 2% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 382,
+      "title": "캐시백",
+      "detail": "카카오페이 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "편의점",
+      "detail": "편의점 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "간편결제",
+      "detail": "간편결제 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "패스트푸드",
+      "detail": "간편식 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "카페",
+      "detail": "커피 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "생활",
+      "detail": "힐링 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "학원",
+      "detail": "열공 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 360,
+      "title": "모든가맹점",
+      "detail": "적립한도 없이 0.2% ~ 0.7% NH포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.002}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2700,
+      "title": "해외",
+      "detail": "해외 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2700,
+      "title": "쇼핑",
+      "detail": "쇼핑 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2700,
+      "title": "푸드",
+      "detail": "푸드 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2700,
+      "title": "생활",
+      "detail": "일상 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2693,
+      "title": "대중교통",
+      "detail": "대중교통(버스, 지하철) 이용 시 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2693,
+      "title": "간편결제",
+      "detail": "간편결제로 결제 시 2% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2693,
+      "title": "생활",
+      "detail": "생활서비스 2% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2561,
+      "title": "교통",
+      "detail": "버스/지하철 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2561,
+      "title": "통신",
+      "detail": "이동통신요금 5% 캐시백(월 3천원, 1회 한)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "카페",
+      "detail": "[일상] 스타벅스, 커피빈 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "게임",
+      "detail": "[일상] 구글플레이스토어, 앱스토어 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "공연/전시",
+      "detail": "[일상] 인터파크 티켓 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "드럭스토어",
+      "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "편의점",
+      "detail": "[일상] GS25, CU 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "디지털구독",
+      "detail": "[일상]넷플릭스, 유튜브프리미엄 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "배달앱",
+      "detail": "[일상] 배달의 민족, 요기요 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "통신",
+      "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "OTT/영화/문화",
+      "detail": "[일상] CGV 4,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "테마파크",
+      "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2423,
+      "title": "해외이용",
+      "detail": "[Global] 해외 가맹점 2% 추가 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "APP",
+      "detail": "[공통] KB Pay 오프라인 결제 2% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "편의점",
+      "detail": "[공통] CU, 세븐일레븐 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "쇼핑",
+      "detail": "[공통] 다이소, 올리브영, KB Pay 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "할인",
+      "detail": "[공통] 독서실 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "도서",
+      "detail": "[공통] 서점 업종, 문구점 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "게임",
+      "detail": "[놀이] PC방 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "할인",
+      "detail": "[놀이] 구글 플레이스토어, 애플 앱스토어 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "패밀리레스토랑",
+      "detail": "[외식] 패밀리레스토랑 업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "온라인쇼핑",
+      "detail": "[오늘 하루 SHOPPING] 온라인 쇼핑 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "간편결제",
+      "detail": "[오늘 하루 SHOPPING] 간편결제 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "생활",
+      "detail": "[오늘 하루 SHOPPING] 안경/렌즈 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "카페",
+      "detail": "[오늘 하루 EAT] 커피 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "배달앱",
+      "detail": "[오늘 하루 EAT] 배달/주문 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "대중교통",
+      "detail": "[오늘 하루 LIFE] 대중교통(버스/지하철) 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "통신",
+      "detail": "[오늘 하루 LIFE] 이동통신 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "해외",
+      "detail": "[오늘 하루 LIFE] 해외 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "생활",
+      "detail": "[오늘 하루 LIFE] 어학시험 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "디지털구독",
+      "detail": "[오늘 하루 PLAY] OTT 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "공연/전시",
+      "detail": "[오늘 하루 PLAY] 공연티켓 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     }

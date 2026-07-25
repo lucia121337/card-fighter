@@ -80,6 +80,58 @@
   "item_limit": "[{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}]",
   "group_id": "group_2683_온라인 쇼핑몰 10% 청구 할인 | group_2683_병원 약국 10% 청구 할인 | group_2683_학원 10% 청구 할인 | group_2683_주유 10% 청구 할인 | none",
   "group_limit": "1 | 1 | 1 | 1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2683,
+      "title": "온라인쇼핑",
+      "detail": "[온라인 쇼핑몰 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "병원/약국",
+      "detail": "[병원&middot;약국 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "학원",
+      "detail": "[학원 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "주유",
+      "detail": "[주유 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2683,
+      "title": "생활",
+      "detail": "[생활 요금 정기 결제 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

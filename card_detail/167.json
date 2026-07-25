@@ -70,6 +70,18 @@
   "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 167,
+      "title": "교통",
+      "detail": "대중교통 및 통신요금 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

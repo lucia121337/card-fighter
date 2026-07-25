@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":100}] | 4000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 109,
+      "title": "주유소",
+      "detail": "SK 주유소 주유시 리터당 100원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 109,
+      "title": "대중교통",
+      "detail": "버스, 지하철요금 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "4000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

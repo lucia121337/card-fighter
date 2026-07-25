@@ -61,6 +61,18 @@
   "item_limit": "1000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 1288,
+      "title": "카페",
+      "detail": "스타벅스 이용 시 추가 4.0% 토스포인트 추가적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.04}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -66,16 +66,11 @@
   "structured_benefits": [
     {
       "card_id": 2455,
-      "title": "카카오톡 선물하기",
+      "title": "기타",
       "detail": "카카오톡 선물하기 50% 할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 0.5
-        }
-      ],
-      "item_limit": "10000",
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -84,13 +79,8 @@
       "title": "카카오페이",
       "detail": "카카오페이 결제 10% 할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 400000,
-          "rate": 0.1
-        }
-      ],
-      "item_limit": "10000",
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
       "fixedAmount": 0,
       "minPayment": 0
     }

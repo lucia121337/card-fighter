@@ -100,6 +100,88 @@
   "item_limit": "[{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":50000,\"limit\":2500},{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}]",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2568,
+      "title": "대중교통",
+      "detail": "버스&middot;지하철 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "통신",
+      "detail": "이동통신요금 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "영화",
+      "detail": "CGV 35% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.35}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "패밀리레스토랑",
+      "detail": "아웃백, VIPS 20% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "카페",
+      "detail": "스타벅스 20% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "테마파크",
+      "detail": "에버랜드&middot;롯데월드 50% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "편의점",
+      "detail": "GS25 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2568,
+      "title": "도서",
+      "detail": "교보문고 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

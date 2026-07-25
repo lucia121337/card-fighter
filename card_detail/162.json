@@ -65,6 +65,18 @@
   "item_limit": "5000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 162,
+      "title": "쇼핑",
+      "detail": "전국 주요 쇼핑업종, 모든 해외가맹점 청구할인 5% 할인(월5천원~2만5천원)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

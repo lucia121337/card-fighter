@@ -89,5 +89,27 @@
       "limit": 5
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 752,
+      "title": "병원",
+      "detail": "병원 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 752,
+      "title": "교육/육아",
+      "detail": "키즈카페/문화센터/학습지 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

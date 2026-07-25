@@ -65,6 +65,18 @@
   "item_limit": "[{\"perf\":250000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2826,
+      "title": "할인",
+      "detail": "생활 5% 캐시백 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -2,17 +2,31 @@ import sqlite3
 import json
 import os
 
-# Create SQLite database in both root and src/picking for double verification
+# Build SQLite DB in both root directory and src/picking directory
+base_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = os.path.abspath(os.path.join(base_dir, '..', '..'))
+
 db_paths = [
-    os.path.join(os.path.dirname(__file__), 'calculator_db.sqlite'),
-    os.path.join(os.path.dirname(__file__), '..', '..', 'calculator_db.sqlite')
+    os.path.join(root_dir, 'calculator_db.sqlite'),
+    os.path.join(base_dir, 'calculator_db.sqlite')
 ]
+
+# Read calculator_data.json created by auto screening pipeline
+json_data_path = os.path.join(base_dir, 'calculator_data.json')
+with open(json_data_path, 'r', encoding='utf-8') as f:
+    db_data = json.load(f)
+
+cards_full_path = os.path.join(root_dir, 'cards_full.json')
+full_cards = []
+if os.path.exists(cards_full_path):
+    with open(cards_full_path, 'r', encoding='utf-8') as f:
+        full_cards = json.load(f)
 
 for db_path in db_paths:
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # 1. Clear existing tables
+    # 1. Drop existing tables
     cursor.executescript('''
         DROP TABLE IF EXISTS All_Cards_Raw;
         DROP TABLE IF EXISTS Benefit_Items;
@@ -21,7 +35,7 @@ for db_path in db_paths:
         DROP TABLE IF EXISTS Cards;
     ''')
 
-    # 2. Create Master Tables
+    # 2. Create Master Table Schemas (PRD 3-Tier Capping Compliant)
     cursor.executescript('''
         CREATE TABLE All_Cards_Raw (
             idx INTEGER PRIMARY KEY,
@@ -43,10 +57,10 @@ for db_path in db_paths:
             detail_url TEXT,
             top_benefit_summary TEXT,
             detailed_benefits TEXT,
-            item_limit TEXT,
-            group_id TEXT,
-            group_limit TEXT,
-            total_limit_tiers TEXT,
+            item_limit TEXT,            -- Tier 1: Item Limit
+            group_id TEXT,              -- Tier 2: Group ID
+            group_limit TEXT,           -- Tier 2: Group Limit
+            total_limit_tiers TEXT,     -- Tier 3: Total Limit Tiers
             is_calc_supported TEXT DEFAULT 'FALSE'
         );
 
@@ -55,49 +69,51 @@ for db_path in db_paths:
             card_name TEXT,
             company TEXT,
             annual_fee INTEGER,
+            capping_mode TEXT DEFAULT 'HYBRID',
+            total_limit_tiers TEXT,
             is_calc_supported TEXT DEFAULT 'TRUE'
         );
 
+        -- Tier 3: Total Monthly Limit Tiers Table
         CREATE TABLE Performance_Tiers (
             tier_id INTEGER PRIMARY KEY AUTOINCREMENT,
             card_id INTEGER,
-            perf INTEGER,
-            total_limit INTEGER,
+            perf INTEGER,               -- 전월 실적 조건 (원)
+            total_limit INTEGER,        -- Tier 3: 총 통합 월 한도 (원/점)
             FOREIGN KEY(card_id) REFERENCES Cards(card_id)
         );
 
+        -- Tier 2: Benefit Group Limit Table
         CREATE TABLE Benefit_Groups (
             group_id TEXT PRIMARY KEY,
             card_id INTEGER,
-            group_limit INTEGER,
+            group_name TEXT,
+            group_limit INTEGER,        -- Tier 2: 그룹별 공통 한도 (원/점)
             FOREIGN KEY(card_id) REFERENCES Cards(card_id)
         );
 
+        -- Tier 1: Individual Item Limit Table
         CREATE TABLE Benefit_Items (
             item_id INTEGER PRIMARY KEY AUTOINCREMENT,
             card_id INTEGER,
             title TEXT,
             detail TEXT,
-            group_id TEXT,
-            rate TEXT,
-            item_limit TEXT,
-            fixedAmount INTEGER,
-            minPayment INTEGER,
+            group_id TEXT,              -- Tier 2 매핑 외래키
+            rate TEXT,                  -- 할인/적립 요율 JSON 배열
+            item_limit TEXT,            -- Tier 1: 개별 항목 한도 (원/점)
+            fixedAmount INTEGER,        -- 정액 할인/적립 금액
+            minPayment INTEGER,         -- 최소 결제액 조건
+            max_count_per_month INTEGER DEFAULT -1, -- 월 최대 제공 횟수 (-1: 제한없음)
+            benefit_type TEXT DEFAULT 'DISCOUNT',  -- 혜택 유형 (DISCOUNT, POINT_REWARD, CASHBACK 등)
             FOREIGN KEY(card_id) REFERENCES Cards(card_id),
             FOREIGN KEY(group_id) REFERENCES Benefit_Groups(group_id)
         );
     ''')
 
-    # 3. Insert Raw Cards from cards_full.json
-    cards_full_path = os.path.join(os.path.dirname(__file__), '..', '..', 'cards_full.json')
-    if os.path.exists(cards_full_path):
-        with open(cards_full_path, 'r', encoding='utf-8') as f:
-            full_cards = json.load(f)
-
+    # 3. Insert All_Cards_Raw Data
+    if full_cards:
         raw_insert_data = []
-        golden_idxs = [2455, 2718, 2522, 2296, 2297, 2298, 2299]
         for card in full_cards:
-            is_calc = 'TRUE' if card.get('idx') in golden_idxs else 'FALSE'
             raw_insert_data.append((
                 card.get('idx'),
                 card.get('card_name'),
@@ -122,7 +138,7 @@ for db_path in db_paths:
                 card.get('group_id'),
                 card.get('group_limit'),
                 json.dumps(card.get('total_limit_tiers'), ensure_ascii=False) if isinstance(card.get('total_limit_tiers'), (dict, list)) else card.get('total_limit_tiers'),
-                is_calc
+                card.get('is_calc_supported', 'FALSE')
             ))
 
         cursor.executemany('''
@@ -134,70 +150,57 @@ for db_path in db_paths:
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', raw_insert_data)
 
-    # 4. Insert Cards (7 Golden Cards)
-    cards_data = [
-        (2455, '카카오뱅크 우리카드', '우리카드', 12000, 'TRUE'),
-        (2718, '모바일엔디지로카', '롯데카드', 15000, 'TRUE'),
-        (2522, 'KT NU우리카드', '우리카드', 20000, 'TRUE'),
-        (2296, '톡톡M 카드', 'KB국민카드', 12000, 'TRUE'),
-        (2297, '톡톡F 카드', 'KB국민카드', 12000, 'TRUE'),
-        (2298, '톡톡O 카드', 'KB국민카드', 12000, 'TRUE'),
-        (2299, '톡톡D 카드', 'KB국민카드', 12000, 'TRUE')
+    # 4. Insert Cards
+    cards_insert_data = [
+        (
+            c['card_id'],
+            c['card_name'],
+            c['company'],
+            c.get('annual_fee', 0),
+            c.get('capping_mode', 'HYBRID'),
+            json.dumps(c.get('total_limit_tiers'), ensure_ascii=False) if isinstance(c.get('total_limit_tiers'), (dict, list)) else c.get('total_limit_tiers'),
+            c.get('is_calc_supported', 'TRUE')
+        )
+        for c in db_data['cards']
     ]
-    cursor.executemany('INSERT INTO Cards VALUES (?, ?, ?, ?, ?)', cards_data)
+    cursor.executemany('INSERT INTO Cards (card_id, card_name, company, annual_fee, capping_mode, total_limit_tiers, is_calc_supported) VALUES (?, ?, ?, ?, ?, ?, ?)', cards_insert_data)
 
-    # 5. Performance_Tiers
-    tiers_data = [
-        (2718, 400000, 18000),
-        (2718, 800000, 20000),
-        (2522, 400000, 10000),
-        (2522, 800000, 15000),
-        (2522, 1200000, 20000)
+    # 5. Insert Performance_Tiers (Tier 3 Total Limits)
+    tiers_insert_data = [
+        (t['card_id'], t['perf'], t['total_limit'])
+        for t in db_data.get('performance_tiers', [])
     ]
-    cursor.executemany('INSERT INTO Performance_Tiers (card_id, perf, total_limit) VALUES (?, ?, ?)', tiers_data)
+    cursor.executemany('INSERT INTO Performance_Tiers (card_id, perf, total_limit) VALUES (?, ?, ?)', tiers_insert_data)
 
-    # 6. Benefit_Items
-    items_data = [
-        # ① 2455 (카카오뱅크 우리카드) - 실적 40만
-        (2455, '카카오톡 선물하기', '카카오톡 선물하기 50% 할인', None, json.dumps([{"perf": 400000, "rate": 0.50}]), '10000', 0, 0),
-        (2455, '카카오페이', '카카오페이 결제 10% 할인', None, json.dumps([{"perf": 400000, "rate": 0.10}]), '10000', 0, 0),
-
-        # ② 2718 (모바일엔디지로카) - 실적 40만/80만
-        (2718, '통신요금', 'SKT, KT, LG U+ 및 알뜰폰 이동통신 요금 자동납부 결제일 할인', None, json.dumps([{"perf": 400000, "rate": 1.0}]), json.dumps([{"perf": 400000, "limit": 18000}, {"perf": 800000, "limit": 20000}]), 0, 0),
-
-        # ③ 2522 (KT NU우리카드) - 실적 40만/80만/120만
-        (2522, 'KT통신요금', 'KT 통신요금(이동통신, 인터넷, IPTV 등) 자동납부 청구할인', None, json.dumps([{"perf": 400000, "rate": 1.0}]), json.dumps([{"perf": 400000, "limit": 10000}, {"perf": 800000, "limit": 15000}, {"perf": 1200000, "limit": 20000}]), 0, 0),
-
-        # ④ 2296 (톡톡M 카드) - 실적 30만
-        (2296, '디지털구독', '멤버십(네이버플러스, 쿠팡 로켓와우 등) 100% 청구할인', None, json.dumps([{"perf": 300000, "rate": 1.0}]), '10000', 0, 0),
-        (2296, '간편결제', '온라인 간편결제(KB Pay, 삼성페이, 네이버페이 등) 10% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.10}]), '3000', 0, 0),
-        (2296, '편의점', '편의점 업종 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-        (2296, '대중교통', '버스, 지하철 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-
-        # ⑤ 2297 (톡톡F 카드) - 실적 30만
-        (2297, '쇼핑', '패션플랫폼(지그재그, 무신사, 브랜디, 에이블리) 50% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.50}]), '10000', 0, 0),
-        (2297, '간편결제', '온라인 간편결제 10% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.10}]), '3000', 0, 0),
-        (2297, '편의점', '편의점 업종 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-        (2297, '대중교통', '버스, 지하철 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-
-        # ⑥ 2298 (톡톡O 카드) - 실적 30만
-        (2298, '디지털구독', 'OTT 플랫폼(넷플릭스, 디즈니+, 유튜브 프리미엄 등) 100% 청구할인', None, json.dumps([{"perf": 300000, "rate": 1.0}]), '10000', 0, 0),
-        (2298, '간편결제', '온라인 간편결제 10% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.10}]), '3000', 0, 0),
-        (2298, '편의점', '편의점 업종 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-        (2298, '대중교통', '버스, 지하철 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-
-        # ⑦ 2299 (톡톡D 카드) - 실적 30만
-        (2299, '배달앱', '배달의민족, 요기요, 쿠팡이츠, 마켓컬리 50% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.50}]), '10000', 0, 0),
-        (2299, '간편결제', '온라인 간편결제 10% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.10}]), '3000', 0, 0),
-        (2299, '편의점', '편의점 업종 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0),
-        (2299, '대중교통', '버스, 지하철 5% 청구할인', None, json.dumps([{"perf": 300000, "rate": 0.05}]), '3000', 0, 0)
+    # 6. Insert Benefit_Groups (Tier 2 Group Limits)
+    groups_insert_data = [
+        (g['group_id'], g['card_id'], g.get('group_name', '그룹'), g['group_limit'])
+        for g in db_data.get('benefit_groups', [])
     ]
+    if groups_insert_data:
+        cursor.executemany('INSERT INTO Benefit_Groups VALUES (?, ?, ?, ?)', groups_insert_data)
 
+    # 7. Insert Benefit_Items (Tier 1 Item Limits)
+    items_insert_data = [
+        (
+            b['card_id'],
+            b['title'],
+            b.get('detail', ''),
+            b.get('group_id'),
+            json.dumps(b['rate'], ensure_ascii=False) if isinstance(b['rate'], (dict, list)) else str(b['rate']),
+            json.dumps(b['item_limit'], ensure_ascii=False) if isinstance(b['item_limit'], (dict, list)) else str(b['item_limit']),
+            b.get('fixedAmount', 0),
+            b.get('minPayment', 0),
+            b.get('max_count_per_month', -1),
+            b.get('benefit_type', 'DISCOUNT')
+        )
+        for b in db_data.get('benefit_items', [])
+    ]
     cursor.executemany('''
-        INSERT INTO Benefit_Items (card_id, title, detail, group_id, rate, item_limit, fixedAmount, minPayment) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''', items_data)
+        INSERT INTO Benefit_Items (card_id, title, detail, group_id, rate, item_limit, fixedAmount, minPayment, max_count_per_month, benefit_type)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', items_insert_data)
 
     conn.commit()
     conn.close()
-    print(f"[SUCCESS] Physical SQLite DB built at: {db_path}")
+    print(f"[SUCCESS] 3-Tier Capping Structured SQLite DB loaded at: {db_path}")

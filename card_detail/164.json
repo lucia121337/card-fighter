@@ -98,5 +98,47 @@
       "limit": 30000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 164,
+      "title": "푸드",
+      "detail": "전국 음식점 7% 청구할인(해외포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "교통",
+      "detail": "전국 대중교통 7% 청구할인(해외포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "온라인쇼핑",
+      "detail": "국내외 온라인쇼핑 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 164,
+      "title": "카페",
+      "detail": "국내외 커피전문점 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

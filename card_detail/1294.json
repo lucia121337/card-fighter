@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":500000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":10000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 1294,
+      "title": "적립",
+      "detail": "국내 가맹점 0.3% 기본적립",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.003}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1294,
+      "title": "적립",
+      "detail": "사업지원영역(주유/통신/전자상거래 업종) 0.6% 포인트리 추가적립",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.006}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -76,5 +76,27 @@
       "limit": 10000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2265,
+      "title": "홈쇼핑",
+      "detail": "롯데홈쇼핑에서 7% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2265,
+      "title": "홈쇼핑",
+      "detail": "롯데홈쇼핑 적립금 최대 3.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.035}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

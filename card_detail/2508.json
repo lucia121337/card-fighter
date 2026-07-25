@@ -80,6 +80,48 @@
   "item_limit": "[{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}]",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2508,
+      "title": "통신",
+      "detail": "이동통신요금 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "레저/스포츠",
+      "detail": "레저 업종 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "병원/약국",
+      "detail": "의료비 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2508,
+      "title": "캐시백",
+      "detail": "최대이용영역 1% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

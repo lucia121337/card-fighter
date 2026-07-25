@@ -65,6 +65,18 @@
   "item_limit": "10000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 317,
+      "title": "모든가맹점",
+      "detail": "모아포인트 0.3 ~ 1.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

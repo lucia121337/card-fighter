@@ -89,6 +89,68 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}]",
   "group_id": "none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2449,
+      "title": "SKT",
+      "detail": "SKT통신요금 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "간편결제",
+      "detail": "T멤버십 바코드 결제 20% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "주유",
+      "detail": "SK주유&amp;쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "대형마트",
+      "detail": "마트 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2449,
+      "title": "택시",
+      "detail": "택시 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

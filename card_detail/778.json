@@ -90,6 +90,78 @@
   "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":30000},{\"perf\":1500000,\"limit\":50000}] | [{\"perf\":400000,\"limit\":30000}] | [{\"perf\":400000,\"limit\":30000}] | 5000 | 5000 | 5000 | 10000",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 778,
+      "title": "온라인쇼핑",
+      "detail": "GS SHOP 12% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.12}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "대형마트",
+      "detail": "대형마트 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "통신",
+      "detail": "이동통신 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "카페",
+      "detail": "커피 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "편의점",
+      "detail": "편의점 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "택시",
+      "detail": "택시 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 778,
+      "title": "레저/스포츠",
+      "detail": "미용실/화장품/문화센터/스포츠 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

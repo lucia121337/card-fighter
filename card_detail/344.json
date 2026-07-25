@@ -66,6 +66,28 @@
   "item_limit": "[{\"perf\":30000,\"limit\":100000}] | [{\"perf\":30000,\"limit\":100000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 344,
+      "title": "온라인쇼핑",
+      "detail": "인터넷쇼핑몰 5% 환급할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 344,
+      "title": "약국",
+      "detail": "약국 업종 5% 환급할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

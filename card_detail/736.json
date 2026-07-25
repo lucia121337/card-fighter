@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":1000000,\"limit\":2000000}] | [{\"perf\":1000000,\"limit\":2000000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 736,
+      "title": "적립",
+      "detail": "국내외 가맹점 기본 1% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 736,
+      "title": "생활",
+      "detail": "Food&middot;Coffee&middot;Movie 30% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

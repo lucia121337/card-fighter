@@ -65,6 +65,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000}] | 5000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2308,
+      "title": "게임",
+      "detail": "[로스트아크 모험가 전용 혜택] 로스트아크 모험가를 위한 로열 크리스탈 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2308,
+      "title": "할인",
+      "detail": "[기본 혜택] 전월실적 조건 없이 국내외 가맹점 0.5%, 국내 온라인 가맹점 1.5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

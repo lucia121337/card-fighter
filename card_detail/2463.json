@@ -85,6 +85,58 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}]",
   "group_id": "none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2463,
+      "title": "대중교통",
+      "detail": "대중교통 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "카페",
+      "detail": "커피 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "헤어",
+      "detail": "미용실 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2463,
+      "title": "디지털구독",
+      "detail": "스트리밍 서비스 50% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

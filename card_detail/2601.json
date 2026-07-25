@@ -75,6 +75,38 @@
   "item_limit": "[{\"perf\":10000,\"limit\":300000}] | [{\"perf\":10000,\"limit\":300000}] | [{\"perf\":300000,\"limit\":6000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2601,
+      "title": "간편결제",
+      "detail": "네이버페이, 카카오페이, 페이코 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2601,
+      "title": "온라인쇼핑",
+      "detail": "쿠팡, 무신사, 지그재그, W컨셉, 에이블리 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2601,
+      "title": "카페",
+      "detail": "스타벅스, 투썸플레이스, 커피빈, 메가커피, 빽다방, 컴포즈커피 결제 시 이용금액의 20% 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -81,14 +81,9 @@
     {
       "card_id": 2296,
       "title": "디지털구독",
-      "detail": "멤버십(네이버플러스, 쿠팡 로켓와우 등) 100% 청구할인",
+      "detail": "멤버십 100% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":1}]",
       "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -98,12 +93,7 @@
       "title": "간편결제",
       "detail": "온라인 간편결제 10% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -111,14 +101,9 @@
     {
       "card_id": 2296,
       "title": "편의점",
-      "detail": "편의점 업종 5% 청구할인",
+      "detail": "편의점 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
@@ -126,14 +111,9 @@
     {
       "card_id": 2296,
       "title": "대중교통",
-      "detail": "버스, 지하철 5% 청구할인",
+      "detail": "대중교통 5% 청구할인",
       "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.05
-        }
-      ],
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
       "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0

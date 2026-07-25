@@ -65,6 +65,61 @@
   "item_limit": "10000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [
+    {
+      "perf": 300000,
+      "limit": 10000
+    },
+    {
+      "perf": 500000,
+      "limit": 20000
+    },
+    {
+      "perf": 800000,
+      "limit": 30000
+    }
+  ],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 688,
+      "title": "1.5% 특별적립군",
+      "detail": "이동통신, 대중교통, 전기차충전, 커피, 영화 1.5% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "0.5% 특별적립군",
+      "detail": "백화점, 할인점, 온라인쇼핑, 주유, 해외 0.5% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "0.3% 기본적립군",
+      "detail": "기타 일반 가맹점 0.3% 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":0,\"rate\":0.003}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 688,
+      "title": "1.5% 간편결제 추가적립군",
+      "detail": "네이버페이, 카카오페이, PAYCO, SSGPAY 등 간편결제 1.5% 추가 모아포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
+      "item_limit": "-1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

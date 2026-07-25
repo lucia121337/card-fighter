@@ -65,6 +65,18 @@
   "item_limit": "[{\"perf\":250000,\"limit\":7000},{\"perf\":400000,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 382,
+      "title": "캐시백",
+      "detail": "카카오페이 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

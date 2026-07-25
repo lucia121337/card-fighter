@@ -65,6 +65,18 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2726,
+      "title": "배달앱",
+      "detail": "[기본 혜택] 전월 이용 금액 40만원 이상 시 국내외 가맹점 이용 금액 0.5% 배민포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

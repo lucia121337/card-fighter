@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":5000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2881,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 온라인몰, 대형마트, 슈퍼마켓, 백화점, 프리미엄 아울렛 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2881,
+      "title": "할인",
+      "detail": "전월 이용 금액 40만원 이상 시 커피전문점, 편의점, 대중교통 5% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

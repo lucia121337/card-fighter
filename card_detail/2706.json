@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":400000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":5000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2706,
+      "title": "할인",
+      "detail": "[기본할인] 국내 가맹점 1%, NH페이 및 해외 2% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2706,
+      "title": "생활",
+      "detail": "[생활할인] 매월 생활비 10%, 디지털 구독 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

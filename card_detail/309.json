@@ -58,5 +58,17 @@
       "limit": 12000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 309,
+      "title": "카페",
+      "detail": "EDIYA COFFEE에서 결제 시 30% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -90,6 +90,68 @@
   "item_limit": "5000 | 7000 | 7000 | 7000 | [{\"perf\":10000,\"limit\":2000}] | [{\"perf\":10000,\"limit\":2000}]",
   "group_id": "none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2871,
+      "title": "편의점",
+      "detail": "편의점 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "간편결제",
+      "detail": "간편결제 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "패스트푸드",
+      "detail": "간편식 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "카페",
+      "detail": "커피 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "생활",
+      "detail": "힐링 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2871,
+      "title": "학원",
+      "detail": "열공 7% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -80,6 +80,48 @@
   "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}] | [{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":10000}] | 1000",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2530,
+      "title": "일반음식점",
+      "detail": "한식, 휴게음식점 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "카페",
+      "detail": "커피음료전문점 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "아이스크림",
+      "detail": "제과아이스크림 업종 5% 환급할인 (평일만)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2530,
+      "title": "대중교통",
+      "detail": "대중교통(버스, 지하철) 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

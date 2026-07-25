@@ -90,6 +90,78 @@
   "item_limit": "[{\"perf\":50000,\"limit\":10000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":30000,\"limit\":5000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":50000,\"limit\":500000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":100000,\"limit\":500000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":25000}]",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2080,
+      "title": "백화점",
+      "detail": "백화점 7% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "카페",
+      "detail": "커피 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "화장품",
+      "detail": "뷰티업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "공연/전시",
+      "detail": "문화공연 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2080,
+      "title": "학원",
+      "detail": "학원 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

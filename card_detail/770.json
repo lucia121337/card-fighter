@@ -75,6 +75,48 @@
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}]",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 770,
+      "title": "골프",
+      "detail": "골프연습장/스크린골프 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "주유소",
+      "detail": "주유소 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "보험사",
+      "detail": "보험료 자동납부 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 770,
+      "title": "멤버십포인트",
+      "detail": "해피포인트 멤버쉽 최대 5% 현장적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

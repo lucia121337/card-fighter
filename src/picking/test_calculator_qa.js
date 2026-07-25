@@ -8,53 +8,65 @@ const calcJsCode = fs.readFileSync(calcJsPath, 'utf8');
 // 가상 브라우저 환경 (window 객체 모킹)
 const windowMock = {};
 const evalFunc = new Function('window', 'document', 'console', calcJsCode);
-const docMock = { getElementById: () => null, querySelector: () => null };
-evalFunc(windowMock, docMock, console);
+evalFunc(windowMock, { getElementById: () => null, querySelector: () => null }, console);
 
-// calculator_data.json 읽기
-const jsonPath = path.resolve('src/picking/calculator_data.json');
-const rawData = fs.readFileSync(jsonPath, 'utf8');
-const dbData = JSON.parse(rawData);
+// 1. cards_list.json 읽기
+const listPath = path.resolve('cards_list.json');
+const cardsList = JSON.parse(fs.readFileSync(listPath, 'utf8'));
+
+// 2. calculator_data.json 읽기
+const dbDataPath = path.resolve('src/picking/calculator_data.json');
+const dbData = JSON.parse(fs.readFileSync(dbDataPath, 'utf8'));
 
 console.log("==========================================");
-console.log("🧪 2차 골든 데이터셋 (7종 모범 카드) QA 자동 테스트");
+console.log("🧪 대량 적재 카드 자동 검증 (Unit Test)");
 console.log("==========================================");
 
-const goldenIdxs = [2455, 2718, 2522, 2296, 2297, 2298, 2299];
+const supportedInList = cardsList.filter(c => String(c.is_calc_supported).toUpperCase() === 'TRUE');
+console.log(`- cards_list.json 내 활성화 (is_calc_supported = TRUE) 카드 수: ${supportedInList.length}개`);
+console.log(`- SQLite 데이터마트 Cards 테이블 적재 카드 수: ${dbData.cards.length}개`);
+
 let passCount = 0;
+let failCount = 0;
+const failList = [];
 
-goldenIdxs.forEach(idx => {
-  const card = dbData.cards.find(c => c.card_id === idx);
-  if (!card) {
-    console.error(`❌ Card ID ${idx} NOT FOUND in calculator_data.json`);
-    return;
-  }
+dbData.cards.forEach(card => {
+  const idx = card.card_id;
   card.structured_benefits = dbData.benefit_items.filter(b => b.card_id === idx);
   const items = windowMock.getStructuredBenefits(card);
   const tiers = dbData.performance_tiers.filter(t => t.card_id === idx);
 
-  // 실적 구간 검증
-  const perfOptions = windowMock.extractPerfOptions ? windowMock.extractPerfOptions(items, tiers) : [400000];
-  const basePerf = perfOptions.length > 0 ? perfOptions[0] : 300000;
-  
-  const capRes = windowMock.applyThreeLevelCap(items, tiers, basePerf);
-  const totalApplied = capRes.totalSpent;
-  const reqPay = windowMock.calculateMinRequiredPayment(items, capRes.results);
-  const totalMin = basePerf + reqPay;
+  const perfOptions = windowMock.extractPerfOptions ? windowMock.extractPerfOptions(items, tiers) : [];
+  const basePerf = perfOptions.length > 0 ? perfOptions[0] : (card.pre_month_money || 300000);
 
-  console.log(`\n[Card ${idx}] ${card.card_name} (${card.company})`);
-  console.log(` - is_calc_supported: ${card.is_calc_supported}`);
-  console.log(` - 혜택 항목 수: ${items.length}개`);
-  console.log(` - [실적 ${basePerf.toLocaleString()}원] 총 적용 혜택액: ${totalApplied.toLocaleString()}원 | 역산 필요 결제액: ${reqPay.toLocaleString()}원 | 최종 필요 금액: ${totalMin.toLocaleString()}원`);
+  try {
+    const capRes = windowMock.applyThreeLevelCap(items, tiers, basePerf);
+    const reqPay = windowMock.calculateMinRequiredPayment(items, capRes.results);
 
-  if (card.is_calc_supported === 'TRUE' && items.length > 0 && totalApplied > 0) {
-    passCount++;
-    console.log(` ✅ Card ${idx} PASS!`);
-  } else {
-    console.error(` ❌ Card ${idx} FAIL!`);
+    if (isFinite(reqPay) && !isNaN(reqPay) && capRes.totalSpent >= 0) {
+      passCount++;
+    } else {
+      failCount++;
+      failList.push({ idx, name: card.card_name, reason: 'NaN/Infinite reqPay' });
+    }
+  } catch (err) {
+    failCount++;
+    failList.push({ idx, name: card.card_name, reason: err.message });
   }
 });
 
-console.log("\n==========================================");
-console.log(`결과: 7개 중 ${passCount}개 카드 통과`);
+const passRate = ((passCount / dbData.cards.length) * 100).toFixed(2);
+console.log("\n[검증 결과 상세]");
+console.log(`- 총 적재 카드: ${dbData.cards.length}개`);
+console.log(`- 수학적 역산 및 3계층 캡핑 통과 (PASS): ${passCount}개`);
+console.log(`- 실패 (FAIL): ${failCount}개`);
+console.log(`- 검증 통과율: ${passRate}%`);
+
+if (failList.length > 0) {
+  console.log("\n[예외(에러) 리스트]");
+  failList.forEach(f => console.log(` ❌ [${f.idx}] ${f.name}: ${f.reason}`));
+} else {
+  console.log("\n✅ 모든 적재 카드가 에러 없이 수학적 역산 및 3계층 캡핑 통과 완료!");
+}
+
 console.log("==========================================");

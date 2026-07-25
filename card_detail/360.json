@@ -70,6 +70,18 @@
   "item_limit": "[{\"perf\":300000,\"limit\":1000000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 360,
+      "title": "모든가맹점",
+      "detail": "적립한도 없이 0.2% ~ 0.7% NH포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.002}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

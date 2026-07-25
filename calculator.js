@@ -235,14 +235,15 @@ function getStructuredBenefits(cardData) {
  * 순수 함수 모듈 3: 3계층 순수 수학 캡핑 엔진
  * ═══════════════════════════════════════════════ */
 
-function applyThreeLevelCap(items, totalTiers, perf) {
-  const totalCap      = getTotalCapForPerf(totalTiers, perf);
+function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
+  const mode = (cappingMode || 'HYBRID').toUpperCase();
+  const totalCap      = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
   const groupSpentMap = {};
   let totalSpent      = 0;
   const results       = [];
 
   for (const it of items) {
-    const currentItemLimit = getItemLimitForPerf(it.amount, perf);
+    const currentItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
     const applicableRate   = getApplicableRate(it.rate, perf);
 
     if (perf === 0 || !it.checked) {
@@ -260,15 +261,15 @@ function applyThreeLevelCap(items, totalTiers, perf) {
       potBenefit = currentItemLimit;
     }
 
-    // 1차: 개별 한도 캡핑 (item_limit)
+    // 1차: Tier 1 개별 한도 캡핑 (item_limit)
     let cap1 = potBenefit;
-    if (isFinite(currentItemLimit) && currentItemLimit >= 0) {
+    if (mode !== 'TOTAL_TIER' && isFinite(currentItemLimit) && currentItemLimit >= 0) {
       cap1 = Math.min(potBenefit, currentItemLimit);
     }
 
-    // 2차: 그룹 한도 캡핑 (group.limit)
+    // 2차: Tier 2 그룹 한도 캡핑 (group.limit)
     let cap2 = cap1;
-    if (it.groupId && it.groupId !== 'none') {
+    if (mode !== 'TOTAL_TIER' && it.groupId && it.groupId !== 'none') {
       const gLimit  = (it.groupLimit === -1 || it.groupLimit == null) ? Infinity : it.groupLimit;
       const gSpent  = groupSpentMap[it.groupId] || 0;
       const gRemain = isFinite(gLimit) ? Math.max(0, gLimit - gSpent) : Infinity;
@@ -276,9 +277,9 @@ function applyThreeLevelCap(items, totalTiers, perf) {
       groupSpentMap[it.groupId] = gSpent + cap2;
     }
 
-    // 3차: 총 통합 한도 캡핑 (total_limit_tiers)
+    // 3차: Tier 3 총 통합 한도 캡핑 (total_limit_tiers)
     const totalRemain = isFinite(totalCap) ? Math.max(0, totalCap - totalSpent) : Infinity;
-    const applied     = isFinite(totalRemain) ? Math.min(cap2, totalRemain) : cap2;
+    const applied     = (mode !== 'INDIVIDUAL_TIER' && isFinite(totalRemain)) ? Math.min(cap2, totalRemain) : cap2;
 
     totalSpent += applied;
     results.push({ id: it.id, applied, currentItemLimit, applicableRate, cap1, cap2 });
@@ -386,8 +387,9 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         if (badgeEl) badgeEl.textContent = `기준 ${moneyLabel(currentPerf)}`;
 
         // 3계층 순수 수학 캡핑 엔진 실행
+        const cappingMode = cardData.capping_mode || 'HYBRID';
         const { results, totalSpent, groupSpentMap, totalCap } =
-          applyThreeLevelCap(items, totalLimitTiers, currentPerf);
+          applyThreeLevelCap(items, totalLimitTiers, currentPerf, cappingMode);
 
         // minPayment 및 요율 기반 실질 필요 사용 금액 역산
         const totalRequiredSum = calculateMinRequiredPayment(items, results);
@@ -436,7 +438,16 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
           }
         });
 
-        // 3차: 총 통합 한도 도달 경고 노출
+        // 3차: 총 통합 한도 동적 배너 및 도달 경고 노출
+        const totalBannerEl = document.getElementById('calc-total-banner-text');
+        if (totalBannerEl) {
+          if (isFinite(totalCap) && totalCap > 0) {
+            totalBannerEl.textContent = `👑 총 통합 한도: 최대 ${totalCap.toLocaleString()}원 적용 중`;
+          } else {
+            totalBannerEl.textContent = `👑 총 통합 한도: 한도 없이 혜택 제공`;
+          }
+        }
+
         const totalWarnEl = document.getElementById('calc-total-warning');
         if (totalWarnEl) {
           const isTotalCapped = isFinite(totalCap) && totalCap > 0 && totalSpent >= totalCap;
@@ -615,12 +626,35 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         </div>`;
     }
 
+    /* ── 총 통합 한도 박스 HTML (Total Limit Tiers 공유 시 시각적 그룹핑) ── */
+    let totalCapLabel = '무제한';
+    const initTotalCap = getTotalCapForPerf(totalLimitTiers, basePerf);
+    if (isFinite(initTotalCap) && initTotalCap > 0) {
+      totalCapLabel = `최대 ${initTotalCap.toLocaleString()}원`;
+    }
+
+    const hasTotalTiers = Array.isArray(totalLimitTiers) && totalLimitTiers.length > 0;
+
+    let itemsContentHTML = '';
+    if (hasTotalTiers && soloItems.length > 0) {
+      itemsContentHTML = `
+        <div class="calc-group-box">
+          <div class="calc-group-header">
+            <span id="calc-total-banner-text">👑 총 통합 한도: ${totalCapLabel} 적용 중</span>
+            <span class="calc-group-limit-badge">${totalCapLabel}</span>
+          </div>
+          ${soloItems.map(makeRow).join('')}
+        </div>`;
+    } else {
+      itemsContentHTML = soloItems.map(makeRow).join('');
+    }
+
     return `
       <div class="calc-box">
         <h3>🧮 혜택 계산기</h3>
         ${perfSelectHTML}
         ${groupsHTML}
-        ${soloItems.map(makeRow).join('')}
+        ${itemsContentHTML}
         <div id="calc-total-warning" class="calc-group-warn" style="display:none; margin-bottom:12px;"></div>
         <div class="calc-total-dashboard">
           <div class="dashboard-row">

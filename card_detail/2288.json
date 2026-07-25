@@ -80,6 +80,48 @@
   "item_limit": "20000 | 10000 | 10000 | 5000",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2288,
+      "title": "쇼핑",
+      "detail": "신세계백화점, 신세계 아카데미, 시코르닷컴 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "카페/디저트",
+      "detail": "커피/제과/택시 20% 할인(1만원 이상 결제 건)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "테마파크",
+      "detail": "놀이공원/워터파크 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2288,
+      "title": "레저/스포츠",
+      "detail": "프로야구/프로축구 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

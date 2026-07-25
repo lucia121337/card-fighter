@@ -70,6 +70,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":800000},{\"perf\":800000,\"limit\":1500000},{\"perf\":1500000,\"limit\":150}] | [{\"perf\":300000,\"limit\":800000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 188,
+      "title": "주유",
+      "detail": "GS칼텍스, 농협주유소 리터당 100원~150원 청구할인 (LPG충전소 포함)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 188,
+      "title": "생활",
+      "detail": "커피(스타벅스/이디야) 10% NH포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -80,6 +80,58 @@
   "item_limit": "300000 | 300000 | 300000 | 300000 | 300000",
   "group_id": "none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2761,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "쇼핑",
+      "detail": "온라인 쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "통신",
+      "detail": "이동 통신 요금 자동납부 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "디지털구독",
+      "detail": "OTT 정기 결제 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2761,
+      "title": "영화",
+      "detail": "OTT 정기 결제 30% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "300000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

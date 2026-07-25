@@ -85,5 +85,37 @@
       "limit": 20000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2235,
+      "title": "할인",
+      "detail": "많이 쓰는 영역 30% 자동 맞춤 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2235,
+      "title": "생활",
+      "detail": "교통&middot;이동통신&middot;스트리밍 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2235,
+      "title": "할인",
+      "detail": "온라인 간편결제&middot;해외 3% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -85,6 +85,68 @@
   "item_limit": "5000 | 5000 | 3000 | 30000 | 30000 | 3",
   "group_id": "none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 644,
+      "title": "공연/전시",
+      "detail": "국내콘서트/공연 예매 및 팬클럽 가입 이용금액의 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "음원사이트",
+      "detail": "음원, 스트리밍(멜론, FLO) 이용금액 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "대중교통",
+      "detail": "대중교통(버스-마을, 시내, 시외, 광역, 공항버스/지하철) 이용금액 3% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "카페",
+      "detail": "스타벅스(사이렌오더 포함)/JYP-Soulcup 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "마트/편의점",
+      "detail": "편의점(GS25), 올리브영 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "30000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 644,
+      "title": "해외이용",
+      "detail": "해외 전가맹점(온라인 포함) 이용금액의 1% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "3",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -47,6 +47,18 @@
   "item_limit": "[{\"perf\":300000,\"limit\":20000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2217,
+      "title": "모든가맹점",
+      "detail": "전월 사용금액에 따라 0.5~1% 캐시백 지급",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

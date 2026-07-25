@@ -110,6 +110,118 @@
   "item_limit": "1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000",
   "group_id": "none | none | none | none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2570,
+      "title": "온라인쇼핑",
+      "detail": "[오늘 하루 SHOPPING] 온라인 쇼핑 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "간편결제",
+      "detail": "[오늘 하루 SHOPPING] 간편결제 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "생활",
+      "detail": "[오늘 하루 SHOPPING] 안경/렌즈 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "카페",
+      "detail": "[오늘 하루 EAT] 커피 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "배달앱",
+      "detail": "[오늘 하루 EAT] 배달/주문 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "대중교통",
+      "detail": "[오늘 하루 LIFE] 대중교통(버스/지하철) 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "통신",
+      "detail": "[오늘 하루 LIFE] 이동통신 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "해외",
+      "detail": "[오늘 하루 LIFE] 해외 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "생활",
+      "detail": "[오늘 하루 LIFE] 어학시험 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "디지털구독",
+      "detail": "[오늘 하루 PLAY] OTT 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2570,
+      "title": "공연/전시",
+      "detail": "[오늘 하루 PLAY] 공연티켓 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

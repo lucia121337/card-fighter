@@ -70,6 +70,38 @@
   "item_limit": "1000 | 1000 | 1000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2639,
+      "title": "푸드",
+      "detail": "[DO EAT] 편의점, 배달의민족 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2639,
+      "title": "쇼핑",
+      "detail": "[DO BUY] 쿠팡, 무신사 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2639,
+      "title": "게임",
+      "detail": "[DO PLAY] 구글 Play스토어, 애플 APP Store 5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":50000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

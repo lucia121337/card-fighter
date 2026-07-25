@@ -65,6 +65,28 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":50000,\"limit\":10000},{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2723,
+      "title": "적립",
+      "detail": "카카오톡 선물하기/ 카카오T 카카오페이 결제시 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2723,
+      "title": "적립",
+      "detail": "생활/요식/교통영역 결제시 1~1.5% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.015}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

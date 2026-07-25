@@ -70,6 +70,38 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}] | [{\"perf\":10000,\"limit\":400000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2560,
+      "title": "교통",
+      "detail": "버스/지하철/택시/철도 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2560,
+      "title": "통신",
+      "detail": "이동통신요금 5% 청구할인(월 1회)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2560,
+      "title": "카페",
+      "detail": "커피전문점 10% 청구할인(월 2천원, 2회 한)",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

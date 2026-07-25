@@ -95,6 +95,78 @@
   "item_limit": "150 | 10000 | 10000 | 10000 | 10000 | 8000 | [{\"perf\":30000,\"limit\":3000}]",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2501,
+      "title": "주유소",
+      "detail": "GS칼텍스 리터당 최대 150원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "150",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "백화점",
+      "detail": "백화점업종 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "대형마트",
+      "detail": "대형마트 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "패밀리레스토랑",
+      "detail": "패밀리레스토랑 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "카페",
+      "detail": "커피 전문점 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "8000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2501,
+      "title": "대중교통",
+      "detail": "대중교통 이용액 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

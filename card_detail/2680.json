@@ -80,6 +80,58 @@
   "item_limit": "[{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}]",
   "group_id": "group_2680_온라인 쇼핑몰 10% 청구 할인 | group_2680_편의점 10% 청구 할인 | group_2680_커피전문점 10% 청구 할인 | none | group_2680_도서 10% 청구 할인",
   "group_limit": "1 | 1 | 1 | -1 | 1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2680,
+      "title": "온라인쇼핑",
+      "detail": "[온라인 쇼핑몰 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "편의점",
+      "detail": "[편의점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "카페",
+      "detail": "[커피전문점 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "대중교통",
+      "detail": "[대중교통 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2680,
+      "title": "도서",
+      "detail": "[도서 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -66,6 +66,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":700000}] | [{\"perf\":300000,\"limit\":1000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2485,
+      "title": "KT",
+      "detail": "kt 통신요금 청구할인. 전월실적 별 월 최대 18,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2485,
+      "title": "주유소",
+      "detail": "SK 주유소 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

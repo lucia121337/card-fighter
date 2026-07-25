@@ -70,5 +70,17 @@
       "limit": 15000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 328,
+      "title": "카페",
+      "detail": "커피전문점 1회당 1,000원 할인 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":250000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

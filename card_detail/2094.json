@@ -90,6 +90,78 @@
   "item_limit": "[{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}] | [{\"perf\":150000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":15000}]",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2094,
+      "title": "카카오페이",
+      "detail": "카카오페이 15% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "편의점",
+      "detail": "편의점 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "온라인쇼핑",
+      "detail": "소셜커머스 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "기타",
+      "detail": "어학응시료 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "영화",
+      "detail": "영화 2,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "카페",
+      "detail": "커피전문점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2094,
+      "title": "패스트푸드",
+      "detail": "스타일푸드 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":150000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

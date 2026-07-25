@@ -65,6 +65,28 @@
   "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000}]",
   "group_id": "group_2699_TEN Discount | group_2699_ONE Discount",
   "group_limit": "400000 | 400000",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2699,
+      "title": "할인",
+      "detail": "[TEN Discount] 5대 일상영역 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2699,
+      "title": "할인",
+      "detail": "[ONE Discount] 음식점/주점 및 온라인 간편결제 1% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

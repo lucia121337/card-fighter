@@ -80,6 +80,48 @@
   "item_limit": "1 | 1 | 1 | 1",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2623,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 10% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "카페",
+      "detail": "커피/편의점 10% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "쇼핑",
+      "detail": "오프라인 쇼핑 5% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2623,
+      "title": "항공권",
+      "detail": "온라인 항공/면세점 5% 할인(KB Pay 결제 시)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

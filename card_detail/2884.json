@@ -61,6 +61,28 @@
   "item_limit": "[{\"perf\":200000,\"limit\":30000}] | [{\"perf\":200000,\"limit\":30000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2884,
+      "title": "배달앱",
+      "detail": "배달의민족 이용금액 5% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2884,
+      "title": "국내외가맹점",
+      "detail": "국내/외 가맹점 이용금액 1% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

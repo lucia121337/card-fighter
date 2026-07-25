@@ -65,6 +65,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":700000}] | [{\"perf\":300000,\"limit\":700000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 783,
+      "title": "온라인쇼핑",
+      "detail": "- 당월 이용금액 30만원 이상 시 2%",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 783,
+      "title": "생활",
+      "detail": "- 당월 이용금액 30만원 이상 시 3%",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

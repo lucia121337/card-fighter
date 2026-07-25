@@ -91,5 +91,67 @@
       "limit": 20000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2336,
+      "title": "대중교통",
+      "detail": "버스/지하철/택시/철도 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "기타",
+      "detail": "공유모빌리티 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "충전소",
+      "detail": "전기차 충전 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "통신",
+      "detail": "이동통신요금 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "온라인쇼핑",
+      "detail": "오픈마켓/배달앱 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2336,
+      "title": "생활",
+      "detail": "스포츠/H&amp;B매장 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

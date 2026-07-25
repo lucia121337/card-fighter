@@ -70,6 +70,38 @@
   "item_limit": "[{\"perf\":500000,\"limit\":1000000}] | 500000 | 500000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2681,
+      "title": "대중교통",
+      "detail": "버스/지하철 10% 청구할인 (월 1만원, 월 2만원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2681,
+      "title": "드럭스토어",
+      "detail": "다이소/올리브영 10% 청구할인 (일 1천원, 월 1만원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2681,
+      "title": "카페",
+      "detail": "스타벅스/커피빈 10% 청구할인 (월 5천원)",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

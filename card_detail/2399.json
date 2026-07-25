@@ -75,6 +75,38 @@
   "item_limit": "1000 | 1000 | 1000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2399,
+      "title": "푸드",
+      "detail": "편의점(GS25/CU), 커피/음료 전문점 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2399,
+      "title": "생활",
+      "detail": "올리브영, 다이소 결제 시 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2399,
+      "title": "게임",
+      "detail": "구글 플레이스토어, 앱스토어 결제 시 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

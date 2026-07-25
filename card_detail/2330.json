@@ -100,6 +100,88 @@
   "item_limit": "[{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":20000}] | 1",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2330,
+      "title": "공과금",
+      "detail": "아파트관리비 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "공과금",
+      "detail": "공과금(도시가스비, 전기료) 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "통신",
+      "detail": "SKT, KT, LG U+ 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "배달앱",
+      "detail": "배달의 민족, 요기요, 쿠팡이츠 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "보험사",
+      "detail": "생명보험, 손해보험 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "학습지",
+      "detail": "학습지 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2330,
+      "title": "디지털구독",
+      "detail": "넷플릭스, 유튜브, 왓챠, 멜론, 지니뮤직, 디즈니 플러스 1,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0}]",
+      "item_limit": "1",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

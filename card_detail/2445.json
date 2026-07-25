@@ -89,6 +89,78 @@
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}]",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2445,
+      "title": "배달앱",
+      "detail": "딜리버리 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "편의점",
+      "detail": "편의점 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "디지털구독",
+      "detail": "영상 스트리밍 40% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.4}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "교통",
+      "detail": "택시 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "대중교통",
+      "detail": "대중교통 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "푸드",
+      "detail": "하나페이 맛집 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2445,
+      "title": "온라인쇼핑",
+      "detail": "온라인식품&amp;쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -76,5 +76,27 @@
       "limit": 1
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 375,
+      "title": "해외이용",
+      "detail": "해외 물품 구매시 2% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 375,
+      "title": "생활",
+      "detail": "10대 업종 0.5~1.0% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.01}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

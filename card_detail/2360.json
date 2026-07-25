@@ -75,6 +75,48 @@
   "item_limit": "10000 | 3000 | 10000 | 10000",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2360,
+      "title": "테마파크",
+      "detail": "롯데월드 부산, 스카이라인루지 부산 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "경기관람",
+      "detail": "롯데자이언츠 관람권 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "쇼핑",
+      "detail": "오프라인 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2360,
+      "title": "온라인쇼핑",
+      "detail": "온라인 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1500000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

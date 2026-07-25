@@ -61,6 +61,28 @@
   "item_limit": "[{\"perf\":1000000,\"limit\":1500000}] | 10000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 152,
+      "title": "학원",
+      "detail": "교육 업종(학원, 학습지 등) 5~7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1000000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 152,
+      "title": "약국",
+      "detail": "약국 이용 시 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":1000000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

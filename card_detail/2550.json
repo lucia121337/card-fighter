@@ -121,5 +121,127 @@
       "limit": 2
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2550,
+      "title": "카페",
+      "detail": "[일상] 스타벅스, 커피빈 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "게임",
+      "detail": "[일상] 구글플레이스토어, 앱스토어 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "공연/전시",
+      "detail": "[일상] 인터파크 티켓 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "헤어",
+      "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "편의점",
+      "detail": "[일상] GS25, CU 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "디지털구독",
+      "detail": "[일상] 넷플릭스, 유튜브프리미엄 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "배달앱",
+      "detail": "[일상] 배달의민족, 요기요 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "통신",
+      "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "영화",
+      "detail": "[일상] CGV 4,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "테마파크",
+      "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "게임",
+      "detail": "[Play] PC방 업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2550,
+      "title": "패스트푸드",
+      "detail": "[Play] 패스트푸드 업종 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

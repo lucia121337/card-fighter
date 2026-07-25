@@ -85,6 +85,38 @@
   "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":2000000,\"limit\":30000}] | [{\"perf\":500000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":10000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2287,
+      "title": "쇼핑",
+      "detail": "[MX Black Zone] Shopping Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2287,
+      "title": "푸드",
+      "detail": "[MX Black Zone] Food &amp; Drink Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2287,
+      "title": "기타",
+      "detail": "[MX Black Zone] Mobility Zone 10% 청구 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

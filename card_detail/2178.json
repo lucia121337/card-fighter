@@ -65,6 +65,18 @@
   "item_limit": "[{\"perf\":10000,\"limit\":4000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2178,
+      "title": "적립",
+      "detail": "1. 후불교통(버스,지하철) 이용요금 5% J머니 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

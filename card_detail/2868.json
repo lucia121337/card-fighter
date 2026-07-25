@@ -70,6 +70,38 @@
   "item_limit": "10000 | 10000 | 10000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2868,
+      "title": "전통시장",
+      "detail": "전통시장가맹점 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2868,
+      "title": "할인",
+      "detail": "온누리상품권 차감 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2868,
+      "title": "쇼핑",
+      "detail": "KB Pay 쇼핑 이용 5% 환급할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -85,6 +85,68 @@
   "item_limit": "10000 | 10000 | 10000 | 5000 | 10000 | 5000",
   "group_id": "none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2565,
+      "title": "애완동물",
+      "detail": "동물병원/반려동물업종 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "애완동물",
+      "detail": "반려동물사진관 30% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "카페",
+      "detail": "커피 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "대형마트",
+      "detail": "대형마트 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2565,
+      "title": "편의점",
+      "detail": "편의점 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -80,6 +80,58 @@
   "item_limit": "[{\"perf\":100000,\"limit\":300000}] | [{\"perf\":100000,\"limit\":300000}] | [{\"perf\":100000,\"limit\":300000}] | [{\"perf\":100000,\"limit\":300000}] | [{\"perf\":100000,\"limit\":300000}]",
   "group_id": "none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2809,
+      "title": "간편결제",
+      "detail": "페이결제 0.5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "편의점",
+      "detail": "GS25, CU, 이마트24, 세븐일레븐 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "배달앱",
+      "detail": "배달의 민족, 요기요 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "대중교통",
+      "detail": "버스, 지하철 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2809,
+      "title": "카페",
+      "detail": "스타벅스, 투썸플레이스 20% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

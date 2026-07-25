@@ -86,5 +86,37 @@
       "limit": 5
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 369,
+      "title": "온라인쇼핑",
+      "detail": "온라인쇼핑몰/소셜커머스 3~5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 369,
+      "title": "병원",
+      "detail": "전국 병원 업종 3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 369,
+      "title": "카페",
+      "detail": "커피전문점/제과점 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

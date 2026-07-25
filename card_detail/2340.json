@@ -76,6 +76,58 @@
   "item_limit": "5000 | 5000 | 5000 | 5000 | 2000",
   "group_id": "none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2340,
+      "title": "온라인쇼핑",
+      "detail": "[온라인] 쿠팡, G마켓, 옥션 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "온라인쇼핑",
+      "detail": "[온라인] 로켓와우, 스마일클럽 멤버십 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "드럭스토어",
+      "detail": "[라이프] H&amp;B 스토어 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "디지털구독",
+      "detail": "[라이프] 디지털구독 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2340,
+      "title": "편의점",
+      "detail": "[라이프] 편의점 7% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.07}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

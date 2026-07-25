@@ -109,5 +109,77 @@
       "limit": 30
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2409,
+      "title": "대중교통",
+      "detail": "대중교통 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "카페",
+      "detail": "커피 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "편의점",
+      "detail": "편의점 건당 300원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "300",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "디지털구독",
+      "detail": "디지털 구독 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "주유",
+      "detail": "주유/충전 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "쇼핑",
+      "detail": "쇼핑 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2409,
+      "title": "생활",
+      "detail": "생활요금 건당 3,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "3000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -52,6 +52,18 @@
   "item_limit": "[{\"perf\":100000,\"limit\":300000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2193,
+      "title": "캐시백",
+      "detail": "당월 10만원 이상 ~ 30만원 미만 사용",
+      "group_id": null,
+      "rate": "[{\"perf\":100000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -66,6 +66,28 @@
   "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":200000,\"limit\":400000},{\"perf\":400000,\"limit\":600000},{\"perf\":600000,\"limit\":5000}] | [{\"perf\":10000,\"limit\":1000},{\"perf\":200000,\"limit\":400000},{\"perf\":400000,\"limit\":600000},{\"perf\":600000,\"limit\":5000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2767,
+      "title": "할인",
+      "detail": "온라인 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2767,
+      "title": "할인",
+      "detail": "오프라인 5% 혜택",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -75,6 +75,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":1000000},{\"perf\":1000000,\"limit\":200}] | 5000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 89,
+      "title": "주유",
+      "detail": "Most주유소 리터당 최대 200원 청구할인(SK주유소는 최대 80원 청구할인)",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 89,
+      "title": "영화",
+      "detail": "영화관 업종 5,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

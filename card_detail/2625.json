@@ -80,6 +80,58 @@
   "item_limit": "[{\"perf\":200000,\"limit\":3000}] | [{\"perf\":200000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":3000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":10000}]",
   "group_id": "none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2625,
+      "title": "카페",
+      "detail": "커피 업종 100원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "편의점",
+      "detail": "편의점 200원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "게임",
+      "detail": "모바일 200원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "배달앱",
+      "detail": "배달음식 500원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2625,
+      "title": "대중교통",
+      "detail": "대중교통 1,000원 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -70,6 +70,38 @@
   "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
   "group_id": "none | group_2026_On-line 쇼핑 | group_2026_Off-line 쇼핑",
   "group_limit": "-1 | 2 | 2",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2026,
+      "title": "카카오페이",
+      "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.15}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2026,
+      "title": "온라인쇼핑",
+      "detail": "[On-line 쇼핑] 온라인 쇼핑몰 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2026,
+      "title": "편의점",
+      "detail": "[Off-line 쇼핑] 편의점 및 드럭스토어 5% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

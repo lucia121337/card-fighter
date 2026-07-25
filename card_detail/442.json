@@ -80,6 +80,28 @@
   "item_limit": "[{\"perf\":300000,\"limit\":10000}] | [{\"perf\":10000,\"limit\":300000},{\"perf\":500000,\"limit\":7000},{\"perf\":700000,\"limit\":10000}]",
   "group_id": "group_442_선택서비스 : for Green Life Service(C-Type) | group_442_선택서비스 : for Baby Service(A-Type)",
   "group_limit": "10000 | 5000",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 442,
+      "title": "모든가맹점",
+      "detail": "기본적립",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 442,
+      "title": "병원",
+      "detail": "병/의원, 조산원, 산후조리원 업종(정부지원금 제외) 3% 할인(캐시백)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

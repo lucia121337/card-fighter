@@ -75,6 +75,38 @@
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":100}] | [{\"perf\":300000,\"limit\":10000}] | 1000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 94,
+      "title": "주유",
+      "detail": "S-OIL, 현대오일뱅크 리터당 60~100원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 94,
+      "title": "대중교통",
+      "detail": "대중교통 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 94,
+      "title": "카페",
+      "detail": "스타벅스, 폴바셋 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

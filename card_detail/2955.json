@@ -100,6 +100,88 @@
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | 5000 | [{\"perf\":300000,\"limit\":600000}] | 5000 | [{\"perf\":300000,\"limit\":600000}] | 5000 | [{\"perf\":300000,\"limit\":600000}]",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "삼성라이온즈 홈경기 입장권/팀스토어 50% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "대구삼성라이온즈파크 식음매장 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "디지털구독",
+      "detail": "삼성라이온즈 홈경기 입장권/팀스토어 50% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "커피전문점/편의점 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "교통",
+      "detail": "대중교통/택시 10% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "기차",
+      "detail": "철도 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "할인",
+      "detail": "온라인쇼핑몰/배달앱 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2955,
+      "title": "여행사",
+      "detail": "여행플랫폼 5% 결제일할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

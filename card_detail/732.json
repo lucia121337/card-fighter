@@ -85,6 +85,58 @@
   "item_limit": "[{\"perf\":400000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}]",
   "group_id": "group_732_온라인 간편결제 이용금액의 10% 청구 할인 | none | none | group_732_배달 앱 이용금액의 10% 청구 할인 | group_732_커피전문점 스마트오더 이용금액의 50% 청구 할인",
   "group_limit": "1 | -1 | -1 | 1 | 1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 732,
+      "title": "간편결제",
+      "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "온라인쇼핑",
+      "detail": "[온라인쇼핑 멤버십 이용금액의 70% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.7}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "디지털구독",
+      "detail": "[디지털 콘텐츠 서비스 이용금액의 30% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.3}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "배달앱",
+      "detail": "[배달 앱 이용금액의 10% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 732,
+      "title": "카페",
+      "detail": "[커피전문점 스마트오더 이용금액의 50% 청구 할인]",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

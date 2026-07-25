@@ -70,6 +70,38 @@
   "item_limit": "[{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2693,
+      "title": "대중교통",
+      "detail": "대중교통(버스, 지하철) 이용 시 10% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2693,
+      "title": "간편결제",
+      "detail": "간편결제로 결제 시 2% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2693,
+      "title": "생활",
+      "detail": "생활서비스 2% 결제일 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

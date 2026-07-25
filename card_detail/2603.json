@@ -61,6 +61,28 @@
   "item_limit": "[{\"perf\":400000,\"limit\":150},{\"perf\":800000,\"limit\":200},{\"perf\":1500000,\"limit\":250},{\"perf\":2000000,\"limit\":300}] | [{\"perf\":800000,\"limit\":20000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2603,
+      "title": "주유",
+      "detail": "주유소(충전소 포함) 리터당 150원~300원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2603,
+      "title": "자동차",
+      "detail": "차량정비, 주차장, 세차장 업종 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

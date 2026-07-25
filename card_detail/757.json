@@ -71,5 +71,27 @@
       "limit": 4
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 757,
+      "title": "온라인쇼핑",
+      "detail": "온라인 이용 건 3% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 757,
+      "title": "쇼핑",
+      "detail": "소셜커머스 &middot;오픈마켓(쿠팡, 티몬, 위메프, 11번가, 옥션, G마켓) 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

@@ -95,6 +95,18 @@
   "item_limit": "20000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2867,
+      "title": "생활",
+      "detail": "생활 영역 3% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.03}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

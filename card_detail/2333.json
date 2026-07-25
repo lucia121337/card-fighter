@@ -70,6 +70,38 @@
   "item_limit": "2000 | 7000 | 10000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2333,
+      "title": "배달앱",
+      "detail": "땡겨요 앱 이용금액 마이신한포인트 10% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "2000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2333,
+      "title": "카페",
+      "detail": "스타벅스(사이렌오더 포함) 이용금액 마이신한포인트 2% 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2333,
+      "title": "편의점",
+      "detail": "편의점 이용금액 2% 마이신한포인트 적립",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

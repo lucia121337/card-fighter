@@ -70,6 +70,38 @@
   "item_limit": "10000 | 1000 | 5000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 745,
+      "title": "대중교통",
+      "detail": "대중교통 20% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.2}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 745,
+      "title": "편의점",
+      "detail": "편의점 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 745,
+      "title": "카페",
+      "detail": "커피 10% 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

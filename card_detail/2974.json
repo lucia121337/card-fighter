@@ -63,5 +63,17 @@
       "limit": 10000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2974,
+      "title": "간편결제",
+      "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

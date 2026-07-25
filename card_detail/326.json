@@ -70,6 +70,28 @@
   "item_limit": "20000 | 90000",
   "group_id": "group_326_주의사항 | group_326_주의사항",
   "group_limit": "1 | 1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 326,
+      "title": "해피포인트",
+      "detail": "해피포인트 가맹점 5% 적립(해피포인트 현장 적립)",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "20000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 326,
+      "title": "마트/편의점",
+      "detail": "5대 할인점 5% 청구 할인 서비스",
+      "group_id": null,
+      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
+      "item_limit": "90000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

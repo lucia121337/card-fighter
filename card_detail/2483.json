@@ -60,6 +60,18 @@
   "item_limit": "500000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2483,
+      "title": "생활",
+      "detail": "6대 생활영역 이용금액 1% 기본캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":500000,\"rate\":0.01}]",
+      "item_limit": "500000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

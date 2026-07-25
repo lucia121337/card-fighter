@@ -93,6 +93,88 @@
   "item_limit": "5000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | [{\"perf\":30000,\"limit\":3000}]",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2852,
+      "title": "APP",
+      "detail": "[공통] KB Pay 오프라인 결제 2% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "편의점",
+      "detail": "[공통] CU, 세븐일레븐 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "쇼핑",
+      "detail": "[공통] 다이소, 올리브영, KB Pay 쇼핑 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "할인",
+      "detail": "[공통] 독서실 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "도서",
+      "detail": "[공통] 서점 업종, 문구점 업종 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "게임",
+      "detail": "[놀이] PC방 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "할인",
+      "detail": "[놀이] 구글 플레이스토어, 애플 앱스토어 5% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
+      "item_limit": "1000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2852,
+      "title": "패밀리레스토랑",
+      "detail": "[외식] 패밀리레스토랑 업종 10% 할인",
+      "group_id": null,
+      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

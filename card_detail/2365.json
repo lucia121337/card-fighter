@@ -81,5 +81,47 @@
       "limit": 15000
     }
   ],
-  "is_calc_supported": "FALSE"
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 2365,
+      "title": "통신",
+      "detail": "통신요금 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "렌탈",
+      "detail": "렌탈요금 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "보험사",
+      "detail": "손해보험사 자동이체 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 2365,
+      "title": "기타",
+      "detail": "기타 자동이체 가맹점 최대 15,000원 청구할인",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0}]",
+      "item_limit": "5000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }

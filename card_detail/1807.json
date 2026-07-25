@@ -65,6 +65,28 @@
   "item_limit": "10000 | 7000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
-  "total_limit_tiers": null,
-  "is_calc_supported": "FALSE"
+  "total_limit_tiers": [],
+  "is_calc_supported": "TRUE",
+  "structured_benefits": [
+    {
+      "card_id": 1807,
+      "title": "게임",
+      "detail": "구글 플레이스토어, 애플 앱스토어, 원스토어 5% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
+      "item_limit": "10000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    },
+    {
+      "card_id": 1807,
+      "title": "카페",
+      "detail": "스타벅스 20% 캐시백",
+      "group_id": null,
+      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
+      "item_limit": "7000",
+      "fixedAmount": 0,
+      "minPayment": 0
+    }
+  ]
 }
