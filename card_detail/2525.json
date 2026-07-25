@@ -76,7 +76,7 @@
   "group_id": "group_2525_Daily 할인 | group_2525_Daily 할인 | group_2525_Daily 할인",
   "group_limit": "7000 | 3000 | 5000",
   "total_limit_tiers": [],
-  "is_calc_supported": "TRUE",
+  "is_calc_supported": "FALSE",
   "structured_benefits": [
     {
       "item_id": 5,

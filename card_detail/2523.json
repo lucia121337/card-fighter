@@ -81,7 +81,7 @@
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
   "total_limit_tiers": [],
-  "is_calc_supported": "TRUE",
+  "is_calc_supported": "FALSE",
   "structured_benefits": [
     {
       "item_id": 1,

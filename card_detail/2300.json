@@ -101,7 +101,7 @@
   "group_id": "none | none | group_2300_쁨 서비스 쇼핑 | group_2300_쁨 서비스 트렌디쇼핑 | group_2300_쁨 서비스 모빌리티 | none | none | none | none",
   "group_limit": "-1 | -1 | 20000 | 20000 | 20000 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [],
-  "is_calc_supported": "TRUE",
+  "is_calc_supported": "FALSE",
   "structured_benefits": [
     {
       "item_id": 11,

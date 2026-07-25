@@ -76,7 +76,7 @@
       "limit": 180000
     }
   ],
-  "is_calc_supported": "TRUE",
+  "is_calc_supported": "FALSE",
   "structured_benefits": [
     {
       "item_id": 9,

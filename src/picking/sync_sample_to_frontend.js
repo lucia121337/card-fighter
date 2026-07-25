@@ -12,7 +12,7 @@ cardsList.forEach(card => {
   if (matched) {
     const bItems = dbData.benefit_items.filter(b => b.card_id === card.idx);
     const tiers = dbData.performance_tiers.filter(t => t.card_id === card.idx);
-    card.is_calc_supported = "TRUE";
+    card.is_calc_supported = matched.is_calc_supported || "TRUE";
     card.structured_benefits = bItems;
     card.total_limit_tiers = tiers.length ? tiers.map(t => ({ perf: t.perf, limit: t.total_limit })) : [];
   }
@@ -28,7 +28,7 @@ dbData.cards.forEach(card => {
     const detail = JSON.parse(fs.readFileSync(detailPath, 'utf8'));
     const bItems = dbData.benefit_items.filter(b => b.card_id === idx);
     const tiers = dbData.performance_tiers.filter(t => t.card_id === idx);
-    detail.is_calc_supported = "TRUE";
+    detail.is_calc_supported = card.is_calc_supported || "TRUE";
     detail.structured_benefits = bItems;
     detail.total_limit_tiers = tiers.length ? tiers.map(t => ({ perf: t.perf, limit: t.total_limit })) : [];
     fs.writeFileSync(detailPath, JSON.stringify(detail, null, 2), 'utf8');
