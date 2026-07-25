@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 // calculator.js 읽기
-const calcJsPath = path.resolve('../../calculator.js');
+const calcJsPath = path.resolve('calculator.js');
 const calcJsCode = fs.readFileSync(calcJsPath, 'utf8');
 
 // 가상 브라우저 환경 (window 객체 모킹)
@@ -18,7 +18,7 @@ const docMock = {
 evalFunc(windowMock, docMock, console);
 
 // calculator_data.json 읽기
-const jsonPath = path.resolve('./calculator_data.json');
+const jsonPath = path.resolve('src/picking/calculator_data.json');
 const rawData = fs.readFileSync(jsonPath, 'utf8');
 const dbData = JSON.parse(rawData);
 
@@ -102,4 +102,57 @@ if (lguLim300k === 10000 && lguLim700k === 15000) {
   console.error("❌ Test Case 3 FAIL!");
 }
 
+// QA Test 4: calculateMinRequiredPayment 및 혜택 토글(체크박스) 해제 시 역산 재계산 연동 검증
+console.log("\n[Test Case 4] calculateMinRequiredPayment & 혜택 토글 연동 검증:");
+const fullReq = windowMock.calculateMinRequiredPayment(items2523, capRes2523.results);
+console.log(`- 전체 토글 ON 시 최소 필요 결제액: ${fullReq.toLocaleString()}원`);
+
+// 영화 혜택 체크 해제 후 재계산
+movieItem.checked = false;
+const capResOff = windowMock.applyThreeLevelCap(items2523, [], 300000);
+const offReq = windowMock.calculateMinRequiredPayment(items2523, capResOff.results);
+console.log(`- 영화 혜택 토글 OFF 시 최소 필요 결제액: ${offReq.toLocaleString()}원 (영화 필요 금액 ${movieNeeded}원 차감됨)`);
+
+if (fullReq - offReq === movieNeeded && windowMock.calculateMinRequiredPayment) {
+  console.log("✅ Test Case 4 PASS!");
+} else {
+  console.error("❌ Test Case 4 FAIL!");
+}
+
+// QA Test 5: 카카오뱅크 우리카드 (Card ID: 2455) - 실적(40만원) 및 혜택 역산 연동 검증
+console.log("\n[Test Case 5] 카카오뱅크 우리카드 (idx: 2455) 연동 및 역산 검증:");
+const card2455 = dbData.cards.find(c => c.card_id === 2455);
+card2455.structured_benefits = dbData.benefit_items.filter(b => b.card_id === 2455);
+const items2455 = windowMock.getStructuredBenefits(card2455);
+
+// 40만원 실적 기준 적용
+const capRes2455 = windowMock.applyThreeLevelCap(items2455, [], 400000);
+const giftItem = items2455.find(b => b.title === '카카오톡 선물하기');
+const payItem = items2455.find(b => b.title === '카카오페이');
+const giftRes = capRes2455.results.find(r => r.id === giftItem.id);
+const payRes = capRes2455.results.find(r => r.id === payItem.id);
+
+// 혜택별 역산 필요 금액 계산 (PRD 룰: 전월실적 + 혜택 필요금액)
+const giftNeeded = giftRes.applied / giftRes.applicableRate; // 10,000 / 0.5 = 20,000
+const payNeeded = payRes.applied / payRes.applicableRate;   // 10,000 / 0.1 = 100,000
+const benefitRequiredSum = windowMock.calculateMinRequiredPayment(items2455, capRes2455.results); // 120,000
+const totalReq2455 = (card2455.pre_month_money || 400000) + benefitRequiredSum; // 400,000 + 120,000 = 520,000
+
+console.log(`- 전월 실적 기준: 400,000원`);
+console.log(`- 카카오톡 선물하기 (50% 할인): 적용 혜택액 ${giftRes.applied.toLocaleString()}원, 역산 필요 금액 ${giftNeeded.toLocaleString()}원 (기대값: 20,000원)`);
+console.log(`- 카카오페이 (10% 할인): 적용 혜택액 ${payRes.applied.toLocaleString()}원, 역산 필요 금액 ${payNeeded.toLocaleString()}원 (기대값: 100,000원)`);
+console.log(`- PRD 룰 기준 총 최소 필요 사용 금액 (실적 + 혜택필요금액): ${totalReq2455.toLocaleString()}원 (기대값: 520,000원)`);
+
+if (
+  card2455 &&
+  giftRes.applied === 10000 && giftNeeded === 20000 &&
+  payRes.applied === 10000 && payNeeded === 100000 &&
+  totalReq2455 === 520000
+) {
+  console.log("✅ Test Case 5 PASS!");
+} else {
+  console.error("❌ Test Case 5 FAIL!");
+}
+
 console.log("\n==========================================");
+

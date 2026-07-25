@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-const cardsListPath = path.resolve('../../cards_list.json');
+const cardsListPath = path.resolve('cards_list.json');
 const cardsList = JSON.parse(fs.readFileSync(cardsListPath, 'utf8'));
 
-const dbDataPath = path.resolve('./calculator_data.json');
+const dbDataPath = path.resolve('src/picking/calculator_data.json');
 const dbData = JSON.parse(fs.readFileSync(dbDataPath, 'utf8'));
 
 cardsList.forEach(card => {
@@ -23,7 +23,7 @@ fs.writeFileSync(cardsListPath, JSON.stringify(cardsList, null, 2), 'utf8');
 // card_detail/ 마이그레이션
 dbData.cards.forEach(card => {
   const idx = card.card_id;
-  const detailPath = path.resolve(`../../card_detail/${idx}.json`);
+  const detailPath = path.resolve(`card_detail/${idx}.json`);
   if (fs.existsSync(detailPath)) {
     const detail = JSON.parse(fs.readFileSync(detailPath, 'utf8'));
     const bItems = dbData.benefit_items.filter(b => b.card_id === idx);

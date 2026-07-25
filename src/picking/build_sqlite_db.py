@@ -3,7 +3,7 @@ import json
 import os
 
 # 1. DB 연결 (로컬 파일로 생성)
-db_path = 'calculator_db.sqlite'
+db_path = os.path.join(os.path.dirname(__file__), 'calculator_db.sqlite')
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
@@ -125,12 +125,13 @@ if os.path.exists(cards_full_path):
     ''', raw_insert_data)
     print(f"[RAW DATA] Inserted {len(raw_insert_data)} raw card records into All_Cards_Raw.")
 
-# 5. 카드 마스터 데이터 적재 (4개 검증 완료 카드)
+# 5. 카드 마스터 데이터 적재 (5개 검증 완료 카드)
 cards_data = [
     (2523, 'LG U+ 우리카드', '우리카드', 15000),
     (2525, '만나 우리카드', '우리카드', 12000),
     (2862, 'MG+ S 하나카드', 'MG새마을금고', 17000),
-    (2300, '내맘대로 쁨 카드', '하나카드', 12000)
+    (2300, '내맘대로 쁨 카드', '하나카드', 12000),
+    (2455, '카카오뱅크 우리카드', '우리카드', 12000)
 ]
 cursor.executemany('INSERT INTO Cards VALUES (?, ?, ?, ?)', cards_data)
 
@@ -174,7 +175,11 @@ items_data = [
     (2300, '에듀 (내맘대로 서비스)', '학원, 헬스장 5% 적립', None, json.dumps([{"perf": 500000, "rate": 0.050}]), json.dumps([{"perf": 500000, "limit": 10000}, {"perf": 1000000, "limit": 20000}]), 0, 0),
     (2300, '골프 (내맘대로 서비스)', '골프장 10% 적립', None, json.dumps([{"perf": 500000, "rate": 0.100}]), json.dumps([{"perf": 500000, "limit": 10000}, {"perf": 1000000, "limit": 20000}]), 0, 0),
     (2300, '여행 (내맘대로 서비스)', '숙박, KTX, 항공 10% 적립', None, json.dumps([{"perf": 500000, "rate": 0.100}]), json.dumps([{"perf": 500000, "limit": 10000}]), 0, 0),
-    (2300, '케어 (내맘대로 서비스)', '병원, 동물병원 10% 적립', None, json.dumps([{"perf": 500000, "rate": 0.100}]), json.dumps([{"perf": 500000, "limit": 10000}]), 0, 0)
+    (2300, '케어 (내맘대로 서비스)', '병원, 동물병원 10% 적립', None, json.dumps([{"perf": 500000, "rate": 0.100}]), json.dumps([{"perf": 500000, "limit": 10000}]), 0, 0),
+
+    # 2455 (카카오뱅크 우리카드)
+    (2455, '카카오톡 선물하기', '카카오톡 선물하기 50% 할인', None, json.dumps([{"perf": 400000, "rate": 0.50}]), '10000', 0, 0),
+    (2455, '카카오페이', '카카오페이 결제 10% 할인', None, json.dumps([{"perf": 400000, "rate": 0.10}]), '10000', 0, 0)
 ]
 
 cursor.executemany('''

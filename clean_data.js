@@ -99,10 +99,14 @@ function stringifyCSV(rows) {
   }).join('\n');
 }
 
-// 1. cards_updated.csv 클리닝 및 detailed_benefits 맵 생성
+// 1. cards_updated.csv 클리닝 및 맵 생성
 const csvPath = path.join(__dirname, 'cards_updated.csv');
 const detailedBenefitsMap = {};
 const topBenefitSummaryMap = {}; // 정제된 top_benefit_summary 전파용
+const itemLimitMap = {};
+const groupIdMap = {};
+const groupLimitMap = {};
+const totalLimitTiersMap = {};
 
 if (fs.existsSync(csvPath)) {
   const csvText = fs.readFileSync(csvPath, 'utf-8');
@@ -112,6 +116,10 @@ if (fs.existsSync(csvPath)) {
     const idxIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'idx');
     const summaryIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'top_benefit_summary');
     let detailedIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'detailed_benefits');
+    const itemLimitIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'item_limit');
+    const groupIdIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'group_id');
+    const groupLimitIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'group_limit');
+    const totalLimitTiersIdx = header.findIndex(h => h.replace(/[^a-zA-Z0-9_]/g, '').trim() === 'total_limit_tiers');
     
     // detailed_benefits 컬럼이 없는 경우 새로 추가
     if (detailedIdx === -1) {
@@ -148,6 +156,18 @@ if (fs.existsSync(csvPath)) {
       if (detailedIdx !== -1) {
         detailedBenefitsMap[cardIdx] = row[detailedIdx];
       }
+      if (itemLimitIdx !== -1) {
+        itemLimitMap[cardIdx] = row[itemLimitIdx];
+      }
+      if (groupIdIdx !== -1) {
+        groupIdMap[cardIdx] = row[groupIdIdx];
+      }
+      if (groupLimitIdx !== -1) {
+        groupLimitMap[cardIdx] = row[groupLimitIdx];
+      }
+      if (totalLimitTiersIdx !== -1) {
+        totalLimitTiersMap[cardIdx] = row[totalLimitTiersIdx];
+      }
     }
   }
 }
@@ -163,6 +183,28 @@ function updateCardData(card) {
   
   if (detailedBenefitsMap[cardIdx] !== undefined) {
     card.detailed_benefits = detailedBenefitsMap[cardIdx];
+  }
+  
+  if (itemLimitMap[cardIdx] !== undefined) {
+    card.item_limit = itemLimitMap[cardIdx];
+  }
+  if (groupIdMap[cardIdx] !== undefined) {
+    card.group_id = groupIdMap[cardIdx];
+  }
+  if (groupLimitMap[cardIdx] !== undefined) {
+    card.group_limit = groupLimitMap[cardIdx];
+  }
+  if (totalLimitTiersMap[cardIdx] !== undefined) {
+    const rawVal = totalLimitTiersMap[cardIdx];
+    if (rawVal && rawVal !== 'null') {
+      try {
+        card.total_limit_tiers = JSON.parse(rawVal);
+      } catch (err) {
+        card.total_limit_tiers = null;
+      }
+    } else {
+      card.total_limit_tiers = null;
+    }
   }
 }
 

@@ -845,7 +845,8 @@
     "only_online": false,
     "release_dt": "",
     "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2455/card_img/28009/2455card.png",
-    "detail_url": "https://www.card-gorilla.com/card/detail/2455"
+    "detail_url": "https://www.card-gorilla.com/card/detail/2455",
+    "is_calc_supported": "TRUE"
   },
   {
     "idx": 2458,

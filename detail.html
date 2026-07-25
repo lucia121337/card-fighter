@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>카드 상세 — 카드 파이터</title>
-  <script src="calculator.js"></script>
+  <script src="calculator.js?v=20260725_v8"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -794,6 +794,16 @@
         <div class="binfo">${b.info || '<p style="color:#94a3b8">내용 없음</p>'}</div>
       </div>`).join('');
         benefitHTML = `<div class="kb-tabs">${tabs}</div>${panels}`;
+      } else if (d.detailed_benefits || d.top_benefit_summary) {
+        const rawSummary = d.detailed_benefits || d.top_benefit_summary || '';
+        const listItems = rawSummary.split('|').map(s => s.trim()).filter(Boolean);
+        if (listItems.length) {
+          benefitHTML = `<ul style="margin:0; padding-left:20px; line-height:1.85; color:var(--txt);">
+            ${listItems.map(item => `<li>${esc(item)}</li>`).join('')}
+          </ul>`;
+        } else {
+          benefitHTML = '<p style="color:#94a3b8;padding:8px 0">혜택 정보가 없습니다.</p>';
+        }
       } else {
         benefitHTML = '<p style="color:#94a3b8;padding:8px 0">혜택 정보가 없습니다.</p>';
       }
@@ -829,7 +839,7 @@
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt ? `<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>` : ''}
     </div>
-    ${kb.length ? buildCalc(kb, d.pre_month_money, d.pre_month_condition, d) : ''}
+    ${buildCalc(kb, d.pre_month_money, d.pre_month_condition, d)}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}
@@ -868,9 +878,16 @@
           if (meta) {
             /* pre_month_money가 상세 JSON에 없거나 undefined인 경우에만 보완 */
             if (detail.pre_month_money === undefined || detail.pre_month_money === null) {
-              detail.pre_month_money = meta.pre_month_money ?? 0;
+              detail.pre_month_money     = meta.pre_month_money    ?? 0;
               detail.pre_month_condition = meta.pre_month_condition ?? '없음';
             }
+            /* ── 3계층 한도 계산기용 필드 병합 (항상 meta 값 우선 적용) ── */
+            ['top_benefit_summary','detailed_benefits','item_limit',
+             'group_id','group_limit','total_limit_tiers','is_calc_supported','structured_benefits'].forEach(function(field) {
+              if (meta[field] !== undefined && meta[field] !== null) {
+                detail[field] = meta[field];
+              }
+            });
           }
           render(detail);
           if (window._calcRender) window._calcRender();

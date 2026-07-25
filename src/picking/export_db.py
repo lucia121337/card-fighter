@@ -1,7 +1,7 @@
 import sqlite3
 import json
 
-def export_db_to_json(db_path='calculator_db.sqlite', json_path='calculator_data.json'):
+def export_db_to_json(db_path='src/picking/calculator_db.sqlite', json_path='src/picking/calculator_data.json'):
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
