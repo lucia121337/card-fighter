@@ -446,6 +446,48 @@ def card_detail_pick_one(idx, covered):
     return None
 
 
+# ── 신규 혜택군 규칙 파서 (오케스트라 표준 기반) ─────────────────────────
+_FUEL_RE = re.compile(r"(?:리터|L|ℓ)\s*당\s*(\d[\d,]*)\s*원|(\d[\d,]*)\s*원\s*/\s*(?:리터|L|ℓ)")
+_FIXED_WON = re.compile(r"(\d[\d,]*만\s*\d*\s*천?|\d[\d,]*천|\d[\d,]*)\s*원")
+_SERVICE_KW = [("발레파킹", "발레파킹"), ("발렛파킹", "발레파킹"), ("발렛", "발레파킹"),
+               ("공항라운지", "공항 라운지"), ("공항 라운지", "공항 라운지"),
+               ("PP카드", "공항라운지(PP)"), ("프리미엄패스", "공항라운지(PP)"), ("라운지", "라운지"),
+               ("무료주차", "무료주차"), ("무료 주차", "무료주차"),
+               ("특급호텔", "특급호텔"), ("테마파크", "테마파크"), ("워터파크", "워터파크")]
+_INST_RE = re.compile(r"무이자\s*할부|부분\s*무이자")
+
+
+def card_detail_families(idx, covered):
+    """card_detail 에서 fuel/service/installment 규칙 추출 (fixed는 I열에서 별도)."""
+    path = os.path.join(DETAIL_DIR, f"{idx}.json")
+    fuel, service, inst = [], [], None
+    if not os.path.isfile(path):
+        return fuel, service, inst
+    try:
+        kb = (json.load(open(path, encoding="utf-8")).get("key_benefit")) or []
+    except Exception:
+        return fuel, service, inst
+    seen_sv = set()
+    for k in kb:
+        info = strip_html(k.get("info"))
+        if not info:
+            continue
+        cat = map_category((k.get("title") or "").strip(), covered) or (k.get("title") or "").strip()
+        for m in _FUEL_RE.finditer(info):
+            wpl = int((m.group(1) or m.group(2)).replace(",", ""))
+            if 10 <= wpl <= 500 and len(fuel) < 3:
+                fuel.append({"targets": "", "won_per_liter": wpl, "monthly_cap_won": 0, "min_prev_spend": 0})
+        for kw, label in _SERVICE_KW:
+            if kw in info and label not in seen_sv:
+                seen_sv.add(label)
+                cm = re.search(r"(?:월|연|일)\s*\d+\s*회", info)
+                service.append({"category": cat, "label": label, "count_limit": cm.group(0) if cm else ""})
+        if inst is None and _INST_RE.search(info):
+            mm = re.search(r"\d+\s*~\s*\d+\s*개월|\d+\s*개월", info)
+            inst = {"label": "무이자 할부" + (" " + mm.group(0) if mm else "")}
+    return fuel, service, inst
+
+
 def map_category(label, covered):
     lb = label.strip()
     if lb in covered:
@@ -467,6 +509,7 @@ def parse_card(card):
     base_rate = 0.0
     category_rates = {}
     caps = []
+    fixed_discounts = []
 
     for seg in summary.split("|"):
         label = seg.split(":")[0].strip() if ":" in seg else ""
@@ -480,6 +523,18 @@ def parse_card(card):
                 if 5000 <= won <= 100000:
                     caps.append(won)
         if r <= 0:
+            # 정액 원 할인 (% 없는 세그먼트) — 통신 2만원·영화 5천원 등
+            if any(k in seg for k in ("할인", "캐시백", "청구")) and \
+               not re.search(r"수수료|환율|무이자|한도|이용|이상|적립|바우처", seg):
+                fc = map_category(label, covered) if label and label not in TYPE_LABELS else None
+                if not fc:
+                    cl = cats_from_text(text, covered)
+                    fc = cl[0] if cl else None
+                m = _FIXED_WON.search(text)
+                won = _parse_won(m.group(1)) if m else None
+                if fc and won and 1000 <= won <= 100000:
+                    fixed_discounts.append({"category": fc, "won": won, "cycle": "month",
+                        "count_limit": "", "per_txn_cap_won": 0, "min_prev_spend": 0, "targets": ""})
             continue
         # 수수료·환율의 %는 '수수료의 N%'라 지출 대비 적립률이 아니다.
         # ('수수료 100% 청구할인'을 전 가맹점 100% 할인으로 읽던 오류)
@@ -538,6 +593,9 @@ def parse_card(card):
             if category_rates.get(c, 0.0) <= pick_one["rate"]:
                 category_rates.pop(c, None)
 
+    # 신규 혜택군 (주유·서비스·무이자) — card_detail 규칙
+    fuel_discounts, service_benefits, installment_free = card_detail_families(card.get("idx"), covered)
+
     # 연간 바우처/기프트 (I열 요약 기반)
     voucher_won, voucher_label = parse_voucher(summary)
 
@@ -546,7 +604,7 @@ def parse_card(card):
     if pt_base <= 0:
         pt_base, pt_top, pt_name, pt_bonus = parse_points(summary)
 
-    has_money = bool(category_rates) or base_rate > 0
+    has_money = bool(category_rates) or base_rate > 0 or bool(fixed_discounts) or bool(fuel_discounts)
     has_point = pt_base > 0
     if has_money and is_mile:
         card_type = "적립+마일"
@@ -556,6 +614,8 @@ def parse_card(card):
         card_type = "할인·적립"
     elif has_point:
         card_type = "포인트"
+    elif service_benefits:
+        card_type = "서비스"
     else:
         card_type = "기타"
 
@@ -570,6 +630,10 @@ def parse_card(card):
         "bonus_miles": bonus_miles,         # 연 정액 보너스 마일
         "airline": airline,                 # 대한항공/아시아나/항공 or '' (카드·제휴 마일)
         "pick_one": pick_one,               # {rate, cats} — 여러 영역 중 이용 1위 1곳만 적용
+        "fixed_discounts": fixed_discounts, # 정액 원 할인 (통신 2만원 등)
+        "fuel_discounts": fuel_discounts,   # 리터당 주유할인
+        "service_benefits": service_benefits,  # 발레파킹·라운지 등 (계산 불가, 칩만)
+        "installment_free": installment_free,  # 무이자 할부 (칩만) or None
         "voucher_won": voucher_won,         # 연 바우처/기프트 금액(원) — 기본 제공 베네핏
         "voucher_label": voucher_label,     # 표시용 문구 (금액 미상이어도 존재 가능)
         "points_per_won": pt_base,          # 지출 1원당 포인트(기본적립 기준·보수적)
@@ -586,23 +650,38 @@ def parse_card(card):
 
 def main():
     cards = json.load(open(os.path.join(ROOT, "cards_list.json"), encoding="utf-8"))
+    out_path = os.path.join(ROOT, "benefits_structured.json")
+    # 오케스트라 LLM 추출 카드(_src:"llm")는 정답이므로 규칙으로 덮어쓰지 않고 보존
+    existing = {}
+    if os.path.isfile(out_path):
+        try:
+            existing = json.load(open(out_path, encoding="utf-8"))
+        except Exception:
+            existing = {}
     out = {}
-    stat_rate = stat_cap = stat_cat = stat_tier = 0
+    kept_llm = 0
+    stat_rate = stat_cap = stat_tier = stat_fixed = stat_svc = 0
     for c in cards:
-        b = parse_card(c)
-        out[str(c["idx"])] = b
-        if b["base_rate"] or b["category_rates"]:
+        idx = str(c["idx"])
+        if existing.get(idx, {}).get("_src") == "llm":
+            out[idx] = existing[idx]
+            kept_llm += 1
+        else:
+            out[idx] = parse_card(c)
+        b = out[idx]
+        if b.get("base_rate") or b.get("category_rates"):
             stat_rate += 1
-        if b["monthly_cap"]:
+        if b.get("monthly_cap"):
             stat_cap += 1
-        if b["category_rates"]:
-            stat_cat += 1
-        if b["cap_tiers"]:
+        if b.get("cap_tiers"):
             stat_tier += 1
-    json.dump(out, open(os.path.join(ROOT, "benefits_structured.json"), "w", encoding="utf-8"),
-              ensure_ascii=False)
-    print(f"카드 {len(cards)}장 구조화 완료 → benefits_structured.json")
-    print(f"  혜택율 파싱됨: {stat_rate} · 카테고리별 율 있음: {stat_cat} · 월한도 파싱됨: {stat_cap} · 통합한도표(tier): {stat_tier}")
+        if b.get("fixed_discounts"):
+            stat_fixed += 1
+        if b.get("service_benefits"):
+            stat_svc += 1
+    json.dump(out, open(out_path, "w", encoding="utf-8"), ensure_ascii=False)
+    print(f"카드 {len(cards)}장 구조화 완료 (LLM 보존 {kept_llm}) → benefits_structured.json")
+    print(f"  혜택율 {stat_rate} · 월한도 {stat_cap} · tier {stat_tier} · 정액할인 {stat_fixed} · 서비스 {stat_svc}")
 
 
 if __name__ == "__main__":

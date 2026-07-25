@@ -27,10 +27,11 @@
   /* 카드 트랙 — 토너먼트에서 현금할인형/마일·포인트형을 나눌 때 사용 */
   function track(b) {
     if (!b) return 'none';
-    var hasMoney = (b.category_rates && Object.keys(b.category_rates).length > 0) || num(b.base_rate) > 0;
+    var hasMoney = (b.category_rates && Object.keys(b.category_rates).length > 0) || num(b.base_rate) > 0
+      || (b.fixed_discounts && b.fixed_discounts.length > 0) || (b.fuel_discounts && b.fuel_discounts.length > 0);
     if (hasMoney) return 'money';
     if (b.is_mileage || num(b.miles_per_won) > 0 || num(b.points_per_won) > 0) return 'unit';
-    return 'none';
+    return 'none';   // 서비스 전용 카드는 순위 비교 불가 → 토너먼트 제외(상세엔 칩 표시)
   }
 
   /* 계산 행 구성: 카드의 카테고리별 율 + 택1 후보 + 기본율 행
@@ -150,6 +151,41 @@
     out.pointPer1k = Math.round(num(b.points_per_won) * 1000 * 100) / 100;
     out.pointTopPer1k = Math.round(num(b.points_top_per_won) * 1000 * 100) / 100;
     out.pointBonus = num(b.bonus_points);
+
+    // 정액 원 할인 — 전월실적 게이팅 후 순이득에 가산 (%·한도와 별개 혜택군)
+    var fixedMoney = 0;
+    out.fixedRows = [];
+    (b.fixed_discounts || []).forEach(function (f) {
+      if (num(f.min_prev_spend) > prevMonth) return;
+      var w = num(f.won);
+      if (w > 0) { fixedMoney += w; out.fixedRows.push({ category: f.category || '', won: w }); }
+    });
+    out.fixedMoney = Math.round(fixedMoney);
+
+    // 리터당 주유할인 — 주유 지출→리터(유가 가정)→할인액. 원 단위라 순이득에 가산
+    var FUEL_PRICE = 1700;   // 리터당 유가 가정(원)
+    var fuelMoney = 0;
+    out.fuelPerL = 0;
+    var fuelSpend = num(spending['주유']);
+    (b.fuel_discounts || []).forEach(function (f) {
+      if (num(f.min_prev_spend) > prevMonth) return;
+      var wpl = num(f.won_per_liter);
+      if (wpl > 0 && fuelSpend > 0) {
+        var d = (fuelSpend / FUEL_PRICE) * wpl;
+        if (num(f.monthly_cap_won) > 0) d = Math.min(d, num(f.monthly_cap_won));
+        fuelMoney += d; out.fuelPerL = Math.max(out.fuelPerL, wpl);
+      }
+    });
+    out.fuelMoney = Math.round(fuelMoney);
+
+    out.money += out.fixedMoney + out.fuelMoney;
+    if (out.fixedMoney > 0 || out.fuelMoney > 0) out.hasMoney = true;
+
+    // 계산 불가 서비스/무이자 — 금액 X, 칩/라벨로만
+    out.services = (b.service_benefits || []).map(function (s) {
+      return (s.label || '') + (s.count_limit ? ' (' + s.count_limit + ')' : '');
+    });
+    out.installment = b.installment_free ? (b.installment_free.label || '무이자 할부') : '';
 
     // 연간 바우처/기프트 — 지출과 무관한 기본 제공 베네핏 (월 순이득엔 합산하지 않고 별도 표시)
     out.voucherWon = num(b.voucher_won);
