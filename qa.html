@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>혜택 파싱 검수 — 카드 파이터 (내부용)</title>
+<style>
+  :root{--bg:#0f172a;--panel:#1e293b;--panel2:#334155;--line:#334155;--txt:#e2e8f0;
+        --muted:#94a3b8;--brand:#60a5fa;--good:#34d399;--warn:#fbbf24;--bad:#f87171}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard','Malgun Gothic',monospace,sans-serif;background:var(--bg);color:var(--txt);font-size:13px}
+  header{position:sticky;top:0;z-index:10;background:#0f172aee;backdrop-filter:blur(8px);
+         border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .back{background:var(--brand);color:#0f172a;text-decoration:none;font-weight:800;padding:6px 12px;border-radius:8px;font-size:12px}
+  h1{font-size:15px;font-weight:800}
+  .badge-int{font-size:10px;background:var(--panel2);color:var(--muted);padding:2px 8px;border-radius:99px;font-weight:700}
+  .wrap{max-width:1400px;margin:0 auto;padding:16px 20px 80px}
+
+  .stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:120px}
+  .stat .n{font-size:20px;font-weight:800;color:var(--brand)}
+  .stat .l{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+  .controls input,.controls select{background:var(--panel);border:1px solid var(--line);color:var(--txt);
+        border-radius:8px;padding:7px 11px;font-size:13px;font-family:inherit;outline:none}
+  .controls input:focus,.controls select:focus{border-color:var(--brand)}
+  .chip-filter{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:99px;
+        padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
+  .chip-filter.on{background:var(--warn);color:#0f172a;border-color:var(--warn)}
+  .count{color:var(--muted);font-size:12px;margin-left:auto}
+
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:11px;color:var(--muted);font-weight:700;padding:8px 10px;
+     border-bottom:1px solid var(--line);position:sticky;top:56px;background:var(--bg)}
+  td{padding:8px 10px;border-bottom:1px solid #1e293b;vertical-align:top}
+  tr.row{cursor:pointer}
+  tr.row:hover{background:var(--panel)}
+  .cid{color:var(--muted);font-size:11px}
+  .cname{font-weight:700}
+  .type-tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px;background:var(--panel2);color:var(--txt)}
+  .flags{display:flex;gap:4px;flex-wrap:wrap}
+  .flag{font-size:10px;font-weight:800;padding:2px 6px;border-radius:5px}
+  .flag.warn{background:#78350f;color:var(--warn)}
+  .flag.bad{background:#7f1d1d;color:var(--bad)}
+  .flag.ok{background:#064e3b;color:var(--good)}
+  .mini{font-size:11px;color:var(--muted);line-height:1.7}
+  .mini b{color:var(--txt)}
+
+  .detail{background:#0b1220;border:1px solid var(--line);border-radius:10px;margin:2px 0 8px}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media(max-width:900px){.detail-grid{grid-template-columns:1fr}}
+  .dcol{padding:14px 16px}
+  .dcol:first-child{border-right:1px solid var(--line)}
+  .dcol h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:2px 10px;font-size:12px;line-height:1.7}
+  .kv .k{color:var(--muted)}
+  .kv .v{color:var(--txt);word-break:break-word}
+  .kv .v.empty{color:#475569}
+  .src-item{margin-bottom:10px;font-size:12px;line-height:1.6}
+  .src-item .st{font-weight:800;color:var(--brand)}
+  .src-item .sb{color:#cbd5e1}
+  .go{color:var(--brand);font-size:11px;text-decoration:none;font-weight:700}
+  .loading{color:var(--muted);padding:20px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">← 홈</a>
+  <h1>🔬 혜택 파싱 검수</h1>
+  <span class="badge-int">내부 QA · benefits_structured.json ↔ card_detail 원문</span>
+</header>
+
+<div class="wrap">
+  <div class="stats" id="stats"></div>
+  <div class="controls">
+    <input id="q" type="text" placeholder="카드명·번호 검색" oninput="applyFilter()" style="width:220px">
+    <select id="type" onchange="applyFilter()"><option value="">전체 성격</option></select>
+    <span class="chip-filter" id="f-suspicious" onclick="toggleFlag(this)">⚠️ 의심만</span>
+    <span class="chip-filter" id="f-empty" onclick="toggleFlag(this)">🈳 혜택없음만</span>
+    <span class="count" id="count"></span>
+  </div>
+  <table>
+    <thead><tr>
+      <th style="width:60px">idx</th><th>카드명</th><th style="width:90px">성격</th>
+      <th>파싱 요약</th><th style="width:150px">플래그</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const won = n => n>=10000&&n%10000===0 ? (n/10000)+'만원' : Number(n).toLocaleString()+'원';
+let BEN={}, BYIDX={}, ROWS=[], flags={suspicious:false,empty:false};
+
+Promise.all([
+  fetch('benefits_structured.json').then(r=>r.json()),
+  fetch('cards_list.json').then(r=>r.json())
+]).then(([ben,cards])=>{
+  BEN=ben; cards.forEach(c=>BYIDX[c.idx]=c);
+  ROWS = Object.keys(ben).map(idx=>({idx, b:ben[idx], c:BYIDX[idx]||{card_name:'(목록없음)'}}));
+  buildStats(); buildTypeFilter(); applyFilter();
+}).catch(e=>{ document.getElementById('tbody').innerHTML=`<tr><td colspan=5 class="loading">로드 실패: ${esc(e.message)}</td></tr>`; });
+
+/* 계산 가능한 혜택이 하나라도 있나 */
+function hasBenefit(b){
+  return (b.category_rates && Object.keys(b.category_rates).length) || (b.base_rate||0)>0
+    || (b.miles_per_won||0)>0 || (b.points_per_won||0)>0 || b.is_mileage
+    || (b.bonus_miles||0)>0 || (b.bonus_points||0)>0 || (b.voucher_won||0)>0;
+}
+/* 의심 규칙 — 파싱이 미심쩍은 카드 자동 플래그 (표준 확정 후 규칙 보강 예정) */
+function auditFlags(b){
+  const f=[];
+  const maxCat = Math.max(0, ...Object.values(b.category_rates||{}));
+  if((b.base_rate||0)>=0.05) f.push({t:'bad', x:`기본율 ${Math.round(b.base_rate*100)}%?`});
+  if(maxCat>=0.5) f.push({t:'warn', x:`카테고리 ${Math.round(maxCat*100)}%?`});
+  if(!hasBenefit(b)) f.push({t:'warn', x:'혜택 없음'});
+  if((b.annual_fee||0)>0 && !hasBenefit(b)) f.push({t:'warn', x:'연회비만'});
+  if(!f.length) f.push({t:'ok', x:'ok'});
+  return f;
+}
+function isSuspicious(b){ return auditFlags(b).some(f=>f.t!=='ok'); }
+
+function buildStats(){
+  const n=ROWS.length;
+  const withRate=ROWS.filter(r=>(r.b.category_rates&&Object.keys(r.b.category_rates).length)||(r.b.base_rate||0)>0).length;
+  const withCap=ROWS.filter(r=>r.b.monthly_cap||(r.b.cap_tiers||[]).length).length;
+  const withTier=ROWS.filter(r=>(r.b.cap_tiers||[]).length).length;
+  const withMile=ROWS.filter(r=>r.b.is_mileage||(r.b.miles_per_won||0)>0).length;
+  const withPoint=ROWS.filter(r=>(r.b.points_per_won||0)>0).length;
+  const withVoucher=ROWS.filter(r=>(r.b.voucher_won||0)>0||r.b.voucher_label).length;
+  const empty=ROWS.filter(r=>!hasBenefit(r.b)).length;
+  const susp=ROWS.filter(r=>isSuspicious(r.b)).length;
+  const S=[['카드',n],['혜택율',withRate],['월한도',withCap],['실적tier',withTier],
+    ['마일',withMile],['포인트',withPoint],['바우처',withVoucher],['혜택없음',empty],['⚠️의심',susp]];
+  document.getElementById('stats').innerHTML = S.map(([l,v])=>
+    `<div class="stat"><div class="n">${v.toLocaleString()}</div><div class="l">${l}</div></div>`).join('');
+}
+function buildTypeFilter(){
+  const types=[...new Set(ROWS.map(r=>r.b.type).filter(Boolean))].sort();
+  document.getElementById('type').innerHTML='<option value="">전체 성격</option>'+
+    types.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join('');
+}
+function toggleFlag(el){
+  const k=el.id==='f-suspicious'?'suspicious':'empty';
+  flags[k]=!flags[k]; el.classList.toggle('on',flags[k]); applyFilter();
+}
+
+function summary(b){
+  const parts=[];
+  const cr=b.category_rates||{};
+  const top=Object.keys(cr).sort((a,c)=>cr[c]-cr[a]).slice(0,4);
+  if(top.length) parts.push(top.map(c=>`${esc(c)} <b>${Math.round(cr[c]*100)}%</b>`).join(' · '));
+  if((b.base_rate||0)>0) parts.push(`기본 <b>${Math.round(b.base_rate*100)}%</b>`);
+  if(b.pick_one) parts.push(`택1 <b>${Math.round(b.pick_one.rate*100)}%</b>(${b.pick_one.cats.map(esc).join('/')})`);
+  if(b.cap_note) parts.push(`한도: ${esc(b.cap_note)}`);
+  else if(b.monthly_cap) parts.push(`한도 ${won(b.monthly_cap)}`);
+  if((b.miles_per_won||0)>0) parts.push(`✈️ ${(b.miles_per_won*1000).toFixed(1)}마일/1천원${b.airline?'('+esc(b.airline)+')':''}`);
+  if((b.points_per_won||0)>0) parts.push(`🅿️ ${(b.points_per_won*1000).toFixed(1)}${esc(b.point_name||'P')}/1천원`);
+  if((b.voucher_won||0)>0) parts.push(`🎁 연바우처 ${won(b.voucher_won)}`);
+  if((b.bonus_miles||0)>0) parts.push(`✈️연 ${b.bonus_miles.toLocaleString()}마일`);
+  if((b.bonus_points||0)>0) parts.push(`🅿️연 ${b.bonus_points.toLocaleString()}P`);
+  return parts.join(' <span style="color:#475569">|</span> ') || '<span style="color:#475569">(계산 가능한 혜택 없음)</span>';
+}
+
+function applyFilter(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const type=document.getElementById('type').value;
+  let list=ROWS;
+  if(q) list=list.filter(r=>String(r.idx).includes(q)||(r.c.card_name||'').toLowerCase().includes(q));
+  if(type) list=list.filter(r=>r.b.type===type);
+  if(flags.suspicious) list=list.filter(r=>isSuspicious(r.b));
+  if(flags.empty) list=list.filter(r=>!hasBenefit(r.b));
+  document.getElementById('count').textContent=`${list.length.toLocaleString()} / ${ROWS.length.toLocaleString()}장`;
+  document.getElementById('tbody').innerHTML = list.slice(0,400).map(r=>{
+    const fl=auditFlags(r.b);
+    return `<tr class="row" onclick="expand(this,'${r.idx}')">
+      <td class="cid">${r.idx}</td>
+      <td class="cname">${esc(r.c.card_name)}</td>
+      <td><span class="type-tag">${esc(r.b.type||'-')}</span></td>
+      <td class="mini">${summary(r.b)}</td>
+      <td><div class="flags">${fl.map(f=>`<span class="flag ${f.t}">${esc(f.x)}</span>`).join('')}</div></td>
+    </tr>`;
+  }).join('') + (list.length>400?`<tr><td colspan=5 class="loading">상위 400장만 표시 (검색으로 좁혀보세요)</td></tr>`:'');
+}
+
+/* 클릭 → 파싱 전체 필드 + 원문 나란히 */
+async function expand(tr, idx){
+  const next=tr.nextElementSibling;
+  if(next && next.classList.contains('exp')){ next.remove(); return; }
+  document.querySelectorAll('tr.exp').forEach(e=>e.remove());
+  const b=BEN[idx];
+  const row=document.createElement('tr'); row.className='exp';
+  row.innerHTML=`<td colspan=5><div class="detail"><div class="detail-grid">
+    <div class="dcol"><h4>파싱 결과 (benefits_structured.json)</h4><div class="kv">${
+      Object.keys(b).map(k=>{
+        let v=b[k];
+        const empty = v==null||v===''||v===0||v===false||(Array.isArray(v)&&!v.length)||(typeof v==='object'&&!Array.isArray(v)&&v&&!Object.keys(v).length);
+        v = typeof v==='object' ? JSON.stringify(v) : String(v);
+        return `<div class="k">${esc(k)}</div><div class="v${empty?' empty':''}">${esc(v)}</div>`;
+      }).join('')
+    }</div></div>
+    <div class="dcol"><h4>원문 (card_detail) <a class="go" href="detail?idx=${idx}" target="_blank">상세페이지 ↗</a></h4>
+      <div id="src-${idx}" class="loading">원문 불러오는 중…</div></div>
+  </div></div></td>`;
+  tr.after(row);
+  try{
+    const d=await fetch('card_detail/'+idx+'.json').then(r=>r.json());
+    const strip=h=>String(h||'').replace(/<[^>]+>/g,' ').replace(/&[a-z]+;/g,' ').replace(/\s+/g,' ').trim();
+    document.getElementById('src-'+idx).innerHTML = (d.key_benefit||[]).map(k=>
+      `<div class="src-item"><span class="st">[${esc(k.title||'')}]</span> <span class="sb">${esc(strip(k.info).slice(0,400))}</span></div>`
+    ).join('') || '<span style="color:#475569">원문 없음</span>';
+  }catch(e){ document.getElementById('src-'+idx).textContent='원문 로드 실패'; }
+}
+</script>
+</body>
+</html>
