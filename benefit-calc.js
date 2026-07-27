@@ -129,30 +129,7 @@
     });
     out.pickWinner = pickWinner;
 
-    var c = resolveCap(b, rows, prevMonth);
-    out.cap = c.cap; out.capSrc = c.src;
-    out.rawMoney = raw;
-    out.money = Math.min(raw, c.cap);
-    out.capped = raw > c.cap;
-    out.scale = (out.capped && raw > 0) ? c.cap / raw : 1;   // 행별 표시 비례축소(왜곡 방지)
-    rows.forEach(function (r) { r.shown = r.raw * out.scale; });
-    out.rows = rows;
-    out.hasMoney = rows.some(function (r) { return r.rate > 0; });
-
-    // 마일 (원과 별개 단위)
-    out.isMileage = !!b.is_mileage;
-    out.airline = b.airline || '';
-    out.miles = Math.round(total * num(b.miles_per_won));
-    out.milesBonus = num(b.bonus_miles);
-
-    // 포인트/머니/MR (원과 별개 단위)
-    out.pointName = b.point_name || '';
-    out.points = Math.round(total * num(b.points_per_won));
-    out.pointPer1k = Math.round(num(b.points_per_won) * 1000 * 100) / 100;
-    out.pointTopPer1k = Math.round(num(b.points_top_per_won) * 1000 * 100) / 100;
-    out.pointBonus = num(b.bonus_points);
-
-    // 정액 원 할인 — 전월실적 게이팅 후 순이득에 가산 (%·한도와 별개 혜택군)
+    // 정액 원 할인 — %와 같은 '할인 풀'(통합한도 공유). 전월실적 게이팅.
     var fixedMoney = 0;
     out.fixedRows = [];
     (b.fixed_discounts || []).forEach(function (f) {
@@ -162,7 +139,7 @@
     });
     out.fixedMoney = Math.round(fixedMoney);
 
-    // 리터당 주유할인 — 주유 지출→리터(유가 가정)→할인액. 원 단위라 순이득에 가산
+    // 리터당 주유할인 — 자체 한도로 clamp되는 '별도 풀'(통합한도와 무관).
     var FUEL_PRICE = 1700;   // 리터당 유가 가정(원)
     var fuelMoney = 0;
     out.fuelPerL = 0;
@@ -178,8 +155,31 @@
     });
     out.fuelMoney = Math.round(fuelMoney);
 
-    out.money += out.fixedMoney + out.fuelMoney;
-    if (out.fixedMoney > 0 || out.fuelMoney > 0) out.hasMoney = true;
+    // 통합한도 clamp — 할인 풀(%+정액)은 통합한도 안에서 clamp, 주유는 별도로 가산
+    var c = resolveCap(b, rows, prevMonth);
+    out.cap = c.cap; out.capSrc = c.src;
+    var discountRaw = raw + out.fixedMoney;                    // 할인 풀 합(clamp 전)
+    var discountMoney = (c.cap > 0) ? Math.min(discountRaw, c.cap) : discountRaw;
+    out.rawMoney = discountRaw;
+    out.money = discountMoney + out.fuelMoney;                // 할인 풀(clamp) + 주유 풀(별도)
+    out.capped = c.cap > 0 && discountRaw > c.cap;
+    out.scale = (out.capped && discountRaw > 0) ? c.cap / discountRaw : 1;  // 행 표시 비례축소
+    rows.forEach(function (r) { r.shown = r.raw * out.scale; });
+    out.rows = rows;
+    out.hasMoney = rows.some(function (r) { return r.rate > 0; }) || out.fixedMoney > 0 || out.fuelMoney > 0;
+
+    // 마일 (원과 별개 단위)
+    out.isMileage = !!b.is_mileage;
+    out.airline = b.airline || '';
+    out.miles = Math.round(total * num(b.miles_per_won));
+    out.milesBonus = num(b.bonus_miles);
+
+    // 포인트/머니/MR (원과 별개 단위)
+    out.pointName = b.point_name || '';
+    out.points = Math.round(total * num(b.points_per_won));
+    out.pointPer1k = Math.round(num(b.points_per_won) * 1000 * 100) / 100;
+    out.pointTopPer1k = Math.round(num(b.points_top_per_won) * 1000 * 100) / 100;
+    out.pointBonus = num(b.bonus_points);
 
     // 계산 불가 서비스/무이자 — 금액 X, 칩/라벨로만
     out.services = (b.service_benefits || []).map(function (s) {
