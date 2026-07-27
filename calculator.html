@@ -219,9 +219,10 @@ function recalc(){
     const r = BenefitCalc.calc(b, spending, {prevMonth});
     if(r.money<=0 && r.miles<=0 && r.points<=0) continue;   // 돈·마일·포인트 다 없으면 제외
     results.push({idx, benefit:r.money, net:r.net, feeM:r.feeMonthly, matched:r.matched,
-      meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped,
+      meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped, gated:r.gatedByPreMonth,
       miles:r.miles, bonus:r.milesBonus, air:r.airline, isMile:r.isMileage, type:b.type,
-      points:r.points, pointName:r.pointName});
+      points:r.points, pointName:r.pointName,
+      fixedMoney:r.fixedMoney, fuelMoney:r.fuelMoney, services:r.services, voucherWon:r.voucherWon});
   }
   if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
     results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
@@ -243,19 +244,25 @@ function render(list, total){
                : (r.bonus>0 ? `<span class="rchip mile">${ico} 연 ${mm(r.bonus)}${nm}</span>`
                : (r.isMile ? `<span class="rchip mile">${ico} ${nm}적립</span>` : ''));
     const pointChip = r.points>0 ? `<span class="rchip mile">🅿️ 월 ${r.points.toLocaleString()} ${esc(r.pointName||'포인트')}</span>` : '';
-    const warn = !r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '';
+    const fixedChip = r.fixedMoney>0 ? `<span class="rchip">정액 ${won(r.fixedMoney)}</span>` : '';
+    const fuelChip = r.fuelMoney>0 ? `<span class="rchip">⛽ ${won(r.fuelMoney)}</span>` : '';
+    const shortSvc = s => { const t=s.replace(/\(.*$/,'').trim(); return t.length>18?t.slice(0,18)+'…':t; };
+    const svcChips = (r.services||[]).slice(0,2).map(s=>`<span class="rchip">🎫 ${esc(shortSvc(s))}</span>`).join('');
+    const vChip = r.voucherWon>0 ? `<span class="rchip">🎁 연바우처 ${mm(r.voucherWon)}원</span>` : '';
+    const warn = r.gated ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 미달로 할인 제외</span>`
+               : (!r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '');
     return `<div class="rcard ${i===0?'top':''}">
       <div class="rnum">${i+1}</div>
       <img class="rimg" src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
         <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
-        <div class="rreason">${reasons}${mile}${pointChip}${warn}</div>
+        <div class="rreason">${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${warn}</div>
       </div>
       <div class="rmoney">
         <div class="lab">월 예상 순이득</div>
         <div class="net">${won(Math.max(r.net,0))}</div>
-        <div class="sub">혜택 ${won(r.benefit)}${r.capped?' (한도)':''}</div>
+        <div class="sub">혜택 ${won(r.benefit)}${r.capped?' (한도)':''} − 연회비 ${won(r.feeM)}</div>
         <a href="detail?idx=${c.idx}">상세 →</a>
       </div>
     </div>`;

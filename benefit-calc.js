@@ -140,7 +140,10 @@
     out.fixedMoney = Math.round(fixedMoney);
 
     // 리터당 주유할인 — 자체 한도로 clamp되는 '별도 풀'(통합한도와 무관).
-    var FUEL_PRICE = 1700;   // 리터당 유가 가정(원)
+    // 한 카드는 주유율 1개만 적용(여러 항목은 대안 표기이므로 합산 X, 최댓값 1개).
+    // 무한도(monthly_cap_won 0)면 기본 상한으로 폭증 방지.
+    var FUEL_PRICE = 1700;         // 리터당 유가 가정(원)
+    var DEFAULT_FUEL_CAP = 30000;  // 주유 월 할인 기본 상한(무한도 카드 보정)
     var fuelMoney = 0;
     out.fuelPerL = 0;
     var fuelSpend = num(spending['주유']);
@@ -149,8 +152,10 @@
       var wpl = num(f.won_per_liter);
       if (wpl > 0 && fuelSpend > 0) {
         var d = (fuelSpend / FUEL_PRICE) * wpl;
-        if (num(f.monthly_cap_won) > 0) d = Math.min(d, num(f.monthly_cap_won));
-        fuelMoney += d; out.fuelPerL = Math.max(out.fuelPerL, wpl);
+        var fcap = num(f.monthly_cap_won) > 0 ? num(f.monthly_cap_won) : DEFAULT_FUEL_CAP;
+        d = Math.min(d, fcap);
+        fuelMoney = Math.max(fuelMoney, d);   // 합산 아님 — 최선의 주유율 1개
+        out.fuelPerL = Math.max(out.fuelPerL, wpl);
       }
     });
     out.fuelMoney = Math.round(fuelMoney);

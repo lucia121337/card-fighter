@@ -345,7 +345,7 @@ function baseChips(r){
   else if(r.voucherLabel) s+=`<span class="chip gift">🎁 ${esc(r.voucherLabel)}</span>`;
   if(r.milesBonus>0) s+=`<span class="chip gift">✈️ 연 ${mm(r.milesBonus)}마일 기본 제공</span>`;
   if(r.pointBonus>0) s+=`<span class="chip gift">🅿️ 연 ${mm(r.pointBonus)}P 기본 제공</span>`;
-  (r.services||[]).slice(0,2).forEach(l=>{ s+=`<span class="chip svc">🎫 ${esc(l)}</span>`; });
+  (r.services||[]).slice(0,2).forEach(l=>{ const t=l.replace(/\(.*$/,'').trim(); s+=`<span class="chip svc">🎫 ${esc(t.length>18?t.slice(0,18)+'…':t)}</span>`; });
   if(r.installment) s+=`<span class="chip svc">💳 ${esc(r.installment)}</span>`;
   return s;
 }
