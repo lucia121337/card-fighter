@@ -256,7 +256,10 @@ function buildCalc(bs){
                    : '연회비 월 '+r.feeMonthly.toLocaleString()+'원 (혜택은 아래 단위로 적립)';
     const cn=document.getElementById('calc-capnote');
     if(cn){
-      if(r.capped){ cn.style.display=''; cn.textContent = '· 월 한도 '+wonTxt(r.cap)+' 적용'; }
+      if(r.gatedByPreMonth){ cn.style.display=''; cn.style.color='#e8590c';
+        cn.textContent = '· ⚠️ 전월실적 '+wonTxt(r.preMonth)+' 이상 써야 이 할인을 받아요'; }
+      else if(r.capped){ cn.style.display=''; cn.style.color='';
+        cn.textContent = '· 월 한도 '+wonTxt(r.cap)+' 적용'; }
       else cn.style.display='none';
     }
     const mm = x => x>=10000 ? (x/10000).toLocaleString()+'만' : x.toLocaleString();

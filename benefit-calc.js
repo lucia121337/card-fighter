@@ -160,10 +160,14 @@
     out.cap = c.cap; out.capSrc = c.src;
     var discountRaw = raw + out.fixedMoney;                    // 할인 풀 합(clamp 전)
     var discountMoney = (c.cap > 0) ? Math.min(discountRaw, c.cap) : discountRaw;
+    // 전월실적 하드 문턱 미달 시 할인/정액 혜택 미적용 (실적 조건 카드는 못 채우면 혜택 없음).
+    // 주유는 자체 min_prev_spend로 이미 게이팅됨. cap_tiers는 실적 구간별 한도로 별도 처리.
+    out.gatedByPreMonth = out.preMonth > 0 && prevMonth < out.preMonth;
+    if (out.gatedByPreMonth) discountMoney = 0;
     out.rawMoney = discountRaw;
     out.money = discountMoney + out.fuelMoney;                // 할인 풀(clamp) + 주유 풀(별도)
-    out.capped = c.cap > 0 && discountRaw > c.cap;
-    out.scale = (out.capped && discountRaw > 0) ? c.cap / discountRaw : 1;  // 행 표시 비례축소
+    out.capped = !out.gatedByPreMonth && c.cap > 0 && discountRaw > c.cap;
+    out.scale = out.gatedByPreMonth ? 0 : ((out.capped && discountRaw > 0) ? c.cap / discountRaw : 1);
     rows.forEach(function (r) { r.shown = r.raw * out.scale; });
     out.rows = rows;
     out.hasMoney = rows.some(function (r) { return r.rate > 0; }) || out.fixedMoney > 0 || out.fuelMoney > 0;
