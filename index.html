@@ -717,7 +717,7 @@
         <h2 class="cards-title" id="cards-title">전체카드</h2>
         <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
       </div>
-      <!-- 혜택 카테고리 필터 (복수선택) -->
+      <!-- 혜택 카테고리 필터 (복수선택 - AND 조건) -->
       <div class="cat-filter-box">
         <div class="cat-filter-label">🎯 혜택으로 찾기</div>
         <div class="cat-filter-row" id="cat-filter-row"></div>
@@ -921,6 +921,29 @@ function goCompare(){
 const PAGE = 60;
 let DATA = [], view = [], shown = 0, activeCardType = '';
 const activeCategories = new Set();
+
+/* 개별 카드와 혜택 카테고리 키워드 매칭 로직 (유연한 텍스트 & 카테고리 매칭) */
+function cardMatchesCategory(c, cat){
+  if(!cat) return true;
+  const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
+  if(cardCats.includes(cat)) return true;
+
+  const searchHaystack = ((c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'') + ' ' + (c.card_name||'')).toLowerCase();
+  const catLower = cat.toLowerCase();
+
+  // 1. 단순 텍스트 포함
+  if(searchHaystack.includes(catLower)) return true;
+
+  // 2. 특수 카테고리 예외/유연 매칭
+  if(cat === '무실적' && ((c.pre_month_money||0) === 0 || searchHaystack.includes('무실적') || searchHaystack.includes('실적없음') || searchHaystack.includes('실적조건없음'))) return true;
+  if(cat === '프리미엄' && isPremium(c)) return true;
+
+  // 3. 결합 키워드(예: 'OTT/영화/문화', '공항라운지/PP', '카페/디저트', '마트/편의점', '교육/육아' 등) 서브 키워드 분할 매칭
+  const parts = catLower.split(/[\/\,\&]/).map(s=>s.trim()).filter(Boolean);
+  if(parts.length > 1 && parts.some(p => searchHaystack.includes(p))) return true;
+
+  return false;
+}
 
 /* 혜택 카테고리 24종 (아이콘 매핑) */
 const BENEFIT_CATEGORIES = [
@@ -1172,8 +1195,8 @@ function applyFilters(){
       if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
     }
     if(activeCategories.size){
-      const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
-      if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
+      const cats = [...activeCategories];
+      if(!cats.every(cat => cardMatchesCategory(c, cat))) return false;
     }
     // 카드사: 다중선택(OR). 하나도 안 고르면 전체.
     if(selCompanies.size && !selCompanies.has(c.company)) return false;
