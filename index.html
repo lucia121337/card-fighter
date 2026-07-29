@@ -184,8 +184,12 @@
   /* 혜택 카테고리 알약 토글 (복수선택) */
   .cat-filter-box{background:var(--panel2);border:1.5px solid var(--line);border-radius:16px;
     padding:16px 18px;margin-bottom:20px}
-  .cat-filter-label{font-size:12.5px;font-weight:800;color:var(--muted);margin-bottom:11px;
-    display:flex;align-items:center;gap:6px}
+  .cat-filter-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;flex-wrap:wrap;gap:8px}
+  .cat-filter-label{font-size:12.5px;font-weight:800;color:var(--muted);
+    display:flex;align-items:center;gap:6px;margin-bottom:0}
+  .cat-match-mode{display:inline-flex;background:var(--bg);border:1.5px solid var(--line);border-radius:999px;padding:2px;gap:2px}
+  .match-mode-btn{border:none;background:transparent;font-size:11px;font-weight:700;color:var(--muted);padding:4px 10px;border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+  .match-mode-btn.active{background:var(--brand);color:#fff;box-shadow:0 2px 6px rgba(20,92,230,.25)}
   .cat-filter-row{display:flex;flex-wrap:wrap;gap:3px;justify-content:space-between}
   .cat-filter-break{flex-basis:100%;height:0}
   .cat-pill{display:inline-flex;align-items:center;gap:3px;background:var(--bg);
@@ -225,6 +229,9 @@
   .prem-theme .cat-filter-box{background:linear-gradient(180deg,#181a22,#111219);
     border:1.5px solid #5c4a1f;box-shadow:0 8px 26px rgba(201,164,92,.1),inset 0 1px 0 rgba(232,200,134,.06)}
   .prem-theme .cat-filter-label{color:#e8c886;letter-spacing:.3px}
+  .prem-theme .cat-match-mode{background:#20222c;border-color:#3a3320}
+  .prem-theme .match-mode-btn{color:#c8b489}
+  .prem-theme .match-mode-btn.active{background:linear-gradient(90deg,#b8860b,#e3b448);color:#1a150a;font-weight:800;box-shadow:0 2px 8px rgba(201,164,92,.3)}
   .prem-theme .cat-pill{background:#20222c;border-color:#3a3320;color:#c8b489}
   .prem-theme .cat-pill:hover{border-color:#c9a45c;color:#e8c886}
   .prem-theme .cat-pill.active{background:linear-gradient(90deg,#b8860b,#e3b448);
@@ -717,9 +724,15 @@
         <h2 class="cards-title" id="cards-title">전체카드</h2>
         <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
       </div>
-      <!-- 혜택 카테고리 필터 (복수선택) -->
+      <!-- 혜택 카테고리 필터 (복수선택 및 AND/OR 조건 선택) -->
       <div class="cat-filter-box">
-        <div class="cat-filter-label">🎯 혜택으로 찾기</div>
+        <div class="cat-filter-head">
+          <div class="cat-filter-label">🎯 혜택으로 찾기</div>
+          <div class="cat-match-mode" id="cat-match-mode">
+            <button type="button" class="match-mode-btn active" data-mode="AND" onclick="setCatMatchMode('AND')" title="선택한 혜택을 모두 포함하는 카드만 조회합니다">모두 포함 (AND)</button>
+            <button type="button" class="match-mode-btn" data-mode="OR" onclick="setCatMatchMode('OR')" title="선택한 혜택 중 하나라도 포함하는 카드를 조회합니다">하나라도 포함 (OR)</button>
+          </div>
+        </div>
         <div class="cat-filter-row" id="cat-filter-row"></div>
       </div>
       <!-- 카드 목록 -->
@@ -921,6 +934,39 @@ function goCompare(){
 const PAGE = 60;
 let DATA = [], view = [], shown = 0, activeCardType = '';
 const activeCategories = new Set();
+let catMatchMode = 'AND'; // AND | OR
+
+function setCatMatchMode(mode){
+  if(catMatchMode === mode) return;
+  catMatchMode = mode;
+  document.querySelectorAll('.match-mode-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+  applyFilters();
+}
+
+/* 개별 카드와 혜택 카테고리 키워드 매칭 로직 (유연한 텍스트 & 카테고리 매칭) */
+function cardMatchesCategory(c, cat){
+  if(!cat) return true;
+  const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
+  if(cardCats.includes(cat)) return true;
+
+  const searchHaystack = ((c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'') + ' ' + (c.card_name||'')).toLowerCase();
+  const catLower = cat.toLowerCase();
+
+  // 1. 단순 텍스트 포함
+  if(searchHaystack.includes(catLower)) return true;
+
+  // 2. 특수 카테고리 예외/유연 매칭
+  if(cat === '무실적' && ((c.pre_month_money||0) === 0 || searchHaystack.includes('무실적') || searchHaystack.includes('실적없음') || searchHaystack.includes('실적조건없음'))) return true;
+  if(cat === '프리미엄' && isPremium(c)) return true;
+
+  // 3. 결합 키워드(예: 'OTT/영화/문화', '공항라운지/PP', '카페/디저트', '마트/편의점', '교육/육아' 등) 서브 키워드 분할 매칭
+  const parts = catLower.split(/[\/\,\&]/).map(s=>s.trim()).filter(Boolean);
+  if(parts.length > 1 && parts.some(p => searchHaystack.includes(p))) return true;
+
+  return false;
+}
 
 /* 혜택 카테고리 24종 (아이콘 매핑) */
 const BENEFIT_CATEGORIES = [
@@ -1172,8 +1218,12 @@ function applyFilters(){
       if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
     }
     if(activeCategories.size){
-      const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
-      if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
+      const cats = [...activeCategories];
+      if(catMatchMode === 'AND'){
+        if(!cats.every(cat => cardMatchesCategory(c, cat))) return false;
+      } else {
+        if(!cats.some(cat => cardMatchesCategory(c, cat))) return false;
+      }
     }
     // 카드사: 다중선택(OR). 하나도 안 고르면 전체.
     if(selCompanies.size && !selCompanies.has(c.company)) return false;
