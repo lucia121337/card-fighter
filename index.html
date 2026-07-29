@@ -213,6 +213,7 @@
         padding:4px 9px;font-size:11.5px;color:var(--muted)}
   .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  .chip.calc{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8;font-weight:700}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
   .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
@@ -768,7 +769,7 @@
               </div>
             </div>
             <select id="sort">
-              <option value="default">기본(인기순)</option>
+              <option value="default">기본 (혜택계산기 지원 우선)</option>
               <option value="name">카드명순</option>
               <option value="feeAsc">연회비 낮은순</option>
               <option value="feeDesc">연회비 높은순</option>
@@ -825,6 +826,9 @@
 </div>
 
 <script>
+/* ── 글로벌 유틸 ── */
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
 /* ── 비교함 (localStorage 연동) ── */
 let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
 
@@ -1025,7 +1029,6 @@ function toggleCatFilter(cat){
   applyFilters();
 }
 
-const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const feeNum = s => { const m = String(s||'').match(/\[([\d,]+)\]/); return m ? +m[1].replace(/,/g,'') : 0; };
 // 연회비 최댓값(대괄호/원 위치 무관) + 프리미엄 판별
 const feeMax = s => { const m=[...String(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+x[0].replace(/,/g,'')).filter(v=>v>=1000); return m.length?Math.max(...m):0; };
@@ -1215,10 +1218,18 @@ function applyFilters(){
     return true;
   });
 
-  if(sort==='name') view.sort((a,b)=>a.card_name.localeCompare(b.card_name,'ko'));
-  else if(sort==='feeAsc') view.sort((a,b)=>feeNum(a.annual_fee)-feeNum(b.annual_fee));
-  else if(sort==='feeDesc') view.sort((a,b)=>feeNum(b.annual_fee)-feeNum(a.annual_fee));
-  else if(sort==='preAsc') view.sort((a,b)=>(a.pre_month_money||0)-(b.pre_month_money||0));
+  view.sort((a,b)=>{
+    // 혜택계산기 지원 카드 최우선(1순위) 배치 후 지정된 정렬 적용
+    const aCalc = String(a.is_calc_supported).toUpperCase() === 'TRUE' ? 1 : 0;
+    const bCalc = String(b.is_calc_supported).toUpperCase() === 'TRUE' ? 1 : 0;
+    if (aCalc !== bCalc) return bCalc - aCalc;
+
+    if(sort==='name') return a.card_name.localeCompare(b.card_name,'ko');
+    else if(sort==='feeAsc') return feeNum(a.annual_fee)-feeNum(b.annual_fee);
+    else if(sort==='feeDesc') return feeNum(b.annual_fee)-feeNum(a.annual_fee);
+    else if(sort==='preAsc') return (a.pre_month_money||0)-(b.pre_month_money||0);
+    return 0;
+  });
 
   document.getElementById('count').textContent = view.length.toLocaleString();
   document.getElementById('cards-total-count').textContent = view.length.toLocaleString();
@@ -1240,7 +1251,7 @@ function render(){
         <img loading="lazy" src="${c.card_img||''}" alt="" onerror="this.style.visibility='hidden'"/>
         <div><div class="nm">${esc(c.card_name)}</div><div class="co">${esc(c.company||'')}</div></div>
       </div>
-      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span>${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}</div>
+      <div class="row"><span class="chip fee">연회비 ${(c.annual_fee||'-').replace(/\[([\d,]+)\]원/g,'$1원').replace(/\s*\/\s*/g,' / ')}</span>${String(c.is_calc_supported).toUpperCase()==='TRUE'?'<span class="chip calc">🧮 계산기 연동</span>':''}${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}</div>
       <div class="row">
         <span class="chip pre">전월실적 ${c.pre_month_money ? Math.round(c.pre_month_money/10000)+'만원 이상' : '없음'}</span>
         ${c.brands?`<span class="chip">${esc(c.brands)}</span>`:''}
