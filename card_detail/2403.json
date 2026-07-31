@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2403",
   "top_benefit_summary": "할인: 1% | 주유: 100원 | 대중교통: 10% | 카페: 10%",
   "detailed_benefits": "할인: 국내가맹점 1.0%~0.7% 청구할인 | 주유: 주유 리터당 60~100원 청구할인 | 대중교통: 대중교통 10% 청구할인 | 카페: 커피 10% 청구할인",
-  "item_limit": "1000000 | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":60}] | [{\"perf\":10000,\"limit\":300000}] | 1000",
+  "item_limit": "1000000 | [{\"perf\":100000,\"limit\":7000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":10000,\"limit\":300000}] | 1000",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
   "total_limit_tiers": [],
@@ -83,8 +83,13 @@
       "title": "할인",
       "detail": "국내가맹점 1.0%~0.7% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
-      "item_limit": "1000000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.01
+        }
+      ],
+      "item_limit": 1000000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -93,8 +98,26 @@
       "title": "주유",
       "detail": "주유 리터당 60~100원 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 100000,
+          "limit": 7000
+        },
+        {
+          "perf": 300000,
+          "limit": 500000
+        },
+        {
+          "perf": 500000,
+          "limit": 1000000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -103,8 +126,18 @@
       "title": "대중교통",
       "detail": "대중교통 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 10000,
+          "limit": 300000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -113,8 +146,13 @@
       "title": "카페",
       "detail": "커피 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "1000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 1000,
       "fixedAmount": 0,
       "minPayment": 0
     }

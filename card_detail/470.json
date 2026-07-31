@@ -123,8 +123,22 @@
       "title": "온라인쇼핑",
       "detail": "인터넷 쇼핑몰",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -133,8 +147,22 @@
       "title": "푸드",
       "detail": "푸드 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -143,8 +171,22 @@
       "title": "소셜커머스",
       "detail": "소셜커머스",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -153,8 +195,22 @@
       "title": "배달앱",
       "detail": "배달앱",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -163,8 +219,22 @@
       "title": "백화점",
       "detail": "백화점",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -173,8 +243,22 @@
       "title": "카페",
       "detail": "커피",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -183,8 +267,22 @@
       "title": "편의점",
       "detail": "편의점",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -193,8 +291,18 @@
       "title": "대중교통",
       "detail": "대중교통",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -203,8 +311,18 @@
       "title": "통신",
       "detail": "이동통신",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -213,8 +331,18 @@
       "title": "생활",
       "detail": "온라인 음원",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -223,8 +351,18 @@
       "title": "APP",
       "detail": "인터넷 쇼핑몰 앱카드 결제",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

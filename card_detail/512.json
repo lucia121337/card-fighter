@@ -83,8 +83,22 @@
       "title": "모든가맹점",
       "detail": "기본적립 0.7% + 우대적립 0.1%~0.3%",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.006999999999999999
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 1000000
+        },
+        {
+          "perf": 1000000,
+          "limit": 2000000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -93,8 +107,18 @@
       "title": "생활",
       "detail": "생활영역 0.5%~1.0% 추가 적립",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.005}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.005
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 800000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

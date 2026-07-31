@@ -69,8 +69,18 @@
       "title": "국내외가맹점",
       "detail": "국내외 가맹점 1.2% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.012}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.012
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 3000000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -79,8 +89,26 @@
       "title": "할인",
       "detail": "분기별 이용 실적에 따라 최대 15,000원 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 3000000,
+          "limit": 5000
+        },
+        {
+          "perf": 6000000,
+          "limit": 10000
+        },
+        {
+          "perf": 9000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }
