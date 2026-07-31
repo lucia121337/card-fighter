@@ -313,7 +313,7 @@ function calculateMinRequiredPayment(items, results) {
       }
     }
     if (!isFinite(needed) || isNaN(needed)) needed = 0;
-    totalRequiredSum += needed;
+    totalRequiredSum += Math.round(needed);
   });
 
   return totalRequiredSum;
@@ -473,6 +473,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
           // 부문장님 원본 PRD 기획 룰: 선택한 전월 실적 구간 금액 + 선택된 개별 혜택 필수 필요 금액 합산 (총액)
           realSpending = currentPerf + totalRequiredSum;
         }
+        realSpending = Math.round(realSpending);
 
         // 피킹률 연산
         let pickingRate = 0;
