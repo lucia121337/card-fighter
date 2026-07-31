@@ -73,8 +73,8 @@
   "top_benefit_summary": "기타: 5% | 쇼핑: 7% | 제휴/PLCC: 무제한",
   "detailed_benefits": "기타: 점심식사&middot;배달앱&middot;대중교통 5% 할인 | 쇼핑: 신세계&middot;온라인쇼핑&middot;뷰티&middot;통신 등 7% 할인 | 제휴/PLCC: 신세계백화점 제휴 서비스 제공",
   "item_limit": "10000 | 10000 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

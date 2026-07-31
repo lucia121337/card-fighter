@@ -73,8 +73,8 @@
   "top_benefit_summary": "쇼핑: 10% | 교통: 5% | 통신: 무제한",
   "detailed_benefits": "쇼핑: [Shopping Life] 3대 대형마트 / 3대 백화점 10% 청구할인 | 교통: [Daily Life] 대중교통(버스, 지하철), 택시 5% 청구할인 | 통신: [Daily Life]",
   "item_limit": "1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

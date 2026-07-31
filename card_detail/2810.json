@@ -59,8 +59,8 @@
   "top_benefit_summary": "통신: 무제한 | 카페: 5%",
   "detailed_benefits": "통신: 통신 요금 대상 가맹점 자동이체 1만원 이상 납부 시 5,000원 캐시백 | 카페: 스타벅스, 커피빈, 투썸플레이스 1만원 이상 결제 시 5% 캐시백",
   "item_limit": "[{\"perf\":10000,\"limit\":5000},{\"perf\":300000,\"limit\":5000}] | 10000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

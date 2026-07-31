@@ -59,8 +59,8 @@
   "top_benefit_summary": "생활: 0.3% | 비즈니스: 3%",
   "detailed_benefits": "생활: 매일 가는 곳은 혜택 고민 없이 0.3% 캐시백 | 비즈니스: 사업운영에 꼭 필요한 곳에서 3% 캐시백",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

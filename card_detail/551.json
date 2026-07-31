@@ -83,8 +83,8 @@
   "top_benefit_summary": "생활: 무제한 | 통신: 무제한 | 영화: 무제한 | 기타: 무제한",
   "detailed_benefits": "생활: [자동납부 캐시백 서비스] | 통신: [Easy link+ 서비스] | 영화: [Easy link+ 서비스] | 기타: [Easy link+ 서비스]",
   "item_limit": "-1 | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":500000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":10000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

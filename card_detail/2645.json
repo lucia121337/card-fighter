@@ -57,7 +57,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2645",
   "top_benefit_summary": "할인: 10%",
   "detailed_benefits": "할인: 생활요금・교육・병의원・교통 10% 할인",
-  "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":1200000,\"limit\":20000}]",
+  "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":20000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -68,8 +68,22 @@
       "title": "할인",
       "detail": "생활요금・교육・병의원・교통 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 400000
+        },
+        {
+          "perf": 1200000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

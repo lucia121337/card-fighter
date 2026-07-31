@@ -88,8 +88,8 @@
   "top_benefit_summary": "대중교통: 무제한 | 적립: 0.9% | 주유소: 무제한 | 쇼핑: 10%",
   "detailed_benefits": "대중교통: 대중교통요금 청구 할인 서비스 | 적립: 모아포인트 최고 0.9% 적립 | 주유소: GS칼텍스 리터당 50원 할인, 3자녀인 경우 60원 할인, 4자녀 이상인 경우 70원 청구할인(LPG충전액 제외) | 쇼핑: 유아 출산 유명의류 10% 할인",
   "item_limit": "[{\"perf\":100000,\"limit\":3000}] | 100000 | [{\"perf\":1000000,\"limit\":80}] | 2",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

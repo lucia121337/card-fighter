@@ -68,8 +68,8 @@
   "top_benefit_summary": "아시아나항공: 무제한 | 제휴/PLCC: 무제한",
   "detailed_benefits": "아시아나항공: Asiana Club 마일리지 적립 서비스 | 제휴/PLCC: 신세계백화점 제휴 서비스 제공",
   "item_limit": "[{\"perf\":500000,\"limit\":500000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

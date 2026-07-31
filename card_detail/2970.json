@@ -98,8 +98,8 @@
   "top_benefit_summary": "간편결제: 10% | 할인: 10% | 통신: 10% | 디지털구독: 30% | 기타: 무제한 | 기타: 무제한",
   "detailed_benefits": "간편결제: KB Pay 10% 청구할인 | 할인: 음식점, 편의점 10% 청구할인 | 통신: 이동통신요금 10% 청구할인 | 디지털구독: OTT 30% 청구할인 | 기타: Happy Birth Month | 기타: 전월실적 채워드림",
   "item_limit": "2500 | 2500 | 2500 | 2500 | -1 | [{\"perf\":350000,\"limit\":400000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

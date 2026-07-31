@@ -73,8 +73,8 @@
   "top_benefit_summary": "쇼핑: 무제한 | 카페: 무제한 | 생활: 무제한 | 기타: 무제한",
   "detailed_benefits": "쇼핑: 하나머니란? | 카페: KEB하나은행 결제계좌 이용고객 월 1회 커피 할인 | 생활: 아파트관리비 자동이체 결제시 월 1회 5천 하나머니 적립 | 기타: 하나멤버스 서비스",
   "item_limit": "[{\"perf\":300000,\"limit\":100000}] | [{\"perf\":300000,\"limit\":4000}] | 5000 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

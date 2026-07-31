@@ -64,13 +64,8 @@
   "top_benefit_summary": "통신: 무제한 | 모든가맹점: 무제한 | 기타: 무제한",
   "detailed_benefits": "통신: 할인율 및 할인한도 | 모든가맹점: 할인율 및 할인한도 | 기타: L.POINT",
   "item_limit": "[{\"perf\":400000,\"limit\":700000},{\"perf\":700000,\"limit\":20000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 700000,
-      "limit": 20000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

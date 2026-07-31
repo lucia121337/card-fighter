@@ -67,15 +67,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2265",
   "top_benefit_summary": "홈쇼핑: 7% | 홈쇼핑: 3.5%",
   "detailed_benefits": "홈쇼핑: 롯데홈쇼핑에서 7% 결제일 할인 | 홈쇼핑: 롯데홈쇼핑 적립금 최대 3.5% 적립",
-  "item_limit": "[{\"perf\":10000,\"limit\":400000},{\"perf\":400000,\"limit\":600000}] | [{\"perf\":10000,\"limit\":400000},{\"perf\":400000,\"limit\":10000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 400000,
-      "limit": 10000
-    }
-  ],
+  "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":600000,\"limit\":40000}] | 10000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -91,12 +86,12 @@
       ],
       "item_limit": [
         {
-          "perf": 10000,
-          "limit": 400000
+          "perf": 400000,
+          "limit": 20000
         },
         {
-          "perf": 400000,
-          "limit": 600000
+          "perf": 600000,
+          "limit": 40000
         }
       ],
       "fixedAmount": 0,
@@ -113,16 +108,7 @@
           "rate": 0.035
         }
       ],
-      "item_limit": [
-        {
-          "perf": 10000,
-          "limit": 400000
-        },
-        {
-          "perf": 400000,
-          "limit": 10000
-        }
-      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     }

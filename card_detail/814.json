@@ -93,8 +93,8 @@
   "top_benefit_summary": "해피포인트: 20% | 통신: 3% | 영화: 무제한 | 교육/육아: 무제한 | 면세점: 무제한 | BC TOP: 무제한",
   "detailed_benefits": "해피포인트: 해피포인트 가맹점 이용시 20% 결제일 캐시백 | 통신: 이동통신요금 자동이체 금액의 3% 결제일 캐시백 | 영화: 인터넷 영화 예매시 2,000원 결제일 캐시백 | 교육/육아: 토익응시료 2천원 결제일 캐시백 | 면세점: 국내면세점 할인쿠폰 서비스 | BC TOP: TOP가맹점 이용시 TOP 포인트 적립",
   "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}] | -1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

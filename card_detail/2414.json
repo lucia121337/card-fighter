@@ -68,8 +68,8 @@
   "top_benefit_summary": "프리미엄 서비스: 무제한 | 생활: 10%",
   "detailed_benefits": "프리미엄 서비스: 인플카 현대카드 보유 시 인플카 앱 서비스 이용 가능 | 생활: 생활 필수 영역 이용 금액의 10% M포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

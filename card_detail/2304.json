@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 무제한 | 적립: 무제한 | 금융: 무제한",
   "detailed_benefits": "적립: 국내외가맹점 5천원 이상 결제 시 1천원 미만 금액 마이신한포인트 적립 | 적립: 요식업종 / 배달앱 / 온라인마켓 이용건별 마이신한포인트 정액 적립 | 금융: [적립포인트 투자 서비스]",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | -1",
-  "group_id": "group_2304_신한카드 Eats More 유의사항 | none | none",
-  "group_limit": "1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

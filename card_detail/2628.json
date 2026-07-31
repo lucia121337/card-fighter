@@ -113,8 +113,8 @@
   "top_benefit_summary": "푸드: 5% | 대형마트: 5% | 충전소: 5% | 주유소: 무제한 | 약국: 10% | 쇼핑: 10% | 골프: 10% | 영화: 15% | 도서: 15% | 여행/숙박: 15%",
   "detailed_benefits": "푸드: [생활 Life] 모든 음식점 5% 캐시백 | 대형마트: [생활 Life] 롯데마트, 이마트, 홈플러스 5% 캐시백 | 충전소: [생활 Life] 전기차 충전 5% 캐시백 | 주유소: [생활 Life] SK주유 L당 40원 캐시백 | 약국: [건강 Life] 모든 약국 10% 캐시백 | 쇼핑: [건강 Life] 정관장 10% 캐시백 | 골프: [건강 Life] 골프장, 골프연습장, 스크린골프장 10% 캐시백 | 영화: [문화 Life] CGV, 메가박스, 롯데시네마 15% 캐시백 | 도서: [문화 Life] 교보문고(온・오프라인) 15% 캐시백 | 여행/숙박: [문화 Life] 국내 숙박업종 15% 캐시백",
   "item_limit": "120000 | 100000 | -1 | -1 | -1 | -1 | 60000 | -1 | 60000 | 50000",
-  "group_id": "none | none | none | none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

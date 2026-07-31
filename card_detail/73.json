@@ -83,21 +83,8 @@
   "top_benefit_summary": "생활: 무제한 | 카페/디저트: 무제한",
   "detailed_benefits": "생활: Woori 할인 서비스 | 카페/디저트: 탐앤탐스, 스타벅스",
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000}] | 5000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 10000,
-      "limit": 6
-    },
-    {
-      "perf": 50000,
-      "limit": 2
-    },
-    {
-      "perf": 300000,
-      "limit": 20
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

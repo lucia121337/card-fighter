@@ -73,8 +73,8 @@
   "top_benefit_summary": "캐시백: 무제한 | 캐시백: 무제한",
   "detailed_benefits": "캐시백: 나무증권 스마트 캐시백 | 캐시백: 나무멤버스 월 이용료 캐시백",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1500000}] | 2900",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -69,8 +69,8 @@
   "top_benefit_summary": "적립: 1% | 적립: 2.5%",
   "detailed_benefits": "적립: 국내외 가맹점 이용금액의 1% M포인트 적립 | 적립: 생활 필수 영역 이용금액의 2.5% M포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

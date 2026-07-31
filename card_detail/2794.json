@@ -59,8 +59,8 @@
   "top_benefit_summary": "적립: 0.7% | 국내외가맹점: 7%",
   "detailed_benefits": "적립: [기본 혜택] 전월 이용 금액 50만원 이상 시 국내외 가맹점 0.7% 네이버페이 포인트 적립 | 국내외가맹점: [추가 혜택] 전월 이용 금액 50만원 이상 시 네이버플러스 멤버십 적립 대상(네이버플러스 멤버십) 최대 7% 네이버페이 포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

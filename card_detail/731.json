@@ -83,9 +83,9 @@
   "top_benefit_summary": "카페: 50% | 편의점: 10% | 대중교통: 10% | 간편결제: 10% | 통신: 7%",
   "detailed_benefits": "카페: [커피전문점 이용금액의 50% 청구 할인] | 편의점: [편의점 이용금액의 10% 청구 할인] | 대중교통: [대중교통 이용금액의 10% 청구 할인] | 간편결제: [온라인 간편결제 이용금액의 10% 청구 할인] | 통신: [이동통신요금 정기결제 시 7% 청구 할인]",
   "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":13000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}]",
-  "group_id": "group_731_커피전문점 이용금액의 50% 청구 할인 | group_731_편의점 이용금액의 10% 청구 할인 | none | group_731_온라인 간편결제 이용금액의 10% 청구 할인 | none",
-  "group_limit": "1 | 1 | -1 | 1 | -1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -93,7 +93,12 @@
       "title": "카페",
       "detail": "[커피전문점 이용금액의 50% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.5
+        }
+      ],
       "item_limit": [
         {
           "perf": 400000,
@@ -112,8 +117,22 @@
       "title": "편의점",
       "detail": "[편의점 이용금액의 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "limit": 8000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -122,8 +141,22 @@
       "title": "대중교통",
       "detail": "[대중교통 이용금액의 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "limit": 8000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -132,8 +165,22 @@
       "title": "간편결제",
       "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "limit": 8000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -142,8 +189,22 @@
       "title": "통신",
       "detail": "[이동통신요금 정기결제 시 7% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.07
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "limit": 8000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

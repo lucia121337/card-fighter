@@ -77,21 +77,8 @@
   "top_benefit_summary": "카페: 무제한 | 디지털구독: 50% | 편의점: 무제한 | 배달앱: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "카페: 스타벅스, 투썸플레이스, 폴바셋 5천원 결제일 할인 | 디지털구독: 넷플릭스, 유튜브, 왓챠, 멜론 50% 결제일 할인 | 편의점: GS25, CU, 세븐일레븐 1천원 결제일 할인 | 배달앱: 배달의민족, 요기요 1천원 결제일 할인 | 멤버십포인트: L.POINT",
   "item_limit": "10000 | -1 | 10000 | 10000 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 500000,
-      "limit": 5000
-    },
-    {
-      "perf": 1000000,
-      "limit": 15000
-    },
-    {
-      "perf": 1500000,
-      "limit": 25000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

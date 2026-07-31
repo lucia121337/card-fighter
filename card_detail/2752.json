@@ -78,8 +78,8 @@
   "top_benefit_summary": "적립: 1.5% | 적립: 5% | 적립: 무제한 | 프리미엄 서비스: 무제한",
   "detailed_benefits": "적립: [기본 혜택] 국내외 가맹점 1.5% M포인트 적립 | 적립: [추가 혜택] 프리미엄쇼핑 영역 5% M포인트 적립 | 적립: 이용방법 | 프리미엄 서비스: [우대 서비스] 메탈 플레이트 제공",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

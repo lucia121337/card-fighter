@@ -78,8 +78,8 @@
   "top_benefit_summary": "학원: 무제한 | 뷰티/피트니스: 무제한 | 도서: 무제한 | 생활: 무제한",
   "detailed_benefits": "학원: [학습할인] | 뷰티/피트니스: [취미/자기계발 할인] | 도서: [서점/문구 할인] | 생활: [Easy study+ 서비스]",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":100000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | [{\"perf\":10000,\"limit\":1000},{\"perf\":30000,\"limit\":2000},{\"perf\":500000,\"limit\":100000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

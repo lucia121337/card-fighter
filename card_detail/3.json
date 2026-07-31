@@ -93,8 +93,8 @@
   "top_benefit_summary": "쇼핑: 5% | 푸드: 20% | 영화: 무제한 | 주유소: 무제한 | 교육/육아: 무제한 | 통신: 2%",
   "detailed_benefits": "쇼핑: 3대 백화점(롯데, 신세계, 현대) 및 롯데마트 5% 결제일 할인 | 푸드: 빕스 20% 할인 | 영화: 맥스무비, 인터파크, YES24 영화 할인 | 주유소: S-OIL 주유 시 60포인트/ℓ 마이신한포인트 적립(LPG 제외) | 교육/육아: 베이비 프리미엄 제품 전문쇼핑몰 「쁘띠엘린스토어」 | 통신: 이동통신요금 자동이체 시 2% 결제일 할인(SKT, KT, LGT)",
   "item_limit": "200000 | 200000 | -1 | -1 | -1 | 5000",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

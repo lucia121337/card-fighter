@@ -63,8 +63,8 @@
   "top_benefit_summary": "캐시백: 10% | 캐시백: 10%",
   "detailed_benefits": "캐시백: [필수 생활비 캐시백 영역] 대중교통, 이동통신요금 10% 캐시백 | 캐시백: [일상 생활비 영역 캐시백] 커피/편의점 10% 캐시백, 배달앱 10% 캐시백",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

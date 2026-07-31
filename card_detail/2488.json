@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2488",
   "top_benefit_summary": "기타: 10% | 쇼핑: 5% | 쇼핑: 5%",
   "detailed_benefits": "기타: 베베쿡 10% 할인 | 쇼핑: 일상생활 쇼핑 할 때에도 5% 결제일 할인 | 쇼핑: 주요 커피점, 잡화, 온라인서점 쇼핑할 때에도 5% 결제일 할인",
-  "item_limit": "[{\"perf\":500000,\"limit\":20000}] | [{\"perf\":10000,\"limit\":1000000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1500000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000}]",
+  "item_limit": "20000 | [{\"perf\":1000000,\"limit\":10000},{\"perf\":1500000,\"limit\":20000}] | 10000",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
   "total_limit_tiers": [],
@@ -84,12 +84,7 @@
           "rate": 0.1
         }
       ],
-      "item_limit": [
-        {
-          "perf": 500000,
-          "limit": 20000
-        }
-      ],
+      "item_limit": 20000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -106,12 +101,8 @@
       ],
       "item_limit": [
         {
-          "perf": 10000,
-          "limit": 1000000
-        },
-        {
-          "perf": 500000,
-          "limit": 1000000
+          "perf": 1000000,
+          "limit": 10000
         },
         {
           "perf": 1500000,
@@ -132,12 +123,7 @@
           "rate": 0.05
         }
       ],
-      "item_limit": [
-        {
-          "perf": 500000,
-          "limit": 10000
-        }
-      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     }

@@ -97,8 +97,8 @@
   "top_benefit_summary": "국내외가맹점: 0.5% | 쇼핑: 2% | 백화점: 2% | 대형마트: 2% | 홈쇼핑: 2% | SSM: 2% | 편의점: 2% | 베이커리: 2% | 간편결제: 5%",
   "detailed_benefits": "국내외가맹점: 국내외 결제 시 0.5% 할인 | 쇼핑: 쿠팡 2% 할인 | 백화점: 백화점 2% 할인 | 대형마트: 마트 2% 할인 | 홈쇼핑: 홈쇼핑 2% 할인 | SSM: 슈퍼마켓 2% 할인 | 편의점: 편의점 2% 할인 | 베이커리: 베이커리 2% 할인 | 간편결제: 간편결제 5% 할인",
   "item_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}]",
-  "group_id": "none | none | none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

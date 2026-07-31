@@ -78,8 +78,8 @@
   "top_benefit_summary": "모든가맹점: 0.5% | 모든가맹점: 1% | 간편결제: 무제한",
   "detailed_benefits": "모든가맹점: 모든 가맹점 0.5% 기본 캐시백 | 모든가맹점: 전월 실적 충족하면, 모든 가맹점 1% 특별캐시백 | 간편결제: 라이프 캐시백 혜택 상세",
   "item_limit": "-1 | -1 | [{\"perf\":400000,\"limit\":10000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

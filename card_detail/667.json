@@ -83,8 +83,8 @@
   "top_benefit_summary": "저녁: 무제한 | 대형마트: 무제한 | 카페: 무제한 | APP: 무제한 | 레저/스포츠: 무제한 | 병원: 무제한",
   "detailed_benefits": "저녁: [일상의 혜택] | 대형마트: [일상의 혜택] | 카페: [일상의 혜택] | APP: [일상의 혜택] | 레저/스포츠: [건강한 혜택] | 병원: [건강한 혜택]",
   "item_limit": "10000 | 10000 | 5000 | 5000 | 10000 | 10000",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

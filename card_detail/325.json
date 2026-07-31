@@ -93,8 +93,8 @@
   "top_benefit_summary": "모든가맹점: 1% | 여행/숙박: 무제한 | 푸드: 10% | 영화: 3000원 | 레저/스포츠: 무제한 | 주유소: 무제한",
   "detailed_benefits": "모든가맹점: 사용업종 또는 결제건당 금액에 따라 0.3~1% 모아포인트 적립 | 여행/숙박: 해외여행 시 데이터로밍 무료이용 서비스 | 푸드: 치킨, 피자 10% 청구할인 | 영화: 전국 영화관 3,000원 청구할인 | 레저/스포츠: 골프 우대 서비스 | 주유소: SK주유 및 충전 시 리터당 60원 청구할인",
   "item_limit": "10000 | -1 | 5000 | -1 | -1 | 300000",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

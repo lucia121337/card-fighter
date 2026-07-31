@@ -77,10 +77,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/86",
   "top_benefit_summary": "모든가맹점: 1% | 주유: 100원 | 대중교통: 10% | 카페: 10%",
   "detailed_benefits": "모든가맹점: 할인의 정석: 모든 국내 가맹점 0.7~1% 청구할인 | 주유: 생활밀착 할인의 정석: S-OIL, 현대오일뱅크 리터당 60~100원 청구할인 | 대중교통: 생활밀착 할인의 정석: 대중교통 10% 청구할인 | 카페: 생활밀착 할인의 정석: 스타벅스, 폴바셋 10% 청구할인",
-  "item_limit": "1000000 | [{\"perf\":100000,\"limit\":7000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":300000,\"limit\":10000}] | 1000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "1000000 | 7000 | [{\"perf\":300000,\"limit\":10000}] | 1000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -109,20 +109,7 @@
           "rate": 0
         }
       ],
-      "item_limit": [
-        {
-          "perf": 100000,
-          "limit": 7000
-        },
-        {
-          "perf": 300000,
-          "limit": 500000
-        },
-        {
-          "perf": 500000,
-          "limit": 1000000
-        }
-      ],
+      "item_limit": 7000,
       "fixedAmount": 0,
       "minPayment": 0
     },

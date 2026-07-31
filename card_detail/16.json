@@ -88,13 +88,8 @@
   "top_benefit_summary": "주유: 무제한 | 쇼핑: 무제한 | 마트/편의점: 5% | 택시: 5% | 정비: 5% | 국내외가맹점: 2%",
   "detailed_benefits": "주유: 국내 주유소 리터당 40~150포인트/충전소 리터당 10~50포인트 적립 | 쇼핑: 특별적립 | 마트/편의점: 롯데마트/이마트/홈플러스/토이저러스 1~5% 적립 | 택시: 택시 1~5% 적립 | 정비: 전국 차량 정비소, 타이어 샵 1~5% 적립 | 국내외가맹점: 국내/외 가맹점 0.2~2.0% 적립",
   "item_limit": "300000 | -1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 2000000,
-      "limit": 150
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

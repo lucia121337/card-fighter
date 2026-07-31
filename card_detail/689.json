@@ -83,8 +83,8 @@
   "top_benefit_summary": "여행/숙박: 5% | 배달앱: 5% | 카페: 5% | 편의점: 5% | 소셜커머스: 5% | 해외: 무제한",
   "detailed_benefits": "여행/숙박: 면세점, 항공사, 관광여행사 업종 5% 환급할인 | 배달앱: 마켓컬리, 배달의민족, 데일리호텔 5% 환급할인 | 카페: 스타벅스 5% 환급할인 | 편의점: GS25 편의점 5% 환급할인 | 소셜커머스: 쿠팡, 위메프, 티몬 5% 환급할인 | 해외: 해외 물품구매 및 ATM 예금인출 수수료 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

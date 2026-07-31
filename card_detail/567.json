@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 1% | 카페: 무제한",
   "detailed_benefits": "적립: 기본 적립 : 국내 1%, 해외 2% 적립 | 카페: 전세계 스타벅스 이용시 4천원 청구할인(월 1회)",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

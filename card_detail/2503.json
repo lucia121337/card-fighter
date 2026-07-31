@@ -103,8 +103,8 @@
   "top_benefit_summary": "교육/육아: 10% | 주유: 무제한 | 패밀리레스토랑: 10% | 베이커리: 10% | 통신: 3% | 기타: 무제한",
   "detailed_benefits": "교육/육아: 전국 모든 학원 및 유치원 10% 할인 | 주유: 전국 모든 주유소 최대 60원 할인 | 패밀리레스토랑: 전국 주요 외식업체 10% 할인 | 베이커리: 전국 주요 베이커리 10% 할인 | 통신: 이동통신요금 3% 할인 | 기타: 자녀 인터넷 멘토 프로그램 &ldquo;하이멘토 유료회원 서비스&rdquo; 무료제공",
   "item_limit": "[{\"perf\":300000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":60}] | 10000 | 2000 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

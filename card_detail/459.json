@@ -59,8 +59,8 @@
   "top_benefit_summary": "적립: 5% | 간편결제: 3%",
   "detailed_benefits": "적립: 모아포인트 5%~0.8% 적립 | 간편결제: 주요 간편결제 모아포인트 3% 추가적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

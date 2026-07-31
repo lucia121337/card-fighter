@@ -78,83 +78,8 @@
   "top_benefit_summary": "LGU+: 무제한 | 패밀리레스토랑: 10% | 카페: 20% | 영화: 무제한",
   "detailed_benefits": "LGU+: LG U+ 유무선 통신요금 할인 | 패밀리레스토랑: 패밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인 | 영화: 전국 영화관 3천원 청구할인",
   "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":15000}] | 20000 | 10000 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [],
-  "is_calc_supported": "FALSE",
-  "structured_benefits": [
-    {
-      "item_id": 1,
-      "card_id": 2523,
-      "title": "LGU+",
-      "detail": "LG U+ 통신요금 자동이체 결제액 100% 할인",
-      "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 1
-        }
-      ],
-      "item_limit": [
-        {
-          "perf": 300000,
-          "limit": 10000
-        },
-        {
-          "perf": 700000,
-          "limit": 15000
-        }
-      ],
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "item_id": 2,
-      "card_id": 2523,
-      "title": "영화",
-      "detail": "12,000원 이상 결제 시 3,000원 정액 청구할인",
-      "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0
-        }
-      ],
-      "item_limit": 3000,
-      "fixedAmount": 3000,
-      "minPayment": 12000
-    },
-    {
-      "item_id": 3,
-      "card_id": 2523,
-      "title": "카페",
-      "detail": "스타벅스, 투썸플레이스 20% 청구할인",
-      "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.2
-        }
-      ],
-      "item_limit": 10000,
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "item_id": 4,
-      "card_id": 2523,
-      "title": "패밀리레스토랑",
-      "detail": "아웃백, TGIF 10% 청구할인",
-      "group_id": null,
-      "rate": [
-        {
-          "perf": 300000,
-          "rate": 0.1
-        }
-      ],
-      "item_limit": 10000,
-      "fixedAmount": 0,
-      "minPayment": 0
-    }
-  ]
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
+  "is_calc_supported": "FALSE"
 }

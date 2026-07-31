@@ -74,8 +74,8 @@
   "top_benefit_summary": "모든가맹점: 1% | 기타: 1.5% | 해외이용: 2%",
   "detailed_benefits": "모든가맹점: [기본청구할인] 국내 가맹점 0.5~1.0% 청구할인 | 기타: [특별청구할인] 국내 가맹점 1.5% 청구할인 | 해외이용: 해외 가맹점(온라인포함)사용액 2% 캐시백",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

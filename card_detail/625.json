@@ -73,8 +73,8 @@
   "top_benefit_summary": "대형마트: 무제한 | 온라인쇼핑: 무제한 | 홈쇼핑: 무제한 | 편의점: 무제한",
   "detailed_benefits": "대형마트: [마트] | 온라인쇼핑: [온라인 쇼핑] | 홈쇼핑: [홈쇼핑] | 편의점: [편의점]",
   "item_limit": "10000 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

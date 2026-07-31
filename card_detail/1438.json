@@ -73,8 +73,8 @@
   "top_benefit_summary": "해피포인트: 무제한 | 패밀리레스토랑: 무제한 | 편의점: 무제한 | OTT/영화/문화: 무제한",
   "detailed_benefits": "해피포인트: 해피포인트 | 패밀리레스토랑: 외식 | 편의점: 편의점 | OTT/영화/문화: 영화",
   "item_limit": "[{\"perf\":200000,\"limit\":5000}] | -1 | -1 | 8000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

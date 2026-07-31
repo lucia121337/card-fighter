@@ -68,8 +68,8 @@
   "top_benefit_summary": "할인: 무제한 | 온라인쇼핑: 무제한 | 해외이용: 무제한",
   "detailed_benefits": "할인: [국내 가맹점] | 온라인쇼핑: [국내 온라인] | 해외이용: [해외 가맹점]",
   "item_limit": "-1 | 100000 | 100000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

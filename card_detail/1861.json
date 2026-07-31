@@ -93,8 +93,8 @@
   "top_benefit_summary": "드럭스토어: 무제한 | 경기관람: 무제한 | 공연/전시: 30% | 멤버십포인트: 무제한",
   "detailed_benefits": "드럭스토어: 혜택 | 경기관람: 대상 | 공연/전시: 뮤지컬, 연극 등 공연 10~30% 할인 | 멤버십포인트: - 롯데멤버스㈜ 고객정보 제공에 동의 하신 회원에 한하여 L.POINT 회원 가입이 가능합니다.",
   "item_limit": "[{\"perf\":300000,\"limit\":500000}] | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -73,8 +73,8 @@
   "top_benefit_summary": "백화점: 5% | 주유소: 무제한",
   "detailed_benefits": "백화점: 현대백화점/아울렛 5% 할인 | 주유소: 현대오일뱅크 주유시 X2배 포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

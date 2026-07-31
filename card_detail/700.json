@@ -78,13 +78,8 @@
   "top_benefit_summary": "적립: 무제한 | 적립: 5% | 적립: 무제한",
   "detailed_benefits": "적립: [M포인트 적립] 기본 적립률 | 적립: [M포인트 적립] 5% 적립 | 적립: 당월 이용금액 100만원 이상 시 보너스 리워드 1만 M포인트 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 1000000,
-      "limit": 4
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

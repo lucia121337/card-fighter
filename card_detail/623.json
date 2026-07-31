@@ -59,8 +59,8 @@
   "top_benefit_summary": "교육/육아: 무제한 | 도서: 무제한",
   "detailed_benefits": "교육/육아: [교육] | 도서: [서점/문구]",
   "item_limit": "100000 | 5000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

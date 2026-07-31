@@ -63,10 +63,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2766",
   "top_benefit_summary": "할인: 10% | 할인: 10%",
   "detailed_benefits": "할인: 온라인 10% 할인 | 할인: 오프라인 10% 혜택",
-  "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":7000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000},{\"perf\":1200000,\"limit\":10000}] | [{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000},{\"perf\":1200000,\"limit\":7000}]",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -74,8 +74,26 @@
       "title": "할인",
       "detail": "온라인 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 400000
+        },
+        {
+          "perf": 1200000,
+          "limit": 800000
+        },
+        {
+          "perf": 1200000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -84,8 +102,26 @@
       "title": "할인",
       "detail": "오프라인 10% 혜택",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 400000
+        },
+        {
+          "perf": 1200000,
+          "limit": 800000
+        },
+        {
+          "perf": 1200000,
+          "limit": 7000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

@@ -54,15 +54,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2974",
   "top_benefit_summary": "간편결제: 10%",
   "detailed_benefits": "간편결제: 전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
-  "item_limit": "[{\"perf\":300000,\"limit\":600000},{\"perf\":600000,\"limit\":10000}]",
+  "item_limit": "5000",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": [
-    {
-      "perf": 600000,
-      "limit": 10000
-    }
-  ],
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -70,8 +65,13 @@
       "title": "간편결제",
       "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 5000,
       "fixedAmount": 0,
       "minPayment": 0
     }

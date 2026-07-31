@@ -78,8 +78,8 @@
   "top_benefit_summary": "SKT: 무제한 | 영화: 무제한 | 패밀리레스토랑: 10% | 카페: 20%",
   "detailed_benefits": "SKT: SKT 통신기기 및 통신서비스 구매 시 T라이트할부 제공 | 영화: 전국 영화관 3천원 청구할인 | 패밀리레스토랑: VIPS, TGIF 10% 청구할인 | 카페: 할리스, 엔제리너스 20% 청구할인",
   "item_limit": "[{\"perf\":300000,\"limit\":11000},{\"perf\":700000,\"limit\":17000},{\"perf\":1000000,\"limit\":23000}] | -1 | 20000 | 10000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

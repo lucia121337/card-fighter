@@ -73,8 +73,8 @@
   "top_benefit_summary": "할인: 1.5% | 캐시백: 무제한 | 캐시백: 무제한",
   "detailed_benefits": "할인: 국내 이용금액 1.5% 결제일 할인 | 캐시백: 가족카드 분기 실적 150만원 이상 시 1만원 캐시백(분기당 1회) | 캐시백: 마트/병원/주유 3만원 이상 결제 시 3만원 캐시백(최초 1회)",
   "item_limit": "-1 | [{\"perf\":1500000,\"limit\":10000}] | [{\"perf\":30000,\"limit\":30000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

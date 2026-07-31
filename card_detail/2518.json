@@ -73,8 +73,8 @@
   "top_benefit_summary": "멤버십포인트: 5% | 멤버십포인트: 2% | 멤버십포인트: 1%",
   "detailed_benefits": "멤버십포인트: 컬리 적립금 5% 적립 | 멤버십포인트: 해외 가맹점 컬리 적립금 2% 적립 | 멤버십포인트: 국내 가맹점 컬리 적립금 1% 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

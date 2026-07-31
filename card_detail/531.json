@@ -83,13 +83,8 @@
   "top_benefit_summary": "생활: 3% | 병원/약국: 5% | 기타: 무제한",
   "detailed_benefits": "생활: 주요 생활편의업종 이용액의 3% NH포인트 적립 | 병원/약국: 병원, 약국 5% 청구할인 | 기타: 전자금융 수수료 면제",
   "item_limit": "-1 | [{\"perf\":400000,\"limit\":20000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 1
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

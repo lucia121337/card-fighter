@@ -83,8 +83,8 @@
   "top_benefit_summary": "멤버십포인트: 10% | 멤버십포인트: 10% | 멤버십포인트: 10% | 멤버십포인트: 10%",
   "detailed_benefits": "멤버십포인트: 야놀자&middot;인터파크(투어/티켓)&middot;트리플 NOL 포인트 10% 적립 | 멤버십포인트: 커피전문점&middot;편의점&middot;디지털 콘텐츠 서비스 NOL 포인트 10% 적립 | 멤버십포인트: 쇼핑&middot;영화&middot;골프&middot;대중교통 NOL 포인트 10% 적립 | 멤버십포인트: 해외 가맹점 NOL 포인트 10% 적립",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

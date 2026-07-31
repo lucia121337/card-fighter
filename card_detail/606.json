@@ -68,8 +68,8 @@
   "top_benefit_summary": "생활: 무제한 | 기타: 무제한 | 해외이용: 무제한",
   "detailed_benefits": "생활: [정기결제 할인 서비스] | 기타: [UNTACT 할인 서비스] | 해외이용: [해외 서비스]",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1500000},{\"perf\":1500000,\"limit\":20000}] | [{\"perf\":50000,\"limit\":1000}] | 30000",
-  "group_id": "none | group_606_UNTACT 할인 서비스 | none",
-  "group_limit": "-1 | 3 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

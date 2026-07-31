@@ -73,8 +73,8 @@
   "top_benefit_summary": "모든가맹점: 1% | 생활: 0.5% | 쇼핑: 5% | 여행/숙박: 무제한",
   "detailed_benefits": "모든가맹점: 전 가맹점 1% 할인 | 생활: 생활 편의 업종 0.5% 추가 할인 | 쇼핑: 페이북 쇼핑 5% 할인 | 여행/숙박: 비씨투어 멤버스 서비스 무료 가입",
   "item_limit": "-1 | -1 | 10000 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

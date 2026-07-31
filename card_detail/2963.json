@@ -73,8 +73,8 @@
   "top_benefit_summary": "할인: 무제한 | 적립: 무제한 | 국내외가맹점: 무제한",
   "detailed_benefits": "할인: 전월 이용금액별 월 할인한도 | 적립: 전월 이용금액별 월 할인한도 | 국내외가맹점: 전월 이용금액별 월 할인한도",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":50000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":10000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -88,8 +88,8 @@
   "top_benefit_summary": "아시아나항공: 무제한 | OTT/영화/문화: 무제한 | 여행/숙박: 무제한 | 생활: 무제한 | 쇼핑: 무제한 | 기타: 무제한 | 프리미엄 서비스: 무제한",
   "detailed_benefits": "아시아나항공: 카드사용액 1,500원당 1 아시아나마일리지 한도제한 없이 적립 | OTT/영화/문화: 엔터테인먼트 1,500원당 | 여행/숙박: 여행 1,500원당 | 생활: 1,500원당 | 쇼핑: 1,500원당 | 기타: 마일리지 우대 프로그램 | 프리미엄 서비스: 프리미엄 다이닝",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":300000}] | [{\"perf\":300000,\"limit\":300000}] | [{\"perf\":300000,\"limit\":300000}] | [{\"perf\":300000,\"limit\":300000}] | -1 | -1",
-  "group_id": "none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

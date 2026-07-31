@@ -78,9 +78,9 @@
   "top_benefit_summary": "카페: 100원 | 편의점: 200원 | 게임: 200원 | 배달앱: 500원 | 대중교통: 1000원",
   "detailed_benefits": "카페: 커피 업종 100원 할인 | 편의점: 편의점 200원 할인 | 게임: 모바일 200원 할인 | 배달앱: 배달음식 500원 할인 | 대중교통: 대중교통 1,000원 할인",
   "item_limit": "[{\"perf\":200000,\"limit\":3000}] | [{\"perf\":200000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":3000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":10000,\"limit\":1000},{\"perf\":200000,\"limit\":10000}]",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {

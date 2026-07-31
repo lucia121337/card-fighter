@@ -67,15 +67,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/375",
   "top_benefit_summary": "해외이용: 2% | 생활: 1%",
   "detailed_benefits": "해외이용: 해외 물품 구매시 2% 캐시백 | 생활: 10대 업종 0.5~1.0% 캐시백",
-  "item_limit": "[{\"perf\":100000,\"limit\":200000},{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":500000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 500000,
-      "limit": 1
-    }
-  ],
+  "item_limit": "[{\"perf\":200000,\"limit\":100000},{\"perf\":200000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":200000}]",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -91,8 +86,8 @@
       ],
       "item_limit": [
         {
-          "perf": 100000,
-          "limit": 200000
+          "perf": 200000,
+          "limit": 100000
         },
         {
           "perf": 200000,
@@ -115,8 +110,8 @@
       ],
       "item_limit": [
         {
-          "perf": 200000,
-          "limit": 500000
+          "perf": 500000,
+          "limit": 200000
         }
       ],
       "fixedAmount": 0,

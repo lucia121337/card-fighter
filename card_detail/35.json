@@ -73,8 +73,8 @@
   "top_benefit_summary": "주유: 무제한 | 교통: 무제한 | 영화: 무제한",
   "detailed_benefits": "주유: 서비스 제공 기준 | 교통: 버스, 지하철 : 전국 당사 후불교통카드 서비스 지역에서 할인 적용 | 영화: 맥스무비 영화 할인",
   "item_limit": "[{\"perf\":200000,\"limit\":300000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":60}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

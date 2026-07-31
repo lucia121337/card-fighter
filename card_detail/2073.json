@@ -83,8 +83,8 @@
   "top_benefit_summary": "기타: 무제한 | 카페: 1000원 | 온라인쇼핑: 2000원 | 편의점: 1000원 | 배달앱: 1000원 | 영화: 2000원",
   "detailed_benefits": "기타: SKT, KT, LGU+ 이동통신비 이용금액 할인 | 카페: 월요일: 스타벅스 1,000원 할인 | 온라인쇼핑: 화요일: 쿠팡 2,000원 할인 | 편의점: 수요일: 편의점 1,000원 할인 | 배달앱: 목요일: 배달의민족 1,000원 할인 | 영화: 금요일: CGV 2,000원 할인",
   "item_limit": "[{\"perf\":50000,\"limit\":3000},{\"perf\":100000,\"limit\":5000}] | -1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

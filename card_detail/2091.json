@@ -83,8 +83,8 @@
   "top_benefit_summary": "항공마일리지: 무제한 | 쇼핑: 무제한 | 골프: 무제한 | 생활: 무제한 | 기타: 무제한",
   "detailed_benefits": "항공마일리지: - 대한항공 / 아시아나 항공 마일리지 적립 | 쇼핑: - 국내 특급호텔 무료 발레파킹 / 식음료 할인 / 객실 할인 | 골프: - KLPGA 하나금융그룹 Championship | 생활: [가족카드 서비스] | 기타: Finance",
   "item_limit": "-1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

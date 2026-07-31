@@ -78,8 +78,8 @@
   "top_benefit_summary": "레저/스포츠: 무제한 | 공연/전시: 무제한 | 영화: 무제한 | 할인: 무제한",
   "detailed_benefits": "레저/스포츠: [꿀잼&alpha; Fun 할인서비스] | 공연/전시: [꿀잼&alpha; Fun 할인서비스] | 영화: [꿀잼&alpha; Fun 할인서비스] | 할인: 꿀잼&alpha; 알파원 오토체인지 할인서비스",
   "item_limit": "[{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

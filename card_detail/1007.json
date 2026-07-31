@@ -52,15 +52,6 @@
   "item_limit": "[{\"perf\":300000,\"limit\":9000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 12000
-    },
-    {
-      "perf": 700000,
-      "limit": 17000
-    }
-  ],
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

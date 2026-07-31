@@ -73,8 +73,8 @@
   "top_benefit_summary": "백화점: 5% | 생활: 5% | 해외: 5%",
   "detailed_benefits": "백화점: 신세계백화점 5% 결제일 할인 | 생활: Life Care가맹점 5% 결제일 할인 | 해외: 해외 매출 5% 캐시백 (단, 해외온라인 거래는 제외)",
   "item_limit": "[{\"perf\":10000,\"limit\":3000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":30000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":20000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

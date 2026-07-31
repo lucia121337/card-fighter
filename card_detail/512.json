@@ -72,10 +72,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/512",
   "top_benefit_summary": "모든가맹점: 0.7% | 생활: 0.5%",
   "detailed_benefits": "모든가맹점: 기본적립 0.7% + 우대적립 0.1%~0.3% | 생활: 생활영역 0.5%~1.0% 추가 적립",
-  "item_limit": "[{\"perf\":400000,\"limit\":1000000},{\"perf\":1000000,\"limit\":2000000}] | [{\"perf\":400000,\"limit\":800000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":1000000,\"limit\":400000},{\"perf\":2000000,\"limit\":1000000}] | [{\"perf\":800000,\"limit\":400000}]",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -91,12 +91,12 @@
       ],
       "item_limit": [
         {
-          "perf": 400000,
-          "limit": 1000000
+          "perf": 1000000,
+          "limit": 400000
         },
         {
-          "perf": 1000000,
-          "limit": 2000000
+          "perf": 2000000,
+          "limit": 1000000
         }
       ],
       "fixedAmount": 0,
@@ -115,8 +115,8 @@
       ],
       "item_limit": [
         {
-          "perf": 400000,
-          "limit": 800000
+          "perf": 800000,
+          "limit": 400000
         }
       ],
       "fixedAmount": 0,

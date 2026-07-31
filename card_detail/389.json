@@ -68,8 +68,8 @@
   "top_benefit_summary": "적립: 무제한 | 대중교통: 7%",
   "detailed_benefits": "적립: 시코르 및 신세계 캐쉬백/적립 서비스 | 대중교통: 버스/지하철 7% 캐시백",
   "item_limit": "-1 | 5000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

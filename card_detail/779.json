@@ -68,8 +68,8 @@
   "top_benefit_summary": "온라인쇼핑: 무제한 | 생활: 무제한 | 적립: 0.2%",
   "detailed_benefits": "온라인쇼핑: 위메프/위메프오 적립 | 생활: 생활영역/구독서비스 적립 | 적립: 적립 제외 대상 이외 이용금액의 0.2% 적립",
   "item_limit": "-1 | 10000 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

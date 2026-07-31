@@ -98,17 +98,8 @@
   "top_benefit_summary": "진에어: 5% | 카페: 20% | 패밀리레스토랑: 10% | 영화: 무제한 | 도서: 무제한 | 주유소: 무제한 | 기타: 무제한",
   "detailed_benefits": "진에어: 진에어 5% 캐시백 할인 | 카페: 스타벅스, 커피빈 20% 캐시백 할인 | 패밀리레스토랑: 아웃백스테이크하우스, TGIF, VIPS, 우노 10% 캐시백 할인 | 영화: CGV, 메가박스, 롯데시네마 캐시백 할인 | 도서: 인터넷교보문고, 인터넷영풍문고, Yes24 3,000원 캐시백 할인 | 주유소: S-OIL 주유소 캐시백 할인 | 기타: TOEIC 응시료 3,000원 캐시백 할인",
   "item_limit": "-1 | 5000 | 20000 | [{\"perf\":10000,\"limit\":6000},{\"perf\":200000,\"limit\":200000}] | [{\"perf\":30000,\"limit\":3000}] | -1 | -1",
-  "group_id": "none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 10000,
-      "limit": 6
-    },
-    {
-      "perf": 500000,
-      "limit": 10000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

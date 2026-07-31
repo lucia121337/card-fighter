@@ -83,8 +83,8 @@
   "top_benefit_summary": "할인: 5% | 할인: 무제한 | 기타: 무제한",
   "detailed_benefits": "할인: 온라인 간편결제서비스 이용 시 5% 할인 | 할인: 당월 이용금액 200만원 이상 시 1만원 캐시백 | 기타: 커피전문점 할인",
   "item_limit": "10000 | [{\"perf\":2000000,\"limit\":10000}] | 1000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

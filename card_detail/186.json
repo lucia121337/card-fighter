@@ -78,33 +78,8 @@
   "top_benefit_summary": "생활: 무제한 | 온라인쇼핑: 무제한 | 통신: 무제한",
   "detailed_benefits": "생활: 신용카드 서비스(Pack형 서비스) | 온라인쇼핑: 신용카드 서비스(Pack형 서비스) | 통신: 신용카드 서비스(Pack형 서비스)",
   "item_limit": "[{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":6000},{\"perf\":1200000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":6000}] | [{\"perf\":400000,\"limit\":2000},{\"perf\":800000,\"limit\":5000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 400000,
-      "limit": 3
-    },
-    {
-      "perf": 800000,
-      "limit": 6
-    },
-    {
-      "perf": 1000000,
-      "limit": 6
-    },
-    {
-      "perf": 1200000,
-      "limit": 10000
-    },
-    {
-      "perf": 2000000,
-      "limit": 10000
-    },
-    {
-      "perf": 4000000,
-      "limit": 20000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -63,8 +63,8 @@
   "top_benefit_summary": "쇼핑: 무제한 | 생활: 무제한",
   "detailed_benefits": "쇼핑: 하이마트 상품 및 서비스 구매 시 슬림할부 제공 | 생활: 부가서비스",
   "item_limit": "[{\"perf\":300000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | 12000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

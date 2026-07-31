@@ -62,7 +62,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/628",
   "top_benefit_summary": "모든가맹점: 1.5%",
   "detailed_benefits": "모든가맹점: 모아포인트 0.3 ~ 1.5% 적립",
-  "item_limit": "[{\"perf\":10000,\"limit\":500000},{\"perf\":20000,\"limit\":800000},{\"perf\":30000,\"limit\":10000}]",
+  "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":30000,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -81,12 +81,12 @@
       ],
       "item_limit": [
         {
-          "perf": 10000,
-          "limit": 500000
+          "perf": 500000,
+          "limit": 10000
         },
         {
-          "perf": 20000,
-          "limit": 800000
+          "perf": 800000,
+          "limit": 20000
         },
         {
           "perf": 30000,

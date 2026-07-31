@@ -93,13 +93,8 @@
   "top_benefit_summary": "대형마트: 10% | 경기관람: 20% | OTT/영화/문화: 1500원",
   "detailed_benefits": "대형마트: 롯데마트 온/오프라인 매장에서 5만원 이상 결제시, 10%청구할인 | 경기관람: 롯데 자이언츠 20% 할인 | OTT/영화/문화: 롯데시네마 관람료 1,500원 청구할인",
   "item_limit": "[{\"perf\":50000,\"limit\":50000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":900000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 900000,
-      "limit": 10
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -93,8 +93,8 @@
   "top_benefit_summary": "적립: 1.5% | 적립: 무제한 | 주유: 무제한 | 여행/숙박: 무제한",
   "detailed_benefits": "적립: [고액 적립] 최대 1.5% 적립 | 적립: [특별 적립] | 주유: SK 주유 및 충전 시 리터(ℓ)당 60원 청구 할인 | 여행/숙박: 여행 지원 서비스",
   "item_limit": "3000000 | -1 | 300000 | -1",
-  "group_id": "group_717_고액 적립 | group_717_특별 적립 | none | none",
-  "group_limit": "300000 | 300000 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -62,7 +62,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2726",
   "top_benefit_summary": "배달앱: 0.5%",
   "detailed_benefits": "배달앱: [기본 혜택] 전월 이용 금액 40만원 이상 시 국내외 가맹점 이용 금액 0.5% 배민포인트 적립",
-  "item_limit": "[{\"perf\":400000,\"limit\":800000}]",
+  "item_limit": "[{\"perf\":800000,\"limit\":400000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -73,8 +73,18 @@
       "title": "배달앱",
       "detail": "[기본 혜택] 전월 이용 금액 40만원 이상 시 국내외 가맹점 이용 금액 0.5% 배민포인트 적립",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.005}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.005
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 400000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

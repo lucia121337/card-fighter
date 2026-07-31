@@ -73,8 +73,8 @@
   "top_benefit_summary": "병원/약국: 무제한 | 뷰티/피트니스: 무제한 | 기타: 무제한",
   "detailed_benefits": "병원/약국: 활력 UP! 의료,건강 관리혜택 | 뷰티/피트니스: 활력 UP! 의료,건강 관리혜택 | 기타: 보너스 캐시백",
   "item_limit": "[{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

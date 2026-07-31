@@ -83,8 +83,8 @@
   "top_benefit_summary": "쇼핑: 1% | 통신: 1.5% | 병원: 1.5% | 여행/숙박: 1.8% | 골프: 3%",
   "detailed_benefits": "쇼핑: Well Living: 백화점, 온라인 쇼핑, 대형할인점(이마트, 롯데마트, 홈플러스) 모아포인트 1% 적립 | 통신: Well Living: 이동통신 모아포인트 1.5% 적립 | 병원: Well Living: 병원(동물병원 포함) 모아포인트 1.5% 적립 | 여행/숙박: Enjoy Living: 해외, 면세점, 여행사 ,항공사 모아포인트 1.8% 적립 | 골프: Enjoy Living: 골프 업종(월 이용금액 50만원 한도) 3% 적립",
   "item_limit": "-1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

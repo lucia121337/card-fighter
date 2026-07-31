@@ -98,8 +98,8 @@
   "top_benefit_summary": "온라인쇼핑: 5% | 간편결제: 무제한 | 생활: 무제한 | 카페: 5% | 배달앱: 무제한 | 대중교통: 5% | 통신: 무제한 | 해외: 무제한 | 기타: 5%",
   "detailed_benefits": "온라인쇼핑: [SHOPPING] 온라인 쇼핑 5% 캐시백 | 간편결제: [SHOPPING] | 생활: [SHOPPING] | 카페: [EAT] 커피 5% 캐시백 | 배달앱: [EAT] | 대중교통: [LIFE] 대중교통(버스/지하철) 5% 캐시백 | 통신: [LIFE] | 해외: [LIFE] | 기타: [PLAY] OTT 5% 캐시백",
   "item_limit": "1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000 | 1000",
-  "group_id": "none | none | none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -58,10 +58,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2455",
   "top_benefit_summary": "기타: 50% | 카카오페이: 10%",
   "detailed_benefits": "기타: 카카오톡 선물하기 50% 할인 | 카카오페이: 카카오페이 결제 10% 할인",
-  "item_limit": "[{\"perf\":400000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":10000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "10000 | 10000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -69,8 +69,13 @@
       "title": "기타",
       "detail": "카카오톡 선물하기 50% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.5
+        }
+      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -79,8 +84,13 @@
       "title": "카카오페이",
       "detail": "카카오페이 결제 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     }

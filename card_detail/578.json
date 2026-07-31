@@ -63,8 +63,8 @@
   "top_benefit_summary": "금융: 5% | 기타: 무제한",
   "detailed_benefits": "금융: 금융포인트 0.5~5% 적립 | 기타: 다양한 KB금융 서비스 혜택",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

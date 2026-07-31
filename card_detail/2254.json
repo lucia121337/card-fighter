@@ -78,8 +78,8 @@
   "top_benefit_summary": "공과금: 5% | 생활: 30% | 모든가맹점: 0.5% | 비즈니스: 0.5%",
   "detailed_benefits": "공과금: 4대사회보험, 전기요금 5% 특별할인 | 생활: 스타벅스, 넷플릭스, 멜론 30% 특별할인 | 모든가맹점: 국내, 해외 이용가맹점 0.5% 기본할인 | 비즈니스: 주요 사업경비업종, 해외이용액 0.5%~1.0% 추가할인",
   "item_limit": "[{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

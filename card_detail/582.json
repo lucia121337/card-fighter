@@ -68,8 +68,8 @@
   "top_benefit_summary": "국내외가맹점: 0.7% | 할인: 1.4%",
   "detailed_benefits": "국내외가맹점: 국내외 가맹점 0.7 % 결제일 할인 | 할인: 건별 10만원 이상 결제 시 1.4% 결제일 할인",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

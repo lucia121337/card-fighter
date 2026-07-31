@@ -59,8 +59,8 @@
   "top_benefit_summary": "공과금: 무제한 | 기타: 30%",
   "detailed_benefits": "공과금: 아파트관리비(공공 임대료) 3천~10천원 캐시백 | 기타: 유튜브 프리미엄 정기권 30% 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":10000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

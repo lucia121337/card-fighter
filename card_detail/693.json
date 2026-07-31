@@ -78,8 +78,8 @@
   "top_benefit_summary": "자동차: 0.2% | 주유: 무제한 | 정비: 무제한 | 자동차/하이패스: 30% | 카페: 무제한",
   "detailed_benefits": "자동차: 신한카드 MY CAR로 자동차 구매 시 0.2% 캐시백 서비스 제공 | 주유: 전국 모든 주유소 이용금액 리터당 80원 결제일 할인 | 정비: 스피드메이트/오토오아시스/현대 블루핸즈/기아 오토큐 연 최대 4만원 결제일 할인 | 자동차/하이패스: 전기차 충전요금 30% 결제일 할인 | 카페: 전국 모든 커피전문점 월 최대 2천원 결제일 할인",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | 150000 | 20000 | 4000 | 2000",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "보험사: 무제한 | 주유: 5%",
   "detailed_benefits": "보험사: DB손해보험 다이렉트 자동차보험료 청구할인 서비스 | 주유: Sk에너지, 농협주유소 5% 청구할인(충전소 제외)",
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":30000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

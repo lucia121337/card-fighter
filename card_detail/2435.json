@@ -83,13 +83,8 @@
   "top_benefit_summary": "충전소: 무제한 | 디지털구독: 무제한 | 통신: 무제한 | 편의점: 무제한 | 카페/디저트: 무제한 | 기타: 무제한",
   "detailed_benefits": "충전소: [전기차 충전 캐시백] | 디지털구독: [생활 캐시백] | 통신: [생활 캐시백] | 편의점: [생활 캐시백] | 카페/디저트: [생활 캐시백] | 기타: [주차 캐시백]",
   "item_limit": "[{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}] | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 800000,
-      "limit": 50
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -88,8 +88,8 @@
   "top_benefit_summary": "온라인쇼핑: 무제한 | 푸드: 무제한 | 테마파크: 50% | 영화: 1500원 | 푸드: 15% | 멤버십포인트: 무제한",
   "detailed_benefits": "온라인쇼핑: 혜택 | 푸드: 혜택 | 테마파크: 롯데월드 종합이용권 50% 할인 | 영화: 롯데시네마 관람료 1,500원 할인 | 푸드: 미스터피자 15% 현장 할인 | 멤버십포인트: 롯데 SK 주유포인트 적립",
   "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":700000,\"limit\":40000}] | [{\"perf\":10000,\"limit\":200000}] | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

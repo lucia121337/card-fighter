@@ -83,8 +83,8 @@
   "top_benefit_summary": "병원/약국: 무제한 | 대중교통: 무제한 | 패밀리레스토랑: 무제한 | 카페: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "병원/약국: 병의원, 약국 할인 | 대중교통: 대중교통 할인 | 패밀리레스토랑: 패밀리레스토랑 할인 | 카페: 커피전문점 할인 | 멤버십포인트: 그린카드 멤버십 혜택",
   "item_limit": "[{\"perf\":10000,\"limit\":50000}] | [{\"perf\":30000,\"limit\":300000}] | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

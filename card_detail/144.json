@@ -83,8 +83,8 @@
   "top_benefit_summary": "여행/숙박: 무제한 | 교통: 무제한 | 인테리어: 무제한 | 캐시백: 3% | 할인: 무제한",
   "detailed_benefits": "여행/숙박: [꿀잠&alpha; Relax 할인서비스] | 교통: [꿀잠&alpha; Relax 할인서비스] | 인테리어: [꿀잠&alpha; Relax 할인서비스] | 캐시백: 해외 가맹점 3% 캐시백 | 할인: 꿀잠&alpha; 알파원 오토체인지 할인서비스",
   "item_limit": "[{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000}] | [{\"perf\":400000,\"limit\":800000}] | 500000 | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":5000}]",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "제주항공: 무제한 | 제주항공: 무제한 | 적립: 무제한",
   "detailed_benefits": "제주항공: 여행특화 1천원당 제주항공 리프레시 포인트 30p 적립 | 제주항공: 쇼핑/구독/레저 1천원당 제주항공 리프레시 포인트 20p 적립 | 적립: 국내 전가맹점 1천원당 제주항공 리프레시 포인트 5p 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

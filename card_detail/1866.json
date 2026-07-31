@@ -93,8 +93,8 @@
   "top_benefit_summary": "아시아나항공: 무제한 | 골프: 무제한",
   "detailed_benefits": "아시아나항공: 이용금액 1,000원당 아시아나 1 마일리지 적립 | 골프: 항공권",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

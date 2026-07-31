@@ -49,7 +49,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2193",
   "top_benefit_summary": "캐시백: 3%",
   "detailed_benefits": "캐시백: 당월 10만원 이상 ~ 30만원 미만 사용 : 연 3% (월 0.25%)",
-  "item_limit": "[{\"perf\":100000,\"limit\":300000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -60,8 +60,18 @@
       "title": "캐시백",
       "detail": "당월 10만원 이상 ~ 30만원 미만 사용",
       "group_id": null,
-      "rate": "[{\"perf\":100000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 100000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 100000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

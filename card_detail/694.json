@@ -78,8 +78,8 @@
   "top_benefit_summary": "배달앱: 3% | 온라인쇼핑: 무제한 | 디지털구독: 무제한 | 적립: 무제한",
   "detailed_benefits": "배달앱: 배민 앱에서 배민페이 결제 시 배민포인트 3% 적립 | 온라인쇼핑: 배민포인트 | 디지털구독: 배민포인트 | 적립: 배민포인트",
   "item_limit": "[{\"perf\":300000,\"limit\":200000}] | [{\"perf\":300000,\"limit\":200000}] | [{\"perf\":300000,\"limit\":200000}] | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

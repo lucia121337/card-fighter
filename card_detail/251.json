@@ -73,17 +73,8 @@
   "top_benefit_summary": "해외: 1% | 여행/숙박: 무제한 | 적립: 무제한 | 영화: 무제한",
   "detailed_benefits": "해외: 해외가맹점 결제시 국제브랜드 수수료 1% 면제 | 여행/숙박: 저가항공(LCC), 면세점 이용금액 하나머니 적립 | 적립: 온라인쇼핑, 통신/교통/자동이체 이용금액 하나머니 적립 | 영화: 국내 영화관 영화표 1만원 이상 결제하면 5천원 청구할인",
   "item_limit": "-1 | -1 | -1 | [{\"perf\":10000,\"limit\":5000},{\"perf\":300000,\"limit\":5000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 5
-    },
-    {
-      "perf": 600000,
-      "limit": 9
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

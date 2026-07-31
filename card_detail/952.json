@@ -78,8 +78,8 @@
   "top_benefit_summary": "패밀리레스토랑: 10% | 카페: 20% | 영화: 3000원",
   "detailed_benefits": "패밀리레스토랑: 아웃백, TGIF 10% 청구할인 | 카페: 스타벅스, 투썸플레이스 20% 청구할인 | 영화: 모든 영화관 3,000원 청구할인",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

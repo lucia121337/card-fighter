@@ -67,10 +67,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2681",
   "top_benefit_summary": "대중교통: 10% | 드럭스토어: 10% | 카페: 10%",
   "detailed_benefits": "대중교통: 버스/지하철 10% 청구할인 (월 1만원, 월 2만원) | 드럭스토어: 다이소/올리브영 10% 청구할인 (일 1천원, 월 1만원) | 카페: 스타벅스/커피빈 10% 청구할인 (월 5천원)",
-  "item_limit": "[{\"perf\":10000,\"limit\":20000},{\"perf\":500000,\"limit\":1000000}] | 500000 | 500000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":10000,\"limit\":20000},{\"perf\":1000000,\"limit\":500000}] | 500000 | 500000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -90,8 +90,8 @@
           "limit": 20000
         },
         {
-          "perf": 500000,
-          "limit": 1000000
+          "perf": 1000000,
+          "limit": 500000
         }
       ],
       "fixedAmount": 0,

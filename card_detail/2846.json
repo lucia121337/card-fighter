@@ -77,8 +77,8 @@
   "top_benefit_summary": "적립: 1.2% | 적립: 무제한",
   "detailed_benefits": "적립: 국내 가맹점 1.2% NH포인트 적립 | 적립: [보너스 포인트] 연간 이용금액 1천만원 이상 시 NH포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -83,8 +83,8 @@
   "top_benefit_summary": "캐시백: 무제한 | 생활: 무제한",
   "detailed_benefits": "캐시백: 한눈에 보는 주요 서비스 | 생활: 통신료 자동납부 3천원 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":500000}] | [{\"perf\":10000,\"limit\":4000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

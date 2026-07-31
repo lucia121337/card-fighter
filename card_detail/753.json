@@ -59,8 +59,8 @@
   "top_benefit_summary": "화장품: 12% | 쇼핑: 5%",
   "detailed_benefits": "화장품: 아모레퍼시픽 이용 시 뷰티포인트 12% 적립 | 쇼핑: 특별가맹점 이용 시 뷰티포인트 5% 적립",
   "item_limit": "24000 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

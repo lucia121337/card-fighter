@@ -88,8 +88,8 @@
   "top_benefit_summary": "디지털구독: 2900원 | 디지털구독: 무제한 | 음원사이트: 무제한 | 간편결제: 무제한 | 온라인쇼핑: 무제한 | 배달앱: 무제한 | 수수료우대: 무제한",
   "detailed_benefits": "디지털구독: 쿠팡 로켓와우 멤버십 자동납부 정기결제 시 최대 2,900원 할인 | 디지털구독: NETFLIX, YouTube Premium 자동납부 정기결제 시 2천원 할인 | 음원사이트: 멜론, 지니뮤직, 벅스뮤직 자동납부 정기결제 시 1천원 할인 | 간편결제: &lt;간편결제&gt;, &lt;쇼핑&gt;, &lt;배달앱&gt; 결제 시 1천원 할인 | 온라인쇼핑: &lt;간편결제&gt;, &lt;쇼핑&gt;, &lt;배달앱&gt; 결제 시 1천원 할인 | 배달앱: &lt;간편결제&gt;, &lt;쇼핑&gt;, &lt;배달앱&gt; 결제 시 1천원 할인 | 수수료우대: 해외 서비스수수료, 현금인출수수료, 예금잔액조회수수료 면제",
   "item_limit": "2900 | [{\"perf\":10000,\"limit\":200000}] | -1 | [{\"perf\":10000,\"limit\":300000}] | [{\"perf\":10000,\"limit\":300000}] | [{\"perf\":10000,\"limit\":300000}] | 1",
-  "group_id": "none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

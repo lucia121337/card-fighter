@@ -78,8 +78,8 @@
   "top_benefit_summary": "기차: 무제한 | 프리미엄 서비스: 무제한",
   "detailed_benefits": "기차: [여행 할인 서비스 (전월 이용실적 30만원 이상)] | 프리미엄 서비스: UnionPay 플래티늄 서비스",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

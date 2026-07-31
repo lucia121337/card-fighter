@@ -68,8 +68,8 @@
   "top_benefit_summary": "멤버십포인트: 2% | 모든가맹점: 1%",
   "detailed_benefits": "멤버십포인트: GS리테일 점내 이용 시 2% GS&amp;POINT 적립 | 모든가맹점: 국내 이용금액의 1%, 국외 이용금액의 2% NH포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -78,8 +78,8 @@
   "top_benefit_summary": "쇼핑: 2000원 | 드럭스토어: 1000원 | 카페: 500원 | 캐시백: 무제한",
   "detailed_benefits": "쇼핑: 쇼핑 대상가맹점 결제 시 2,000원 할인 | 드럭스토어: H&amp;B스토어, 뷰티업종 결제 시 1,000원 할인 | 카페: 커피 500원 할인 | 캐시백: 나를 위한 힐링시간 Metime! 알아두면 좋은 더블혜택 서비스",
   "item_limit": "[{\"perf\":30000,\"limit\":100000}] | [{\"perf\":10000,\"limit\":100000}] | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

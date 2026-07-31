@@ -73,8 +73,8 @@
   "top_benefit_summary": "OTT/영화/문화: 무제한 | 생활: 무제한",
   "detailed_benefits": "OTT/영화/문화: 스트리밍 | 생활: 커피/교통",
   "item_limit": "[{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

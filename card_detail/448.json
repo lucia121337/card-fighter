@@ -88,8 +88,8 @@
   "top_benefit_summary": "기타: 1% | 주유소: 100원 | 카페: 20% | 택시: 20%",
   "detailed_benefits": "기타: 국내 일시불, 할부 사용금액의 1% 하나머니 적립 | 주유소: 전 주유소 주유 리터당 100원 청구할인(충전소 포함) | 카페: 스타벅스, 커피빈 20% 청구할인 | 택시: 택시업종 20% 청구할인",
   "item_limit": "-1 | [{\"perf\":1000000,\"limit\":400000}] | [{\"perf\":500000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":10000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

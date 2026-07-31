@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/96",
   "top_benefit_summary": "모든가맹점: 4%",
   "detailed_benefits": "모든가맹점: 엔터테인먼트, 휴대폰 요금, 교통/주유, 쇼핑, 교육 등 5개의 항목에서 카드 사용 액의 4%~20%까지 특별 포인트 적립",
-  "item_limit": "[{\"perf\":300000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":2000000}]",
+  "item_limit": "[{\"perf\":700000,\"limit\":300000},{\"perf\":1000000,\"limit\":700000},{\"perf\":2000000,\"limit\":1000000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -83,8 +83,26 @@
       "title": "모든가맹점",
       "detail": "엔터테인먼트, 휴대폰 요금, 교통/주유, 쇼핑, 교육 등 5개의 항목에서 카드 사용 액의 4%~20%까지 특별 포인트 적립",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.04}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.04
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 700000,
+          "limit": 300000
+        },
+        {
+          "perf": 1000000,
+          "limit": 700000
+        },
+        {
+          "perf": 2000000,
+          "limit": 1000000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

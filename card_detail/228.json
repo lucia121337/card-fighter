@@ -64,8 +64,8 @@
   "top_benefit_summary": "모든가맹점: 0.8% | 온라인쇼핑: 1.3% | APP: 1.4%",
   "detailed_benefits": "모든가맹점: 모든 가맹점 0.8% 청구할인 | 온라인쇼핑: 온라인 가맹점 1.3% 청구할인 | APP: 1Q Pay 이용시 온라인 가맹점 1.4% 청구할인",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

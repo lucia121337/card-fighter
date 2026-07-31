@@ -78,9 +78,9 @@
   "top_benefit_summary": "온라인쇼핑: 10% | 병원/약국: 10% | 학원: 10% | 주유: 10% | 생활: 10%",
   "detailed_benefits": "온라인쇼핑: [온라인 쇼핑몰 10% 청구 할인] | 병원/약국: [병원&middot;약국 10% 청구 할인] | 학원: [학원 10% 청구 할인] | 주유: [주유 10% 청구 할인] | 생활: [생활 요금 정기 결제 10% 청구 할인]",
   "item_limit": "[{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}]",
-  "group_id": "group_2683_온라인 쇼핑몰 10% 청구 할인 | group_2683_병원 약국 10% 청구 할인 | group_2683_학원 10% 청구 할인 | group_2683_주유 10% 청구 할인 | none",
-  "group_limit": "1 | 1 | 1 | 1 | -1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -88,8 +88,22 @@
       "title": "온라인쇼핑",
       "detail": "[온라인 쇼핑몰 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -98,8 +112,22 @@
       "title": "병원/약국",
       "detail": "[병원&middot;약국 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -108,8 +136,22 @@
       "title": "학원",
       "detail": "[학원 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -118,8 +160,22 @@
       "title": "주유",
       "detail": "[주유 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -128,8 +184,22 @@
       "title": "생활",
       "detail": "[생활 요금 정기 결제 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

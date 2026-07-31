@@ -88,8 +88,8 @@
   "top_benefit_summary": "편의점: 무제한 | 푸드: 무제한 | 해외: 무제한 | 쇼핑: 무제한 | 푸드: 무제한 | 생활: 무제한",
   "detailed_benefits": "편의점: 세븐일레븐, 패밀리마트, 로손 | 푸드: 스타벅스/맥도날드 | 해외: 일본 오프라인 가맹점 | 쇼핑: 간편결제 | 푸드: 커피 | 생활: 대중교통",
   "item_limit": "-1 | -1 | [{\"perf\":200000,\"limit\":1000}] | [{\"perf\":200000,\"limit\":1000}] | [{\"perf\":200000,\"limit\":1000}] | [{\"perf\":200000,\"limit\":1000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

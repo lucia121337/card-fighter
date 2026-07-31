@@ -68,8 +68,8 @@
   "top_benefit_summary": "국내외가맹점: 0.3% | 기타: 무제한 | 적립: 무제한",
   "detailed_benefits": "국내외가맹점: 국내 이용금액 최대 0.3% 할인 | 기타: 매월 2회 국내 이용 할인 쿠폰 제공 | 적립: My Pick 가맹점 월 3, 6, 9번째 이용 건에 대해 마이신한포인트 1,000포인트 적립",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":10000}] | 3",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

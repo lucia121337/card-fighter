@@ -64,8 +64,8 @@
   "top_benefit_summary": "생활: 무제한 | 간편결제: 5%",
   "detailed_benefits": "생활: 넷플릭스, 유튜브 프리미엄, 멜론, 지니 중 1개를 선택하면 이용요금 최대 1만원 청구 할인 | 간편결제: 온라인 가맹점에서 삼성페이, 네이버페이, 카카오페이, SSG페이, 스마일페이, 쿠페이로 결제하면 5% 청구 할인",
   "item_limit": "10000 | 10000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

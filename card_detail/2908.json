@@ -59,8 +59,8 @@
   "top_benefit_summary": "적립: 1% | 적립: 2%",
   "detailed_benefits": "적립: 전월 이용금액에 관계없이, 적립한도 없이 국내외 가맹점 1% 번개포인트 기본 적립 | 적립: 번개장터 이용 시 2% 번개포인트 추가 적립",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":1000000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

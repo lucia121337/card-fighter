@@ -88,8 +88,8 @@
   "top_benefit_summary": "편의점: 5% | 화장품: 5% | 패스트푸드: 5% | 도서: 5% | 소셜커머스: 5% | 영화: 5% | 교통: 무제한",
   "detailed_benefits": "편의점: GS25 5% 환급할인 | 화장품: 올리브영 5% 환급할인 | 패스트푸드: 패스트푸드 업종 5% 환급할인 | 도서: 서점업종 5% 환급할인 | 소셜커머스: 소셜커머스 5% 환급할인 (쿠팡, 티몬, 위메프) | 영화: CGV 5% 환급할인 | 교통: 티머니 서비스 소개",
   "item_limit": "[{\"perf\":50000,\"limit\":1000}] | [{\"perf\":50000,\"limit\":1000}] | [{\"perf\":50000,\"limit\":1000}] | [{\"perf\":50000,\"limit\":1000}] | [{\"perf\":50000,\"limit\":1000}] | [{\"perf\":50000,\"limit\":1000}] | -1",
-  "group_id": "none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

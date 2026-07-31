@@ -78,13 +78,8 @@
   "top_benefit_summary": "적립: 무제한 | 공과금: 무제한",
   "detailed_benefits": "적립: 온라인쇼핑, 통신/교통/자동이체, 해외영역별 이번달 합산 이용금액 10만원 이상시 5천 하나머니 적립 | 공과금: 이번달 아파트관리비 / 4대보험 자동이체 금액 합산 10만원 이상일 때 5천 하나머니 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 600000,
-      "limit": 1
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

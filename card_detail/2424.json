@@ -59,21 +59,8 @@
   "top_benefit_summary": "렌탈: 25000원 | 캐시백: 무제한",
   "detailed_benefits": "렌탈: 렌탈료 결제일 최대 25,000원 할인 | 캐시백: 장기할부 최대 25,000원 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1500000,\"limit\":25000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 10000
-    },
-    {
-      "perf": 700000,
-      "limit": 15000
-    },
-    {
-      "perf": 1500000,
-      "limit": 25000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

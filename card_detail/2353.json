@@ -88,8 +88,8 @@
   "top_benefit_summary": "모든가맹점: 1.8% | 해외: 3%",
   "detailed_benefits": "모든가맹점: 국내 전 가맹점 1~1.8% 포인트적립 | 해외: 해외 전 가맹점 3% 포인트적립",
   "item_limit": "[{\"perf\":1000000,\"limit\":3000000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

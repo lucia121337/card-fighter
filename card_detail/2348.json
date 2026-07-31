@@ -78,13 +78,8 @@
   "top_benefit_summary": "모든가맹점: 0.7% | 쇼핑: 6.3% | 일반음식점: 6.3% | 기타: 6.3%",
   "detailed_benefits": "모든가맹점: 전 가맹점 0.7% 기본 할인 | 쇼핑: 온라인쇼핑/간편결제 6.3% 추가 할인 | 일반음식점: 음식점 6.3% 추가 할인 | 기타: 교통/통신/스트리밍 6.3% 할인",
   "item_limit": "-1 | [{\"perf\":400000,\"limit\":10000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":10000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 400000,
-      "limit": 10000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

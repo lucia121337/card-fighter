@@ -78,8 +78,8 @@
   "top_benefit_summary": "적립: 1% | 적립: 10% | 적립: 무제한 | 기타: 무제한",
   "detailed_benefits": "적립: [기본 혜택] 국내외 가맹점 1% M포인트 적립 | 적립: [추가 혜택] 롯데백화점, 롯데아울렛, 롯데몰, 롯데백화점몰(온라인) 10% M포인트 적립 (월 4만 M포인트 한도) | 적립: [연간 보너스] 롯데백화점, 롯데아울렛, 롯데몰, 롯데백화점몰(온라인) 10만 M포인트 적립 | 기타: M 긴급적립(선지급 포인트 서비스)",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -92,7 +92,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2082",
   "top_benefit_summary": "통신: 2000원 | 학원: 5% | 병원: 5% | 온라인쇼핑: 5% | 백화점: 5% | 영화: 2000원 | 도서: 2000원 | 공연/전시: 3%",
   "detailed_benefits": "통신: 이동통신요금 2,000원 할인 | 학원: 학원 5% 할인 | 병원: 병원, 약국 5% 할인 | 온라인쇼핑: 인터넷쇼핑 5% 할인 | 백화점: 백화점, 대형마트 5% 할인 | 영화: 영화 2,000원 할인 | 도서: 도서 2,000원 할인 | 공연/전시: 공연 3% 할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":50000,\"limit\":500000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":30000,\"limit\":500000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":30000,\"limit\":5000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":30000,\"limit\":5000},{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":20000}]",
+  "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":200000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":700000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000}]",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [],
@@ -103,8 +103,26 @@
       "title": "통신",
       "detail": "이동통신요금 2,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -113,8 +131,26 @@
       "title": "학원",
       "detail": "학원 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 200000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -123,8 +159,26 @@
       "title": "병원",
       "detail": "병원, 약국 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -133,8 +187,26 @@
       "title": "온라인쇼핑",
       "detail": "인터넷쇼핑 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -143,8 +215,26 @@
       "title": "백화점",
       "detail": "백화점, 대형마트 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -153,8 +243,26 @@
       "title": "영화",
       "detail": "영화 2,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -163,8 +271,26 @@
       "title": "도서",
       "detail": "도서 2,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -173,8 +299,26 @@
       "title": "공연/전시",
       "detail": "공연 3% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.03
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 15000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

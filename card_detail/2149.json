@@ -69,8 +69,8 @@
   "top_benefit_summary": "온라인쇼핑: 7% | 대형마트: 5% | 멤버십포인트: 무제한",
   "detailed_benefits": "온라인쇼핑: 이랜드리테일 이용금액 7% 결제일할인 | 대형마트: 주요 마트 이용금액 5% 결제일 할인 | 멤버십포인트: L.POINT 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

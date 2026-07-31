@@ -55,8 +55,8 @@
   "top_benefit_summary": "국내외가맹점: 0.2% | 카페: 6%",
   "detailed_benefits": "국내외가맹점: [기본 적립] 국내・외 가맹점 이용금액의 0.2% 적립 | 카페: [추가 적립] 특정가맹점 이용금액의 6% 적립",
   "item_limit": "-1 | [{\"perf\":200000,\"limit\":500000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

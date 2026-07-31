@@ -78,8 +78,8 @@
   "top_benefit_summary": "할인: 0.7% | 디지털구독: 10% | 배달앱: 10% | 카페: 무제한 | 자동차: 10% | 생활: 5%",
   "detailed_benefits": "할인: 기본 할인 0.7% | 디지털구독: 넷플릭스 10% 할인 | 배달앱: 배달의민족 10% 할인 | 카페: 스타벅스 | 자동차: 전기차 충전 할인 10% | 생활: 일상 생활 할인 5%",
   "item_limit": "-1 | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

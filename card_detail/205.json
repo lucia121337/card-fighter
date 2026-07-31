@@ -68,8 +68,8 @@
   "top_benefit_summary": "공과금: 무제한 | 대형마트: 무제한 | 생활: 무제한",
   "detailed_benefits": "공과금: 할인서비스 제공 대상: 월납 생활비 | 대형마트: 할인서비스 제공 대상: 주말 생활비 | 생활: 할인서비스 제공 대상: 일상 생활비",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

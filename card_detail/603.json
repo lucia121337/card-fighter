@@ -98,8 +98,8 @@
   "top_benefit_summary": "카페: 500원 | 자동차: 무제한 | 기타: 무제한",
   "detailed_benefits": "카페: 스타벅스, 폴바셋, 이디야 결제 건당 500원 할인 | 자동차: 서울 및 대도시 제휴 주차장 주말 무료 주차 | 기타: 웰컴보너스 1만5천 마일리지 적립",
   "item_limit": "500 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "대중교통: 20% | 편의점: 10% | 카페: 10%",
   "detailed_benefits": "대중교통: 버스/지하철 20% 청구할인 | 편의점: GS25, CU, 세븐일레븐 10% 청구할인 | 카페: 스타벅스, 커피빈 10% 청구할인",
   "item_limit": "10000 | -1 | 5000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

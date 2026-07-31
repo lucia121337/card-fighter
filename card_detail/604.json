@@ -83,8 +83,8 @@
   "top_benefit_summary": "항공마일리지: 무제한 | 항공마일리지: 무제한 | 기타: 무제한",
   "detailed_benefits": "항공마일리지: 기본적립: 카드 사용금액 1,000원당 1 씨티 프리미어마일 적립(1천원 미만은 절사) | 항공마일리지: 항공사 마일리지 전환 | 기타: 전국 모든 가맹점 2~3개월 상시 무이자 할부",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }
