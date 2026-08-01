@@ -710,9 +710,9 @@
       <!-- LNB 수평 탭 -->
       <nav class="lnb">
 <button class="lnb-item active" data-cardtype="" onclick="setCardType(this)">전체카드</button>
-        <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
-        <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
-        <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
+        <button class="lnb-item" data-cardtype="CRD" onclick="setCardType(this)">신용카드</button>
+        <button class="lnb-item" data-cardtype="CHK" onclick="setCardType(this)">체크카드</button>
+        <button class="lnb-item lnb-prem" data-cardtype="PREM" onclick="setCardType(this)">👑 프리미엄</button>
       </nav>
       <div class="cards-title-row">
         <h2 class="cards-title" id="cards-title">전체카드</h2>
@@ -1088,7 +1088,7 @@ function setCardType(el){
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
-  document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === 'PREM');
   applyFilters();
 }
 
@@ -1191,11 +1191,11 @@ function applyFilters(){
   const feeLo = FEE_STOPS[feeIdx[0]], feeHi = FEE_STOPS[feeIdx[1]];
 
   view = DATA.filter(c=>{
-    if(activeCardType === '프리미엄'){
+    if(activeCardType === 'PREM'){
       if(!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
     } else if(activeCardType){
-      if(c.card_type !== activeCardType) return false; // 신용/체크: card_type 으로 필터(기존 cate 오류 수정)
-      if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
+      if(c.cate !== activeCardType) return false;     // 신용(CRD)/체크(CHK): cate 필드로 필터
+      if(isPremium(c)) return false;                  // 프리미엄(15만↑)은 신용/체크 탭에서 제외
     }
     if(activeCategories.size){
       const cats = [...activeCategories];
@@ -1661,7 +1661,7 @@ document.getElementById('q').addEventListener('input',()=>{
 document.getElementById('sort').addEventListener('change',applyFilters);
 document.getElementById('more').addEventListener('click',render);
 
-/* LNB의 data-cardtype('신용'/'체크')은 데이터의 card_type 값과 그대로 일치하므로 변환하지 않는다. */
+/* LNB의 data-cardtype('CRD'/'CHK')은 데이터의 cate 필드 값과 일치한다. */
 renderCatFilterRow();
 
 /* ── 초기 로드: cards_full.json ── */
