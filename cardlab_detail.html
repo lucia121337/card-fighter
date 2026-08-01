@@ -1,61 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>카드 연구소 상세 분석 — 카드 파이터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
   <!-- Chart.js 라이브러리 연동 (원형 그래프 및 트렌드용) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
     :root {
       --brand: #145CE6;
-      --brand2: #5c8df6;
-      --bg: #f8fafc;
+      --brand-deep: #0E47C0;
+      --bg: #f5f7fa;
       --panel: #ffffff;
-      --panel2: #f1f5f9;
-      --txt: #0f172a;
+      --panel2: #e8f0fd;
+      --txt: #1e293b;
       --muted: #64748b;
       --line: #e2e8f0;
       --shadow: 0 4px 18px rgba(20,92,230,.07);
     }
-    /* index.html/cardlab.html은 전역으로 이미 적용돼있는데 이 파일만 빠져있어서, padding이 붙은
-       요소(.header-top 등)의 실제 렌더링 폭이 max-width보다 padding만큼 더 커지는 원인이었다. */
     *{ box-sizing: border-box; }
-    @font-face {
-      font-family: 'GmarketSans';
-      font-weight: 500;
-      font-style: normal;
-      src: url('https://fastly.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansMedium.woff2') format('woff2');
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'GmarketSans';
-      font-weight: 800;
-      font-style: normal;
-      src: url('https://fastly.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansBold.woff2') format('woff2');
-      font-display: swap;
-    }
     body {
       margin: 0;
-      font-family: 'GmarketSans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "GmarketSans", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
       background: var(--bg);
       color: var(--txt);
       -webkit-font-smoothing: antialiased;
     }
+    @view-transition {
+      navigation: auto;
+    }
     header {
-      background: var(--panel);
-      border-bottom: 1.5px solid var(--line);
+      view-transition-name: site-header;
+      background: rgba(255,255,255,.93);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 0 16px; /* 뷰포트가 1200px보다 좁을 때 header-top이 화면 가장자리에 완전히 붙지 않도록 */
+      padding: 12px 22px;
     }
     .header-top {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 14px 0;
       display: flex;
       align-items: center;
+      flex-wrap: nowrap;
     }
     .brand-left {
       display: flex;
@@ -139,28 +132,31 @@
       flex: 1;
     }
     .search-box input::placeholder { color: #94a3b8; font-weight: 400; }
-    .search-divider {
+    .search-box .search-divider {
       width: 1px;
-      height: 14px;
+      height: 22px;
       background: var(--line);
-      margin: 0 10px;
+      flex-shrink: 0;
     }
-    .search-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0;
+    .search-box .search-btn {
       display: flex;
       align-items: center;
-      transition: .15s all;
+      justify-content: center;
+      width: 48px;
+      height: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: .15s color;
     }
-    .search-btn:hover {
+    .search-box .search-btn:hover {
       color: var(--brand);
     }
-    .search-btn svg {
-      width: 18px;
-      height: 18px;
+    .search-box .search-btn svg {
+      width: 20px;
+      height: 20px;
     }
 
     /* 뒤로가기 링크 영역 */
@@ -634,22 +630,68 @@
     .sk-text.med { width: 85%; }
     .sk-text.short { width: 60%; }
     .sk-card { height: 380px; border-radius: 20px; }
+
+    /* ── 플로팅 버블(비교함) ── */
+    #compare-bubble{position:fixed;bottom:28px;right:28px;z-index:200;display:none}
+    #compare-bubble.visible{display:block}
+    .bubble-wrap{position:relative;display:inline-block}
+    .bubble-btn{width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;
+          border:none;cursor:pointer;font-size:22px;display:flex;align-items:center;
+          justify-content:center;box-shadow:0 6px 24px rgba(20,92,230,.4);
+          font-family:inherit;transition:.15s transform}
+    .bubble-btn:hover{transform:scale(1.08)}
+    .bubble-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;
+          background:#ef4444;color:#fff;font-size:11px;font-weight:800;
+          display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+    #compare-popup{position:fixed;bottom:98px;right:28px;z-index:199;
+          background:#fff;border-radius:20px;padding:20px;width:420px;
+          box-shadow:0 12px 48px rgba(0,0,0,.18);display:none;
+          border:1.5px solid var(--line)}
+    #compare-popup.visible{display:block}
+    .popup-title{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px;
+          display:flex;align-items:center;justify-content:space-between}
+    .popup-slots{display:flex;gap:10px;margin-bottom:14px}
+    .popup-slot{flex:1;border:1.5px dashed var(--line);border-radius:14px;
+          padding:12px 8px;display:flex;flex-direction:column;align-items:center;
+          gap:6px;min-height:100px;position:relative;background:var(--bg)}
+    .popup-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
+    .popup-slot img{width:64px;height:40px;object-fit:contain;border-radius:6px}
+    .popup-slot .ps-name{font-size:11px;font-weight:700;color:var(--txt);
+          text-align:center;line-height:1.4;word-break:keep-all}
+    .popup-slot .ps-remove{position:absolute;top:-7px;right:-7px;width:20px;height:20px;
+          border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
+          font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    .popup-slot.empty{cursor:pointer;border-style:dashed;transition:.14s border-color;
+          justify-content:center}
+    .popup-slot.empty:hover{border-color:var(--brand)}
+    .popup-slot .ps-plus{font-size:28px;color:#cbd5e1;line-height:1;margin-bottom:2px}
+    .popup-slot .ps-label{font-size:11px;color:var(--muted)}
+    .popup-actions{display:flex;gap:8px}
+    .popup-reset{flex:1;background:none;border:1.5px solid var(--line);border-radius:10px;
+          padding:9px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
+          font-family:inherit;transition:.14s}
+    .popup-reset:hover{border-color:var(--brand);color:var(--brand)}
+    .popup-compare{flex:2;background:var(--brand);color:#fff;border:none;border-radius:10px;
+          padding:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+          box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.14s background}
+    .popup-compare:hover{background:var(--brand-deep)}
+    .popup-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
   </style>
 </head>
 <body>
 <header>
   <div class="header-top">
-    <div class="brand-left" onclick="location.href='index.html'">
+    <div class="brand-left" onclick="location.href='/'">
       <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
       <h1>카드 파이터</h1>
     </div>
     <div class="gnb-divider"></div>
     <nav class="gnb">
-      <a href="index.html">홈</a>
-      <a href="index.html#cards">전체카드</a>
-      <a href="index.html#cashback"><span class="coin-icon">🪙</span>캐시백</a>
-      <a href="index.html#merchant">할인가맹점</a>
-      <a href="cardlab.html" class="active">카드 연구소</a>
+      <a href="/">홈</a>
+      <a href="/card">전체카드</a>
+      <a href="/event"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="/shopping">할인가맹점</a>
+      <a href="/cardlab" class="active">카드 연구소</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -667,7 +709,7 @@
 </header>
 
 <div class="back-nav-wrap">
-  <a href="cardlab.html" class="back-link">
+  <a href="/cardlab" class="back-link">
     <svg class="back-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -679,13 +721,88 @@
   <!-- 동적 컨텐츠 바디 삽입 지점 -->
 </main>
 
+<!-- 플로팅 버블(비교함) -->
+<div id="compare-bubble">
+  <div class="bubble-wrap">
+    <button class="bubble-btn" onclick="togglePopup()">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="7" x2="21" y2="7"/>
+        <path d="M6 7l-3 7a3 3 0 0 0 6 0L6 7z"/><path d="M18 7l-3 7a3 3 0 0 0 6 0L18 7z"/>
+      </svg>
+    </button>
+    <span class="bubble-badge" id="bubble-badge">0</span>
+  </div>
+</div>
+
+<!-- 비교 팝업 -->
+<div id="compare-popup">
+  <div class="popup-title">
+    <span>비교함</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="popup-count" style="color:var(--brand)"></span>
+      <button onclick="togglePopup()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:0">✕</button>
+    </div>
+  </div>
+  <div class="popup-slots" id="popup-slots"></div>
+  <div class="popup-actions">
+    <button class="popup-reset" onclick="resetCompare()">초기화</button>
+    <button class="popup-compare" id="popup-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+  </div>
+</div>
+
 <script>
 function doGlobalSearch() {
   const query = document.getElementById('q').value.trim();
   if (query) {
-    location.href = `index.html?q=${encodeURIComponent(query)}`;
+    location.href = `/search?q=${encodeURIComponent(query)}`;
   }
 }
+
+/* ── 비교함(플로팅 버블) ── */
+const escBubble = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
+let popupOpen = false;
+function togglePopup(){
+  popupOpen = !popupOpen;
+  document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+}
+function updateCompareBubble(){
+  document.getElementById('compare-bubble').classList.add('visible');
+  document.getElementById('bubble-badge').textContent = compareList.length;
+  const pslots = Array.from({length:3},(_,i)=>{
+    const c = compareList[i];
+    if(c) return `<div class="popup-slot filled">
+      <img src="${escBubble(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      <span class="ps-name">${escBubble(c.name)}</span>
+      <button class="ps-remove" onclick="toggleCompareEntry(${c.idx})">×</button>
+    </div>`;
+    return `<div class="popup-slot empty" onclick="location.href='/card'">
+      <span class="ps-plus">+</span>
+      <span class="ps-label">카드 추가</span>
+    </div>`;
+  }).join('');
+  document.getElementById('popup-slots').innerHTML = pslots;
+  document.getElementById('popup-count').textContent = `${compareList.length}/3`;
+  document.getElementById('popup-compare-btn').disabled = compareList.length < 2;
+}
+function toggleCompareEntry(idx){
+  const i = compareList.findIndex(c=>c.idx===idx);
+  if(i > -1) compareList.splice(i,1);
+  saveCompare();
+  updateCompareBubble();
+}
+function resetCompare(){
+  compareList = [];
+  saveCompare();
+  updateCompareBubble();
+}
+function goCompare(){
+  if(compareList.length < 2) return;
+  const slot = compareList.map(c=>c.idx).join(',');
+  window.open(`/compare/${slot}`, '_blank');
+}
+updateCompareBubble();
 
 // ── 공통 카드 정보 테이블 (상세 렌더링용) ──
 const REC_CARDS = [
@@ -711,7 +828,19 @@ const REC_CARDS = [
   {idx:2667,card_name:"신한카드 SOL트래블 체크",company:"신한카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"수수료: 해외 이용/ATM 인출 수수료 100% 면제 | 공항라운지: 전세계 라운지 반기별 1회 무료 이용",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2667/card_img/32473/2660card.png"},
   {idx:2905,card_name:"트래블러스 체크카드",company:"KB국민카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"환율우대: 전세계 56개 통화 100% 환율 우대 | 수수료: 해외 결제 및 ATM 인출 수수료 전액 면제",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2905/card_img/44879/2905card_3.png"},
   {idx:281,card_name:"신한카드 Deep Dream 체크",company:"신한카드",annual_fee:"없음 (체크카드)",pre_month_money:0,top_benefit_summary:"적립: 전 가맹점 0.2% 기본 적립 | 대형마트: 이마트/홈플러스/롯데마트 최대 1.0% 특별 적립",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/281/card_img/20503/281card.png"},
-  {idx:2290,card_name:"삼성 iD ENERGY 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"주유: 주유소 1만 원 청구할인 (월 2회) | 대중교통: 버스/지하철/택시 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2290/card_img/27723/2290card.png"}
+  {idx:2290,card_name:"삼성 iD ENERGY 카드",company:"삼성카드",annual_fee:"국내전용 [20,000]원 / 해외겸용 [20,000]원",pre_month_money:500000,top_benefit_summary:"주유: 주유소 1만 원 청구할인 (월 2회) | 대중교통: 버스/지하철/택시 10% 할인",card_img:"https://d1c5n4ri2guedi.cloudfront.net/card/2290/card_img/27723/2290card.png"},
+  {"idx":2955,"card_name":"삼성라이온즈카드","company":"삼성카드","annual_fee":"국내전용 [20,000]원 / 해외겸용 [20,000]원","pre_month_money":300000,"top_benefit_summary":"할인: 50% | 할인: 10% | 디지털구독: 50% | 할인: 10% | 교통: 10% | 기차: 5% | 할인: 5% | 여행사: 5%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2955/card_img/47579/2955card_1.png"},
+  {"idx":2953,"card_name":"스타트래블 우리카드","company":"우리카드","annual_fee":"국내전용 [28,000]원 / 해외겸용 [28,000]원","pre_month_money":300000,"top_benefit_summary":"카페: 무제한 | 해외: 무제한 | 적립: 2%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2953/card_img/47835/2953card.png"},
+  {"idx":649,"card_name":"마이핏카드(적립형)","company":"KB국민카드","annual_fee":"국내전용 [30,000]원 / 해외겸용 [30,000]원","pre_month_money":500000,"top_benefit_summary":"간편결제: 1.5% | 생활: 무제한 | 쇼핑: 5%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/649/card_img/21412/649card.png"},
+  {"idx":2658,"card_name":"I-나눔","company":"IBK기업은행","annual_fee":"국내전용 [14,000]원 / 해외겸용 [15,000]원","pre_month_money":500000,"top_benefit_summary":"국내외가맹점: 0.5% | 할인: 1% | 할인: 5%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2658/card_img/32301/2658card.png"},
+  {"idx":455,"card_name":"롯데 국민행복카드","company":"롯데카드","annual_fee":"국내전용 [없음] / 해외겸용 [없음]","pre_month_money":300000,"top_benefit_summary":"쇼핑: 5% | 교육/육아: 30% | 병원/약국: 5% | 교육/육아: 10% | 교통: 10% | 통신: 무제한","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/455/card_img/20971/455card.png"},
+  {"idx":26,"card_name":"신한카드 Edu","company":"신한카드","annual_fee":"해외겸용 [20,000]원","pre_month_money":500000,"top_benefit_summary":"교육/육아: 무제한 | 공과금: 무제한 | 생활: 1%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/26/card_img/36674/26card.png"},
+  {"idx":546,"card_name":"다둥이 행복카드","company":"우리카드","annual_fee":"해외겸용 [없음]","pre_month_money":0,"top_benefit_summary":"대중교통: 무제한 | 적립: 0.9% | 주유소: 무제한 | 쇼핑: 10%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/546/card_img/21252/546card.png"},
+  {"idx":580,"card_name":"Easy pick 티타늄 카드","company":"KB국민카드","annual_fee":"국내전용 [30,000]원 / 해외겸용 [30,000]원","pre_month_money":500000,"top_benefit_summary":"온라인쇼핑: 5% | 배달앱: 5% | 대형마트: 5% | 주유: 5% | 피트니스: 5% | 대중교통: 5% | 통신: 5% | APP: 무제한 | 렌탈: 무제한","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/580/card_img/21321/580card.png"},
+  {"idx":2408,"card_name":"올바른HOMETOWN카드","company":"NH농협카드","annual_fee":"국내전용 [12,000]원 / 해외겸용 [12,000]원","pre_month_money":400000,"top_benefit_summary":"대형마트: 5% | SSM: 5% | 병원/약국: 5% | 홈쇼핑: 10% | 기타: 10% | 대중교통: 10%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2408/card_img/26508/2408card.png"},
+  {"idx":2645,"card_name":"ZipL 신용카드","company":"BNK부산은행","annual_fee":"국내전용 [10,000]원 / 해외겸용 [15,000]원","pre_month_money":0,"top_benefit_summary":"할인: 10%","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2645/card_img/32105/2645card.png"},
+  {"idx":2835,"card_name":"신한카드 Discount Plan+","company":"신한카드","annual_fee":"국내전용 [50,000]원 / 해외겸용 [50,000]원","pre_month_money":400000,"top_benefit_summary":"할인: 무제한 | 쇼핑: 10% | 교통: 5% | 생활: 5% | 할인: 무제한 | 할인: 20% | 영화: 무제한 | 캐시백: 무제한","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2835/card_img/41600/2835card.png"},
+  {"idx":2994,"card_name":"카드의정석2 원더라이프","company":"우리카드","annual_fee":"국내전용 [25,000]원 / 해외겸용 [25,000]원","pre_month_money":0,"top_benefit_summary":"할인: 1% | 할인: 무제한","card_img":"https://d1c5n4ri2guedi.cloudfront.net/card/2994/card_img/49069/2994card.png"}
 ];
 
 const recCardMap = {};
@@ -731,8 +860,8 @@ const VACATION_STYLES = {
       data: [35, 30, 20, 15]
     },
     cards: [
-      { name: "디지로카 Travel", company: "롯데카드", fee: "해외겸용 20,000원", summary: "<b>적립</b>: 기본적립 국내 1% 해외 1.2%<br><b>여행/숙박</b>: 항공권 2% 호텔/렌터카 3% 특별적립", idx: 2863, review: "국내 모든 가맹점에서 기본 1% 적립을 지원하며, 여행/숙소 3% 특별적립으로 휴가지에서 혜택이 쏠쏠합니다." },
-      { name: "디지로카 Travel 프리미엄", company: "롯데카드", fee: "해외겸용 100,000원", summary: "<b>적립</b>: 기본적립 국내 1.2% 해외 1.5%<br><b>여행/숙박</b>: 항공권 3% 호텔/렌터카 5% 특별적립", idx: 2864, review: "호텔과 렌터카 예약 시 최고 수준인 5% 특별적립을 지원하여 프리미엄 힐링 여행에 최적화된 카드입니다." },
+      { name: "Easy fly 티타늄카드", company: "KB국민카드", fee: "해외겸용 35,000원", summary: "<b>여행/숙박</b>: 여행/숙박 업종 무제한 할인<br><b>생활</b>: 생활 영역 무제한 할인", idx: 489, img: "https://d1c5n4ri2guedi.cloudfront.net/card/489/card_img/21179/489card.png", review: "여행/숙박 업종에서 한도 없이 할인받을 수 있어, 해외여행 경비가 많이 나가는 달에 특히 든든합니다." },
+      { name: "신한카드 The ACE BLUE LABEL", company: "신한카드", fee: "해외겸용 700,000원", summary: "<b>항공마일리지</b>: 마일리지 무제한 적립<br><b>생활</b>: 생활 영역 무제한 | <b>면세점</b>: 면세점 무제한 적립", idx: 2788, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2788/card_img/39070/2788card.png", review: "마일리지 적립에 한도가 없어 해외를 자주 오가는 헤비유저에게 어울리는 최상위 프리미엄 카드입니다." },
       { name: "다담카드", company: "KB국민카드", fee: "해외겸용 20,000원", summary: "<b>주유</b>: SK에너지 리터당 60원 청구할인<br><b>대중교통</b>: 버스/지하철 10% 할인 | <b>카페</b>: 스타벅스 20% 할인", idx: 121, review: "장거리 이동을 위한 주유 리터당 60원 청구할인과 지친 몸을 식힐 스타벅스 20%의 알찬 혜택을 지니고 있습니다." }
     ]
   },
@@ -747,7 +876,7 @@ const VACATION_STYLES = {
       data: [45, 35, 20]
     },
     cards: [
-      { name: "THE iD. TITANIUM (아시아나)", company: "삼성카드", fee: "해외겸용 700,000원", summary: "<b>바우처</b>: 프리미엄 기프트 바우처 연 2회<br><b>항공마일리지</b>: 1,500원당 2마일리지 기본 적립 | 면세점 추가 적립", idx: 2762, review: "연 2회 제공되는 럭셔리 바우처 혜택과 해외 면세점 추가 적립으로 고급 해외여행에 품격을 더해줍니다." },
+      { name: "Mile1 하나카드", company: "하나카드", fee: "해외겸용 20,000원", summary: "<b>항공마일리지</b>: 마일리지 무제한 적립", idx: 2572, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2572/card_img/30116/2572card.png", review: "연회비 2만 원대로 마일리지를 한도 없이 쌓을 수 있어, 부담 없이 시작하는 해외여행 카드로 알맞습니다." },
       { name: "SOL트래블 체크카드", company: "신한카드", fee: "없음 (체크카드)", summary: "<b>수수료</b>: 해외 이용/ATM 인출 수수료 100% 면제<br><b>공항라운지</b>: 전세계 라운지 반기별 1회 무료 이용", idx: 2667, review: "해외 현지 가맹점 결제와 ATM 수수료 100% 면제에 더해 공항 라운지 무료 혜택까지 더해진 해외여행 필수템입니다." },
       { name: "트래블러스 체크카드", company: "KB국민카드", fee: "없음 (체크카드)", summary: "<b>환율우대</b>: 전세계 56개 통화 100% 환율 우대<br><b>수수료</b>: 해외 결제 및 ATM 인출 수수료 전액 면제", idx: 2905, review: "연회비가 없는 순수 체크카드로서, 전 세계 56개 통화 100% 환율 우대 및 해외 결제 수수료 면제를 선사합니다." }
     ]
@@ -763,8 +892,8 @@ const VACATION_STYLES = {
       data: [40, 30, 30]
     },
     cards: [
-      { name: "키자니아 에듀카드", company: "BC 바로카드", fee: "해외겸용 15,000원", summary: "<b>교육/육아</b>: 학원 및 유치원 10% 청구할인<br><b>주유</b>: 주유 60원/L 할인 | <b>테마파크</b>: 키자니아 무료 입장권 제공", idx: 2503, review: "자녀와 함께하는 여름방학에 최적인 키자니아 무료 입장권과 주유 할인 혜택을 완벽하게 조합했습니다." },
-      { name: "LG U+ 우리카드", company: "우리카드", fee: "해외겸용 15,000원", summary: "<b>LGU+</b>: LG U+ 통신요금 최대 15,000원 할인<br><b>패밀리레스토랑</b>: VIPS/아웃백 10% 청구할인", idx: 2523, review: "휴가철 온 가족이 함께 식사할 때 유용한 패밀리 레스토랑 10% 청구할인과 통신비 할인까지 한 번에 챙겨줍니다." },
+      { name: "LOCA for Edu", company: "롯데카드", fee: "해외겸용 20,000원", summary: "<b>교육/육아</b>: 교육/육아 업종 무제한 할인<br><b>도서</b>: 도서 구매 무제한 할인", idx: 623, img: "https://d1c5n4ri2guedi.cloudfront.net/card/623/card_img/21389/623card.png", review: "교육/육아 관련 지출을 한도 없이 할인받을 수 있어, 자녀와 함께하는 여름방학 준비물 마련에도 부담이 적습니다." },
+      { name: "모두투어 투어마일리지 KB국민카드", company: "KB국민카드", fee: "해외겸용 15,000원", summary: "<b>여행사</b>: 여행사 무제한 적립<br><b>패밀리레스토랑</b>: 패밀리레스토랑 10% 할인 | <b>카페</b>: 카페 10% 할인", idx: 1381, img: "https://d1c5n4ri2guedi.cloudfront.net/card/1381/card_img/20762/1381card.png", review: "휴가철 온 가족이 함께 식사할 때 유용한 패밀리레스토랑 10% 할인과 여행사 적립까지 챙길 수 있습니다." },
       { name: "Deep Dream", company: "신한카드", fee: "없음 (체크카드)", summary: "<b>적립</b>: 전 가맹점 0.2% 기본 적립<br><b>대형마트</b>: 이마트/홈플러스/롯데마트 최대 1.0% 특별 적립", idx: 281, review: "연회비 없이 마트 장보기(최대 1% 적립)와 가족 외식 영역에서 알아서 챙겨주는 자동 특별적립 카드입니다." }
     ]
   },
@@ -780,7 +909,7 @@ const VACATION_STYLES = {
     },
     cards: [
       { name: "Deep Oil", company: "신한카드", fee: "해외겸용 10,000원", summary: "<b>주유</b>: 4개정유사 10% 할인<br><b>자동차/하이패스</b>: 차량서비스 10% 할인 | <b>생활</b>: 편의점/커피/택시 5% 할인", idx: 39, review: "아웃도어 이동의 핵심인 4대 주유소 중 선택 1개사 10% 파격 청구할인 혜택으로 기름값 걱정을 시원하게 털어냅니다." },
-      { name: "UPTURN카드", company: "BC 바로카드", fee: "해외겸용 7,000원", summary: "<b>주유소</b>: 전국 주유소 리터당 60원 청구할인<br><b>온라인쇼핑</b>: 온라인·모바일 쇼핑 5% 할인", idx: 2502, review: "온라인/모바일 쇼핑 5% 혜택으로 캠핑 장비를 알뜰하게 영입하고 주유 리터당 60원 할인을 지원합니다." },
+      { name: "부자되세요 The Oil 카드", company: "BC 바로카드", fee: "해외겸용 5,000원", summary: "<b>주유소</b>: 주유소 리터당 150원 할인<br><b>온라인쇼핑</b>: 온라인쇼핑 10% 할인 | <b>카페</b>: 카페 10% 할인", idx: 2501, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2501/card_img/28619/2501card.png", review: "리터당 150원 주유 할인으로 장거리 이동 부담을 덜어주고, 온라인쇼핑 10% 할인으로 캠핑 장비도 알뜰하게 마련할 수 있습니다." },
       { name: "ID ENERGY 카드", company: "삼성카드", fee: "해외겸용 20,000원", summary: "<b>주유</b>: 주유소 1만 원 청구할인 (월 2회)<br><b>대중교통</b>: 버스/지하철/택시 10% 할인", idx: 2290, review: "주유소 1만 원 정액 청구할인(월 2회) 혜택을 탑재하여 장거리 레저 여정의 주유 부담을 획기적으로 덜어줍니다." }
     ]
   }
@@ -801,8 +930,8 @@ const REVIEW_STYLES = {
     },
     cards: [
       { name: "신한카드 Mr.Life", company: "신한카드", fee: "해외겸용 15,000원", summary: "<b>공과금</b>: 공과금 10% 할인<br><b>마트/편의점</b>: 마트, 편의점 10% 할인 | <b>푸드</b>: 식음료 10% 할인", idx: 13, img: "https://d1c5n4ri2guedi.cloudfront.net/card/13/card_img/28201/13card.png", review: "공과금부터 편의점, 식음료까지 생활비 전방위를 10%씩 할인해주는 실속형 스테디셀러입니다." },
-      { name: "현대카드Z family", company: "현대카드", fee: "국내전용 10,000원 / 해외겸용 10,000원", summary: "<b>온라인쇼핑</b>: 온라인쇼핑 10% 할인<br><b>배달앱</b>: 배달앱 10% 할인 | <b>주유</b>: 주유소 100원/L 할인", idx: 730, img: "https://d1c5n4ri2guedi.cloudfront.net/card/730/card_img/22204/730card.png", review: "온라인쇼핑·배달앱 이용이 잦다면 연회비 1만 원으로 이만한 조합을 찾기 어렵습니다." },
-      { name: "IBK무민카드(신용)", company: "IBK기업은행", fee: "국내전용 10,000원 / 해외겸용 10,000원", summary: "<b>카페</b>: 주요 커피전문점 20% 할인<br><b>온라인쇼핑</b>: 쿠팡, 티몬, 위메프 20% 할인 | <b>편의점</b>: 편의점 10% 할인", idx: 723, img: "https://d1c5n4ri2guedi.cloudfront.net/card/723/card_img/22197/723card.png", review: "쿠팡·티몬 등 이커머스와 커피전문점을 20%씩 할인해줘 소액 결제가 잦은 분들에게 잘 맞습니다." }
+      { name: "마이핏카드(할인형)", company: "KB국민카드", fee: "국내전용 10,000원 / 해외겸용 10,000원", summary: "<b>푸드</b>: 푸드 업종 무제한 할인<br><b>편의점</b>: 편의점 무제한 할인 | <b>쇼핑</b>: 쇼핑 무제한 할인", idx: 650, img: "https://d1c5n4ri2guedi.cloudfront.net/card/650/card_img/21413/650card.png", review: "푸드·편의점·쇼핑까지 한도 없이 할인돼, 연회비 1만 원으로 생활비 전방위를 커버하는 실속형 카드입니다." },
+      { name: "PAYCO 36 우리카드", company: "우리카드", fee: "국내전용 15,000원 / 해외겸용 15,000원", summary: "<b>카페</b>: 카페 5% 할인<br><b>편의점</b>: 편의점 5% 할인", idx: 2583, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2583/card_img/30703/2583card.png", review: "카페와 편의점 결제가 잦다면 PAYCO 연동으로 소액 결제에서 꾸준히 할인받을 수 있습니다." }
     ]
   },
   fintech: {
@@ -832,9 +961,9 @@ const REVIEW_STYLES = {
       data: [32, 26, 24, 18]
     },
     cards: [
-      { name: "마일앤조이카드(대한항공)", company: "IBK기업은행", fee: "해외겸용 30,000원", summary: "<b>항공마일리지</b>: 1,500원당 3~1마일 적립<br><b>공항라운지</b>: 공항라운지 연 2회 무료", idx: 267, img: "https://d1c5n4ri2guedi.cloudfront.net/card/267/card_img/20490/267card.png", review: "연회비 3만 원대로 대한항공 마일리지 적립과 라운지 무료 이용을 함께 챙길 수 있는 입문용 카드입니다." },
+      { name: "마일리지 가온카드(대한항공)", company: "KB국민카드", fee: "국내전용 15,000원 / 해외겸용 20,000원", summary: "<b>항공마일리지</b>: 마일리지 무제한 적립", idx: 113, img: "https://d1c5n4ri2guedi.cloudfront.net/card/113/card_img/20271/113card.png", review: "연회비 2만 원대로 대한항공 마일리지를 한도 없이 쌓을 수 있는 입문용 카드입니다." },
       { name: "하나 스카이패스 아멕스 플래티늄 카드", company: "하나카드", fee: "해외겸용 45,000원", summary: "<b>항공마일리지</b>: 해외 이용금액 1,000원당 2마일리지 적립<br><b>공항라운지/PP</b>: 인천공항 라운지 무료서비스 제공", idx: 2237, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2237/card_img/20939/2237card.png", review: "해외 결제 적립률이 국내의 2배라 해외여행이 잦은 분들에게 특히 유리합니다." },
-      { name: "THE iD. TITANIUM (아시아나)", company: "삼성카드", fee: "국내전용 700,000원 / 해외겸용 700,000원", summary: "<b>바우처</b>: 프리미엄 바우처 연 2가지 제공<br><b>항공마일리지</b>: 1,500원당 2마일리지 기본 적립 + 여행/골프/면세점 추가 적립", idx: 2762, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2762/card_img/37841/2761card.png", review: "연회비는 높지만 프리미엄 바우처와 라운지·면세점 혜택까지 더해져 여행을 자주 다니는 헤비유저에게 맞는 최상위 카드입니다." }
+      { name: "CEO카드", company: "IBK기업은행", fee: "해외겸용 220,000원", summary: "<b>항공마일리지</b>: 2% 적립<br><b>카페</b>: 카페 10% 할인 | <b>온라인쇼핑</b>: 온라인쇼핑 5% 할인", idx: 2339, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2339/card_img/24303/2339card.png", review: "마일리지 적립뿐 아니라 카페·온라인쇼핑까지 폭넓게 혜택을 챙기고 싶은 여행 헤비유저에게 맞는 카드입니다." }
     ]
   },
   point: {
@@ -848,7 +977,7 @@ const REVIEW_STYLES = {
       data: [29, 26, 23, 22]
     },
     cards: [
-      { name: "코스트코 리워드 현대카드", company: "현대카드", fee: "국내전용 10,000원 / 해외겸용 10,000원", summary: "<b>멤버십포인트</b>: 코스트코 매장·온라인몰 1~3% 적립<br><b>멤버십포인트</b>: 영화, 편의점, 교통 1~2% 적립", idx: 425, img: "https://d1c5n4ri2guedi.cloudfront.net/card/425/card_img/20923/425card.png", review: "코스트코를 정기적으로 이용한다면 연회비 1만 원으로 가장 확실한 적립처를 확보할 수 있습니다." },
+      { name: "GS&POINT 롯데카드", company: "롯데카드", fee: "국내전용 15,000원 / 해외겸용 15,000원", summary: "<b>쇼핑</b>: 쇼핑 무제한 적립<br><b>멤버십포인트</b>: 멤버십포인트 무제한 적립", idx: 2005, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2005/card_img/21993/2005card.gif", review: "쇼핑과 멤버십포인트 적립을 한도 없이 챙길 수 있어, 평소 포인트를 꾸준히 모으는 분들에게 잘 맞습니다." },
       { name: "현대카드 ZERO Up(포인트형)", company: "현대카드", fee: "국내전용 30,000원 / 해외겸용 30,000원", summary: "<b>적립</b>: 국내외 가맹점 1.2% 적립 (애플페이 연동)<br><b>적립</b>: 온라인몰/대형마트 2.4% 적립", idx: 2985, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2985/card_img/49104/2985card.png", review: "애플페이 결제를 자주 쓴다면 온라인몰·대형마트 2.4% 적립이 체감 혜택이 큽니다." },
       { name: "롯데멤버스 카드 프리미엄", company: "롯데카드", fee: "국내전용 150,000원 / 해외겸용 150,000원", summary: "<b>적립</b>: 롯데멤버스 브랜드 최대 5% 특별적립<br><b>적립</b>: 최대 50만점 미리적립 (선지급 포인트 서비스)", idx: 2824, img: "https://d1c5n4ri2guedi.cloudfront.net/card/2824/card_img/41106/2824card.png", review: "롯데 계열 소비가 많다면 최대 50만점 선지급 포인트로 체감 혜택을 앞당겨 누릴 수 있습니다." }
     ]
@@ -861,8 +990,9 @@ let recTimeout = null;
 
 // DOM 로드 완료 후 파라미터 파싱 및 화면 초기화
 document.addEventListener("DOMContentLoaded", async () => {
+  const pathType = location.pathname.match(/^\/cardlab\/detail\/([^/]+)/);
   const urlParams = new URLSearchParams(window.location.search);
-  const viewType = urlParams.get('type') || 'persona';
+  const viewType = (pathType ? decodeURIComponent(pathType[1]) : urlParams.get('type')) || 'persona';
   
   const container = document.getElementById('detail-view-container');
   
@@ -1017,7 +1147,7 @@ function renderPersona(key){
           </div>
           <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
           <div class="c-review">${escR(p.reviews[i]||'강력 추천합니다!')}</div>
-          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+          <a class="c-detail-btn" href="/detail/${c.idx}">이 카드 자세히 보기</a>
         </div>`;
     });
     resultEl.innerHTML = `
@@ -1073,7 +1203,7 @@ function renderVacationStyle(key) {
   let cardsHTML = '';
   style.cards.forEach((c, i) => {
     const globalCard = recCardMap[c.idx] || {};
-    const thumbImg = globalCard.card_img || 'https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png';
+    const thumbImg = c.img || globalCard.card_img || 'https://d1c5n4ri2guedi.cloudfront.net/card/2235/card_img/28314/2235card.png';
     
     cardsHTML += `
       <div class="c-card${i===0?' rank-1':''}">
@@ -1085,7 +1215,7 @@ function renderVacationStyle(key) {
         </div>
         <div class="c-benefit">${c.summary}</div>
         <div class="c-review">${c.review || '여름철 휴가비 절감에 가장 탁월한 혜택을 갖추고 있습니다!'}</div>
-        <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+        <a class="c-detail-btn" href="/detail/${c.idx}">이 카드 자세히 보기</a>
       </div>`;
   });
 
@@ -1168,7 +1298,7 @@ function renderReviewStyle(key) {
         </div>
         <div class="c-benefit">${c.summary}</div>
         <div class="c-review">${c.review}</div>
-        <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+        <a class="c-detail-btn" href="/detail/${c.idx}">이 카드 자세히 보기</a>
       </div>`;
   });
 
