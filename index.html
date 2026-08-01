@@ -1081,8 +1081,24 @@ function showSection(name, opts){
   if (!opts.skipHistory && !alreadyValidSubPath && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({section:name}, '', path);
   }
+  // GNB 클릭 등으로 섹션에 새로 진입할 때(딥링크 하위 경로가 아니면) 그 섹션의 LNB는 항상 첫 번째 탭으로 초기화.
+  if (!alreadyValidSubPath) {
+    if (name === 'cashback') activePlatform = '전체보기';
+    if (name === 'cards') {
+      activeCardType = '';
+      const firstLnb = document.querySelector('#section-cards .lnb-item[data-cardtype=""]');
+      if (firstLnb) {
+        document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
+        firstLnb.classList.add('active');
+        document.getElementById('cards-title').textContent = firstLnb.textContent.trim();
+        document.getElementById('section-cards').classList.remove('prem-theme');
+      }
+    }
+  }
   if(name === 'cashback') renderCashback();
   if(name === 'shopping'){
+    const shoppingLnb = document.querySelector('#section-shopping .lnb-item');
+    if (shoppingLnb) shoppingLnb.classList.add('active');
     const frame = document.getElementById('shopping-frame');
     if(!frame.getAttribute('src')){
       frame.src = 'shopping_dashboard.html';
@@ -1117,7 +1133,7 @@ function showSection(name, opts){
 const CARDTYPE_PATH = { '':'/card', '신용':'/card/credit', '체크':'/card/check', '프리미엄':'/card/premium' };
 function setCardType(el, opts){
   opts = opts || {};
-  document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
@@ -1328,7 +1344,6 @@ const COMPANIES = [
   { name:'신한카드',        logo:'image/신한.png',   amount:30    },
   { name:'현대카드',        logo:'image/현대.png',   amount:25    },
   { name:'KB국민카드',      logo:'image/KB국민.png', amount:20    },
-  { name:'롯데카드',        logo:'image/롯데.png',   amount:15    },
   { name:'NH농협카드',      logo:'image/NH농협.png', amount:12    },
   { name:'우리카드',        logo:'image/우리.png',   amount:10    },
   { name:'하나카드',        logo:'image/하나.png',   amount:8     },
@@ -1338,123 +1353,117 @@ const COMPANIES = [
 
 /* ── 캐시백: 플랫폼 탭 (카드고릴라는 실데이터, 나머지는 예시) ── */
 const CASHBACK = {
-  '카카오페이': { icon:'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png', url:'https://pay.kakao.com', real:false, companies:[
-    { name:'신한카드', cards:[{name:'신한카드 Deep Dream', amount:3},{name:'신한카드 Mr.Life', amount:2}] },
-    { name:'KB국민카드', cards:[{name:'KB국민 노리카드', amount:2}] },
-    { name:'현대카드', cards:[{name:'현대카드 Z WORK', amount:1.5}] },
+  // 2026-08-01 자체 시장조사(수기, data/Y26.08월 카드사별 이벤트 정보.xlsx) 기반 반영 — 앱 크롤링 불가.
+  '카카오페이': { icon:'https://t1.kakaocdn.net/kakaopay/resource/static/logo/og_image.png', url:'https://www.kakaopay.com/services/finance/financial_alliance', real:true, maxAmount:87, companies:[
+    { name:'KB국민카드', maxAmount:87, cards:[{name:'굿데이카드 (최대 87만원 캐시백)', amount:87}] },
+    { name:'신한카드', maxAmount:76, cards:[{name:'신한카드 KaPick (최대 76만원 캐시백)', amount:76}] },
+    { name:'현대카드', maxAmount:75, cards:[{name:'대한항공카드 060 (최대 75만원 캐시백)', amount:75}] },
+    { name:'삼성카드', maxAmount:47, cards:[{name:'카카오페이신용카드 (최대 47만원 캐시백)', amount:47}] },
+    { name:'NH농협카드', maxAmount:20.5, cards:[{name:'zgm.일본여행중 카드 (최대 20.5만원 캐시백)', amount:20.5}] },
   ]},
-  // 2026-07-18 https://card.pay.naver.com/home/promotion/event?from=menu_event&expanded=true 직접 확인해 반영(22개 이벤트).
-  // "이 달의 대표 이벤트" 요약 카드 8개의 금액은 카드사별 실제 최댓값과 다를 때가 있어(예: 신한 요약엔 33만원인데
-  // 펼친 목록엔 신한 72만원 이벤트가 따로 있음) 요약 대신 펼친 목록(22개) 전체를 기준으로 카드사별 최댓값을 계산.
-  '네이버페이': { icon:'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png', url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', real:true, maxAmount:84, companies:[
-    { name:'KB국민카드', maxAmount:84, cards:[
-      {name:'KB국민카드 (최대 84만원 캐시백)', amount:84, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981668445&cardCompanyId=CCKM&cardIssuerCode=100&from=menu_event'},
+  // 2026-08-01 https://card.pay.naver.com/home/promotion/event?from=menu_event&expanded=true 직접 확인해 반영(19개 이벤트).
+  // 펼친 목록 전체를 기준으로 카드사별 최댓값을 계산.
+  '네이버페이': { icon:'https://ssl.pstatic.net/static/ncp/img/pay/og_image.png', url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', real:true, maxAmount:85, companies:[
+    { name:'KB국민카드', maxAmount:85, cards:[
+      {name:'KB국민카드 (최대 85만원 캐시백)', amount:85, url:'https://card.pay.naver.com/home/promotion?promotionId=20260727002195301737&cardCompanyId=CCKM&cardIssuerCode=100&from=menu_event'},
     ]},
-    { name:'현대카드', maxAmount:75, cards:[
-      {name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://card.pay.naver.com/home/promotion?promotionId=20260624001967393139&cardCompanyId=CCDI&cardIssuerCode=CCDI&from=menu_event'},
-      {name:'현대카드', amount:71.5}, {name:'현대카드', amount:62}, {name:'현대카드', amount:60},
-      {name:'현대카드', amount:40}, {name:'현대카드', amount:25},
+    { name:'현대카드', maxAmount:76, cards:[
+      {name:'현대카드 (최대 76만원 캐시백)', amount:76, url:'https://card.pay.naver.com/home/promotion?promotionId=20260724002177392473&cardCompanyId=CCDI&cardIssuerCode=CCDI&from=menu_event'},
+      {name:'현대카드', amount:71.5}, {name:'현대카드', amount:65}, {name:'현대카드', amount:60},
+      {name:'현대카드', amount:30}, {name:'현대카드', amount:15},
     ]},
-    { name:'신한카드', maxAmount:72, cards:[
-      {name:'신한카드 (최대 72만원 캐시백)', amount:72, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865356&cardCompanyId=CCLG&cardIssuerCode=CCLG&from=menu_event'},
-      {name:'신한카드', amount:71}, {name:'신한카드', amount:69}, {name:'신한카드', amount:33},
+    { name:'삼성카드', maxAmount:75, cards:[
+      {name:'삼성카드 (최대 75만원 캐시백)', amount:75, url:'https://card.pay.naver.com/home/promotion?promotionId=20260727002196889368&cardCompanyId=CCSS&cardIssuerCode=CCSS&from=menu_event'},
+      {name:'삼성카드', amount:50.3}, {name:'삼성카드', amount:21.3}, {name:'삼성카드', amount:17.3}, {name:'삼성카드', amount:12.3},
     ]},
-    { name:'롯데카드', maxAmount:65, cards:[
-      {name:'롯데카드 (최대 65만원 캐시백)', amount:65, url:'https://card.pay.naver.com/home/promotion?promotionId=20260622001948134134&cardCompanyId=CCLO&cardIssuerCode=CCLO&from=menu_event'},
-      {name:'롯데카드', amount:62}, {name:'롯데카드', amount:18}, {name:'롯데카드', amount:11},
-    ]},
-    { name:'삼성카드', maxAmount:50.7, cards:[
-      {name:'삼성카드 (최대 50.7만원 캐시백)', amount:50.7, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865364&cardCompanyId=CCSS&cardIssuerCode=CCSS&from=menu_event'},
-      {name:'삼성카드', amount:19.7}, {name:'삼성카드', amount:15}, {name:'삼성카드', amount:12.7},
+    { name:'신한카드', maxAmount:70, cards:[
+      {name:'신한카드 (최대 70만원 캐시백)', amount:70, url:'https://card.pay.naver.com/home/promotion?promotionId=20260727002196451505&cardCompanyId=CCLG&cardIssuerCode=CCLG&from=menu_event'},
+      {name:'신한카드', amount:69}, {name:'신한카드', amount:68}, {name:'신한카드', amount:31},
     ]},
     { name:'하나카드', maxAmount:57, cards:[
-      {name:'하나카드 (최대 57만원 캐시백)', amount:57, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865360&cardCompanyId=CCHN&cardIssuerCode=044&from=menu_event'},
+      {name:'하나카드 (최대 57만원 캐시백)', amount:57, url:'https://card.pay.naver.com/home/promotion?promotionId=20260727002196889362&cardCompanyId=CCHN&cardIssuerCode=044&from=menu_event'},
     ]},
-    { name:'NH농협카드', maxAmount:21.5, cards:[
-      {name:'NH농협카드 (최대 21.5만원 캐시백)', amount:21.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260625001974825484&cardCompanyId=CCNH&cardIssuerCode=CCNH&from=menu_event'},
+    { name:'NH농협카드', maxAmount:14.5, cards:[
+      {name:'NH농협카드 (최대 14.5만원 캐시백)', amount:14.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260729002211570509&cardCompanyId=CCNH&cardIssuerCode=CCNH&from=menu_event'},
     ]},
     { name:'IBK기업은행카드', maxAmount:12.5, cards:[
-      {name:'IBK기업은행 (최대 12.5만원 캐시백)', amount:12.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865358&cardCompanyId=CCBC&cardIssuerCode=0003&from=menu_event'},
+      {name:'IBK기업은행 (최대 12.5만원 캐시백)', amount:12.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260727002196730218&cardCompanyId=CCBC&cardIssuerCode=0003&from=menu_event'},
     ]},
+    // 참고: 8/1 기준 목록에 롯데카드 이벤트가 없음(7/18엔 있었음) — 네이버페이 쪽 프로모션 종료로 보임.
   ]},
-  '토스': { icon:'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico', url:'https://card-lounge.toss.im/', real:false, companies:[
-    { name:'하나카드', cards:[{name:'토스뱅크 체크카드', amount:1}] },
+  // 2026-08-01 자체 시장조사(수기, data/Y26.08월 카드사별 이벤트 정보.xlsx) 기반 반영 — 앱 크롤링 불가.
+  '토스': { icon:'https://static.toss.im/ipd-tcs/toss_core/static/favicon/favicon.ico', url:'https://card-lounge.toss.im/', real:true, maxAmount:87, companies:[
+    { name:'KB국민카드', maxAmount:87, cards:[{name:'굿데이카드 (최대 87만원 캐시백)', amount:87}] },
+    { name:'삼성카드', maxAmount:51, cards:[{name:'삼성 iD SELECT UP 카드 (최대 51만원 캐시백)', amount:51}] },
+    { name:'신한카드', maxAmount:69, cards:[{name:'신한카드 Deep Oil (최대 69만원 캐시백)', amount:69}] },
+    { name:'현대카드', maxAmount:69.5, cards:[{name:'알파벳카드O (최대 69.5만원 캐시백)', amount:69.5}] },
+    { name:'NH농협카드', maxAmount:14.5, cards:[{name:'올바른 FLEX 카드 (최대 14.5만원 캐시백)', amount:14.5}] },
   ]},
   '카드고릴라': { icon:'', url:'https://www.card-gorilla.com/event', real:true, companies:[] },
-  // 2026-07-18 https://www.ajd.co.kr/card/event/list 직접 확인해 반영(지난 이벤트 제외 20건).
+  // 2026-08-01 https://www.ajd.co.kr/card/event/list 직접 확인해 반영("8월 카드 이벤트 총정리" 17건).
   // 연회비 100% 캐시백처럼 고정 금액이 없는 이벤트는 amount:0으로 두고, 카드사별 최대금액(maxAmount)은
   // loadGorilla()와 동일한 방식으로 미리 계산해서 넣어둠(getPlatformCompanies가 그대로 읽어감).
   '아정당카드': { icon:'', url:'https://www.ajd.co.kr/card/event/list', real:true, maxAmount:86, companies:[
     { name:'KB국민카드', maxAmount:86, cards:[
-      {name:'KB국민 WE:SH Travel 카드 외 4종 (최대 86만원 캐시백)', amount:86, url:'https://www.ajd.co.kr/card/event/detail/289'},
-      {name:'KB국민카드 (체크) 9종', amount:3, url:'https://www.ajd.co.kr/card/event/detail/273'},
+      {name:'KB국민카드 5종 (최대 86만원 캐시백)', amount:86, url:'https://www.ajd.co.kr/card/event/detail/313'},
+      {name:'KB국민카드 (체크) 9종', amount:3, url:'https://www.ajd.co.kr/card/event/detail/312'},
     ]},
-    { name:'현대카드', maxAmount:75, cards:[
-      {name:'대한항공카드 the First Edition2', amount:75, url:'https://www.ajd.co.kr/card/event/detail/287'},
-      {name:'대한항공카드 120·300', amount:72, url:'https://www.ajd.co.kr/card/event/detail/286'},
-      {name:'대한항공카드 060', amount:69, url:'https://www.ajd.co.kr/card/event/detail/285'},
-      {name:'에너지플러스 현대카드', amount:60, url:'https://www.ajd.co.kr/card/event/detail/283'},
-      {name:'현대카드 (연회비 100% 캐시백)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/284'},
+    { name:'현대카드', maxAmount:76, cards:[
+      {name:'대한항공카드 the First Edition2', amount:76, url:'https://www.ajd.co.kr/card/event/detail/310'},
+      {name:'대한항공카드 120·300', amount:76, url:'https://www.ajd.co.kr/card/event/detail/309'},
+      {name:'대한항공카드 060', amount:76, url:'https://www.ajd.co.kr/card/event/detail/308'},
+      {name:'에너지플러스 현대카드', amount:60, url:'https://www.ajd.co.kr/card/event/detail/307'},
+      {name:'현대카드 (연회비 100% 캐시백)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/328'},
     ]},
     { name:'신한카드', maxAmount:74, cards:[
-      {name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/281'},
-      {name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/282'},
-      {name:'신한카드 5종', amount:73, url:'https://www.ajd.co.kr/card/event/detail/280'},
+      {name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/319'},
+      {name:'신한카드 5종', amount:73, url:'https://www.ajd.co.kr/card/event/detail/321'},
+      {name:'신한카드 5종', amount:72, url:'https://www.ajd.co.kr/card/event/detail/320'},
     ]},
-    { name:'롯데카드', maxAmount:68, cards:[
-      {name:'LOCA LIKIT 1.5 외 1종', amount:68, url:'https://www.ajd.co.kr/card/event/detail/275'},
-      {name:'LOCA LIKIT 외 4종', amount:67, url:'https://www.ajd.co.kr/card/event/detail/276'},
-      {name:'Triple in LOCA', amount:42, url:'https://www.ajd.co.kr/card/event/detail/277'},
+    { name:'삼성카드', maxAmount:37.35, cards:[
+      {name:'삼성카드 9종', amount:37.35, url:'https://www.ajd.co.kr/card/event/detail/318'},
     ]},
-    { name:'삼성카드', maxAmount:36.5, cards:[
-      {name:'삼성카드 9종', amount:36.5, url:'https://www.ajd.co.kr/card/event/detail/279'},
-    ]},
-    { name:'NH농협카드', maxAmount:26.5, cards:[
-      {name:'NH농협카드 3종', amount:26.5, url:'https://www.ajd.co.kr/card/event/detail/295'},
-      {name:'NH농협 렌탈 제휴카드 2종', amount:4.2, url:'https://www.ajd.co.kr/card/event/detail/294'},
-      {name:'NH농협 통신 제휴카드 3종', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/293'},
+    { name:'NH농협카드', maxAmount:19.5, cards:[
+      {name:'NH농협카드 3종', amount:19.5, url:'https://www.ajd.co.kr/card/event/detail/317'},
+      {name:'NH농협 렌탈 제휴카드 2종', amount:4, url:'https://www.ajd.co.kr/card/event/detail/315'},
+      {name:'NH농협 통신 제휴카드 3종', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/316'},
     ]},
     { name:'우리카드', maxAmount:2.6, cards:[
-      {name:'아정당 우리카드 월납 할인', amount:2.6, url:'https://www.ajd.co.kr/card/event/detail/296'},
+      {name:'아정당 우리카드 월납 최대 2.6만원 할인', amount:2.6, url:'https://www.ajd.co.kr/card/event/detail/322'},
     ]},
-    // "연회비 100% 캐시백"은 문구에 고정 금액이 없고, 대상 3종 카드 중 가장 비싼 연회비(2.9만원)만큼
-    // 캐시백되는 구조 — 카드별 연회비를 직접 조회해 계산.
-    { name:'BC바로카드', maxAmount:2.9, cards:[
-      {name:'BC바로카드 3종 (연회비 100% 캐시백, 최대 연회비 2.9만원)', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/272'},
-      {name:'BC 바로 에어 맥스 카드 (마티나골드 라운지 무료)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/274'},
+    { name:'BC바로카드', maxAmount:1.9, cards:[
+      {name:'BC바로카드 4종 (연회비 100% 캐시백, 최대 연회비 1.9만원)', amount:1.9, url:'https://www.ajd.co.kr/card/event/detail/301'},
+      {name:'BC 바로 에어 맥스 카드 (마티나골드 라운지 무료)', amount:0, url:'https://www.ajd.co.kr/card/event/detail/302'},
     ]},
+    // 참고: 8/1 기준 목록에 롯데카드 이벤트가 사라짐(7/18엔 있었음) — 아정당 쪽 프로모션 종료로 보임.
   ]},
-  // 2026-07-18 https://www.banksalad.com/chart/cards?tab=event 직접 확인해 반영(22개 이벤트 타일).
-  // 현대백화점(1만원)은 10개 주요 카드사가 아니라서 제외.
-  '뱅크샐러드': { icon:'', url:'https://www.banksalad.com/chart/cards?tab=event', real:true, maxAmount:85, companies:[
-    { name:'롯데카드', maxAmount:85, cards:[
-      {name:'롯데카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1076'},
-      {name:'롯데카드 전용관', amount:84},
-      {name:'롯데카드', amount:79},
-    ]},
-    { name:'신한카드', maxAmount:85, cards:[
-      {name:'신한카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1081'},
+  // 2026-08-01 https://www.banksalad.com/chart/cards?tab=event 직접 확인해 반영("8월 캐시백 이벤트 카드" 47개 중 major 10개사분).
+  // 현대백화점(1만원)은 10개 주요 카드사가 아니라서 제외. 카드 타일이 개별 링크가 아니라 JS 클릭이라
+  // 이번엔 카드사별 개별 이벤트 URL은 못 가져왔고, 대표 URL만 목록 페이지로 둠.
+  // 참고: 7/18엔 있던 롯데카드/우리카드/하나카드 이벤트가 8/1엔 안 보임 — 프로모션 종료로 보임.
+  '뱅크샐러드': { icon:'', url:'https://www.banksalad.com/chart/cards?tab=event', real:true, maxAmount:87, companies:[
+    { name:'신한카드', maxAmount:87, cards:[
+      {name:'신한카드 (최대 87만원 캐시백)', amount:87, url:'https://www.banksalad.com/chart/cards?tab=event'},
       {name:'신한카드', amount:84},
       {name:'신한카드', amount:83},
     ]},
-    { name:'KB국민카드', maxAmount:85, cards:[
-      {name:'KB국민카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1085'},
+    { name:'KB국민카드', maxAmount:86, cards:[
+      {name:'KB국민카드 (최대 86만원 캐시백)', amount:86, url:'https://www.banksalad.com/chart/cards?tab=event'},
       {name:'KB국민카드', amount:3},
     ]},
     { name:'현대카드', maxAmount:75, cards:[
-      {name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://www.banksalad.com/product/cards/event/1073'},
-      {name:'현대카드', amount:72}, {name:'현대카드', amount:71.5}, {name:'현대카드', amount:69},
-      {name:'현대카드', amount:62}, {name:'현대카드', amount:60}, {name:'현대카드', amount:40}, {name:'현대카드', amount:25},
+      {name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://www.banksalad.com/chart/cards?tab=event'},
+      {name:'현대카드', amount:72}, {name:'현대카드', amount:70}, {name:'현대카드', amount:62},
+      {name:'현대카드', amount:60}, {name:'현대카드', amount:30}, {name:'현대카드', amount:15},
     ]},
-    { name:'삼성카드', maxAmount:25.7, cards:[
-      {name:'삼성카드 (최대 25.7만원 캐시백)', amount:25.7, url:'https://www.banksalad.com/product/cards/event/1074'},
+    { name:'삼성카드', maxAmount:25.3, cards:[
+      {name:'삼성카드 (최대 25.3만원 캐시백)', amount:25.3, url:'https://www.banksalad.com/chart/cards?tab=event'},
     ]},
-    { name:'NH농협카드', maxAmount:23.5, cards:[
-      {name:'NH농협카드 (최대 23.5만원 캐시백)', amount:23.5, url:'https://www.banksalad.com/product/cards/event/1086'},
-      {name:'NH농협카드', amount:12.5}, {name:'NH농협카드', amount:12.2},
+    { name:'NH농협카드', maxAmount:17.5, cards:[
+      {name:'NH농협카드 (최대 17.5만원 캐시백)', amount:17.5, url:'https://www.banksalad.com/chart/cards?tab=event'},
     ]},
     { name:'IBK기업은행카드', maxAmount:15.5, cards:[
-      {name:'IBK기업은행 (최대 15.5만원 캐시백)', amount:15.5, url:'https://www.banksalad.com/product/cards/event/1083'},
+      {name:'IBK기업은행 (최대 15.5만원 캐시백)', amount:15.5, url:'https://www.banksalad.com/chart/cards?tab=event'},
     ]},
   ]},
 };
@@ -1745,9 +1754,9 @@ const PATH_PLATFORM = { '/event':'전체보기', '/event/card-gorilla':'카드�
 function applyPathSubState(){
   if (PATH_CARDTYPE.hasOwnProperty(location.pathname)) {
     const cardtype = PATH_CARDTYPE[location.pathname];
-    const btn = document.querySelector(`.lnb-item[data-cardtype="${cardtype}"]`);
+    const btn = document.querySelector(`#section-cards .lnb-item[data-cardtype="${cardtype}"]`);
     if (btn) {
-      document.querySelectorAll('.lnb-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeCardType = cardtype;
       document.getElementById('cards-title').textContent = btn.textContent.trim();

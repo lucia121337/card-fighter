@@ -29,3 +29,6 @@ data/*.parquet
 data/*.csv
 docs/*.png
 images/*.png
+
+# 수기 시장조사 원본 — 팀 공유 금지, 로컬 전용
+data/*.xlsx

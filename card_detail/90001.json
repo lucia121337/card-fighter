@@ -11,7 +11,7 @@
   "pre_month_condition": "300,000원",
   "only_online": false,
   "release_dt": "2025-11-10",
-  "card_img": "https://api.card-gorilla.com/storage/card/90001/card_img.png",
+  "card_img": "",
   "top_benefit": [
     {
       "title": "통신/렌탈",
@@ -43,8 +43,14 @@
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [
-    { "perf": 300000, "limit": 15000 },
-    { "perf": 1200000, "limit": 20000 }
+    {
+      "perf": 300000,
+      "limit": 15000
+    },
+    {
+      "perf": 1200000,
+      "limit": 20000
+    }
   ],
   "is_calc_supported": "FALSE"
 }
