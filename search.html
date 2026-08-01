@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<base href="/">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>검색 결과 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --shadow:0 4px 18px rgba(20,92,230,.07);
+  }
+  *{box-sizing:border-box}
+  html{overflow-y:scroll}
+  ::-webkit-scrollbar{width:5px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:99px}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+
+  @view-transition{navigation:auto}
+  header{view-transition-name:site-header;position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto}
+  .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0;cursor:pointer}
+  .brand-left .logo{font-size:32px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+  .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);transition:.15s color}
+  .brand-left h1:hover{color:var(--brand)}
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+  .gnb a{color:var(--muted);font-size:15px;font-weight:600;text-decoration:none;
+         padding:7px 14px;border-radius:10px;transition:.15s background,.15s color;white-space:nowrap}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  .gnb a.active{background:var(--brand);color:#fff}
+  @keyframes coin-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .gnb .coin-icon{display:inline-block;animation:coin-bounce 1s ease-in-out infinite;margin-right:3px}
+  .header-search{flex:1;min-width:0;padding-left:20px}
+  .search-box{background:var(--panel2);border-radius:99px;padding:6px 14px 6px 20px;
+    display:flex;align-items:center;width:100%;transition:.2s all;border:1.5px solid transparent}
+  .search-box:focus-within{background:#fff;border-color:var(--brand);box-shadow:0 4px 12px rgba(20,92,230,.08)}
+  .search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;
+    font-weight:500;color:var(--txt);background:transparent}
+  .search-box input::placeholder{color:#94a3b8;font-weight:400}
+  .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
+  .search-box .search-btn{display:flex;align-items:center;justify-content:center;
+    width:48px;height:100%;background:none;border:none;cursor:pointer;
+    color:var(--muted);flex-shrink:0;transition:.15s color}
+  .search-box .search-btn:hover{color:var(--brand)}
+  .search-box .search-btn svg{width:20px;height:20px}
+
+  main{max-width:1000px;margin:0 auto;padding:28px 20px 80px}
+  .sr-summary{font-size:16px;font-weight:700;color:var(--txt);margin:0 0 28px;text-align:center}
+  .sr-summary b{color:var(--brand)}
+  .sr-empty{text-align:center;color:var(--muted);padding:80px 0;font-size:15px}
+
+  .sr-section{margin-bottom:36px}
+  .sr-section-title{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;margin:0 0 14px}
+  .sr-section-title .cnt{color:var(--brand)}
+
+  .sr-row{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;padding:14px 18px;margin-bottom:10px;text-decoration:none;color:inherit;
+    transition:.15s box-shadow,.15s border-color}
+  .sr-row:hover{box-shadow:var(--shadow);border-color:var(--brand)}
+  .sr-row img{width:52px;height:34px;object-fit:contain;border-radius:6px;background:var(--bg);
+    border:1px solid var(--line);flex-shrink:0}
+  .sr-row-icon{width:52px;height:34px;border-radius:6px;background:var(--panel2);display:flex;
+    align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .sr-row-body{flex:1;min-width:0}
+  .sr-row-name{font-size:15px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sr-row-sub{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sr-row-tag{font-size:11px;font-weight:700;color:var(--brand);background:var(--panel2);
+    padding:2px 8px;border-radius:99px;flex-shrink:0}
+  .sr-row-arrow{color:var(--muted);font-size:18px;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-top">
+    <div class="brand-left" onclick="location.href='/'">
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
+      <h1>카드 파이터</h1>
+    </div>
+    <div class="gnb-divider"></div>
+    <nav class="gnb">
+      <a href="/">홈</a>
+      <a href="/card">전체카드</a>
+      <a href="/event"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="/shopping">할인가맹점</a>
+      <a href="/cardlab">카드 연구소</a>
+    </nav>
+    <div class="header-search">
+      <div class="search-box">
+        <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" onkeydown="if(event.key==='Enter') doGlobalSearch()" />
+        <div class="search-divider"></div>
+        <button class="search-btn" onclick="doGlobalSearch()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="sr-empty"><div class="spinner"></div>검색 중…</div>
+</main>
+
+<script>
+function doGlobalSearch(){
+  const query = document.getElementById('q').value.trim();
+  if (query) location.href = `/search?q=${encodeURIComponent(query)}`;
+}
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* 카드연구소 콘텐츠는 별도 데이터 API가 없는 정적 3개+게임 2개라 여기서 직접 인덱싱한다. */
+const CARDLAB_CONTENT = [
+  { title:'데이터가 증명하는 맞춤카드', sub:'연령대별 소비 트렌드로 만나는 맞춤카드', keywords:['맞춤카드','연령대','소비트렌드','페르소나','트렌드'], url:'/cardlab/detail/persona', tag:'콘텐츠', icon:'👥' },
+  { title:'실거래 빅데이터로 찾은 여름 휴가 지출 팩트', sub:'국내/해외/가족/캠핑 스타일별 소비 분석', keywords:['여름','휴가','여행','바캉스'], url:'/cardlab/detail/vacation', tag:'콘텐츠', icon:'🏝️' },
+  { title:'카드 리뷰로 보는 소비 페르소나', sub:'리뷰 콘텐츠 분석으로 찾은 4가지 소비 성향', keywords:['리뷰','페르소나','소비성향'], url:'/cardlab/detail/review', tag:'콘텐츠', icon:'🔎' },
+  { title:'나의 소비 MBTI 찰떡 카드 찾기 게임', sub:'머신러닝 기반 소비 성향 카드 매칭', keywords:['게임','mbti','매칭','추천','ml','머신러닝'], url:'/cardlab/match', tag:'게임', icon:'🔮' },
+  { title:'최애 혜택 매치! 카드 월드컵', sub:'혜택 1:1 토너먼트로 찾는 최애 카드', keywords:['게임','월드컵','토너먼트'], url:'/cardlab/worldcup', tag:'게임', icon:'🏆' },
+];
+
+/* 캐시백 데이터는 index.html의 CASHBACK 객체와 같은 원본 그대로 복사해 둔 것 —
+   index.html 쪽 데이터를 갱신하면 이쪽도 같이 갱신해줘야 한다(현재는 단일 소스 API가 없음). */
+const CASHBACK = {
+  '카카오페이': { url:'https://pay.kakao.com', companies:[
+    { name:'신한카드', cards:[{name:'신한카드 Deep Dream', amount:3},{name:'신한카드 Mr.Life', amount:2}] },
+    { name:'KB국민카드', cards:[{name:'KB국민 노리카드', amount:2}] },
+    { name:'현대카드', cards:[{name:'현대카드 Z WORK', amount:1.5}] },
+  ]},
+  '네이버페이': { url:'https://card.pay.naver.com/home/promotion/event?from=menu_event', companies:[
+    { name:'KB국민카드', maxAmount:84, cards:[{name:'KB국민카드 (최대 84만원 캐시백)', amount:84, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981668445&cardCompanyId=CCKM&cardIssuerCode=100&from=menu_event'}] },
+    { name:'현대카드', maxAmount:75, cards:[{name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://card.pay.naver.com/home/promotion?promotionId=20260624001967393139&cardCompanyId=CCDI&cardIssuerCode=CCDI&from=menu_event'}] },
+    { name:'신한카드', maxAmount:72, cards:[{name:'신한카드 (최대 72만원 캐시백)', amount:72, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865356&cardCompanyId=CCLG&cardIssuerCode=CCLG&from=menu_event'}] },
+    { name:'롯데카드', maxAmount:65, cards:[{name:'롯데카드 (최대 65만원 캐시백)', amount:65, url:'https://card.pay.naver.com/home/promotion?promotionId=20260622001948134134&cardCompanyId=CCLO&cardIssuerCode=CCLO&from=menu_event'}] },
+    { name:'삼성카드', maxAmount:50.7, cards:[{name:'삼성카드 (최대 50.7만원 캐시백)', amount:50.7, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865364&cardCompanyId=CCSS&cardIssuerCode=CCSS&from=menu_event'}] },
+    { name:'하나카드', maxAmount:57, cards:[{name:'하나카드 (최대 57만원 캐시백)', amount:57, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865360&cardCompanyId=CCHN&cardIssuerCode=044&from=menu_event'}] },
+    { name:'NH농협카드', maxAmount:21.5, cards:[{name:'NH농협카드 (최대 21.5만원 캐시백)', amount:21.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260625001974825484&cardCompanyId=CCNH&cardIssuerCode=CCNH&from=menu_event'}] },
+    { name:'IBK기업은행카드', maxAmount:12.5, cards:[{name:'IBK기업은행 (최대 12.5만원 캐시백)', amount:12.5, url:'https://card.pay.naver.com/home/promotion?promotionId=20260626001981865358&cardCompanyId=CCBC&cardIssuerCode=0003&from=menu_event'}] },
+  ]},
+  '토스': { url:'https://card-lounge.toss.im/', companies:[
+    { name:'하나카드', cards:[{name:'토스뱅크 체크카드', amount:1}] },
+  ]},
+  '아정당카드': { url:'https://www.ajd.co.kr/card/event/list', companies:[
+    { name:'KB국민카드', maxAmount:86, cards:[{name:'KB국민 WE:SH Travel 카드 외 4종 (최대 86만원 캐시백)', amount:86, url:'https://www.ajd.co.kr/card/event/detail/289'}] },
+    { name:'현대카드', maxAmount:75, cards:[{name:'대한항공카드 the First Edition2', amount:75, url:'https://www.ajd.co.kr/card/event/detail/287'}] },
+    { name:'신한카드', maxAmount:74, cards:[{name:'신한카드 5종', amount:74, url:'https://www.ajd.co.kr/card/event/detail/281'}] },
+    { name:'롯데카드', maxAmount:68, cards:[{name:'LOCA LIKIT 1.5 외 1종', amount:68, url:'https://www.ajd.co.kr/card/event/detail/275'}] },
+    { name:'삼성카드', maxAmount:36.5, cards:[{name:'삼성카드 9종', amount:36.5, url:'https://www.ajd.co.kr/card/event/detail/279'}] },
+    { name:'NH농협카드', maxAmount:26.5, cards:[{name:'NH농협카드 3종', amount:26.5, url:'https://www.ajd.co.kr/card/event/detail/295'}] },
+    { name:'우리카드', maxAmount:2.6, cards:[{name:'아정당 우리카드 월납 할인', amount:2.6, url:'https://www.ajd.co.kr/card/event/detail/296'}] },
+    { name:'BC바로카드', maxAmount:2.9, cards:[{name:'BC바로카드 3종 (연회비 100% 캐시백)', amount:2.9, url:'https://www.ajd.co.kr/card/event/detail/272'}] },
+  ]},
+  '뱅크샐러드': { url:'https://www.banksalad.com/chart/cards?tab=event', companies:[
+    { name:'롯데카드', maxAmount:85, cards:[{name:'롯데카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1076'}] },
+    { name:'신한카드', maxAmount:85, cards:[{name:'신한카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1081'}] },
+    { name:'KB국민카드', maxAmount:85, cards:[{name:'KB국민카드 (최대 85만원 캐시백)', amount:85, url:'https://www.banksalad.com/product/cards/event/1085'}] },
+    { name:'현대카드', maxAmount:75, cards:[{name:'현대카드 (최대 75만원 캐시백)', amount:75, url:'https://www.banksalad.com/product/cards/event/1073'}] },
+    { name:'삼성카드', maxAmount:25.7, cards:[{name:'삼성카드 (최대 25.7만원 캐시백)', amount:25.7, url:'https://www.banksalad.com/product/cards/event/1074'}] },
+    { name:'NH농협카드', maxAmount:23.5, cards:[{name:'NH농협카드 (최대 23.5만원 캐시백)', amount:23.5, url:'https://www.banksalad.com/product/cards/event/1086'}] },
+    { name:'IBK기업은행카드', maxAmount:15.5, cards:[{name:'IBK기업은행 (최대 15.5만원 캐시백)', amount:15.5, url:'https://www.banksalad.com/product/cards/event/1083'}] },
+  ]},
+};
+
+function stripHtml(s){ return String(s||'').replace(/<[^>]+>/g,' '); }
+
+async function runSearch(query){
+  const q = query.trim().toLowerCase();
+  document.getElementById('q').value = query;
+  if (!q) { renderResults(query, [], [], [], []); return; }
+
+  const [cardsRes, productsRes] = await Promise.all([
+    fetch('/cards_list.json').then(r=>r.json()).catch(()=>[]),
+    fetch('/data/naver_products.json').then(r=>r.json()).catch(()=>[]),
+  ]);
+
+  /* 1) 카드: 이름/카드사/혜택카테고리/혜택요약에서 검색 */
+  const cardMatches = cardsRes.filter(c => {
+    const hay = [c.card_name, c.company, c.benefit_categories, c.top_benefit_summary, stripHtml(c.detailed_benefits)]
+      .join(' ').toLowerCase();
+    return hay.includes(q);
+  }).slice(0, 30);
+
+  /* 2) 캐시백: 카드사/카드명에서 검색 */
+  const cashbackMatches = [];
+  for (const [platform, data] of Object.entries(CASHBACK)) {
+    for (const company of (data.companies||[])) {
+      const companyHit = company.name.toLowerCase().includes(q);
+      for (const card of (company.cards||[])) {
+        if (companyHit || card.name.toLowerCase().includes(q)) {
+          cashbackMatches.push({ platform, platformUrl: data.url, company: company.name, card });
+        }
+      }
+    }
+  }
+
+  /* 3) 할인가맹점: 몰 이름/상품명에서 검색 */
+  const productMatches = productsRes.filter(p => {
+    const hay = (String(p[0]||'') + ' ' + String(p[1]||'')).toLowerCase();
+    return hay.includes(q);
+  }).slice(0, 30);
+
+  /* 4) 카드연구소 콘텐츠 */
+  const contentMatches = CARDLAB_CONTENT.filter(c =>
+    c.title.toLowerCase().includes(q) || c.keywords.some(k => k.includes(q) || q.includes(k))
+  );
+
+  renderResults(query, cardMatches, cashbackMatches, productMatches, contentMatches);
+}
+
+function renderResults(query, cards, cashback, products, contents){
+  const total = cards.length + cashback.length + products.length + contents.length;
+  const main = document.getElementById('main');
+
+  if (!query.trim()) {
+    main.innerHTML = '<div class="sr-empty">검색어를 입력해주세요.</div>';
+    return;
+  }
+  if (total === 0) {
+    main.innerHTML = `<p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+      <div class="sr-empty">다른 키워드로 다시 검색해보세요.</div>`;
+    return;
+  }
+
+  let html = `<p class="sr-summary">'<b>${esc(query)}</b>'에 대해 카드 ${cards.length}건, 캐시백 ${cashback.length}건,
+    할인가맹점 ${products.length}건, 콘텐츠 ${contents.length}건을 찾았습니다.</p>`;
+
+  if (cards.length) {
+    html += `<div class="sr-section"><h2 class="sr-section-title">💳 카드 <span class="cnt">${cards.length}</span></h2>`;
+    html += cards.map(c => `
+      <a class="sr-row" href="/detail/${c.idx}">
+        <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+        <div class="sr-row-body">
+          <div class="sr-row-name">${esc(c.card_name)}</div>
+          <div class="sr-row-sub">${esc(c.company)} · ${esc(c.top_benefit_summary||'')}</div>
+        </div>
+        <span class="sr-row-arrow">›</span>
+      </a>`).join('');
+    html += `</div>`;
+  }
+
+  if (cashback.length) {
+    html += `<div class="sr-section"><h2 class="sr-section-title">🪙 캐시백 <span class="cnt">${cashback.length}</span></h2>`;
+    html += cashback.map(m => `
+      <a class="sr-row" href="${esc(m.card.url || m.platformUrl)}" target="_blank" rel="noopener">
+        <div class="sr-row-icon">🪙</div>
+        <div class="sr-row-body">
+          <div class="sr-row-name">${esc(m.card.name)}</div>
+          <div class="sr-row-sub">${esc(m.platform)} · ${esc(m.company)}${m.card.amount ? ' · 최대 '+m.card.amount+'만원' : ''}</div>
+        </div>
+        <span class="sr-row-tag">바로가기 ↗</span>
+      </a>`).join('');
+    html += `</div>`;
+  }
+
+  if (products.length) {
+    html += `<div class="sr-section"><h2 class="sr-section-title">🛍️ 할인가맹점 <span class="cnt">${products.length}</span></h2>`;
+    html += products.map(p => `
+      <a class="sr-row" href="${esc(p[6]||'#')}" target="_blank" rel="noopener">
+        <div class="sr-row-icon">🛍️</div>
+        <div class="sr-row-body">
+          <div class="sr-row-name">${esc(p[1])}</div>
+          <div class="sr-row-sub">${esc(p[0])} · ${esc(p[2]||'')}${p[3] ? ' · '+Number(p[3]).toLocaleString()+'원' : ''}</div>
+        </div>
+        <span class="sr-row-tag">보러가기 ↗</span>
+      </a>`).join('');
+    html += `</div>`;
+  }
+
+  if (contents.length) {
+    html += `<div class="sr-section"><h2 class="sr-section-title">🔬 카드연구소 <span class="cnt">${contents.length}</span></h2>`;
+    html += contents.map(c => `
+      <a class="sr-row" href="${c.url}">
+        <div class="sr-row-icon">${c.icon}</div>
+        <div class="sr-row-body">
+          <div class="sr-row-name">${esc(c.title)}</div>
+          <div class="sr-row-sub">${esc(c.sub)}</div>
+        </div>
+        <span class="sr-row-tag">${esc(c.tag)}</span>
+      </a>`).join('');
+    html += `</div>`;
+  }
+
+  main.innerHTML = html;
+}
+
+const initialQuery = new URLSearchParams(location.search).get('q') || '';
+runSearch(initialQuery);
+</script>
+</body>
+</html>

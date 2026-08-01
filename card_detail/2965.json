@@ -1,0 +1,42 @@
+{
+  "idx": 2965,
+  "card_name": "아정당 우리카드",
+  "company": "우리카드",
+  "card_type": "discount",
+  "cate": "CRD",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [23,000]원 / 해외겸용 [23,000]원",
+  "annual_fee_detail": "국내전용(Local) 23,000원<br>해외겸용(Mastercard) 23,000원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "only_online": false,
+  "release_dt": "2026-05-01",
+  "card_img": "https://image.ajd.co.kr/EDITOR/CONTENT/01KS2BZQ5XQA8RW1DTD7HCRJN5",
+  "top_benefit": [
+    {
+      "title": "통신/렌탈",
+      "tags": [
+        "통신/렌탈 자동납부",
+        "최대 25,000원",
+        "청구할인"
+      ],
+      "logo_url": ""
+    }
+  ],
+  "key_benefit": [
+    {
+      "title": "통신/렌탈",
+      "logo_url": "",
+      "info": "<p><strong>통신/렌탈 월 자동납부 요금 청구할인</strong></p><p>- 전월실적 30~70만원 미만: 월 10,000원 할인</p><p>- 전월실적 70~160만원 미만: 월 15,000원 할인</p><p>- 전월실적 160만원 이상: 월 25,000원 할인</p><p>- 대상: 아정당렌탈, LG전자, 코웨이, 쿠쿠 등 렌탈/구독 및 아정당 알뜰폰, SKT, KT, LGU+ 등 통신 자동납부</p>"
+    }
+  ],
+  "benefit_categories": "통신, 공과금/렌탈",
+  "detail_url": "https://www.ajd.co.kr/card/detail/1056",
+  "top_benefit_summary": "통신/렌탈: 최대 월 25,000원 할인",
+  "detailed_benefits": "통신/렌탈: 전월실적 구간별 월 10,000~25,000원 청구할인",
+  "item_limit": "-1 | -1",
+  "group_id": "none | none",
+  "group_limit": "-1 | -1",
+  "total_limit_tiers": null,
+  "is_calc_supported": "FALSE"
+}
