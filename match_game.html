@@ -192,19 +192,29 @@
     }
     .quiz-progress {
       width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
+      height: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 99px;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
       position: relative;
       overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
     }
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: var(--brand-gradient);
+      background: linear-gradient(90deg, #3b82f6, #06b6d4, #a855f7);
+      background-size: 200% 100%;
       border-radius: 99px;
-      transition: width 0.4s ease;
+      transition: width 0.4s cubic-bezier(0.34, 1.3, 0.64, 1);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+      animation: progressGradientGlow 3s ease infinite;
+    }
+    @keyframes progressGradientGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .quiz-step-num {
       font-size: 14px;
@@ -273,11 +283,13 @@
     .modern-slider {
       -webkit-appearance: none;
       width: 100%;
-      height: 10px;
+      height: 12px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       outline: none;
       margin-bottom: 12px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+      transition: background 0.15s ease;
     }
     .modern-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
@@ -462,6 +474,168 @@
       word-break: keep-all;
     }
 
+    /* ── 4대 소비 축 알파벳 해설 칩 & 4단 그리드 ── */
+    .mbti-axis-chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 24px;
+    }
+    .axis-chip {
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: #e9d5ff;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 99px;
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .axis-chip strong {
+      color: #a855f7;
+      font-size: 15px;
+    }
+
+    /* ── 4대 소비 축 양극 대칭(VS Scale) 카드 ── */
+    .mbti-vs-scale-container {
+      margin-top: 24px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 24px;
+      padding: 24px 26px;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .vs-scale-main-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'GmarketSans', sans-serif;
+    }
+    .vs-scale-rows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .vs-scale-row {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 16px 20px;
+    }
+    .vs-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .vs-axis-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .vs-labels-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .vs-badge {
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vs-badge.active.left-theme {
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+      border: 1px solid #c084fc;
+    }
+    .vs-badge.active.right-theme {
+      background: linear-gradient(135deg, #38bdf8, #3b82f6);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35);
+      border: 1px solid #7dd3fc;
+    }
+    .vs-badge.inactive {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #64748b;
+      opacity: 0.65;
+    }
+
+    .vs-gauge-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0 8px;
+    }
+    .vs-gauge-code {
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      color: #64748b;
+      white-space: nowrap;
+      transition: all 0.3s;
+    }
+    .vs-gauge-code.active.left {
+      color: #e9d5ff;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
+    }
+    .vs-gauge-code.active.right {
+      color: #bae6fd;
+      font-weight: 800;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+    }
+
+    .vs-gauge-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      gap: 2px;
+    }
+    .vs-gauge-part-left {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      border-radius: 99px 0 0 99px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .vs-gauge-part-right {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      border-radius: 0 99px 99px 0;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .vs-row-explanation {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .vs-row-explanation strong {
+      color: #e9d5ff;
+    }
+
     /* 오각형 차트 영역 */
     .result-analytics {
       display: flex;
@@ -517,10 +691,723 @@
       line-height: 1.5;
     }
 
-    /* 찰떡 카드 1위 배너 */
+    /* AI 추천 카드 섹션 구분선 */
+    .recommendation-section-divider {
+      margin: 50px 0 30px;
+      padding: 24px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      text-align: center;
+    }
+    .recommendation-section-divider .section-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .recommendation-section-divider .section-icon {
+      font-size: 24px;
+    }
+    .recommendation-section-divider h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin: 0;
+      font-family: 'GmarketSans', sans-serif;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .recommendation-section-divider .section-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .recommendation-section-divider .section-subtitle strong {
+      color: #93c5fd;
+    }
+
+    /* 찰떡 카드 1위 배너 프리미엄 2단 카드 레이아웃 */
     .primary-card-banner {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.15));
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85));
+      border: 2px solid rgba(59, 130, 246, 0.4);
+      border-radius: 24px;
+      padding: 36px 32px 30px 32px;
+      margin-bottom: 40px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+    }
+    .banner-badge {
+      position: absolute;
+      top: -14px;
+      left: 32px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 5px 16px;
+      border-radius: 99px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .banner-card-profile-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
+      padding-bottom: 24px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+    .banner-img-wrap {
+      width: 220px;
+      height: 138px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .banner-img-wrap:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+    .banner-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.5));
+    }
+    .banner-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .banner-card-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    .banner-card-desc {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .desc-chip {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+      font-weight: 600;
+      white-space: nowrap;
+      max-width: 320px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .desc-chip.company {
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .banner-action-wrap {
+      margin-top: 2px;
+    }
+    .banner-action-btn {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #ffffff !important;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 14px 26px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .banner-action-btn:hover {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #ffffff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.65);
+    }
+    .ai-formula-breakdown {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-top: 0;
+    }
+    .banner-recommend-reason {
+      margin-top: 16px;
+      font-size: 14px;
+      color: #bfdbfe;
+      background: rgba(30, 41, 59, 0.7);
+      padding: 14px 18px;
+      border-radius: 14px;
+      border-left: 4px solid #3b82f6;
+      line-height: 1.6;
+      text-align: left;
+    }
+    @media (max-width: 768px) {
+      .banner-card-profile-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 18px;
+      }
+      .banner-img-wrap {
+        width: 180px;
+        height: 115px;
+      }
+      .banner-action-wrap {
+        width: 100%;
+      }
+      .banner-action-btn {
+        width: 100%;
+      }
+    }
+    .banner-action-btn:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+
+    /* 혜택 세부 명세서 모달 & 프로그레스 바 UI CSS */
+    .breakdown-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .breakdown-modal-content {
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .breakdown-modal-header {
+      padding: 20px 24px;
+      background: #0f172a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .breakdown-modal-title span:first-child {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+    .breakdown-subtitle {
+      font-size: 13px;
+      color: #38bdf8;
+      margin-top: 2px;
+      display: block;
+    }
+    .breakdown-close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 26px;
+      cursor: pointer;
+      padding: 0 8px;
+      transition: color 0.2s;
+    }
+    .breakdown-close-btn:hover { color: #f8fafc; }
+    .breakdown-modal-body {
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .breakdown-summary-card {
+      display: flex;
+      gap: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+    }
+    .summary-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .summary-item .lbl {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .summary-item strong {
+      font-size: 20px;
+      color: #f8fafc;
+      margin-top: 4px;
+    }
+    .summary-item.main strong {
+      color: #4ade80;
+      font-size: 22px;
+    }
+    .breakdown-list-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+    }
+    .breakdown-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .breakdown-item-card {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .breakdown-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .breakdown-item-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .breakdown-item-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f8fafc;
+    }
+    .breakdown-item-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .breakdown-item-values {
+      text-align: right;
+    }
+    .breakdown-spend-text {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .breakdown-discount-text {
+      font-size: 16px;
+      font-weight: 800;
+      color: #4ade80;
+      margin-left: 6px;
+    }
+    .breakdown-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+    .breakdown-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── 1단계 ➡️ 2단계 이동 유도 CTA 배너 ── */
+    .mbti-to-cards-cta {
+      margin-top: 40px;
+      padding: 32px 24px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 12px 36px rgba(168, 85, 247, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .mbti-to-cards-cta::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .mbti-to-cards-cta .cta-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+    }
+    .mbti-to-cards-cta .cta-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-family: 'GmarketSans', sans-serif;
+      line-height: 1.4;
+    }
+    .mbti-to-cards-cta .cta-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .mbti-to-cards-cta .cta-action-btn {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      color: #ffffff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'GmarketSans', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mbti-to-cards-cta .cta-action-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.5);
+    }
+
+    /* ── 2차 AI 추천 분석 롤링 모달 오버레이 ── */
+    .cards-loading-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cards-loading-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 28px;
+      padding: 40px 32px;
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .cards-loading-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin: 20px 0 12px;
+      font-family: 'GmarketSans', sans-serif;
+    }
+    .cards-loading-rolling {
+      font-size: 14.5px;
+      color: #c084fc;
+      font-weight: 600;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.5;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    /* ── 2단계 상단 복귀 버튼 ── */
+    .back-to-mbti-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-to-mbti-btn:hover {
+      color: #fff;
+      background: rgba(51, 65, 85, 0.8);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* ── 동등 위상 2-Tab 스위쳐 ── */
+    .recommend-tab-switcher {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+    @media (max-width: 600px) {
+      .recommend-tab-switcher {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    .rec-tab-btn {
+      flex: 1;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      padding: 18px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'GmarketSans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .rec-tab-btn:hover {
+      background: rgba(51, 65, 85, 0.6);
+      color: #f1f5f9;
+      transform: translateY(-2px);
+    }
+    .rec-tab-btn.active.benefit-theme {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.25));
+      border-color: #3b82f6;
+      color: #ffffff;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+    .rec-tab-btn.active.pref-theme {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25));
+      border-color: #a855f7;
+      color: #ffffff;
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+    }
+
+    .pref-chip {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #e9d5ff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+
+    /* ── AI 추천 산출 공식 브레이크다운 박스 ── */
+    .ai-formula-breakdown {
+      margin-top: 16px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      padding: 16px 20px;
+      text-align: left;
+    }
+    .formula-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .formula-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .formula-score-badge {
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: 99px;
+      box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+    }
+    .formula-bars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 600px) {
+      .formula-bars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .formula-bar-item {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .formula-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .formula-bar-label strong {
+      color: #38bdf8;
+    }
+    .formula-bar-label strong.pref {
+      color: #c084fc;
+    }
+    .formula-progress-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .formula-progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .formula-progress-fill.benefit {
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+    }
+    .formula-progress-fill.pref {
+      background: linear-gradient(90deg, #c084fc, #a855f7);
+    }
+
+    /* ── 2단계 상단 지출 요약 대시보드 ── */
+    .spending-summary-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 22px 24px;
+      margin-bottom: 30px;
+    }
+    .spending-summary-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .spending-summary-header .summary-icon {
+      font-size: 20px;
+    }
+    .spending-summary-header h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin: 0;
+    }
+    .spending-summary-header strong {
+      color: #38bdf8;
+    }
+    .spend-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .spend-chip {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+    .spend-chip .chip-amt {
+      color: #38bdf8;
+      margin-left: 4px;
+      font-weight: 700;
+    }
+
+    /* ── 관심 분야 맞춤 추천 배너 (퍼플 테마) ── */
+    .preference-section-divider {
+      margin: 60px 0 30px;
+      padding: 24px;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+      border-radius: 20px;
+      text-align: center;
+    }
+    .preference-section-divider h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 0 8px;
+      font-family: 'GmarketSans', sans-serif;
+      background: linear-gradient(135deg, #c084fc, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .preference-card-banner {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+      border: 2px solid rgba(168, 85, 247, 0.4);
       border-radius: 24px;
       padding: 30px;
       margin-bottom: 40px;
@@ -529,92 +1416,39 @@
       align-items: center;
       justify-content: space-between;
       gap: 30px;
-      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
     }
-    @media (max-width: 600px) {
-      .primary-card-banner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
+    .preference-card-banner .banner-badge {
+      background: #a855f7;
+      box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
     }
-    .banner-badge {
-      position: absolute;
-      top: -14px;
-      left: 30px;
-      background: #3b82f6;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 4px 14px;
-      border-radius: 99px;
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
-    }
-    .banner-img-wrap {
-      width: 140px;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .banner-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
-    }
-    .banner-info {
-      flex: 1;
-    }
-    .banner-card-title {
-      font-size: 21px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .banner-card-desc {
-      font-size: 13.5px;
-      color: var(--muted);
-      margin-bottom: 12px;
-      line-height: 1.5;
-    }
-    .banner-benefit-math {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      padding: 8px 16px;
-      border-radius: 10px;
-    }
-    .banner-benefit-math span {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-    .banner-benefit-math strong {
-      color: #10b981;
-      font-size: 16px;
-      font-weight: 800;
+    .preference-card-banner .banner-recommend-reason {
+      border-left-color: #a855f7;
+      color: #e9d5ff;
     }
     .banner-action-btn {
-      background: #ffffff;
-      color: #0f172a;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-size: 14.5px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #ffffff !important;
+      font-size: 14px;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      flex-shrink: 0;
+      padding: 12px 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
       text-decoration: none;
-      display: inline-block;
-      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      flex-shrink: 0;
     }
     .banner-action-btn:hover {
-      background: #eff6ff;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #ffffff !important;
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.6);
     }
 
     /* TOP 3 리스트 */
@@ -636,17 +1470,23 @@
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: 20px;
-      padding: 20px 24px;
+      padding: 18px 22px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      flex-direction: column;
+      gap: 14px;
       transition: all 0.2s;
     }
     .rec-card-item:hover {
       border-color: rgba(96, 165, 250, 0.4);
       background: rgba(255, 255, 255, 0.04);
       transform: translateY(-2px);
+    }
+    .rec-card-main-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
     }
     .rec-card-rank {
       font-family: 'GmarketSans', sans-serif;
@@ -661,8 +1501,8 @@
     .rec-card-rank.rank-3 { color: #b45309; }
     
     .rec-card-img-wrap {
-      width: 100px;
-      height: 64px;
+      width: 90px;
+      height: 58px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -676,6 +1516,7 @@
     }
     .rec-card-info {
       flex: 1;
+      min-width: 0;
     }
     .rec-card-company {
       font-size: 11px;
@@ -684,12 +1525,21 @@
       margin-bottom: 2px;
     }
     .rec-card-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .rec-card-chips {
+    .rec-card-chips-group {
       display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .rec-card-chips-row {
+      display: flex;
+      align-items: center;
       gap: 6px;
       flex-wrap: wrap;
     }
@@ -701,17 +1551,57 @@
       color: var(--muted);
       padding: 2px 6px;
       font-weight: 600;
+      white-space: nowrap;
     }
     .rec-card-chip.match-pct {
-      background: rgba(99, 102, 241, 0.1);
-      border-color: rgba(99, 102, 241, 0.2);
+      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(99, 102, 241, 0.3);
       color: #818cf8;
     }
 
     .rec-card-benefit-math {
       text-align: right;
       flex-shrink: 0;
-      width: 120px;
+      width: 110px;
+    }
+    .rec-card-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px 16px;
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .rec-card-notice-text {
+      font-size: 12px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rec-card-detail-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .rec-card-detail-btn:hover {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+      color: #fff;
     }
     .rec-card-benefit-lbl {
       font-size: 11px;
@@ -728,23 +1618,38 @@
       flex-shrink: 0;
     }
     .rec-card-btn {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--txt);
-      border: 1px solid var(--glass-border);
-      width: 38px;
+      background: linear-gradient(135deg, #8b5cf6, #6366f1);
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 14px;
       height: 38px;
       border-radius: 10px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s ease;
       text-decoration: none;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+      white-space: nowrap;
     }
     .rec-card-btn:hover {
-      background: var(--brand);
-      border-color: transparent;
-      color: #fff;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #fff !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5);
+    }
+    /* 혜택 비교 AI 할인액 강조 스타일 */
+    #best-benefit-val {
+      color: #10b981 !important;
+      font-weight: 800 !important;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+    .vs-detail-bar-fill.best {
+      background: linear-gradient(90deg, #10b981, #059669) !important;
     }
     @media (max-width: 550px) {
       .rec-card-item {
@@ -1109,14 +2014,99 @@
     .slider-adj-btn:active {
       transform: scale(0.95);
     }
-    .loading-rolling-text {
-      margin-top: 24px;
-      font-size: 14px;
+    /* 💡 고도화 1: 절약 시뮬레이터 카드 스타일 */
+    .savings-simulator-card {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.5), rgba(15, 23, 42, 0.7));
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .savings-badge-tag {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid #3b82f6;
       color: #60a5fa;
-      font-weight: 500;
-      text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
-      min-height: 20px;
-      transition: opacity 0.15s ease;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    .savings-val-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .savings-val-text strong {
+      color: #38bdf8;
+      font-size: 19px;
+    }
+
+    /* 💡 고도화 2: 피킹률 차트 컨테이너 */
+    .picking-chart-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .picking-chart-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 💡 고도화 3: 상극(비추) 카드 섹션 */
+    .worst-card-container {
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.25), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 40px;
+    }
+    .worst-header-title {
+      font-family: 'GmarketSans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .worst-card-body {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .worst-card-img {
+      width: 80px;
+      height: auto;
+      object-fit: contain;
+    }
+    .worst-card-info {
+      flex: 1;
+    }
+    .worst-card-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .worst-card-reason {
+      font-size: 13px;
+      color: #f87171;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -1144,7 +2134,7 @@
         간단한 소비 퀴즈만 풀면, 미리 공부한 머신러닝 AI가 당신의 소비 성향 MBTI를 진단하고 가장 돈을 많이 아껴줄 인생 카드를 찾아 드립니다.
       </p>
       <div class="tech-specs">
-        <div class="tech-badge">🤖 AI 가상로봇: <strong>3,000명</strong></div>
+        <div class="tech-badge">🤖 AI 가상로봇: <strong>10,000명</strong></div>
         <div class="tech-badge">⚡ 연산속도: <strong>0.01초</strong></div>
       </div>
       <button class="start-btn" onclick="startQuiz()">게임 시작하기</button>
@@ -1152,7 +2142,7 @@
     </div>
 
     <!-- ── 퀴즈 화면 ── -->
-    <div id="game-quiz" class="quiz-container">
+    <div id="game-quiz" class="quiz-container" style="display:none;">
       <div class="quiz-progress">
         <div id="progress-fill" class="progress-fill"></div>
       </div>
@@ -1426,6 +2416,34 @@
         <center><div class="chip-limit-msg" id="chip-count-msg">현재 0개 선택 (최대 3개)</div></center>
       </div>
 
+      <!-- Q15: 희망 카드 연회비 범위 설정 -->
+      <div id="step-15" class="quiz-step" style="display:none;">
+        <div class="quiz-step-num" id="step-num-15">Question 14 / 14</div>
+        <div class="quiz-question">선호하시는 희망 카드 연회비 범위는 어느 정도인가요?</div>
+        <div class="option-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;">
+          <div class="option-card" onclick="selectFeeOption(10000)" id="fee-opt-10000">
+            <div class="option-title">🆓 1만 원 이하</div>
+            <div class="option-desc">알뜰 실속형 (연회비 부담 최소화)</div>
+          </div>
+          <div class="option-card selected" onclick="selectFeeOption(30000)" id="fee-opt-30000">
+            <div class="option-title">💳 3만 원 이하</div>
+            <div class="option-desc">대중적 일반형 (가장 많이 쓰는 구간)</div>
+          </div>
+          <div class="option-card" onclick="selectFeeOption(100000)" id="fee-opt-100000">
+            <div class="option-title">💎 10만 원 이하</div>
+            <div class="option-desc">혜택 집중형 (높은 한도/할인 선호)</div>
+          </div>
+          <div class="option-card" onclick="selectFeeOption(999999)" id="fee-opt-999999">
+            <div class="option-title">👑 10만 원 초과도 OK</div>
+            <div class="option-desc">VVIP 프리미엄 (바우처/라운지 포함)</div>
+          </div>
+          <div class="option-card" onclick="selectFeeOption(Infinity)" id="fee-opt-Infinity" style="grid-column: span 2;">
+            <div class="option-title">🌈 상관없음</div>
+            <div class="option-desc">연회비 무관 (오직 혜택만 극대화)</div>
+          </div>
+        </div>
+      </div>
+
       <!-- 버튼 영역 -->
       <div class="btn-group">
         <button class="nav-btn nav-btn-prev" id="prev-btn" onclick="prevStep()">이전</button>
@@ -1438,14 +2456,23 @@
       <div class="scanning-cube"></div>
       <div class="loading-title">AI가 찰떡 카드를 찾는 중입니다...</div>
       <div class="loading-desc">
-        가상 소비 패턴 로봇 3,000명의 모의고사 정답지를 토대로<br>
+        가상 소비 패턴 로봇 10,000명의 모의고사 정답지를 토대로<br>
         경량 신경망(MLP) 추론 엔진을 초고속 가동하고 있습니다.
       </div>
-      <div class="loading-rolling-text" id="rolling-status-text">🤖 3,000명의 가상 소비 시뮬레이션 로봇 소환 중...</div>
+      <div class="loading-rolling-text" id="rolling-status-text">🤖 10,000명의 가상 소비 시뮬레이션 로봇 소환 중...</div>
     </div>
 
-    <!-- ── 결과 화면 ── -->
-    <div id="game-result" class="result-container" style="display:none;">
+    <!-- ── 2차 AI 추천 분석 롤링 오버레이 모달 ── -->
+    <div id="cards-loading-overlay" class="cards-loading-modal" style="display:none;">
+      <div class="cards-loading-box">
+        <div class="scanning-cube"></div>
+        <h3 class="cards-loading-title">AI 지출 패턴 정밀 연산 중...</h3>
+        <div class="cards-loading-rolling" id="cards-rolling-text">🤖 입력하신 13개 지출 영역 정밀 패턴 계산 중...</div>
+      </div>
+    </div>
+
+    <!-- ── 1단계 결과 화면: 소비 MBTI 성향 진단 ── -->
+    <div id="game-result-mbti" class="result-container" style="display:none;">
       <div class="result-header">
         <div class="mbti-tag" id="mbti-tag-val">나의 소비 성향 MBTI</div>
         <div class="mbti-name-wrap">
@@ -1455,13 +2482,18 @@
         <p class="mbti-desc" id="mbti-desc-val">
           로딩 중...
         </p>
+
+        <!-- 💡 나의 소비 성향 4대 축 지형도 (Versus Scale) -->
+        <div class="mbti-vs-scale-container">
+          <div class="vs-scale-main-title">💡 나의 소비 성향 4대 축 지형도 (Versus Scale)</div>
+          <div id="mbti-vs-scale-list" class="vs-scale-rows-list">
+            <!-- JS 동적 바인딩 -->
+          </div>
+        </div>
       </div>
 
-      <!-- 육각형 차트 및 소비 상세 팩트 -->
+      <!-- 소비 상세 팩트 -->
       <div class="result-analytics">
-        <div class="chart-box">
-          <canvas id="mbtiRadarChart"></canvas>
-        </div>
         <div class="mbti-details-box">
           <div class="detail-fact-card">
             <h4>💡 소비 분석 리포트</h4>
@@ -1474,41 +2506,133 @@
         </div>
       </div>
 
-      <!-- 1위 인생 카드 추천 -->
-      <div class="primary-card-banner">
-        <div class="banner-badge">MY BEST CARD (1위)</div>
-        <div class="banner-img-wrap">
-          <img src="" class="banner-img" id="primary-card-img" alt="1위 카드 이미지">
+      <!-- 1단계 ➡️ 2단계 이동 유도 대형 CTA 배너 -->
+      <div class="mbti-to-cards-cta">
+        <div class="cta-badge">AI 추천 카드 연산 완료</div>
+        <h3 class="cta-title">💡 당신의 소비 금액으로 AI가 추천한 카드를 보시겠어요?</h3>
+        <p class="cta-desc">퀴즈에서 입력하신 13개 지출 패턴과 관심 키워드를 머신러닝 AI로 계산하여 가장 돈을 많이 아껴줄 혜택 카드가 준비되었습니다.</p>
+        <button class="cta-action-btn" onclick="startCardsAnalysisLoading()">
+          ✨ AI 추천 카드 결과 보기 👉
+        </button>
+      </div>
+
+      <button class="retry-btn" onclick="retryQuiz()" style="margin-top: 30px;">🎮 테스트 다시 하기</button>
+    </div>
+
+    <!-- ── 2단계 결과 화면: AI 통합 추천 카드 전용 화면 ── -->
+    <div id="game-result-cards" class="result-container" style="display:none;">
+      <button class="back-to-mbti-btn" onclick="showMbtiView()">
+        ◀ 나의 소비 MBTI 분석 결과로 돌아가기
+      </button>
+
+      <!-- 2단계 상단 지출 및 관심사 통합 요약 대시보드 박스 -->
+      <div id="user-spending-summary-box" class="spending-summary-card">
+        <!-- 1단: 지출 내역 -->
+        <div style="margin-bottom: 16px;">
+          <div class="spending-summary-header">
+            <span class="summary-icon">📊</span>
+            <h4 id="summary-total-title">내가 입력한 월 지출 내역 (총 0만 원)</h4>
+          </div>
+          <div id="summary-chips-container" class="spend-chips-grid"></div>
         </div>
-        <div class="banner-info">
-          <div class="banner-card-title" id="primary-card-title">디지로카 Travel</div>
-          <div class="banner-card-desc" id="primary-card-desc">로딩 중...</div>
-          <div class="banner-benefit-math">
-            <span>AI 예상 월 할인액</span>
-            <strong id="primary-card-benefit">0원</strong>
+
+        <div style="border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 14px;">
+          <div class="spending-summary-header">
+            <span class="summary-icon">🎯</span>
+            <h4 style="color:#e9d5ff;">내가 아끼고 싶은 혜택 분야 (3가지)</h4>
+          </div>
+          <div id="pref-chips-container" class="spend-chips-grid"></div>
+        </div>
+      </div>
+
+      <!-- ── AI 통합 맞춤 추천 헤더 ── -->
+      <div class="recommendation-section-divider">
+        <div class="section-title-wrap">
+          <span class="section-icon">✨</span>
+          <h3>나의 지출액 & 관심사 기반 AI 통합 맞춤 추천 TOP 3</h3>
+        </div>
+        <p class="section-subtitle">
+          입력하신 13개 지출 영역(70% 비중)과 아끼고 싶은 혜택 키워드(30% 비중)를 머신러닝 AI로 합성 연산하여 <strong>종합 이득이 가장 높은 카드</strong>입니다.
+        </p>
+      </div>
+
+      <!-- 1위 통합 AI 카드 추천 배너 (2단 상하 통합 프리미엄 구조) -->
+      <div class="primary-card-banner">
+        <div class="banner-badge">✨ AI 종합 매칭 1위</div>
+        
+        <!-- 1단: 대형 카드 비주얼 + (우측: 카드 프로필 정보 & 하단 상세보기 버튼) -->
+        <div class="banner-card-profile-row">
+          <div class="banner-img-wrap">
+            <img src="" class="banner-img" id="primary-card-img" alt="추천 카드 이미지" onerror="if(bestCardItem && bestCardItem.card){this.onerror=null; this.src='https://api.card-gorilla.com/storage/card/' + bestCardItem.card.idx + '/card_img.png';}">
+          </div>
+          <div class="banner-info">
+            <div class="banner-card-title" id="primary-card-title">디지로카 Travel</div>
+            <div class="banner-card-desc" id="primary-card-desc">로딩 중...</div>
+            <div class="banner-action-wrap" style="display:flex; gap:10px;">
+              <a href="javascript:void(0)" class="banner-action-btn" id="primary-card-link">상세 보기 🔗</a>
+              <button type="button" onclick="openBreakdownInspector(selectedCardRank - 1)" class="banner-action-btn" style="background:rgba(59, 130, 246, 0.25); border:1px solid #3b82f6; color:#60a5fa; cursor:pointer;">피킹률 차트 📊</button>
+            </div>
           </div>
         </div>
-        <a href="#" target="_blank" class="banner-action-btn" id="primary-card-link">상세 보기</a>
+
+        <!-- 2단: AI 추천 산출 공식 & 추천 사유 브레이크다운 박스 (100% 전체 너비) -->
+        <div class="ai-formula-breakdown">
+          <div class="formula-header">
+            <span class="formula-title">🧮 AI 추천 산출 공식</span>
+            <span class="formula-score-badge" id="formula-score-val">종합 94점</span>
+          </div>
+          
+          <div class="formula-bars-grid">
+            <div class="formula-bar-item">
+              <div class="formula-bar-label">
+                <span>💰 지출액 할인 (70% 반영)</span>
+                <strong id="formula-benefit-val">월 약 0원</strong>
+              </div>
+              <div class="formula-progress-bg">
+                <div class="formula-progress-fill benefit" id="formula-benefit-fill" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <div class="formula-bar-item">
+              <div class="formula-bar-label">
+                <span>🎯 절약 혜택 매칭 (30% 반영)</span>
+                <strong class="pref" id="formula-pref-val">매칭률 0%</strong>
+              </div>
+              <div class="formula-progress-bg">
+                <div class="formula-progress-fill pref" id="formula-pref-fill" style="width: 90%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="banner-recommend-reason" id="primary-card-reason">
+            추천 사유 분석 중...
+          </div>
+
+          <!-- 💡 고도화 1: 예상 절약 혜택 시뮬레이터 위젯 -->
+          <div id="primary-card-savings-sim"></div>
+        </div>
       </div>
 
-      <!-- TOP 3 리스트 -->
-      <div class="top3-header">당신에게 어울리는 추천 카드 TOP 3</div>
+      <div class="top3-header">AI 종합 매칭 추천 카드 TOP 3</div>
       <div class="recommend-list" id="rec-list-container">
-        <!-- 동적으로 추천 카드들이 삽입됩니다 -->
+        <!-- 동적 생성 -->
       </div>
 
-      <!-- ── 내 카드 혜택 비교 섹션 (신규) ── -->
+      <!-- 💡 고도화 3: 소비 MBTI 상극(비추) 카드 비교 섹션 -->
+      <div id="worst-card-section"></div>
+
+      <!-- ── 트랙 C: 내 카드 혜택 비교 섹션 ── -->
       <div class="card-comparison-section">
         <div class="comparison-header">
           <h3>💳 내가 현재 쓰는 카드와 혜택 비교해보기</h3>
           <p>카드사를 먼저 고르고 사용 중인 카드를 선택해 보세요. AI 1위 카드와 영역별 예상 혜택을 1:1로 비교해 드립니다.</p>
         </div>
         
-        <div class="search-wrapper" style="display: flex; gap: 16px; margin-bottom: 24px;">
-          <select id="compare-company-select" onchange="onCompanyChange()" style="flex: 1; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 20px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;">
+        <div class="search-wrapper" style="display: flex; gap: 12px; margin-bottom: 24px; width: 100%; box-sizing: border-box;">
+          <select id="compare-company-select" onchange="onCompanyChange()" style="flex: 1 1 0%; min-width: 0; width: 0; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; box-sizing: border-box; text-overflow: ellipsis;">
             <option value="">-- 카드사 선택 --</option>
           </select>
-          <select id="compare-card-select" onchange="onCardChange()" style="flex: 1; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 20px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;" disabled>
+          <select id="compare-card-select" onchange="onCardChange()" style="flex: 1 1 0%; min-width: 0; width: 0; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; box-sizing: border-box; text-overflow: ellipsis;" disabled>
             <option value="">-- 카드 선택 --</option>
           </select>
         </div>
@@ -1544,7 +2668,7 @@
 
           <!-- 영역별 세부 혜택 비교선 목록 -->
           <div class="vs-detail-section">
-            <h4 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 16px; text-align: center; font-family: 'GmarketSans', sans-serif;">🔍 소비 영역별 예상 상세 혜택 비교</h4>
+            <h4 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 18px; text-align: center; font-family: 'GmarketSans', sans-serif;">🔍 소비 영역별 혜택 산출 명세서 비교</h4>
             <div id="vs-detail-benefits-list" class="vs-detail-list">
               <!-- JS를 통해 동적 생성 -->
             </div>
@@ -1552,11 +2676,47 @@
         </div>
       </div>
 
-      <button class="retry-btn" onclick="retryQuiz()">🎮 테스트 다시 하기</button>
-    </div>
-
   </div>
 </main>
+
+<!-- 💡 고도화 2: 카드 혜택 명세 & 피킹률 차트 모달 -->
+<div id="breakdown-modal" class="breakdown-modal-overlay" style="display:none;" onclick="if(event.target===this) closeBreakdownModal();">
+  <div class="breakdown-modal-content">
+    <div class="breakdown-modal-header">
+      <div class="breakdown-modal-title">
+        <span>💳 카드 혜택 정밀 명세 & 피킹률 리포트</span>
+        <span id="breakdown-card-name" class="breakdown-subtitle">카드명</span>
+      </div>
+      <button class="breakdown-close-btn" onclick="closeBreakdownModal()">✕</button>
+    </div>
+    <div class="breakdown-modal-body">
+      <!-- 요약 정보 카드 -->
+      <div class="breakdown-summary-card">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:14px;">
+          <span>월 지출액 기준: <strong id="breakdown-total-spend">0원</strong></span>
+          <span>연회비: <strong id="breakdown-card-fee">0원</strong></span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:15px;">
+          <span>월 예상 혜택: <strong id="breakdown-total-discount" style="color:#38bdf8;">+0원</strong></span>
+          <span>연간 실질 순이득: <strong id="breakdown-net-roi" style="color:#4ade80;">+0원</strong></span>
+        </div>
+      </div>
+
+      <!-- 💡 고도화 2: 전월실적 구간별 피킹률(%) 추이 차트 -->
+      <div id="modal-picking-chart-container" class="picking-chart-card">
+        <div class="picking-chart-title">📊 전월 실적 구간별 피킹률(혜택 환산율 %) 추이 차트</div>
+        <div style="height: 180px; position: relative;">
+          <canvas id="pickingRateChartModal"></canvas>
+        </div>
+      </div>
+
+      <div class="breakdown-list-title" style="margin-top:20px; font-weight:700; color:#60a5fa;">🔍 카테고리별 정밀 혜택 계산 명세</div>
+      <div id="breakdown-items-list" class="breakdown-items-list">
+        <!-- JS 동적 생성 -->
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
   let currentStep = 1;
@@ -1574,7 +2734,8 @@
     travel_spend: 200000,
     utility_spend: 200000,
     education_spend: 200000,
-    keywords: []
+    keywords: [],
+    preferred_fee_limit: 30000
   };
 
   let CARDS_LIST = [];
@@ -1597,11 +2758,17 @@
       
       console.log("AI 데이터 및 모델 로드 성공!");
 
-      // 카드사 목록 Unique 바인딩
+      // 카드사 목록 (보유 카드 수가 많은 순으로 상위 노출)
       const companySelect = document.getElementById('compare-company-select');
       if (companySelect) {
-        const companies = [...new Set(CARDS_LIST.map(c => c.company).filter(Boolean))].sort();
-        companies.forEach(comp => {
+        const companyCounts = {};
+        CARDS_LIST.forEach(c => {
+          if (c.company) {
+            companyCounts[c.company] = (companyCounts[c.company] || 0) + 1;
+          }
+        });
+        const sortedCompanies = Object.keys(companyCounts).sort((a, b) => companyCounts[b] - companyCounts[a]);
+        sortedCompanies.forEach(comp => {
           const opt = document.createElement('option');
           opt.value = comp;
           opt.innerText = comp;
@@ -1615,27 +2782,31 @@
 
   // 2. 퀴즈 시작
   function startQuiz() {
-    document.getElementById('game-intro').style.display = 'none';
-    document.getElementById('game-quiz').style.display = 'block';
+    const introEl = document.getElementById('game-intro');
+    const quizEl = document.getElementById('game-quiz');
+    if (introEl) introEl.style.display = 'none';
+    if (quizEl) quizEl.style.display = 'block';
     goToStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // 3. 단계별 렌더링 & 진행률 맵핑 (13단계 질문 + 1개 최종 칩 단계)
+  // 3. 단계별 렌더링 & 진행률 맵핑 (13단계 지출 질문 + 키워드 칩 + 희망 연회비 범위 설정)
   const STEP_PROGRESS_MAP = {
-    1: { num: 1, pct: 8 },
-    2: { num: 2, pct: 15 },
-    3: { num: 2, pct: 15 },
-    4: { num: 3, pct: 23 },
-    5: { num: 4, pct: 31 },
-    6: { num: 5, pct: 38 },
-    7: { num: 6, pct: 46 },
-    8: { num: 7, pct: 54 },
-    9: { num: 8, pct: 62 },
-    10: { num: 9, pct: 69 },
-    11: { num: 10, pct: 77 },
-    12: { num: 11, pct: 85 },
-    13: { num: 12, pct: 92 },
-    14: { num: 13, pct: 100 }
+    1: { num: 1, pct: 7 },
+    2: { num: 2, pct: 14 },
+    3: { num: 2, pct: 14 },
+    4: { num: 3, pct: 21 },
+    5: { num: 4, pct: 28 },
+    6: { num: 5, pct: 35 },
+    7: { num: 6, pct: 42 },
+    8: { num: 7, pct: 50 },
+    9: { num: 8, pct: 57 },
+    10: { num: 9, pct: 64 },
+    11: { num: 10, pct: 71 },
+    12: { num: 11, pct: 78 },
+    13: { num: 12, pct: 85 },
+    14: { num: 13, pct: 92 },
+    15: { num: 14, pct: 100 }
   };
 
   function goToStep(step) {
@@ -1645,25 +2816,33 @@
 
   function showStep(step) {
     // 모든 스텝 숨기기
-    for(let i=1; i<=14; i++) {
-      document.getElementById(`step-${i}`).style.display = 'none';
+    for(let i=1; i<=15; i++) {
+      const stepEl = document.getElementById(`step-${i}`);
+      if (stepEl) stepEl.style.display = 'none';
     }
     
     // 현재 스텝 노출
-    document.getElementById(`step-${step}`).style.display = 'block';
+    const currentStepEl = document.getElementById(`step-${step}`);
+    if (currentStepEl) currentStepEl.style.display = 'block';
     
     // 진행바 및 질문 번호 렌더링
     const map = STEP_PROGRESS_MAP[step];
     if (map) {
-      document.getElementById('progress-fill').style.width = `${map.pct}%`;
+      const progressFill = document.getElementById('progress-fill');
+      if (progressFill) progressFill.style.width = `${map.pct}%`;
+      
       const numEl = document.getElementById(`step-num-${step}`);
       if (numEl) {
-        numEl.innerText = `Question ${map.num} / 13`;
+        numEl.innerText = `Question ${map.num} / 14`;
       }
     }
     
+    // 현재 스텝 슬라이더 게이지 바 채우기 상태 갱신
+    initAllSliderFills();
+    
     // 네비게이션 버튼 셋업
-    document.getElementById('prev-btn').style.visibility = (step === 1) ? 'hidden' : 'visible';
+    const prevBtn = document.getElementById('prev-btn');
+    if (prevBtn) prevBtn.style.visibility = (step === 1) ? 'hidden' : 'visible';
     
     // 다음 버튼 활성화 조건 체크
     checkNextButtonValidity();
@@ -1672,10 +2851,14 @@
   // 다음 버튼 활성화 여부 결정
   function checkNextButtonValidity() {
     const nextBtn = document.getElementById('next-btn');
+    if (!nextBtn) return;
     if (currentStep === 1) {
       nextBtn.disabled = (userAnswers.transit_type === null);
     } else if (currentStep === 14) {
       nextBtn.disabled = (userAnswers.keywords.length === 0);
+      nextBtn.innerText = "다음 단계";
+    } else if (currentStep === 15) {
+      nextBtn.disabled = false;
       nextBtn.innerText = "결과 분석하기 🔮";
     } else {
       nextBtn.disabled = false;
@@ -1699,16 +2882,56 @@
     }, 200);
   }
 
-  // 5. 슬라이더 지출액 한글 포맷팅
-  // 5. 슬라이더 지출액 한글 포맷팅 및 동기화
+  function updateProgressOnAmountChange(type) {
+    const map = STEP_PROGRESS_MAP[currentStep];
+    if (!map) return;
+    
+    let basePct = map.pct;
+    let extraPct = 0;
+    
+    if (type) {
+      const slider = document.getElementById(`${type}-slider`);
+      if (slider) {
+        const val = parseInt(slider.value) || 0;
+        const maxVal = parseInt(slider.max) || 1000000;
+        extraPct = Math.min(Math.round((val / maxVal) * 6), 6);
+      }
+    }
+    
+    const progressFill = document.getElementById('progress-fill');
+    if (progressFill) {
+      const finalPct = Math.min(basePct + extraPct, 100);
+      progressFill.style.width = `${finalPct}%`;
+    }
+  }
+
+  // 5. 슬라이더 지출액 한글 포맷팅 및 게이지 실시간 반응 동기화
   function updateSliderDisplay(type) {
     const slider = document.getElementById(`${type}-slider`);
     const display = document.getElementById(`${type}-val-display`);
     if (!slider) return;
     
     const val = parseInt(slider.value) || 0;
+    const min = parseInt(slider.min) || 0;
+    const max = parseInt(slider.max) || 1000000;
+    
+    // 선택된 금액 비중(%)만큼 슬라이더 게이지 바를 블루-시안 네온 빛으로 채우기
+    const pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+    slider.style.background = `linear-gradient(to right, #3b82f6 0%, #06b6d4 ${pct}%, rgba(255, 255, 255, 0.12) ${pct}%, rgba(255, 255, 255, 0.12) 100%)`;
+
     userAnswers[`${type}_spend`] = val;
     if (display) display.innerText = formatMoney(val);
+    
+    // 금액 변경 시 상단 프로그레스 바 게이지 충전 모션 연동
+    updateProgressOnAmountChange(type);
+  }
+
+  // 퀴즈 스텝 로드 시 슬라이더 게이지 바 비주얼 초기화
+  function initAllSliderFills() {
+    const types = ["transit", "gas", "shopping", "convenience", "food", "cafe", "telecom", "digital", "culture", "travel", "utility", "education"];
+    types.forEach(type => {
+      updateSliderDisplay(type);
+    });
   }
 
   function adjustSliderValue(type, stepAmount) {
@@ -1729,18 +2952,51 @@
   }
 
   function formatMoney(amount) {
-    if (amount === 0) return "0원";
-    if (amount >= 1000000 && amount % 1000000 === 0) return `${amount / 1000000}00만 원`;
-    
+    if (!amount || amount === 0) return "0원";
     const man = Math.floor(amount / 10000);
     const rest = amount % 10000;
     
     let result = "";
-    if (man > 0) result += `${man}만`;
-    if (rest > 0) result += ` ${rest}원`;
-    else result += " 원";
-    
+    if (man > 0) {
+      result += `${man.toLocaleString()}만 원`;
+      if (rest > 0) result += ` ${rest.toLocaleString()}원`;
+    } else {
+      result += `${rest.toLocaleString()}원`;
+    }
     return result;
+  }
+
+  // 긴 연회비 텍스트 스마트 축약 포맷터
+  function formatAnnualFee(rawFee) {
+    if (!rawFee || rawFee === "null" || rawFee === "undefined") return "정보없음";
+    let fee = String(rawFee).trim();
+    if (!fee) return "정보없음";
+    
+    // 295,000원 -> 29.5만 원 / 300,000원 -> 30만 원 정밀 변환
+    fee = fee.replace(/(\d[\d,]*)\s*원/g, (match, p1) => {
+      const num = parseInt(p1.replace(/,/g, ''), 10);
+      if (isNaN(num)) return match;
+      if (num === 0) return "0원";
+      if (num >= 10000) {
+        const man = Math.floor(num / 10000);
+        const rest = num % 10000;
+        if (rest === 0) {
+          return `${man}만 원`;
+        } else if (rest % 1000 === 0) {
+          return `${man}.${rest / 1000}만 원`;
+        } else {
+          return `${num.toLocaleString()}원`;
+        }
+      }
+      return `${num.toLocaleString()}원`;
+    });
+
+    fee = fee.replace(/국내전용\s*/g, "국내 ").replace(/해외겸용\s*/g, "해외 ");
+
+    if (fee.length > 35) {
+      fee = fee.substring(0, 33) + "...";
+    }
+    return fee;
   }
 
   // 6. Q14: 관심 키워드 칩 토글
@@ -1750,18 +3006,33 @@
     
     if (idx > -1) {
       userAnswers.keywords.splice(idx, 1);
-      chipEl.classList.remove('selected');
+      if (chipEl) chipEl.classList.remove('selected');
     } else {
       if (userAnswers.keywords.length >= 3) {
-        alert("관심 혜택은 최대 3개까지만 선택할 수 있어요!");
+        alert("아끼고 싶은 혜택은 최대 3개까지만 선택할 수 있어요!");
         return;
       }
       userAnswers.keywords.push(kw);
-      chipEl.classList.add('selected');
+      if (chipEl) chipEl.classList.add('selected');
     }
     
     const msgEl = document.getElementById('chip-count-msg');
-    msgEl.innerText = `현재 ${userAnswers.keywords.length}개 선택 (최대 3개)`;
+    if (msgEl) msgEl.innerText = `현재 ${userAnswers.keywords.length}개 선택 (최대 3개)`;
+    checkNextButtonValidity();
+  }
+
+  // 6-2. Q15: 희망 카드 연회비 범위 클릭 선택
+  function selectFeeOption(limit) {
+    userAnswers.preferred_fee_limit = limit;
+    
+    const feeOpts = [10000, 30000, 100000, 999999, 'Infinity'];
+    feeOpts.forEach(opt => {
+      const cardEl = document.getElementById(`fee-opt-${opt}`);
+      if (cardEl) {
+        const isMatch = (opt === 'Infinity') ? (limit === Infinity) : (opt === limit);
+        cardEl.classList.toggle('selected', isMatch);
+      }
+    });
     checkNextButtonValidity();
   }
 
@@ -1784,7 +3055,7 @@
       else goToStep(3);
     } else if (currentStep === 2 || currentStep === 3) {
       goToStep(4);
-    } else if (currentStep < 14) {
+    } else if (currentStep < 15) {
       goToStep(currentStep + 1);
     } else {
       runAIEngine();
@@ -1793,16 +3064,18 @@
 
   // 8. AI 추론 모델 가동
   function runAIEngine() {
-    document.getElementById('game-quiz').style.display = 'none';
-    document.getElementById('game-loading').style.display = 'flex';
+    const quizEl = document.getElementById('game-quiz');
+    const loadingEl = document.getElementById('game-loading');
+    if (quizEl) quizEl.style.display = 'none';
+    if (loadingEl) loadingEl.style.display = 'flex';
     
     const statusTextEl = document.getElementById('rolling-status-text');
     const rollingMessages = [
-      "🤖 3,000명의 가상 소비 시뮬레이션 로봇 소환 중...",
+      "🤖 10,000명의 가상 소비 시뮬레이션 로봇 소환 중...",
       "📂 1,563종 신용/체크카드 상품 혜택 로드 중...",
       "🔢 13차원 소비 피처 벡터 스케일링 변환...",
       "🧠 MLP 신경망 가중치 mbti_model.json 순방향 전파...",
-      "📊 가상 봇 3,000개 연산 분석 및 MBTI 다각형 추출 완료!"
+      "📊 가상 봇 10,000개 연산 분석 및 MBTI 다각형 추출 완료!"
     ];
     
     let msgIdx = 0;
@@ -1831,12 +3104,15 @@
   }
 
   // 9. 13차원 경량 MLP 인공신경망 순방향 추론 연산
-  function predictMLP(model, x) {
-    if (!model.W1 || model.W1.length === 0) {
+  function predictMLP(model, x, card = null) {
+    if (!model || !model.W1 || model.W1.length === 0) {
+      if (card) {
+        const rawSum = (x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12]);
+        return Math.max(0, Math.round((rawSum * 0.03) / 100) * 100);
+      }
       return 0;
     }
 
-    // 13차원 MinMax 스케일링 동치화
     const scaled_x = [
       x[0],
       x[1] / 450000.0,
@@ -1847,13 +3123,12 @@
       x[6] / 300000.0,
       x[7] / 150000.0,
       x[8] / 150000.0,
-      x[9] / 300000.0,  // culture_spend
-      x[10] / 1000000.0, // travel_spend
-      x[11] / 600000.0,  // utility_spend
-      x[12] / 1000000.0  // education_spend
+      x[9] / 300000.0,
+      x[10] / 1000000.0,
+      x[11] / 600000.0,
+      x[12] / 1000000.0
     ];
 
-    // Hidden Layer: hidden = relu(scaled_x * W1 + b1)
     let hidden = [];
     const numHidden = model.b1.length;
     for (let j = 0; j < numHidden; j++) {
@@ -1862,10 +3137,9 @@
         sum += scaled_x[i] * model.W1[i][j];
       }
       sum += model.b1[j];
-      hidden.push(Math.max(0, sum)); // ReLU
+      hidden.push(Math.max(0, sum));
     }
 
-    // Output Layer: output = hidden * W2 + b2
     let output = 0;
     const numHiddenNodes = hidden.length;
     for (let i = 0; i < numHiddenNodes; i++) {
@@ -1873,11 +3147,19 @@
     }
     output += model.b2[0];
 
-    // 음수 방지 및 원 단위 반올림
-    return Math.max(0, Math.round(output / 10) * 10);
+    // 만 원 단위 예측치를 원 단위로 복원 (예: 7.5 -> 75,000원)
+    const finalBenefitWon = Math.max(0, output * 10000);
+    return Math.round(finalBenefitWon / 100) * 100;
   }
 
-  // 10. MBTI 및 추천 혜택금 계산 (13차원 입력 벡터 매핑)
+  // 카드 연회비 숫자 파싱 헬퍼
+  function parseAnnualFeeNum(feeStr) {
+    if (!feeStr || feeStr.includes("없음")) return 0;
+    const nums = (feeStr.match(/[\d,]+/g) || []).map(s => parseInt(s.replace(/,/g, ''), 10)).filter(n => !isNaN(n));
+    return nums.length > 0 ? Math.min(...nums) : 0;
+  }
+
+  // 10. MBTI 및 추천 혜택금 계산 (13차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
   function calculateRecommendations() {
     const x = [
       userAnswers.transit_type,
@@ -1895,16 +3177,23 @@
       userAnswers.education_spend
     ];
 
+    const mbti = diagnoseMBTI(userAnswers);
+    const mbtiCode = mbti.tag || "COEP";
+
     // 카드별 할인액 및 취향 유사도 점수 산출
     let results = [];
+    let maxBenefit = 0;
     
     CARDS_LIST.forEach(card => {
       const idxStr = String(card.idx);
       
       let predictedBenefit = 0;
       if (ML_MODEL[idxStr]) {
-        predictedBenefit = predictMLP(ML_MODEL[idxStr], x);
+        predictedBenefit = predictMLP(ML_MODEL[idxStr], x, card);
+      } else {
+        predictedBenefit = predictMLP(null, x, card);
       }
+      if (predictedBenefit > maxBenefit) maxBenefit = predictedBenefit;
       
       // 키워드 취향 매칭도 계산
       let simScoreSum = 0;
@@ -1919,190 +3208,833 @@
         });
       }
       
-      // 평균 유사도 백분율
       let matchPercent = 15;
       if (count > 0) {
         const avgSim = simScoreSum / count;
         matchPercent = Math.round(15 + avgSim * 85);
       }
+
+      // 연간 실질 순이득 (Net Annual ROI) 연산: (월혜택 * 12 - 연회비)
+      const feeNum = parseAnnualFeeNum(card.annual_fee);
+      const annualBenefit = predictedBenefit * 12;
+      const netAnnualBenefit = annualBenefit - feeNum;
+
+      // MBTI 4대 축 앙상블 성향 가중치 (+0 ~ +8점)
+      let mbtiBonus = 0;
+      const catsStr = (card.benefit_categories || "") + " " + (card.top_benefit_summary || "");
       
+      if (mbtiCode[0] === 'C' && (catsStr.includes("쇼핑") || catsStr.includes("주유") || catsStr.includes("통신"))) mbtiBonus += 2;
+      if (mbtiCode[0] === 'B' && (catsStr.includes("무실적") || catsStr.includes("모든가맹점"))) mbtiBonus += 2;
+      if (mbtiCode[1] === 'O' && (catsStr.includes("교통") || catsStr.includes("주유") || catsStr.includes("여행"))) mbtiBonus += 2;
+      if (mbtiCode[1] === 'I' && (catsStr.includes("OTT") || catsStr.includes("구독") || catsStr.includes("간편결제"))) mbtiBonus += 2;
+      if (mbtiCode[2] === 'E' && (catsStr.includes("문화") || catsStr.includes("푸드") || catsStr.includes("카페"))) mbtiBonus += 2;
+      if (mbtiCode[2] === 'V' && (catsStr.includes("공과금") || catsStr.includes("마트") || catsStr.includes("교육"))) mbtiBonus += 2;
+      if (mbtiCode[3] === 'F' && catsStr.includes("무실적")) mbtiBonus += 2;
+
+      // 희망 연회비 적합성 판단 및 차등 보너스/페널티 연산
+      const prefFeeLimit = (userAnswers.preferred_fee_limit !== undefined) ? userAnswers.preferred_fee_limit : 30000;
+      let feeFitScore = 0;
+      if (feeNum <= prefFeeLimit) {
+        feeFitScore = 5;
+      } else {
+        const overAmt = feeNum - prefFeeLimit;
+        feeFitScore = -Math.min(25, Math.round(6 + overAmt / 5000));
+      }
+
       results.push({
         card: card,
         benefit: predictedBenefit,
-        matchPercent: matchPercent
+        matchPercent: matchPercent,
+        annualBenefit: annualBenefit,
+        netAnnualBenefit: netAnnualBenefit,
+        feeNum: feeNum,
+        mbtiBonus: mbtiBonus,
+        feeFitScore: feeFitScore
       });
     });
 
-    // 정렬 규칙: 1순위 예상 혜택금 높은 순 -> 2순위 취향 매칭도 높은 순
-    results.sort((a, b) => {
-      if (b.benefit !== a.benefit) {
-        return b.benefit - a.benefit;
-      }
-      return b.matchPercent - a.matchPercent;
+    const safeMaxBenefit = maxBenefit > 0 ? maxBenefit : 50000;
+
+    // 통합 점수 계산: 지출액 할인 65% + 관심사 매칭 25% + MBTI 앙상블 + 연회비 적합 보너스/페널티
+    results.forEach(item => {
+      const normBenefitScore = Math.min((item.benefit / safeMaxBenefit) * 100, 100);
+      const rawScore = (normBenefitScore * 0.65) + (item.matchPercent * 0.25) + item.mbtiBonus + item.feeFitScore;
+      item.totalScore = Math.min(Math.max(Math.round(rawScore), 15), 99);
     });
 
-    if (results[0].benefit === 0) {
-      results.sort((a, b) => b.matchPercent - a.matchPercent);
-    }
+    // 종합 매칭 점수 1순위 정렬
+    results.sort((a, b) => {
+      if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
+      return b.netAnnualBenefit - a.netAnnualBenefit;
+    });
 
+    currentAllResults = results;
     const top3 = results.slice(0, 3);
-    bestCardItem = top3[0]; // 1위 추천 카드 캐싱
-    const mbti = diagnoseMBTI(userAnswers);
+    bestCardItem = top3[0]; // 1위 통합 추천 카드 캐싱
+    
     renderResultView(mbti, top3, x);
   }
 
-  // 11. 소비 MBTI 진단 알고리즘 (공과금, 고액 교육비, 여가/여행 반영 확장)
+  // 11. 16가지 소비 MBTI 4글자 코드 데이터베이스 (1축:C/B, 2축:O/I, 3축:E/V, 4축:P/F)
+  const MBTI_16_DATABASE = {
+    "COEP": { tag: "COEP", name: "자유로운 야외 경험 플렉서 (COEP)", emoji: "✈️", color: "#f59e0b", desc: "지출이 여행, 레저 및 아웃도어 활동에 집중되어 있으며, 새로운 경험과 힐링을 위해 과감히 투자하는 욜로(YOLO) 스타일입니다." },
+    "COEF": { tag: "COEF", name: "전국 방방곡곡 주말 탐험가 (COEF)", emoji: "⛺", color: "#f97316", desc: "주말마다 외식, 아웃도어 여가를 골고루 즐기며 다양한 야외 체험으로 삶을 채우는 주말 탐험가 스타일입니다." },
+    "COVP": { tag: "COVP", name: "자차 실속 야외 드라이버 (COVP)", emoji: "🚗", color: "#e67e22", desc: "자차 운전 및 주유 비용 비중이 크며, 드라이브나 아웃도어 여가를 실속 있게 즐기는 합리적 주행 오너 스타일입니다." },
+    "COVF": { tag: "COVF", name: "야외 통근 생활비 관리자 (COVF)", emoji: "🚌", color: "#3b82f6", desc: "출퇴근 이동비와 생활 필수 지출 위주로 야외 활동 비용을 지혜롭고 체계적으로 관리하는 알뜰 통근러 스타일입니다." },
+    "CIEP": { tag: "CIEP", name: "방구석 집중 자기계발파 (CIEP)", emoji: "💻", color: "#6366f1", desc: "집에서 도서 구매, 온라인 강좌 및 디지털 교육에 고정적으로 투자하며 성장을 도모하는 열정 인텔리 스타일입니다." },
+    "CIEF": { tag: "CIEF", name: "디저트 핫플 소확행 수집가 (CIEF)", emoji: "🧁", color: "#ec4899", desc: "맛집 탐방, 핫한 디저트 카페, 뷰티 오프라인 쇼핑에 투자를 아끼지 않으며 매일의 행복을 충전하는 감성 미식가 스타일입니다." },
+    "CIVP": { tag: "CIVP", name: "온라인 특가 타임딜 쇼핑러 (CIVP)", emoji: "🛒", color: "#f43f5e", desc: "생필품, 마트, e커머스 할인 특가에 집중하여 꼭 필요한 물품을 똑똑하게 쟁여두는 스마트 쇼핑러 스타일입니다." },
+    "CIVF": { tag: "CIVF", name: "건강 챙기는 생활 실속파 (CIVF)", emoji: "🏥", color: "#10b981", desc: "피트니스, 뷰티 관리 및 생활 필수 영역에서 실질적으로 나를 가꾸는 오프라인 웰니스형 소비 스타일입니다." },
+    "BOEP": { tag: "BOEP", name: "계획적인 야외 아웃도어 트래블러 (BOEP)", emoji: "🎒", color: "#8b5cf6", desc: "주말 여가 및 아웃도어 지출을 균형 있게 계획하여 즐기는 스마트 트래블러 스타일입니다." },
+    "BOEF": { tag: "BOEF", name: "가성비 야외 라이프스타일러 (BOEF)", emoji: "🏄", color: "#0ea5e9", desc: "교통비와 유류비, 야외 외식 비용을 균형 있게 배분하며 부담 없이 아웃도어 생활을 즐기는 가성비 라이프스타일러입니다." },
+    "BOVP": { tag: "BOVP", name: "체크리스트 자산 관리 직장인 (BOVP)", emoji: "💼", color: "#14b8a6", desc: "통신비, 교통비, 공과금 등 고정 생활비를 균형감 있게 예산화하여 지출하는 모범 직장인 스타일입니다." },
+    "BOVF": { tag: "BOVF", name: "합리적인 가성비 생활 모범생 (BOVF)", emoji: "🧾", color: "#0284c7", desc: "낭비되는 무분별 지출을 차단하고 일상 생활 영역 전반에서 효율적인 지출을 유지하는 방어형 실속파 스타일입니다." },
+    "BIEP": { tag: "BIEP", name: "넷플릭스 딜리버리 홈 욜로 (BIEP)", emoji: "🛋️", color: "#a855f7", desc: "아늑한 내 방에서 OTT 정기 구독과 배달음식, 쇼핑으로 하루의 피로를 푸는 안락한 인도어 힐링 스타일입니다." },
+    "BIEF": { tag: "BIEF", name: "간편결제 정기구독 스마트파 (BIEF)", emoji: "💳", color: "#06b6d4", desc: "네이버/카카오페이 간편결제 혜택과 정기구독 할인을 똑똑하게 조합하여 방구석 생활비를 아끼는 스마트 파입니다." },
+    "BIVP": { tag: "BIVP", name: "알뜰 살림 계획 자취러 (BIVP)", emoji: "🧹", color: "#84cc16", desc: "아파트 관리비, OTT, 편의점 및 마트 장보기 등 집안 고정 생활비를 계획표대로 알뜰하게 운용하는 살림 9단 스타일입니다." },
+    "BIVF": { tag: "BIVF", name: "무지출 챌린지 짠테크 수호자 (BIVF)", emoji: "🛡️", color: "#64748b", desc: "필수 고정 생활비 외에 불필요한 과소비를 철저하게 방어하며 최고 가성비 혜택만 쏙쏙 챙기는 짠테크 알뜰 스타일입니다." }
+  };
+
+  // 11-2. 상대적 지출 비중(%) 기반 16가지 소비 MBTI 진단 알고리즘
   function diagnoseMBTI(answers) {
-    const totalSpend = answers.shopping_spend + answers.convenience_spend + answers.food_spend + answers.cafe_spend + answers.telecom_spend + answers.digital_spend + answers.culture_spend + answers.travel_spend + answers.utility_spend + answers.education_spend + (answers.transit_type === 1 ? answers.gas_spend : answers.transit_spend);
-    const hasTravel = answers.keywords.includes("해외여행") || answers.keywords.includes("캠핑");
-    const hasBeauty = answers.keywords.includes("뷰티/피트니스");
+    const gas = answers.transit_type === 1 ? answers.gas_spend : 0;
+    const transit = answers.transit_type === 0 ? answers.transit_spend : 0;
+    const shopping = answers.shopping_spend;
+    const conv = answers.convenience_spend;
+    const food = answers.food_spend;
+    const cafe = answers.cafe_spend;
+    const telecom = answers.telecom_spend;
+    const digital = answers.digital_spend;
+    const culture = answers.culture_spend;
+    const travel = answers.travel_spend;
+    const utility = answers.utility_spend;
+    const edu = answers.education_spend;
 
-    // 고액 교육비 지출자 (열혈 에듀케이터)
-    if (answers.education_spend >= 400000) {
-      return {
-        tag: "EDU",
-        name: "열혈 에듀케이터 (EDU)",
-        emoji: "📚",
-        color: "#8b5cf6",
-        desc: "본인 자기계발이나 자녀 학원비, 교재 구매 등 교육 분야에 투자를 아끼지 않습니다. 매달 고액 학원비 지출이 있는 계획적인 교육 소비층입니다.",
-        report: "매달 학원비 및 도서 구입 등 고정적인 교육 비용이 결제 포트폴리오의 상당한 비중을 구성하고 있습니다.",
-        insight: "전국 학원 청구할인 5~10%를 지원하고 월 할인 한도가 3만 원 이상으로 넉넉한 교육비 적화 카드가 최상의 궁합입니다."
-      };
-    }
+    const total = gas + transit + shopping + conv + food + cafe + telecom + digital + culture + travel + utility + edu;
+    const safeTotal = total > 0 ? total : 1;
 
-    // 욜로 여행가 (YOLO) - 30만 원 이상 고액 여행/숙박 여가 소비층 판정 보완
-    if (answers.travel_spend >= 300000 || (hasTravel && answers.travel_spend >= 150000)) {
-      return {
-        tag: "YOLO",
-        name: "욜로 여행가 (YOLO)",
-        emoji: "✈️",
-        color: "#f59e0b",
-        desc: "새로운 경험과 자유로운 힐링을 원합니다. 공항 라운지 바우처, 해외 직구/결제 및 아웃도어 스포츠 레저에 소비 지향성이 강합니다.",
-        report: "해외 결제 및 여행 대행사 이용 비중이 높고, 주말 기분 전환을 위한 문화 공연이나 숙박업소 결제가 고액으로 돋보이는 소비 성향입니다.",
-        insight: "국내외 모든 가맹점에서 실적 무관 항공 마일리지를 1.5배 이상 무제한 적립해 주거나, 연 1회 라운지 무료 동반 혜택 카드가 찰떡궁합입니다."
-      };
-    }
+    // 1축: 소비 집중도 (C vs B)
+    const catSpends = [
+      { name: "쇼핑", val: shopping },
+      { name: "외식/배달", val: food },
+      { name: "카페/디저트", val: cafe },
+      { name: "여행/숙박", val: travel },
+      { name: "교육/학원", val: edu },
+      { name: "주유", val: gas },
+      { name: "교통", val: transit },
+      { name: "구독/디지털", val: digital },
+      { name: "공과금", val: utility }
+    ].sort((a, b) => b.val - a.val);
 
-    if (answers.transit_type === 1 && answers.gas_spend >= 120000) {
-      return {
-        tag: "AUTO",
-        name: "오토 드라이버 (AUTO)",
-        emoji: "🚗",
-        color: "#e67e22",
-        desc: "대중교통보다 자차 이동을 사랑합니다. 주유비 혜택과 자동차 오너 특화 혜택을 극대로 챙기는 실속 주행 오너 성향입니다.",
-        report: "매달 고정적인 유류비/정비소 결제가 발생하며, 차를 몰고 대형마트나 드라이브 코스 카페에서 소비하는 패턴이 주를 이룹니다.",
-        insight: "휘발유/경유 L당 할인율이 높은 주유 특화 카드와 차량 정비/하이패스 적립 혜택 카드가 최고의 혜택 파트너입니다."
-      };
-    }
+    const top1Ratio = (catSpends[0].val / safeTotal);
+    const top2Ratio = ((catSpends[0].val + catSpends[1].val) / safeTotal);
+    const axis1 = (top1Ratio >= 0.30 || top2Ratio >= 0.50) ? "C" : "B";
+    const top1Pct = Math.min(Math.max(Math.round(top1Ratio * 100), 10), 90);
+    const axis1Pct = top1Pct;
+
+    // 2축: 소비 공간 (O vs I)
+    let outdoorScore = (gas + transit + food + travel);
+    let indoorScore = (shopping + conv + cafe + digital);
+
+    answers.keywords.forEach(kw => {
+      if (["해외여행", "캠핑", "주유", "외식/배달", "대중교통"].includes(kw)) outdoorScore += 150000;
+      if (["넷플릭스", "쇼핑", "간편결제", "통신비", "공과금"].includes(kw)) indoorScore += 150000;
+    });
+
+    const axis2 = outdoorScore >= indoorScore ? "O" : "I";
+    const totalSpace = outdoorScore + indoorScore || 1;
+    const axis2OutdoorPct = Math.min(Math.max(Math.round((outdoorScore / totalSpace) * 100), 10), 90);
+
+    // 3축: 소비 목적 (E vs V) - Experience vs Value
+    let expScore = (travel + culture + edu + cafe + food * 0.5);
+    let valScore = (transit + gas + telecom + utility + conv);
+
+    answers.keywords.forEach(kw => {
+      if (["해외여행", "캠핑", "넷플릭스", "교육/육아", "뷰티/피트니스", "카페"].includes(kw)) expScore += 150000;
+      if (["대중교통", "통신비", "공과금", "병원/의료", "마트"].includes(kw)) valScore += 150000;
+    });
+
+    const axis3 = expScore >= valScore ? "E" : "V";
+    const totalPurpose = expScore + valScore || 1;
+    const axis3ExpPct = Math.min(Math.max(Math.round((expScore / totalPurpose) * 100), 10), 90);
+
+    // 4축: 소비 가변성 (P vs F)
+    let plannedScore = (edu + utility + telecom + gas);
+    let fluidScore = (cafe + food + shopping + culture + travel);
+
+    const axis4 = plannedScore >= fluidScore ? "P" : "F";
+    const totalVariability = plannedScore + fluidScore || 1;
+    const axis4PlannedPct = Math.min(Math.max(Math.round((plannedScore / totalVariability) * 100), 10), 90);
+
+    const code = `${axis1}${axis2}${axis3}${axis4}`;
+    const baseData = MBTI_16_DATABASE[code] || MBTI_16_DATABASE["BOVF"];
+
+    // 동적 분석 리포트 생성
+    const top1Name = catSpends[0].val > 0 ? catSpends[0].name : "생활 기본비";
+    const top2Name = catSpends[1].val > 0 ? catSpends[1].name : "일상 소비";
+    const top2Pct = Math.round((catSpends[1].val / safeTotal) * 100);
+
+    const dynamicReport = `회원님의 전체 지출 중 가장 큰 비중은 <strong>[${top1Name} (${top1Pct}%)]</strong> 영역이며, <strong>[${top2Name} (${top2Pct}%)]</strong> 지출이 그 뒤를 잇고 있습니다. ${baseData.desc}`;
     
-    if (answers.cafe_spend >= 80000 && answers.food_spend >= 250000) {
-      return {
-        tag: "BREAD",
-        name: "미식가 빵돌이/빵순이 (BREAD)",
-        emoji: "🧁",
-        color: "#d97706",
-        desc: "먹는 행복이 삶의 활력소입니다! 핫한 디저트 카페, 빵지순례, 맛집 탐방에 과감히 돈을 쓰는 감성 미식가 성향입니다.",
-        report: "외식 및 배달음식은 물론, 프랜차이즈 및 개인 카페/디저트 점포 결제 빈도가 전체 지출의 큰 지분을 차지하고 있습니다.",
-        insight: "배달 앱과 요식업 영역 청구할인율이 7~10% 이상 높고, 스타벅스 등 특정 카페 브랜드에서 최대 50% 반값 할인을 제공하는 카드를 결합해 보세요."
-      };
-    }
-
-    if (answers.digital_spend >= 40000 && answers.shopping_spend >= 150000 && answers.convenience_spend >= 50000) {
-      return {
-        tag: "HOME",
-        name: "알뜰 집돌이/집순이 (HOME)",
-        emoji: "🏠",
-        color: "#10b981",
-        desc: "아늑한 내 방이 최고! 넷플릭스 구독과 쿠팡 로켓배송, 퇴근길 편의점 4캔 맥주로 하루의 안식을 찾는 스마트 인도어파입니다.",
-        report: "오프라인 외출을 줄여 저축하고, 고정적인 디지털 정기 구독료와 편의점/올리브영 생필품 및 e커머스 결제에 집중하는 구조입니다.",
-        insight: "간편결제(Pay)를 이용한 온라인 쇼핑 5~10% 캐시백과 OTT 구독료를 50~100% 반값 캐시백해주는 정기구독 특화 카드가 운명입니다."
-      };
-    }
-
-    if (answers.shopping_spend >= 400000 && hasBeauty) {
-      return {
-        tag: "TREND",
-        name: "트렌드 세터 (TREND)",
-        emoji: "🛍️",
-        color: "#ec4899",
-        desc: "가장 핫한 팝업스토어와 편집숍을 즐겨 찾습니다. 옷 쇼핑, 백화점 투어 및 헬스/피트니스 등 자기 관리에도 투자를 아끼지 않습니다.",
-        report: "백화점 쇼핑 및 온라인 트렌드 의류 플랫폼 결제, 뷰티 드러그스토어(올리브영 등) 및 피트니스 강습료 비중이 돋보입니다.",
-        insight: "대형 백화점 에누리 서비스와 프리미엄 편집숍/드러그스토어에서 10%의 고율 청구할인을 보장하는 쇼핑 중심 카드가 유리합니다."
-      };
-    }
+    const dynamicInsight = `총 지출의 약 ${top1Pct + top2Pct}%가 [${top1Name}] 및 [${top2Name}] 분야에 집중되어 있으므로, 이 영역에서 7~10% 이상 청구할인을 제공하는 특화 카드를 결합하면 매달 상당한 금액을 아낄 수 있습니다.`;
 
     return {
-      tag: "SMART",
-      name: "스마트 통근러 (SMART)",
-      emoji: "🚇",
-      color: "#3b82f6",
-      desc: "매달 새어 나가는 대중교통비와 통신 요금을 가장 아까워하며 계획적으로 관리하는 합리적이고 현명한 직장인/학생 성향입니다.",
-      report: "버스/지하철 출퇴근 정기 결제와 고정적인 무제한 데이터 통신비 지출이 돋보이는 모범생 소비 스타일입니다.",
-      insight: "교통비 캐시백(K-패스 포함) 또는 이동통신 요금 자동이체 시 10%의 확정 청구할인을 제공하는 생활 밀착 카드 한 장이면 족합니다."
+      tag: code,
+      name: baseData.name,
+      emoji: baseData.emoji,
+      color: baseData.color,
+      desc: baseData.desc,
+      report: dynamicReport,
+      insight: dynamicInsight,
+      axes: {
+        axis1, axis2, axis3, axis4,
+        axis1Pct, axis2OutdoorPct, axis3ExpPct, axis4PlannedPct
+      }
     };
   }
 
   // 12. 결과 렌더링
   function renderResultView(mbti, top3, features) {
     document.getElementById('game-loading').style.display = 'none';
-    document.getElementById('game-result').style.display = 'block';
+    
+    // 1단계 MBTI 진단 화면 표시 (2단계 추천 화면은 숨김)
+    document.getElementById('game-result-mbti').style.display = 'block';
+    document.getElementById('game-result-cards').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    document.getElementById('mbti-tag-val').innerText = `소비 성향 MBTI: ${mbti.tag}`;
+    // MBTI 데이터 바인딩
+    document.getElementById('mbti-tag-val').innerText = `소비 분석 MBTI: ${mbti.tag}`;
     document.getElementById('mbti-emoji-val').innerText = mbti.emoji;
     document.getElementById('mbti-name-val').innerText = mbti.name;
     document.getElementById('mbti-desc-val').innerText = mbti.desc;
-    document.getElementById('fact-report-txt').innerText = mbti.report;
-    document.getElementById('fact-insight-txt').innerText = mbti.insight;
+    document.getElementById('fact-report-txt').innerHTML = mbti.report;
+    document.getElementById('fact-insight-txt').innerHTML = mbti.insight;
 
-    const best = top3[0];
-    document.getElementById('primary-card-title').innerText = best.card.card_name;
-    document.getElementById('primary-card-desc').innerText = `카드사: ${best.card.company} | 연회비: ${best.card.annual_fee} | 취향 매칭도: ${best.matchPercent}%`;
-    document.getElementById('primary-card-benefit').innerText = `약 ${best.benefit.toLocaleString()}원 할인`;
-    document.getElementById('primary-card-img').src = best.card.card_img;
-    document.getElementById('primary-card-link').href = best.card.detail_url || "index.html";
+    // MBTI 4대 축 양극 대칭(Versus Scale) 백분율(%) 바인딩
+    if (mbti.axes) {
+      const { axis1, axis2, axis3, axis4, axis1Pct, axis2OutdoorPct, axis3ExpPct, axis4PlannedPct } = mbti.axes;
 
-    const banner = document.querySelector('.primary-card-banner');
-    banner.style.borderColor = mbti.color;
+      const scaleConfig = [
+        {
+          title: "1축. 소비 집중도 (단일 영역 몰입 vs 예산 균형 분산)",
+          leftCode: "C",
+          leftShortName: "몰입형",
+          leftLabel: `C 몰입형 ${axis1Pct}%`,
+          rightCode: "B",
+          rightShortName: "균형형",
+          rightLabel: `B 균형형 ${100 - axis1Pct}%`,
+          selectedCode: axis1,
+          leftRatio: axis1Pct,
+          explanation: axis1 === "C"
+            ? `회원님은 특정 1~2개 카테고리에 지출이 30~50% 이상 집중되는 <strong>[C 몰입형 (${axis1Pct}%)]</strong> 소비 성향입니다.`
+            : `회원님은 여러 생활 영역에 예산을 골고루 분산하여 결제하는 <strong>[B 균형형 (${100 - axis1Pct}%)]</strong> 소비 성향입니다.`
+        },
+        {
+          title: "2축. 소비 공간 (야외 활동·이동 vs 집콕·온라인 결제)",
+          leftCode: "O",
+          leftShortName: "야외형",
+          leftLabel: `O 야외형 ${axis2OutdoorPct}%`,
+          rightCode: "I",
+          rightShortName: "실내형",
+          rightLabel: `I 실내형 ${100 - axis2OutdoorPct}%`,
+          selectedCode: axis2,
+          leftRatio: axis2OutdoorPct,
+          explanation: axis2 === "O"
+            ? `회원님은 주유, 교통, 여행 등 야외 활동 이동 결제 비중이 높습니다. <strong>[O 야외형 (${axis2OutdoorPct}%)]</strong>`
+            : `회원님은 쇼핑, 배달, OTT 등 집 안과 온라인 주문 비중이 높습니다. <strong>[I 실내형 (${100 - axis2OutdoorPct}%)]</strong>`
+        },
+        {
+          title: "3축. 소비 목적 (가치 경험·힐링 vs 필수 생활비 절약)",
+          leftCode: "E",
+          leftShortName: "경험형",
+          leftLabel: `E 경험형 ${axis3ExpPct}%`,
+          rightCode: "V",
+          rightShortName: "실속형",
+          rightLabel: `V 실속형 ${100 - axis3ExpPct}%`,
+          selectedCode: axis3,
+          leftRatio: axis3ExpPct,
+          explanation: axis3 === "E"
+            ? `회원님은 여가, 문화, 카페 등 나를 위한 경험과 힐링 투자를 아끼지 않습니다. <strong>[E 경험형 (${axis3ExpPct}%)]</strong>`
+            : `회원님은 고정 생활비와 필수 영역에서 꼭 필요한 알뜰 절약을 중시합니다. <strong>[V 실속형 (${100 - axis3ExpPct}%)]</strong>`
+        },
+        {
+          title: "4축. 소비 가변성 (고정 예산 지출 vs 유동적 변동 지출)",
+          leftCode: "P",
+          leftShortName: "계획형",
+          leftLabel: `P 계획형 ${axis4PlannedPct}%`,
+          rightCode: "F",
+          rightShortName: "가변형",
+          rightLabel: `F 가변형 ${100 - axis4PlannedPct}%`,
+          selectedCode: axis4,
+          leftRatio: axis4PlannedPct,
+          explanation: axis4 === "P"
+            ? `회원님은 공과금, 통신비 등 매달 고정된 예산표대로 지출합니다. <strong>[P 계획형 (${axis4PlannedPct}%)]</strong>`
+            : `회원님은 외식, 카페, 쇼핑 등 그때그때 기분과 상황에 따라 지출합니다. <strong>[F 가변형 (${100 - axis4PlannedPct}%)]</strong>`
+        }
+      ];
 
+      // 2) 양극 대칭 VS 스케일 리스트 렌더링
+      const listContainer = document.getElementById('mbti-vs-scale-list');
+      if (listContainer) {
+        listContainer.innerHTML = scaleConfig.map(c => {
+          const isLeft = (c.selectedCode === c.leftCode);
+          const leftBadgeClass = isLeft ? "vs-badge active left-theme" : "vs-badge inactive";
+          const rightBadgeClass = !isLeft ? "vs-badge active right-theme" : "vs-badge inactive";
+
+          const leftPct = (axis1 === c.leftCode) ? c.leftRatio : (c.leftCode === "C" ? axis1Pct : (c.leftCode === "O" ? axis2OutdoorPct : (c.leftCode === "E" ? axis3ExpPct : axis4PlannedPct)));
+          const rightPct = 100 - leftPct;
+
+          const fillHtml = `
+            <div class="vs-gauge-part-left" style="width: ${leftPct}%;"></div>
+            <div class="vs-gauge-part-right" style="width: ${rightPct}%;"></div>
+          `;
+
+          const leftCodeClass = isLeft ? "vs-gauge-code active left" : "vs-gauge-code";
+          const rightCodeClass = !isLeft ? "vs-gauge-code active right" : "vs-gauge-code";
+
+          return `
+            <div class="vs-scale-row">
+              <div class="vs-row-header">
+                <span class="vs-axis-title">${c.title}</span>
+              </div>
+              <div class="vs-gauge-wrapper">
+                <span class="${leftCodeClass}">${c.leftCode}(${c.leftShortName}) ${leftPct}%</span>
+                <div class="vs-gauge-track">
+                  ${fillHtml}
+                </div>
+                <span class="${rightCodeClass}">${c.rightCode}(${c.rightShortName}) ${rightPct}%</span>
+              </div>
+              <div class="vs-row-explanation">${c.explanation}</div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // 2단계 상단 지출 & 관심사 요약 대시보드 바인딩
+    latestFeatures = features;
+    renderSpendingSummary(features);
+
+    // 통합 TOP 3 리스트 생성
+    currentTop3 = top3;
     const container = document.getElementById('rec-list-container');
-    container.innerHTML = "";
-    
-    top3.forEach((item, index) => {
-      const card = item.card;
-      const benefitText = item.benefit > 0 ? `월 약 ${item.benefit.toLocaleString()}원` : "취향 맞춤 추천";
-      const categoriesHtml = (card.benefit_categories || "")
-        .split(",")
-        .slice(0, 3)
-        .map(c => `<span class="rec-card-chip">${c.trim()}</span>`)
-        .join("");
+    if (container) {
+      container.innerHTML = "";
+      top3.forEach((item, index) => {
+        const card = item.card;
+        const benefitText = item.benefit > 0 ? `월 약 ${item.benefit.toLocaleString()}원` : "절약 특화 카드";
+        const categoriesHtml = (card.benefit_categories || "")
+          .split(",").slice(0, 3)
+          .map(c => `<span class="rec-card-chip">${c.trim()}</span>`).join("");
 
-      const itemHtml = `
-        <div class="rec-card-item">
-          <div class="rec-card-rank rank-${index+1}">${index + 1}위</div>
-          <div class="rec-card-img-wrap">
-            <img src="${card.card_img}" class="rec-card-img" alt="${card.card_name}">
-          </div>
-          <div class="rec-card-info">
-            <div class="rec-card-company">${card.company}</div>
-            <div class="rec-card-name">${card.card_name}</div>
-            <div class="rec-card-chips">
-              ${categoriesHtml}
-              <span class="rec-card-chip match-pct">취향 매칭 ${item.matchPercent}%</span>
+        const detailHref = `detail.html?idx=${card.idx}`;
+
+        const itemHtml = `
+          <div class="rec-card-item" id="rec-card-item-${index}" onclick="selectBestCardItem(${index})" style="cursor: pointer; transition: all 0.2s ease;" title="클릭하여 ${index + 1}위 카드로 상단 상세 정보 변경하기">
+            <div class="rec-card-main-row">
+              <div class="rec-card-rank rank-${index+1}">${index + 1}위</div>
+              <div class="rec-card-img-wrap">
+                <img src="${card.card_img || 'https://api.card-gorilla.com/storage/card/' + card.idx + '/card_img.png'}" class="rec-card-img" alt="${card.card_name}" onerror="this.src='https://api.card-gorilla.com/storage/card/${card.idx}/card_img.png'">
+              </div>
+              <div class="rec-card-info">
+                <div class="rec-card-company">${card.company || '카드사'}</div>
+                <div class="rec-card-name">${card.card_name}</div>
+                <div class="rec-card-chips-group">
+                  <div class="rec-card-chips-row">
+                    ${categoriesHtml}
+                  </div>
+                  <div class="rec-card-chips-row">
+                    <span class="rec-card-chip match-pct">종합 ${item.totalScore}점</span>
+                    <span class="rec-card-chip pref-chip" style="background:rgba(56, 189, 248, 0.12); border-color:rgba(56, 189, 248, 0.3); color:#38bdf8;">💳 연회비: ${formatAnnualFee(card.annual_fee)}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="rec-card-benefit-math">
+                <div class="rec-card-benefit-lbl">AI 예상 혜택</div>
+                <div class="rec-card-benefit-val">${benefitText}</div>
+              </div>
+            </div>
+
+            <div class="rec-card-bottom-bar">
+              <div class="rec-card-notice-text">
+                <span>⚠️ AI 예측 혜택액은 추정치이므로, 발급 전 카드사 공식 명세서를 꼭 확인해 보세요!</span>
+              </div>
+              <a href="${detailHref}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();" class="rec-card-detail-btn" title="카드 상세 명세서 보기">
+                카드 상세 설명 보기 🔗
+              </a>
             </div>
           </div>
-          <div class="rec-card-benefit-math">
-            <div class="rec-card-benefit-lbl">AI 예상 혜택</div>
-            <div class="rec-card-benefit-val">${benefitText}</div>
-          </div>
-          <div class="rec-card-action">
-            <a href="${card.detail_url || 'index.html'}" target="_blank" class="rec-card-btn" title="상세보기">👉</a>
+        `;
+        container.insertAdjacentHTML('beforeend', itemHtml);
+      });
+    }
+
+    // 💡 고도화 3: 내 소비 성향과 가장 안 맞는 상극(비추) 카드 바인딩
+    const worstContainer = document.getElementById('worst-card-section');
+    if (worstContainer && typeof currentAllResults !== 'undefined' && currentAllResults && currentAllResults.length > 0) {
+      const worstItem = currentAllResults[currentAllResults.length - 1];
+      const worstCard = worstItem.card;
+      worstContainer.innerHTML = `
+        <div class="worst-card-container">
+          <div class="worst-header-title">⚡ 내 소비 성향과 가장 안 맞는 상극(비추) 카드</div>
+          <div class="worst-card-body">
+            <img src="${worstCard.card_img || 'https://api.card-gorilla.com/storage/card/' + worstCard.idx + '/card_img.png'}" class="worst-card-img" alt="${worstCard.card_name}">
+            <div class="worst-card-info">
+              <div class="worst-card-name">${worstCard.company} ${worstCard.card_name}</div>
+              <div class="worst-card-reason">
+                💡 회원님의 주요 지출 카테고리 및 선호 키워드와의 혜택 매칭도가 낮아 절약 효과가 미미한 카드입니다. (취향 매칭률 ${worstItem.matchPercent}%)
+              </div>
+            </div>
           </div>
         </div>
       `;
-      container.insertAdjacentHTML('beforeend', itemHtml);
+    }
+
+    // 1위 추천 카드 초기 선택 렌더링
+    selectBestCardItem(0);
+  }
+
+  // 선택된 N위 추천 카드로 상단 대시보드 및 상세 카드 정보 동적 전환
+  let currentTop3 = [];
+  let latestFeatures = null;
+  function selectBestCardItem(index) {
+    if (!currentTop3 || !currentTop3[index]) return;
+    bestCardItem = currentTop3[index];
+    selectedCardRank = index + 1;
+    
+    const item = bestCardItem;
+    const card = item.card;
+
+    // 1위 / 2위 / 3위 배너 뱃지
+    const badgeEl = document.querySelector('.primary-card-banner .banner-badge');
+    if (badgeEl) badgeEl.innerText = `✨ AI 종합 매칭 ${index + 1}위`;
+
+    // 카드명 & 카드사/연회비
+    const cleanFee = formatAnnualFee(card.annual_fee);
+    const fullFee = (card.annual_fee || '정보없음').replace(/"/g, '&quot;');
+    const titleEl = document.getElementById('primary-card-title');
+    if (titleEl) {
+      titleEl.innerText = card.card_name;
+      titleEl.title = card.card_name;
+    }
+    const descEl = document.getElementById('primary-card-desc');
+    if (descEl) descEl.innerHTML = `<span class="desc-chip company">🏢 ${card.company || '카드사'}</span><span class="desc-chip" title="연회비 풀 텍스트: ${fullFee}">💳 연회비: ${cleanFee}</span>`;
+    
+    // 카드 이미지
+    const imgEl = document.getElementById('primary-card-img');
+    if (imgEl) {
+      imgEl.src = card.card_img || `https://api.card-gorilla.com/storage/card/${card.idx}/card_img.png`;
+      imgEl.alt = card.card_name;
+    }
+    
+    // 상세보기 원본 링크 (내부 카드 상세 페이지 연결)
+    const linkEl = document.getElementById('primary-card-link');
+    if (linkEl) {
+      linkEl.href = `detail.html?idx=${card.idx}`;
+      linkEl.target = "_blank";
+      linkEl.rel = "noopener noreferrer";
+      linkEl.onclick = null;
+    }
+
+    // AI 수식 점수 및 바
+    const scoreValEl = document.getElementById('formula-score-val');
+    if (scoreValEl) scoreValEl.innerText = `종합 ${item.totalScore}점`;
+    
+    const benefitValEl = document.getElementById('formula-benefit-val');
+    if (benefitValEl) benefitValEl.innerText = `월 약 ${item.benefit.toLocaleString()}원`;
+    
+    const prefValEl = document.getElementById('formula-pref-val');
+    if (prefValEl) prefValEl.innerText = `매칭률 ${item.matchPercent}%`;
+    
+    const benefitFillEl = document.getElementById('formula-benefit-fill');
+    if (benefitFillEl) benefitFillEl.style.width = `${Math.min(Math.round((item.benefit / 60000) * 100), 100)}%`;
+    
+    const prefFillEl = document.getElementById('formula-pref-fill');
+    if (prefFillEl) prefFillEl.style.width = `${item.matchPercent}%`;
+
+    // 추천 사유 생성
+    const reasonEl = document.getElementById('primary-card-reason');
+    if (reasonEl) {
+      const feats = latestFeatures || [];
+      const spendItems = [
+        { name: "쇼핑", val: feats[3] || 0 },
+        { name: "편의점/마트", val: feats[4] || 0 },
+        { name: "식비/배달", val: feats[5] || 0 },
+        { name: "카페/디저트", val: feats[6] || 0 },
+        { name: "통신비", val: feats[7] || 0 },
+        { name: "구독/디지털", val: feats[8] || 0 },
+        { name: "문화/여가", val: feats[9] || 0 },
+        { name: "여행/숙박", val: feats[10] || 0 },
+        { name: "공과금", val: feats[11] || 0 },
+        { name: "교육/학원", val: feats[12] || 0 },
+        { name: "교통/주유", val: feats[0] === 1 ? feats[1] : feats[2] }
+      ];
+      const topSpends = spendItems.filter(it => it.val > 0).sort((a, b) => b.val - a.val).slice(0, 2);
+      const topSpendNames = topSpends.length > 0 ? topSpends.map(t => t.name).join(", ") : "주요 지출";
+      const kwNames = userAnswers.keywords && userAnswers.keywords.length > 0 ? userAnswers.keywords.join(", ") : "라이프스타일 혜택";
+      
+      reasonEl.innerHTML = `💡 회원님의 월 지출 <strong>[${topSpendNames}]</strong> 할인 혜택(70%)과 선택하신 절약 분야 <strong>[${kwNames}]</strong> 연관성(30%)이 합성되어 <strong>AI 매칭 ${index + 1}위</strong>로 선정되었습니다. (월 약 +${item.benefit.toLocaleString()}원 절약)`;
+    }
+
+    // 절약 시뮬레이터 동적 교체
+    const simEl = document.getElementById('primary-card-savings-sim');
+    if (simEl) {
+      const mBenefit = Math.round(item.benefit);
+      const aBenefit = mBenefit * 12;
+      simEl.innerHTML = `
+        <div class="savings-simulator-card">
+          <div class="savings-badge-tag">💰 AI 예상 절약 혜택 시뮬레이션 (${index + 1}위)</div>
+          <div class="savings-val-text">
+            월 약 <strong>${mBenefit.toLocaleString()}원</strong> 절약 
+            <span style="color:#94a3b8; font-size:13px; font-weight:normal; margin-left:6px;">(연간 약 ${aBenefit.toLocaleString()}원 절감 효과)</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // TOP 3 선택 하이라이트 (Active Border)
+    document.querySelectorAll('.rec-card-item').forEach((el, idx) => {
+      if (idx === index) {
+        el.style.border = '2px solid #3b82f6';
+        el.style.boxShadow = '0 0 16px rgba(59, 130, 246, 0.4)';
+      } else {
+        el.style.border = '1px solid var(--glass-border)';
+        el.style.boxShadow = 'none';
+      }
     });
 
-    renderRadarChart(features, mbti.color);
+    if (selectedMyCardIdx !== null && typeof selectMyCard === 'function') {
+      selectMyCard(selectedMyCardIdx);
+    }
+  }
+
+  // 11. Breakdown Inspector 세부 명세서 모달 & 프로그레스 바 렌더링 기능
+  function openBreakdownInspector(index) {
+    if (!currentTop3 || !currentTop3[index]) return;
+    const targetItem = currentTop3[index];
+    const card = targetItem.card;
+    
+    const cardNameEl = document.getElementById('breakdown-card-name');
+    if (cardNameEl) cardNameEl.innerText = `${card.company || ''} ${card.card_name}`;
+    
+    // 유저 입력 x 수치 기반 총 지출액 계산
+    const x = [
+      userAnswers.transit_type,
+      userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
+      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 0,
+      userAnswers.shopping_spend,
+      userAnswers.convenience_spend,
+      userAnswers.food_spend,
+      userAnswers.cafe_spend,
+      userAnswers.telecom_spend,
+      userAnswers.digital_spend,
+      userAnswers.culture_spend,
+      userAnswers.travel_spend,
+      userAnswers.utility_spend,
+      userAnswers.education_spend
+    ];
+    
+    const totalSpendSum = x.slice(1).reduce((a, b) => a + b, 0);
+    const spendEl = document.getElementById('breakdown-total-spend');
+    if (spendEl) spendEl.innerText = `${totalSpendSum.toLocaleString()}원`;
+
+    const cleanFee = formatAnnualFee(card.annual_fee);
+    const feeEl = document.getElementById('breakdown-card-fee');
+    if (feeEl) feeEl.innerText = cleanFee;
+
+    const discountEl = document.getElementById('breakdown-total-discount');
+    if (discountEl) discountEl.innerText = `월 약 ${targetItem.benefit.toLocaleString()}원`;
+
+    const netMan = Math.max(0, Math.round((targetItem.netAnnualBenefit || (targetItem.benefit * 12)) / 10000));
+    const netRoiEl = document.getElementById('breakdown-net-roi');
+    if (netRoiEl) netRoiEl.innerText = `+${netMan.toLocaleString()}만 원/년`;
+
+    const breakdownData = calculateCategoryBreakdown(card, x, targetItem.benefit);
+    const listContainer = document.getElementById('breakdown-items-list');
+    
+    if (listContainer) {
+      listContainer.innerHTML = '';
+      if (breakdownData.items.length === 0) {
+        listContainer.innerHTML = '<div style="color:#94a3b8; text-align:center; padding:20px;">선택하신 영역 중 기본 할인 대상 항목만 존재합니다.</div>';
+      } else {
+        const maxSpend = Math.max(...breakdownData.items.map(it => it.spend), 100000);
+        
+        breakdownData.items.forEach(item => {
+          // 지출 대비 할인 비중 계산 (최대 100% 캡)
+          const barPct = Math.min(Math.round((item.discount / item.spend) * 100 * 5), 100);
+          
+          const itemCardHtml = `
+            <div class="breakdown-item-card">
+              <div class="breakdown-item-header">
+                <div class="breakdown-item-title-group">
+                  <span style="font-size:20px;">${item.emoji}</span>
+                  <span class="breakdown-item-name">${item.name}</span>
+                  <span class="breakdown-item-badge">${item.rateStr}</span>
+                </div>
+                <div class="breakdown-item-values">
+                  <span class="breakdown-spend-text">지출 ${item.spend.toLocaleString()}원</span>
+                  <span class="breakdown-discount-text">➔ +${item.discount.toLocaleString()}원 할인</span>
+                </div>
+              </div>
+              <div class="breakdown-bar-bg" title="할인률 비중">
+                <div class="breakdown-bar-fill" style="width: ${Math.max(barPct, 8)}%;"></div>
+              </div>
+            </div>
+          `;
+          listContainer.insertAdjacentHTML('beforeend', itemCardHtml);
+        });
+      }
+    }
+
+    const modal = document.getElementById('breakdown-modal');
+    if (modal) modal.style.display = 'flex';
+    
+    renderPickingRateChart(card);
+  }
+
+  function renderPickingRateChart(card) {
+    const chartContainer = document.getElementById('modal-picking-chart-container');
+    if (!chartContainer) return;
+    
+    chartContainer.style.display = 'block';
+
+    const canvas = document.getElementById('pickingRateChartModal');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (window.myPickingChartModal) {
+      window.myPickingChartModal.destroy();
+    }
+
+    const sections = card.sections || [];
+    const testSpends = [300000, 500000, 800000, 1000000, 1500000, 2000000];
+    const rates = testSpends.map(spend => {
+      let limit = 0;
+      if (sections.length > 0) {
+        sections.forEach(s => {
+          if (spend >= s.min_spend) {
+            if (s.limit && s.limit > 0) {
+              limit = s.limit;
+            } else {
+              limit = Math.min(spend * 0.025, 45000);
+            }
+          }
+        });
+      }
+      if (limit === 0) {
+        limit = spend * 0.008;
+      }
+      const pct = ((limit / spend) * 100).toFixed(2);
+      return Math.min(parseFloat(pct), 15.0);
+    });
+
+    window.myPickingChartModal = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['30만', '50만', '80만', '100만', '150만', '200만'],
+        datasets: [{
+          label: '전월실적 구간별 피킹률 (%)',
+          data: rates,
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59, 130, 246, 0.15)',
+          fill: true,
+          tension: 0.35,
+          pointBackgroundColor: '#60a5fa',
+          pointRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { color: '#94a3b8', callback: v => v + '%' },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          },
+          x: {
+            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { family: 'Noto Sans KR', size: 12 } } }
+        }
+      }
+    });
+  }
+
+  function closeBreakdownModal() {
+    const modal = document.getElementById('breakdown-modal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function calculateCategoryBreakdown(card, x, totalBenefit = null) {
+    const detailMap = calculateDetailedBenefits(card, x, totalBenefit);
+    const catsStr = (card.benefit_categories || "") + " " + (card.top_benefit_summary || "");
+
+    const spendMap = {
+      "⛽ 주유/충전": x[1],
+      "🚇 대중교통/택시": x[2],
+      "🛍️ 쇼핑/백화점": x[3],
+      "🏪 마트/편의점": x[4],
+      "🍕 외식/배달": x[5],
+      "☕ 카페/베이커리": x[6],
+      "📱 이동통신요금": x[7],
+      "🎬 OTT/디지털구독": x[8],
+      "📚 도서/문화생활": x[9],
+      "✈️ 여행/숙박/항공": x[10],
+      "💸 공과금/납부": x[11],
+      "🎓 학원/교육비": x[12]
+    };
+
+    let items = [];
+    for (const [key, discount] of Object.entries(detailMap)) {
+      const spend = spendMap[key] || 0;
+      if (spend > 0 && discount > 0) {
+        const catName = key.replace(/^[^\s]+\s*/, '');
+        let rateStr = "기본 혜택 산정";
+        if (catsStr.includes(catName.split("/")[0]) || catsStr.includes(catName)) {
+          rateStr = "영역 특화 할인 산정";
+        } else if (catsStr.includes("모든가맹점") || catsStr.includes("무실적")) {
+          rateStr = "전 가맹점 할인 산정";
+        }
+
+        const icon = key.split(' ')[0] || '💳';
+
+        items.push({
+          emoji: icon,
+          name: catName,
+          spend: spend,
+          discount: discount,
+          rateStr: rateStr
+        });
+      }
+    }
+
+    return { items };
+  }
+
+  // 12-2. 지출액 칩과 관심 키워드 칩 통합 렌더링
+  function renderSpendingSummary(features) {
+    const items = [
+      { label: "⛽ 주유", val: features[1] },
+      { label: "🚌 교통", val: features[2] },
+      { label: "🛍️ 쇼핑", val: features[3] },
+      { label: "🏪 편의점", val: features[4] },
+      { label: "🍕 외식/배달", val: features[5] },
+      { label: "☕ 카페", val: features[6] },
+      { label: "📱 통신비", val: features[7] },
+      { label: "🎬 OTT/구독", val: features[8] },
+      { label: "🎨 문화/여가", val: features[9] },
+      { label: "✈️ 여행/숙박", val: features[10] },
+      { label: "💸 공과금", val: features[11] },
+      { label: "📚 교육/육아", val: features[12] }
+    ];
+    
+    let total = 0;
+    let chipsHtml = "";
+    
+    items.forEach(item => {
+      if (item.val > 0) {
+        total += item.val;
+        const manVal = Math.round(item.val / 10000);
+        chipsHtml += `<div class="spend-chip">${item.label} <span class="chip-amt">${manVal}만 원</span></div>`;
+      }
+    });
+
+    const totalMan = Math.round(total / 10000);
+    const titleEl = document.getElementById('summary-total-title');
+    if (titleEl) {
+      titleEl.innerHTML = `내가 입력한 월 지출 내역 (총 <strong>${totalMan.toLocaleString()}만 원</strong>)`;
+    }
+    
+    const spendContainer = document.getElementById('summary-chips-container');
+    if (spendContainer) {
+      spendContainer.innerHTML = chipsHtml || '<div class="spend-chip">기본 소비 패턴 적용됨</div>';
+    }
+
+    // 🎯 관심 키워드 칩 렌더링 (탭 2 패널 전용)
+    const prefContainer = document.getElementById('pref-chips-container');
+    if (prefContainer) {
+      let prefChipsHtml = "";
+      if (userAnswers.keywords && userAnswers.keywords.length > 0) {
+        const kwEmojis = {
+          "해외여행": "✈️", "캠핑": "⛺", "넷플릭스": "🍿", "반려동물": "🐾",
+          "교육/육아": "📚", "뷰티/피트니스": "💇", "쇼핑": "🛍️", "카페": "☕",
+          "주유": "⛽", "외식/배달": "🍕", "마트": "🛒", "대중교통": "🚇",
+          "통신비": "📱", "병원/의료": "🏥", "공과금": "💸", "간편결제": "💳"
+        };
+        userAnswers.keywords.forEach(kw => {
+          const emoji = kwEmojis[kw] || "🎯";
+          prefChipsHtml += `<div class="pref-chip">${emoji} ${kw}</div>`;
+        });
+      } else {
+        prefChipsHtml = '<div class="pref-chip">🎯 기본 라이프스타일 혜택</div>';
+      }
+
+      const limit = (userAnswers.preferred_fee_limit !== undefined) ? userAnswers.preferred_fee_limit : 30000;
+      let limitText = "3만 원 이하";
+      if (limit === 10000) limitText = "1만 원 이하";
+      else if (limit === 30000) limitText = "3만 원 이하";
+      else if (limit === 100000) limitText = "10만 원 이하";
+      else if (limit === 999999) limitText = "10만 원 초과 OK";
+      else if (limit === Infinity) limitText = "연회비 상관없음";
+
+      prefChipsHtml += `<div class="pref-chip" style="background:rgba(56, 189, 248, 0.15); border-color:rgba(56, 189, 248, 0.4); color:#38bdf8;">💳 희망 연회비: ${limitText}</div>`;
+      prefContainer.innerHTML = prefChipsHtml;
+    }
+  }
+
+  // 12-3. 2차 AI 추천 카드 분석 롤링 로딩 오버레이 & 화면 스위칭
+  function startCardsAnalysisLoading() {
+    const overlay = document.getElementById('cards-loading-overlay');
+    const rollingEl = document.getElementById('cards-rolling-text');
+    if (!overlay) return;
+
+    overlay.style.display = 'flex';
+
+    const messages = [
+      "🤖 입력하신 13개 지출 영역 정밀 패턴 계산 중...",
+      "💳 1,563개 전체 신용/체크카드 혜택률 실시간 비교 중...",
+      "✨ 당신만을 위한 지출액 & 관심사 맞춤 카드 선별 완료!"
+    ];
+
+    let idx = 0;
+    if (rollingEl) rollingEl.innerText = messages[0];
+
+    const interval = setInterval(() => {
+      idx++;
+      if (idx < messages.length) {
+        if (rollingEl) {
+          rollingEl.style.opacity = 0;
+          setTimeout(() => {
+            rollingEl.innerText = messages[idx];
+            rollingEl.style.opacity = 1;
+          }, 150);
+        }
+      }
+    }, 550);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      overlay.style.display = 'none';
+      showCardsView();
+    }, 1800);
+  }
+
+  function showMbtiView() {
+    document.getElementById('game-result-mbti').style.display = 'block';
+    document.getElementById('game-result-cards').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showCardsView() {
+    document.getElementById('game-result-mbti').style.display = 'none';
+    document.getElementById('game-result-cards').style.display = 'block';
+    if (typeof selectBestCardItem === 'function') {
+      selectBestCardItem(0);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // 13. Radar 차트 렌더링 (13차원 피처 데이터를 8각형 차트로 축약 매핑)
@@ -2265,6 +4197,8 @@
     });
 
     // 내 카드 비교 상태 리셋
+    selectedMyCardIdx = null;
+    selectedCardRank = 1;
     const companySelect = document.getElementById('compare-company-select');
     const cardSelect = document.getElementById('compare-card-select');
     if (companySelect) companySelect.value = "";
@@ -2279,7 +4213,10 @@
     document.getElementById('vs-detail-benefits-list').innerHTML = "";
     bestCardItem = null;
 
-    document.getElementById('game-result').style.display = 'none';
+    const resultMbti = document.getElementById('game-result-mbti');
+    const resultCards = document.getElementById('game-result-cards');
+    if (resultMbti) resultMbti.style.display = 'none';
+    if (resultCards) resultCards.style.display = 'none';
     document.getElementById('game-intro').style.display = 'block';
   }
 
@@ -2323,92 +4260,112 @@
     selectMyCard(idx);
   }
 
-  // 소비 카테고리별 상세 예상 할인액 계산 (1:1 비교용 룰베이스 정밀 보정 연산)
-  function calculateDetailedBenefits(card, x) {
+  // 카테고리 혜택 유연 포함 매칭 헬퍼 함수
+  function hasCategoryMatch(cats, keywords) {
+    return cats.some(cat => keywords.some(kw => cat.includes(kw)));
+  }
+
+  // 소비 카테고리별 상세 예상 할인액 계산 (퀴즈 12가지 지출 항목별 1:1 정밀 매칭 및 정규화)
+  function calculateDetailedBenefits(card, x, totalBenefit = null) {
     const cats = (card.benefit_categories || "").split(",").map(c => c.trim());
-    const detail = {};
+    const rawDetail = {};
     
-    // 1. 주유소/충전
-    if (cats.includes("주유")) {
-      detail["⛽ 주유소/충전"] = Math.min(x[1] * 0.1, 30000);
-    } else {
-      detail["⛽ 주유소/충전"] = 0;
-    }
-    
-    // 2. 대중교통
-    if (cats.includes("대중교통") || cats.includes("교통")) {
-      detail["🚇 대중교통/택시"] = Math.min(x[2] * 0.1, 15000);
-    } else {
-      detail["🚇 대중교통/택시"] = 0;
+    // 1. 주유소/충전 (자가용 이용 시)
+    if (x[1] > 0) {
+      const hasGas = hasCategoryMatch(cats, ["주유", "충전", "LPG", "전기차", "오일"]);
+      rawDetail["⛽ 주유/충전"] = hasGas ? Math.min(x[1] * 0.1, 30000) : x[1] * 0.005;
     }
     
-    // 3. 마트/편의점/쇼핑
-    let shopVal = 0;
-    if (cats.includes("쇼핑") || cats.includes("백화점") || cats.includes("온라인쇼핑")) {
-      shopVal += Math.min(x[3] * 0.07, 25000);
-    }
-    if (cats.includes("편의점") || cats.includes("마트")) {
-      shopVal += Math.min(x[4] * 0.1, 15000);
-    }
-    detail["🛒 쇼핑/마트/편의점"] = shopVal;
-    
-    // 4. 외식/배달/카페
-    let foodVal = 0;
-    if (cats.includes("외식") || cats.includes("배달") || cats.includes("요식")) {
-      foodVal += Math.min(x[5] * 0.1, 30000);
-    }
-    if (cats.includes("카페") || cats.includes("베이커리")) {
-      foodVal += Math.min(x[6] * 0.2, 10000);
-    }
-    detail["🍕 외식/배달/카페"] = foodVal;
-    
-    // 5. 통신비/정기구독
-    let telVal = 0;
-    if (cats.includes("통신")) {
-      telVal += Math.min(x[7] * 0.1, 12000);
-    }
-    if (cats.includes("넷플릭스") || cats.includes("영화") || cats.includes("OTT") || cats.includes("구독")) {
-      telVal += Math.min(x[8] * 0.3, 8000);
-    }
-    detail["📱 통신비/정기구독"] = telVal;
-    
-    // 6. 여행/숙박/문화
-    let leisureVal = 0;
-    if (cats.includes("도서") || cats.includes("공연") || cats.includes("문화") || cats.includes("영화")) {
-      leisureVal += Math.min(x[9] * 0.1, 15000);
-    }
-    if (cats.includes("해외여행") || cats.includes("여행") || cats.includes("숙박") || cats.includes("항공") || cats.includes("캠핑")) {
-      leisureVal += Math.min(x[10] * 0.05, 40000);
-    }
-    detail["✈️ 여행/숙박/문화"] = leisureVal;
-    
-    // 7. 공과금/관리비
-    if (cats.includes("공과금") || cats.includes("납부")) {
-      detail["💸 공과금/납부"] = Math.min(x[11] * 0.05, 15000);
-    } else {
-      detail["💸 공과금/납부"] = 0;
+    // 2. 대중교통/택시 (대중교통 이용 시)
+    if (x[2] > 0) {
+      const hasTransit = hasCategoryMatch(cats, ["교통", "대중교통", "택시", "철도", "버스", "지하철", "코레일", "KTX"]);
+      rawDetail["🚇 대중교통/택시"] = hasTransit ? Math.min(x[2] * 0.1, 15000) : x[2] * 0.005;
     }
     
-    // 8. 학원/교육
-    if (cats.includes("교육") || cats.includes("학원") || cats.includes("육아")) {
-      detail["📚 학원/교육비"] = Math.min(x[12] * 0.1, 40000);
-    } else {
-      detail["📚 학원/교육비"] = 0;
+    // 3. 쇼핑/백화점
+    if (x[3] > 0) {
+      const hasShop = hasCategoryMatch(cats, ["쇼핑", "백화점", "아울렛", "면세점", "소매점", "온라인", "e커머스", "쿠팡", "11번가", "G마켓"]);
+      rawDetail["🛍️ 쇼핑/백화점"] = hasShop ? Math.min(x[3] * 0.08, 30000) : x[3] * 0.005;
     }
     
-    // 9. 국내외 모든가맹점 기본형
-    if (cats.includes("모든가맹점") || cats.includes("간편결제") || cats.includes("할인")) {
-      const total = x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12] + (x[0] === 1 ? x[1] : x[2]);
-      detail["💳 모든가맹점(간편결제)"] = Math.min(total * 0.01, 20000);
-    } else {
-      detail["💳 모든가맹점(간편결제)"] = 0;
+    // 4. 마트/편의점
+    if (x[4] > 0) {
+      const hasStore = hasCategoryMatch(cats, ["편의점", "마트", "SSM", "다이소", "올리브영", "잡화", "이마트", "홈플러스", "롯데마트"]);
+      rawDetail["🏪 마트/편의점"] = hasStore ? Math.min(x[4] * 0.1, 15000) : x[4] * 0.005;
     }
     
-    return detail;
+    // 5. 외식/배달
+    if (x[5] > 0) {
+      const hasFood = hasCategoryMatch(cats, ["외식", "배달", "푸드", "요식", "음식점", "맛집", "패밀리레스토랑", "한식", "양식"]);
+      rawDetail["🍕 외식/배달"] = hasFood ? Math.min(x[5] * 0.1, 30000) : x[5] * 0.005;
+    }
+    
+    // 6. 카페/베이커리
+    if (x[6] > 0) {
+      const hasCafe = hasCategoryMatch(cats, ["카페", "베이커리", "커피", "디저트", "스타벅스", "투썸", "이디야"]);
+      rawDetail["☕ 카페/베이커리"] = hasCafe ? Math.min(x[6] * 0.2, 10000) : x[6] * 0.005;
+    }
+    
+    // 7. 이동통신요금
+    if (x[7] > 0) {
+      const hasTel = hasCategoryMatch(cats, ["통신", "휴대폰", "스마트폰", "SKT", "KT", "LGU+", "알뜰폰"]);
+      rawDetail["📱 이동통신요금"] = hasTel ? Math.min(x[7] * 0.1, 12000) : x[7] * 0.005;
+    }
+    
+    // 8. OTT/디지털구독
+    if (x[8] > 0) {
+      const hasSub = hasCategoryMatch(cats, ["넷플릭스", "OTT", "구독", "디지털", "스트리밍", "유튜브", "디즈니", "티빙", "영화"]);
+      rawDetail["🎬 OTT/디지털구독"] = hasSub ? Math.min(x[8] * 0.3, 8000) : x[8] * 0.005;
+    }
+    
+    // 9. 도서/문화생활
+    if (x[9] > 0) {
+      const hasCulture = hasCategoryMatch(cats, ["도서", "공연", "문화", "전시", "서점", "교보문고"]);
+      rawDetail["📚 도서/문화생활"] = hasCulture ? Math.min(x[9] * 0.1, 15000) : x[9] * 0.005;
+    }
+    
+    // 10. 여행/숙박/항공
+    if (x[10] > 0) {
+      const hasTravel = hasCategoryMatch(cats, ["해외", "여행", "숙박", "항공", "호텔", "면세점", "아시아나", "대한항공"]);
+      rawDetail["✈️ 여행/숙박/항공"] = hasTravel ? Math.min(x[10] * 0.05, 40000) : x[10] * 0.005;
+    }
+    
+    // 11. 공과금/납부
+    if (x[11] > 0) {
+      const hasPay = hasCategoryMatch(cats, ["공과금", "납부", "관리비", "가스", "전기", "수도", "보험"]);
+      rawDetail["💸 공과금/납부"] = hasPay ? Math.min(x[11] * 0.05, 15000) : x[11] * 0.005;
+    }
+    
+    // 12. 학원비/교육비
+    if (x[12] > 0) {
+      const hasEdu = hasCategoryMatch(cats, ["교육", "학원", "육아", "유치원", "학습지", "에듀"]);
+      rawDetail["🎓 학원/교육비"] = hasEdu ? Math.min(x[12] * 0.1, 40000) : x[12] * 0.005;
+    }
+
+    if (totalBenefit !== null && totalBenefit >= 0) {
+      const rawSum = Object.values(rawDetail).reduce((a, b) => a + b, 0);
+      const scaledDetail = {};
+      if (rawSum > 0 && totalBenefit > 0) {
+        for (const [k, v] of Object.entries(rawDetail)) {
+          scaledDetail[k] = Math.round(v * (totalBenefit / rawSum));
+        }
+      } else {
+        for (const k of Object.keys(rawDetail)) {
+          scaledDetail[k] = 0;
+        }
+      }
+      return scaledDetail;
+    }
+    
+    return rawDetail;
   }
 
   // 보유 카드 선택 시 1:1 비교 작동
+  let selectedMyCardIdx = null;
+  let selectedCardRank = 1;
+
   function selectMyCard(idx) {
+    selectedMyCardIdx = idx;
     const myCard = CARDS_LIST.find(c => c.idx === idx);
     if (!myCard) return;
     
@@ -2416,7 +4373,7 @@
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
-      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 15000,
+      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 0,
       userAnswers.shopping_spend,
       userAnswers.convenience_spend,
       userAnswers.food_spend,
@@ -2449,6 +4406,9 @@
     document.getElementById('best-card-img').src = bestCard.card_img;
     document.getElementById('best-benefit-val').innerText = `월 약 ${bestBenefit.toLocaleString()}원 할인`;
     
+    const bestBadgeEl = document.querySelector('#vs-compare-box .vs-badge.best');
+    if (bestBadgeEl) bestBadgeEl.innerText = `AI 추천 ${selectedCardRank || 1}위`;
+
     // 차액 리포트
     const diff = bestBenefit - myBenefit;
     const diffBadge = document.getElementById('vs-benefit-diff');
@@ -2474,49 +4434,88 @@
     const bestPct = Math.round((bestBenefit / maxVal) * 100);
     
     // 상세 카테고리별 할인액 비교 렌더링
-    const myDetails = calculateDetailedBenefits(myCard, x);
-    const bestDetails = calculateDetailedBenefits(bestCard, x);
+    const myDetails = calculateDetailedBenefits(myCard, x, myBenefit);
+    const bestDetails = calculateDetailedBenefits(bestCard, x, bestBenefit);
     
     const detailListContainer = document.getElementById('vs-detail-benefits-list');
     detailListContainer.innerHTML = "";
     
-    // 유효한 혜택이 있는 영역만 선별 추출 (적어도 한 카드가 혜택이 있는 것)
+    const spendMap = {
+      "⛽ 주유/충전": x[1],
+      "🚇 대중교통/택시": x[2],
+      "🛍️ 쇼핑/백화점": x[3],
+      "🏪 마트/편의점": x[4],
+      "🍕 외식/배달": x[5],
+      "☕ 카페/베이커리": x[6],
+      "📱 이동통신요금": x[7],
+      "🎬 OTT/디지털구독": x[8],
+      "📚 도서/문화생활": x[9],
+      "✈️ 여행/숙박/항공": x[10],
+      "💸 공과금/납부": x[11],
+      "🎓 학원/교육비": x[12]
+    };
+
     const allKeys = [...new Set([...Object.keys(myDetails), ...Object.keys(bestDetails)])];
     
     let renderedCount = 0;
     allKeys.forEach(key => {
       const valMine = myDetails[key] || 0;
       const valBest = bestDetails[key] || 0;
+      const spendVal = spendMap[key] || 0;
       
-      if (valMine === 0 && valBest === 0) return; // 둘 다 혜택이 없는 카테고리는 노출 제외
+      if (valMine === 0 && valBest === 0) return;
       
       renderedCount++;
       const maxDetailVal = Math.max(valMine, valBest, 1000);
-      const pctMine = Math.round((valMine / maxDetailVal) * 100);
-      const pctBest = Math.round((valBest / maxDetailVal) * 100);
+      const pctMine = Math.max(Math.round((valMine / maxDetailVal) * 100), valMine > 0 ? 6 : 0);
+      const pctBest = Math.max(Math.round((valBest / maxDetailVal) * 100), valBest > 0 ? 6 : 0);
       
-      const itemHtml = `
-        <div class="vs-detail-item">
-          <div class="vs-detail-item-title">${key}</div>
-          <div class="vs-detail-comparison">
-            <div class="vs-detail-row">
-              <div class="vs-detail-label">현재 내 카드</div>
-              <div class="vs-detail-bar-container">
-                <div class="vs-detail-bar-fill mine" style="width: ${pctMine}%"></div>
-              </div>
-              <div class="vs-detail-value">${valMine > 0 ? '월 ' + valMine.toLocaleString() + '원' : '할인 없음'}</div>
+      const icon = key.split(' ')[0] || '💳';
+      const catTitle = key.replace(/^[^\s]+\s*/, '');
+      const diffVal = valBest - valMine;
+
+      let diffBadgeHtml = "";
+      if (diffVal > 0) {
+        diffBadgeHtml = `<span style="font-size:11px; font-weight:800; color:#4ade80; background:rgba(74, 222, 128, 0.15); border:1px solid rgba(74, 222, 128, 0.3); padding:3px 8px; border-radius:6px;">+${diffVal.toLocaleString()}원 더 절약! 🏆</span>`;
+      } else if (diffVal < 0) {
+        diffBadgeHtml = `<span style="font-size:11px; font-weight:700; color:#fbbf24; background:rgba(251, 191, 36, 0.15); border:1px solid rgba(251, 191, 36, 0.3); padding:3px 8px; border-radius:6px;">내 카드가 +${Math.abs(diffVal).toLocaleString()}원 유리</span>`;
+      } else {
+        diffBadgeHtml = `<span style="font-size:11px; color:#94a3b8; background:rgba(255,255,255,0.06); padding:3px 8px; border-radius:6px;">혜택 동일</span>`;
+      }
+
+      const itemCardHtml = `
+        <div class="breakdown-item-card" style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:16px 20px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:18px;">${icon}</span>
+              <span style="font-size:15px; font-weight:800; color:#f8fafc;">${catTitle}</span>
+              <span style="font-size:12px; color:#94a3b8;">(지출 ${spendVal.toLocaleString()}원)</span>
             </div>
-            <div class="vs-detail-row">
-              <div class="vs-detail-label">AI 추천 1위</div>
-              <div class="vs-detail-bar-container">
-                <div class="vs-detail-bar-fill best" style="width: ${pctBest}%"></div>
-              </div>
-              <div class="vs-detail-value">${valBest > 0 ? '월 ' + valBest.toLocaleString() + '원' : '할인 없음'}</div>
+            <div>
+              ${diffBadgeHtml}
             </div>
+          </div>
+          
+          <!-- 내 카드 프로그레스 바 -->
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span style="font-size:12px; color:#94a3b8; width:75px;">현재 내 카드</span>
+            <div style="flex:1; height:8px; background:rgba(255,255,255,0.08); border-radius:99px; overflow:hidden;">
+              <div style="height:100%; width:${pctMine}%; background:#3b82f6; border-radius:99px;"></div>
+            </div>
+            <span style="font-size:13px; font-weight:700; color:#93c5fd; width:85px; text-align:right;">+${valMine.toLocaleString()}원</span>
+          </div>
+
+          <!-- AI 추천 카드 프로그레스 바 -->
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:12px; color:#10b981; font-weight:700; width:75px;">AI 추천 카드</span>
+            <div style="flex:1; height:8px; background:rgba(255,255,255,0.08); border-radius:99px; overflow:hidden;">
+              <div style="height:100%; width:${pctBest}%; background:linear-gradient(90deg,#10b981,#34d399); border-radius:99px;"></div>
+            </div>
+            <span style="font-size:13px; font-weight:800; color:#4ade80; width:85px; text-align:right;">+${valBest.toLocaleString()}원</span>
           </div>
         </div>
       `;
-      detailListContainer.insertAdjacentHTML('beforeend', itemHtml);
+      detailListContainer.insertAdjacentHTML('beforeend', itemCardHtml);
     });
     
     if (renderedCount === 0) {

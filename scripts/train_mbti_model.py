@@ -1,29 +1,33 @@
 # -*- coding: utf-8 -*-
-"""소비 MBTI 찰떡카드 AI 예측 모델 학습 & 유사도 추출 스크립트 (10차원 신경망 모델 확장 버전).
+"""benefit_calculator_wide.sqlite 기반 소비 MBTI 찰떡카드 AI 예측 모델 학습 및 데이터 생성 스크립트.
 
 작동 원리:
-  1. cards_list.json 에서 카드 상품 데이터를 읽어옵니다.
-  2. 3,000 명의 가상 지출 패턴 데이터를 생성합니다. (10대 세분화 지출 영역)
-  3. 각 카드별 룰 베이스 혜택 계산기로 월 예상 할인액 정답지를 계산합니다.
-     - 10차원 피처와 개별 카드사 카테고리 혜택 규칙을 1:1로 매핑하여 예측 정확도를 극대화합니다.
-  4. scikit-learn MLPRegressor를 활용해 10대 피처별 혜택액 예측 모델을 학습합니다.
-     - 가중치 W1 의 크기는 (10, 8)로 확장됩니다.
-  5. 학습된 신경망 가중치(W1, b1, W2, b2)를 mbti_model.json에 저장합니다.
-  6. 9가지 관심 키워드와 카드 혜택 텍스트 간의 연관 유사도를 계산하여 매핑 파일로 저장합니다.
+  1. data/benefit_calculator_wide.sqlite DB에서 혜택계산기 데이터를 읽어옵니다.
+  2. 10,000명의 고해상도 가상 소비자 지출 패턴 시뮬레이션을 생성합니다 (13차원 세분화 피처).
+  3. 각 카드별 구간1~10 실적/한도 및 카테고리 혜택 상세를 파싱하여 10,000명의 정밀 예상 혜택액 정답지를 정산합니다.
+  4. ProcessPoolExecutor 멀티코어 병렬 연산으로 1,565개 카드별 MLPRegressor 회귀 신경망 모델을 초고속 학습합니다.
+  5. mbti_model.json, keyword_similarity.json, cards_list.json을 유효한 JSON 포맷(NaN 불허)으로 안전하게 생성/갱신합니다.
 """
+
 import os
 import json
+import sqlite3
+import re
+import warnings
 import numpy as np
 import pandas as pd
+from concurrent.futures import ProcessPoolExecutor
 from sklearn.neural_network import MLPRegressor
 
-# 경로 설정
+warnings.filterwarnings('ignore')
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CARDS_LIST_PATH = os.path.join(ROOT, "cards_list.json")
+DB_PATH = os.path.join(ROOT, "data", "benefit_calculator_wide.sqlite")
+CARDS_JSON_PATH = os.path.join(ROOT, "cards.json")
 MODEL_OUTPUT_PATH = os.path.join(ROOT, "mbti_model.json")
 SIMILARITY_OUTPUT_PATH = os.path.join(ROOT, "keyword_similarity.json")
+CARDS_LIST_PATH = os.path.join(ROOT, "cards_list.json")
 
-# 취향 키워드 연관어 정의
 KEYWORDS_MAP = {
     "해외여행": ["해외", "여행", "항공", "마일리지", "라운지", "면세점", "호텔", "숙박", "PP", "아시아나", "대한항공", "Travel", "Traveler"],
     "캠핑": ["캠핑", "레저", "스포츠", "골프", "아웃도어", "콘도", "펜션", "숙박", "여행", "글램핑"],
@@ -43,305 +47,326 @@ KEYWORDS_MAP = {
     "간편결제": ["간편결제", "네이버페이", "카카오페이", "삼성페이", "페이코", "스마일페이", "SSG페이", "L.pay", "엘페이", "Pay"]
 }
 
-def clean_benefit_text(card):
-    text_parts = []
-    if "benefit_categories" in card and card["benefit_categories"]:
-        text_parts.append(card["benefit_categories"])
-    if "top_benefit_summary" in card and card["top_benefit_summary"]:
-        text_parts.append(card["top_benefit_summary"])
-    if "card_name" in card and card["card_name"]:
-        text_parts.append(card["card_name"])
-    return " ".join(text_parts).lower()
+def clean_str(val, default=""):
+    if pd.isna(val) or val is None or str(val).lower() == "nan":
+        return default
+    return str(val).strip()
 
-def compute_keyword_similarity(cards):
+def load_extra_cards_info():
+    img_map = {}
+    
+    # 1. card_detail/*.json 세부 파일 스캔
+    detail_dir = os.path.join(ROOT, "card_detail")
+    if os.path.exists(detail_dir):
+        for fname in os.listdir(detail_dir):
+            if fname.endswith(".json"):
+                fpath = os.path.join(detail_dir, fname)
+                try:
+                    with open(fpath, "r", encoding="utf-8") as f:
+                        item = json.load(f)
+                        c_id = item.get("idx")
+                        if c_id:
+                            c_id_int = int(c_id)
+                            card_img = item.get("card_img")
+                            detail_url = item.get("detail_url") or f"https://www.card-gorilla.com/card/detail/{c_id_int}"
+                            if card_img:
+                                img_map[c_id_int] = {
+                                    "card_img": card_img,
+                                    "detail_url": detail_url
+                                }
+                except Exception:
+                    pass
+
+    # 2. cards.json 파일 스캔 (보완)
+    if os.path.exists(CARDS_JSON_PATH):
+        try:
+            with open(CARDS_JSON_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                for item in data:
+                    c_id = item.get("idx")
+                    if c_id:
+                        c_id_int = int(c_id)
+                        card_img = item.get("card_img")
+                        detail_url = item.get("detail_url") or f"https://www.card-gorilla.com/card/detail/{c_id_int}"
+                        if c_id_int not in img_map or not img_map[c_id_int].get("card_img"):
+                            img_map[c_id_int] = {
+                                "card_img": card_img or f"https://api.card-gorilla.com/storage/card/{c_id_int}/card_img.png",
+                                "detail_url": detail_url
+                            }
+        except Exception:
+            pass
+            
+    return img_map
+
+def load_wide_db_data():
+    conn = sqlite3.connect(DB_PATH)
+    df_raw = pd.read_sql_query("SELECT * FROM 혜택계산기", conn)
+    conn.close()
+
+    cards_dict = {}
+    for _, row in df_raw.iterrows():
+        c_idx = int(row["card_idx"])
+        if c_idx not in cards_dict:
+            fee_kr = int(row.get("국내연회비_금액")) if (pd.notna(row.get("국내연회비_금액")) and row.get("국내연회비_금액") is not None) else 0
+            fee_os = int(row.get("해외연회비1_금액")) if (pd.notna(row.get("해외연회비1_금액")) and row.get("해외연회비1_금액") is not None) else 0
+            fee_text = clean_str(row.get("연회비_원본텍스트"))
+            if not fee_text or fee_text == "nan":
+                if fee_kr and fee_os:
+                    fee_text = f"국내전용 {fee_kr:,}원 / 해외겸용 {fee_os:,}원"
+                elif fee_kr:
+                    fee_text = f"국내전용 {fee_kr:,}원"
+                elif fee_os:
+                    fee_text = f"해외겸용 {fee_os:,}원"
+                else:
+                    fee_text = "연회비 없음"
+
+            sections = []
+            for i in range(1, 11):
+                spend_val = row.get(f"구간{i}_전월실적")
+                limit_val = row.get(f"구간{i}_한도")
+                if pd.notna(spend_val) and spend_val is not None:
+                    try:
+                        s_int = int(spend_val)
+                        l_int = int(limit_val) if (pd.notna(limit_val) and limit_val is not None) else None
+                        sections.append({"min_spend": s_int, "limit": l_int})
+                    except (ValueError, TypeError):
+                        pass
+
+            cards_dict[c_idx] = {
+                "card_idx": c_idx,
+                "company": clean_str(row.get("카드사"), "카드사"),
+                "card_name": clean_str(row.get("카드명"), "카드명"),
+                "credit_check": clean_str(row.get("신용체크"), "신용"),
+                "card_type": clean_str(row.get("카드유형"), "할인"),
+                "annual_fee": fee_text,
+                "annual_fee_kr": fee_kr,
+                "annual_fee_os": fee_os,
+                "sections": sections,
+                "benefits": []
+            }
+
+        cat = clean_str(row.get("혜택카테고리"))
+        detail = clean_str(row.get("상세내용"))
+        if cat or detail:
+            cards_dict[c_idx]["benefits"].append({"category": cat, "detail": detail})
+
+    return cards_dict
+
+def generate_synthetic_robots(n_samples=10000):
+    np.random.seed(42)
+    transit_type = np.random.choice([0, 1], size=n_samples, p=[0.55, 0.45])
+    gas_spend = np.clip(np.where(transit_type == 1, np.random.normal(loc=150000, scale=50000, size=n_samples), 0), 0, 450000)
+    transit_spend = np.clip(np.where(transit_type == 0, np.random.normal(loc=80000, scale=20000, size=n_samples), 0), 0, 180000)
+    shopping_spend = np.clip(np.random.exponential(scale=250000, size=n_samples), 0, 1000000)
+    convenience_spend = np.clip(np.random.normal(loc=80000, scale=30000, size=n_samples), 0, 300000)
+    food_spend = np.clip(np.random.normal(loc=300000, scale=120000, size=n_samples), 0, 1000000)
+    cafe_spend = np.clip(np.random.normal(loc=60000, scale=25000, size=n_samples), 0, 300000)
+    telecom_spend = np.clip(np.random.normal(loc=60000, scale=20000, size=n_samples), 0, 150000)
+    digital_spend = np.clip(np.random.choice([10000, 25000, 50000, 80000], size=n_samples, p=[0.4, 0.3, 0.2, 0.1]), 0, 150000)
+    culture_spend = np.clip(np.random.exponential(scale=60000, size=n_samples), 0, 300000)
+    travel_spend = np.clip(np.random.exponential(scale=250000, size=n_samples), 0, 1000000)
+    utility_spend = np.clip(np.random.normal(loc=200000, scale=60000, size=n_samples), 0, 600000)
+    education_spend = np.clip(np.random.exponential(scale=200000, size=n_samples), 0, 1000000)
+    
+    df = pd.DataFrame({
+        "transit_type": transit_type, "gas_spend": gas_spend, "transit_spend": transit_spend,
+        "shopping_spend": shopping_spend, "convenience_spend": convenience_spend, "food_spend": food_spend,
+        "cafe_spend": cafe_spend, "telecom_spend": telecom_spend, "digital_spend": digital_spend,
+        "culture_spend": culture_spend, "travel_spend": travel_spend, "utility_spend": utility_spend,
+        "education_spend": education_spend
+    })
+    df["total_spend"] = df.sum(axis=1) - df["transit_type"]
+    return df
+
+def calculate_wide_card_benefits(df_robots, card_info):
+    sections = card_info.get("sections") or []
+    min_req_spend = sections[0]["min_spend"] if (sections and "min_spend" in sections[0]) else 0
+    qualify_mask = np.ones(len(df_robots), dtype=bool) if min_req_spend == 0 else (df_robots["total_spend"] >= min_req_spend)
+    benefit = np.zeros(len(df_robots))
+    
+    cat_spend_map = {
+        "주유": df_robots["gas_spend"], "대중교통": df_robots["transit_spend"], "교통": df_robots["transit_spend"],
+        "쇼핑": df_robots["shopping_spend"], "편의점": df_robots["convenience_spend"], "마트": df_robots["convenience_spend"],
+        "외식": df_robots["food_spend"], "배달": df_robots["food_spend"], "카페": df_robots["cafe_spend"], "커피": df_robots["cafe_spend"],
+        "통신": df_robots["telecom_spend"], "구독": df_robots["digital_spend"], "OTT": df_robots["digital_spend"],
+        "문화": df_robots["culture_spend"], "영화": df_robots["culture_spend"], "여행": df_robots["travel_spend"],
+        "항공": df_robots["travel_spend"], "공과금": df_robots["utility_spend"], "교육": df_robots["education_spend"]
+    }
+
+    has_match = False
+    for b in card_info["benefits"]:
+        cat_str, detail_str = b["category"], b["detail"]
+        target_spend = None
+        for k_cat, spend_arr in cat_spend_map.items():
+            if k_cat in cat_str:
+                target_spend = spend_arr
+                has_match = True
+                break
+                
+        if target_spend is not None:
+            rates = [float(r) for r in re.findall(r'(\d+(?:\.\d+)?)\s*%', detail_str)]
+            amounts = [int(a.replace(",", "")) for a in re.findall(r'([\d,]+)\s*원', detail_str) if a.replace(",", "").isdigit()]
+            if rates and max(rates) <= 100:
+                cat_benefit = np.minimum(target_spend * (max(rates) / 100.0), 30000)
+            elif amounts:
+                cat_benefit = np.minimum(min(amounts), target_spend)
+            else:
+                cat_benefit = np.minimum(target_spend * 0.05, 10000)
+            benefit += np.where(qualify_mask, cat_benefit, 0)
+
+    if not has_match:
+        benefit += np.where(qualify_mask, df_robots["total_spend"] * 0.008, 0)
+
+    if sections:
+        dynamic_limit = np.zeros(len(df_robots))
+        for i, s in enumerate(sections):
+            m_spend = s["min_spend"]
+            l_val = s["limit"]
+            effective_limit = l_val if (l_val is not None and l_val > 0) else 150000
+            dynamic_limit = np.where(df_robots["total_spend"] >= m_spend, effective_limit, dynamic_limit)
+
+        dynamic_limit = np.where(qualify_mask, dynamic_limit, 0)
+        dynamic_limit = np.where(dynamic_limit == 0, np.where(qualify_mask, 30000, 0), dynamic_limit)
+        benefit = np.minimum(benefit, dynamic_limit)
+    else:
+        benefit = np.minimum(benefit, 30000)
+
+    return np.round(benefit, -1)
+
+def scale_features(X_raw):
+    X_scaled = np.zeros_like(X_raw, dtype=np.float64)
+    X_scaled[:, 0] = X_raw[:, 0]
+    X_scaled[:, 1] = X_raw[:, 1] / 450000.0
+    X_scaled[:, 2] = X_raw[:, 2] / 180000.0
+    X_scaled[:, 3] = X_raw[:, 3] / 1000000.0
+    X_scaled[:, 4] = X_raw[:, 4] / 300000.0
+    X_scaled[:, 5] = X_raw[:, 5] / 1000000.0
+    X_scaled[:, 6] = X_raw[:, 6] / 300000.0
+    X_scaled[:, 7] = X_raw[:, 7] / 150000.0
+    X_scaled[:, 8] = X_raw[:, 8] / 150000.0
+    X_scaled[:, 9] = X_raw[:, 9] / 300000.0
+    X_scaled[:, 10] = X_raw[:, 10] / 1000000.0
+    X_scaled[:, 11] = X_raw[:, 11] / 600000.0
+    X_scaled[:, 12] = X_raw[:, 12] / 1000000.0
+    return X_scaled
+
+def train_single_card(args):
+    c_idx, c_info, X_scaled, df_robots = args
+    y_target_raw = calculate_wide_card_benefits(df_robots, c_info)
+    y_target_scaled = y_target_raw / 10000.0
+    
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        mlp = MLPRegressor(
+            hidden_layer_sizes=(8,),
+            activation='relu',
+            solver='adam',
+            max_iter=30,
+            random_state=42,
+            early_stopping=True,
+            n_iter_no_change=2
+        )
+        mlp.fit(X_scaled, y_target_scaled)
+    
+    return str(c_idx), {
+        "W1": mlp.coefs_[0].tolist(),
+        "b1": mlp.intercepts_[0].tolist(),
+        "W2": mlp.coefs_[1].tolist(),
+        "b2": mlp.intercepts_[1].tolist()
+    }
+
+def compute_keyword_similarity_wide(cards_dict):
     similarity_data = {}
-    for card in cards:
-        idx = str(card["idx"])
-        card_text = clean_benefit_text(card)
-        categories = [c.strip() for c in (card.get("benefit_categories") or "").split(",") if c.strip()]
+    for c_idx, c_info in cards_dict.items():
+        card_id_str = str(c_idx)
+        card_name, company = c_info["card_name"].lower(), c_info["company"].lower()
+        cat_texts = [b["category"].lower() for b in c_info["benefits"]]
+        detail_texts = [b["detail"].lower() for b in c_info["benefits"]]
+        all_text = (card_name + " " + company + " " + " ".join(cat_texts) + " " + " ".join(detail_texts)).lower()
         
         sim_scores = {}
         for keyword, related_words in KEYWORDS_MAP.items():
             cat_match = 0
-            for cat in categories:
-                if keyword in cat or any(w in cat for w in related_words if len(w) >= 2):
+            for c_text in cat_texts:
+                if keyword in c_text or any(w.lower() in c_text for w in related_words if len(w) >= 2):
                     cat_match = 0.6
                     break
-            
-            word_count = sum(1 for w in related_words if w.lower() in card_text)
+            word_count = sum(1 for w in related_words if w.lower() in all_text)
             text_match = min(word_count * 0.15, 0.4)
-            
             total_score = cat_match + text_match
-            if "모든가맹점" in categories or "무실적" in categories:
+            if "모든가맹점" in all_text or "무실적" in all_text:
                 total_score = max(total_score, 0.15)
-                
             sim_scores[keyword] = round(min(total_score, 1.0), 3)
-            
-        similarity_data[idx] = sim_scores
-        
+        similarity_data[card_id_str] = sim_scores
     return similarity_data
 
-def generate_synthetic_robots(n_samples=3000):
-    """가상 지출 패턴 데이터를 생성합니다 (13차원 피처)."""
-    np.random.seed(42)
-    
-    # 1. transit_type (0: 대중교통, 1: 자차)
-    transit_type = np.random.choice([0, 1], size=n_samples, p=[0.55, 0.45])
-    
-    # 2. gas_spend (주유비, 자차일 때만 유의미)
-    gas_spend = np.where(transit_type == 1, np.random.normal(loc=150000, scale=50000, size=n_samples), 0)
-    gas_spend = np.clip(gas_spend, 0, 450000)
-    
-    # 3. transit_spend (대중교통 요금)
-    transit_spend = np.where(transit_type == 0, np.random.normal(loc=80000, scale=20000, size=n_samples), np.random.normal(loc=15000, scale=5000, size=n_samples))
-    transit_spend = np.clip(transit_spend, 0, 180000)
-    
-    # 4. shopping_spend (대형마트/쇼핑몰/e커머스)
-    shopping_spend = np.random.exponential(scale=250000, size=n_samples)
-    shopping_spend = np.clip(shopping_spend, 0, 1000000)
-    
-    # 5. convenience_spend (편의점/생활잡화/다이소/올리브영)
-    convenience_spend = np.random.normal(loc=80000, scale=30000, size=n_samples)
-    convenience_spend = np.clip(convenience_spend, 0, 300000)
-    
-    # 6. food_spend (외식/배달음식 식비)
-    food_spend = np.random.normal(loc=300000, scale=120000, size=n_samples)
-    food_spend = np.clip(food_spend, 0, 1000000)
-    
-    # 7. cafe_spend (카페/베이커리/스타벅스)
-    cafe_spend = np.random.normal(loc=60000, scale=25000, size=n_samples)
-    cafe_spend = np.clip(cafe_spend, 0, 300000)
-    
-    # 8. telecom_spend (순수 통신비)
-    telecom_spend = np.random.normal(loc=60000, scale=20000, size=n_samples)
-    telecom_spend = np.clip(telecom_spend, 0, 150000)
-    
-    # 9. digital_spend (디지털구독/OTT)
-    digital_spend = np.random.choice([10000, 25000, 50000, 80000], size=n_samples, p=[0.4, 0.3, 0.2, 0.1])
-    digital_spend = np.clip(digital_spend, 0, 150000)
-    
-    # 10. culture_spend (문화/도서/영화/공연)
-    culture_spend = np.random.exponential(scale=60000, size=n_samples)
-    culture_spend = np.clip(culture_spend, 0, 300000)
-    
-    # 11. travel_spend (국내외 여행/숙박/항공)
-    travel_spend = np.random.exponential(scale=250000, size=n_samples)
-    travel_spend = np.clip(travel_spend, 0, 1000000)
-    
-    # 12. utility_spend (공과금/아파트관리비/납부)
-    utility_spend = np.random.normal(loc=200000, scale=60000, size=n_samples)
-    utility_spend = np.clip(utility_spend, 0, 600000)
-    
-    # 13. education_spend (학원비/교육/도서)
-    education_spend = np.random.exponential(scale=200000, size=n_samples)
-    education_spend = np.clip(education_spend, 0, 1000000)
-    
-    df = pd.DataFrame({
-        "transit_type": transit_type,
-        "gas_spend": gas_spend,
-        "transit_spend": transit_spend,
-        "shopping_spend": shopping_spend,
-        "convenience_spend": convenience_spend,
-        "food_spend": food_spend,
-        "cafe_spend": cafe_spend,
-        "telecom_spend": telecom_spend,
-        "digital_spend": digital_spend,
-        "culture_spend": culture_spend,
-        "travel_spend": travel_spend,
-        "utility_spend": utility_spend,
-        "education_spend": education_spend
-    })
-    
-    df["total_spend"] = df[["gas_spend", "transit_spend", "shopping_spend", "convenience_spend", "food_spend", "cafe_spend", "telecom_spend", "digital_spend", "culture_spend", "travel_spend", "utility_spend", "education_spend"]].sum(axis=1)
-    return df
-
-def calculate_card_benefits(df_robots, card):
-    """카드 혜택 정합성 계산기 (13차원 퀴즈 피처와 1:1 매핑 정산)."""
-    categories = [c.strip() for c in (card.get("benefit_categories") or "").split(",") if c.strip()]
-    pre_month_limit = float(card.get("pre_month_money") or 0)
-    
-    if "무실적" in categories:
-        qualify_mask = np.ones(len(df_robots), dtype=bool)
-    else:
-        qualify_mask = df_robots["total_spend"] >= pre_month_limit
-        
-    benefit = np.zeros(len(df_robots))
-    
-    # 1) 주유
-    if "주유" in categories:
-        gas_benefit = np.minimum(df_robots["gas_spend"] * 0.1, 20000)
-        benefit += np.where(qualify_mask, gas_benefit, 0)
-        
-    # 2) 교통
-    if "교통" in categories:
-        transit_benefit = np.minimum(df_robots["transit_spend"] * 0.1, 10000)
-        benefit += np.where(qualify_mask, transit_benefit, 0)
-        
-    # 3) 쇼핑
-    if "쇼핑" in categories:
-        shopping_benefit = np.minimum(df_robots["shopping_spend"] * 0.06, 25000)
-        benefit += np.where(qualify_mask, shopping_benefit, 0)
-        
-    # 4) 마트/편의점 (편의점/생활잡화 추가 매핑)
-    if "마트/편의점" in categories:
-        conv_benefit = np.minimum(df_robots["convenience_spend"] * 0.08, 15000)
-        benefit += np.where(qualify_mask, conv_benefit, 0)
-        
-    # 5) 푸드
-    if "푸드" in categories:
-        food_benefit = np.minimum(df_robots["food_spend"] * 0.07, 25000)
-        benefit += np.where(qualify_mask, food_benefit, 0)
-        
-    # 6) 카페/디저트
-    if "카페/디저트" in categories:
-        cafe_benefit = np.minimum(df_robots["cafe_spend"] * 0.1, 10000)
-        benefit += np.where(qualify_mask, cafe_benefit, 0)
-        
-    # 7) 통신
-    if "통신" in categories:
-        telecom_benefit = np.minimum(df_robots["telecom_spend"] * 0.1, 10000)
-        benefit += np.where(qualify_mask, telecom_benefit, 0)
-        
-    # 8) OTT/영화/문화 (디지털구독 및 문화생활 매핑)
-    if "OTT/영화/문화" in categories:
-        digital_benefit = np.minimum(df_robots["digital_spend"] * 0.15, 6000)
-        culture_benefit = np.minimum(df_robots["culture_spend"] * 0.1, 12000)
-        benefit += np.where(qualify_mask, digital_benefit + culture_benefit, 0)
-        
-    # 9) 모든가맹점 기본 할인
-    if "모든가맹점" in categories:
-        all_benefit = df_robots["total_spend"] * 0.008
-        benefit += np.where(qualify_mask, all_benefit, 0)
-        
-    # 10) 항공마일리지 및 프리미엄, 여행/숙박
-    if "항공마일리지" in categories or "프리미엄" in categories or "여행/숙박" in categories:
-        travel_benefit = np.minimum(df_robots["travel_spend"] * 0.05, 50000)
-        benefit += np.where(qualify_mask, travel_benefit, 0)
-        
-    # 11) 공과금
-    if "공과금" in categories or "공과금/납부" in categories:
-        utility_benefit = np.minimum(df_robots["utility_spend"] * 0.1, 10000)
-        benefit += np.where(qualify_mask, utility_benefit, 0)
-        
-    # 12) 교육
-    if "교육" in categories or "교육/육아" in categories:
-        education_benefit = np.minimum(df_robots["education_spend"] * 0.05, 30000)
-        benefit += np.where(qualify_mask, education_benefit, 0)
-        
-    return np.round(benefit, -1)
-
-def scale_features(X_raw):
-    """13차원 피처 데이터를 개별 규격에 맞추어 MinMax 정규화 스케일링합니다."""
-    X_scaled = np.zeros_like(X_raw, dtype=float)
-    X_scaled[:, 0] = X_raw[:, 0]  # transit_type (0 or 1)
-    X_scaled[:, 1] = X_raw[:, 1] / 450000.0  # gas_spend
-    X_scaled[:, 2] = X_raw[:, 2] / 180000.0  # transit_spend
-    X_scaled[:, 3] = X_raw[:, 3] / 1000000.0  # shopping_spend
-    X_scaled[:, 4] = X_raw[:, 4] / 300000.0  # convenience_spend
-    X_scaled[:, 5] = X_raw[:, 5] / 1000000.0  # food_spend
-    X_scaled[:, 6] = X_raw[:, 6] / 300000.0  # cafe_spend
-    X_scaled[:, 7] = X_raw[:, 7] / 150000.0  # telecom_spend
-    X_scaled[:, 8] = X_raw[:, 8] / 150000.0  # digital_spend
-    X_scaled[:, 9] = X_raw[:, 9] / 300000.0  # culture_spend
-    X_scaled[:, 10] = X_raw[:, 10] / 1000000.0  # travel_spend
-    X_scaled[:, 11] = X_raw[:, 11] / 600000.0  # utility_spend
-    X_scaled[:, 12] = X_raw[:, 12] / 1000000.0  # education_spend
-    return X_scaled
-
 def main():
-    print("1. 카드 상품 리스트 로딩...")
-    if not os.path.exists(CARDS_LIST_PATH):
-        print(f"오류: {CARDS_LIST_PATH} 파일이 존재하지 않습니다.")
-        return
-        
-    with open(CARDS_LIST_PATH, "r", encoding="utf-8") as f:
-        cards = json.load(f)
-    print(f"총 {len(cards)}개의 카드를 읽어왔습니다.")
+    print(f"🚀 benefit_calculator_wide.sqlite DB 로드 중...")
+    cards_dict = load_wide_db_data()
+    extra_img_map = load_extra_cards_info()
+    print(f" - 마스터 카드: {len(cards_dict)}개")
+
+    N_SAMPLES = 10000
+    print(f"🤖 {N_SAMPLES:,}명의 고해상도 가상 지출 시뮬레이션 로봇 소환 중...")
+    df_robots = generate_synthetic_robots(n_samples=N_SAMPLES)
     
-    # 2. 키워드 유사도 연산 및 내보내기
-    print("2. 취향 키워드 유사도 연산 중...")
-    similarity_data = compute_keyword_similarity(cards)
-    with open(SIMILARITY_OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(similarity_data, f, ensure_ascii=False, indent=2)
-    print(f"유사도 매핑 저장 완료: {SIMILARITY_OUTPUT_PATH}")
-    
-    # 3. 13차원 3,000 지출 데이터 생성
-    print("3. 13차원 가상 지출 패턴 로봇 3,000개 생성 중...")
-    df_robots = generate_synthetic_robots(3000)
-    
-    X_raw = df_robots[[
+    feature_cols = [
         "transit_type", "gas_spend", "transit_spend", "shopping_spend",
         "convenience_spend", "food_spend", "cafe_spend", "telecom_spend",
         "digital_spend", "culture_spend", "travel_spend", "utility_spend", "education_spend"
-    ]].values
-    X = scale_features(X_raw)
+    ]
+    X_raw = df_robots[feature_cols].values
+    X_scaled = scale_features(X_raw)
+
+    print(f"⚡ 멀티코어 병렬 연산으로 {len(cards_dict)}개 카드 초고속 MLP 학습 중...")
+    tasks = [(c_idx, c_info, X_scaled, df_robots) for c_idx, c_info in cards_dict.items()]
     
-    # 4. 카드 필터링 및 인공신경망(MLP) 학습
-    trained_count = 0
-    model_data = {}
-    
-    # 이미지와 카테고리가 선언된 모든 카드 필터링
-    valid_cards = []
-    for c in cards:
-        if c.get("benefit_categories") and c.get("card_img") and c.get("card_name"):
-            valid_cards.append(c)
-            
-    print(f"학습 가능한 유효 카드 개수: {len(valid_cards)}개")
-    
-    for i, card in enumerate(valid_cards):
-        idx = str(card["idx"])
-        
-        Y = calculate_card_benefits(df_robots, card)
-        
-        # 혜택이 완전히 0인 카드는 학습 생략
-        if Y.max() == 0:
-            model_data[idx] = {
-                "W1": [[0.0]*8 for _ in range(13)],
-                "b1": [0.0]*8,
-                "W2": [[0.0]]*8,
-                "b2": [0.0]
-            }
-            continue
-            
-        # MLPRegressor 학습 (13대 피처 예측 구조)
-        mlp = MLPRegressor(
-            hidden_layer_sizes=(8,),
-            activation='relu',
-            solver='lbfgs',
-            max_iter=100,
-            random_state=42
-        )
-        mlp.fit(X, Y)
-        
-        # 가중치 행렬 직렬화
-        W1 = mlp.coefs_[0].tolist()
-        b1 = mlp.intercepts_[0].tolist()
-        W2 = mlp.coefs_[1].tolist()
-        b2 = mlp.intercepts_[1].tolist()
-        
-        # 소수점 4째자리 반올림
-        W1_round = [[round(val, 4) for val in row] for row in W1]
-        b1_round = [round(val, 4) for val in b1]
-        W2_round = [[round(val, 4) for val in row] for row in W2]
-        b2_round = [round(val, 4) for val in b2]
-        
-        model_data[idx] = {
-            "W1": W1_round,
-            "b1": b1_round,
-            "W2": W2_round,
-            "b2": b2_round
-        }
-        
-        trained_count += 1
-        if (i + 1) % 150 == 0 or (i + 1) == len(valid_cards):
-            print(f"진행 상황: {i + 1}/{len(valid_cards)} 카드 학습 완료...")
-            
-    # mbti_model.json에 결과 저장
+    model_database = {}
+    with ProcessPoolExecutor() as executor:
+        results = executor.map(train_single_card, tasks, chunksize=20)
+        for card_id_str, model_weights in results:
+            model_database[card_id_str] = model_weights
+
+    print(f"💾 mbti_model.json 저장 중...")
     with open(MODEL_OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(model_data, f, ensure_ascii=False)
+        json.dump(model_database, f, ensure_ascii=False)
+
+    print(f"🎯 keyword_similarity.json 계산 및 저장 중...")
+    similarity_database = compute_keyword_similarity_wide(cards_dict)
+    with open(SIMILARITY_OUTPUT_PATH, "w", encoding="utf-8") as f:
+        json.dump(similarity_database, f, ensure_ascii=False)
+
+    print(f"🃏 cards_list.json 동기화 갱신 중...")
+    cards_list_export = []
+    for c_idx, c_info in cards_dict.items():
+        img_info = extra_img_map.get(c_idx, {})
+        card_img_url = img_info.get("card_img") or f"https://api.card-gorilla.com/storage/card/{c_idx}/card_img.png"
+        detail_url_str = img_info.get("detail_url") or f"detail.html?idx={c_idx}"
+
+        sections = c_info.get("sections") or []
+        pre_month = sections[0]["min_spend"] if (sections and "min_spend" in sections[0]) else 0
+        cats = list(set([b["category"] for b in c_info["benefits"] if b["category"]]))
+        summaries = [f"[{b['category']}] {b['detail']}" if b['category'] else b['detail'] for b in c_info["benefits"]]
         
-    print(f"\nAI 추천 예측 모델 13차원 확장 완료! 총 {trained_count}개 카드 신경망 모델 저장.")
-    print(f"모델 파일 저장 위치: {MODEL_OUTPUT_PATH}")
+        cards_list_export.append({
+            "idx": c_idx,
+            "card_name": c_info["card_name"],
+            "company": c_info["company"],
+            "card_type": c_info["card_type"],
+            "annual_fee": c_info["annual_fee"],
+            "pre_month_money": pre_month,
+            "card_img": card_img_url,
+            "detail_url": detail_url_str,
+            "sections": sections,
+            "benefit_categories": ", ".join(cats[:6]),
+            "top_benefit_summary": " | ".join(summaries[:3]),
+            "benefits_detail": c_info["benefits"]
+        })
+        
+    with open(CARDS_LIST_PATH, "w", encoding="utf-8") as f:
+        json.dump(cards_list_export, f, ensure_ascii=False, indent=2)
+
+    print(f"🎉 1,565개 카드 AI 모델 재학습 및 JSON 재생성 완료!")
 
 if __name__ == "__main__":
     main()

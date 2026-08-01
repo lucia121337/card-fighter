@@ -1,0 +1,82 @@
+📋 [PRD] 안티그래비티 전달용: 실질 피킹률 계산기 (Anti-Illusion Engine) 최종 마스터
+[프로젝트 배경 및 절대 원칙 (Background & Core Rules)]
+카드사들의 전월 실적 꼼수와 쪼개기 한도 등의 눈속임을 파훼하고, 소비자가 실제로 얻을 수 있는 **'진짜 피킹률(Real Picking Rate)'**을 산출하는 동적 계산기를 구축한다.
+
+절대 격리 원칙: 원본 cards_full.json 데이터 배열과 화면 하단의 '상세 혜택' 렌더링 로직은 단 1바이트도 훼손하지 않는다. 오직 상단 '혜택 계산기' 영역에 독립적인 복사본 데이터를 생성하여 본 PRD의 로직을 적용한다.
+
+[1. 핵심 데이터 아키텍처 (듀얼 스키마 공존 구조)]
+SQLite DB(`calculator_db.sqlite`) 내부에 팀원 조회용 원본 데이터 테이블과 계산기 엔진 전용 정제 마스터 테이블이 공존하는 **듀얼 스키마(Dual Schema)** 구조를 적용한다.
+
+0) All_Cards_Raw (전체 원본 카드 테이블 - 팀원/조회용)
+- cards_full.json(1,563개 전체 카드)의 원본 칼럼 구조(idx, card_name, company, detailed_benefits 등)를 100% 보존하여 저장하는 테이블.
+
+1) Cards (계산기 정제 마스터 - 카드 기본 정보)
+- id (string): 카드 고유 ID
+- name (string): 카드명
+- annualFee (number): 연회비 (기본/해외)
+- minPerformance (number): 최소 전월 실적 기준
+
+2) Performance_Tiers (전월 실적 및 총 통합 한도 계층)
+- cardId (string): Cards 참조 ID
+- performance (number): 전월 실적 기준 금액 (예: 300000, 600000)
+- totalLimit (number): 해당 실적 구간의 총 통합 한도 (Tier 3 한도)
+
+3) Benefit_Groups (그룹 한도 공유 계층)
+- id (string): 그룹 ID (예: group_shopping)
+- cardId (string): Cards 참조 ID
+- groupLimit (number): 그룹 월 통합 한도액 (Tier 2 한도)
+
+4) Benefit_Items (개별 혜택 세부 항목 계층)
+- id (string): 혜택 항목 고유 ID
+- cardId (string): Cards 참조 ID
+- groupId (string | null): Benefit_Groups 참조 ID (Tier 2 한도 공유용)
+- category (string): 혜택 카테고리
+- itemLimit (number): 단독 월 한도 (Tier 1 한도, 무제한/없음은 -1)
+- rate (number[] | number): 할인/적립률 (단일 수치 또는 다중 구간 배열, 예: [0.05, 0.10])
+- fixedAmount (number): 정액 혜택 금액 (예: 5000원 할인/적립)
+- minPayment (number): 최소 결제 조건 또는 표준 단가 (정액 혜택 계산의 기준 필요 결제액)
+- isExcluded (boolean): 해당 혜택 매출의 전월 실적 제외 여부 (Hidden State)
+
+[2. 혜택 및 한도의 3단 계층화 (3-Tier Limits)]
+한도는 정형화된 4대 테이블을 기준으로 아래 3가지 계층으로 자동 연결 관리한다.
+
+- Tier 1 (개별 한도): Benefit_Items.itemLimit에 명시된 독립 월 한도.
+- Tier 2 (그룹 한도): Benefit_Groups.groupLimit에 명시된 특정 혜택 그룹 한도.
+- Tier 3 (총 통합 한도): Performance_Tiers.totalLimit에 명시된 전월 실적 구간별 총 통합 한도.
+
+콤보박스 동적 생성: Performance_Tiers의 실적 구간 배열을 바탕으로 하드코딩 없이 콤보박스 <option>을 카드별로 자동 생성하고, 변경 시 우측 총 한도액(Tier 3)과 즉각 연동한다.
+
+[3. 진짜 피킹률 산출 엔진 (Core Algorithm)]
+사용자가 혜택 스위치(Checkbox)를 조작할 때마다 아래 로직으로 실시간 계산한다.
+
+1) 서브토탈 캡핑(Capping):
+합산 시 Tier 1 ➔ Tier 2 ➔ Tier 3 순으로 초과 여부를 검사. 특정 한도를 초과하면 해당 혜택 합계를 초과분 대신 '해당 한도액'으로 고정(Cap) 처리한다.
+
+2) 필요 결제액 역산 알고리즘 (두 갈래 분기 로직):
+적용된 혜택 금액으로부터 '해당 혜택을 온전히 받기 위해 긁어야 할 결제 금액'을 산출한다.
+
+- 정률 혜택 (rate > 0): (적용 혜택액 / rate) 로 역산한다. (예: 5,000원 캡핑 / 0.05 = 100,000원 필요)
+- 정액 혜택 (fixedAmount > 0): 적용 혜택액으로 역산할 경우 뻥튀기 오류가 발생하므로, minPayment (최소결제조건 또는 표준 단가) 값을 그대로 '필요 결제액'으로 불러온다.
+
+3) 실질 사용 금액 도출:
+- isExcluded === true : (선택한 전월실적 기준액) + (역산된 필요 결제액 합계)
+- isExcluded === false : Math.max(선택한 전월실적 기준액, 역산된 필요 결제액 합계)
+
+4) 최종 피킹률 공식:
+((최종 예상 혜택 합계 - 월 환산 연회비) / 실질 사용 금액) * 100 (계산값이 음수면 0%로 처리).
+
+[4. UI/UX 렌더링 (View Layer)]
+
+- 시각적 그룹화: Tier 2, Tier 3 한도를 공유하는 항목들은 시각적 박스로 묶고 상단에 "👑 그룹/통합 한도: 최대 OOO원" 텍스트를 출력한다. 원본 데이터의 대제목(Title)과 소제목(Summary)을 깔끔하게 나란히 렌더링한다.
+
+- 캡핑 피드백: 합계가 한도에 도달하여 금액이 깎일 경우 눈에 띄는 붉은색 텍스트로 "⚠️ 통합 한도 도달! (최대 OOO원 적용)" 경고를 즉시 띄운다.
+
+- 하단 대시보드 출력: 맨 하단에 다음 3가지를 명확히 출력한다.
+① 캡핑 적용된 최종 예상 혜택 합계
+② 역산 로직이 적용된 최소 필요 사용 금액
+③ 실질 체감 피킹률(%) 및 색상이 변하는 게이지 바(Gauge Bar).
+
+[5. 방어적 코딩 (Error Handling)]
+데이터 구조가 워낙 다양하므로 누락된 값(null, undefined) 발생 시 화면 전체 렌더링이 멈추지 않도록 모든 계산 및 DOM 조작 로직에 try-catch와 옵셔널 체이닝(?.)을 필수 적용한다.
+
+예외 정책: "혜택 정보에 '무제한', '한도 없음'이 명시된 경우, 시스템은 금액 값을 -1로 처리하며, 렌더링 시 '한도 없이 혜택 제공'으로 표시한다."

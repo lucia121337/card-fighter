@@ -718,7 +718,7 @@
         <h2 class="cards-title" id="cards-title">전체카드</h2>
         <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
       </div>
-      <!-- 혜택 카테고리 필터 (복수선택) -->
+      <!-- 혜택 카테고리 필터 (복수선택 - AND 조건) -->
       <div class="cat-filter-box">
         <div class="cat-filter-label">🎯 혜택으로 찾기</div>
         <div class="cat-filter-row" id="cat-filter-row"></div>
@@ -922,6 +922,29 @@ function goCompare(){
 const PAGE = 60;
 let DATA = [], view = [], shown = 0, activeCardType = '';
 const activeCategories = new Set();
+
+/* 개별 카드와 혜택 카테고리 키워드 매칭 로직 (유연한 텍스트 & 카테고리 매칭) */
+function cardMatchesCategory(c, cat){
+  if(!cat) return true;
+  const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
+  if(cardCats.includes(cat)) return true;
+
+  const searchHaystack = ((c.benefit_categories||'') + ' ' + (c.top_benefit_summary||'') + ' ' + (c.card_name||'')).toLowerCase();
+  const catLower = cat.toLowerCase();
+
+  // 1. 단순 텍스트 포함
+  if(searchHaystack.includes(catLower)) return true;
+
+  // 2. 특수 카테고리 예외/유연 매칭
+  if(cat === '무실적' && ((c.pre_month_money||0) === 0 || searchHaystack.includes('무실적') || searchHaystack.includes('실적없음') || searchHaystack.includes('실적조건없음'))) return true;
+  if(cat === '프리미엄' && isPremium(c)) return true;
+
+  // 3. 결합 키워드(예: 'OTT/영화/문화', '공항라운지/PP', '카페/디저트', '마트/편의점', '교육/육아' 등) 서브 키워드 분할 매칭
+  const parts = catLower.split(/[\/\,\&]/).map(s=>s.trim()).filter(Boolean);
+  if(parts.length > 1 && parts.some(p => searchHaystack.includes(p))) return true;
+
+  return false;
+}
 
 /* 혜택 카테고리 24종 (아이콘 매핑) */
 const BENEFIT_CATEGORIES = [
@@ -1173,8 +1196,8 @@ function applyFilters(){
       if(isPremium(c)) return false;                   // 프리미엄(15만↑)은 신용/체크 탭에서 제외
     }
     if(activeCategories.size){
-      const cardCats = (c.benefit_categories||'').split(',').map(s=>s.trim());
-      if(![...activeCategories].every(cat=>cardCats.includes(cat))) return false;
+      const cats = [...activeCategories];
+      if(!cats.every(cat => cardMatchesCategory(c, cat))) return false;
     }
     // 카드사: 다중선택(OR). 하나도 안 고르면 전체.
     if(selCompanies.size && !selCompanies.has(c.company)) return false;
@@ -1228,7 +1251,7 @@ function render(){
       <div class="foot">
         <button class="compare-btn" data-idx="${c.idx}"
           onclick="toggleCompare(${c.idx},'${esc(c.card_name)}','${c.card_img||''}')">비교함 담기</button>
-        <a class="detail-btn" href="detail?idx=${c.idx}">상세보기 →</a>
+        <a class="detail-btn" href="detail.html?idx=${c.idx}">상세보기 →</a>
       </div>
     </div>`;
   }).join('');
@@ -1603,7 +1626,7 @@ function openCbDetail(idx){
   const imgs = (e.detail_images||[]).map(u=>`<img src="${esc(u)}" alt="" style="max-width:100%;border-radius:10px;margin:8px 0" onerror="this.style.display='none'">`).join('');
   const text = e.detail_text ? `<div class="cbm-text">${esc(e.detail_text)}</div>` : (imgs ? '' : '<div class="cbm-text" style="color:#94a3b8">상세 내용은 카드고릴라에서 확인하세요.</div>');
   const oc = resolveOurCard(e);
-  const cardLink = oc ? `<a class="cbm-cardlink" href="detail?idx=${oc.idx}">
+  const cardLink = oc ? `<a class="cbm-cardlink" href="detail.html?idx=${oc.idx}">
        <img src="${esc(oc.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
        <div class="cl-txt"><div class="cl-eyebrow">📇 카드 파이터에서 이 카드 보기</div>
          <div class="cl-name">${esc(oc.card_name)}</div></div>
@@ -1942,7 +1965,7 @@ function buildTrendCardSections(ranked) {
             ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
           </div>
           <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <a class="c-detail-btn" href="detail?idx=${c.idx}">이 카드 자세히 보기</a>
+          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
         </div>`;
     }).join('');
 
