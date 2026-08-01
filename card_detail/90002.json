@@ -1,0 +1,60 @@
+{
+  "idx": 90002,
+  "card_name": "아정당 우리카드",
+  "company": "우리카드",
+  "card_type": "discount",
+  "cate": "CRD",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [23,000]원 / 해외겸용 [23,000]원",
+  "annual_fee_detail": "국내전용 23,000원<br>해외겸용(Mastercard) 23,000원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "only_online": false,
+  "release_dt": "2026-05-01",
+  "card_img": "image/아정당+우리카드.png",
+  "top_benefit": [
+    {
+      "title": "통신/렌탈",
+      "tags": [
+        "통신·렌탈 통합 한도",
+        "최대 2.5만원",
+        "청구할인"
+      ],
+      "logo_url": ""
+    }
+  ],
+  "key_benefit": [
+    {
+      "title": "통신/렌탈 청구할인",
+      "logo_url": "",
+      "info": "<p><strong>통신·렌탈 요금 자동납부 시 월 정액 청구할인</strong></p><p>- 대상 통신사: SKT, KT, LGU+, 아정당 알뜰폰 등</p><p>- 대상 렌탈사: 아정당렌탈, LG전자, 코웨이, 쿠쿠 등</p><p>- 통신·렌탈 이용금액은 통합 한도로 관리됩니다.</p><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"b-table\" width=\"100%\"><tbody><tr class=\"b-table-top\"><td class=\"b-table-top\" style=\"width:33.3%;text-align:center;\">전월 실적</td><td class=\"b-table-top\" style=\"width:33.3%;text-align:center;\">월 청구할인 한도</td></tr><tr><td align=\"center\" style=\"text-align:center;\">30만원 이상</td><td align=\"center\" style=\"text-align:center;\">1만원</td></tr><tr><td align=\"center\" style=\"text-align:center;\">70만원 이상</td><td align=\"center\" style=\"text-align:center;\">1.5만원</td></tr><tr><td align=\"center\" style=\"text-align:center;\">160만원 이상</td><td align=\"center\" style=\"text-align:center;\">2.5만원</td></tr></tbody></table><p>- 자세한 가맹점 목록 및 유의사항은 <a href=\"https://www.ajd.co.kr/card/detail/1056\" target=\"_blank\" rel=\"noopener\">아정당 카드 상세 안내</a>를 참고하세요.</p>"
+    },
+    {
+      "title": "유의사항",
+      "logo_url": "",
+      "info": "<p>- 본 카드 정보는 아정당(ajd.co.kr) 공식 안내 페이지를 기준으로 작성되었습니다.</p><p>- 카드 서비스 내용은 카드사 및 아정당 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.</p><p>- 카드 사용 전 반드시 상품설명서와 약관을 확인하시기 바랍니다.</p>"
+    }
+  ],
+  "benefit_categories": "통신, 공과금/렌탈",
+  "detail_url": "https://www.ajd.co.kr/card/detail/1056",
+  "top_benefit_summary": "통신/렌탈: 실적별 최대 2.5만원 청구할인",
+  "detailed_benefits": "[통신] SKT/KT/LGU+/아정당 알뜰폰 등 통신요금 자동이체 결제 시 월 정액 청구할인(전월실적 30만원↑ 1만원 / 70만원↑ 1.5만원 / 160만원↑ 2.5만원) — 통신·렌탈 통합 한도 | [공과금/렌탈] 아정당렌탈·LG전자·코웨이·쿠쿠 등 렌탈료 자동이체 결제 시 월 정액 청구할인(전월실적 30만원↑ 1만원 / 70만원↑ 1.5만원 / 160만원↑ 2.5만원) — 통신·렌탈 통합 한도",
+  "item_limit": "-1 | -1",
+  "group_id": "none | none",
+  "group_limit": "-1 | -1",
+  "total_limit_tiers": [
+    {
+      "perf": 300000,
+      "limit": 10000
+    },
+    {
+      "perf": 700000,
+      "limit": 15000
+    },
+    {
+      "perf": 1600000,
+      "limit": 25000
+    }
+  ],
+  "is_calc_supported": "FALSE"
+}
