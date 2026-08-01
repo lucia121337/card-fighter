@@ -705,27 +705,24 @@
           <p>소비패턴과 원하는 혜택을 기준으로 계산하고 비교해 카드 선택을 도와드려요.</p>
           <div class="home-hero-actions">
             <a class="home-btn home-btn-primary" href="calculator.html" data-home-action="calculator">1분 맞춤 추천 시작</a>
-            <button class="home-btn home-btn-secondary" type="button" data-home-action="benefits">혜택으로 직접 찾기</button>
+            <button class="home-btn home-btn-secondary" type="button" data-home-action="benefits">혜택으로 빠르게 찾기</button>
           </div>
+          <p class="home-hero-trust">카드고릴라 공개 데이터 기준 · 계산 결과는 카드 선택을 위한 참고용이에요.</p>
         </div>
-        <aside class="home-result-preview" aria-label="추천 결과 예시">
-          <span>추천 결과에서 확인할 수 있어요</span>
-          <strong>예상 월 혜택 · 전월실적 · 추천 이유</strong>
-          <ul><li>내 지출 기준 예상 혜택</li><li>연회비를 뺀 실질 이득</li><li>비교 카드별 유리한 영역</li></ul>
+        <aside class="home-result-preview" aria-label="맞춤 추천 결과 예시">
+          <span class="home-result-label">맞춤 추천 결과 예시</span>
+          <div class="home-result-score"><small>예상 월 혜택</small><strong>32,400원</strong></div>
+          <dl class="home-result-details">
+            <div><dt>연회비 제외 연 이득</dt><dd>368,800원</dd></div>
+            <div><dt>전월실적</dt><dd>30만원</dd></div>
+            <div><dt>추천 이유</dt><dd>교통·통신 지출에 유리</dd></div>
+          </dl>
+          <small class="home-result-note">입력한 소비 금액에 따라 결과가 달라져요.</small>
         </aside>
       </section>
 
-      <section class="home-block" aria-labelledby="home-path-title">
-        <div class="home-section-head"><span>STEP 1</span><h2 id="home-path-title">어떤 방식으로 찾아볼까요?</h2></div>
-        <div class="home-path-grid">
-          <a class="home-path-card is-primary" href="calculator.html" data-home-action="calculator"><span class="home-path-icon">🧮</span><b>내 소비로 추천받기</b><span>월 지출을 입력하면 예상 혜택을 계산해요</span><em>약 1분</em></a>
-          <button class="home-path-card" type="button" data-home-action="benefits"><span class="home-path-icon">🎯</span><b>원하는 혜택으로 찾기</b><span>쇼핑·주유·여행 등 필요한 혜택으로 좁혀요</span><em>24개 혜택 필터</em></button>
-          <button class="home-path-card" type="button" data-home-action="compare"><span class="home-path-icon">⚖️</span><b>후보 카드 비교하기</b><span>담아둔 카드를 조건별로 나란히 비교해요</span><em id="home-compare-count">비교함 확인</em></button>
-        </div>
-      </section>
-
       <section class="home-block home-quick" aria-labelledby="home-quick-title">
-        <div class="home-section-head"><span>QUICK PICK</span><h2 id="home-quick-title">생활에 맞는 혜택부터 골라보세요</h2></div>
+        <div class="home-section-head"><span>필요한 혜택부터 선택</span><h2 id="home-quick-title">혜택으로 바로 찾기</h2><p>자주 쓰는 곳을 고르면 해당 혜택이 있는 카드만 보여드려요.</p></div>
         <div class="home-category-list" aria-label="상황별 카드 추천">
           <button type="button" data-home-category="생활비">📄 생활비</button>
           <button type="button" data-home-category="쇼핑">🎁 쇼핑</button>
@@ -738,23 +735,23 @@
         </div>
       </section>
 
-      <section class="home-block" aria-labelledby="home-featured-title">
-        <div class="home-section-head home-head-row"><div><span>RECOMMENDED</span><h2 id="home-featured-title">지금 주목할 카드</h2></div><button type="button" data-home-action="benefits">전체카드 보기</button></div>
+      <section class="home-block home-featured" aria-labelledby="home-featured-title">
+        <div class="home-section-head home-head-row"><div><span>추천 상황이 다른 세 장</span><h2 id="home-featured-title">생활 상황별 대표 카드</h2><p>생활비·쇼핑·주유처럼 서로 다른 소비 상황을 기준으로 골랐어요.</p></div><button type="button" data-home-action="benefits">전체카드 보기</button></div>
         <div id="home-featured-cards" class="home-featured-grid" aria-live="polite"><p id="home-status">추천 카드를 불러오고 있어요.</p></div>
       </section>
 
       <section class="home-block home-cashback" aria-labelledby="home-cashback-title">
-        <div class="home-section-head home-head-row"><div><span>THIS MONTH</span><h2 id="home-cashback-title">이번 달 놓치기 아까운 혜택</h2></div><button type="button" data-home-action="cashback">캐시백 전체 보기</button></div>
-        <div id="home-cashback-list" class="home-cashback-grid" aria-live="polite"></div>
+        <div class="home-section-head home-head-row"><div><span>금액이 큰 순서로 확인</span><h2 id="home-cashback-title">이번 달 캐시백 혜택 순위</h2><p>현재 확인 가능한 최대 혜택을 카드사별로 비교했어요.</p></div><button type="button" data-home-action="cashback">캐시백 전체 보기</button></div>
+        <div id="home-cashback-list" aria-live="polite"></div>
       </section>
 
-      <section class="home-tools" aria-labelledby="home-tools-title">
-        <div><span>DECISION TOOLS</span><h2 id="home-tools-title">계산하고 비교하면 선택이 쉬워져요</h2><div id="home-compare-summary">카드를 2장 이상 담으면 혜택과 조건을 나란히 볼 수 있어요.</div></div>
-        <div class="home-tool-actions"><a href="calculator.html">혜택 계산하기</a><button type="button" data-home-action="compare">비교 이어하기</button></div>
+      <section id="home-compare-panel" class="home-compare-panel" data-compare-tone="empty" aria-labelledby="home-compare-title">
+        <div class="home-compare-copy"><span>비교함 이어가기</span><h2 id="home-compare-title">비교할 카드를 먼저 골라보세요</h2><p id="home-compare-summary">카드를 2장 이상 담으면 혜택과 조건을 나란히 볼 수 있어요.</p></div>
+        <button id="home-compare-action" type="button" data-home-action="compare">비교할 카드 찾기</button>
       </section>
 
       <section class="home-lab" aria-labelledby="home-lab-title">
-        <div><span>CARD LAB</span><h2 id="home-lab-title">재미있게 찾는 나의 카드 취향</h2><p>카드 MBTI와 카드 월드컵으로 선택 기준을 발견해보세요.</p></div>
+        <div><span>취향으로 찾기</span><h2 id="home-lab-title">재미있게 발견하는 나의 카드 취향</h2><p>카드 MBTI와 카드 월드컵으로 선택 기준을 발견해보세요.</p></div>
         <a href="cardlab.html">카드 연구소 가기</a>
       </section>
 
