@@ -221,8 +221,10 @@
   .card .nm{font-weight:700;font-size:17px;line-height:1.3}
   .card .co{color:var(--muted);font-size:13px}
   .benefit-row{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:14px;min-height:37px;align-items:center}
+  .benefit-item{max-width:220px}
   .benefit-item .b-label{color:var(--muted);font-size:12px;margin-bottom:4px}
-  .benefit-item .b-val{font-size:15.5px;font-weight:700;color:var(--txt)}
+  .benefit-item .b-val{font-size:15.5px;font-weight:700;color:var(--txt);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .benefit-item.no-benefit{color:#94a3b8;font-size:13px}
   .row{display:flex;gap:7px;flex-wrap:wrap}
   .chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;
@@ -1558,7 +1560,7 @@ async function renderCashback(){
   } else {
     const plat = CASHBACK[activePlatform];
     document.getElementById('cb-subtitle').innerHTML = activePlatform==='전체보기'
-      ? '카드사를 눌러 캐시백 카드를 확인하세요'
+      ? '나는 얼마나 받을 수 있을까?'
       : (plat && plat.url ? `🏠 <a href="${esc(plat.url)}" target="_blank" rel="noopener" style="font-weight:700;color:var(--brand)">${esc(activePlatform)} 바로가기</a>` : '카드사를 눌러 확인하세요');
     renderCbCompanies(companies);
   }
