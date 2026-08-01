@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2235",
   "top_benefit_summary": "할인: 30% | 생활: 10% | 할인: 3%",
   "detailed_benefits": "할인: 많이 쓰는 영역 30% 자동 맞춤 할인 | 생활: 교통&middot;이동통신&middot;스트리밍 10% 결제일할인 | 할인: 온라인 간편결제&middot;해외 3% 결제일할인",
-  "item_limit": "10000 | [{\"perf\":300000,\"limit\":10000},{\"perf\":600000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
+  "item_limit": "10000 | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":600000,\"limit\":10000},{\"perf\":600000,\"min_perf\":600000,\"max_perf\":null,\"limit\":20000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":600000,\"limit\":5000},{\"perf\":600000,\"min_perf\":600000,\"max_perf\":null,\"limit\":10000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
   "total_limit_tiers": [
@@ -116,10 +116,14 @@
       "item_limit": [
         {
           "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 600000,
           "limit": 10000
         },
         {
           "perf": 600000,
+          "min_perf": 600000,
+          "max_perf": null,
           "limit": 20000
         }
       ],
@@ -140,11 +144,15 @@
       "item_limit": [
         {
           "perf": 300000,
-          "limit": 300000
+          "min_perf": 300000,
+          "max_perf": 600000,
+          "limit": 5000
         },
         {
           "perf": 600000,
-          "limit": 600000
+          "min_perf": 600000,
+          "max_perf": null,
+          "limit": 10000
         }
       ],
       "fixedAmount": 0,

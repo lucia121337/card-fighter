@@ -97,7 +97,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2075",
   "top_benefit_summary": "기타: 2000원 | 기타: 5% | 골프: 5% | 대형마트: 5% | 호텔: 5% | 정비: 5000원 | 영화: 2000원 | 교통: 5% | 베이커리: 10%",
   "detailed_benefits": "기타: 이동통신요금 2,000원 할인 | 기타: 병원, 약국 5% 할인 | 골프: 골프장, 골프연습장 5% 할인 | 대형마트: 대형마트 5% 할인 | 호텔: 숙박업종 5% 할인 | 정비: 자동차정비 5,000원 할인 | 영화: 영화 2,000원 할인 | 교통: 교통 5% 할인 | 베이커리: 베이커리 10% 할인",
-  "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
+  "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":10000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":800000,\"limit\":15000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1000000,\"limit\":20000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}]",
   "group_id": "none | none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [],
@@ -116,16 +116,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -144,16 +156,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
-          "limit": 5000
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
+          "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -172,16 +196,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
-          "limit": 5000
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
+          "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -200,16 +236,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -228,16 +276,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -256,16 +316,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -284,16 +356,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -312,16 +396,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,
@@ -340,16 +436,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 10000
         },
         {
-          "perf": 800000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 800000,
           "limit": 15000
         },
         {
-          "perf": 1000000,
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1000000,
           "limit": 20000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,

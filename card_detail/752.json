@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/752",
   "top_benefit_summary": "병원: 5% | 교육/육아: 5%",
   "detailed_benefits": "병원: 병원 5% 할인 | 교육/육아: 키즈카페/문화센터/학습지 5% 청구할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":1000},{\"perf\":400000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":300000,\"limit\":1000},{\"perf\":400000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":1000},{\"perf\":400000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":400000,\"limit\":1000},{\"perf\":400000,\"min_perf\":400000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":null,\"limit\":5000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [
@@ -96,8 +96,26 @@
       "title": "병원",
       "detail": "병원 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 1000
+        },
+        {
+          "perf": 400000,
+          "limit": 3000
+        },
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -106,8 +124,32 @@
       "title": "교육/육아",
       "detail": "키즈카페/문화센터/학습지 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 400000,
+          "limit": 1000
+        },
+        {
+          "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 500000,
+          "limit": 3000
+        },
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": null,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

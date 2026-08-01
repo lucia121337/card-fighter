@@ -87,7 +87,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2493",
   "top_benefit_summary": "골프: 5% | 골프: 50% | 카페: 10%",
   "detailed_benefits": "골프: 골프장&middot;골프연습장&middot;스크린골프 5% 청구할인 | 골프: 쇼골프 연습장 일 타석권 50% 청구할인 | 카페: 커피전문점 10% 청구할인",
-  "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000},{\"perf\":2000000,\"limit\":15000}] | 20000 | 5000",
+  "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":5000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":15000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":20000}] | 20000 | 5000",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -106,16 +106,28 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 5000
         },
         {
-          "perf": 1000000,
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
           "limit": 10000
         },
         {
-          "perf": 2000000,
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": 2000000,
           "limit": 15000
+        },
+        {
+          "perf": 2000000,
+          "min_perf": 2000000,
+          "max_perf": null,
+          "limit": 20000
         }
       ],
       "fixedAmount": 0,

@@ -77,7 +77,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2530",
   "top_benefit_summary": "일반음식점: 5% | 카페: 5% | 아이스크림: 5% | 대중교통: 5%",
   "detailed_benefits": "일반음식점: 한식, 휴게음식점 업종 5% 환급할인 (평일만) | 카페: 커피음료전문점 업종 5% 환급할인 (평일만) | 아이스크림: 제과아이스크림 업종 5% 환급할인 (평일만) | 대중교통: 대중교통(버스, 지하철) 5% 청구할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}] | [{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}] | 10000 | 1000",
+  "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":5000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":null,\"limit\":10000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":5000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":null,\"limit\":10000}] | 10000 | 1000",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -97,10 +97,14 @@
       "item_limit": [
         {
           "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 5000
         },
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": null,
           "limit": 10000
         }
       ],
@@ -121,10 +125,14 @@
       "item_limit": [
         {
           "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 5000
         },
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": null,
           "limit": 10000
         }
       ],

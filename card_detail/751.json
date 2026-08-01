@@ -77,7 +77,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/751",
   "top_benefit_summary": "쇼핑: 5% | 교육/육아: 5% | 공과금: 5%",
   "detailed_benefits": "쇼핑: 대형마트/온라인쇼핑몰/홈쇼핑 5% 청구할인 | 교육/육아: 키즈카페/문화센터/학습지 5% 청구할인 | 공과금: 통신료/아파트관리비 5% 할인",
-  "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}]",
+  "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1200000,\"limit\":10000},{\"perf\":1200000,\"min_perf\":1200000,\"max_perf\":null,\"limit\":20000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":1200000,\"limit\":10000},{\"perf\":1200000,\"min_perf\":1200000,\"max_perf\":null,\"limit\":20000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
   "total_limit_tiers": [
@@ -101,8 +101,26 @@
       "title": "쇼핑",
       "detail": "대형마트/온라인쇼핑몰/홈쇼핑 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "limit": 10000
+        },
+        {
+          "perf": 1200000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -111,8 +129,32 @@
       "title": "교육/육아",
       "detail": "키즈카페/문화센터/학습지 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1200000,
+          "limit": 10000
+        },
+        {
+          "perf": 1200000,
+          "min_perf": 1200000,
+          "max_perf": null,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -121,8 +163,32 @@
       "title": "공과금",
       "detail": "통신료/아파트관리비 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
+          "limit": 5000
+        },
+        {
+          "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": 1200000,
+          "limit": 10000
+        },
+        {
+          "perf": 1200000,
+          "min_perf": 1200000,
+          "max_perf": null,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

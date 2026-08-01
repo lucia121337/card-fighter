@@ -82,7 +82,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/731",
   "top_benefit_summary": "카페: 50% | 편의점: 10% | 대중교통: 10% | 간편결제: 10% | 통신: 7%",
   "detailed_benefits": "카페: [커피전문점 이용금액의 50% 청구 할인] | 편의점: [편의점 이용금액의 10% 청구 할인] | 대중교통: [대중교통 이용금액의 10% 청구 할인] | 간편결제: [온라인 간편결제 이용금액의 10% 청구 할인] | 통신: [이동통신요금 정기결제 시 7% 청구 할인]",
-  "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":13000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":8000}]",
+  "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":13000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -102,10 +102,14 @@
       "item_limit": [
         {
           "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
           "limit": 10000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 13000
         }
       ],
@@ -126,10 +130,14 @@
       "item_limit": [
         {
           "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
           "limit": 5000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 8000
         }
       ],
@@ -150,10 +158,14 @@
       "item_limit": [
         {
           "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
           "limit": 5000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 8000
         }
       ],
@@ -174,10 +186,14 @@
       "item_limit": [
         {
           "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
           "limit": 5000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 8000
         }
       ],
@@ -198,10 +214,14 @@
       "item_limit": [
         {
           "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
           "limit": 5000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 8000
         }
       ],

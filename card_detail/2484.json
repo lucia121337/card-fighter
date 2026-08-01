@@ -63,7 +63,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2484",
   "top_benefit_summary": "KT: 25000원 | 주유소: 1%",
   "detailed_benefits": "KT: kt 통신요금 청구할인. 전월실적 별 월 최대 25,000원 할인 | 주유소: SK 주유소 1% 청구할인",
-  "item_limit": "[{\"perf\":1000000,\"limit\":500000},{\"perf\":700000,\"limit\":10000}] | 1000",
+  "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}] | 1000",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -82,12 +82,16 @@
       ],
       "item_limit": [
         {
-          "perf": 1000000,
-          "limit": 500000
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 15000
         },
         {
-          "perf": 700000,
-          "limit": 10000
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,

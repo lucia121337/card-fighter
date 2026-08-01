@@ -70,6 +70,10 @@ function cleanGroupName(groupId) {
 /**
  * rate (배열, 수치, JSON) 및 현재 실적(perf) 기준 동적 요율 반환
  */
+/**
+ * rate (배열, 수치, JSON) 및 현재 실적(perf) 기준 동적 요율 반환
+ * - 구간 범위(Range) 매칭: min_perf <= perf && (max_perf == null || perf < max_perf)
+ */
 function getApplicableRate(rate, perf) {
   if (rate == null) return 0;
 
@@ -80,13 +84,32 @@ function getApplicableRate(rate, perf) {
 
   if (Array.isArray(rateArray)) {
     if (rateArray.length === 0) return 0;
-    let matchedRate = 0;
-    // 조건에 부합하는 가장 높은 실적 구간의 요율 매칭
+
+    // 1차: min_perf / max_perf 명시 구간 매칭
     for (const tier of rateArray) {
-      if (typeof tier.perf === 'number' && typeof tier.rate === 'number') {
-        if (perf >= tier.perf) {
-          matchedRate = tier.rate;
+      const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+      const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
+      if (typeof minP === 'number' && typeof tier.rate === 'number') {
+        if (perf >= minP && (maxP == null || perf < maxP)) {
+          return tier.rate;
         }
+      }
+    }
+
+    // 2차: 하위 호환성 (perf 오름차순 순회)
+    let matchedRate = 0;
+    const sortedTiers = [...rateArray].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
+    for (let i = 0; i < sortedTiers.length; i++) {
+      const tier = sortedTiers[i];
+      const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+      const nextTier = sortedTiers[i + 1];
+      const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
+
+      if (typeof tierMin === 'number' && typeof tier.rate === 'number') {
+        if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
+          return tier.rate;
+        }
+        if (perf >= tierMin) matchedRate = tier.rate;
       }
     }
     return matchedRate;
@@ -99,6 +122,7 @@ function getApplicableRate(rate, perf) {
 /**
  * item_limit 값과 현재 실적(perf) 기준으로 적용할 개별 한도 반환.
  * -1, null, undefined ➡️ Infinity (무제한)
+ * - 구간 범위(Range) 매칭: min_perf <= perf && (max_perf == null || perf < max_perf)
  */
 function getItemLimitForPerf(itemLimit, perf) {
   if (itemLimit === null || itemLimit === undefined || itemLimit === -1) return Infinity;
@@ -110,12 +134,34 @@ function getItemLimitForPerf(itemLimit, perf) {
 
   if (Array.isArray(limitVal)) {
     if (limitVal.length === 0) return Infinity;
-    let best  = 0;
-    let found = false;
+
+    // 1차: min_perf / max_perf 명시 구간 매칭
     for (const tier of limitVal) {
-      if (typeof tier.perf === 'number' && typeof tier.limit === 'number') {
-        if (perf >= tier.perf) {
-          best  = tier.limit;
+      const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+      const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
+      if (typeof minP === 'number' && typeof tier.limit === 'number') {
+        if (perf >= minP && (maxP == null || perf < maxP)) {
+          return tier.limit;
+        }
+      }
+    }
+
+    // 2차: 하위 호환성 (perf 오름차순 구간 매칭)
+    let best = 0;
+    let found = false;
+    const sortedTiers = [...limitVal].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
+    for (let i = 0; i < sortedTiers.length; i++) {
+      const tier = sortedTiers[i];
+      const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+      const nextTier = sortedTiers[i + 1];
+      const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
+
+      if (typeof tierMin === 'number' && typeof tier.limit === 'number') {
+        if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
+          return tier.limit;
+        }
+        if (perf >= tierMin) {
+          best = tier.limit;
           found = true;
         }
       }
@@ -134,12 +180,33 @@ function getItemLimitForPerf(itemLimit, perf) {
 function getTotalCapForPerf(totalLimitTiers, perf) {
   if (!Array.isArray(totalLimitTiers) || totalLimitTiers.length === 0) return Infinity;
 
+  for (const tier of totalLimitTiers) {
+    const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+    const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
+    if (typeof minP === 'number' && typeof tier.limit === 'number') {
+      if (perf >= minP && (maxP == null || perf < maxP)) {
+        return tier.limit;
+      }
+    }
+  }
+
   let best  = 0;
   let found = false;
-  for (const tier of totalLimitTiers) {
-    if (typeof tier.perf === 'number' && perf >= tier.perf) {
-      best  = tier.limit;
-      found = true;
+  const sortedTiers = [...totalLimitTiers].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
+  for (let i = 0; i < sortedTiers.length; i++) {
+    const tier = sortedTiers[i];
+    const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
+    const nextTier = sortedTiers[i + 1];
+    const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
+
+    if (typeof tierMin === 'number' && typeof tier.limit === 'number') {
+      if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
+        return tier.limit;
+      }
+      if (perf >= tierMin) {
+        best  = tier.limit;
+        found = true;
+      }
     }
   }
   return found ? best : 0;

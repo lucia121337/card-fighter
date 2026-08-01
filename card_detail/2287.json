@@ -82,7 +82,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2287",
   "top_benefit_summary": "쇼핑: 10% | 푸드: 10% | 기타: 10%",
   "detailed_benefits": "쇼핑: [MX Black Zone] Shopping Zone 10% 청구 할인 | 푸드: [MX Black Zone] Food &amp; Drink Zone 10% 청구 할인 | 기타: [MX Black Zone] Mobility Zone 10% 청구 할인",
-  "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":2000000,\"limit\":30000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000},{\"perf\":2000000,\"limit\":25000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":15000},{\"perf\":2000000,\"limit\":25000}]",
+  "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":20000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":30000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":15000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":15000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":25000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -102,14 +102,20 @@
       "item_limit": [
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
           "limit": 10000
         },
         {
           "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": 2000000,
           "limit": 20000
         },
         {
           "perf": 2000000,
+          "min_perf": 2000000,
+          "max_perf": null,
           "limit": 30000
         }
       ],
@@ -130,14 +136,20 @@
       "item_limit": [
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
           "limit": 10000
         },
         {
           "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": 2000000,
           "limit": 15000
         },
         {
           "perf": 2000000,
+          "min_perf": 2000000,
+          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -158,14 +170,20 @@
       "item_limit": [
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
           "limit": 10000
         },
         {
           "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": 2000000,
           "limit": 15000
         },
         {
           "perf": 2000000,
+          "min_perf": 2000000,
+          "max_perf": null,
           "limit": 25000
         }
       ],

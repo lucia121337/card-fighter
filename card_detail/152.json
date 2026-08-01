@@ -58,7 +58,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/152",
   "top_benefit_summary": "학원: 7% | 약국: 10%",
   "detailed_benefits": "학원: 교육 업종(학원, 학습지 등) 5~7% 청구할인 | 약국: 약국 이용 시 10% 청구할인",
-  "item_limit": "[{\"perf\":900000,\"limit\":30000},{\"perf\":1500000,\"limit\":1000000}] | 10000",
+  "item_limit": "[{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":30000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":2000000,\"limit\":50000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":70000}] | 10000",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -77,12 +77,22 @@
       ],
       "item_limit": [
         {
-          "perf": 900000,
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": 1500000,
           "limit": 30000
         },
         {
           "perf": 1500000,
-          "limit": 1000000
+          "min_perf": 1500000,
+          "max_perf": 2000000,
+          "limit": 50000
+        },
+        {
+          "perf": 2000000,
+          "min_perf": 2000000,
+          "max_perf": null,
+          "limit": 70000
         }
       ],
       "fixedAmount": 0,

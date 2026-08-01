@@ -58,7 +58,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/757",
   "top_benefit_summary": "온라인쇼핑: 3% | 쇼핑: 5%",
   "detailed_benefits": "온라인쇼핑: 온라인 이용 건 3% 캐시백 | 쇼핑: 소셜커머스 &middot;오픈마켓(쿠팡, 티몬, 위메프, 11번가, 옥션, G마켓) 5% 캐시백",
-  "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":4000}] | [{\"perf\":300000,\"limit\":2000},{\"perf\":500000,\"limit\":4000}]",
+  "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":null,\"limit\":4000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":2000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":null,\"limit\":4000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -78,10 +78,14 @@
       "item_limit": [
         {
           "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": null,
           "limit": 4000
         }
       ],
@@ -102,10 +106,14 @@
       "item_limit": [
         {
           "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 500000,
           "limit": 2000
         },
         {
           "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": null,
           "limit": 4000
         }
       ],

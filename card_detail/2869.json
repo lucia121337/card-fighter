@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2869",
   "top_benefit_summary": "충전소: 10% | 편의점: 10% | 카페: 10%",
   "detailed_benefits": "충전소: E1 충전소 10% 청구할인 | 편의점: 편의점 업종 10% 청구할인 | 카페: 커피 업종 10% 청구할인",
-  "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":800000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}]",
+  "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":20000}] | [{\"perf\":400000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -86,11 +86,15 @@
       ],
       "item_limit": [
         {
-          "perf": 800000,
-          "limit": 400000
+          "perf": 400000,
+          "min_perf": 400000,
+          "max_perf": 800000,
+          "limit": 10000
         },
         {
           "perf": 800000,
+          "min_perf": 800000,
+          "max_perf": null,
           "limit": 20000
         }
       ],

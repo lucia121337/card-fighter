@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/89",
   "top_benefit_summary": "주유: 200원 | 영화: 5000원",
   "detailed_benefits": "주유: Most주유소 리터당 최대 200원 청구할인(SK주유소는 최대 80원 청구할인) | 영화: 영화관 업종 5,000원 청구할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":100000},{\"perf\":1000000,\"limit\":300000}] | 6000",
+  "item_limit": "[{\"perf\":300000,\"limit\":100000},{\"perf\":1000000,\"limit\":300000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -113,7 +113,20 @@
           "rate": 0
         }
       ],
-      "item_limit": 6000,
+      "item_limit": [
+        {
+          "perf": 300000,
+          "min_perf": 300000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }
