@@ -83,9 +83,9 @@
       return '<div class="home-empty">추천 카드를 준비하지 못했어요. <button type="button" data-home-action="benefits">전체카드에서 찾아보기</button></div>';
     }
 
-    return cards.map(card => {
+    return cards.map((card, index) => {
       const performance = card.pre_month_money ?? card.previous_month_performance ?? 0;
-      return `<article class="home-feature-card">
+      return `<article class="home-feature-card ${index === 0 ? 'is-lead' : 'is-compact'}">
         <img loading="lazy" src="${escapeHtml(card.card_img || card.image_url || '')}" alt="${escapeHtml(card.card_name || '')} 카드 이미지" onerror="this.style.visibility='hidden'">
         <div>
           <small>${escapeHtml(card.company || '')}</small>
@@ -105,12 +105,19 @@
       return '<div class="home-empty">현재 확인 가능한 캐시백 혜택이 없어요.</div>';
     }
 
-    return highlights.map(company => `<article class="home-cashback-card">
-      <span>${escapeHtml(company.bestPlatform || '캐시백 혜택')}</span>
-      <strong>${escapeHtml(company.name || '')}</strong>
+    return `<ol class="home-cashback-rank">${highlights.map((company, index) => `<li class="home-cashback-row">
+      <span class="home-rank-number">${index + 1}</span>
+      <div class="home-cashback-company"><strong>${escapeHtml(company.name || '')}</strong><small>${escapeHtml(company.bestPlatform || '캐시백 혜택')}</small></div>
       <b>최대 ${escapeHtml(company.maxAmount)}만원</b>
-      <button type="button" data-home-action="cashback">혜택 확인하기</button>
-    </article>`).join('');
+      <button type="button" data-home-action="cashback">혜택 확인</button>
+    </li>`).join('')}</ol>`;
+  }
+
+  function getCompareState(compareList) {
+    const count = Array.isArray(compareList) ? compareList.length : 0;
+    if (count >= 2) return {count, tone: 'ready', title: `${count}장을 바로 비교할 수 있어요`, actionLabel: '바로 비교하기'};
+    if (count === 1) return {count, tone: 'waiting', title: '한 장 더 담으면 비교할 수 있어요', actionLabel: '카드 더 찾기'};
+    return {count, tone: 'empty', title: '비교할 카드를 먼저 골라보세요', actionLabel: '비교할 카드 찾기'};
   }
 
   function getCompareCopy(compareList) {
@@ -132,10 +139,16 @@
 
   function renderCompare(compareList) {
     if (typeof document === 'undefined') return;
-    const count = Array.isArray(compareList) ? compareList.length : 0;
+    const compareState = getCompareState(compareList);
+    const panel = document.getElementById('home-compare-panel');
+    const title = document.getElementById('home-compare-title');
+    const action = document.getElementById('home-compare-action');
     const badge = document.getElementById('home-compare-count');
     const summary = document.getElementById('home-compare-summary');
-    if (badge) badge.textContent = count ? `${count}장 담김` : '비교함 확인';
+    if (panel) panel.dataset.compareTone = compareState.tone;
+    if (title) title.textContent = compareState.title;
+    if (action) action.textContent = compareState.actionLabel;
+    if (badge) badge.textContent = compareState.count ? `${compareState.count}장 담김` : '비교함 확인';
     if (summary) summary.textContent = getCompareCopy(compareList);
   }
 
@@ -178,6 +191,7 @@
     renderFeaturedCardsHtml,
     renderCashbackHtml,
     getCompareCopy,
+    getCompareState,
     renderCards,
     renderCashback,
     renderCompare,

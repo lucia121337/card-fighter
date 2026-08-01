@@ -78,3 +78,39 @@ test('비교함 상태에 맞는 안내 문구를 만든다', () => {
   assert.match(HomeRecommendation.getCompareCopy([{idx: 1}]), /1장/);
   assert.match(HomeRecommendation.getCompareCopy([{idx: 1}, {idx: 2}]), /바로 비교/);
 });
+
+test('대표 카드 세 장을 큰 카드 한 장과 작은 후보 두 장으로 구분한다', () => {
+  const cards = [
+    {idx: 1, card_name: '생활 카드', company: 'A', homeReason: '생활비 추천'},
+    {idx: 2, card_name: '쇼핑 카드', company: 'B', homeReason: '쇼핑 추천'},
+    {idx: 3, card_name: '주유 카드', company: 'C', homeReason: '주유 추천'}
+  ];
+  const html = HomeRecommendation.renderFeaturedCardsHtml(cards);
+
+  assert.equal((html.match(/is-lead/g) || []).length, 1);
+  assert.equal((html.match(/is-compact/g) || []).length, 2);
+});
+
+test('캐시백 혜택을 금액순 순위 목록으로 만든다', () => {
+  const html = HomeRecommendation.renderCashbackHtml([
+    {name: 'A카드', maxAmount: 20, bestPlatform: 'A플랫폼'},
+    {name: 'B카드', maxAmount: 85, bestPlatform: 'B플랫폼'},
+    {name: 'C카드', maxAmount: 50, bestPlatform: 'C플랫폼'}
+  ]);
+
+  assert.match(html, /home-cashback-rank/);
+  assert.ok(html.indexOf('B카드') < html.indexOf('C카드'));
+  assert.ok(html.indexOf('C카드') < html.indexOf('A카드'));
+});
+
+test('비교함 카드 수에 따라 안내와 행동을 바꾼다', () => {
+  assert.deepEqual(HomeRecommendation.getCompareState([]), {
+    count: 0,
+    tone: 'empty',
+    title: '비교할 카드를 먼저 골라보세요',
+    actionLabel: '비교할 카드 찾기'
+  });
+  assert.equal(HomeRecommendation.getCompareState([{idx: 1}]).tone, 'waiting');
+  assert.equal(HomeRecommendation.getCompareState([{idx: 1}, {idx: 2}]).tone, 'ready');
+  assert.equal(HomeRecommendation.getCompareState([{idx: 1}, {idx: 2}]).actionLabel, '바로 비교하기');
+});
