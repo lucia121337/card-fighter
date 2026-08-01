@@ -176,10 +176,17 @@ async function runSearch(query){
   document.getElementById('q').value = query;
   if (!q) { renderResults(query, [], [], [], []); return; }
 
-  const [cardsRes, productsRes] = await Promise.all([
+  const [cardsResRaw, productsRes, activeIds] = await Promise.all([
     fetch('/cards_list.json').then(r=>r.json()).catch(()=>[]),
     fetch('/data/naver_products.json').then(r=>r.json()).catch(()=>[]),
+    fetch('/active_cards.json').then(r=>r.json()).catch(()=>null)
   ]);
+
+  let cardsRes = cardsResRaw;
+  if (activeIds) {
+    const activeSet = new Set(activeIds.map(String));
+    cardsRes = cardsResRaw.filter(c => activeSet.has(String(c.idx)));
+  }
 
   /* 1) 카드: 이름/카드사/혜택카테고리/혜택요약에서 검색 */
   const cardMatches = cardsRes.filter(c => {

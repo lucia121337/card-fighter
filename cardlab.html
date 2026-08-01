@@ -740,9 +740,18 @@ let DATA = [];
 // 1. DOM 로드 완료 후 전체 카드 데이터 비동기 조회 및 트렌드 초기화
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const cardsRes = await fetch('cards_list.json');
-    if (!cardsRes.ok) throw new Error("카드 리스트 데이터를 불러오지 못했습니다.");
-    DATA = await cardsRes.json();
+    const [cardsResRaw, activeRes] = await Promise.all([
+      fetch('cards_list.json'),
+      fetch('active_cards.json').catch(() => null)
+    ]);
+    if (!cardsResRaw.ok) throw new Error("카드 리스트 데이터를 불러오지 못했습니다.");
+    let d = await cardsResRaw.json();
+    if (activeRes && activeRes.ok) {
+      const activeIds = await activeRes.json();
+      const activeSet = new Set(activeIds.map(String));
+      d = d.filter(c => activeSet.has(String(c.idx)));
+    }
+    DATA = d;
     
     // 트렌드 로드
     initTrend();

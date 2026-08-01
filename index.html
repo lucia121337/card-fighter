@@ -233,6 +233,57 @@
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
   .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
+  /* 혜택계산기 탭 */
+  .lnb-item.lnb-calc{color:#0e7f6e;font-weight:700}
+  .lnb-item.lnb-calc:hover{color:#0b6659;background:#e6f7f5}
+  .lnb-item.lnb-calc.active{color:#fff;border-bottom-color:#0e7f6e;
+    background:linear-gradient(90deg,#0e7f6e,#16a896);border-color:#0e7f6e}
+  /* 혜택계산기 테마 */
+  #section-cards.calc-theme{background:radial-gradient(120% 60% at 50% 0%,#041f1c 0%,#081414 60%);
+    border:1px solid #0e3a32;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  .calc-theme .cards-title{color:#5ee8d0}
+  .calc-theme .cards-subtitle{color:#7ab5ac}.calc-theme .cards-subtitle b{color:#5ee8d0}
+  .calc-theme .lnb-item{background:#0a1f1d;border-color:#0e3a32;color:#7ab5ac}
+  .calc-theme .cat-filter-box{background:linear-gradient(180deg,#0a1f1d,#081414);
+    border:1.5px solid #0e7f6e;box-shadow:0 8px 26px rgba(14,127,110,.1),inset 0 1px 0 rgba(94,232,208,.06)}
+  .calc-theme .cat-filter-label{color:#5ee8d0}
+  .calc-theme .cat-pill{background:#0d2926;border-color:#0e3a32;color:#5ee8d0}
+  .calc-theme .cat-pill:hover{border-color:#0e7f6e;color:#5ee8d0}
+  .calc-theme .cat-pill.active{background:linear-gradient(90deg,#0e7f6e,#16a896);
+    border-color:#16a896;color:#fff;font-weight:800;box-shadow:0 3px 10px rgba(14,127,110,.3)}
+  .calc-theme .controls select{background:#0a1f1d;border-color:#0e3a32;color:#c0e8e2}
+  .calc-theme .filter-btn{background:#0a1f1d;border-color:#0e3a32;color:#c0e8e2}
+  .calc-theme .filter-btn:hover{border-color:#0e7f6e}
+  .calc-theme .filter-dd.on .filter-btn{border-color:#16a896;box-shadow:0 0 0 3px rgba(14,127,110,.18)}
+  .calc-theme .filter-btn.has-val{border-color:#16a896;color:#5ee8d0}
+  .calc-theme .filter-pop{background:#0a1512;border-color:#0e3a32;box-shadow:0 14px 36px rgba(0,0,0,.5)}
+  .calc-theme .fp-search input{background:#06100e;border-color:#0e3a32;color:#c0e8e2}
+  .calc-theme .fp-search input:focus{border-color:#16a896}
+  .calc-theme .fp-actions button{background:#0d2926;border-color:#0e3a32;color:#5ee8d0}
+  .calc-theme .fp-item{color:#c0e8e2}
+  .calc-theme .fp-item:hover{background:#0d2926}
+  .calc-theme .fp-item input{accent-color:#16a896}
+  .calc-theme .ds-track{background:#0e3a32}
+  .calc-theme .ds-fill{background:linear-gradient(90deg,#0e7f6e,#16a896)}
+  .calc-theme .seg-btn{background:#0d2926;border-color:#0e3a32;color:#5ee8d0}
+  .calc-theme .seg-btn.on{background:linear-gradient(90deg,#0e7f6e,#16a896);border-color:#16a896;color:#fff}
+  .calc-theme .card{background:linear-gradient(180deg,#0a1f1d,#081414);border-color:#0e3a32;box-shadow:none}
+  .calc-theme .card:hover{border-color:#0e7f6e;box-shadow:0 12px 30px rgba(14,127,110,.2)}
+  .calc-theme .card .nm{color:#e0f7f4}
+  .calc-theme .card .co{color:#7ab5ac}
+  .calc-theme .chip{background:#0d2926;border-color:#0e3a32;color:#7ab5ac}
+  .calc-theme .chip.fee{background:#0a2820;border-color:#0e5c47;color:#5ee8d0}
+  .calc-theme .chip.pre{background:#0d2520;border-color:#165c3a;color:#7fe0a5}
+  .calc-theme .chip.calc-badge{background:linear-gradient(90deg,#0e7f6e,#16a896);border:none;color:#fff;font-weight:700}
+  .calc-theme .benefit-item .b-label{color:#7ab5ac}
+  .calc-theme .benefit-item .b-val{color:#e0f7f4}
+  .calc-theme .detail-btn{background:linear-gradient(90deg,#0e7f6e,#16a896);box-shadow:0 2px 10px rgba(14,127,110,.3)}
+  .calc-theme .compare-btn{background:#0a1f1d;border-color:#0e3a32;color:#7ab5ac}
+  .calc-theme .compare-btn:hover{border-color:#0e7f6e;color:#5ee8d0}
+  .calc-theme .compare-btn.selected{background:linear-gradient(90deg,#0e7f6e,#16a896);border-color:#16a896;color:#fff}
+  .calc-theme #more{background:linear-gradient(90deg,#0e7f6e,#16a896);box-shadow:none}
+  /* 카드 목록에서 혜택계산기 지원 배지 */
+  .chip.calc-badge{background:linear-gradient(90deg,#0e7f6e,#16a896);border:none;color:#fff;font-weight:700}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
   #section-cards.prem-theme{background:radial-gradient(120% 60% at 50% 0%,#1b1d26 0%,#0e0f13 60%);
     border:1px solid #2a2d38;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
@@ -730,6 +781,7 @@
         <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
         <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
         <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
+        <button class="lnb-item lnb-calc" data-cardtype="혜택계산기" onclick="setCardType(this)">🧮 혜택계산기</button>
       </nav>
       <div class="cards-title-row">
         <h2 class="cards-title" id="cards-title">전체카드</h2>
@@ -1130,7 +1182,7 @@ function showSection(name, opts){
   window.scrollTo(0, 0);
 }
 
-const CARDTYPE_PATH = { '':'/card', '신용':'/card/credit', '체크':'/card/check', '프리미엄':'/card/premium' };
+const CARDTYPE_PATH = { '':'/card', '신용':'/card/credit', '체크':'/card/check', '프리미엄':'/card/premium', '혜택계산기':'/card/calculator' };
 function setCardType(el, opts){
   opts = opts || {};
   document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
@@ -1138,6 +1190,7 @@ function setCardType(el, opts){
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
   document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  document.getElementById('section-cards').classList.toggle('calc-theme', activeCardType === '혜택계산기');
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({}, '', path);
@@ -1245,6 +1298,8 @@ function applyFilters(){
   view = DATA.filter(c=>{
     if(activeCardType === '프리미엄'){
       if(!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
+    } else if(activeCardType === '혜택계산기'){
+      if((c.is_calc_supported||'').toUpperCase() !== 'TRUE') return false; // 혜택계산기 지원 카드만
     } else if(activeCardType){
       const cateType = c.cate === 'CHK' ? '체크' : '신용'; // cate: CRD=신용, CHK=체크
       if(cateType !== activeCardType) return false;
@@ -1310,6 +1365,7 @@ function render(){
           <span class="nm">${esc(c.card_name)}</span>
           <span class="co">${esc(c.company||'')}</span>
           ${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}
+          ${(c.is_calc_supported||'').toUpperCase()==='TRUE'?'<span class="chip calc-badge">🧮 계산기</span>':''}
         </div>
         <div class="benefit-row">${benefit}</div>
         <div class="row">
@@ -1724,30 +1780,35 @@ document.getElementById('more').addEventListener('click',render);
 renderCatFilterRow();
 
 /* ── 초기 로드: cards_full.json ── */
-fetch('cards_list.json')
-  .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-  .then(d=>{
+Promise.all([
+  fetch('cards_list.json').then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
+  fetch('active_cards.json').then(r=>r.json()).catch(()=>null)
+]).then(([d, activeIds]) => {
+  if (activeIds) {
+    const activeSet = new Set(activeIds.map(String));
+    DATA = d.filter(c => activeSet.has(String(c.idx)));
+  } else {
     DATA = d;
-    buildCardIndex();      // 캐시백↔카드 DB 연결용 인덱스
-    renderCompanyList();   // 카드사 체크박스 목록
-    renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
-    updateFeeUI();         // 연회비 슬라이더 초기 표시
-    applyFilters();
-  })
-  .catch(e=>{
-    document.getElementById('empty').hidden=false;
-    document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
-  });
+  }
+  buildCardIndex();      // 캐시백↔카드 DB 연결용 인덱스
+  renderCompanyList();   // 카드사 체크박스 목록
+  renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
+  updateFeeUI();         // 연회비 슬라이더 초기 표시
+  applyFilters();
+}).catch(e=>{
+  document.getElementById('empty').hidden=false;
+  document.getElementById('empty').textContent='데이터 로드 실패 — http://localhost:8080 으로 접속해주세요. ('+e+')';
+});
 
 /* ── 초기 라우팅: /card, /event, /shopping 및 전체카드 LNB/캐시백 플랫폼 하위 경로까지 clean URL로
    들어왔을 때 해당 GNB 섹션 + 하위 탭까지 바로 맞춰준다.
    과거 index.html#cards 같은 해시 링크(다른 파일에 남아있을 수 있음)도 폴백으로 계속 지원. ── */
 const PATH_SECTION = { '/':'home',
-  '/card':'cards', '/card/credit':'cards', '/card/check':'cards', '/card/premium':'cards',
+  '/card':'cards', '/card/credit':'cards', '/card/check':'cards', '/card/premium':'cards', '/card/calculator':'cards',
   '/event':'cashback', '/event/card-gorilla':'cashback', '/event/ajd-card':'cashback',
   '/event/kakaopay':'cashback', '/event/naverpay':'cashback', '/event/toss':'cashback', '/event/banksalad':'cashback',
   '/shopping':'shopping' };
-const PATH_CARDTYPE = { '/card':'', '/card/credit':'신용', '/card/check':'체크', '/card/premium':'프리미엄' };
+const PATH_CARDTYPE = { '/card':'', '/card/credit':'신용', '/card/check':'체크', '/card/premium':'프리미엄', '/card/calculator':'혜택계산기' };
 const PATH_PLATFORM = { '/event':'전체보기', '/event/card-gorilla':'카드고릴라', '/event/ajd-card':'아정당카드',
   '/event/kakaopay':'카카오페이', '/event/naverpay':'네이버페이', '/event/toss':'토스', '/event/banksalad':'뱅크샐러드' };
 
