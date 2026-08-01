@@ -47,3 +47,34 @@ test('전월실적을 만원 단위로 읽기 쉽게 표시한다', () => {
   assert.equal(HomeRecommendation.formatPerformance(300000), '30만원');
   assert.equal(HomeRecommendation.formatPerformance(0), '조건 없음');
 });
+
+test('대표 카드 HTML은 상세 링크를 만들고 카드 이름을 안전하게 표시한다', () => {
+  const html = HomeRecommendation.renderFeaturedCardsHtml([
+    {idx: 7, card_name: '<script>위험</script>', company: '테스트카드', image_url: 'card.png', annual_fee: 12000, previous_month_performance: 300000, homeReason: '쇼핑 혜택이 돋보이는 카드'}
+  ]);
+
+  assert.match(html, /detail\.html\?idx=7/);
+  assert.match(html, /&lt;script&gt;위험&lt;\/script&gt;/);
+  assert.doesNotMatch(html, /<script>/);
+  assert.match(html, /data-home-compare="7"/);
+});
+
+test('대표 카드가 없으면 다음 행동을 안내한다', () => {
+  assert.match(HomeRecommendation.renderFeaturedCardsHtml([]), /전체카드/);
+});
+
+test('캐시백 HTML은 금액이 큰 혜택부터 보여준다', () => {
+  const html = HomeRecommendation.renderCashbackHtml([
+    {name: 'A카드', maxAmount: 20, bestPlatform: '네이버페이'},
+    {name: 'B카드', maxAmount: 85, bestPlatform: '아정당카드'}
+  ]);
+
+  assert.ok(html.indexOf('B카드') < html.indexOf('A카드'));
+  assert.match(html, /최대 85만원/);
+});
+
+test('비교함 상태에 맞는 안내 문구를 만든다', () => {
+  assert.match(HomeRecommendation.getCompareCopy([]), /2장/);
+  assert.match(HomeRecommendation.getCompareCopy([{idx: 1}]), /1장/);
+  assert.match(HomeRecommendation.getCompareCopy([{idx: 1}, {idx: 2}]), /바로 비교/);
+});
