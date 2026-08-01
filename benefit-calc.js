@@ -88,6 +88,7 @@
       miles: 0, milesBonus: 0, airline: '', isMileage: false,
       points: 0, pointName: '', pointPer1k: 0, pointTopPer1k: 0, pointBonus: 0,
       voucherWon: 0, voucherLabel: '',
+      fixedMoney: 0, fixedRows: [], condFixed: [],
       feeMonthly: 0, net: 0, hasMoney: false,
       preMonth: 0, meetsPreMonth: true, totalSpend: 0
     };
@@ -129,13 +130,20 @@
     });
     out.pickWinner = pickWinner;
 
-    // 정액 원 할인 — %와 같은 '할인 풀'(통합한도 공유). 전월실적 게이팅.
+    // 정액 원 할인 — %와 같은 '할인 풀'(통합한도 공유).
+    // 게이팅 두 겹: ① 전월실적(min_prev_spend) ② 해당 카테고리 실제 지출>0
+    //   (주유·카테고리율과 동일 — 실제 이용해야 받는 조건부 혜택을 무조건 부여하지 않는다)
+    // 조건 미충족(이용 안 함/전월실적 미달) 정액할인은 condFixed로 분리해 '조건부' 칩으로만 안내.
     var fixedMoney = 0;
     out.fixedRows = [];
     (b.fixed_discounts || []).forEach(function (f) {
-      if (num(f.min_prev_spend) > prevMonth) return;
       var w = num(f.won);
-      if (w > 0) { fixedMoney += w; out.fixedRows.push({ category: f.category || '', won: w }); }
+      if (w <= 0) return;
+      var cat = f.category || '';
+      var row = { category: cat, won: w, minPrev: num(f.min_prev_spend) };
+      if (num(f.min_prev_spend) > prevMonth) { out.condFixed.push(row); return; }  // 전월실적 미달
+      if (num(spending[cat]) > 0) { fixedMoney += w; out.fixedRows.push(row); }     // 해당 카테고리 이용함
+      else { out.condFixed.push(row); }                                             // 이용 안 함 → 조건부
     });
     out.fixedMoney = Math.round(fixedMoney);
 

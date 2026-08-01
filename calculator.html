@@ -222,7 +222,8 @@ function recalc(){
       meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped, gated:r.gatedByPreMonth,
       miles:r.miles, bonus:r.milesBonus, air:r.airline, isMile:r.isMileage, type:b.type,
       points:r.points, pointName:r.pointName,
-      fixedMoney:r.fixedMoney, fuelMoney:r.fuelMoney, services:r.services, voucherWon:r.voucherWon});
+      fixedMoney:r.fixedMoney, fuelMoney:r.fuelMoney, services:r.services, voucherWon:r.voucherWon,
+      condFixed:r.condFixed});
   }
   if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
     results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
@@ -249,6 +250,8 @@ function render(list, total){
     const shortSvc = s => { const t=s.replace(/\(.*$/,'').trim(); return t.length>18?t.slice(0,18)+'…':t; };
     const svcChips = (r.services||[]).slice(0,2).map(s=>`<span class="rchip">🎫 ${esc(shortSvc(s))}</span>`).join('');
     const vChip = r.voucherWon>0 ? `<span class="rchip">🎁 연바우처 ${mm(r.voucherWon)}원</span>` : '';
+    const condChip = (r.condFixed||[]).slice(0,2).map(f=>
+      `<span class="rchip" style="background:#fff7ed;color:#c2410c" title="해당 카테고리를 실제 이용할 때만 받는 정액할인 — 순이득에는 합산하지 않았어요">조건부 ${esc(f.category||'')} 이용 시 ${mm(f.won)}원</span>`).join('');
     const warn = r.gated ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 미달로 할인 제외</span>`
                : (!r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '');
     return `<div class="rcard ${i===0?'top':''}">
@@ -257,7 +260,7 @@ function render(list, total){
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
         <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
-        <div class="rreason">${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${warn}</div>
+        <div class="rreason">${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${condChip}${warn}</div>
       </div>
       <div class="rmoney">
         <div class="lab">월 예상 순이득</div>

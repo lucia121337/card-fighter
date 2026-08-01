@@ -291,6 +291,13 @@ function buildCalc(bs){
       if(items.length){ sv.style.display=''; sv.textContent='🎫 '+items.join(' · '); }
       else sv.style.display='none';
     }
+    // 조건부 정액할인 — 해당 카테고리를 실제 이용할 때만 받는 할인(위 금액엔 미합산)
+    const cd=document.getElementById('calc-cond');
+    if(cd){
+      const cf=(r.condFixed||[]).slice(0,4).map(f=>`${esc(f.category||'')} 이용 시 ${wonTxt(f.won)}`);
+      if(cf.length){ cd.style.display=''; cd.textContent='⚑ 조건부 정액할인: '+cf.join(' · ')+' (실제 이용 시에만, 위 금액엔 미포함)'; }
+      else cd.style.display='none';
+    }
   };
 
   const rowHTML = rows.map((r,i)=>{
@@ -320,7 +327,8 @@ function buildCalc(bs){
         <div class="calc-net" id="calc-net"></div>
         <div class="calc-miles" id="calc-miles" style="display:none"></div>
         <div class="calc-miles" id="calc-points" style="display:none"></div>
-        <div class="calc-miles" id="calc-svc" style="display:none;color:#047857"></div></div>
+        <div class="calc-miles" id="calc-svc" style="display:none;color:#047857"></div>
+        <div class="calc-miles" id="calc-cond" style="display:none;color:#c2410c"></div></div>
       <span class="tot-amt" id="calc-total-amt">0원</span>
     </div>
     <div class="calc-disc">ⓘ 금액은 '최대 기준' 예상치예요. 마일리지는 돈과 단위가 달라 <b>따로</b> 표시했어요.${
