@@ -62,7 +62,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/382",
   "top_benefit_summary": "캐시백: 7%",
   "detailed_benefits": "캐시백: 카카오페이 7% 캐시백",
-  "item_limit": "[{\"perf\":250000,\"min_perf\":250000,\"max_perf\":400000,\"limit\":7000},{\"perf\":400000,\"min_perf\":400000,\"max_perf\":null,\"limit\":10000}]",
+  "item_limit": "[{\"perf\":250000,\"limit\":7000},{\"perf\":400000,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -82,14 +82,10 @@
       "item_limit": [
         {
           "perf": 250000,
-          "min_perf": 250000,
-          "max_perf": 400000,
           "limit": 7000
         },
         {
           "perf": 400000,
-          "min_perf": 400000,
-          "max_perf": null,
           "limit": 10000
         }
       ],

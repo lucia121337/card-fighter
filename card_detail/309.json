@@ -49,7 +49,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/309",
   "top_benefit_summary": "카페: 30%",
   "detailed_benefits": "카페: EDIYA COFFEE에서 결제 시 30% 결제일 할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":500000,\"limit\":300000},{\"perf\":800000,\"limit\":500000},{\"perf\":1200000,\"limit\":800000}]",
+  "item_limit": "[{\"perf\":200000,\"limit\":2000},{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":4000},{\"perf\":800000,\"limit\":8000},{\"perf\":1200000,\"limit\":2000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [
@@ -73,20 +73,24 @@
       ],
       "item_limit": [
         {
+          "perf": 200000,
+          "limit": 2000
+        },
+        {
           "perf": 300000,
-          "limit": 200000
+          "limit": 3000
         },
         {
           "perf": 500000,
-          "limit": 300000
+          "limit": 4000
         },
         {
           "perf": 800000,
-          "limit": 500000
+          "limit": 8000
         },
         {
           "perf": 1200000,
-          "limit": 800000
+          "limit": 2000
         }
       ],
       "fixedAmount": 0,

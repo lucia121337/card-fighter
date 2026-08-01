@@ -87,7 +87,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2080",
   "top_benefit_summary": "백화점: 7% | 온라인쇼핑: 10% | 카페: 1000원 | 화장품: 10% | 공연/전시: 5% | 영화: 2000원 | 학원: 5%",
   "detailed_benefits": "백화점: 백화점 7% 할인 | 온라인쇼핑: 온라인쇼핑 10% 할인 | 카페: 커피 1,000원 할인 | 화장품: 뷰티업종 10% 할인 | 공연/전시: 문화공연 5% 할인 | 영화: 영화 2,000원 할인 | 학원: 학원 5% 할인",
-  "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}] | [{\"perf\":300000,\"min_perf\":300000,\"max_perf\":500000,\"limit\":3000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":1500000,\"limit\":20000},{\"perf\":1500000,\"min_perf\":1500000,\"max_perf\":null,\"limit\":25000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}] | [{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
   "group_id": "none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [],
@@ -107,32 +107,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -153,32 +143,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -199,32 +179,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -245,32 +215,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -291,32 +251,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -337,32 +287,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],
@@ -383,32 +323,22 @@
       "item_limit": [
         {
           "perf": 300000,
-          "min_perf": 300000,
-          "max_perf": 500000,
           "limit": 3000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": 1000000,
           "limit": 15000
         },
         {
           "perf": 1000000,
-          "min_perf": 1000000,
-          "max_perf": 1500000,
           "limit": 20000
         },
         {
           "perf": 1500000,
-          "min_perf": 1500000,
-          "max_perf": null,
           "limit": 25000
         }
       ],

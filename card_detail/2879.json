@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2879",
   "top_benefit_summary": "할인: 10% | 할인: 5%",
   "detailed_benefits": "할인: 전월 이용 금액 40만원 이상 시 교육, 병원 10% 청구 할인 | 할인: 전월 이용 금액 40만원 이상 시 이동통신 요금, 아파트 관리비, 도시가스 요금 정기결제 5% 청구 할인",
-  "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
+  "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":1200000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [],
@@ -86,12 +86,16 @@
       ],
       "item_limit": [
         {
-          "perf": 800000,
+          "perf": 400000,
           "limit": 10000
         },
         {
-          "perf": 1200000,
+          "perf": 800000,
           "limit": 20000
+        },
+        {
+          "perf": 1200000,
+          "limit": 5000
         }
       ],
       "fixedAmount": 0,
@@ -109,6 +113,10 @@
         }
       ],
       "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 5000
+        },
         {
           "perf": 800000,
           "limit": 5000

@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2365",
   "top_benefit_summary": "통신: 15000원 | 렌탈: 15000원 | 보험사: 15000원 | 기타: 15000원",
   "detailed_benefits": "통신: 통신요금 자동이체 최대 15,000원 청구할인 | 렌탈: 렌탈요금 자동이체 최대 15,000원 청구할인 | 보험사: 손해보험사 자동이체 최대 15,000원 청구할인 | 기타: 기타 자동이체 가맹점 최대 15,000원 청구할인",
-  "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":9000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":15000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":9000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":15000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":9000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":15000}] | [{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":9000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":15000}]",
+  "item_limit": "[{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}] | [{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}] | [{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}] | [{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}]",
   "group_id": "none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1",
   "total_limit_tiers": [
@@ -97,14 +97,10 @@
       "item_limit": [
         {
           "perf": 400000,
-          "min_perf": 400000,
-          "max_perf": 800000,
           "limit": 9000
         },
         {
           "perf": 800000,
-          "min_perf": 800000,
-          "max_perf": null,
           "limit": 15000
         }
       ],
@@ -125,14 +121,10 @@
       "item_limit": [
         {
           "perf": 400000,
-          "min_perf": 400000,
-          "max_perf": 800000,
           "limit": 9000
         },
         {
           "perf": 800000,
-          "min_perf": 800000,
-          "max_perf": null,
           "limit": 15000
         }
       ],
@@ -153,14 +145,10 @@
       "item_limit": [
         {
           "perf": 400000,
-          "min_perf": 400000,
-          "max_perf": 800000,
           "limit": 9000
         },
         {
           "perf": 800000,
-          "min_perf": 800000,
-          "max_perf": null,
           "limit": 15000
         }
       ],
@@ -181,14 +169,10 @@
       "item_limit": [
         {
           "perf": 400000,
-          "min_perf": 400000,
-          "max_perf": 800000,
           "limit": 9000
         },
         {
           "perf": 800000,
-          "min_perf": 800000,
-          "max_perf": null,
           "limit": 15000
         }
       ],

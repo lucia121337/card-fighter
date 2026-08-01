@@ -37,7 +37,7 @@ function cleanHtml(html) {
 function moneyLabel(num) {
   if (!num) return '0원';
   if (num >= 10000) {
-    const man  = Math.floor(num / 10000);
+    const man = Math.floor(num / 10000);
     const rest = num % 10000;
     return man + '만' + (rest ? ' ' + rest.toLocaleString() : '') + '원';
   }
@@ -70,10 +70,6 @@ function cleanGroupName(groupId) {
 /**
  * rate (배열, 수치, JSON) 및 현재 실적(perf) 기준 동적 요율 반환
  */
-/**
- * rate (배열, 수치, JSON) 및 현재 실적(perf) 기준 동적 요율 반환
- * - 구간 범위(Range) 매칭: min_perf <= perf && (max_perf == null || perf < max_perf)
- */
 function getApplicableRate(rate, perf) {
   if (rate == null) return 0;
 
@@ -84,32 +80,13 @@ function getApplicableRate(rate, perf) {
 
   if (Array.isArray(rateArray)) {
     if (rateArray.length === 0) return 0;
-
-    // 1차: min_perf / max_perf 명시 구간 매칭
-    for (const tier of rateArray) {
-      const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-      const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
-      if (typeof minP === 'number' && typeof tier.rate === 'number') {
-        if (perf >= minP && (maxP == null || perf < maxP)) {
-          return tier.rate;
-        }
-      }
-    }
-
-    // 2차: 하위 호환성 (perf 오름차순 순회)
     let matchedRate = 0;
-    const sortedTiers = [...rateArray].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
-    for (let i = 0; i < sortedTiers.length; i++) {
-      const tier = sortedTiers[i];
-      const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-      const nextTier = sortedTiers[i + 1];
-      const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
-
-      if (typeof tierMin === 'number' && typeof tier.rate === 'number') {
-        if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
-          return tier.rate;
+    // 조건에 부합하는 가장 높은 실적 구간의 요율 매칭
+    for (const tier of rateArray) {
+      if (typeof tier.perf === 'number' && typeof tier.rate === 'number') {
+        if (perf >= tier.perf) {
+          matchedRate = tier.rate;
         }
-        if (perf >= tierMin) matchedRate = tier.rate;
       }
     }
     return matchedRate;
@@ -122,7 +99,6 @@ function getApplicableRate(rate, perf) {
 /**
  * item_limit 값과 현재 실적(perf) 기준으로 적용할 개별 한도 반환.
  * -1, null, undefined ➡️ Infinity (무제한)
- * - 구간 범위(Range) 매칭: min_perf <= perf && (max_perf == null || perf < max_perf)
  */
 function getItemLimitForPerf(itemLimit, perf) {
   if (itemLimit === null || itemLimit === undefined || itemLimit === -1) return Infinity;
@@ -134,33 +110,11 @@ function getItemLimitForPerf(itemLimit, perf) {
 
   if (Array.isArray(limitVal)) {
     if (limitVal.length === 0) return Infinity;
-
-    // 1차: min_perf / max_perf 명시 구간 매칭
-    for (const tier of limitVal) {
-      const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-      const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
-      if (typeof minP === 'number' && typeof tier.limit === 'number') {
-        if (perf >= minP && (maxP == null || perf < maxP)) {
-          return tier.limit;
-        }
-      }
-    }
-
-    // 2차: 하위 호환성 (perf 오름차순 구간 매칭)
     let best = 0;
     let found = false;
-    const sortedTiers = [...limitVal].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
-    for (let i = 0; i < sortedTiers.length; i++) {
-      const tier = sortedTiers[i];
-      const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-      const nextTier = sortedTiers[i + 1];
-      const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
-
-      if (typeof tierMin === 'number' && typeof tier.limit === 'number') {
-        if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
-          return tier.limit;
-        }
-        if (perf >= tierMin) {
+    for (const tier of limitVal) {
+      if (typeof tier.perf === 'number' && typeof tier.limit === 'number') {
+        if (perf >= tier.perf) {
           best = tier.limit;
           found = true;
         }
@@ -180,33 +134,12 @@ function getItemLimitForPerf(itemLimit, perf) {
 function getTotalCapForPerf(totalLimitTiers, perf) {
   if (!Array.isArray(totalLimitTiers) || totalLimitTiers.length === 0) return Infinity;
 
-  for (const tier of totalLimitTiers) {
-    const minP = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-    const maxP = typeof tier.max_perf === 'number' ? tier.max_perf : null;
-    if (typeof minP === 'number' && typeof tier.limit === 'number') {
-      if (perf >= minP && (maxP == null || perf < maxP)) {
-        return tier.limit;
-      }
-    }
-  }
-
-  let best  = 0;
+  let best = 0;
   let found = false;
-  const sortedTiers = [...totalLimitTiers].sort((a, b) => (a.perf || a.min_perf || 0) - (b.perf || b.min_perf || 0));
-  for (let i = 0; i < sortedTiers.length; i++) {
-    const tier = sortedTiers[i];
-    const tierMin = typeof tier.min_perf === 'number' ? tier.min_perf : tier.perf;
-    const nextTier = sortedTiers[i + 1];
-    const tierMax = typeof tier.max_perf === 'number' ? tier.max_perf : (nextTier ? (nextTier.min_perf || nextTier.perf) : null);
-
-    if (typeof tierMin === 'number' && typeof tier.limit === 'number') {
-      if (perf >= tierMin && (tierMax == null || perf < tierMax)) {
-        return tier.limit;
-      }
-      if (perf >= tierMin) {
-        best  = tier.limit;
-        found = true;
-      }
+  for (const tier of totalLimitTiers) {
+    if (typeof tier.perf === 'number' && perf >= tier.perf) {
+      best = tier.limit;
+      found = true;
     }
   }
   return found ? best : 0;
@@ -273,8 +206,8 @@ function getStructuredBenefits(cardData) {
 
     // JSON 내 rate, item_limit, group, fixedAmount, minPayment 등 직접 바인딩
     return benefits.map((b, idx) => {
-      const groupObj   = b.group || null;
-      const groupId    = (groupObj && groupObj.id) ? groupObj.id : (b.group_id || 'none');
+      const groupObj = b.group || null;
+      const groupId = (groupObj && groupObj.id) ? groupObj.id : (b.group_id || 'none');
       const groupLimit = (groupObj && typeof groupObj.limit === 'number') ? groupObj.limit : -1;
 
       return {
@@ -304,14 +237,14 @@ function getStructuredBenefits(cardData) {
 
 function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
   const mode = (cappingMode || 'HYBRID').toUpperCase();
-  const totalCap      = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
+  const totalCap = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
   const groupSpentMap = {};
-  let totalSpent      = 0;
-  const results       = [];
+  let totalSpent = 0;
+  const results = [];
 
   for (const it of items) {
     const currentItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
-    const applicableRate   = getApplicableRate(it.rate, perf);
+    const applicableRate = getApplicableRate(it.rate, perf);
 
     if (perf === 0 || !it.checked) {
       results.push({ id: it.id, applied: 0, currentItemLimit, applicableRate, cap1: 0, cap2: 0 });
@@ -337,8 +270,8 @@ function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
     // 2차: Tier 2 그룹 한도 캡핑 (group.limit)
     let cap2 = cap1;
     if (mode !== 'TOTAL_TIER' && it.groupId && it.groupId !== 'none') {
-      const gLimit  = (it.groupLimit === -1 || it.groupLimit == null) ? Infinity : it.groupLimit;
-      const gSpent  = groupSpentMap[it.groupId] || 0;
+      const gLimit = (it.groupLimit === -1 || it.groupLimit == null) ? Infinity : it.groupLimit;
+      const gSpent = groupSpentMap[it.groupId] || 0;
       const gRemain = isFinite(gLimit) ? Math.max(0, gLimit - gSpent) : Infinity;
       cap2 = isFinite(gRemain) ? Math.min(cap1, gRemain) : cap1;
       groupSpentMap[it.groupId] = gSpent + cap2;
@@ -346,7 +279,7 @@ function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
 
     // 3차: Tier 3 총 통합 한도 캡핑 (total_limit_tiers)
     const totalRemain = isFinite(totalCap) ? Math.max(0, totalCap - totalSpent) : Infinity;
-    const applied     = (mode !== 'INDIVIDUAL_TIER' && isFinite(totalRemain)) ? Math.min(cap2, totalRemain) : cap2;
+    const applied = (mode !== 'INDIVIDUAL_TIER' && isFinite(totalRemain)) ? Math.min(cap2, totalRemain) : cap2;
 
     totalSpent += applied;
     results.push({ id: it.id, applied, currentItemLimit, applicableRate, cap1, cap2 });
@@ -424,7 +357,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     const basePerf = Number(preMonthMoney) || (perfOptions.length > 0 ? perfOptions[0] : 0);
 
     // 그룹 분류
-    const groupMap  = {};
+    const groupMap = {};
     const soloItems = [];
 
     items.forEach(it => {
@@ -446,7 +379,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     /* ── 실시간 렌더 및 3계층 캡핑 업데이트 ── */
     function renderTotal() {
       try {
-        const selEl       = document.getElementById('calc-perf-select');
+        const selEl = document.getElementById('calc-perf-select');
         const currentPerf = selEl ? Number(selEl.value) : basePerf;
 
         // 실적 뱃지 동기화
@@ -470,13 +403,13 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
           if (displayEl) {
             if (currentPerf === 0) {
               displayEl.textContent = '혜택 없음';
-              displayEl.className   = 'calc-amount zero';
+              displayEl.className = 'calc-amount zero';
             } else if (!it.checked) {
               displayEl.textContent = '선택 해제';
-              displayEl.className   = 'calc-amount zero';
+              displayEl.className = 'calc-amount zero';
             } else if (r.applied === 0) {
               displayEl.textContent = '0원 (한도 도달)';
-              displayEl.className   = 'calc-amount zero';
+              displayEl.className = 'calc-amount zero';
             } else {
               const capText = isFinite(r.currentItemLimit)
                 ? ` / 한도 ${r.currentItemLimit.toLocaleString()}원`
@@ -484,23 +417,23 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
               displayEl.textContent = it.fixedAmount > 0
                 ? `${r.applied.toLocaleString()}원 할인`
                 : `최대 ${r.applied.toLocaleString()}원${capText}`;
-              displayEl.className   = 'calc-amount';
+              displayEl.className = 'calc-amount';
             }
           }
         });
 
         // 2차: 그룹 한도 도달 경고 노출
         Object.values(groupMap).forEach(g => {
-          const spent   = groupSpentMap[g.groupId] || 0;
-          const gLimit  = (g.groupLimit === -1 || g.groupLimit == null) ? Infinity : g.groupLimit;
-          const isCapped= isFinite(gLimit) && spent >= gLimit;
-          const warnEl  = document.getElementById(`calc-group-warning-${g.groupId}`);
+          const spent = groupSpentMap[g.groupId] || 0;
+          const gLimit = (g.groupLimit === -1 || g.groupLimit == null) ? Infinity : g.groupLimit;
+          const isCapped = isFinite(gLimit) && spent >= gLimit;
+          const warnEl = document.getElementById(`calc-group-warning-${g.groupId}`);
           if (warnEl) {
             if (isCapped) {
-              warnEl.textContent  = `⚠️ 그룹 통합 한도 도달! (최대 ${gLimit.toLocaleString()}원 적용)`;
-              warnEl.style.display= 'block';
+              warnEl.textContent = `⚠️ 그룹 통합 한도 도달! (최대 ${gLimit.toLocaleString()}원 적용)`;
+              warnEl.style.display = 'block';
             } else {
-              warnEl.style.display= 'none';
+              warnEl.style.display = 'none';
             }
           }
         });
@@ -519,17 +452,17 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         if (totalWarnEl) {
           const isTotalCapped = isFinite(totalCap) && totalCap > 0 && totalSpent >= totalCap;
           if (isTotalCapped) {
-            totalWarnEl.textContent  = `⚠️ 총 통합 할인한도 도달! (최대 ${totalCap.toLocaleString()}원 적용)`;
-            totalWarnEl.style.display= 'block';
+            totalWarnEl.textContent = `⚠️ 총 통합 할인한도 도달! (최대 ${totalCap.toLocaleString()}원 적용)`;
+            totalWarnEl.style.display = 'block';
           } else {
-            totalWarnEl.style.display= 'none';
+            totalWarnEl.style.display = 'none';
           }
         }
 
         // 연회비 월할 계산
         let annualFee = 0;
-        const rawFee  = cardData.annual_fee || cardData.annual_fee_detail || '';
-        const feeM    = rawFee.replace(/,/g, '').match(/\d+/);
+        const rawFee = cardData.annual_fee || cardData.annual_fee_detail || '';
+        const feeM = rawFee.replace(/,/g, '').match(/\d+/);
         if (feeM) annualFee = parseInt(feeM[0], 10);
         const monthlyAnnualFee = annualFee / 12;
 
@@ -573,10 +506,10 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         if (gauge) {
           if (currentPerf === 0) {
             gauge.style.width = '0%';
-            gauge.className   = 'gauge-bar level-0';
+            gauge.className = 'gauge-bar level-0';
           } else {
             gauge.style.width = Math.min(pickingRate * 10, 100) + '%';
-            gauge.className   = 'gauge-bar '
+            gauge.className = 'gauge-bar '
               + (pickingRate < 1 ? 'level-1' : pickingRate < 3 ? 'level-2' : pickingRate < 5 ? 'level-3' : 'level-4');
           }
         }
@@ -589,7 +522,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     }
 
     // 전역 핸들러 등록
-    window._calcItems  = items;
+    window._calcItems = items;
     window._calcRender = renderTotal;
     window._changePerfLimit = function () { renderTotal(); };
     window._toggleBenefitItem = function (id, checked) {
@@ -656,7 +589,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     let groupsHTML = '';
     Object.values(groupMap).forEach(g => {
       const gLimLabel = (g.groupLimit === -1 || g.groupLimit == null)
-                        ? '무제한' : `최대 ${g.groupLimit.toLocaleString()}원`;
+        ? '무제한' : `최대 ${g.groupLimit.toLocaleString()}원`;
       groupsHTML += `
         <div class="calc-group-box">
           <div class="calc-group-header">
@@ -750,9 +683,9 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 }
 
 /* ── 브라우저 글로벌 노출 ── */
-window.buildCalc                 = buildCalc;
-window.getStructuredBenefits     = getStructuredBenefits;
-window.applyThreeLevelCap        = applyThreeLevelCap;
+window.buildCalc = buildCalc;
+window.getStructuredBenefits = getStructuredBenefits;
+window.applyThreeLevelCap = applyThreeLevelCap;
 window.calculateMinRequiredPayment = calculateMinRequiredPayment;
-window.getItemLimitForPerf       = getItemLimitForPerf;
-window.extractPerfOptions        = extractPerfOptions;
+window.getItemLimitForPerf = getItemLimitForPerf;
+window.extractPerfOptions = extractPerfOptions;

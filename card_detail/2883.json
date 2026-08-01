@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2883",
   "top_benefit_summary": "할인: 5% | 할인: 10%",
   "detailed_benefits": "할인: 전월 이용 금액 50만원 이상 시 9개 영역 5% 청구 할인 | 할인: 전월 이용 금액 50만원 이상 시 일반음식점, 주유, 대형마트 주말(토&middot;일요일) 10% 청구 할인",
-  "item_limit": "25000 | 25000",
+  "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":50000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":50000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [],
@@ -84,7 +84,16 @@
           "rate": 0.05
         }
       ],
-      "item_limit": 25000,
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 1000000,
+          "limit": 50000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -99,7 +108,16 @@
           "rate": 0.1
         }
       ],
-      "item_limit": 25000,
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 5000
+        },
+        {
+          "perf": 1000000,
+          "limit": 50000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

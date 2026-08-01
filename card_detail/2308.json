@@ -62,7 +62,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2308",
   "top_benefit_summary": "게임: 10% | 할인: 0.5%",
   "detailed_benefits": "게임: [로스트아크 모험가 전용 혜택] 로스트아크 모험가를 위한 로열 크리스탈 10% 청구할인 | 할인: [기본 혜택] 전월실적 조건 없이 국내외 가맹점 0.5%, 국내 온라인 가맹점 1.5% 청구할인",
-  "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":20000}] | 5000",
+  "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":700000,\"limit\":25000}] | 5000",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [],
@@ -81,12 +81,16 @@
       ],
       "item_limit": [
         {
-          "perf": 500000,
+          "perf": 300000,
           "limit": 10000
         },
         {
-          "perf": 700000,
+          "perf": 500000,
           "limit": 20000
+        },
+        {
+          "perf": 700000,
+          "limit": 25000
         }
       ],
       "fixedAmount": 0,

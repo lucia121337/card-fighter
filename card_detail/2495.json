@@ -82,7 +82,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2495",
   "top_benefit_summary": "백화점: 7% | 쇼핑: 5% | 생활: 5%",
   "detailed_benefits": "백화점: 신세계백화점 최대 7% 결제일 할인 | 쇼핑: 신세계 계열사 5% 결제일 할인 | 생활: 커피&middot;배달앱&middot;온라인서점&middot;잡화 5% 결제일 할인",
-  "item_limit": "[{\"perf\":1000000,\"limit\":500000},{\"perf\":1500000,\"limit\":1000000}] | [{\"perf\":1000000,\"limit\":10000},{\"perf\":1500000,\"limit\":13000}] | [{\"perf\":1000000,\"limit\":5000},{\"perf\":1500000,\"limit\":7000}]",
+  "item_limit": "[{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000},{\"perf\":1500000,\"limit\":40000}] | [{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":3000},{\"perf\":1500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":7000},{\"perf\":1500000,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -101,12 +101,16 @@
       ],
       "item_limit": [
         {
+          "perf": 500000,
+          "limit": 20000
+        },
+        {
           "perf": 1000000,
-          "limit": 500000
+          "limit": 30000
         },
         {
           "perf": 1500000,
-          "limit": 1000000
+          "limit": 40000
         }
       ],
       "fixedAmount": 0,
@@ -125,12 +129,16 @@
       ],
       "item_limit": [
         {
-          "perf": 1000000,
+          "perf": 500000,
           "limit": 10000
         },
         {
+          "perf": 1000000,
+          "limit": 3000
+        },
+        {
           "perf": 1500000,
-          "limit": 13000
+          "limit": 5000
         }
       ],
       "fixedAmount": 0,
@@ -149,12 +157,16 @@
       ],
       "item_limit": [
         {
-          "perf": 1000000,
+          "perf": 500000,
           "limit": 5000
         },
         {
-          "perf": 1500000,
+          "perf": 1000000,
           "limit": 7000
+        },
+        {
+          "perf": 1500000,
+          "limit": 10000
         }
       ],
       "fixedAmount": 0,

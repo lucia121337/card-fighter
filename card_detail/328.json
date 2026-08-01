@@ -53,7 +53,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/328",
   "top_benefit_summary": "카페: 1000원",
   "detailed_benefits": "카페: 커피전문점 1회당 1,000원 할인 캐시백",
-  "item_limit": "[{\"perf\":250000,\"min_perf\":250000,\"max_perf\":500000,\"limit\":5000},{\"perf\":500000,\"min_perf\":500000,\"max_perf\":700000,\"limit\":10000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":null,\"limit\":15000}]",
+  "item_limit": "[{\"perf\":250000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": null,
@@ -73,20 +73,14 @@
       "item_limit": [
         {
           "perf": 250000,
-          "min_perf": 250000,
-          "max_perf": 500000,
           "limit": 5000
         },
         {
           "perf": 500000,
-          "min_perf": 500000,
-          "max_perf": 700000,
           "limit": 10000
         },
         {
           "perf": 700000,
-          "min_perf": 700000,
-          "max_perf": null,
           "limit": 15000
         }
       ],
