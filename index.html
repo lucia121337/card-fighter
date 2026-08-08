@@ -7,7 +7,7 @@
 <title>카드 파이터 — 신용카드 비교</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="home-recommendation.css">
+<link rel="stylesheet" href="home-gateway.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
@@ -65,6 +65,20 @@
     color:var(--muted);flex-shrink:0;transition:.15s color}
   .search-box .search-btn:hover{color:var(--brand)}
   .search-box .search-btn svg{width:20px;height:20px}
+
+  @media(max-width:480px){
+    header{padding:8px 12px}
+    .header-top{flex-wrap:wrap;gap:8px}
+    .brand-left{width:100%;gap:8px}
+    .brand-left .logo{font-size:28px}
+    .brand-left h1{font-size:19px}
+    .gnb-divider{display:none}
+    .header-search{order:2;flex:0 0 100%;width:100%;padding-left:0}
+    .search-box{min-height:44px;padding:6px 12px}
+    .search-box input{min-width:0}
+    .gnb{order:3;width:100%;gap:4px;flex-wrap:wrap}
+    .gnb a{display:inline-flex;align-items:center;min-height:44px;padding:8px 10px;font-size:13px}
+  }
 
   /* 카드 툴바 (그리드 위 오른쪽) */
   .cards-toolbar{display:flex;align-items:center;justify-content:flex-end;
@@ -715,78 +729,38 @@
 
   <!-- 홈 섹션 -->
   <div id="section-home" class="section">
-    <div id="home-recommendation" class="home-shell">
-      <section class="home-hero" aria-labelledby="home-title">
+    <div id="home-gateway" class="home-shell">
+      <section class="home-editorial-hero" aria-labelledby="home-title">
+        <div class="home-hero-number" aria-hidden="true">1276</div>
         <div class="home-hero-copy">
-          <span class="home-eyebrow">🥊 카드 파이터 아레나</span>
-          <h2 id="home-title">당신의 지갑을 두고,<br><strong id="home-card-count-copy">수많은 카드가 싸웁니다.</strong></h2>
-          <p>소비패턴을 넣는 순간 대진이 시작돼요. 어떤 카드가 좋은지가 아니라, <b>나에게 유리한 카드</b>가 이깁니다.</p>
-          <div class="home-hero-actions">
-            <a class="home-btn home-btn-primary" href="calculator.html" data-home-action="calculator">🥊 내 챔피언 찾기</a>
-            <button class="home-btn home-btn-secondary" type="button" data-home-action="benefits">혜택으로 빠르게 찾기</button>
-          </div>
-          <p class="home-hero-trust">카드고릴라 공개 데이터 기준 · 한도/실적 조건은 팀이 원문 검수 · 결과는 카드 선택을 위한 참고용이에요.</p>
+          <span class="home-kicker">CARD CHOICE STARTS WITH PURPOSE</span>
+          <h2 id="home-title">카드를 고르기 전에,<br><strong>이유</strong>부터 골라요.</h2>
+          <p>선택은 복잡할 필요가 없어요. 지금 필요한 것과 하나만 선택하면 카드 파이터가 알맞은 경로를 안내해드려요.</p>
+          <span id="home-card-count-copy" class="home-card-count">수많은 카드 데이터</span>
         </div>
-        <aside class="home-match" id="hero-match" aria-label="오늘의 카드 매치">
-          <div class="hm-label">🥊 오늘의 매치</div>
-          <div class="hm-loading">대진을 계산하고 있어요…</div>
-        </aside>
+        <div id="home-hero-cards" class="home-card-stack" aria-hidden="true"></div>
+        <span class="home-best-stamp" aria-hidden="true">BEST<br>MATCH</span>
       </section>
 
-      <section class="home-block home-quick" aria-labelledby="home-quick-title">
-        <div class="home-section-head"><span>필요한 혜택부터 선택</span><h2 id="home-quick-title">혜택으로 바로 찾기</h2><p>자주 쓰는 곳을 고르면 해당 혜택이 있는 카드만 보여드려요.</p></div>
-        <div class="home-category-list" aria-label="상황별 카드 추천">
-          <button type="button" data-home-category="생활비">📄 생활비</button>
-          <button type="button" data-home-category="쇼핑">🎁 쇼핑</button>
-          <button type="button" data-home-category="교통">🚌 교통</button>
-          <button type="button" data-home-category="주유">⛽ 주유</button>
-          <button type="button" data-home-category="카페·디저트">☕ 카페·디저트</button>
-          <button type="button" data-home-category="여행·숙박">🧳 여행·숙박</button>
-          <button type="button" data-home-category="항공마일리지">✈️ 항공마일리지</button>
-          <button type="button" data-home-category="프리미엄">💎 프리미엄</button>
-        </div>
-      </section>
+      <nav id="home-purpose-routes" class="home-purpose-grid" aria-label="카드 찾기 목적 선택">
+        <a class="home-purpose is-primary" href="calculator.html" data-home-route="calculator"><span class="home-purpose-number">01</span><span class="home-purpose-icon" aria-hidden="true">▣</span><strong>매달 가장 이득인 카드</strong><small>내 소비패턴으로 계산 →</small></a>
+        <a class="home-purpose" href="/event" data-home-route="cashback"><span class="home-purpose-number">02</span><span class="home-purpose-icon" aria-hidden="true">◒</span><strong>지금 받을 수 있는 발급 혜택</strong><small>카드사별 캐시백 확인 →</small></a>
+        <a class="home-purpose" href="/card#benefit-filters" data-home-route="benefits"><span class="home-purpose-number">03</span><span class="home-purpose-icon" aria-hidden="true">◈</span><strong>원하는 혜택이 있는 카드</strong><small>혜택 카테고리로 직접 검색 →</small></a>
+      </nav>
 
-      <section class="home-block home-featured" aria-labelledby="home-featured-title">
-        <div class="home-section-head home-head-row"><div><span>추천 상황이 다른 세 장</span><h2 id="home-featured-title">생활 상황별 대표 카드</h2><p>생활비·쇼핑·주유처럼 서로 다른 소비 상황을 기준으로 골랐어요.</p></div><button type="button" data-home-action="benefits">전체카드 보기</button></div>
-        <div id="home-featured-cards" class="home-featured-grid" aria-live="polite"><p id="home-status">추천 카드를 불러오고 있어요.</p></div>
-      </section>
-
-      <section class="home-block home-cashback" aria-labelledby="home-cashback-title">
-        <div class="home-section-head home-head-row"><div><span>금액이 큰 순서로 확인</span><h2 id="home-cashback-title">이번 달 캐시백 혜택 순위</h2><p>현재 확인 가능한 최대 혜택을 카드사별로 비교했어요.</p></div><button type="button" data-home-action="cashback">캐시백 전체 보기</button></div>
-        <div id="home-cashback-list" aria-live="polite"></div>
-      </section>
-
-      <section id="home-compare-panel" class="home-compare-panel" data-compare-tone="empty" aria-labelledby="home-compare-title">
-        <div class="home-compare-copy"><span>비교함 이어가기</span><h2 id="home-compare-title">비교할 카드를 먼저 골라보세요</h2><p id="home-compare-summary">카드를 2장 이상 담으면 혜택과 조건을 나란히 볼 수 있어요.</p></div>
-        <button id="home-compare-action" type="button" data-home-action="compare">비교할 카드 찾기</button>
-      </section>
+      <section id="home-resume" class="home-resume" aria-label="지금 카드 탐색 이어하기" hidden></section>
 
       <section class="home-lab" aria-labelledby="home-lab-title">
-        <div class="home-section-head home-head-row">
-          <div><span>취향으로 찾기</span><h2 id="home-lab-title">재미있게 발견하는 나의 카드 취향</h2><p>숫자로는 안 보이는 취향, 게임으로 찾아봐요. 결과는 내 소비 기준 순위와 비교해드려요.</p></div>
-          <a class="lab-all" href="/cardlab">카드 연구소 전체 →</a>
-        </div>
-        <div class="lab-games">
-          <a class="lab-game lab-mbti" href="/cardlab/match">
-            <span class="lg-badge">13단계 취향 진단</span>
-            <span class="lg-emoji" aria-hidden="true">🧬</span>
-            <strong>소비 MBTI</strong>
-            <em>내 소비 성향 유형을 찾고, 그 유형에 찰떡인 카드를 추천받아요.</em>
-            <span class="lg-go">유형 검사 시작 →</span>
-          </a>
-          <a class="lab-game lab-cup" href="/cardlab/worldcup">
-            <span class="lg-badge">최대 32강 토너먼트</span>
-            <span class="lg-emoji" aria-hidden="true">🏆</span>
-            <strong>카드 월드컵</strong>
-            <em>끌리는 카드를 고르며 결승까지. 마지막에 <b>취향 우승 vs 데이터 1위</b>를 붙여봐요.</em>
-            <span class="lg-go">토너먼트 시작 →</span>
-          </a>
+        <div class="home-lab-head"><div><span>CARD LAB</span><h2 id="home-lab-title">취향으로 한 번 더 발견하기</h2></div><a href="/cardlab">카드 연구소 전체 →</a></div>
+        <div class="home-lab-grid">
+          <a class="home-lab-entry home-lab-mbti" href="/cardlab/match"><span class="home-lab-icon" aria-hidden="true">🧠</span><span><strong>나는 어떤 소비자일까?</strong><small>13문항 소비 MBTI</small></span><b aria-hidden="true">→</b></a>
+          <a class="home-lab-entry home-lab-worldcup" href="/cardlab/worldcup"><span class="home-lab-icon" aria-hidden="true">🏆</span><span><strong>마지막까지 살아남을 카드는?</strong><small>최대 32강 카드 월드컵</small></span><b aria-hidden="true">→</b></a>
         </div>
       </section>
 
-      <footer class="home-trust"><strong>데이터를 기준으로 비교합니다</strong><p>카드 정보는 카드고릴라 공개 데이터를 기준으로 하며, 신청 전 카드사 상품설명서와 약관을 확인해주세요.</p></footer>
+      <footer class="home-trust"><strong>데이터를 기준으로 비교합니다.</strong><p><span id="home-trust-count">수많은 카드 데이터</span> · 월 순이득은 예상 혜택에서 월 환산 연회비를 뺀 값입니다. 추천 조건을 공개하고 카드사 상품설명서 원문을 검수합니다. 신청 전 최신 상품설명서와 약관을 직접 확인해주세요.</p></footer>
     </div>
+
   </div>
 
   <!-- 전체카드 섹션 -->
@@ -804,7 +778,7 @@
         <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
       </div>
       <!-- 혜택 카테고리 필터 (복수선택 - AND 조건) -->
-      <div class="cat-filter-box">
+      <div id="benefit-filters" class="cat-filter-box" tabindex="-1">
         <div class="cat-filter-label">🎯 혜택으로 찾기</div>
         <div class="cat-filter-row" id="cat-filter-row"></div>
       </div>
@@ -912,7 +886,18 @@
 
 <script>
 /* ── 비교함 (localStorage 연동) ── */
-let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+function readStoredCompareList() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('compareList') || '[]');
+    return (Array.isArray(parsed) ? parsed : [])
+      .filter(card => card && typeof card === 'object' && card.idx != null)
+      .slice(0, 3);
+  } catch (error) {
+    return [];
+  }
+}
+
+let compareList = readStoredCompareList();
 
 function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
 
@@ -940,6 +925,12 @@ let popupOpen = false;
 function togglePopup(){
   popupOpen = !popupOpen;
   document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+}
+
+function refreshHomeResume() {
+  if (window.HomeGateway && window.CardProfile) {
+    HomeGateway.updateResume(CardProfile.load(), compareList);
+  }
 }
 
 function updateCompareBar(){
@@ -984,7 +975,7 @@ function updateCompareBar(){
   document.getElementById('popup-count').textContent = `${compareList.length}/3`;
   const pcb = document.getElementById('popup-compare-btn');
   if(pcb) pcb.disabled = compareList.length < 2;
-  if(window.HomeRecommendation) HomeRecommendation.renderCompare(compareList);
+  refreshHomeResume();
 }
 
 function resetCompare(){
@@ -1802,7 +1793,7 @@ fetch('cards_list.json')
     renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
     updateFeeUI();         // 연회비 슬라이더 초기 표시
     applyFilters();
-    if(window.HomeRecommendation) HomeRecommendation.renderCards(DATA);
+    if (window.HomeGateway) HomeGateway.updateCards(DATA);
   })
   .catch(e=>{
     document.getElementById('empty').hidden=false;
@@ -2173,13 +2164,11 @@ function buildLeaderboardHtml(ranked) {
 }
 
 function refreshCompareButtons() {
-  compareList.forEach(c => {
-    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
-      btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
-    });
-  });
-  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
-    btn.disabled = compareList.length >= 3;
+  document.querySelectorAll('.compare-btn').forEach(btn => {
+    const selected = compareList.some(card => String(card.idx) === btn.dataset.idx);
+    btn.classList.toggle('selected', selected);
+    btn.textContent = selected ? '✓ 담겼어요' : '비교함 담기';
+    btn.disabled = !selected && compareList.length >= 3;
   });
   updateCompareBar();
 }
@@ -2337,33 +2326,43 @@ REC_CARDS.forEach(c => recCardMap[c.idx] = c);
 loadRealtimeKeywords();
 realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
 </script>
-<script src="home-recommendation.js"></script>
+<script src="profile.js"></script>
+<script src="home-gateway.js"></script>
 <script>
-HomeRecommendation.init({
-  cards: DATA,
-  cashback: getPlatformCompanies('전체보기'),
+HomeGateway.init({
+  cards: Array.isArray(DATA) ? DATA : [],
+  profile: CardProfile.load(),
   compareList,
   actions: {
-    benefits(){ showSection('cards'); },
-    cashback(){ showSection('cashback'); },
-    compare(){ compareList.length >= 2 ? goCompare() : showSection('cards'); },
-    category(category){
+    calculator() { window.location.href = 'calculator.html'; },
+    cashback() { showSection('cashback'); },
+    benefits() {
       showSection('cards');
-      activeCategories.clear();
-      activeCategories.add(category);
-      document.querySelectorAll('.cat-pill').forEach(button => {
-        button.classList.toggle('active', button.dataset.cat === category);
+      requestAnimationFrame(() => {
+        const target = document.getElementById('benefit-filters');
+        if (!target) return;
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+        target.focus({preventScroll: true});
       });
-      applyFilters();
     },
-    toggleCompare
+    compare() {
+      compareList.length >= 2 ? goCompare() : showSection('cards');
+    }
+  }
+});
+
+function refreshStoredHomeState() {
+  compareList = readStoredCompareList();
+  refreshCompareButtons();
+}
+
+window.addEventListener('pageshow', refreshStoredHomeState);
+window.addEventListener('storage', event => {
+  if (event.key === null || event.key === 'compareList' || event.key === CardProfile.KEY) {
+    refreshStoredHomeState();
   }
 });
 </script>
-<!-- 소비 프로필 허브: 홈 대표카드를 '내 소비 기준 Top3'로 개인화 (프로필 없으면 기존 동작 그대로) -->
-<script src="profile.js"></script>
-<script src="benefit-calc.js"></script>
-<script src="home-match.js"></script>
-<script src="home-profile.js"></script>
 </body>
 </html>
