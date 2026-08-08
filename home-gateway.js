@@ -18,8 +18,13 @@
   }
 
   function selectHeroCards(cards, limit = 3, random = Math.random) {
+    const seenIds = new Set();
     const pool = (Array.isArray(cards) ? cards : [])
-      .filter(card => card && card.card_img)
+      .filter(card => {
+        if (!card || !card.card_img || seenIds.has(card.idx)) return false;
+        seenIds.add(card.idx);
+        return true;
+      })
       .map(card => ({idx: card.idx, card_name: card.card_name || '', card_img: card.card_img}));
 
     for (let index = pool.length - 1; index > 0; index -= 1) {

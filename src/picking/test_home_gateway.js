@@ -149,6 +149,21 @@ test('hero selection uses the supplied random source without duplicates', () => 
   assert.ok(low.every(idx => idx !== 0));
 });
 
+test('hero selection removes duplicate card ids before shuffling', () => {
+  const cards = [
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 1, card_name: 'A duplicate', card_img: 'a-duplicate.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
+  ];
+
+  const selected = HomeGateway.selectHeroCards(cards, 4, () => 0.999).map(card => card.idx);
+
+  assert.deepEqual(selected, [1, 2, 3, 4]);
+  assert.equal(new Set(selected).size, selected.length);
+});
+
 test('hero picker keeps one non-empty combination for the page lifetime', () => {
   const cards = [
     {idx: 1, card_name: 'A', card_img: 'a.png'},
