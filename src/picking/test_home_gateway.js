@@ -70,3 +70,22 @@ test('이어하기 HTML은 저장된 상태와 주 행동만 보여준다', () =
 test('이어할 상태가 없으면 빈 마크업을 만들지 않는다', () => {
   assert.equal(HomeGateway.renderResumeHtml(null), '');
 });
+
+test('외부 이어하기 상태의 행동 값과 문구를 HTML로 해석하지 않는다', () => {
+  const html = HomeGateway.renderResumeHtml({
+    hasProfile: false,
+    profileTotal: 0,
+    compareCount: 0,
+    compareNames: [],
+    primaryAction: 'compare" autofocus onfocus="alert(1)',
+    primaryLabel: '<img src=x>',
+    secondaryAction: 'calculator" onclick="alert(1)',
+    secondaryLabel: '<script>alert(1)</script>'
+  });
+
+  assert.match(html, /data-home-route="compare&quot; autofocus onfocus=&quot;alert\(1\)"/);
+  assert.match(html, /data-home-route="calculator&quot; onclick=&quot;alert\(1\)"/);
+  assert.match(html, /&lt;img src=x&gt;/);
+  assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  assert.doesNotMatch(html, /<img src=x>|<script>alert\(1\)<\/script>/);
+});

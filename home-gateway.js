@@ -84,12 +84,12 @@
          <span class="home-journey-step is-current"><b>${state.compareCount}</b><span>${compareLabel}<small>${escapeHtml(state.compareNames.join(' · '))}</small></span></span>`
       : '';
     const secondary = state.secondaryAction
-      ? `<button type="button" class="home-resume-secondary" data-home-route="${state.secondaryAction}">${state.secondaryLabel}</button>`
+      ? `<button type="button" class="home-resume-secondary" data-home-route="${escapeHtml(state.secondaryAction)}">${escapeHtml(state.secondaryLabel)}</button>`
       : '';
 
     return `<div class="home-resume-copy"><span>MY CARD JOURNEY</span><h2>지난 탐색 이어하기</h2></div>
       <div class="home-journey">${profileStep}${compareStep}</div>
-      <div class="home-resume-actions"><button type="button" class="home-resume-primary" data-home-route="${state.primaryAction}">${state.primaryLabel} →</button>${secondary}</div>`;
+      <div class="home-resume-actions"><button type="button" class="home-resume-primary" data-home-route="${escapeHtml(state.primaryAction)}">${escapeHtml(state.primaryLabel)} →</button>${secondary}</div>`;
   }
 
   function updateCards(cards) {
