@@ -53,8 +53,38 @@
       '.hp-rank.hp-r1{background:linear-gradient(135deg,#f2c94c,#dfa32a);box-shadow:0 3px 8px rgba(223,163,42,.35)}' +
       '.hp-rank.hp-r2{background:#64748b}' +
       '.hp-rank.hp-r3{background:#b45309}' +
-      '#home-featured-cards .home-feature-card.hp-champ{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff)}';
+      '#home-featured-cards .home-feature-card.hp-champ{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff)}' +
+      /* 1위 카드 혜택 내역 — 빈 공간을 '왜 1위인지'로 채운다 */
+      '.hp-breakdown{margin-top:16px;padding-top:14px;border-top:1px dashed #e8d9ab}' +
+      '.hp-breakdown .hb-title{font-size:11px;font-weight:800;color:#a16207;letter-spacing:.04em;margin-bottom:8px}' +
+      '.hp-breakdown .hb-row{display:flex;justify-content:space-between;gap:12px;padding:4.5px 0;' +
+        'font-family:"Noto Sans KR",sans-serif;font-size:12.5px;color:#475569}' +
+      '.hp-breakdown .hb-row b{font-variant-numeric:tabular-nums;font-weight:700;color:#047857;white-space:nowrap}' +
+      '.hp-breakdown .hb-row.hb-minus b{color:#dc2626}' +
+      '.hp-breakdown .hb-row.hb-total{margin-top:4px;padding-top:8px;border-top:1px solid #e8d9ab;font-weight:800;color:#1e293b}' +
+      '.hp-breakdown .hb-row.hb-total b{font-size:14px}' +
+      '.hp-breakdown .hb-note{margin-top:6px;font-size:11px;color:#94a3b8;font-family:"Noto Sans KR",sans-serif}';
     document.head.appendChild(st);
+  }
+
+  /* 1위 카드 혜택 내역 — '왜 1위인지'를 항목별로 분해 */
+  function breakdownHTML(r) {
+    var lines = [];
+    r.rows.filter(function (row) { return row.rate > 0 && (row.shown || 0) > 0; })
+      .sort(function (a, z) { return z.shown - a.shown; }).slice(0, 5)
+      .forEach(function (row) {
+        var name = row.isBase ? '그 외 모든 가맹점' : row.cat;
+        lines.push('<div class="hb-row"><span>' + esc(name) + ' ' + Math.round(row.rate * 100) + '% × ' +
+          won(row.spend) + '</span><b>+' + won(Math.round(row.shown)) + '</b></div>');
+      });
+    (r.fixedRows || []).slice(0, 2).forEach(function (f) {
+      lines.push('<div class="hb-row"><span>정액할인 · ' + esc(f.category || '') + '</span><b>+' + won(f.won) + '</b></div>');
+    });
+    if (r.fuelMoney > 0) lines.push('<div class="hb-row"><span>주유 리터당 할인</span><b>+' + won(r.fuelMoney) + '</b></div>');
+    lines.push('<div class="hb-row hb-minus"><span>연회비 (월 환산)</span><b>−' + won(r.feeMonthly) + '</b></div>');
+    lines.push('<div class="hb-row hb-total"><span>월 예상 순이득</span><b>' + won(Math.max(r.net, 0)) + '</b></div>');
+    return '<div class="hp-breakdown"><div class="hb-title">🧾 내 소비 기준 혜택 내역</div>' + lines.join('') +
+      '<div class="hb-note">' + (r.capped ? '월 통합한도 ' + won(r.cap) + ' 적용 후 금액이에요. ' : '') + "'최대 기준' 예상치 · 원문 검수 데이터 기반</div></div>";
   }
 
   function renderInputStrip() {
@@ -139,7 +169,8 @@
           '<div><small>' + esc(c.company || '') + '</small><h3>' + esc(c.card_name || '') + '</h3>' +
           '<p>' + (drivers ? '주요 혜택: ' + drivers : esc(c.top_benefit_summary || '')) + '</p>' +
           '<dl><div><dt>월 예상 순이득</dt><dd><b style="color:#047857">' + won(Math.max(r.net, 0)) + '</b></dd></div>' +
-          '<div><dt>연회비</dt><dd>월 ' + won(r.feeMonthly) + '</dd></div></dl></div>' +
+          '<div><dt>연회비</dt><dd>월 ' + won(r.feeMonthly) + '</dd></div></dl>' +
+          (i === 0 ? breakdownHTML(r) : '') + '</div>' +
           '<strong class="home-card-reason hp-gain">혜택 ' + won(r.money) + (r.capped ? ' (월 한도 적용)' : '') + ' − 연회비 = 순이득</strong>' +
           '<div class="home-card-actions"><a href="detail.html?idx=' + encodeURIComponent(c.idx) + '">상세 보기</a>' +
           '<button type="button" data-home-compare="' + esc(c.idx) + '" data-card-name="' + esc(c.card_name || '') + '" data-card-img="' + esc(c.card_img || '') + '">비교함 담기</button></div>' +
