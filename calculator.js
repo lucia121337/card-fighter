@@ -1,10 +1,10 @@
 /**
- * calculator.js — JSON 직접 바인딩 기반 3계층 캡핑(Capping) 순수 수학 엔진
+ * calculator.js — JSON 직접 바인딩 및 benefits_structured.json 연동 기반 3계층 캡핑(Capping) 순수 수학 피킹률 엔진
  *
  * [수학 캡핑 3계층 순서]
- * 1차: 개별 한도 캡핑 (item_limit)
- * 2차: 그룹 한도 캡핑 (group.limit)
- * 3차: 총 통합 한도 캡핑 (total_limit_tiers)
+ * 1차: Tier 1 (개별 한도) - 개별 혜택 항목별 독립 월 한도 적용 (item_limit / amount / limit)
+ * 2차: Tier 2 (그룹 한도) - 특정 혜택 그룹 간 공유하는 월 통합 한도 적용 (group_id / group_limit)
+ * 3차: Tier 3 (총 통합 한도) - 선택한 전월 실적 구간(tier_limits / cap_tiers / total_limit_tiers)에 따른 총 통합 한도 적용
  */
 
 /* ═══════════════════════════════════════════════
@@ -17,6 +17,7 @@ function esc(str) {
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
+    .replace(/ me/g, ' ')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
@@ -25,7 +26,7 @@ function esc(str) {
 /** HTML 태그 제거 헬퍼 */
 function cleanHtml(html) {
   if (!html) return '';
-  return html
+  return String(html)
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/g, ' ')
     .replace(/&[^;]+;/g, ' ')
@@ -35,7 +36,7 @@ function cleanHtml(html) {
 
 /** 금액 텍스트 변환 (예: 500000 → 50만원) */
 function moneyLabel(num) {
-  if (!num) return '0원';
+  if (!num || isNaN(num) || !isFinite(num)) return '0원';
   if (num >= 10000) {
     const man = Math.floor(num / 10000);
     const rest = num % 10000;
@@ -64,152 +65,351 @@ function cleanGroupName(groupId) {
 }
 
 /* ═══════════════════════════════════════════════
- * 순수 함수 모듈 1: 한도 결정
+ * 순수 함수 모듈 1: 실적 구간 매칭 및 한도/요율 결정
  * ═══════════════════════════════════════════════ */
 
 /**
- * rate (배열, 수치, JSON) 및 현재 실적(perf) 기준 동적 요율 반환
+ * 구간형 실적 조건 매칭 (min_perf <= perf <= max_perf)
+ * @param {Array|number|string} rate 
+ * @param {number} perf - 현재 선택된 전월 실적액
+ * @returns {number} 적용 요율 (0~1 범위 또는 0)
  */
 function getApplicableRate(rate, perf) {
-  if (rate == null) return 0;
+  try {
+    if (rate == null || perf == null || isNaN(perf)) return 0;
 
-  let rateArray = rate;
-  if (typeof rate === 'string') {
-    try { rateArray = JSON.parse(rate); } catch { rateArray = 0; }
-  }
+    let rateArray = rate;
+    if (typeof rate === 'string') {
+      try { rateArray = JSON.parse(rate); } catch { rateArray = 0; }
+    }
 
-  if (Array.isArray(rateArray)) {
-    if (rateArray.length === 0) return 0;
-    let matchedRate = 0;
-    // 조건에 부합하는 가장 높은 실적 구간의 요율 매칭
-    for (const tier of rateArray) {
-      if (typeof tier.perf === 'number' && typeof tier.rate === 'number') {
-        if (perf >= tier.perf) {
-          matchedRate = tier.rate;
+    if (Array.isArray(rateArray)) {
+      if (rateArray.length === 0) return 0;
+      let matchedRate = 0;
+      for (const tier of rateArray) {
+        if (!tier || typeof tier !== 'object') continue;
+        const minPerf = typeof tier.min_perf === 'number' ? tier.min_perf : (typeof tier.performance === 'number' ? tier.performance : (typeof tier.perf === 'number' ? tier.perf : 0));
+        const maxPerf = typeof tier.max_perf === 'number' ? tier.max_perf : Infinity;
+        const tierRate = typeof tier.rate === 'number' ? tier.rate : 0;
+
+        if (perf >= minPerf && perf <= maxPerf) {
+          matchedRate = tierRate;
         }
       }
+      return matchedRate;
     }
-    return matchedRate;
-  }
 
-  const n = Number(rateArray);
-  return isNaN(n) ? 0 : n;
+    const n = Number(rateArray);
+    return (isNaN(n) || !isFinite(n) || n < 0) ? 0 : n;
+  } catch {
+    return 0;
+  }
 }
 
 /**
- * item_limit 값과 현재 실적(perf) 기준으로 적용할 개별 한도 반환.
- * -1, null, undefined ➡️ Infinity (무제한)
+ * 개별 항목 한도(item_limit/amount) 매칭 (Tier 1)
+ * @param {Array|number|string} itemLimit 
+ * @param {number} perf 
+ * @returns {number} Infinity (무제한) 또는 개별 월 한도 금액
  */
 function getItemLimitForPerf(itemLimit, perf) {
-  if (itemLimit === null || itemLimit === undefined || itemLimit === -1) return Infinity;
+  try {
+    if (itemLimit === null || itemLimit === undefined || itemLimit === -1) return Infinity;
 
-  let limitVal = itemLimit;
-  if (typeof itemLimit === 'string') {
-    try { limitVal = JSON.parse(itemLimit); } catch { limitVal = itemLimit; }
-  }
+    let limitVal = itemLimit;
+    if (typeof itemLimit === 'string') {
+      try { limitVal = JSON.parse(itemLimit); } catch { limitVal = itemLimit; }
+    }
 
-  if (Array.isArray(limitVal)) {
-    if (limitVal.length === 0) return Infinity;
-    let best = 0;
-    let found = false;
-    for (const tier of limitVal) {
-      if (typeof tier.perf === 'number' && typeof tier.limit === 'number') {
-        if (perf >= tier.perf) {
-          best = tier.limit;
+    if (Array.isArray(limitVal)) {
+      if (limitVal.length === 0) return Infinity;
+      let best = 0;
+      let found = false;
+      for (const tier of limitVal) {
+        if (!tier || typeof tier !== 'object') continue;
+        const minPerf = typeof tier.min_perf === 'number' ? tier.min_perf : (typeof tier.performance === 'number' ? tier.performance : (typeof tier.perf === 'number' ? tier.perf : 0));
+        const maxPerf = typeof tier.max_perf === 'number' ? tier.max_perf : Infinity;
+        const tierLimit = typeof tier.item_limit === 'number' ? tier.item_limit : (typeof tier.limit === 'number' ? tier.limit : (typeof tier.amount === 'number' ? tier.amount : -1));
+
+        if (perf >= minPerf && perf <= maxPerf) {
+          if (tierLimit === -1 || tierLimit == null) return Infinity;
+          best = tierLimit;
           found = true;
         }
       }
+      return found ? best : 0;
     }
-    return found ? best : 0;
-  }
 
-  const n = Number(limitVal);
-  if (isNaN(n) || n < 0) return Infinity;
-  return n;
+    const n = Number(limitVal);
+    if (isNaN(n) || n < 0 || n === -1) return Infinity;
+    return n;
+  } catch {
+    return Infinity;
+  }
 }
 
 /**
- * total_limit_tiers 배열과 현재 실적 기준으로 총 통합 한도 반환.
+ * tier_limits / cap_tiers / total_limit_tiers 배열 기반 총 통합 한도 (Tier 3) 산출
+ * 예시: [[300000, 15000], [600000, 30000]] 또는 [{min_perf:300000, limit:15000}]
  */
 function getTotalCapForPerf(totalLimitTiers, perf) {
-  if (!Array.isArray(totalLimitTiers) || totalLimitTiers.length === 0) return Infinity;
+  try {
+    if (!totalLimitTiers) return Infinity;
 
-  let best = 0;
-  let found = false;
-  for (const tier of totalLimitTiers) {
-    if (typeof tier.perf === 'number' && perf >= tier.perf) {
-      best = tier.limit;
-      found = true;
+    let tiers = totalLimitTiers;
+    if (typeof tiers === 'string') {
+      try { tiers = JSON.parse(tiers); } catch { tiers = null; }
     }
+
+    if (!Array.isArray(tiers) || tiers.length === 0) return Infinity;
+
+    let best = 0;
+    let found = false;
+
+    for (const tier of tiers) {
+      if (!tier) continue;
+
+      let minPerf = 0;
+      let maxPerf = Infinity;
+      let limitVal = Infinity;
+
+      if (Array.isArray(tier) && tier.length >= 2) {
+        minPerf = Number(tier[0]) || 0;
+        limitVal = Number(tier[1]) || 0;
+      } else if (typeof tier === 'object') {
+        minPerf = typeof tier.min_perf === 'number' ? tier.min_perf : (typeof tier.performance === 'number' ? tier.performance : (typeof tier.perf === 'number' ? tier.perf : 0));
+        maxPerf = typeof tier.max_perf === 'number' ? tier.max_perf : Infinity;
+        limitVal = typeof tier.tier_limit === 'number' ? tier.tier_limit : (typeof tier.limit === 'number' ? tier.limit : (typeof tier.totalLimit === 'number' ? tier.totalLimit : (typeof tier.cap === 'number' ? tier.cap : Infinity)));
+      }
+
+      if (perf >= minPerf && perf <= maxPerf) {
+        best = limitVal;
+        found = true;
+      }
+    }
+    return found ? best : 0;
+  } catch {
+    return Infinity;
   }
-  return found ? best : 0;
 }
 
 /* ═══════════════════════════════════════════════
- * 순수 함수 모듈 2: 동적 실적 옵션 추출
+ * 순수 함수 모듈 2: 동적 실적 구간 추출 & 구조화 데이터 바인딩
  * ═══════════════════════════════════════════════ */
 
+/**
+ * 카드 데이터로부터 실적 구간 목록 추출
+ */
 function extractPerfOptions(items, totalTiers) {
   const set = new Set();
+  try {
+    let tiers = totalTiers;
+    if (typeof tiers === 'string') {
+      try { tiers = JSON.parse(tiers); } catch { tiers = null; }
+    }
 
-  if (Array.isArray(totalTiers)) {
-    totalTiers.forEach(t => {
-      if (typeof t.perf === 'number' && t.perf > 0) set.add(t.perf);
+    if (Array.isArray(tiers)) {
+      tiers.forEach(t => {
+        if (Array.isArray(t) && t.length >= 1 && typeof t[0] === 'number' && t[0] > 0) set.add(t[0]);
+        else if (t && typeof t.perf === 'number' && t.perf > 0) set.add(t.perf);
+        else if (t && typeof t.min_perf === 'number' && t.min_perf > 0) set.add(t.min_perf);
+        else if (t && typeof t.performance === 'number' && t.performance > 0) set.add(t.performance);
+      });
+    }
+
+    (items || []).forEach(it => {
+      [it.rate, it.amount].forEach(attr => {
+        let arr = attr;
+        if (typeof arr === 'string') {
+          try { arr = JSON.parse(arr); } catch { arr = null; }
+        }
+        if (Array.isArray(arr)) {
+          arr.forEach(t => {
+            if (t && typeof t.perf === 'number' && t.perf > 0) set.add(t.perf);
+            if (t && typeof t.min_perf === 'number' && t.min_perf > 0) set.add(t.min_perf);
+            if (t && typeof t.performance === 'number' && t.performance > 0) set.add(t.performance);
+          });
+        }
+      });
     });
+  } catch (e) {
+    console.error('extractPerfOptions error:', e);
   }
-
-  (items || []).forEach(it => {
-    let rateArr = it.rate;
-    if (typeof rateArr === 'string') {
-      try { rateArr = JSON.parse(rateArr); } catch { rateArr = null; }
-    }
-    if (Array.isArray(rateArr)) {
-      rateArr.forEach(t => {
-        if (typeof t.perf === 'number' && t.perf > 0) set.add(t.perf);
-      });
-    }
-
-    let limArr = it.amount;
-    if (typeof limArr === 'string') {
-      try { limArr = JSON.parse(limArr); } catch { limArr = null; }
-    }
-    if (Array.isArray(limArr)) {
-      limArr.forEach(t => {
-        if (typeof t.perf === 'number' && t.perf > 0) set.add(t.perf);
-      });
-    }
-  });
 
   return Array.from(set).sort((a, b) => a - b);
 }
 
+/**
+ * cardData 및 benefits_structured 객체를 독립적 상태로 완벽히 안전 파싱 및 깊은 복사 (Deep Copy)
+ * 명시적 스키마 필드 우선 적용: is_calculable, item_limit, group_id, group_limit, is_excluded 등
+ */
+
+/**
+ * 정형화 데이터(item_limit, tier_limits, category_rates 등) 존재 여부 및 계산 가능성 엄격 검증
+ * 자연어 cap_note에만 의존하거나 수치화된 정형 필드가 누락된 카드는 is_calculable: false 및 원천 필터링
+ */
+function checkIsCalculable(cardData) {
+  try {
+    if (!cardData || typeof cardData !== 'object') return false;
+
+    // 1) 명시적 is_calculable / is_calc_supported false 플래그 검증
+    if (cardData.is_calculable === false) return false;
+    if (cardData.is_calc_supported === 'FALSE' || cardData.is_calc_supported === false) return false;
+
+    const bs = cardData.bs || (window._CALC_BS ? window._CALC_BS : null) || cardData;
+    if (bs && bs.is_calculable === false) return false;
+
+    // 2) 명시적 정형화 데이터(structured_benefits 또는 bs 필드들) 검사
+    const hasStructuredBenefits = Array.isArray(cardData.structured_benefits) && cardData.structured_benefits.length > 0;
+
+    let hasBsFields = false;
+    if (bs && typeof bs === 'object') {
+      const hasBenefitsArr = Array.isArray(bs.benefits) && bs.benefits.length > 0;
+      const hasCatRates = bs.category_rates && typeof bs.category_rates === 'object' && Object.keys(bs.category_rates).length > 0;
+      const hasFixedDiscounts = Array.isArray(bs.fixed_discounts) && bs.fixed_discounts.length > 0;
+      const hasFuelDiscounts = Array.isArray(bs.fuel_discounts) && bs.fuel_discounts.length > 0;
+      const hasBaseRate = typeof bs.base_rate === 'number' && bs.base_rate > 0;
+
+      hasBsFields = hasBenefitsArr || hasCatRates || hasFixedDiscounts || hasFuelDiscounts || hasBaseRate;
+    }
+
+    // 정형화 데이터(structured_benefits 또는 bs)가 전무하고 자연어 cap_note / key_benefit에만 의존하는 카드는 원천 필터링 (is_calculable: false)
+    if (!hasStructuredBenefits && !hasBsFields) {
+      return false;
+    }
+
+    return true;
+  } catch (e) {
+    console.error('checkIsCalculable 검증 오류:', e);
+    return false;
+  }
+}
+
 function getStructuredBenefits(cardData, fallbackKb) {
   try {
-    let benefits = cardData ? cardData.structured_benefits : null;
+    // 원본 데이터 보호를 위한 깊은 복사 (Deep Copy)
+    const rawCard = cardData ? JSON.parse(JSON.stringify(cardData)) : {};
 
+    // 1) is_calculable 및 정형화 데이터 존재 검증: 미충족 시 원천 배제 (빈 배열 반환)
+    if (!checkIsCalculable(rawCard)) {
+      return [];
+    }
+
+    let benefits = rawCard.structured_benefits || null;
     if (typeof benefits === 'string') {
-      try {
-        benefits = JSON.parse(benefits);
-      } catch (e) {
-        benefits = null;
+      try { benefits = JSON.parse(benefits); } catch { benefits = null; }
+    }
+
+    // benefits_structured.json 통합 바인딩
+    const bs = rawCard.bs || (window._CALC_BS ? JSON.parse(JSON.stringify(window._CALC_BS)) : null);
+
+    if ((!benefits || !Array.isArray(benefits) || benefits.length === 0) && bs) {
+      benefits = [];
+
+      // 1-1) bs.benefits 배열 형태 우선 파싱
+      if (Array.isArray(bs.benefits)) {
+        bs.benefits.forEach(b => {
+          benefits.push({
+            title: b.title || b.category || '혜택',
+            detail: b.detail || b.summary || b.targets || '',
+            rate: b.rate !== undefined ? b.rate : 0,
+            fixedAmount: b.fixedAmount !== undefined ? b.fixedAmount : (b.fixed_amount || b.won || 0),
+            minPayment: b.minPayment !== undefined ? b.minPayment : (b.min_payment || b.min_txn_won || b.won || 0),
+            item_limit: b.item_limit !== undefined ? b.item_limit : (b.amount !== undefined ? b.amount : (b.monthly_cap !== undefined ? b.monthly_cap : -1)),
+            isExcluded: Boolean(b.is_excluded || b.isExcluded),
+            group_id: b.group_id || (b.group && b.group.id) || 'none',
+            group_limit: b.group_limit !== undefined ? b.group_limit : ((b.group && typeof b.group.limit === 'number') ? b.group.limit : -1),
+            exclusiveGroup: b.exclusive_group || b.exclusiveGroup || null,
+            priority: b.priority || 0
+          });
+        });
+      }
+
+      // 1-2) category_rates 파싱
+      if (bs.category_rates && typeof bs.category_rates === 'object') {
+        Object.entries(bs.category_rates).forEach(([cat, rateVal]) => {
+          const capVal = (bs.category_caps && bs.category_caps[cat] != null) ? bs.category_caps[cat] : (bs.item_limit != null ? bs.item_limit : -1);
+          const groupInfo = (bs.category_groups && bs.category_groups[cat]) ? bs.category_groups[cat] : null;
+          benefits.push({
+            title: cat,
+            detail: `${cat} ${Math.round(rateVal * 100)}% 할인/적립`,
+            rate: rateVal,
+            fixedAmount: 0,
+            minPayment: 0,
+            item_limit: capVal,
+            isExcluded: Boolean(bs.excluded_categories && bs.excluded_categories.includes(cat)),
+            group_id: groupInfo ? groupInfo.id : 'none',
+            group_limit: groupInfo ? groupInfo.limit : -1,
+            exclusiveGroup: null
+          });
+        });
+      }
+
+      // 1-3) fixed_discounts 파싱
+      if (Array.isArray(bs.fixed_discounts)) {
+        bs.fixed_discounts.forEach(fd => {
+          benefits.push({
+            title: fd.category || fd.title || '정액 할인',
+            detail: fd.targets || fd.detail || `${fd.won || 0}원 정액 할인`,
+            rate: 0,
+            fixedAmount: fd.won || fd.fixedAmount || 0,
+            minPayment: fd.min_txn_won || fd.min_payment || fd.minPayment || fd.won || 0,
+            item_limit: fd.item_limit !== undefined ? fd.item_limit : (fd.monthly_cap !== undefined ? fd.monthly_cap : -1),
+            isExcluded: Boolean(fd.is_excluded || fd.isExcluded),
+            group_id: fd.group_id || (fd.group && fd.group.id) || 'none',
+            group_limit: fd.group_limit !== undefined ? fd.group_limit : ((fd.group && typeof fd.group.limit === 'number') ? fd.group.limit : -1),
+            exclusiveGroup: fd.exclusive_group || fd.exclusiveGroup || null
+          });
+        });
+      }
+
+      // 1-4) base_rate 파싱
+      if (bs.base_rate && bs.base_rate > 0 && benefits.length === 0) {
+        benefits.push({
+          title: '모든 가맹점',
+          detail: `전가맹점 ${Math.round(bs.base_rate * 100)}% 기본 할인`,
+          rate: bs.base_rate,
+          fixedAmount: 0,
+          minPayment: 0,
+          item_limit: bs.base_cap !== undefined ? bs.base_cap : -1,
+          isExcluded: false,
+          group_id: 'none',
+          group_limit: -1,
+          exclusiveGroup: null
+        });
       }
     }
 
+    // Fallback key_benefit
     if (!benefits || !Array.isArray(benefits) || benefits.length === 0) {
-      const kb = (cardData && Array.isArray(cardData.key_benefit)) ? cardData.key_benefit : (Array.isArray(fallbackKb) ? fallbackKb : []);
+      const kb = Array.isArray(rawCard.key_benefit) ? rawCard.key_benefit : (Array.isArray(fallbackKb) ? fallbackKb : []);
       if (kb.length > 0) {
         benefits = kb.map(b => {
           let rate = 0.05;
           const txt = String(b.title || '') + ' ' + cleanHtml(b.info || b.summary || '');
           const rMatch = txt.match(/(\d+(?:\.\d+)?)%/);
           if (rMatch) rate = parseFloat(rMatch[1]) / 100;
+
+          let fixedAmt = 0;
+          let minPay = 0;
+          const fixMatch = txt.match(/([\d,]+)원\s*(?:할인|적립|청구할인)/);
+          if (fixMatch && !rMatch) {
+            fixedAmt = parseInt(fixMatch[1].replace(/,/g, ''), 10) || 0;
+            const minPayMatch = txt.match(/(?:건당|최소)\s*([\d,]+)원/);
+            minPay = minPayMatch ? (parseInt(minPayMatch[1].replace(/,/g, ''), 10) || fixedAmt) : fixedAmt;
+          }
+
           return {
             title: b.title || '혜택',
             detail: cleanHtml(b.info || b.summary || ''),
-            rate: rate,
-            fixedAmount: 0,
-            minPayment: 0,
-            item_limit: -1
+            rate: b.rate !== undefined ? b.rate : rate,
+            fixedAmount: b.fixedAmount !== undefined ? b.fixedAmount : fixedAmt,
+            minPayment: b.minPayment !== undefined ? b.minPayment : minPay,
+            item_limit: b.item_limit !== undefined ? b.item_limit : (b.amount !== undefined ? b.amount : -1),
+            isExcluded: Boolean(b.is_excluded || b.isExcluded || txt.includes('실적 제외')),
+            group_id: b.group_id || (b.group && b.group.id) || 'none',
+            group_limit: b.group_limit !== undefined ? b.group_limit : ((b.group && typeof b.group.limit === 'number') ? b.group.limit : -1),
+            exclusiveGroup: b.exclusive_group || b.exclusiveGroup || null
           };
         });
       }
@@ -219,20 +419,49 @@ function getStructuredBenefits(cardData, fallbackKb) {
 
     return benefits.map((b, idx) => {
       const groupObj = b.group || null;
-      const groupId = (groupObj && groupObj.id) ? groupObj.id : (b.group_id || 'none');
-      const groupLimit = (groupObj && typeof groupObj.limit === 'number') ? groupObj.limit : -1;
+      const groupId = b.group_id || (groupObj && groupObj.id ? groupObj.id : 'none');
+      const groupLimit = (b.group_limit !== undefined && b.group_limit !== null)
+        ? b.group_limit
+        : ((groupObj && typeof groupObj.limit === 'number' && groupObj.limit > 0) ? groupObj.limit : -1);
+
+      // 세부 월 한도 (Sub-limit) 파싱 및 홍보용 한도 분리 보정
+      const txt = (b.title || '') + ' ' + (b.detail || b.summary || '');
+      let parsedSubLimit = null;
+      const subCapMatch = txt.match(/(?:통합\s*월|영역별\s*월|월\s*최대|월\s*통합|월)\s*([\d,]+)(만|천)?\s*원\s*한도/);
+      if (subCapMatch) {
+        let val = parseInt(subCapMatch[1].replace(/,/g, ''), 10);
+        if (subCapMatch[2] === '만') val *= 10000;
+        else if (subCapMatch[2] === '천') val *= 1000;
+        if (!isNaN(val) && val > 0) {
+          parsedSubLimit = val;
+        }
+      }
+
+      let finalAmount = b.item_limit !== undefined ? b.item_limit : (b.amount !== undefined ? b.amount : (b.limit !== undefined ? b.limit : -1));
+      if (parsedSubLimit !== null) {
+        if (finalAmount === -1 || finalAmount === Infinity) {
+          finalAmount = parsedSubLimit;
+        } else if (typeof finalAmount === 'number' && finalAmount > 0) {
+          finalAmount = Math.min(finalAmount, parsedSubLimit);
+        }
+      }
+
+      let rateProp = b.rate !== undefined ? b.rate : 0;
 
       return {
         id: idx,
         title: b.title || '혜택',
         summary: b.detail || b.summary || '',
-        rate: b.rate !== undefined ? b.rate : 0,
+        rate: rateProp,
         fixedAmount: typeof b.fixedAmount === 'number' ? b.fixedAmount : 0,
         minPayment: typeof b.minPayment === 'number' ? b.minPayment : 0,
-        amount: b.item_limit !== undefined ? b.item_limit : -1,
+        amount: finalAmount,
         group: groupObj,
         groupId,
         groupLimit,
+        isExcluded: Boolean(b.isExcluded || b.is_excluded || txt.includes('실적 제외')),
+        exclusiveGroup: b.exclusiveGroup || b.exclusive_group || null,
+        priority: typeof b.priority === 'number' ? b.priority : 0,
         checked: true
       };
     });
@@ -244,95 +473,144 @@ function getStructuredBenefits(cardData, fallbackKb) {
 }
 
 /* ═══════════════════════════════════════════════
- * 순수 함수 모듈 3: 3계층 순수 수학 캡핑 엔진
+ * 순수 함수 모듈 3: 3계층 순수 수학 캡핑 & 상호 배타 제어 엔진
  * ═══════════════════════════════════════════════ */
 
+/**
+ * 3단 계층 한도(3-Tier Limits) 캡핑 & 상호 배타적 혜택 제어
+ * 1) Tier 1 (개별 한도): item_limit
+ * 2) Tier 2 (그룹 한도): group_limit (group_id)
+ * 3) Tier 3 (총 통합 한도): tier_limits / cap_tiers
+ */
 function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
-  const mode = (cappingMode || 'HYBRID').toUpperCase();
-  const totalCap = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
-  const groupSpentMap = {};
-  let totalSpent = 0;
-  const results = [];
+  try {
+    const mode = (cappingMode || 'HYBRID').toUpperCase();
+    const totalCap = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
+    const groupSpentMap = {};
+    const exclusiveAppliedMap = {}; // 상호 배타적 혜택 그룹 선택 상태
+    let totalSpent = 0;
+    const results = [];
 
-  for (const it of items) {
-    const currentItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
-    const applicableRate = getApplicableRate(it.rate, perf);
+    // 상호 배타적 혜택 우선순위 정렬 복사본
+    const sortedItems = [...(items || [])].sort((a, b) => (b.priority || 0) - (a.priority || 0));
 
-    if (perf === 0 || !it.checked) {
-      results.push({ id: it.id, applied: 0, currentItemLimit, applicableRate, cap1: 0, cap2: 0 });
-      continue;
+    for (const it of sortedItems) {
+      const currentItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
+      const applicableRate = getApplicableRate(it.rate, perf);
+
+      if (perf === 0 || !it.checked) {
+        results.push({ id: it.id, applied: 0, currentItemLimit, applicableRate, cap1: 0, cap2: 0, isExclusiveBlocked: false });
+        continue;
+      }
+
+      // 상호 배타적 혜택 (Exclusive Group) 제어
+      if (it.exclusiveGroup) {
+        if (exclusiveAppliedMap[it.exclusiveGroup]) {
+          results.push({ id: it.id, applied: 0, currentItemLimit, applicableRate, cap1: 0, cap2: 0, isExclusiveBlocked: true });
+          continue;
+        }
+      }
+
+      // 0차: 잠재 혜택 산출 (정액 / 정률 분기)
+      let potBenefit = 0;
+      if (it.fixedAmount > 0) {
+        potBenefit = it.fixedAmount;
+      } else if (applicableRate > 0) {
+        potBenefit = perf * applicableRate;
+      } else if (isFinite(currentItemLimit) && currentItemLimit > 0) {
+        potBenefit = currentItemLimit;
+      }
+
+      // 1차: Tier 1 개별 한도 캡핑 (item_limit)
+      let cap1 = potBenefit;
+      if (mode !== 'TOTAL_TIER' && isFinite(currentItemLimit) && currentItemLimit >= 0) {
+        cap1 = Math.min(potBenefit, currentItemLimit);
+      }
+
+      // 2차: Tier 2 그룹 공유 통합 한도 캡핑 (group_limit)
+      let cap2 = cap1;
+      if (mode !== 'TOTAL_TIER' && it.groupId && it.groupId !== 'none') {
+        const gLimit = (it.groupLimit === -1 || it.groupLimit == null || it.groupLimit <= 0) ? Infinity : it.groupLimit;
+        const gSpent = groupSpentMap[it.groupId] || 0;
+        const gRemain = isFinite(gLimit) ? Math.max(0, gLimit - gSpent) : Infinity;
+        cap2 = isFinite(gRemain) ? Math.min(cap1, gRemain) : cap1;
+        groupSpentMap[it.groupId] = gSpent + cap2;
+      }
+
+      // 3차: Tier 3 총 통합 한도 캡핑 (tier_limits / cap_tiers)
+      const totalRemain = isFinite(totalCap) ? Math.max(0, totalCap - totalSpent) : Infinity;
+      const applied = (mode !== 'INDIVIDUAL_TIER' && isFinite(totalRemain)) ? Math.min(cap2, totalRemain) : cap2;
+
+      if (applied > 0 && it.exclusiveGroup) {
+        exclusiveAppliedMap[it.exclusiveGroup] = true;
+      }
+
+      totalSpent += applied;
+      results.push({ id: it.id, applied, currentItemLimit, applicableRate, cap1, cap2, isExclusiveBlocked: false });
     }
 
-    // 0차: 잠재 혜택 산출 (정액 혜택 / 동적 요율 적용 분기)
-    let potBenefit = 0;
-    if (it.fixedAmount > 0) {
-      potBenefit = it.fixedAmount;
-    } else if (applicableRate > 0) {
-      potBenefit = perf * applicableRate;
-    } else if (isFinite(currentItemLimit) && currentItemLimit > 0) {
-      potBenefit = currentItemLimit;
-    }
+    // 원래 items 순서대로 결과 정렬
+    const sortedResults = items.map(it => results.find(r => r.id === it.id) || { id: it.id, applied: 0, currentItemLimit: Infinity, applicableRate: 0, cap1: 0, cap2: 0, isExclusiveBlocked: false });
 
-    // 1차: Tier 1 개별 한도 캡핑 (item_limit)
-    let cap1 = potBenefit;
-    if (mode !== 'TOTAL_TIER' && isFinite(currentItemLimit) && currentItemLimit >= 0) {
-      cap1 = Math.min(potBenefit, currentItemLimit);
-    }
-
-    // 2차: Tier 2 그룹 한도 캡핑 (group.limit)
-    let cap2 = cap1;
-    if (mode !== 'TOTAL_TIER' && it.groupId && it.groupId !== 'none') {
-      const gLimit = (it.groupLimit === -1 || it.groupLimit == null) ? Infinity : it.groupLimit;
-      const gSpent = groupSpentMap[it.groupId] || 0;
-      const gRemain = isFinite(gLimit) ? Math.max(0, gLimit - gSpent) : Infinity;
-      cap2 = isFinite(gRemain) ? Math.min(cap1, gRemain) : cap1;
-      groupSpentMap[it.groupId] = gSpent + cap2;
-    }
-
-    // 3차: Tier 3 총 통합 한도 캡핑 (total_limit_tiers)
-    const totalRemain = isFinite(totalCap) ? Math.max(0, totalCap - totalSpent) : Infinity;
-    const applied = (mode !== 'INDIVIDUAL_TIER' && isFinite(totalRemain)) ? Math.min(cap2, totalRemain) : cap2;
-
-    totalSpent += applied;
-    results.push({ id: it.id, applied, currentItemLimit, applicableRate, cap1, cap2 });
+    return { results: sortedResults, totalSpent, groupSpentMap, totalCap };
+  } catch (e) {
+    console.error('applyThreeLevelCap 오류:', e);
+    return { results: [], totalSpent: 0, groupSpentMap: {}, totalCap: Infinity };
   }
-
-  return { results, totalSpent, groupSpentMap, totalCap };
 }
 
 /**
- * minPayment 및 rate 기반 혜택별 최소 필요 사용 금액 역산 및 합산 함수
- * @param {Array} items - 혜택 항목 배열 (checked 상태 포함)
- * @param {Array} results - 3계층 캡핑 결과 배열
- * @returns {number} totalRequiredSum - 혜택을 받기 위한 실질 필요 사용 금액 합계
+ * [역산 및 분기 로직 & 실적 제외 매출 산정]
+ * - 정률 혜택 (rate > 0): (적용 혜택 금액 / rate) 역산
+ * - 정액 혜택 (fixedAmount > 0): minPayment 표준 단가를 기준 필요 결제액으로 고정 사용하여 뻥튀기 원천 차단
+ * - isExcluded: 실적 제외 혜택 항목의 필요 사용 금액 구분 산정
  */
 function calculateMinRequiredPayment(items, results) {
   let totalRequiredSum = 0;
-  if (!Array.isArray(results) || !Array.isArray(items)) return 0;
+  let excludedRequiredSum = 0;
 
-  results.forEach(r => {
-    const it = items.find(x => x.id === r.id);
-    if (!it || it.checked === false) return;
+  try {
+    if (!Array.isArray(results) || !Array.isArray(items)) {
+      return { totalRequiredSum: 0, excludedRequiredSum: 0, combinedRequiredSum: 0 };
+    }
 
-    let needed = 0;
-    if (r.applied > 0) {
+    results.forEach(r => {
+      const it = items.find(x => x.id === r.id);
+      if (!it || it.checked === false || r.applied <= 0) return;
+
+      let needed = 0;
       if (it.fixedAmount > 0) {
-        needed = it.minPayment > 0 ? it.minPayment : r.applied;
+        // 정액 혜택: 절대 rate로 나누지 말고 minPayment 표준 단가 연동
+        needed = (it.minPayment > 0) ? it.minPayment : (it.fixedAmount > 0 ? it.fixedAmount : r.applied);
       } else if (r.applicableRate > 0) {
+        // 정률 혜택: (적용 혜택 금액 / rate) 역산
         needed = r.applied / r.applicableRate;
       } else {
         needed = r.applied;
       }
-    }
-    if (!isFinite(needed) || isNaN(needed)) needed = 0;
-    totalRequiredSum += Math.round(needed);
-  });
 
-  return totalRequiredSum;
+      if (!isFinite(needed) || isNaN(needed) || needed < 0) needed = 0;
+      needed = Math.round(needed);
+
+      if (it.isExcluded) {
+        excludedRequiredSum += needed;
+      } else {
+        totalRequiredSum += needed;
+      }
+    });
+  } catch (e) {
+    console.error('calculateMinRequiredPayment 오류:', e);
+  }
+
+  return {
+    totalRequiredSum,
+    excludedRequiredSum,
+    combinedRequiredSum: totalRequiredSum + excludedRequiredSum
+  };
 }
 
 /* ═══════════════════════════════════════════════
- * 혜택 계산기 UI 렌더링
+ * 피킹률 계산기 UI 렌더링 및 메인 구동 모듈
  * ═══════════════════════════════════════════════ */
 
 function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
@@ -348,28 +626,32 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     }
     if (!cardData) return '';
 
-    // is_calc_supported 유연한 조건 검사
-    const isSupported = cardData.is_calc_supported == null || String(cardData.is_calc_supported).trim().toUpperCase() === 'TRUE';
-    if (!isSupported) {
+    // is_calculable 검증: 정형 데이터 누락 및 자연어 cap_note 의존 카드 원천 배제 (필터링)
+    if (!checkIsCalculable(cardData)) {
       return '';
     }
 
-    // total_limit_tiers 파싱
-    let totalLimitTiers = null;
-    if (cardData.total_limit_tiers) {
-      const raw = cardData.total_limit_tiers;
-      if (typeof raw === 'string') {
-        try { totalLimitTiers = JSON.parse(raw); } catch { totalLimitTiers = null; }
-      } else {
-        totalLimitTiers = raw;
-      }
+    // tier_limits / cap_tiers / total_limit_tiers 파싱
+    let totalLimitTiers = cardData.tier_limits || cardData.cap_tiers || cardData.total_limit_tiers || (cardData.bs ? (cardData.bs.tier_limits || cardData.bs.cap_tiers) : null);
+    if (typeof totalLimitTiers === 'string') {
+      try { totalLimitTiers = JSON.parse(totalLimitTiers); } catch { totalLimitTiers = null; }
     }
 
+    // 원본 데이터 보호 독립 복사본으로 혜택 바인딩
     const items = getStructuredBenefits(cardData, kb);
+    if (!items || items.length === 0) return '';
 
-    // total_limit_tiers 및 item_limit 배열 기반 동적 실적 구간 추출
+    // 수치화된 유효 혜택(rate > 0 또는 fixedAmount > 0 또는 유효한 item_limit) 항목 존재 여부 2차 검증
+    const hasCalculableItem = items.some(it =>
+      (typeof it.rate === 'number' && it.rate > 0) ||
+      (typeof it.fixedAmount === 'number' && it.fixedAmount > 0) ||
+      (typeof it.amount === 'number' && it.amount > 0 && it.amount !== Infinity)
+    );
+    if (!hasCalculableItem) {
+      return '';
+    }
+
     let perfOptions = extractPerfOptions(items, totalLimitTiers);
-
     if (perfOptions.length === 0) {
       const base = Number(preMonthMoney) || 0;
       if (base > 0) perfOptions = [base];
@@ -377,7 +659,6 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 
     const basePerf = Number(preMonthMoney) || (perfOptions.length > 0 ? perfOptions[0] : 0);
 
-    // 그룹 분류
     const groupMap = {};
     const soloItems = [];
 
@@ -397,29 +678,26 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       }
     });
 
-    /* ── 실시간 렌더 및 3계층 캡핑 업데이트 ── */
+    /* ── 실시간 피킹률 계산 및 대시보드 업데이트 ── */
     function renderTotal() {
       try {
         const selEl = document.getElementById('calc-perf-select');
         const currentPerf = selEl ? Number(selEl.value) : basePerf;
 
-        // 실적 뱃지 동기화
         const badgeEl = document.querySelector('.calc-perf-badge');
         if (badgeEl) badgeEl.textContent = `기준 ${moneyLabel(currentPerf)}`;
 
-        // 3계층 순수 수학 캡핑 엔진 실행
         const cappingMode = cardData.capping_mode || 'HYBRID';
         const { results, totalSpent, groupSpentMap, totalCap } =
           applyThreeLevelCap(items, totalLimitTiers, currentPerf, cappingMode);
 
-        // minPayment 및 요율 기반 실질 필요 사용 금액 역산
-        const totalRequiredSum = calculateMinRequiredPayment(items, results);
+        const { totalRequiredSum, excludedRequiredSum } = calculateMinRequiredPayment(items, results);
 
+        // 개별 UI Row 업데이트
         results.forEach(r => {
           const it = items.find(x => x.id === r.id);
           if (!it) return;
 
-          // 개별 UI 출력
           const displayEl = document.getElementById('calc-amt-' + r.id);
           if (displayEl) {
             if (currentPerf === 0) {
@@ -428,6 +706,9 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
             } else if (!it.checked) {
               displayEl.textContent = '선택 해제';
               displayEl.className = 'calc-amount zero';
+            } else if (r.isExclusiveBlocked) {
+              displayEl.textContent = '중복 제외';
+              displayEl.className = 'calc-amount zero';
             } else if (r.applied === 0) {
               displayEl.textContent = '0원 (한도 도달)';
               displayEl.className = 'calc-amount zero';
@@ -435,9 +716,10 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
               const capText = isFinite(r.currentItemLimit)
                 ? ` / 한도 ${r.currentItemLimit.toLocaleString()}원`
                 : '';
+              const exTag = it.isExcluded ? ' (실적제외)' : '';
               displayEl.textContent = it.fixedAmount > 0
-                ? `${r.applied.toLocaleString()}원 할인`
-                : `최대 ${r.applied.toLocaleString()}원${capText}`;
+                ? `${r.applied.toLocaleString()}원 할인${exTag}`
+                : `최대 ${r.applied.toLocaleString()}원${capText}${exTag}`;
               displayEl.className = 'calc-amount';
             }
           }
@@ -446,7 +728,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         // 2차: 그룹 한도 도달 경고 노출
         Object.values(groupMap).forEach(g => {
           const spent = groupSpentMap[g.groupId] || 0;
-          const gLimit = (g.groupLimit === -1 || g.groupLimit == null) ? Infinity : g.groupLimit;
+          const gLimit = (g.groupLimit === -1 || g.groupLimit == null || g.groupLimit <= 0) ? Infinity : g.groupLimit;
           const isCapped = isFinite(gLimit) && spent >= gLimit;
           const warnEl = document.getElementById(`calc-group-warning-${g.groupId}`);
           if (warnEl) {
@@ -480,30 +762,40 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
           }
         }
 
-        // 연회비 월할 계산
+        // 연회비 월할 산정
         let annualFee = 0;
         const rawFee = cardData.annual_fee || cardData.annual_fee_detail || '';
-        const feeM = rawFee.replace(/,/g, '').match(/\d+/);
-        if (feeM) annualFee = parseInt(feeM[0], 10);
+        if (typeof rawFee === 'number') {
+          annualFee = rawFee;
+        } else if (typeof rawFee === 'string') {
+          const feeM = rawFee.replace(/,/g, '').match(/\d+/);
+          if (feeM) annualFee = parseInt(feeM[0], 10);
+        }
         const monthlyAnnualFee = annualFee / 12;
 
+        // 실질 사용 금액 (Real Needed Spending) 산정
         let realSpending = 0;
         if (currentPerf === 0 || totalSpent === 0) {
           realSpending = 0;
         } else {
-          // 부문장님 원본 PRD 기획 룰: 선택한 전월 실적 구간 금액 + 선택된 개별 혜택 필수 필요 금액 합산 (총액)
-          realSpending = currentPerf + totalRequiredSum;
+          realSpending = Math.max(currentPerf, totalRequiredSum) + excludedRequiredSum;
         }
         realSpending = Math.round(realSpending);
 
-        // 피킹률 연산
+        // [최종 피킹률 공식 적용 & 방어적 예외 처리]
+        // 공식: ((최종 예상 혜택 합계 - (연회비 / 12)) / 실질 필요 사용 금액) * 100
         let pickingRate = 0;
         if (realSpending > 0 && totalSpent > 0) {
-          pickingRate = ((totalSpent - monthlyAnnualFee) / realSpending) * 100;
+          const netMonthlyBenefit = totalSpent - monthlyAnnualFee;
+          pickingRate = (netMonthlyBenefit / realSpending) * 100;
         }
-        if (pickingRate < 0 || isNaN(pickingRate) || !isFinite(pickingRate)) pickingRate = 0;
 
-        // 하단 대시보드 3대 지표 순수 숫자 및 단일 단위 출력
+        // 방어적 예외 처리 (Silent Fallback): NaN, Infinity, 음수, 분모0 발생 시 즉시 0.00%
+        if (isNaN(pickingRate) || !isFinite(pickingRate) || pickingRate < 0 || realSpending <= 0) {
+          pickingRate = 0;
+        }
+
+        // 대시보드 지표 업데이트
         const totalAmtEl = document.getElementById('calc-total-amt');
         if (totalAmtEl) {
           totalAmtEl.textContent = (currentPerf === 0 || totalSpent === 0) ? '0원' : `최대 ${totalSpent.toLocaleString()}원`;
@@ -511,21 +803,17 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 
         const reqAmtEl = document.getElementById('calc-required-amt');
         if (reqAmtEl) {
-          if (currentPerf === 0 || totalSpent === 0) {
-            reqAmtEl.textContent = '0원';
-          } else {
-            reqAmtEl.textContent = `${realSpending.toLocaleString()}원`;
-          }
+          reqAmtEl.textContent = (currentPerf === 0 || totalSpent === 0) ? '0원' : `${realSpending.toLocaleString()}원`;
         }
 
         const pickRateEl = document.getElementById('calc-picking-rate');
         if (pickRateEl) {
-          pickRateEl.textContent = (currentPerf === 0 || totalSpent === 0) ? '0.00%' : `${pickingRate.toFixed(2)}%`;
+          pickRateEl.textContent = (currentPerf === 0 || totalSpent === 0 || pickingRate <= 0) ? '0.00%' : `${pickingRate.toFixed(2)}%`;
         }
 
         const gauge = document.getElementById('calc-gauge-bar');
         if (gauge) {
-          if (currentPerf === 0) {
+          if (currentPerf === 0 || pickingRate <= 0) {
             gauge.style.width = '0%';
             gauge.className = 'gauge-bar level-0';
           } else {
@@ -535,14 +823,25 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
           }
         }
 
-        console.log('[3계층 순수 수학 엔진]', { perf: currentPerf, totalSpent, realSpending, pickingRate });
+        console.log('[🎯 피킹률 계산기 엔진 디버깅]', {
+          cardName: cardData.card_name || cardData.name || '카드',
+          selectedPerf: currentPerf,
+          perfOptions: perfOptions,
+          tier3TotalCap: isFinite(totalCap) ? totalCap : '무제한',
+          cappingResults: results,
+          finalTotalBenefit: totalSpent,
+          minRequiredSpending: totalRequiredSum,
+          excludedSpending: excludedRequiredSum,
+          realSpending: realSpending,
+          monthlyAnnualFee: Math.round(monthlyAnnualFee),
+          pickingRate: pickingRate.toFixed(2) + '%'
+        });
 
       } catch (e) {
-        console.error('renderTotal 오류:', e);
+        console.error('renderTotal 전역 핸들링 오류:', e);
       }
     }
 
-    // 전역 핸들러 등록
     window._calcItems = items;
     window._calcRender = renderTotal;
     window._changePerfLimit = function () { renderTotal(); };
@@ -557,8 +856,6 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         window._calcRender();
       }
     };
-
-    // inline onchange 사용으로 문서 레벨 이중 바인딩 불필요
 
     /* ── HTML 행 생성 ── */
     function makeRow(it) {
@@ -582,7 +879,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
             <span class="calc-slider"></span>
           </label>
           <span class="calc-name">
-            <div class="benefit-title">${esc(it.title)}</div>
+            <div class="benefit-title">${esc(it.title)}${it.isExcluded ? ' <span style="font-size:11px;color:#ef4444;font-weight:bold;">[실적제외]</span>' : ''}</div>
             <div class="benefit-summary">${esc(it.summary)}</div>
           </span>
           <span id="calc-amt-${it.id}" class="calc-amount ${!isChecked ? 'zero' : ''}">
@@ -594,7 +891,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     /* ── 그룹 박스 HTML ── */
     let groupsHTML = '';
     Object.values(groupMap).forEach(g => {
-      const gLimLabel = (g.groupLimit === -1 || g.groupLimit == null)
+      const gLimLabel = (g.groupLimit === -1 || g.groupLimit == null || g.groupLimit <= 0)
         ? '무제한' : `최대 ${g.groupLimit.toLocaleString()}원`;
       groupsHTML += `
         <div class="calc-group-box">
@@ -633,7 +930,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         </div>`;
     }
 
-    /* ── 총 통합 한도 박스 HTML (Total Limit Tiers 공유 시 시각적 그룹핑) ── */
+    /* ── 총 통합 한도 박스 HTML ── */
     let totalCapLabel = '무제한';
     const initTotalCap = getTotalCapForPerf(totalLimitTiers, basePerf);
     if (isFinite(initTotalCap) && initTotalCap > 0) {
@@ -688,11 +985,30 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
   }
 }
 
-/* ── 브라우저 글로벌 노출 ── */
-window.buildPickingCalc = buildPickingCalc;
-window.buildCalc = buildPickingCalc;
-window.getStructuredBenefits = getStructuredBenefits;
-window.applyThreeLevelCap = applyThreeLevelCap;
-window.calculateMinRequiredPayment = calculateMinRequiredPayment;
-window.getItemLimitForPerf = getItemLimitForPerf;
-window.extractPerfOptions = extractPerfOptions;
+/* ── 브라우저/Node 글로벌 노출 ── */
+if (typeof window !== 'undefined') {
+  window.checkIsCalculable = checkIsCalculable;
+  window.buildPickingCalc = buildPickingCalc;
+  window.buildCalc = buildPickingCalc;
+  window.getStructuredBenefits = getStructuredBenefits;
+  window.applyThreeLevelCap = applyThreeLevelCap;
+  window.calculateMinRequiredPayment = calculateMinRequiredPayment;
+  window.getItemLimitForPerf = getItemLimitForPerf;
+  window.getApplicableRate = getApplicableRate;
+  window.getTotalCapForPerf = getTotalCapForPerf;
+  window.extractPerfOptions = extractPerfOptions;
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    checkIsCalculable,
+    buildPickingCalc,
+    getStructuredBenefits,
+    applyThreeLevelCap,
+    calculateMinRequiredPayment,
+    getItemLimitForPerf,
+    getApplicableRate,
+    getTotalCapForPerf,
+    extractPerfOptions
+  };
+}
