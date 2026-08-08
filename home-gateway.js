@@ -17,11 +17,32 @@
       : '수많은 카드 데이터';
   }
 
-  function selectHeroCards(cards, limit = 3) {
-    return (Array.isArray(cards) ? cards : [])
-      .filter(card => card && card.card_img)
-      .slice(0, limit)
+  function selectHeroCards(cards, limit = 3, random = Math.random) {
+    const seenIds = new Set();
+    const pool = (Array.isArray(cards) ? cards : [])
+      .filter(card => {
+        if (!card || !card.card_img || seenIds.has(card.idx)) return false;
+        seenIds.add(card.idx);
+        return true;
+      })
       .map(card => ({idx: card.idx, card_name: card.card_name || '', card_img: card.card_img}));
+
+    for (let index = pool.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(random() * (index + 1));
+      [pool[index], pool[swapIndex]] = [pool[swapIndex], pool[index]];
+    }
+
+    return pool.slice(0, limit);
+  }
+
+  function createHeroCardPicker(random = Math.random) {
+    let cachedCards = null;
+    return function pickHeroCards(cards, limit = 3) {
+      if (cachedCards) return cachedCards;
+      const selected = selectHeroCards(cards, limit, random);
+      if (selected.length) cachedCards = selected;
+      return selected;
+    };
   }
 
   function profileTotal(profile) {
@@ -69,8 +90,10 @@
       : `${amount.toLocaleString()}원`;
   }
 
+  const pickHeroCardsForPage = createHeroCardPicker();
+
   function renderHeroCardsHtml(cards) {
-    return selectHeroCards(cards).map((card, index) =>
+    return pickHeroCardsForPage(cards).map((card, index) =>
       `<img class="home-stack-card home-stack-card-${index + 1}" src="${escapeHtml(card.card_img)}" alt="" aria-hidden="true" onerror="this.hidden=true">`
     ).join('');
   }
@@ -157,6 +180,7 @@
     PURPOSE_ROUTES,
     cardCountCopy,
     selectHeroCards,
+    createHeroCardPicker,
     buildResumeState,
     renderHeroCardsHtml,
     renderResumeHtml,

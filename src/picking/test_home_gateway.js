@@ -6,6 +6,16 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '../..');
 const HomeGateway = require(path.join(ROOT, 'home-gateway.js'));
 
+test('purpose routes use three decorative currentColor line icons', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  const nav = index.match(/<nav id="home-purpose-routes"[\s\S]*?<\/nav>/)[0];
+
+  assert.equal((nav.match(/<svg\b/g) || []).length, 3);
+  assert.equal((nav.match(/<svg\b[^>]*aria-hidden="true"/g) || []).length, 3);
+  assert.equal((nav.match(/stroke="currentColor"/g) || []).length, 3);
+  assert.doesNotMatch(nav, /[▣◒◈]/);
+});
+
 test('phone header collapse covers common 360 to 412px widths with touch targets', () => {
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   const match = index.match(/@media\(max-width:(\d+)px\)\{[\s\S]*?\.header-top\{[^}]*flex-wrap:wrap/);
@@ -131,15 +141,58 @@ test('카드 총 문구는 cards_list 배열 길이를 표시한다', () => {
   assert.equal(HomeGateway.cardCountCopy(null), '수많은 카드 데이터');
 });
 
-test('히어로 장식은 이미지가 있는 앞쪽 카드 세 장만 고른다', () => {
+test('hero selection uses the supplied random source without duplicates', () => {
   const cards = [
-    {idx: 1, card_name: '이미지 없음', card_img: ''},
-    {idx: 2, card_name: 'A', card_img: 'a.png'},
-    {idx: 3, card_name: 'B', card_img: 'b.png'},
-    {idx: 4, card_name: 'C', card_img: 'c.png'},
-    {idx: 5, card_name: 'D', card_img: 'd.png'}
+    {idx: 0, card_name: 'no image', card_img: ''},
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
   ];
-  assert.deepEqual(HomeGateway.selectHeroCards(cards).map(card => card.idx), [2, 3, 4]);
+
+  const low = HomeGateway.selectHeroCards(cards, 3, () => 0).map(card => card.idx);
+  const high = HomeGateway.selectHeroCards(cards, 3, () => 0.999).map(card => card.idx);
+
+  assert.deepEqual(low, [2, 3, 4]);
+  assert.deepEqual(high, [1, 2, 3]);
+  assert.equal(new Set(low).size, 3);
+  assert.ok(low.every(idx => idx !== 0));
+});
+
+test('hero selection removes duplicate card ids before shuffling', () => {
+  const cards = [
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 1, card_name: 'A duplicate', card_img: 'a-duplicate.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
+  ];
+
+  const selected = HomeGateway.selectHeroCards(cards, 4, () => 0.999).map(card => card.idx);
+
+  assert.deepEqual(selected, [1, 2, 3, 4]);
+  assert.equal(new Set(selected).size, selected.length);
+});
+
+test('hero picker keeps one non-empty combination for the page lifetime', () => {
+  const cards = [
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
+  ];
+  let randomCalls = 0;
+  const picker = HomeGateway.createHeroCardPicker(() => {
+    randomCalls += 1;
+    return 0;
+  });
+
+  assert.deepEqual(picker([]), []);
+  const first = picker(cards);
+  const second = picker(cards.slice().reverse());
+
+  assert.deepEqual(second, first);
+  assert.equal(randomCalls, 3);
 });
 
 test('저장된 탐색이 전혀 없으면 이어하기 상태를 만들지 않는다', () => {
@@ -201,6 +254,18 @@ test('외부 이어하기 상태의 행동 값과 문구를 HTML로 해석하지
   assert.match(html, /&lt;img src=x&gt;/);
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
   assert.doesNotMatch(html, /<img src=x>|<script>alert\(1\)<\/script>/);
+});
+
+test('hero cards rise once with staggered delays and preserve reduced motion', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+
+  assert.match(css, /@keyframes home-card-rise/);
+  assert.match(css, /translateY\(120px\)[^}]*scale\(\.96\)/);
+  assert.match(css, /animation:home-card-rise \.7s cubic-bezier\(\.16,1,\.3,1\)/);
+  assert.match(css, /home-stack-card-1\{[^}]*--card-delay:0s/);
+  assert.match(css, /home-stack-card-2\{[^}]*--card-delay:\.12s/);
+  assert.match(css, /home-stack-card-3\{[^}]*--card-delay:\.24s/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)\{[^@]*\.home-stack-card\{[^}]*animation:none[^}]*opacity:1/);
 });
 
 test('index includes only the purpose gateway home structure', () => {
