@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>혜택 데이터 검수 — 카드 파이터 (내부용)</title>
+<style>
+  :root{--bg:#0f172a;--panel:#1e293b;--panel2:#334155;--line:#334155;--txt:#e2e8f0;
+        --muted:#94a3b8;--brand:#60a5fa;--good:#34d399;--warn:#fbbf24;--bad:#f87171}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard','Malgun Gothic',sans-serif;background:var(--bg);color:var(--txt);font-size:13px}
+  header{position:sticky;top:0;z-index:10;background:#0f172af5;backdrop-filter:blur(8px);
+         border-bottom:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  h1{font-size:15px;font-weight:800}
+  .badge-int{font-size:10px;background:var(--panel2);color:var(--muted);padding:2px 8px;border-radius:99px;font-weight:700}
+  select,input,button{font-family:inherit;font-size:13px}
+  select,.txt{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 10px;outline:none}
+  button{background:var(--brand);color:#0f172a;border:0;border-radius:8px;padding:7px 13px;font-weight:800;cursor:pointer}
+  button.ghost{background:var(--panel2);color:var(--txt)}
+  button.good{background:var(--good)}
+  .wrap{max-width:1400px;margin:0 auto;padding:16px 20px 100px}
+  .bar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:10px 0}
+  .bar > i{display:block;height:100%;background:var(--good);width:0}
+  .stats{color:var(--muted);font-size:12px;margin-bottom:8px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .chip{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer}
+  .chip.on{background:var(--warn);color:#0f172a;border-color:var(--warn)}
+  .count{margin-left:auto;color:var(--muted);font-size:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  .card > .head{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer}
+  .card .cid{color:var(--muted);font-size:11px;min-width:44px}
+  .card .cname{font-weight:800}
+  .card .ccorp{color:var(--muted);font-size:11px}
+  .st{margin-left:auto;font-size:10px;font-weight:800;padding:3px 9px;border-radius:6px}
+  .st.unreviewed{background:#78350f;color:var(--warn)}
+  .st.reviewing{background:#1e3a8a;color:#93c5fd}
+  .st.done{background:#064e3b;color:var(--good)}
+  .body{border-top:1px solid var(--line);display:none;grid-template-columns:1.3fr 1fr}
+  .body.open{display:grid}
+  @media(max-width:900px){.body.open{grid-template-columns:1fr}}
+  .col{padding:14px 16px}
+  .col:first-child{border-right:1px solid var(--line)}
+  .col h4{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  th{text-align:left;font-size:10px;color:var(--muted);font-weight:700;padding:4px 6px;border-bottom:1px solid var(--line)}
+  td{padding:5px 6px;border-bottom:1px solid #172033;vertical-align:middle}
+  .cat{font-weight:700;word-break:break-word;overflow-wrap:anywhere}
+  .txt.sm{padding:4px 7px;width:100%;font-size:12px}
+  .txt.n{width:78px}
+  .src-item{margin-bottom:10px;font-size:12px;line-height:1.6}
+  .src-item .t{color:var(--brand);font-weight:800}
+  .rowact{display:flex;gap:8px;align-items:center;margin-top:12px}
+  .memo{width:100%;margin-top:8px}
+  .hint{color:var(--muted);font-size:11px;margin-top:4px}
+  a.go{color:var(--brand);font-size:11px;margin-left:6px}
+  .loading{color:var(--muted);padding:30px;text-align:center}
+  .save-fab{position:fixed;right:20px;bottom:20px;z-index:20;box-shadow:0 6px 24px #0008}
+</style>
+</head>
+<body>
+<header>
+  <h1>🔎 혜택 데이터 검수</h1><span class="badge-int">내부용</span>
+  <select id="owner"><option value="">담당 선택…</option></select>
+  <label class="chip"><input type="checkbox" id="f-unreviewed" style="vertical-align:-1px"> 미검수만</label>
+  <input class="txt" id="q" placeholder="카드명·idx 검색" style="width:180px">
+  <span class="count" id="count"></span>
+</header>
+<div class="wrap">
+  <div class="stats" id="statline">담당을 선택하세요.</div>
+  <div class="bar"><i id="progress"></i></div>
+  <div id="list"><div class="loading">담당을 선택하면 카드가 표시됩니다.</div></div>
+</div>
+<button class="save-fab good" id="save" style="display:none">💾 검수결과 내보내기</button>
+
+<script>
+const esc = s => String(s??'').replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const won = n => (n||n===0) ? Number(n).toLocaleString() : '';
+let SHARD=null, SRC={}, flags={unreviewed:false};
+
+// 담당 목록 로드
+fetch('data/review_shards/_assignment.json').then(r=>r.json()).then(a=>{
+  const sel=document.getElementById('owner');
+  Object.keys(a.owners).forEach(name=>{
+    const o=document.createElement('option'); o.value=name;
+    o.textContent=`${name} (${a.owners[name].review_cards ?? a.owners[name].cards}장)`; sel.appendChild(o);
+  });
+}).catch(()=>{});
+
+document.getElementById('owner').onchange = e => {
+  const name=e.target.value; if(!name){ return; }
+  document.getElementById('list').innerHTML='<div class="loading">불러오는 중…</div>';
+  fetch(`data/review_shards/${encodeURIComponent(name)}.json`).then(r=>r.json()).then(s=>{
+    SHARD=s; document.getElementById('save').style.display='';
+    render();
+  });
+};
+document.getElementById('f-unreviewed').onchange = e=>{ flags.unreviewed=e.target.checked; render(); };
+document.getElementById('q').oninput = render;
+
+function cardStatus(c){
+  const st=c.rows.map(r=>r.검수상태||'unreviewed');
+  if(st.every(s=>s==='done')) return 'done';
+  if(st.some(s=>s==='done'||s==='reviewing')) return 'reviewing';
+  return 'unreviewed';
+}
+
+function render(){
+  if(!SHARD) return;
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  let list=SHARD.cards;
+  if(q) list=list.filter(c=>String(c.idx).includes(q)||(c.name||'').toLowerCase().includes(q));
+  if(flags.unreviewed) list=list.filter(c=>cardStatus(c)!=='done');
+  const done=SHARD.cards.filter(c=>cardStatus(c)==='done').length;
+  document.getElementById('statline').textContent =
+    `${SHARD.owner} · 담당 ${SHARD.card_count}장 · 검수완료 ${done} · 남음 ${SHARD.card_count-done}`;
+  document.getElementById('progress').style.width = (done/SHARD.card_count*100||0)+'%';
+  document.getElementById('count').textContent = `${list.length}장 표시`;
+  document.getElementById('list').innerHTML = list.slice(0,300).map(c=>{
+    const s=cardStatus(c);
+    return `<div class="card" data-idx="${c.idx}">
+      <div class="head" onclick="toggle(${c.idx})">
+        <span class="cid">${c.idx}</span>
+        <span class="cname">${esc(c.name)}</span><span class="ccorp">${esc(c.company)}</span>
+        <span class="st ${s}">${s==='done'?'검수완료':s==='reviewing'?'검수중':'미검수'}</span>
+      </div>
+      <div class="body" id="body-${c.idx}"></div>
+    </div>`;
+  }).join('') + (list.length>300?'<div class="loading">상위 300장 표시 — 검색으로 좁히세요</div>':'');
+}
+
+window.toggle = async function(idx){
+  const body=document.getElementById('body-'+idx);
+  if(body.classList.contains('open')){ body.classList.remove('open'); body.innerHTML=''; return; }
+  document.querySelectorAll('.body.open').forEach(b=>{b.classList.remove('open');b.innerHTML='';});
+  const c=SHARD.cards.find(x=>x.idx===idx);
+  body.classList.add('open');
+  body.innerHTML = extrasHTML(c.extras) + `<div class="col">
+      <h4>DB 값 (수정 가능)</h4>
+      <table><thead><tr><th style="width:38%">카테고리</th><th style="width:12%">요율</th><th style="width:28%">구간(전월실적:한도, 원)</th><th style="width:22%">메모</th></tr></thead>
+      <tbody>${c.rows.map((r,i)=>rowHTML(idx,i,r)).join('')}</tbody></table>
+      <div class="hint">요율 — %는 숫자(10=10%), 정액/주유는 원. 구간은 <b>전월실적원:한도원</b>, 여러 개는 <b>;</b> 로 구분.</div>
+      <div class="rowact">
+        <button class="good" onclick="markDone(${idx})">✓ 이 카드 검수완료</button>
+        <button class="ghost" onclick="markReviewing(${idx})">검수중</button>
+      </div>
+    </div>
+    <div class="col"><h4>원문 (card_detail) <a class="go" href="detail?idx=${idx}" target="_blank">상세 ↗</a></h4>
+      <div id="src-${idx}" class="loading">원문 불러오는 중…</div></div>`;
+  // 원문 로드
+  if(!SRC[idx]){
+    try{
+      const d=await fetch('card_detail/'+idx+'.json').then(r=>r.json());
+      const strip=h=>String(h||'').replace(/<[^>]+>/g,' ').replace(/&#?\w+;/g,' ').replace(/\s+/g,' ').trim();
+      SRC[idx]=(d.key_benefit||[]).map(k=>`<div class="src-item"><span class="t">[${esc(k.title||'')}]</span> ${esc(strip(k.info).slice(0,500))}</div>`).join('')||'<span style="color:#475569">원문 없음</span>';
+    }catch(e){ SRC[idx]='<span style="color:#475569">원문 로드 실패</span>'; }
+  }
+  const el=document.getElementById('src-'+idx); if(el) el.innerHTML=SRC[idx];
+}
+
+const SRC_COLOR={'json-llm':'#065f46','json-catcap':'#065f46','llm-review':'#1e3a8a','llm-review-nocap':'#4b5563','llm-review-complex':'#7c2d12','db-est':'#78350f','human':'#166534','json-insert':'#334155'};
+function extrasHTML(ex){
+  if(!ex||!Object.keys(ex).length) return '';
+  const chip=(t)=>`<span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;background:#1e293b;border:1px solid #334155;color:#cbd5e1">${t}</span>`;
+  let chips='';
+  if(ex.mile) chips+=chip('✈️ '+esc(ex.mile));
+  if(ex.point) chips+=chip('🅿️ '+esc(ex.point));
+  if(ex.voucher) chips+=chip('🎁 '+esc(ex.voucher));
+  (ex.services||[]).forEach(s=>chips+=chip('🎫 '+esc(s)));
+  if(ex.installment) chips+=chip('💳 무이자할부');
+  return `<div style="grid-column:1/-1;padding:11px 16px;border-bottom:1px solid var(--line);background:#0b1220">
+    <div style="font-size:10px;color:var(--brand);font-weight:800;margin-bottom:7px;letter-spacing:.5px">🧩 계산불가 혜택 (마일·바우처·서비스 — 숫자화 대신 참고)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${chips}</div></div>`;
+}
+function rowHTML(idx,i,r){
+  const tierStr=(r.구간||[]).map(t=>`${t[0]}:${t[1]}`).join('; ');
+  const rateVal = r.종류==='percent' ? (r.요율!=null? +(r.요율*100).toFixed(2):'')
+                : r.종류==='fixed_won' ? (r.정액원??'')
+                : r.종류==='won_per_liter' ? (r.리터당원??'')
+                : (r.요율??'');
+  const unit = r.종류==='percent'?'%':r.종류==='won_per_liter'?'원/L':r.종류==='fixed_won'?'원':'';
+  const src=r.출처?`<span style="font-size:9px;font-weight:800;padding:1px 5px;border-radius:4px;background:${SRC_COLOR[r.출처]||'#334155'};color:#e2e8f0;margin-left:5px">${esc(r.출처)}</span>`:'';
+  const descTxt=r.상세&&r.상세.length>90?r.상세.slice(0,90)+'…':(r.상세||'');
+  const desc=descTxt?`<div style="font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;white-space:normal;word-break:break-word;font-weight:400">${esc(descTxt)}</div>`:'';
+  return `<tr>
+    <td class="cat" style="min-width:180px">${esc(r.cat)}${src}${desc}</td>
+    <td><input class="txt sm n" value="${rateVal}" onchange="editRate(${idx},${i},this.value)"> <span class="hint">${unit}</span></td>
+    <td><input class="txt sm" value="${esc(tierStr)}" onchange="editTier(${idx},${i},this.value)" placeholder="예: 300000:26000; 500000:30000"></td>
+    <td><input class="txt sm" value="${esc(r.메모||'')}" onchange="editMemo(${idx},${i},this.value)"></td>
+  </tr>`;
+}
+function findRow(idx,i){ return SHARD.cards.find(x=>x.idx===idx).rows[i]; }
+window.editRate=(idx,i,v)=>{ const r=findRow(idx,i); v=parseFloat(v);
+  if(isNaN(v)){ return; }
+  if(r.종류==='percent') r.요율=v/100;
+  else if(r.종류==='fixed_won') r.정액원=Math.round(v);
+  else if(r.종류==='won_per_liter') r.리터당원=Math.round(v);
+  else r.요율=v; };
+window.editTier=(idx,i,v)=>{ const r=findRow(idx,i);
+  r.구간=v.split(';').map(s=>s.trim()).filter(Boolean).map(s=>{const[a,b]=s.split(':');return [parseInt(a),parseInt(b)];}).filter(t=>!isNaN(t[0])&&!isNaN(t[1])); };
+window.editMemo=(idx,i,v)=>{ findRow(idx,i).메모=v; };
+window.markDone=(idx)=>{ SHARD.cards.find(x=>x.idx===idx).rows.forEach(r=>r.검수상태='done'); render(); reopenNext(idx); };
+window.markReviewing=(idx)=>{ SHARD.cards.find(x=>x.idx===idx).rows.forEach(r=>r.검수상태='reviewing'); render(); };
+function reopenNext(idx){ /* 다음 미검수 카드로 자동 이동은 생략 — 목록 유지 */ }
+
+document.getElementById('save').onclick=()=>{
+  if(!SHARD) return;
+  const blob=new Blob([JSON.stringify(SHARD,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`${SHARD.owner}.json`; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+</script>
+</body>
+</html>

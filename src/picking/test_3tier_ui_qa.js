@@ -42,10 +42,30 @@ if (hasBanner && hasGroupBox) {
   console.error("❌ Test 2 FAIL!");
 }
 
-// Test 3: 정률 vs 정액 필요 결제액 역산 분기 로직 검증 (Card 2455: 카카오뱅크 우리카드)
+// Test 3: 정률 vs 정액 필요 결제액 역산 분기 로직 검증
 console.log("\n[Test 3] 정률 / 정액 필요 결제액 역산 공식 검증:");
-const card2455 = JSON.parse(fs.readFileSync('card_detail/2455.json', 'utf8'));
-const items2455 = windowMock.getStructuredBenefits(card2455);
+const rateAndFixedFixture = {
+  total_limit_tiers: [],
+  structured_benefits: [
+    {
+      title: '선물하기',
+      detail: '선물하기 50% 할인',
+      rate: '[{"perf":400000,"rate":0.5}]',
+      item_limit: '5000',
+      fixedAmount: 0,
+      minPayment: 0
+    },
+    {
+      title: '간편결제',
+      detail: '간편결제 10% 할인',
+      rate: '[{"perf":400000,"rate":0.1}]',
+      item_limit: '5000',
+      fixedAmount: 0,
+      minPayment: 0
+    }
+  ]
+};
+const items2455 = windowMock.getStructuredBenefits(rateAndFixedFixture);
 
 // 정액 혜택 항목 모킹 추가
 items2455.push({
@@ -59,7 +79,7 @@ items2455.push({
   checked: true
 });
 
-const capRes2455 = windowMock.applyThreeLevelCap(items2455, card2455.total_limit_tiers, 400000);
+const capRes2455 = windowMock.applyThreeLevelCap(items2455, rateAndFixedFixture.total_limit_tiers, 400000);
 const reqPay2455 = windowMock.calculateMinRequiredPayment(items2455, capRes2455.results);
 
 // 선물하기(50% 할인, 5천원 혜택 ➔ 1만원 필요), 카카오페이(10% 할인, 5천원 혜택 ➔ 5만원 필요), 영화(3천원 할인 ➔ minPayment 1.2만원 필요)
