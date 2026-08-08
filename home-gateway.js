@@ -29,8 +29,13 @@
       .reduce((sum, value) => sum + (Number(value) || 0), 0);
   }
 
+  function normalizeCompareCards(compareList) {
+    return (Array.isArray(compareList) ? compareList : [])
+      .filter(card => card && typeof card === 'object' && card.idx != null);
+  }
+
   function buildResumeState(profile, compareList) {
-    const cards = Array.isArray(compareList) ? compareList : [];
+    const cards = normalizeCompareCards(compareList);
     if (!profile && cards.length === 0) return null;
 
     const compareCount = cards.length;
@@ -118,6 +123,15 @@
 
   const state = {actions: {}, ready: false};
 
+  function shouldHandleRoute(event, target) {
+    if (String(target.tagName).toUpperCase() !== 'A') return true;
+    return event.button === 0
+      && !event.ctrlKey
+      && !event.metaKey
+      && !event.shiftKey
+      && !event.altKey;
+  }
+
   function init(options = {}) {
     if (typeof document === 'undefined') return;
     state.actions = options.actions || {};
@@ -127,10 +141,13 @@
     if (!root || state.ready) return;
     state.ready = true;
     root.addEventListener('click', event => {
-      const target = event.target.closest('[data-home-route]');
+      const target = event.target && event.target.closest
+        ? event.target.closest('[data-home-route]')
+        : null;
       if (!target) return;
       const action = state.actions[target.dataset.homeRoute];
       if (typeof action !== 'function') return;
+      if (!shouldHandleRoute(event, target)) return;
       event.preventDefault();
       action();
     });

@@ -6,13 +6,96 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '../..');
 const HomeGateway = require(path.join(ROOT, 'home-gateway.js'));
 
-test('360px header keeps navigation in the viewport with touch targets', () => {
+test('phone header collapse covers common 360 to 412px widths with touch targets', () => {
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.header-top\{[^}]*flex-wrap:wrap/);
-  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.gnb\{[^}]*width:100%[^}]*flex-wrap:wrap/);
-  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.gnb a\{[^}]*min-height:44px/);
-  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.header-search\{[^}]*padding-left:0/);
-  assert.doesNotMatch(index, /@media\(max-width:360px\)\{[\s\S]*?html\s*,?\s*body\{[^}]*overflow-x:hidden/);
+  const match = index.match(/@media\(max-width:(\d+)px\)\{[\s\S]*?\.header-top\{[^}]*flex-wrap:wrap/);
+  assert.ok(match, 'phone header collapse media query is present');
+  const breakpoint = Number(match[1]);
+  for (const width of [360, 375, 390, 412]) assert.ok(width <= breakpoint);
+  assert.ok(breakpoint < 768, 'desktop header remains outside the phone breakpoint');
+  assert.match(index, new RegExp(`@media\\(max-width:${breakpoint}px\\)\\{[\\s\\S]*?\\.gnb\\{[^}]*width:100%[^}]*flex-wrap:wrap`));
+  assert.match(index, new RegExp(`@media\\(max-width:${breakpoint}px\\)\\{[\\s\\S]*?\\.gnb a\\{[^}]*min-height:44px`));
+  assert.match(index, new RegExp(`@media\\(max-width:${breakpoint}px\\)\\{[\\s\\S]*?\\.header-search\\{[^}]*padding-left:0`));
+  assert.doesNotMatch(index, /html\s*,?\s*body\{[^}]*overflow-x:hidden/);
+});
+
+test('profile resume routes calculator as primary and secondary actions', () => {
+  const profileOnly = HomeGateway.buildResumeState({spend: {food: 300000}}, []);
+  assert.equal(profileOnly.primaryAction, 'calculator');
+  assert.equal(profileOnly.secondaryAction, null);
+  assert.match(HomeGateway.renderResumeHtml(profileOnly), /data-home-route="calculator"/);
+
+  const profileAndCompare = HomeGateway.buildResumeState(
+    {spend: {food: 300000}},
+    [{idx: 1, name: 'A'}, {idx: 2, name: 'B'}]
+  );
+  assert.equal(profileAndCompare.primaryAction, 'compare');
+  assert.equal(profileAndCompare.secondaryAction, 'calculator');
+  assert.equal((HomeGateway.renderResumeHtml(profileAndCompare).match(/data-home-route="calculator"/g) || []).length, 1);
+});
+
+test('malformed compare entries do not create resume steps or throw', () => {
+  assert.equal(HomeGateway.buildResumeState(null, [null, {}, 'bad']), null);
+  const state = HomeGateway.buildResumeState(null, [null, {idx: 1, name: 'A'}, {}, {idx: 2, card_name: 'B'}]);
+  assert.equal(state.compareCount, 2);
+  assert.deepEqual(state.compareNames, ['A', 'B']);
+});
+
+test('delegated routes preserve modified anchor clicks and handle buttons', () => {
+  const previousDocument = global.document;
+  let handler;
+  let calls = 0;
+  const root = {addEventListener(type, listener) { if (type === 'click') handler = listener; }};
+  global.document = {getElementById(id) { return id === 'home-gateway' ? root : null; }};
+
+  const fire = (target, overrides = {}) => {
+    let prevented = false;
+    handler({
+      button: 0,
+      ctrlKey: false,
+      metaKey: false,
+      shiftKey: false,
+      altKey: false,
+      target,
+      preventDefault() { prevented = true; },
+      ...overrides
+    });
+    return prevented;
+  };
+  const anchor = {tagName: 'A', dataset: {homeRoute: 'calculator'}, closest() { return this; }};
+  const button = {tagName: 'BUTTON', dataset: {homeRoute: 'calculator'}, closest() { return this; }};
+
+  try {
+    HomeGateway.init({actions: {calculator() { calls += 1; }}});
+    assert.equal(fire(anchor, {ctrlKey: true}), false);
+    assert.equal(fire(anchor, {button: 1}), false);
+    assert.equal(calls, 0);
+    assert.equal(fire(anchor), true);
+    assert.equal(calls, 1);
+    assert.equal(fire(button, {shiftKey: true}), true);
+    assert.equal(calls, 2);
+  } finally {
+    global.document = previousDocument;
+  }
+});
+
+test('index refreshes stored profile and compare state on pageshow and relevant storage events', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(index, /function readStoredCompareList\(\)\s*\{\s*try\s*\{/);
+  assert.match(index, /function refreshStoredHomeState\(\)[\s\S]*?compareList = readStoredCompareList\(\);[\s\S]*?refreshCompareButtons\(\);/);
+  assert.match(index, /window\.addEventListener\('pageshow', refreshStoredHomeState\)/);
+  assert.equal((index.match(/addEventListener\('pageshow'/g) || []).length, 1);
+  assert.match(index, /event\.key === null \|\| event\.key === 'compareList' \|\| event\.key === CardProfile\.KEY/);
+  assert.match(index, /HomeGateway\.updateResume\(CardProfile\.load\(\), compareList\)/);
+  assert.match(index, /calculator\(\)\s*\{\s*window\.location\.href = 'calculator\.html';\s*\}/);
+});
+
+test('mobile hero and trust copy follow the approved design specification', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(css, /@media \(max-width:720px\)\{[^@]*\.home-stack-card-3\{display:none\}/);
+  assert.match(index, /월 순이득은 예상 혜택에서 월 환산 연회비를 뺀 값/);
+  assert.match(index, /추천 조건을 공개하고 카드사 상품설명서 원문을 검수/);
 });
 
 test('index wires only the purpose gateway home', () => {
