@@ -133,17 +133,26 @@
     // 정액 원 할인 — %와 같은 '할인 풀'(통합한도 공유).
     // 게이팅 두 겹: ① 전월실적(min_prev_spend) ② 해당 카테고리 실제 지출>0
     //   (주유·카테고리율과 동일 — 실제 이용해야 받는 조건부 혜택을 무조건 부여하지 않는다)
+    // 같은 (카테고리+대상)의 실적구간별 사다리(예: 렌탈 30만↑1만/70만↑1.5만/100만↑2만)는
+    //   대안 관계이므로 합산하지 않고 충족 구간 중 최댓값 1개만 적용한다(주유와 동일 원리).
     // 조건 미충족(이용 안 함/전월실적 미달) 정액할인은 condFixed로 분리해 '조건부' 칩으로만 안내.
     var fixedMoney = 0;
     out.fixedRows = [];
+    var fxGroups = {};
     (b.fixed_discounts || []).forEach(function (f) {
       var w = num(f.won);
       if (w <= 0) return;
       var cat = f.category || '';
-      var row = { category: cat, won: w, minPrev: num(f.min_prev_spend) };
-      if (num(f.min_prev_spend) > prevMonth) { out.condFixed.push(row); return; }  // 전월실적 미달
-      if (num(spending[cat]) > 0) { fixedMoney += w; out.fixedRows.push(row); }     // 해당 카테고리 이용함
-      else { out.condFixed.push(row); }                                             // 이용 안 함 → 조건부
+      var key = cat + '|' + (f.targets || '');
+      var g = fxGroups[key] || (fxGroups[key] = { category: cat, apply: 0, applyMin: 0, cond: 0, condMin: 0 });
+      var ok = num(f.min_prev_spend) <= prevMonth && num(spending[cat]) > 0;
+      if (ok) { if (w > g.apply) { g.apply = w; g.applyMin = num(f.min_prev_spend); } }
+      else if (w > g.cond) { g.cond = w; g.condMin = num(f.min_prev_spend); }
+    });
+    Object.keys(fxGroups).forEach(function (k) {
+      var g = fxGroups[k];
+      if (g.apply > 0) { fixedMoney += g.apply; out.fixedRows.push({ category: g.category, won: g.apply, minPrev: g.applyMin }); }
+      else if (g.cond > 0) { out.condFixed.push({ category: g.category, won: g.cond, minPrev: g.condMin }); }
     });
     out.fixedMoney = Math.round(fixedMoney);
 

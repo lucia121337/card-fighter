@@ -29,3 +29,9 @@ data/*.parquet
 data/*.csv
 docs/*.png
 images/*.png
+
+# 로컬 백업/작업 사본 — 커밋 제외
+*.sqlite.bak
+benefits_structured.json.pre-promote.bak
+.claude/
+.agents/
