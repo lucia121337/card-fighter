@@ -63,8 +63,56 @@
       '.hp-breakdown .hb-row.hb-minus b{color:#dc2626}' +
       '.hp-breakdown .hb-row.hb-total{margin-top:4px;padding-top:8px;border-top:1px solid #e8d9ab;font-weight:800;color:#1e293b}' +
       '.hp-breakdown .hb-row.hb-total b{font-size:14px}' +
-      '.hp-breakdown .hb-note{margin-top:6px;font-size:11px;color:#94a3b8;font-family:"Noto Sans KR",sans-serif}';
+      '.hp-breakdown .hb-note{margin-top:6px;font-size:11px;color:#94a3b8;font-family:"Noto Sans KR",sans-serif}' +
+      /* 기본(프로필 전) 1위 카드 상세 혜택 — 중립 톤 */
+      '.hp-benefits{margin-top:16px;padding-top:14px;border-top:1px dashed #e2e8f0}' +
+      '.hp-benefits .hb-title{font-size:11px;font-weight:800;color:#145ce6;letter-spacing:.04em;margin-bottom:8px}' +
+      '.hp-benefits .hb-row{display:flex;justify-content:space-between;gap:12px;padding:4.5px 0;' +
+        'font-family:"Noto Sans KR",sans-serif;font-size:12.5px;color:#475569}' +
+      '.hp-benefits .hb-row b{font-variant-numeric:tabular-nums;font-weight:700;color:#145ce6;white-space:nowrap}' +
+      '.hp-benefits .hb-svc{margin-top:7px;display:flex;flex-wrap:wrap;gap:5px}' +
+      '.hp-benefits .hb-svc span{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;background:#f1f5f9;color:#475569}' +
+      '.hp-benefits .hb-note{margin-top:6px;font-size:11px;color:#94a3b8;font-family:"Noto Sans KR",sans-serif}';
     document.head.appendChild(st);
+  }
+
+  /* 기본(프로필 전) 대표카드 1위의 빈 공간 — 카드의 실제 상세 혜택을 채운다 */
+  function enhanceDefaultLead(d) {
+    var lead = document.querySelector('#home-featured-cards .home-feature-card.is-lead');
+    if (!lead || lead.querySelector('.hp-breakdown') || lead.querySelector('.hp-benefits')) return;
+    var btn = lead.querySelector('[data-home-compare]');
+    var b = btn && d.BEN[String(btn.dataset.homeCompare)];
+    if (!b) return;
+    var rows = [];
+    var cr = b.category_rates || {}, cc = b.category_caps || {};
+    Object.keys(cr).sort(function (a, z) { return cr[z] - cr[a]; }).slice(0, 5).forEach(function (c) {
+      var cap = cc[c] > 0 ? ' <small style="color:#94a3b8">(월 한도 ' + won(cc[c]) + ')</small>' : '';
+      rows.push('<div class="hb-row"><span>' + esc(c) + cap + '</span><b>' + Math.round(cr[c] * 100) + '% 할인</b></div>');
+    });
+    if ((b.base_rate || 0) > 0)
+      rows.push('<div class="hb-row"><span>그 외 모든 가맹점</span><b>' + (Math.round(b.base_rate * 1000) / 10) + '%</b></div>');
+    // 정액: 같은 (카테고리+대상)은 최댓값 1개만 (사다리 중복 방지)
+    var fx = {};
+    (b.fixed_discounts || []).forEach(function (f) {
+      var k = (f.category || '') + '|' + (f.targets || '');
+      if ((f.won || 0) > (fx[k] ? fx[k].won : 0)) fx[k] = f;
+    });
+    Object.values(fx).slice(0, 3).forEach(function (f) {
+      rows.push('<div class="hb-row"><span>정액할인 · ' + esc(f.category || '') + '</span><b>월 ' + won(f.won) + '</b></div>');
+    });
+    var fuel = Math.max.apply(null, [0].concat((b.fuel_discounts || []).map(function (f) { return f.won_per_liter || 0; })));
+    if (fuel > 0) rows.push('<div class="hb-row"><span>주유 할인</span><b>리터당 ' + fuel + '원</b></div>');
+    if ((b.voucher_won || 0) > 0) rows.push('<div class="hb-row"><span>연 바우처</span><b>' + won(b.voucher_won) + '</b></div>');
+    if (!rows.length) return;
+    var svcs = (b.service_benefits || []).slice(0, 3).map(function (s) { return '<span>🎫 ' + esc((s.label || '').slice(0, 22)) + '</span>'; }).join('');
+    var note = b.pre_month_money > 0 ? '전월실적 ' + won(b.pre_month_money) + ' 이상 시 · ' : '';
+    var box = document.createElement('div');
+    box.className = 'hp-benefits';
+    box.innerHTML = '<div class="hb-title">💳 이 카드의 주요 혜택</div>' + rows.join('') +
+      (svcs ? '<div class="hb-svc">' + svcs + '</div>' : '') +
+      '<div class="hb-note">' + note + "'최대 기준' · 원문 검수 데이터 기반</div>";
+    var content = lead.querySelector('dl') ? lead.querySelector('dl').parentNode : lead;
+    content.appendChild(box);
   }
 
   /* 1위 카드 혜택 내역 — '왜 1위인지'를 항목별로 분해 */
@@ -219,6 +267,14 @@
         '<div class="hm-vs">VS</div>' +
         row(top2[1], false) +
         '<a class="hm-more" href="calculator.html">전체 랭킹 보기 →</a>';
+      // 프로필 전 기본 대표카드에도 상세 혜택 채움 (팀 렌더가 늦을 수 있어 재시도)
+      if (!p) {
+        var tries = 0;
+        (function tryEnhance() {
+          enhanceDefaultLead(d);
+          if (!document.querySelector('#home-featured-cards .hp-benefits') && ++tries < 12) setTimeout(tryEnhance, 300);
+        })();
+      }
     }).catch(function () {
       box.innerHTML = '<div class="hm-loading">대진을 불러오지 못했어요 — <a href="calculator.html" style="color:#145ce6;font-weight:800">계산기에서 직접 확인 →</a></div>';
     });
