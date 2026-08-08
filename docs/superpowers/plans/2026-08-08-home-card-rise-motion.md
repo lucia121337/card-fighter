@@ -34,7 +34,9 @@
 - Consumes: 카드 객체 배열 `{idx, card_name, card_img}`와 `random(): number`
 - Produces: `selectHeroCards(cards, limit = 3, random = Math.random): Card[]`, `createHeroCardPicker(random = Math.random): (cards, limit?) => Card[]`
 
-- [ ] **Step 1: 무작위 선택이 이미지 없는 카드를 제외하고 입력 난수에 따라 달라지는 실패 테스트 작성**
+- [ ] **Step 1: 기존 ‘앞쪽 카드 세 장’ 테스트를 무작위 선택 실패 테스트로 교체**
+
+기존 `히어로 장식은 이미지가 있는 앞쪽 카드 세 장만 고른다` 테스트는 새 요구사항과 반대이므로 남겨두지 않고 아래 테스트로 교체한다. 새 테스트는 이미지 없는 카드를 제외하고 입력 난수에 따라 결과가 달라지는지 검증한다.
 
 ```js
 test('hero selection uses the supplied random source without duplicates', () => {
