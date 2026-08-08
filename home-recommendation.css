@@ -77,3 +77,33 @@
 .hm-loading{padding:26px 0;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:12.5px;text-align:center}
 @media (max-width:860px){.home-hero{grid-template-columns:minmax(0,1fr)}.home-hero-copy,.home-match{min-width:0}}
 @media (max-width:720px){.hm-card{flex-wrap:wrap}.hm-net{width:100%;margin:2px 0 0 68px}}
+
+/* ── 취향 게임 섹션 — 한 줄 텍스트였던 곳을 두 개의 게임 입구로 ── */
+.home-lab{display:block;padding-top:58px}
+.home-lab .lab-all{flex-shrink:0;color:var(--home-blue);font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap}
+.home-lab .lab-all:hover{text-decoration:underline}
+.lab-games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}
+.lab-game{position:relative;display:flex;flex-direction:column;gap:7px;min-height:196px;padding:24px 26px 22px;
+  border:1px solid var(--home-line);border-radius:17px;background:#fff;text-decoration:none;overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.lab-game:hover{transform:translateY(-3px);box-shadow:var(--home-shadow)}
+.lg-badge{align-self:flex-start;padding:3px 10px;border-radius:99px;font-size:10.5px;font-weight:800;letter-spacing:.02em}
+.lg-emoji{position:absolute;top:14px;right:18px;font-size:60px;line-height:1;opacity:.14;pointer-events:none}
+.lab-game strong{margin-top:4px;color:var(--home-ink);font-size:21px;letter-spacing:-.04em}
+.lab-game em{color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:13px;font-style:normal;line-height:1.65;max-width:30ch}
+.lab-game em b{color:var(--home-ink);font-weight:700}
+.lg-go{margin-top:auto;padding-top:12px;font-size:13px;font-weight:800}
+.lab-mbti{background:linear-gradient(160deg,#f7f4ff 0%,#fff 62%);border-color:#ddd6fe}
+.lab-mbti .lg-badge{background:#ede9fe;color:#6d28d9}
+.lab-mbti .lg-go{color:#6d28d9}
+.lab-mbti:hover{border-color:#a78bfa}
+.lab-cup{background:linear-gradient(160deg,#0b1b38 0%,#152f63 100%);border-color:#1d3563}
+.lab-cup .lg-badge{background:rgba(242,201,76,.16);color:#f2c94c}
+.lab-cup strong{color:#fff}
+.lab-cup em{color:#b9c8e6}
+.lab-cup em b{color:#f2c94c}
+.lab-cup .lg-go{color:#f2c94c}
+.lab-cup .lg-emoji{opacity:.2}
+.lab-cup:hover{border-color:#f2c94c}
+@media (max-width:720px){.lab-games{grid-template-columns:1fr;gap:12px}.lab-game{min-height:0;padding:20px 22px}
+  .lab-game strong{font-size:19px}.lg-emoji{font-size:48px}.home-lab .lab-all{margin-top:6px}}
