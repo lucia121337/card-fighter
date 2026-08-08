@@ -891,12 +891,38 @@
       transform: translateY(-2px);
     }
 
-    /* 혜택 세부 명세서 모달 & 프로그레스 바 UI CSS */
+    /* 퀴즈 슬라이더 퀵 금액 버튼 스타일 */
+    .slider-quick-chips {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .slider-quick-chip {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .slider-quick-chip:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    /* 혜택 세부 명세서 모달 & 프로그레스 바 프리미엄 UI CSS */
     .breakdown-modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 15, 30, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -904,63 +930,71 @@
       padding: 20px;
     }
     .breakdown-modal-content {
-      background: #1e293b;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
       width: 100%;
-      max-width: 620px;
-      max-height: 88vh;
+      max-width: 650px;
+      max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.2);
       overflow: hidden;
-      animation: modalFadeIn 0.25s ease-out;
+      animation: modalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes modalPopIn {
+      from { opacity: 0; transform: scale(0.94) translateY(24px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
     .breakdown-modal-header {
-      padding: 20px 24px;
-      background: #0f172a;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 22px 28px;
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .breakdown-modal-title span:first-child {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       color: #f8fafc;
+      letter-spacing: -0.3px;
     }
     .breakdown-subtitle {
       font-size: 13px;
+      font-weight: 600;
       color: #38bdf8;
-      margin-top: 2px;
+      margin-top: 3px;
       display: block;
     }
     .breakdown-close-btn {
-      background: none;
-      border: none;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: #94a3b8;
-      font-size: 26px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      padding: 0 8px;
-      transition: color 0.2s;
+      transition: all 0.2s ease;
     }
-    .breakdown-close-btn:hover { color: #f8fafc; }
+    .breakdown-close-btn:hover { color: #f8fafc; background: rgba(255, 255, 255, 0.15); transform: rotate(90deg); }
     .breakdown-modal-body {
-      padding: 24px;
+      padding: 28px;
       overflow-y: auto;
     }
     .breakdown-summary-card {
       display: flex;
       gap: 16px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 18px 20px;
-      margin-bottom: 22px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.5));
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 20px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
     .summary-item {
       flex: 1;
@@ -969,36 +1003,49 @@
     }
     .summary-item .lbl {
       font-size: 12px;
+      font-weight: 600;
       color: #94a3b8;
     }
     .summary-item strong {
       font-size: 20px;
+      font-weight: 800;
       color: #f8fafc;
       margin-top: 4px;
     }
     .summary-item.main strong {
       color: #4ade80;
-      font-size: 22px;
+      font-size: 23px;
+      text-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
     }
     .breakdown-list-title {
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
       color: #cbd5e1;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .breakdown-items-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
     .breakdown-item-card {
-      background: #0f172a;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 16px 20px;
+      border-radius: 18px;
+      padding: 18px 22px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .breakdown-item-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
     }
     .breakdown-item-header {
       display: flex;
@@ -1018,11 +1065,11 @@
     .breakdown-item-badge {
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 3px 9px;
+      border-radius: 8px;
       background: rgba(56, 189, 248, 0.15);
       color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.35);
     }
     .breakdown-item-values {
       text-align: right;
@@ -1036,6 +1083,7 @@
       font-weight: 800;
       color: #4ade80;
       margin-left: 6px;
+      text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
     }
     .breakdown-bar-bg {
       width: 100%;
@@ -1047,22 +1095,96 @@
     }
     .breakdown-bar-fill {
       height: 100%;
-      background: linear-gradient(90deg, #10b981, #34d399);
+      background: linear-gradient(90deg, #10b981 0%, #38bdf8 55%, #6366f1 100%);
       border-radius: 99px;
-      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+      width: 0%;
+      transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ── 1단계 ➡️ 2단계 이동 유도 CTA 배너 ── */
-    .mbti-to-cards-cta {
-      margin-top: 40px;
-      padding: 32px 24px;
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
-      border: 2px solid rgba(168, 85, 247, 0.4);
-      border-radius: 24px;
-      text-align: center;
-      box-shadow: 0 12px 36px rgba(168, 85, 247, 0.15);
-      position: relative;
-      overflow: hidden;
+    /* 결과 페이지 상단 세련된 탭 네비게이션 바 CSS */
+    .result-nav-tabs-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 26px;
+      padding: 6px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .result-nav-tab {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .result-nav-tab:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .result-nav-tab.active {
+      background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.45);
+    }
+    .inline-recalc-toggle-btn:hover {
+      background: rgba(56, 189, 248, 0.3) !important;
+      border-color: rgba(56, 189, 248, 0.6) !important;
+      transform: translateY(-1px);
+    }
+    .inline-slider-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+    }
+    .inline-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+    .inline-slider-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .inline-mini-slider {
+      flex: 1;
+      height: 6px;
+      border-radius: 99px;
+      appearance: none;
+      outline: none;
+      background: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+    }
+    .inline-mini-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+      cursor: pointer;
     }
     .mbti-to-cards-cta::before {
       content: '';
@@ -2221,6 +2343,11 @@
         <div class="quiz-question">대중교통(버스, 지하철, 택시 등) 이용에 한 달 평균 얼마나 지출하시나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="transit-val-display">8만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('transit', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('transit', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('transit')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('transit', -10000)">-</button>
             <input type="range" min="0" max="180000" step="10000" value="80000" class="modern-slider" id="transit-slider" oninput="updateSliderDisplay('transit')">
@@ -2240,6 +2367,12 @@
         <div class="quiz-question">자동차 주유비나 전기차 충전비로 한 달 평균 얼마를 지출하시나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="gas-val-display">15만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('gas', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('gas', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('gas', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('gas')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('gas', -10000)">-</button>
             <input type="range" min="0" max="450000" step="10000" value="150000" class="modern-slider" id="gas-slider" oninput="updateSliderDisplay('gas')">
@@ -2259,6 +2392,11 @@
         <div class="quiz-question">대형마트, 백화점 및 온라인 쇼핑(쿠팡, e커머스 등) 지출액은 한 달 평균 얼마인가요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="shopping-val-display">25만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('shopping', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('shopping', 300000)">+30만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('shopping')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('shopping', -50000)">-</button>
             <input type="range" min="0" max="1000000" step="50000" value="250000" class="modern-slider" id="shopping-slider" oninput="updateSliderDisplay('shopping')">
@@ -2278,6 +2416,12 @@
         <div class="quiz-question">편의점, 다이소, 올리브영 등 드러그스토어와 생활 잡화 지출은 한 달 평균 얼마인가요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="convenience-val-display">8만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('convenience', 10000)">+1만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('convenience', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('convenience', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('convenience')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('convenience', -10000)">-</button>
             <input type="range" min="0" max="300000" step="10000" value="80000" class="modern-slider" id="convenience-slider" oninput="updateSliderDisplay('convenience')">
@@ -2297,6 +2441,11 @@
         <div class="quiz-question">외식(레스토랑 등)이나 배달음식 식비로 한 달 평균 얼마 정도 쓰시나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="food-val-display">30만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('food', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('food', 300000)">+30만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('food')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('food', -50000)">-</button>
             <input type="range" min="0" max="1000000" step="50000" value="300000" class="modern-slider" id="food-slider" oninput="updateSliderDisplay('food')">
@@ -2316,6 +2465,12 @@
         <div class="quiz-question">커피숍, 베이커리, 디저트 가게 등 카페 이용에 한 달 평균 얼마나 쓰시나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="cafe-val-display">6만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('cafe', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('cafe', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('cafe', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('cafe')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('cafe', -10000)">-</button>
             <input type="range" min="0" max="300000" step="10000" value="60000" class="modern-slider" id="cafe-slider" oninput="updateSliderDisplay('cafe')">
@@ -2335,6 +2490,12 @@
         <div class="quiz-question">매달 지출하는 순수 휴대폰 요금(통신 요금)은 대략 얼마인가요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="telecom-val-display">6만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('telecom', 10000)">+1만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('telecom', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('telecom', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('telecom')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('telecom', -5000)">-</button>
             <input type="range" min="0" max="150000" step="5000" value="60000" class="modern-slider" id="telecom-slider" oninput="updateSliderDisplay('telecom')">
@@ -2354,6 +2515,12 @@
         <div class="quiz-question">넷플릭스, 유튜브 프리미엄, OTT 및 음원 스트리밍 등 구독료는 한 달 총 얼마인가요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="digital-val-display">2.5만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('digital', 5000)">+5천</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('digital', 10000)">+1만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('digital', 20000)">+2만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('digital')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('digital', -5000)">-</button>
             <input type="range" min="0" max="150000" step="5000" value="25000" class="modern-slider" id="digital-slider" oninput="updateSliderDisplay('digital')">
@@ -2373,6 +2540,12 @@
         <div class="quiz-question">영화, 공연 관람 및 도서 구매 등 문화생활에 한 달 평균 얼마를 지출하나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="culture-val-display">6만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('culture', 10000)">+1만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('culture', 30000)">+3만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('culture', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('culture')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('culture', -10000)">-</button>
             <input type="range" min="0" max="300000" step="10000" value="60000" class="modern-slider" id="culture-slider" oninput="updateSliderDisplay('culture')">
@@ -2392,6 +2565,12 @@
         <div class="quiz-question">국내외 여행, 항공권 결제 및 호텔/숙박/펜션 이용에는 한 달 평균 얼마를 지출하나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="travel-val-display">20만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('travel', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('travel', 300000)">+30만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('travel', 500000)">+50만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('travel')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('travel', -50000)">-</button>
             <input type="range" min="0" max="1000000" step="50000" value="200000" class="modern-slider" id="travel-slider" oninput="updateSliderDisplay('travel')">
@@ -2411,6 +2590,12 @@
         <div class="quiz-question">매달 고정으로 납부하는 공과금(아파트 관리비, 가스/전기/수도세 등)은 얼마인가요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="utility-val-display">20만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('utility', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('utility', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('utility', 200000)">+20만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('utility')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('utility', -20000)">-</button>
             <input type="range" min="0" max="600000" step="20000" value="200000" class="modern-slider" id="utility-slider" oninput="updateSliderDisplay('utility')">
@@ -2426,10 +2611,16 @@
 
       <!-- Q13: 학원비/교육비 요금 -->
       <div id="step-13" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-13">Question 12 / 13</div>
+        <div class="quiz-step-num" id="step-num-13">Question 12 / 14</div>
         <div class="quiz-question">학원비, 학습지, 도서/교재 구매 등 교육비에 한 달 평균 얼마나 지출하나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="education-val-display">20만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('education', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('education', 300000)">+30만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('education', 500000)">+50만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('education')">초기화 🔄</button>
+          </div>
           <div class="slider-controls-row">
             <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('education', -50000)">-</button>
             <input type="range" min="0" max="1000000" step="50000" value="200000" class="modern-slider" id="education-slider" oninput="updateSliderDisplay('education')">
@@ -2443,9 +2634,34 @@
         </div>
       </div>
 
-      <!-- Q14: 관심 라이프스타일 칩 (최종) -->
+      <!-- Q14: 간편결제(Pay) 이용 금액 -->
       <div id="step-14" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-14">Question 13 / 13</div>
+        <div class="quiz-step-num" id="step-num-14">Question 13 / 14</div>
+        <div class="quiz-question">네이버페이, 카카오페이, 삼성페이 등 간편결제로 한 달에 얼마나 지출하시나요?</div>
+        <div class="slider-container">
+          <div class="slider-value-display" id="pay-val-display">12만 원</div>
+          <div class="slider-quick-chips" style="display:flex; justify-content:center; gap:8px; margin-top:8px; margin-bottom:12px;">
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('pay', 50000)">+5만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('pay', 100000)">+10만</button>
+            <button type="button" class="slider-quick-chip" onclick="adjustSliderValue('pay', 200000)">+20만</button>
+            <button type="button" class="slider-quick-chip" onclick="setSliderZero('pay')">초기화 🔄</button>
+          </div>
+          <div class="slider-controls-row">
+            <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('pay', -20000)">-</button>
+            <input type="range" min="0" max="500000" step="20000" value="120000" class="modern-slider" id="pay-slider" oninput="updateSliderDisplay('pay')">
+            <button type="button" class="slider-adj-btn plus" onclick="adjustSliderValue('pay', 20000)">+</button>
+          </div>
+          <div class="slider-labels">
+            <span>0원</span>
+            <span>25만 원</span>
+            <span>50만 원+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q15: 관심 라이프스타일 칩 (최종) -->
+      <div id="step-15" class="quiz-step" style="display:none;">
+        <div class="quiz-step-num" id="step-num-15">Question 14 / 14</div>
         <div class="quiz-question">평소 돈을 쓸 때 가장 아끼고 싶은 혜택 분야를 3가지 선택해 주세요!</div>
         <div class="chip-container">
           <div class="chip" onclick="toggleChip('해외여행')" id="chip-해외여행">✈️ 해외여행</div>
@@ -2468,9 +2684,9 @@
         <center><div class="chip-limit-msg" id="chip-count-msg">현재 0개 선택 (최대 3개)</div></center>
       </div>
 
-      <!-- Q15: 희망 카드 연회비 범위 설정 -->
-      <div id="step-15" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-15">Question 14 / 14</div>
+      <!-- Q16: 희망 카드 연회비 범위 설정 -->
+      <div id="step-16" class="quiz-step" style="display:none;">
+        <div class="quiz-step-num" id="step-num-16">Question 14 / 14</div>
         <div class="quiz-question">선호하시는 희망 카드 연회비 범위는 어느 정도인가요?</div>
         <div class="option-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;">
           <div class="option-card" onclick="selectFeeOption(10000)" id="fee-opt-10000">
@@ -2521,6 +2737,16 @@
         <h3 class="cards-loading-title">AI 지출 패턴 정밀 연산 중...</h3>
         <div class="cards-loading-rolling" id="cards-rolling-text">🤖 입력하신 13개 지출 영역 정밀 패턴 계산 중...</div>
       </div>
+    </div>
+
+    <!-- ── 결과 페이지 상단 세련된 탭 네비게이션 바 ── -->
+    <div id="result-nav-tabs" class="result-nav-tabs-wrapper" style="display:none;">
+      <button type="button" class="result-nav-tab active" id="tab-btn-mbti" onclick="switchResultTab('mbti')">
+        <span>🔮 1단계: 소비 MBTI 리포트</span>
+      </button>
+      <button type="button" class="result-nav-tab" id="tab-btn-cards" onclick="switchResultTab('cards')">
+        <span>💳 2단계: AI 맞춤 추천 카드</span>
+      </button>
     </div>
 
     <!-- ── 1단계 결과 화면: 소비 MBTI 성향 진단 ── -->
@@ -2581,11 +2807,21 @@
       <div id="user-spending-summary-box" class="spending-summary-card">
         <!-- 1단: 지출 내역 -->
         <div style="margin-bottom: 16px;">
-          <div class="spending-summary-header">
-            <span class="summary-icon">📊</span>
-            <h4 id="summary-total-title">내가 입력한 월 지출 내역 (총 0만 원)</h4>
+          <div class="spending-summary-header" style="justify-content: space-between; align-items: center; display: flex;">
+            <div>
+              <span class="summary-icon">📊</span>
+              <h4 id="summary-total-title" style="display: inline;">내가 입력한 월 지출 내역 (총 0만 원)</h4>
+            </div>
+            <button type="button" class="inline-recalc-toggle-btn" onclick="toggleInlineRecalcPanel()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+              ✏️ 지출 실시간 수정/실험 <span id="recalc-toggle-icon">▼</span>
+            </button>
           </div>
           <div id="summary-chips-container" class="spend-chips-grid"></div>
+
+          <!-- 💥 인라인 지출 실시간 미니 조절 패널 -->
+          <div id="inline-recalc-panel" class="inline-recalc-panel" style="display: none; flex-direction: column; gap: 12px; margin-top: 14px; margin-bottom: 14px; padding: 18px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.7)); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+            <!-- JS 동적 렌더링 (renderInlineRecalcSliders) -->
+          </div>
         </div>
 
         <div style="border-top: 1px dashed rgba(255, 255, 255, 0.1); padding-top: 14px;">
@@ -2618,8 +2854,8 @@
             <img src="" class="banner-img" id="primary-card-img" alt="추천 카드 이미지" onerror="if(bestCardItem && bestCardItem.card){this.onerror=null; this.src='https://api.card-gorilla.com/storage/card/' + bestCardItem.card.idx + '/card_img.png';}">
           </div>
           <div class="banner-info">
-            <div class="banner-card-title" id="primary-card-title">디지로카 Travel</div>
-            <div class="banner-card-desc" id="primary-card-desc">로딩 중...</div>
+            <div class="banner-card-title" id="primary-card-title">AI 최적 추천 카드</div>
+            <div class="banner-card-desc" id="primary-card-desc">회원님의 소비 패턴에 맞춘 혜택 분석 중...</div>
             <div class="banner-action-wrap" style="display:flex; gap:10px;">
               <a href="javascript:void(0)" class="banner-action-btn" id="primary-card-link">상세 보기 🔗</a>
               <button type="button" onclick="openBreakdownInspector(selectedCardRank - 1)" class="banner-action-btn" style="background:rgba(59, 130, 246, 0.25); border:1px solid #3b82f6; color:#60a5fa; cursor:pointer;">피킹률 차트 📊</button>
@@ -2680,12 +2916,24 @@
           <p>카드사를 먼저 고르고 사용 중인 카드를 선택해 보세요. AI 1위 카드와 영역별 예상 혜택을 1:1로 비교해 드립니다.</p>
         </div>
         
+        <!-- 🔥 국민 인기 보유 카드 퀵 비교 칩 -->
+        <div class="quick-mycard-chips-wrapper" style="margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px 18px;">
+          <div style="font-size: 13px; color: #38bdf8; margin-bottom: 10px; font-weight: 700;">🔥 인기 보유 카드 1초 퀵 비교 (터치하여 바로 비교):</div>
+          <div class="quick-mycard-chips-group" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button type="button" class="quick-mycard-chip" onclick="quickSelectMyCard(88)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">☕ D4@카드의정석</button>
+            <button type="button" class="quick-mycard-chip" onclick="quickSelectMyCard(732)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">🛍️ 현대카드Z ontact</button>
+            <button type="button" class="quick-mycard-chip" onclick="quickSelectMyCard(2296)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">🎬 톡톡M 카드</button>
+            <button type="button" class="quick-mycard-chip" onclick="quickSelectMyCard(2453)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">🍕 신한 구독좋아요</button>
+            <button type="button" class="quick-mycard-chip" onclick="quickSelectMyCard(661)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; padding: 6px 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">✈️ 카드의정석 UNTACT</button>
+          </div>
+        </div>
+
         <div class="search-wrapper" style="display: flex; gap: 12px; margin-bottom: 24px; width: 100%; box-sizing: border-box;">
           <select id="compare-company-select" onchange="onCompanyChange()" style="flex: 1 1 0%; min-width: 0; width: 0; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; box-sizing: border-box; text-overflow: ellipsis;">
-            <option value="">-- 카드사 선택 --</option>
+            <option value="">-- 직접 카드사 선택 --</option>
           </select>
           <select id="compare-card-select" onchange="onCardChange()" style="flex: 1 1 0%; min-width: 0; width: 0; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s; box-sizing: border-box; text-overflow: ellipsis;" disabled>
-            <option value="">-- 카드 선택 --</option>
+            <option value="">-- 직접 카드 선택 --</option>
           </select>
         </div>
 
@@ -2924,23 +3172,24 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // 3. 단계별 렌더링 & 진행률 맵핑 (13단계 지출 질문 + 키워드 칩 + 희망 연회비 범위 설정)
+  // 3. 단계별 렌더링 & 진행률 맵핑 (14단계 지출 질문 + 키워드 칩 + 희망 연회비 범위 설정 = 총 15문항)
   const STEP_PROGRESS_MAP = {
-    1: { num: 1, pct: 7 },
-    2: { num: 2, pct: 14 },
-    3: { num: 2, pct: 14 },
-    4: { num: 3, pct: 21 },
-    5: { num: 4, pct: 28 },
-    6: { num: 5, pct: 35 },
-    7: { num: 6, pct: 42 },
-    8: { num: 7, pct: 50 },
-    9: { num: 8, pct: 57 },
-    10: { num: 9, pct: 64 },
-    11: { num: 10, pct: 71 },
-    12: { num: 11, pct: 78 },
-    13: { num: 12, pct: 85 },
-    14: { num: 13, pct: 92 },
-    15: { num: 14, pct: 100 }
+    1: { num: 1, total: 15, pct: 6 },
+    2: { num: 2, total: 15, pct: 13 },
+    3: { num: 2, total: 15, pct: 13 },
+    4: { num: 3, total: 15, pct: 20 },
+    5: { num: 4, total: 15, pct: 26 },
+    6: { num: 5, total: 15, pct: 33 },
+    7: { num: 6, total: 15, pct: 40 },
+    8: { num: 7, total: 15, pct: 46 },
+    9: { num: 8, total: 15, pct: 53 },
+    10: { num: 9, total: 15, pct: 60 },
+    11: { num: 10, total: 15, pct: 66 },
+    12: { num: 11, total: 15, pct: 73 },
+    13: { num: 12, total: 15, pct: 80 },
+    14: { num: 13, total: 15, pct: 86 },
+    15: { num: 14, total: 15, pct: 93 },
+    16: { num: 15, total: 15, pct: 100 }
   };
 
   function goToStep(step) {
@@ -2950,7 +3199,7 @@
 
   function showStep(step) {
     // 모든 스텝 숨기기
-    for(let i=1; i<=15; i++) {
+    for(let i=1; i<=16; i++) {
       const stepEl = document.getElementById(`step-${i}`);
       if (stepEl) stepEl.style.display = 'none';
     }
@@ -2967,7 +3216,7 @@
       
       const numEl = document.getElementById(`step-num-${step}`);
       if (numEl) {
-        numEl.innerText = `Question ${map.num} / 14`;
+        numEl.innerText = `Question ${map.num} / ${map.total || 15}`;
       }
     }
     
@@ -2988,10 +3237,11 @@
     if (!nextBtn) return;
     if (currentStep === 1) {
       nextBtn.disabled = (userAnswers.transit_type === null);
-    } else if (currentStep === 14) {
-      nextBtn.disabled = (userAnswers.keywords.length === 0);
       nextBtn.innerText = "다음 단계";
     } else if (currentStep === 15) {
+      nextBtn.disabled = (userAnswers.keywords.length === 0);
+      nextBtn.innerText = "다음 단계";
+    } else if (currentStep === 16) {
       nextBtn.disabled = false;
       nextBtn.innerText = "결과 분석하기 🔮";
     } else {
@@ -3062,7 +3312,7 @@
 
   // 퀴즈 스텝 로드 시 슬라이더 게이지 바 비주얼 초기화
   function initAllSliderFills() {
-    const types = ["transit", "gas", "shopping", "convenience", "food", "cafe", "telecom", "digital", "culture", "travel", "utility", "education"];
+    const types = ["transit", "gas", "shopping", "convenience", "food", "cafe", "telecom", "digital", "culture", "travel", "utility", "education", "pay"];
     types.forEach(type => {
       updateSliderDisplay(type);
     });
@@ -3085,19 +3335,33 @@
     updateSliderDisplay(type);
   }
 
+  function setSliderZero(type) {
+    const slider = document.getElementById(`${type}-slider`);
+    if (!slider) return;
+    slider.value = 0;
+    updateSliderDisplay(type);
+  }
+
+  function quickSelectMyCard(idx) {
+    selectMyCard(idx);
+    const box = document.getElementById('vs-compare-box');
+    if (box) {
+      box.style.display = 'flex';
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
   function formatMoney(amount) {
     if (!amount || amount === 0) return "0원";
-    const man = Math.floor(amount / 10000);
-    const rest = amount % 10000;
-    
-    let result = "";
-    if (man > 0) {
-      result += `${man.toLocaleString()}만 원`;
-      if (rest > 0) result += ` ${rest.toLocaleString()}원`;
-    } else {
-      result += `${rest.toLocaleString()}원`;
+    if (amount >= 10000) {
+      const manVal = amount / 10000;
+      if (Number.isInteger(manVal)) {
+        return `${manVal.toLocaleString()}만 원`;
+      } else {
+        return `${manVal.toFixed(1)}만 원`;
+      }
     }
-    return result;
+    return `${amount.toLocaleString()}원`;
   }
 
   // 긴 연회비 텍스트 스마트 축약 포맷터
@@ -3189,7 +3453,7 @@
       else goToStep(3);
     } else if (currentStep === 2 || currentStep === 3) {
       goToStep(4);
-    } else if (currentStep < 15) {
+    } else if (currentStep < 16) {
       goToStep(currentStep + 1);
     } else {
       runAIEngine();
@@ -3237,11 +3501,11 @@
     }, 2000);
   }
 
-  // 9. 13차원 경량 MLP 인공신경망 순방향 추론 연산
+  // 9. 14차원 경량 MLP 인공신경망 순방향 추론 연산
   function predictMLP(model, x, card = null) {
     if (!model || !model.W1 || model.W1.length === 0) {
       if (card) {
-        const rawSum = (x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12]);
+        const rawSum = (x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12] + (x[13] || 0));
         return Math.max(0, Math.round((rawSum * 0.03) / 100) * 100);
       }
       return 0;
@@ -3260,15 +3524,16 @@
       x[9] / 300000.0,
       x[10] / 1000000.0,
       x[11] / 600000.0,
-      x[12] / 1000000.0
+      x[12] / 1000000.0,
+      (x[13] || 0) / 500000.0
     ];
 
     let hidden = [];
     const numHidden = model.b1.length;
     for (let j = 0; j < numHidden; j++) {
       let sum = 0;
-      for (let i = 0; i < 13; i++) {
-        sum += scaled_x[i] * model.W1[i][j];
+      for (let i = 0; i < scaled_x.length; i++) {
+        sum += scaled_x[i] * (model.W1[i] ? model.W1[i][j] : 0);
       }
       sum += model.b1[j];
       hidden.push(Math.max(0, sum));
@@ -3293,8 +3558,8 @@
     return nums.length > 0 ? Math.min(...nums) : 0;
   }
 
-  // 10. MBTI 및 추천 혜택금 계산 (13차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
-  function calculateRecommendations() {
+  // 10. MBTI 및 추천 혜택금 계산 (14차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
+  function calculateRecommendations(isInlineRecalc = false) {
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -3308,7 +3573,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
 
     const mbti = diagnoseMBTI(userAnswers);
@@ -3321,12 +3587,14 @@
     CARDS_LIST.forEach(card => {
       const idxStr = String(card.idx);
       
-      let predictedBenefit = 0;
-      if (ML_MODEL[idxStr]) {
-        predictedBenefit = predictMLP(ML_MODEL[idxStr], x, card);
-      } else {
-        predictedBenefit = predictMLP(null, x, card);
+      // 마일리지, 포인트형 전용 카드 및 법인/비즈니스 전용 카드, 학습 제외 카드는 추천 랭킹에서 완전히 필터링
+      const cardNameLower = (card.card_name || "").toLowerCase();
+      const isBizCard = ["법인", "비즈니스", "biz", "사업자", "기업", "corporate", "b2b", "ceo", "소호", "soho", "사장님"].some(k => cardNameLower.includes(k));
+      if (card.is_mileage || card.card_type === "마일리지" || card.card_type === "포인트" || isBizCard || !ML_MODEL[idxStr]) {
+        return;
       }
+
+      let predictedBenefit = predictMLP(ML_MODEL[idxStr], x, card);
       if (predictedBenefit > maxBenefit) maxBenefit = predictedBenefit;
       
       // 키워드 취향 매칭도 계산
@@ -3365,14 +3633,14 @@
       if (mbtiCode[2] === 'V' && (catsStr.includes("공과금") || catsStr.includes("마트") || catsStr.includes("교육"))) mbtiBonus += 2;
       if (mbtiCode[3] === 'F' && catsStr.includes("무실적")) mbtiBonus += 2;
 
-      // 희망 연회비 적합성 판단 및 차등 보너스/페널티 연산
+      // 희망 연회비 상한선 초과 여부 판단 및 페널티 연산
       const prefFeeLimit = (userAnswers.preferred_fee_limit !== undefined) ? userAnswers.preferred_fee_limit : 30000;
       let feeFitScore = 0;
-      if (feeNum <= prefFeeLimit) {
-        feeFitScore = 5;
-      } else {
+
+      if (prefFeeLimit !== 999999 && prefFeeLimit !== Infinity && feeNum > prefFeeLimit) {
+        // 희망 연회비 상한선을 초과한 카드만 초과액 비율 감점
         const overAmt = feeNum - prefFeeLimit;
-        feeFitScore = -Math.min(25, Math.round(6 + overAmt / 5000));
+        feeFitScore = -Math.min(25, Math.round(5 + overAmt / 5000));
       }
 
       results.push({
@@ -3389,24 +3657,25 @@
 
     const safeMaxBenefit = maxBenefit > 0 ? maxBenefit : 50000;
 
-    // 통합 점수 계산: 지출액 할인 65% + 관심사 매칭 25% + MBTI 앙상블 + 연회비 적합 보너스/페널티
+    // 통합 점수 계산: 지출액 할인 65% + 관심사 매칭 25% + MBTI 앙상블 + 연회비 적합 페널티
     results.forEach(item => {
       const normBenefitScore = Math.min((item.benefit / safeMaxBenefit) * 100, 100);
       const rawScore = (normBenefitScore * 0.65) + (item.matchPercent * 0.25) + item.mbtiBonus + item.feeFitScore;
       item.totalScore = Math.min(Math.max(Math.round(rawScore), 15), 99);
     });
 
-    // 종합 매칭 점수 1순위 정렬
+    // 종합 매칭 점수 정렬: 1순위 종합점수, 2순위 연간 실질 순이득(Net ROI), 3순위 낮 연회비
     results.sort((a, b) => {
       if (b.totalScore !== a.totalScore) return b.totalScore - a.totalScore;
-      return b.netAnnualBenefit - a.netAnnualBenefit;
+      if (b.netAnnualBenefit !== a.netAnnualBenefit) return b.netAnnualBenefit - a.netAnnualBenefit;
+      return a.feeNum - b.feeNum; // 혜택이 동일하면 연회비가 더 적은 카드가 우위!
     });
 
     currentAllResults = results;
     const top3 = results.slice(0, 3);
     bestCardItem = top3[0]; // 1위 통합 추천 카드 캐싱
     
-    renderResultView(mbti, top3, x);
+    renderResultView(mbti, top3, x, isInlineRecalc);
   }
 
   // 11. 16가지 소비 MBTI 4글자 코드 데이터베이스 (1축:C/B, 2축:O/I, 3축:E/V, 4축:P/F)
@@ -3424,7 +3693,7 @@
     "BOVP": { tag: "BOVP", name: "체크리스트 자산 관리 직장인 (BOVP)", emoji: "💼", color: "#14b8a6", desc: "통신비, 교통비, 공과금 등 고정 생활비를 균형감 있게 예산화하여 지출하는 모범 직장인 스타일입니다." },
     "BOVF": { tag: "BOVF", name: "합리적인 가성비 생활 모범생 (BOVF)", emoji: "🧾", color: "#0284c7", desc: "낭비되는 무분별 지출을 차단하고 일상 생활 영역 전반에서 효율적인 지출을 유지하는 방어형 실속파 스타일입니다." },
     "BIEP": { tag: "BIEP", name: "넷플릭스 딜리버리 홈 욜로 (BIEP)", emoji: "🛋️", color: "#a855f7", desc: "아늑한 내 방에서 OTT 정기 구독과 배달음식, 쇼핑으로 하루의 피로를 푸는 안락한 인도어 힐링 스타일입니다." },
-    "BIEF": { tag: "BIEF", name: "간편결제 정기구독 스마트파 (BIEF)", emoji: "💳", color: "#06b6d4", desc: "네이버/카카오페이 간편결제 혜택과 정기구독 할인을 똑똑하게 조합하여 방구석 생활비를 아끼는 스마트 파입니다." },
+    "BIEF": { tag: "BIEF", name: "스마트 홈 라이프 힐링파 (BIEF)", emoji: "☕", color: "#06b6d4", desc: "디지털 구독과 카페, 미식 및 실내 여가를 라이트하게 조합하여 아늑한 일상의 소확행을 지혜롭게 즐기는 스마트 힐링파입니다." },
     "BIVP": { tag: "BIVP", name: "알뜰 살림 계획 자취러 (BIVP)", emoji: "🧹", color: "#84cc16", desc: "아파트 관리비, OTT, 편의점 및 마트 장보기 등 집안 고정 생활비를 계획표대로 알뜰하게 운용하는 살림 9단 스타일입니다." },
     "BIVF": { tag: "BIVF", name: "무지출 챌린지 짠테크 수호자 (BIVF)", emoji: "🛡️", color: "#64748b", desc: "필수 고정 생활비 외에 불필요한 과소비를 철저하게 방어하며 최고 가성비 혜택만 쏙쏙 챙기는 짠테크 알뜰 스타일입니다." }
   };
@@ -3443,8 +3712,9 @@
     const travel = answers.travel_spend;
     const utility = answers.utility_spend;
     const edu = answers.education_spend;
+    const pay = answers.pay_spend || 0;
 
-    const total = gas + transit + shopping + conv + food + cafe + telecom + digital + culture + travel + utility + edu;
+    const total = gas + transit + shopping + conv + food + cafe + telecom + digital + culture + travel + utility + edu + pay;
     const safeTotal = total > 0 ? total : 1;
 
     // 1축: 소비 집중도 (C vs B)
@@ -3457,7 +3727,8 @@
       { name: "주유", val: gas },
       { name: "교통", val: transit },
       { name: "구독/디지털", val: digital },
-      { name: "공과금", val: utility }
+      { name: "공과금", val: utility },
+      { name: "간편결제(Pay)", val: pay }
     ].sort((a, b) => b.val - a.val);
 
     const top1Ratio = (catSpends[0].val / safeTotal);
@@ -3466,9 +3737,20 @@
     const top1Pct = Math.min(Math.max(Math.round(top1Ratio * 100), 10), 90);
     const axis1Pct = top1Pct;
 
-    // 2축: 소비 공간 (O vs I)
-    let outdoorScore = (gas + transit + food + travel);
-    let indoorScore = (shopping + conv + cafe + digital);
+    // 2축: 소비 공간 (O vs I) - 간편결제(pay) 동적 지출 비율 가중 분배 적용
+    const baseOutdoor = (gas + transit + food + travel);
+    const baseIndoor = (shopping + conv + cafe + digital);
+    const baseSum = baseOutdoor + baseIndoor;
+
+    let outdoorRatio = 0.5;
+    let indoorRatio = 0.5;
+    if (baseSum > 0) {
+      outdoorRatio = baseOutdoor / baseSum;
+      indoorRatio = baseIndoor / baseSum;
+    }
+
+    let outdoorScore = baseOutdoor + (pay * outdoorRatio);
+    let indoorScore = baseIndoor + (pay * indoorRatio);
 
     answers.keywords.forEach(kw => {
       if (["해외여행", "캠핑", "주유", "외식/배달", "대중교통"].includes(kw)) outdoorScore += 150000;
@@ -3528,13 +3810,17 @@
   }
 
   // 12. 결과 렌더링
-  function renderResultView(mbti, top3, features) {
+  function renderResultView(mbti, top3, features, isInlineRecalc = false) {
     document.getElementById('game-loading').style.display = 'none';
     
-    // 1단계 MBTI 진단 화면 표시 (2단계 추천 화면은 숨김)
-    document.getElementById('game-result-mbti').style.display = 'block';
-    document.getElementById('game-result-cards').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 결과 페이지 상단 탭 네비게이션 활성화
+    const navTabs = document.getElementById('result-nav-tabs');
+    if (navTabs) navTabs.style.display = 'flex';
+    
+    // 인라인 지출 재계산일 경우 현재 탭(cards) 유지!
+    if (!isInlineRecalc) {
+      switchResultTab('mbti');
+    }
 
     // MBTI 데이터 바인딩
     document.getElementById('mbti-tag-val').innerText = `소비 분석 MBTI: ${mbti.tag}`;
@@ -3737,6 +4023,39 @@
     const item = bestCardItem;
     const card = item.card;
 
+    const x = latestFeatures || [
+      userAnswers.transit_type,
+      userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
+      userAnswers.transit_type === 0 ? userAnswers.transit_spend : 0,
+      userAnswers.shopping_spend,
+      userAnswers.convenience_spend,
+      userAnswers.food_spend,
+      userAnswers.cafe_spend,
+      userAnswers.telecom_spend,
+      userAnswers.digital_spend,
+      userAnswers.culture_spend,
+      userAnswers.travel_spend,
+      userAnswers.utility_spend,
+      userAnswers.education_spend,
+      userAnswers.pay_spend
+    ];
+
+    const spendMap = {
+      "⛽ 주유/충전": x[1] || 0,
+      "🚇 대중교통/택시": x[2] || 0,
+      "🛍️ 쇼핑/백화점": x[3] || 0,
+      "🏪 마트/편의점": x[4] || 0,
+      "🍕 외식/배달": x[5] || 0,
+      "☕ 카페/베이커리": x[6] || 0,
+      "📱 이동통신요금": x[7] || 0,
+      "🎬 OTT/디지털구독": x[8] || 0,
+      "📚 도서/문화생활": x[9] || 0,
+      "✈️ 여행/숙박/항공": x[10] || 0,
+      "💸 공과금/납부": x[11] || 0,
+      "🎓 학원/교육비": x[12] || 0,
+      "💳 간편결제(Pay)": x[13] || 0
+    };
+
     // 1위 / 2위 / 3위 배너 뱃지
     const badgeEl = document.querySelector('.primary-card-banner .banner-badge');
     if (badgeEl) badgeEl.innerText = `✨ AI 종합 매칭 ${index + 1}위`;
@@ -3799,6 +4118,7 @@
         { name: "여행/숙박", val: feats[10] || 0 },
         { name: "공과금", val: feats[11] || 0 },
         { name: "교육/학원", val: feats[12] || 0 },
+        { name: "간편결제(Pay)", val: feats[13] || 0 },
         { name: "교통/주유", val: feats[0] === 1 ? feats[1] : feats[2] }
       ];
       const topSpends = spendItems.filter(it => it.val > 0).sort((a, b) => b.val - a.val).slice(0, 2);
@@ -3849,7 +4169,7 @@
     const cardNameEl = document.getElementById('breakdown-card-name');
     if (cardNameEl) cardNameEl.innerText = `${card.company || ''} ${card.card_name}`;
     
-    // 유저 입력 x 수치 기반 총 지출액 계산
+    // 유저 입력 x 수치 기반 총 지출액 계산 (14차원 x[13] 포함)
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -3863,7 +4183,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
     
     const totalSpendSum = x.slice(1).reduce((a, b) => a + b, 0);
@@ -3894,6 +4215,7 @@
         breakdownData.items.forEach(item => {
           // 지출 대비 할인 비중 계산 (최대 100% 캡)
           const barPct = Math.min(Math.round((item.discount / item.spend) * 100 * 5), 100);
+          const targetWidth = `${Math.max(barPct, 8)}%`;
           
           const itemCardHtml = `
             <div class="breakdown-item-card">
@@ -3909,7 +4231,7 @@
                 </div>
               </div>
               <div class="breakdown-bar-bg" title="할인률 비중">
-                <div class="breakdown-bar-fill" style="width: ${Math.max(barPct, 8)}%;"></div>
+                <div class="breakdown-bar-fill" data-width="${targetWidth}" style="width: 0%;"></div>
               </div>
             </div>
           `;
@@ -3919,7 +4241,16 @@
     }
 
     const modal = document.getElementById('breakdown-modal');
-    if (modal) modal.style.display = 'flex';
+    if (modal) {
+      modal.style.display = 'flex';
+      // 모달 오픈 후 프로그레스 바 차오르는 Wow Animation 트리고
+      setTimeout(() => {
+        document.querySelectorAll('.breakdown-bar-fill').forEach(bar => {
+          const w = bar.getAttribute('data-width');
+          if (w) bar.style.width = w;
+        });
+      }, 50);
+    }
     
     renderPickingRateChart(card);
   }
@@ -3936,6 +4267,11 @@
     if (window.myPickingChartModal) {
       window.myPickingChartModal.destroy();
     }
+
+    // 네온 시안/블루 그라데이션 생성
+    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+    gradient.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
+    gradient.addColorStop(1, 'rgba(56, 189, 248, 0.01)');
 
     const sections = card.sections || [];
     const testSpends = [300000, 500000, 800000, 1000000, 1500000, 2000000];
@@ -3966,12 +4302,16 @@
         datasets: [{
           label: '전월실적 구간별 피킹률 (%)',
           data: rates,
-          borderColor: '#3b82f6',
-          backgroundColor: 'rgba(59, 130, 246, 0.15)',
+          borderColor: '#38bdf8',
+          borderWidth: 3,
+          backgroundColor: gradient,
           fill: true,
-          tension: 0.35,
-          pointBackgroundColor: '#60a5fa',
-          pointRadius: 4
+          tension: 0.4,
+          pointBackgroundColor: '#38bdf8',
+          pointBorderColor: '#ffffff',
+          pointBorderWidth: 2,
+          pointRadius: 5,
+          pointHoverRadius: 7
         }]
       },
       options: {
@@ -4016,7 +4356,8 @@
       "📚 도서/문화생활": x[9],
       "✈️ 여행/숙박/항공": x[10],
       "💸 공과금/납부": x[11],
-      "🎓 학원/교육비": x[12]
+      "🎓 학원/교육비": x[12],
+      "💳 간편결제(Pay)": x[13] || 0
     };
 
     let items = [];
@@ -4060,7 +4401,8 @@
       { label: "🎨 문화/여가", val: features[9] },
       { label: "✈️ 여행/숙박", val: features[10] },
       { label: "💸 공과금", val: features[11] },
-      { label: "📚 교육/육아", val: features[12] }
+      { label: "📚 교육/육아", val: features[12] },
+      { label: "💳 간편결제(Pay)", val: features[13] || 0 }
     ];
     
     let total = 0;
@@ -4069,8 +4411,8 @@
     items.forEach(item => {
       if (item.val > 0) {
         total += item.val;
-        const manVal = Math.round(item.val / 10000);
-        chipsHtml += `<div class="spend-chip">${item.label} <span class="chip-amt">${manVal}만 원</span></div>`;
+        const displayStr = formatMoney(item.val);
+        chipsHtml += `<div class="spend-chip">${item.label} <span class="chip-amt">${displayStr}</span></div>`;
       }
     });
 
@@ -4117,6 +4459,91 @@
     }
   }
 
+  // 12-3. 인라인 지출 실시간 패널 토글 & 13개 미니 슬라이더 렌더링
+  let inlineRecalcDebounceTimer = null;
+
+  function toggleInlineRecalcPanel() {
+    const panel = document.getElementById('inline-recalc-panel');
+    const icon = document.getElementById('recalc-toggle-icon');
+    if (!panel) return;
+
+    if (panel.style.display === 'none' || !panel.style.display) {
+      renderInlineRecalcSliders();
+      panel.style.display = 'flex';
+      if (icon) icon.innerText = '▲';
+    } else {
+      panel.style.display = 'none';
+      if (icon) icon.innerText = '▼';
+    }
+  }
+
+  function renderInlineRecalcSliders() {
+    const panel = document.getElementById('inline-recalc-panel');
+    if (!panel) return;
+
+    const sliderConfigs = [
+      { type: "transit", name: "🚌 대중교통", min: 0, max: 180000, step: 10000 },
+      { type: "gas", name: "⛽ 주유/충전", min: 0, max: 450000, step: 10000 },
+      { type: "shopping", name: "🛍️ 쇼핑/마트", min: 0, max: 1000000, step: 50000 },
+      { type: "convenience", name: "🏪 편의점/잡화", min: 0, max: 300000, step: 10000 },
+      { type: "food", name: "🍕 외식/배달", min: 0, max: 1000000, step: 50000 },
+      { type: "cafe", name: "☕ 카페/디저트", min: 0, max: 300000, step: 10000 },
+      { type: "telecom", name: "📱 통신비", min: 0, max: 150000, step: 5000 },
+      { type: "digital", name: "🎬 OTT/구독", min: 0, max: 150000, step: 5000 },
+      { type: "culture", name: "🎨 문화/영화", min: 0, max: 300000, step: 10000 },
+      { type: "travel", name: "✈️ 여행/숙박", min: 0, max: 1000000, step: 50000 },
+      { type: "utility", name: "💸 공과금/관리비", min: 0, max: 600000, step: 20000 },
+      { type: "education", name: "📚 교육/학원비", min: 0, max: 1000000, step: 50000 },
+      { type: "pay", name: "💳 간편결제(Pay)", min: 0, max: 500000, step: 20000 }
+    ];
+
+    let html = '<div style="font-size:13px; color:#38bdf8; font-weight:700; margin-bottom:4px;">⚡ 미니 슬라이더를 즉시 조절하면 AI 카드 랭킹과 혜택이 실시간으로 동기화됩니다:</div>';
+
+    sliderConfigs.forEach(cfg => {
+      const currentVal = userAnswers[`${cfg.type}_spend`] !== undefined ? userAnswers[`${cfg.type}_spend`] : 0;
+      const displayValStr = formatMoney(currentVal);
+
+      html += `
+        <div class="inline-slider-item">
+          <div class="inline-slider-header">
+            <span>${cfg.name}</span>
+            <span id="inline-${cfg.type}-display" style="color:#4ade80;">${displayValStr}</span>
+          </div>
+          <div class="inline-slider-controls">
+            <input type="range" min="${cfg.min}" max="${cfg.max}" step="${cfg.step}" value="${currentVal}" 
+                   class="inline-mini-slider" id="inline-${cfg.type}-slider" 
+                   oninput="onInlineSpendChange('${cfg.type}', this.value)">
+          </div>
+        </div>
+      `;
+    });
+
+    panel.innerHTML = html;
+  }
+
+  function onInlineSpendChange(type, val) {
+    const numVal = parseInt(val, 10) || 0;
+    userAnswers[`${type}_spend`] = numVal;
+
+    // 메인 슬라이더 및 퀴즈 게이지 디스플레이 실시간 업데이트
+    const mainSlider = document.getElementById(`${type}-slider`);
+    if (mainSlider) {
+      mainSlider.value = numVal;
+      if (typeof updateSliderDisplay === 'function') {
+        updateSliderDisplay(type);
+      }
+    }
+
+    const displayEl = document.getElementById(`inline-${type}-display`);
+    if (displayEl) displayEl.innerText = formatMoney(numVal);
+
+    // 실시간 AI 연산 재실행 (100ms Debounce, 인라인 플래그 true)
+    if (inlineRecalcDebounceTimer) clearTimeout(inlineRecalcDebounceTimer);
+    inlineRecalcDebounceTimer = setTimeout(() => {
+      calculateRecommendations(true);
+    }, 100);
+  }
+
   // 12-3. 2차 AI 추천 카드 분석 롤링 로딩 오버레이 & 화면 스위칭
   function startCardsAnalysisLoading() {
     const overlay = document.getElementById('cards-loading-overlay');
@@ -4154,31 +4581,49 @@
     }, 1800);
   }
 
+  function switchResultTab(tabName, skipScroll = false) {
+    const mbtiView = document.getElementById('game-result-mbti');
+    const cardsView = document.getElementById('game-result-cards');
+    const tabMbti = document.getElementById('tab-btn-mbti');
+    const tabCards = document.getElementById('tab-btn-cards');
+    
+    if (tabName === 'mbti') {
+      if (mbtiView) mbtiView.style.display = 'block';
+      if (cardsView) cardsView.style.display = 'none';
+      if (tabMbti) tabMbti.classList.add('active');
+      if (tabCards) tabCards.classList.remove('active');
+    } else {
+      if (mbtiView) mbtiView.style.display = 'none';
+      if (cardsView) cardsView.style.display = 'block';
+      if (tabMbti) tabMbti.classList.remove('active');
+      if (tabCards) tabCards.classList.add('active');
+      if (typeof selectBestCardItem === 'function') {
+        selectBestCardItem(0);
+      }
+    }
+    if (!skipScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   function showMbtiView() {
-    document.getElementById('game-result-mbti').style.display = 'block';
-    document.getElementById('game-result-cards').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchResultTab('mbti');
   }
 
   function showCardsView() {
-    document.getElementById('game-result-mbti').style.display = 'none';
-    document.getElementById('game-result-cards').style.display = 'block';
-    if (typeof selectBestCardItem === 'function') {
-      selectBestCardItem(0);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchResultTab('cards');
   }
 
   // 13. Radar 차트 렌더링 (13차원 피처 데이터를 8각형 차트로 축약 매핑)
   function renderRadarChart(features, themeColor) {
     const ctx = document.getElementById('mbtiRadarChart').getContext('2d');
     
-    // 8대 핵심 축 환산 점수 (0~100 스케일링, 실지출 기반 왜곡 교정)
+    // 8대 핵심 축 환산 점수 (0~100 스케일링, 실지출 기반 왜곡 교정, 14차원 pay_spend 분산 가산)
     const mobilityScore = Math.min(((features[1] + features[2]) / 500000) * 100, 100);
-    const shoppingScore = Math.min((features[3] / 1000000) * 100, 100);
+    const shoppingScore = Math.min(((features[3] + (features[13] || 0) * 0.5) / 1000000) * 100, 100);
     const foodScore = Math.min((features[5] / 1000000) * 100, 100);
     const snackScore = Math.min(((features[4] + features[6]) / 500000) * 100, 100);
-    const digitalScore = Math.min(((features[7] + features[8]) / 250000) * 100, 100);
+    const digitalScore = Math.min(((features[7] + features[8] + (features[13] || 0) * 0.5) / 250000) * 100, 100);
     const travelScore = Math.min((features[10] / 1000000) * 100, 100);
     const utilityScore = Math.min((features[11] / 600000) * 100, 100);
     const cultureScore = Math.min(((features[9] + features[12]) / 1200000) * 100, 100);
@@ -4294,6 +4739,8 @@
   // 14. 테스트 리셋 (신규 13단계 슬라이더 대응)
   function retryQuiz() {
     currentStep = 1;
+    const navTabs = document.getElementById('result-nav-tabs');
+    if (navTabs) navTabs.style.display = 'none';
     userAnswers = {
       transit_type: null,
       gas_spend: 150000,
@@ -4474,6 +4921,12 @@
       rawDetail["🎓 학원/교육비"] = hasEdu ? Math.min(x[12] * 0.1, 40000) : x[12] * 0.005;
     }
 
+    // 13. 간편결제(Pay)
+    if (x[13] > 0) {
+      const hasPay = hasCategoryMatch(cats, ["간편결제", "네이버페이", "카카오페이", "삼성페이", "페이코", "스마일페이", "SSG페이", "L.pay", "엘페이", "Pay"]);
+      rawDetail["💳 간편결제(Pay)"] = hasPay ? Math.min(x[13] * 0.08, 20000) : x[13] * 0.005;
+    }
+
     if (totalBenefit !== null && totalBenefit >= 0) {
       const rawSum = Object.values(rawDetail).reduce((a, b) => a + b, 0);
       const scaledDetail = {};
@@ -4501,7 +4954,7 @@
     const myCard = CARDS_LIST.find(c => c.idx === idx);
     if (!myCard) return;
     
-    // 내 카드 예상 혜택 계산 (13차원 순방향)
+    // 내 카드 예상 혜택 계산 (14차원 순방향)
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -4515,7 +4968,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
     
     let myBenefit = 0;
@@ -4584,7 +5038,8 @@
       "📚 도서/문화생활": x[9],
       "✈️ 여행/숙박/항공": x[10],
       "💸 공과금/납부": x[11],
-      "🎓 학원/교육비": x[12]
+      "🎓 학원/교육비": x[12],
+      "💳 간편결제(Pay)": x[13] || 0
     };
 
     const allKeys = [...new Set([...Object.keys(myDetails), ...Object.keys(bestDetails)])];
