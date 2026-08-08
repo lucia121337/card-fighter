@@ -1688,6 +1688,24 @@ const PLATFORM_COMPANY_LANDING = {
   },
 };
 
+// 플랫폼 대표 랜딩 — 서브타이틀의 "OO 바로가기" 버튼과 같은 주소.
+function cbPlatformUrl(platform){
+  const plat = CASHBACK[platform];
+  return (plat && plat.url) ? plat.url : '';
+}
+// 드릴다운 화면에서 기준이 될 플랫폼. 전체보기는 카드사별로 최댓값을 보여준 플랫폼(bestPlatform)을 쓴다.
+function cbCardPlatform(co){
+  return activePlatform === '전체보기' ? (co && co.bestPlatform) : activePlatform;
+}
+// 특정 플랫폼이 그 카드사에 대해 가진 카드 목록.
+// 전체보기의 c.cards는 여러 플랫폼을 합친 목록이라, 랜딩 판단에는 출처 플랫폼의 카드만 봐야 한다.
+function cbSourceCards(companyName, platform){
+  const plat = CASHBACK[platform];
+  if(!plat) return [];
+  const co = (plat.companies||[]).find(x => x.name === companyName);
+  return (co && co.cards) || [];
+}
+
 function renderCbCompanies(companies){
   document.getElementById('cb-grid').className = 'cb-grid';
   document.getElementById('cb-grid').innerHTML = companies.map(c=>{
@@ -1698,8 +1716,16 @@ function renderCbCompanies(companies){
     // 전체보기에서는 카드사별 최댓값을 실제로 보여준 플랫폼(bestPlatform)의 랜딩으로 보낸다.
     const sourcePlatform = activePlatform === '전체보기' ? c.bestPlatform : activePlatform;
     const landing = (PLATFORM_COMPANY_LANDING[sourcePlatform] || {})[c.name];
+    // 토스·카카오페이처럼 드릴다운해도 열어볼 상세(event_idx)나 카드별 링크(url)가 없는 플랫폼은
+    // 빈 타일만 보여주게 되므로, 서브타이틀의 "OO 바로가기"와 같은 플랫폼 대표 랜딩으로 보낸다.
+    // 판단 기준은 출처 플랫폼(전체보기면 bestPlatform)의 카드 — 합쳐진 c.cards로 보면 안 된다.
+    const srcCards = activePlatform === '전체보기' ? cbSourceCards(c.name, sourcePlatform) : (c.cards||[]);
+    const drillable = srcCards.some(card => card.event_idx || card.url);
+    const platLanding = drillable ? '' : cbPlatformUrl(sourcePlatform);
     const onclick = landing
       ? `window.open('${esc(landing)}','_blank','noopener')`
+      : platLanding
+      ? `window.open('${esc(platLanding)}','_blank','noopener')`
       : `drillCb('${esc(c.name)}')`;
     return `<div class="cb-company-card" onclick="${onclick}">
       ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
@@ -1712,14 +1738,19 @@ function renderCbCards(co){
   document.getElementById('cb-grid').innerHTML = co.cards.map(card=>{
     const badge = card.type ? `<span class="cbc-badge ${card.type==='캐시백'?'cbk':''}">${esc(card.type)}</span>` : '';
     const amt = card.amount>0 ? `<span class="cbc-amt">최대 ${card.amount}만원</span>` : '';
-    const click = card.event_idx ? `onclick="openCbDetail(${card.event_idx})"` : '';
+    // 상세 모달(event_idx) → 카드별 링크(url) → 플랫폼 대표 랜딩 순으로 이동 대상을 정한다.
+    // 셋 다 없을 때만 클릭이 안 되게 두어, 눌러도 아무 일 없는 타일이 생기지 않도록 한다.
+    const outUrl = card.event_idx ? '' : (card.url || cbPlatformUrl(cbCardPlatform(co)));
+    const click = card.event_idx
+      ? `onclick="openCbDetail(${card.event_idx})"`
+      : outUrl ? `onclick="window.open('${esc(outUrl)}','_blank','noopener')"` : '';
     const ev = card.event_idx ? CB_EVENTS.find(x=>x.idx===card.event_idx) : null;
     const linked = resolveOurCard(ev) ? '<span class="cbc-link-badge">📇 카드정보</span>' : '';
     return `<div class="cb-event-card" ${click}>
       <div class="cbc-top">${badge}${amt}${linked}</div>
       <div class="cbc-title">${esc(card.name)}</div>
       <div class="cbc-subject">${esc(card.subject||'')}</div>
-      ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : ''}
+      ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : outUrl ? '<div class="cbc-more">바로가기 →</div>' : ''}
     </div>`;
   }).join('') || '<div class="empty">카드가 없어요.</div>';
 }
