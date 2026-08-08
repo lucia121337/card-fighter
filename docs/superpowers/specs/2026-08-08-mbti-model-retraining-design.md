@@ -9,9 +9,9 @@
 ## 2. 주요 변경 사항 및 설계 합의
 
 ### 2.1 마일리지 / 포인트형 카드 처리 방식
-- **방침**: 마일리지 및 포인트 전용 카드는 원화(원) 가치 산출의 왜곡 방지를 위해 MLP 신경망 모델 학습 대상에서 제외합니다.
+- **방침**: 마일리지 및 포인트 전용 카드는 원화(원) 가치 산출의 왜곡 방지를 위해 MLP 신경망 모델 학습 대상에서 제외하며, **소비 MBTI 퀴즈 추천 랭킹 리스트에서도 완전히 필터링하여 노출되지 않도록 처리합니다.**
 - **대상**: `benefits_structured.json`에서 `is_mileage == true` 또는 `type == "마일리지"` 또는 원화 혜택율이 0인 카드는 `mbti_model.json` 생성 대상에서 배제합니다.
-- **영향**: `mbti_model.json`에는 할인·적립형 카드 가중치만 저장됩니다.
+- **영향**: `mbti_model.json`에는 할인·적립형 카드 가중치만 저장되며, 프론트엔드 `match_game.html` 랭킹 루프 시 `!ML_MODEL[card.idx]`인 카드는 폴백 계산 없이 추천 랭킹 후보에서 배제됩니다.
 
 ### 2.2 Python 정밀 혜택 계산기 (`calc_structured_benefit`)
 - [benefit-calc.js](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/benefit-calc.js)의 혜택 산출 알고리즘을 Python으로 포팅하여 10,000명의 synthetic robot 가상 지출 프로필에 대한 혜택 정답지(`y_target_raw`)를 정확히 계산합니다.
@@ -33,6 +33,7 @@
 - **[match_game.html](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/match_game.html)**:
   - 소비 MBTI 퀴즈 단계에 **'간편결제 지출액'** 질문 문항 추가.
   - `predictMLP()` 순방향 전파 연산 함수를 14차원 스케일러 및 가중치 곱셈으로 업데이트.
+  - 추천 랭킹 계산 시 `!ML_MODEL[card.idx]`(마일리지/학습제외 카드)는 랭킹 리스트에서 배제(완전 제외).
 - **[shopping_dashboard.html](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/shopping_dashboard.html)**:
   - `predictMLP()`를 14차원 파라미터 구조로 동일 포팅.
 
