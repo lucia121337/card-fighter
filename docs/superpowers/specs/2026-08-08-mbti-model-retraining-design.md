@@ -2,7 +2,7 @@
 
 ## 1. 개요 및 목적
 현재 카드연구소(`cardlab`) 내 소비 MBTI 찰떡카드 찾기 게임(`match_game.html`)은 `benefit_calculator_wide.sqlite` 데이터베이스의 텍스트 기반 정규식 파싱을 통해 13차원 MLPRegressor 인공신경망(`mbti_model.json`)을 학습시키고 있습니다.
-이를 새로 수집 및 정제된 정밀 구조화 데이터셋 [benefits_structured.json](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/benefits_structured.json) 기반으로 재학습시켜, 예측 혜택의 정확도를 획기적으로 높이고 '간편결제' 등 최신 소비 트렌드를 예측 모델에 반영합니다.
+이를 새로 수집 및 정제된 정밀 구조화 데이터셋 [benefits_structured.json](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/benefits_structured.json) 기반으로 재학습시켜, 예측 혜택의 정확도를 획기적으로 높이고 '간편결제' 등 최신 소비 트렌드를 예측 모델 및 결과 뷰에 완벽히 반영합니다.
 
 ---
 
@@ -29,13 +29,21 @@
 - `X_scaled` 14차원 정규화 스케일러 정의:
   `pay_spend / 500000.0` (최대 50만 원 상한 규격화)
 
-### 2.4 프론트엔드 추론 로직 및 UI 연동
-- **[match_game.html](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/match_game.html)**:
-  - 소비 MBTI 퀴즈 단계에 **'간편결제 지출액'** 질문 문항 추가.
-  - `predictMLP()` 순방향 전파 연산 함수를 14차원 스케일러 및 가중치 곱셈으로 업데이트.
-  - 추천 랭킹 계산 시 `!ML_MODEL[card.idx]`(마일리지/학습제외 카드)는 랭킹 리스트에서 배제(완전 제외).
-- **[shopping_dashboard.html](file:///Users/yonghee/Documents/icb_cardfighter/card-fighter/shopping_dashboard.html)**:
-  - `predictMLP()`를 14차원 파라미터 구조로 동일 포팅.
+### 2.4 소비 MBTI 결과 뷰 및 카드 추천 전수 간편결제(Pay) 동적 가중치 산정
+- **동적 공간 축(O vs I) 가중 분배 알고리즘**:
+  - `outdoorSpend = gas + transit + food + travel`
+  - `indoorSpend = shopping + conv + cafe + digital`
+  - 사용자의 야외 대 실내 지출 비율(`outdoorRatio`, `indoorRatio`)에 따라 `pay_spend`(간편결제 지출액)를 동적 비율 분배 (`payOutdoor = pay * outdoorRatio`, `payIndoor = pay * indoorRatio`).
+  - 선택된 키워드 칩(해외여행, 넷플릭스 등)으로 2차 가중 보정 수행.
+- **결과 대시보드 렌더링 (`renderSpendingSummary`)**:
+  - 입력한 전체 월 지출액 합산 및 칩 목록에 `💳 간편결제(Pay)` 수치 정상 표시.
+- **추천 사유 텍스트 (`selectBestCardItem`)**:
+  - 주요 상위 2대 지출 영역 판별 시 간편결제 지출액 항목을 포함하여 1위 추천 사유 생성.
+- **세부 혜택 명세서 모달 (`openBreakdownInspector` & `calculateDetailedBenefits`)**:
+  - `calculateDetailedBenefits`에 `💳 간편결제(Pay)` 혜택 산출 항목 추가 (`["간편결제", "네이버페이", "카카오페이", "삼성페이", "페이코", "스마일페이", "SSG페이", "L.pay", "Pay"]` 매칭).
+  - 모달 14차원 지출 벡터 `x[13]` 전달 및 피킹률/할인액 바 시각화 동기화.
+- **레이더 차트 시각화 (`renderRadarChart`)**:
+  - `digitalScore` (통신/구독) 축 및 `shoppingScore` 축 연산에 `features[13]` 간편결제 지출액 정밀 가산.
 
 ---
 
@@ -51,5 +59,5 @@
 
 ## 4. 검증 계획
 1. `python scripts/train_mbti_model.py` 실행을 통한 `mbti_model.json`, `keyword_similarity.json`, `cards_list.json` 정상 생성 확인.
-2. `match_game.html` 소비 MBTI 퀴즈 진행 후 콘솔 오류 없이 14차원 `predictMLP` 전파 및 카드 매칭 결과 검증.
-3. `shopping_dashboard.html`에서 카드별 예상 혜택 계산 검증.
+2. `match_game.html` 소비 MBTI 퀴즈 진행 후 콘솔 오류 없이 14차원 `predictMLP` 전파 및 간편결제 포함 카드 매칭 결과 검증.
+3. 세부 혜택 명세서 모달 및 MBTI 동적 가중치 분석 결과 검증.
