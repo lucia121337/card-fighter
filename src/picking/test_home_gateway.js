@@ -246,6 +246,18 @@ test('외부 이어하기 상태의 행동 값과 문구를 HTML로 해석하지
   assert.doesNotMatch(html, /<img src=x>|<script>alert\(1\)<\/script>/);
 });
 
+test('hero cards rise once with staggered delays and preserve reduced motion', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+
+  assert.match(css, /@keyframes home-card-rise/);
+  assert.match(css, /translateY\(120px\)[^}]*scale\(\.96\)/);
+  assert.match(css, /animation:home-card-rise \.7s cubic-bezier\(\.16,1,\.3,1\)/);
+  assert.match(css, /home-stack-card-1\{[^}]*--card-delay:0s/);
+  assert.match(css, /home-stack-card-2\{[^}]*--card-delay:\.12s/);
+  assert.match(css, /home-stack-card-3\{[^}]*--card-delay:\.24s/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)\{[^@]*\.home-stack-card\{[^}]*animation:none[^}]*opacity:1/);
+});
+
 test('index includes only the purpose gateway home structure', () => {
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert.match(index, /id="home-gateway"/);
