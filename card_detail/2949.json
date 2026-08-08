@@ -1,0 +1,42 @@
+{
+  "idx": 2949,
+  "card_name": "아정당 하나카드",
+  "company": "하나카드",
+  "card_type": "discount",
+  "cate": "CRD",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [29,000]원 / 해외겸용 [29,000]원",
+  "annual_fee_detail": "국내전용(Local) 29,000원<br>해외겸용(VISA) 29,000원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "only_online": false,
+  "release_dt": "2025-11-10",
+  "card_img": "https://image.ajd.co.kr/EDITOR/CONTENT/01KBCXX951M3T46X4EBEDB9TD1",
+  "top_benefit": [
+    {
+      "title": "통신/렌탈",
+      "tags": [
+        "통신/렌탈 자동납부",
+        "최대 20,000원",
+        "청구할인"
+      ],
+      "logo_url": ""
+    }
+  ],
+  "key_benefit": [
+    {
+      "title": "통신/렌탈",
+      "logo_url": "",
+      "info": "<p><strong>통신/렌탈 월납요금 자동이체 청구할인</strong></p><p>- 전월실적 30~120만원 미만: 처음 24개월 15,000원, 이후 6,000원</p><p>- 전월실적 120만원 이상: 처음 24개월 20,000원, 이후 12,000원</p><p>- 대상: SKT, KT, LGU+ 등 통신사 및 코웨이, SK매직, LG전자 등 렌탈/구독</p>"
+    }
+  ],
+  "benefit_categories": "통신, 공과금/렌탈",
+  "detail_url": "https://www.ajd.co.kr/card/detail/927",
+  "top_benefit_summary": "통신/렌탈: 최대 월 20,000원 할인",
+  "detailed_benefits": "통신/렌탈: 전월실적 구간별 월 6,000~20,000원 청구할인(첫 24개월 우대)",
+  "item_limit": "-1 | -1",
+  "group_id": "none | none",
+  "group_limit": "-1 | -1",
+  "total_limit_tiers": null,
+  "is_calc_supported": "FALSE"
+}

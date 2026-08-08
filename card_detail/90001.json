@@ -1,0 +1,56 @@
+{
+  "idx": 90001,
+  "card_name": "아정당 하나카드",
+  "company": "하나카드",
+  "card_type": "discount",
+  "cate": "CRD",
+  "brands": "",
+  "annual_fee": "국내전용 [29,000]원 / 해외겸용 [29,000]원",
+  "annual_fee_detail": "국내전용 29,000원<br>해외겸용 29,000원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "only_online": false,
+  "release_dt": "2025-11-10",
+  "card_img": "",
+  "top_benefit": [
+    {
+      "title": "통신/렌탈",
+      "tags": [
+        "통신·렌탈 통합 한도",
+        "최대 2만원",
+        "청구할인"
+      ],
+      "logo_url": ""
+    }
+  ],
+  "key_benefit": [
+    {
+      "title": "통신/렌탈 청구할인",
+      "logo_url": "",
+      "info": "<p><strong>통신·렌탈 요금 자동납부 시 월 최대 청구할인</strong></p><p>- 대상 통신사: SKT, KT, LGU+ 등</p><p>- 대상 렌탈사: 아정당렌탈, 코웨이, LG전자 등</p><p>- 통신·렌탈 이용금액은 통합 한도로 관리됩니다.</p><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"b-table\" width=\"100%\"><tbody><tr class=\"b-table-top\"><td class=\"b-table-top\" style=\"width:33.3%;text-align:center;\">전월 실적</td><td class=\"b-table-top\" style=\"width:33.3%;text-align:center;\">월 청구할인 한도</td></tr><tr><td align=\"center\" style=\"text-align:center;\">30만원 이상</td><td align=\"center\" style=\"text-align:center;\">1.5만원</td></tr><tr><td align=\"center\" style=\"text-align:center;\">120만원 이상</td><td align=\"center\" style=\"text-align:center;\">2만원</td></tr></tbody></table><p>- 카드 등록 후 24개월까지 위 한도가 적용되며, 25개월 이후에는 6천원/1.2만원으로 축소됩니다.</p><p>- 자세한 가맹점 목록 및 유의사항은 아정당(ajd.co.kr) 공식 안내를 참고하세요.</p>"
+    },
+    {
+      "title": "유의사항",
+      "logo_url": "",
+      "info": "<p>- 카드 서비스 내용은 카드사 및 아정당 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.</p><p>- 카드 사용 전 반드시 상품설명서와 약관을 확인하시기 바랍니다.</p>"
+    }
+  ],
+  "benefit_categories": "통신, 공과금/렌탈",
+  "detail_url": "https://www.ajd.co.kr/card",
+  "top_benefit_summary": "통신/렌탈: 실적별 최대 2만원 청구할인",
+  "detailed_benefits": "[통신] SKT/KT/LGU+ 등 통신요금 자동이체 결제 시 월 최대 1.5만원(전월실적 120만원 이상 시 2만원) 청구할인 — 카드 등록 후 24개월까지 기준, 25개월 이후로는 6천원/1.2만원으로 축소 | [공과금/렌탈] 아정당렌탈·코웨이·LG전자 등 렌탈료 자동이체 결제 시 월 최대 1.5만원(전월실적 120만원 이상 시 2만원) 청구할인 — 통신·렌탈 통합 한도, 25개월 이후로는 6천원/1.2만원으로 축소",
+  "item_limit": "-1 | -1",
+  "group_id": "none | none",
+  "group_limit": "-1 | -1",
+  "total_limit_tiers": [
+    {
+      "perf": 300000,
+      "limit": 15000
+    },
+    {
+      "perf": 1200000,
+      "limit": 20000
+    }
+  ],
+  "is_calc_supported": "FALSE"
+}

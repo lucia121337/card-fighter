@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<base href="/">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>카드 연구소 — 카드 파이터</title>
@@ -24,10 +25,11 @@
        font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
 
   /* 헤더 */
-  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+  @view-transition{navigation:auto}
+  header{view-transition-name:site-header;position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
          backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
 
-  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto;padding:0 20px 0 0}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto}
   .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
   .brand-left .logo{font-size:32px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
   .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
@@ -67,11 +69,12 @@
   .search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;
     font-weight:500;color:var(--txt);background:transparent}
   .search-box input::placeholder{color:#94a3b8;font-weight:400}
-  .search-divider{width:1px;height:16px;background:var(--line);margin:0 12px;flex-shrink:0}
-  .search-btn{border:none;background:transparent;padding:0;cursor:pointer;
-    color:var(--muted);transition:.15s color;display:flex;align-items:center;justify-content:center}
-  .search-btn:hover{color:var(--brand)}
-  .search-btn svg{width:20px;height:20px}
+  .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
+  .search-box .search-btn{display:flex;align-items:center;justify-content:center;
+    width:48px;height:100%;background:none;border:none;cursor:pointer;
+    color:var(--muted);flex-shrink:0;transition:.15s color}
+  .search-box .search-btn:hover{color:var(--brand)}
+  .search-box .search-btn svg{width:20px;height:20px}
 
   main{max-width:1200px;margin:30px auto;padding:0 20px;display:flex;flex-direction:column;gap:50px}
 
@@ -472,6 +475,52 @@
   .game-card:hover .game-play-btn {
     background: #0c4cb0;
   }
+
+  /* ── 플로팅 버블(비교함) ── */
+  #compare-bubble{position:fixed;bottom:28px;right:28px;z-index:200;display:none}
+  #compare-bubble.visible{display:block}
+  .bubble-wrap{position:relative;display:inline-block}
+  .bubble-btn{width:58px;height:58px;border-radius:50%;background:var(--brand);color:#fff;
+        border:none;cursor:pointer;font-size:22px;display:flex;align-items:center;
+        justify-content:center;box-shadow:0 6px 24px rgba(20,92,230,.4);
+        font-family:inherit;transition:.15s transform}
+  .bubble-btn:hover{transform:scale(1.08)}
+  .bubble-badge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;
+        background:#ef4444;color:#fff;font-size:11px;font-weight:800;
+        display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+  #compare-popup{position:fixed;bottom:98px;right:28px;z-index:199;
+        background:#fff;border-radius:20px;padding:20px;width:420px;
+        box-shadow:0 12px 48px rgba(0,0,0,.18);display:none;
+        border:1.5px solid var(--line)}
+  #compare-popup.visible{display:block}
+  .popup-title{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:14px;
+        display:flex;align-items:center;justify-content:space-between}
+  .popup-slots{display:flex;gap:10px;margin-bottom:14px}
+  .popup-slot{flex:1;border:1.5px dashed var(--line);border-radius:14px;
+        padding:12px 8px;display:flex;flex-direction:column;align-items:center;
+        gap:6px;min-height:100px;position:relative;background:var(--bg)}
+  .popup-slot.filled{border-style:solid;border-color:var(--brand);background:#fff}
+  .popup-slot img{width:64px;height:40px;object-fit:contain;border-radius:6px}
+  .popup-slot .ps-name{font-size:11px;font-weight:700;color:var(--txt);
+        text-align:center;line-height:1.4;word-break:keep-all}
+  .popup-slot .ps-remove{position:absolute;top:-7px;right:-7px;width:20px;height:20px;
+        border-radius:50%;background:#ef4444;color:#fff;border:none;cursor:pointer;
+        font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .popup-slot.empty{cursor:pointer;border-style:dashed;transition:.14s border-color;
+        justify-content:center}
+  .popup-slot.empty:hover{border-color:var(--brand)}
+  .popup-slot .ps-plus{font-size:28px;color:#cbd5e1;line-height:1;margin-bottom:2px}
+  .popup-slot .ps-label{font-size:11px;color:var(--muted)}
+  .popup-actions{display:flex;gap:8px}
+  .popup-reset{flex:1;background:none;border:1.5px solid var(--line);border-radius:10px;
+        padding:9px;font-size:13px;font-weight:700;cursor:pointer;color:var(--muted);
+        font-family:inherit;transition:.14s}
+  .popup-reset:hover{border-color:var(--brand);color:var(--brand)}
+  .popup-compare{flex:2;background:var(--brand);color:#fff;border:none;border-radius:10px;
+        padding:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+        box-shadow:0 2px 8px rgba(20,92,230,.3);transition:.14s background}
+  .popup-compare:hover{background:var(--brand-deep)}
+  .popup-compare:disabled{opacity:.4;cursor:not-allowed;background:var(--muted)}
 </style>
 </head>
 <body>
@@ -479,15 +528,15 @@
   <div class="header-top">
     <div class="brand-left">
       <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
-      <h1 onclick="location.href='index.html'">카드 파이터</h1>
+      <h1 onclick="location.href='/'">카드 파이터</h1>
     </div>
     <div class="gnb-divider"></div>
     <nav class="gnb">
-      <a href="index.html">홈</a>
-      <a href="index.html#cards">전체카드</a>
-      <a href="index.html#cashback"><span class="coin-icon">🪙</span>캐시백</a>
-      <a href="index.html#merchant">할인가맹점</a>
-      <a href="cardlab.html" class="active">카드 연구소</a>
+      <a href="/">홈</a>
+      <a href="/card">전체카드</a>
+      <a href="/event"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="/shopping">할인가맹점</a>
+      <a href="/cardlab" class="active">카드 연구소</a>
     </nav>
     <div class="header-search">
       <div class="search-box">
@@ -523,7 +572,7 @@
         
         <div class="lab-list-grid">
           <!-- 컨텐츠 카드 1: 맞춤카드 -->
-          <div class="lab-card" onclick="location.href='cardlab_detail.html?type=persona'">
+          <div class="lab-card" onclick="location.href='/cardlab/detail/persona'">
             <div class="lab-card-icon">👥</div>
             <div class="lab-card-body">
               <span class="lab-card-tag">소비 트렌드</span>
@@ -534,7 +583,7 @@
           </div>
           
           <!-- 컨텐츠 카드 2: 여름 휴가철 맞춤 카드 -->
-          <div class="lab-card" onclick="location.href='cardlab_detail.html?type=vacation'">
+          <div class="lab-card" onclick="location.href='/cardlab/detail/vacation'">
             <div class="lab-card-icon">🏝️</div>
             <div class="lab-card-body">
               <span class="lab-card-tag" style="background:#fff3e0; color:#e67e22;">여름 스페셜</span>
@@ -545,7 +594,7 @@
           </div>
 
           <!-- 컨텐츠 카드 3: 카드 리뷰로 보는 소비 페르소나 -->
-          <div class="lab-card" onclick="location.href='cardlab_detail.html?type=review'">
+          <div class="lab-card" onclick="location.href='/cardlab/detail/review'">
             <div class="lab-card-icon">🔎</div>
             <div class="lab-card-body">
               <span class="lab-card-tag" style="background:#f3e8ff; color:#7c3aed;">리뷰 분석</span>
@@ -579,7 +628,7 @@
         
         <div class="game-hub-grid">
           <!-- 게임 1: 찰떡 카드 찾기 -->
-          <div class="game-card" onclick="location.href='match_game.html'">
+          <div class="game-card" onclick="location.href='/cardlab/match'">
             <div class="game-card-badge">ML 추천</div>
             <div class="game-card-icon">🔮</div>
             <div class="game-card-body">
@@ -596,7 +645,7 @@
           </div>
 
           <!-- 게임 2: 카드 혜택 월드컵 -->
-          <div class="game-card" onclick="location.href='worldcup_game.html'">
+          <div class="game-card" onclick="location.href='/cardlab/worldcup'">
             <div class="game-card-badge">토너먼트</div>
             <div class="game-card-icon">🏆</div>
             <div class="game-card-body">
@@ -616,6 +665,35 @@
     </div>
   </section>
 </main>
+
+<!-- 플로팅 버블(비교함) -->
+<div id="compare-bubble">
+  <div class="bubble-wrap">
+    <button class="bubble-btn" onclick="togglePopup()">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="7" x2="21" y2="7"/>
+        <path d="M6 7l-3 7a3 3 0 0 0 6 0L6 7z"/><path d="M18 7l-3 7a3 3 0 0 0 6 0L18 7z"/>
+      </svg>
+    </button>
+    <span class="bubble-badge" id="bubble-badge">0</span>
+  </div>
+</div>
+
+<!-- 비교 팝업 -->
+<div id="compare-popup">
+  <div class="popup-title">
+    <span>비교함</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span id="popup-count" style="color:var(--brand)"></span>
+      <button onclick="togglePopup()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;padding:0">✕</button>
+    </div>
+  </div>
+  <div class="popup-slots" id="popup-slots"></div>
+  <div class="popup-actions">
+    <button class="popup-reset" onclick="resetCompare()">초기화</button>
+    <button class="popup-compare" id="popup-compare-btn" onclick="goCompare()" disabled>비교하기</button>
+  </div>
+</div>
 
 <script>
 function switchTab(tabId) {
@@ -893,7 +971,7 @@ function buildTrendCardSections(ranked) {
             ${c.pre_month_money?`<span class="c-chip">실적 ${Math.round(c.pre_month_money/10000)}만</span>`:''}
           </div>
           <div class="c-benefit">${benefit||'<span style="color:#94a3b8">혜택 요약 없음</span>'}</div>
-          <a class="c-detail-btn" href="detail.html?idx=${c.idx}">이 카드 자세히 보기</a>
+          <a class="c-detail-btn" href="/detail/${c.idx}">이 카드 자세히 보기</a>
         </div>`;
     }).join('');
 
@@ -1057,9 +1135,55 @@ function setTrendUnit(unit) {
 function doGlobalSearch() {
   const query = document.getElementById('q').value.trim();
   if (query) {
-    location.href = `index.html?q=${encodeURIComponent(query)}`;
+    location.href = `/search?q=${encodeURIComponent(query)}`;
   }
 }
+
+/* ── 비교함(플로팅 버블) — 다른 페이지(전체카드 등)에서 담아둔 항목을 여기서도 보여주고 관리 ── */
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
+let popupOpen = false;
+function togglePopup(){
+  popupOpen = !popupOpen;
+  document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+}
+function updateCompareBubble(){
+  document.getElementById('compare-bubble').classList.add('visible');
+  document.getElementById('bubble-badge').textContent = compareList.length;
+  const pslots = Array.from({length:3},(_,i)=>{
+    const c = compareList[i];
+    if(c) return `<div class="popup-slot filled">
+      <img src="${esc(c.img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      <span class="ps-name">${esc(c.name)}</span>
+      <button class="ps-remove" onclick="toggleCompareEntry(${c.idx})">×</button>
+    </div>`;
+    return `<div class="popup-slot empty" onclick="location.href='/card'">
+      <span class="ps-plus">+</span>
+      <span class="ps-label">카드 추가</span>
+    </div>`;
+  }).join('');
+  document.getElementById('popup-slots').innerHTML = pslots;
+  document.getElementById('popup-count').textContent = `${compareList.length}/3`;
+  document.getElementById('popup-compare-btn').disabled = compareList.length < 2;
+}
+function toggleCompareEntry(idx){
+  const i = compareList.findIndex(c=>c.idx===idx);
+  if(i > -1) compareList.splice(i,1);
+  saveCompare();
+  updateCompareBubble();
+}
+function resetCompare(){
+  compareList = [];
+  saveCompare();
+  updateCompareBubble();
+}
+function goCompare(){
+  if(compareList.length < 2) return;
+  const slot = compareList.map(c=>c.idx).join(',');
+  window.open(`/compare/${slot}`, '_blank');
+}
+updateCompareBubble();
 
 // 초기 로드 시 트렌드 탭 설정 가능하도록 둠
 </script>

@@ -6,10 +6,18 @@ const url = require('url');
 const PORT = 5501;
 const ROOT = __dirname;
 
-const rewrites = {
-  '/detail': '/detail.html',
-  '/compare': '/compare.html'
-};
+const vercelConfig = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+const rewriteRules = (vercelConfig.rewrites || []).map(r => ({
+  regex: new RegExp('^' + r.source.replace(/:[^/]+/g, '[^/]+') + '$'),
+  destination: r.destination
+}));
+
+function resolveRewrite(pathname) {
+  for (const rule of rewriteRules) {
+    if (rule.regex.test(pathname)) return rule.destination;
+  }
+  return pathname;
+}
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -25,12 +33,10 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
   console.log(new Date().toISOString(), req.method, req.url);
   const parsedUrl = url.parse(req.url, true);
-  let pathname = parsedUrl.pathname;
+  let pathname = decodeURIComponent(parsedUrl.pathname);
 
-  // 1) vercel.json rewrites 재현
-  if (rewrites[pathname]) {
-    pathname = rewrites[pathname];
-  }
+  // 1) vercel.json rewrites 재현 (동적 :param 세그먼트 포함)
+  pathname = resolveRewrite(pathname);
 
   // 2) 확장자가 없고 대응하는 .html이 있으면 리라이트
   const ext = path.extname(pathname);

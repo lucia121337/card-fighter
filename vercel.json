@@ -1,9 +1,27 @@
 {
   "rewrites": [
+    { "source": "/card", "destination": "/index.html" },
+    { "source": "/card/credit", "destination": "/index.html" },
+    { "source": "/card/check", "destination": "/index.html" },
+    { "source": "/card/premium", "destination": "/index.html" },
+    { "source": "/event", "destination": "/index.html" },
+    { "source": "/event/card-gorilla", "destination": "/index.html" },
+    { "source": "/event/ajd-card", "destination": "/index.html" },
+    { "source": "/event/kakaopay", "destination": "/index.html" },
+    { "source": "/event/naverpay", "destination": "/index.html" },
+    { "source": "/event/toss", "destination": "/index.html" },
+    { "source": "/event/banksalad", "destination": "/index.html" },
+    { "source": "/shopping", "destination": "/index.html" },
+    { "source": "/search", "destination": "/search.html" },
     { "source": "/detail", "destination": "/detail.html" },
+    { "source": "/detail/:idx", "destination": "/detail.html" },
     { "source": "/compare", "destination": "/compare.html" },
+    { "source": "/compare/:slot", "destination": "/compare.html" },
     { "source": "/cardlab", "destination": "/cardlab.html" },
-    { "source": "/cardlab_detail", "destination": "/cardlab_detail.html" }
+    { "source": "/cardlab_detail", "destination": "/cardlab_detail.html" },
+    { "source": "/cardlab/detail/:slug", "destination": "/cardlab_detail.html" },
+    { "source": "/cardlab/match", "destination": "/match_game.html" },
+    { "source": "/cardlab/worldcup", "destination": "/worldcup_game.html" }
   ],
   "cleanUrls": false
 }
