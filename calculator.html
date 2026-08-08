@@ -17,22 +17,42 @@
   body{margin:0;background:var(--bg);color:var(--txt);
        font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
   a{text-decoration:none;color:inherit}
-  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
-         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-         padding:12px 24px;display:flex;align-items:center;gap:14px}
-  .back{display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--brand);
-        font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
-        box-shadow:0 2px 8px rgba(20,92,230,.28)}
-  .header-logo{font-size:26px}.header-title{font-weight:800;font-size:16px;letter-spacing:-.5px;white-space:nowrap}
-  /* 상단 메뉴(GNB) — index.html과 동일 구성. 어느 페이지로 가도 전체 메뉴 유지 */
-  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 6px;flex-shrink:0}
-  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
-  .gnb::-webkit-scrollbar{display:none}
-  .gnb a{color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
-         padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.15s}
+  /* 정적 페이지 간 이동 시 헤더가 깜빡이며 "바뀌는" 것처럼 보이는 문제 방지 —
+     동일한 view-transition-name을 쓰는 헤더끼리는 크로스페이드 대신 그대로 유지됨
+     (index.html·cardlab.html과 동일 설정. 이게 빠져 있어서 계산기만 헤더가 튀었음) */
+  @view-transition{navigation:auto}
+
+  /* 헤더 — index.html·cardlab.html과 동일 구성/치수. 페이지를 넘나들어도 GNB가 고정된 것처럼 보이게 한다. */
+  header{view-transition-name:site-header;position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 22px}
+  .header-top{display:flex;align-items:center;flex-wrap:nowrap;max-width:1200px;margin:0 auto}
+  .brand-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .brand-left .logo{font-size:32px;line-height:1;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+  .brand-left h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-1px;color:var(--txt);
+    cursor:pointer;transition:.15s color}
+  .brand-left h1:hover{color:var(--brand)}
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 20px;flex-shrink:0}
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap}
+  .gnb a{color:var(--muted);font-size:15px;font-weight:600;text-decoration:none;
+         padding:7px 14px;border-radius:10px;transition:.15s background,.15s color;white-space:nowrap}
   .gnb a:hover{background:var(--panel2);color:var(--brand)}
   .gnb a.active{background:var(--brand);color:#fff}
-  @media(max-width:640px){.header-title{display:none}.gnb a{font-size:13px;padding:6px 9px}}
+  @keyframes coin-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .gnb .coin-icon{display:inline-block;animation:coin-bounce 1s ease-in-out infinite;margin-right:3px}
+  .header-search{flex:1;min-width:0;padding-left:20px}
+  .search-box{background:var(--panel2);border-radius:99px;padding:6px 14px 6px 20px;
+    display:flex;align-items:center;width:100%;
+    transition:.2s all;border:1.5px solid transparent}
+  .search-box:focus-within{background:#fff;border-color:var(--brand);box-shadow:0 4px 12px rgba(20,92,230,.08)}
+  .search-box input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;
+    font-weight:500;color:var(--txt);background:transparent}
+  .search-box input::placeholder{color:#94a3b8;font-weight:400}
+  .search-box .search-divider{width:1px;height:22px;background:var(--line);flex-shrink:0}
+  .search-box .search-btn{display:flex;align-items:center;justify-content:center;
+    width:48px;height:100%;background:none;border:none;cursor:pointer;
+    color:var(--muted);flex-shrink:0;transition:.15s color}
+  .search-box .search-btn:hover{color:var(--brand)}
+  .search-box .search-btn svg{width:20px;height:20px}
   .wrap{max-width:1040px;margin:0 auto;padding:28px 16px 90px}
 
   .hero{text-align:center;padding:12px 0 26px}
@@ -144,18 +164,33 @@
 </head>
 <body>
 <header>
-  <a class="back" href="index.html">← 홈으로</a>
-  <span class="header-logo" role="img" aria-label="카드 파이터">🥊</span>
-  <span class="header-title">카드 파이터</span>
-  <div class="gnb-divider"></div>
-  <nav class="gnb">
-    <a href="index.html">홈</a>
-    <a href="index.html#cards">전체카드</a>
-    <a href="index.html#cashback">🪙 캐시백</a>
-    <a href="index.html#shopping">할인가맹점</a>
-    <a href="calculator.html" class="active">🧮 혜택계산기</a>
-    <a href="cardlab.html">카드 연구소</a>
-  </nav>
+  <div class="header-top">
+    <div class="brand-left">
+      <span class="logo" role="img" aria-label="카드 파이터 로고">🥊</span>
+      <h1 onclick="location.href='/'">카드 파이터</h1>
+    </div>
+    <div class="gnb-divider"></div>
+    <nav class="gnb">
+      <a href="/">홈</a>
+      <a href="/card">전체카드</a>
+      <a href="/event"><span class="coin-icon">🪙</span>캐시백</a>
+      <a href="/shopping">할인가맹점</a>
+      <a href="calculator.html" class="active">🧮 혜택계산기</a>
+      <a href="/cardlab">카드 연구소</a>
+    </nav>
+    <div class="header-search">
+      <div class="search-box">
+        <input id="q" type="text" placeholder="스타벅스, 주유비 등 관심 혜택을 검색해보세요!" onkeydown="if(event.key==='Enter') doGlobalSearch()" />
+        <div class="search-divider"></div>
+        <button class="search-btn" onclick="doGlobalSearch()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M15.5 15.5L20.5 20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 </header>
 
 <div class="wrap">
@@ -222,6 +257,12 @@
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => Math.round(n).toLocaleString()+'원';
+
+// 헤더 검색 — index.html·cardlab.html과 동일 동작(/search로 이동)
+function doGlobalSearch() {
+  const query = document.getElementById('q').value.trim();
+  if (query) location.href = `/search?q=${encodeURIComponent(query)}`;
+}
 // 계산 규칙(율 상한·기본 한도·월한도 선택)은 benefit-calc.js(BenefitCalc) 공용 모듈에서 관리
 
 // 입력 카테고리(구조화 데이터의 카테고리명과 일치)
