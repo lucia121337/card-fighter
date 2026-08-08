@@ -2426,7 +2426,7 @@
 
       <!-- Q13: 학원비/교육비 요금 -->
       <div id="step-13" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-13">Question 12 / 13</div>
+        <div class="quiz-step-num" id="step-num-13">Question 12 / 14</div>
         <div class="quiz-question">학원비, 학습지, 도서/교재 구매 등 교육비에 한 달 평균 얼마나 지출하나요?</div>
         <div class="slider-container">
           <div class="slider-value-display" id="education-val-display">20만 원</div>
@@ -2443,9 +2443,28 @@
         </div>
       </div>
 
-      <!-- Q14: 관심 라이프스타일 칩 (최종) -->
+      <!-- Q14: 간편결제(Pay) 이용 금액 -->
       <div id="step-14" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-14">Question 13 / 13</div>
+        <div class="quiz-step-num" id="step-num-14">Question 13 / 14</div>
+        <div class="quiz-question">네이버페이, 카카오페이, 삼성페이 등 간편결제로 한 달에 얼마나 지출하시나요?</div>
+        <div class="slider-container">
+          <div class="slider-value-display" id="pay-val-display">12만 원</div>
+          <div class="slider-controls-row">
+            <button type="button" class="slider-adj-btn minus" onclick="adjustSliderValue('pay', -20000)">-</button>
+            <input type="range" min="0" max="500000" step="20000" value="120000" class="modern-slider" id="pay-slider" oninput="updateSliderDisplay('pay')">
+            <button type="button" class="slider-adj-btn plus" onclick="adjustSliderValue('pay', 20000)">+</button>
+          </div>
+          <div class="slider-labels">
+            <span>0원</span>
+            <span>25만 원</span>
+            <span>50만 원+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q15: 관심 라이프스타일 칩 (최종) -->
+      <div id="step-15" class="quiz-step" style="display:none;">
+        <div class="quiz-step-num" id="step-num-15">Question 14 / 14</div>
         <div class="quiz-question">평소 돈을 쓸 때 가장 아끼고 싶은 혜택 분야를 3가지 선택해 주세요!</div>
         <div class="chip-container">
           <div class="chip" onclick="toggleChip('해외여행')" id="chip-해외여행">✈️ 해외여행</div>
@@ -2468,9 +2487,9 @@
         <center><div class="chip-limit-msg" id="chip-count-msg">현재 0개 선택 (최대 3개)</div></center>
       </div>
 
-      <!-- Q15: 희망 카드 연회비 범위 설정 -->
-      <div id="step-15" class="quiz-step" style="display:none;">
-        <div class="quiz-step-num" id="step-num-15">Question 14 / 14</div>
+      <!-- Q16: 희망 카드 연회비 범위 설정 -->
+      <div id="step-16" class="quiz-step" style="display:none;">
+        <div class="quiz-step-num" id="step-num-16">Question 14 / 14</div>
         <div class="quiz-question">선호하시는 희망 카드 연회비 범위는 어느 정도인가요?</div>
         <div class="option-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;">
           <div class="option-card" onclick="selectFeeOption(10000)" id="fee-opt-10000">
@@ -2924,23 +2943,24 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // 3. 단계별 렌더링 & 진행률 맵핑 (13단계 지출 질문 + 키워드 칩 + 희망 연회비 범위 설정)
+  // 3. 단계별 렌더링 & 진행률 맵핑 (14단계 지출 질문 + 키워드 칩 + 희망 연회비 범위 설정 = 총 15문항)
   const STEP_PROGRESS_MAP = {
-    1: { num: 1, pct: 7 },
-    2: { num: 2, pct: 14 },
-    3: { num: 2, pct: 14 },
-    4: { num: 3, pct: 21 },
-    5: { num: 4, pct: 28 },
-    6: { num: 5, pct: 35 },
-    7: { num: 6, pct: 42 },
-    8: { num: 7, pct: 50 },
-    9: { num: 8, pct: 57 },
-    10: { num: 9, pct: 64 },
-    11: { num: 10, pct: 71 },
-    12: { num: 11, pct: 78 },
-    13: { num: 12, pct: 85 },
-    14: { num: 13, pct: 92 },
-    15: { num: 14, pct: 100 }
+    1: { num: 1, total: 15, pct: 6 },
+    2: { num: 2, total: 15, pct: 13 },
+    3: { num: 2, total: 15, pct: 13 },
+    4: { num: 3, total: 15, pct: 20 },
+    5: { num: 4, total: 15, pct: 26 },
+    6: { num: 5, total: 15, pct: 33 },
+    7: { num: 6, total: 15, pct: 40 },
+    8: { num: 7, total: 15, pct: 46 },
+    9: { num: 8, total: 15, pct: 53 },
+    10: { num: 9, total: 15, pct: 60 },
+    11: { num: 10, total: 15, pct: 66 },
+    12: { num: 11, total: 15, pct: 73 },
+    13: { num: 12, total: 15, pct: 80 },
+    14: { num: 13, total: 15, pct: 86 },
+    15: { num: 14, total: 15, pct: 93 },
+    16: { num: 15, total: 15, pct: 100 }
   };
 
   function goToStep(step) {
@@ -2950,7 +2970,7 @@
 
   function showStep(step) {
     // 모든 스텝 숨기기
-    for(let i=1; i<=15; i++) {
+    for(let i=1; i<=16; i++) {
       const stepEl = document.getElementById(`step-${i}`);
       if (stepEl) stepEl.style.display = 'none';
     }
@@ -2967,7 +2987,7 @@
       
       const numEl = document.getElementById(`step-num-${step}`);
       if (numEl) {
-        numEl.innerText = `Question ${map.num} / 14`;
+        numEl.innerText = `Question ${map.num} / ${map.total || 15}`;
       }
     }
     
@@ -2988,10 +3008,11 @@
     if (!nextBtn) return;
     if (currentStep === 1) {
       nextBtn.disabled = (userAnswers.transit_type === null);
-    } else if (currentStep === 14) {
-      nextBtn.disabled = (userAnswers.keywords.length === 0);
       nextBtn.innerText = "다음 단계";
     } else if (currentStep === 15) {
+      nextBtn.disabled = (userAnswers.keywords.length === 0);
+      nextBtn.innerText = "다음 단계";
+    } else if (currentStep === 16) {
       nextBtn.disabled = false;
       nextBtn.innerText = "결과 분석하기 🔮";
     } else {
@@ -3062,7 +3083,7 @@
 
   // 퀴즈 스텝 로드 시 슬라이더 게이지 바 비주얼 초기화
   function initAllSliderFills() {
-    const types = ["transit", "gas", "shopping", "convenience", "food", "cafe", "telecom", "digital", "culture", "travel", "utility", "education"];
+    const types = ["transit", "gas", "shopping", "convenience", "food", "cafe", "telecom", "digital", "culture", "travel", "utility", "education", "pay"];
     types.forEach(type => {
       updateSliderDisplay(type);
     });
@@ -3189,7 +3210,7 @@
       else goToStep(3);
     } else if (currentStep === 2 || currentStep === 3) {
       goToStep(4);
-    } else if (currentStep < 15) {
+    } else if (currentStep < 16) {
       goToStep(currentStep + 1);
     } else {
       runAIEngine();
@@ -3237,11 +3258,11 @@
     }, 2000);
   }
 
-  // 9. 13차원 경량 MLP 인공신경망 순방향 추론 연산
+  // 9. 14차원 경량 MLP 인공신경망 순방향 추론 연산
   function predictMLP(model, x, card = null) {
     if (!model || !model.W1 || model.W1.length === 0) {
       if (card) {
-        const rawSum = (x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12]);
+        const rawSum = (x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7] + x[8] + x[9] + x[10] + x[11] + x[12] + (x[13] || 0));
         return Math.max(0, Math.round((rawSum * 0.03) / 100) * 100);
       }
       return 0;
@@ -3260,15 +3281,16 @@
       x[9] / 300000.0,
       x[10] / 1000000.0,
       x[11] / 600000.0,
-      x[12] / 1000000.0
+      x[12] / 1000000.0,
+      (x[13] || 0) / 500000.0
     ];
 
     let hidden = [];
     const numHidden = model.b1.length;
     for (let j = 0; j < numHidden; j++) {
       let sum = 0;
-      for (let i = 0; i < 13; i++) {
-        sum += scaled_x[i] * model.W1[i][j];
+      for (let i = 0; i < scaled_x.length; i++) {
+        sum += scaled_x[i] * (model.W1[i] ? model.W1[i][j] : 0);
       }
       sum += model.b1[j];
       hidden.push(Math.max(0, sum));
@@ -3293,7 +3315,7 @@
     return nums.length > 0 ? Math.min(...nums) : 0;
   }
 
-  // 10. MBTI 및 추천 혜택금 계산 (13차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
+  // 10. MBTI 및 추천 혜택금 계산 (14차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
   function calculateRecommendations() {
     const x = [
       userAnswers.transit_type,
@@ -3308,7 +3330,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
 
     const mbti = diagnoseMBTI(userAnswers);
@@ -3321,12 +3344,14 @@
     CARDS_LIST.forEach(card => {
       const idxStr = String(card.idx);
       
-      let predictedBenefit = 0;
-      if (ML_MODEL[idxStr]) {
-        predictedBenefit = predictMLP(ML_MODEL[idxStr], x, card);
-      } else {
-        predictedBenefit = predictMLP(null, x, card);
+      // 마일리지, 포인트형 전용 카드 및 법인/비즈니스 전용 카드, 학습 제외 카드는 추천 랭킹에서 완전히 필터링
+      const cardNameLower = (card.card_name || "").toLowerCase();
+      const isBizCard = ["법인", "비즈니스", "biz", "사업자", "기업", "corporate", "b2b", "ceo", "소호", "soho", "사장님"].some(k => cardNameLower.includes(k));
+      if (card.is_mileage || card.card_type === "마일리지" || card.card_type === "포인트" || isBizCard || !ML_MODEL[idxStr]) {
+        return;
       }
+
+      let predictedBenefit = predictMLP(ML_MODEL[idxStr], x, card);
       if (predictedBenefit > maxBenefit) maxBenefit = predictedBenefit;
       
       // 키워드 취향 매칭도 계산
@@ -3443,8 +3468,9 @@
     const travel = answers.travel_spend;
     const utility = answers.utility_spend;
     const edu = answers.education_spend;
+    const pay = answers.pay_spend || 0;
 
-    const total = gas + transit + shopping + conv + food + cafe + telecom + digital + culture + travel + utility + edu;
+    const total = gas + transit + shopping + conv + food + cafe + telecom + digital + culture + travel + utility + edu + pay;
     const safeTotal = total > 0 ? total : 1;
 
     // 1축: 소비 집중도 (C vs B)
@@ -3457,7 +3483,8 @@
       { name: "주유", val: gas },
       { name: "교통", val: transit },
       { name: "구독/디지털", val: digital },
-      { name: "공과금", val: utility }
+      { name: "공과금", val: utility },
+      { name: "간편결제(Pay)", val: pay }
     ].sort((a, b) => b.val - a.val);
 
     const top1Ratio = (catSpends[0].val / safeTotal);
@@ -3466,9 +3493,20 @@
     const top1Pct = Math.min(Math.max(Math.round(top1Ratio * 100), 10), 90);
     const axis1Pct = top1Pct;
 
-    // 2축: 소비 공간 (O vs I)
-    let outdoorScore = (gas + transit + food + travel);
-    let indoorScore = (shopping + conv + cafe + digital);
+    // 2축: 소비 공간 (O vs I) - 간편결제(pay) 동적 지출 비율 가중 분배 적용
+    const baseOutdoor = (gas + transit + food + travel);
+    const baseIndoor = (shopping + conv + cafe + digital);
+    const baseSum = baseOutdoor + baseIndoor;
+
+    let outdoorRatio = 0.5;
+    let indoorRatio = 0.5;
+    if (baseSum > 0) {
+      outdoorRatio = baseOutdoor / baseSum;
+      indoorRatio = baseIndoor / baseSum;
+    }
+
+    let outdoorScore = baseOutdoor + (pay * outdoorRatio);
+    let indoorScore = baseIndoor + (pay * indoorRatio);
 
     answers.keywords.forEach(kw => {
       if (["해외여행", "캠핑", "주유", "외식/배달", "대중교통"].includes(kw)) outdoorScore += 150000;
@@ -3799,6 +3837,7 @@
         { name: "여행/숙박", val: feats[10] || 0 },
         { name: "공과금", val: feats[11] || 0 },
         { name: "교육/학원", val: feats[12] || 0 },
+        { name: "간편결제(Pay)", val: feats[13] || 0 },
         { name: "교통/주유", val: feats[0] === 1 ? feats[1] : feats[2] }
       ];
       const topSpends = spendItems.filter(it => it.val > 0).sort((a, b) => b.val - a.val).slice(0, 2);
@@ -3849,7 +3888,7 @@
     const cardNameEl = document.getElementById('breakdown-card-name');
     if (cardNameEl) cardNameEl.innerText = `${card.company || ''} ${card.card_name}`;
     
-    // 유저 입력 x 수치 기반 총 지출액 계산
+    // 유저 입력 x 수치 기반 총 지출액 계산 (14차원 x[13] 포함)
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -3863,7 +3902,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
     
     const totalSpendSum = x.slice(1).reduce((a, b) => a + b, 0);
@@ -4060,7 +4100,8 @@
       { label: "🎨 문화/여가", val: features[9] },
       { label: "✈️ 여행/숙박", val: features[10] },
       { label: "💸 공과금", val: features[11] },
-      { label: "📚 교육/육아", val: features[12] }
+      { label: "📚 교육/육아", val: features[12] },
+      { label: "💳 간편결제(Pay)", val: features[13] || 0 }
     ];
     
     let total = 0;
@@ -4173,12 +4214,12 @@
   function renderRadarChart(features, themeColor) {
     const ctx = document.getElementById('mbtiRadarChart').getContext('2d');
     
-    // 8대 핵심 축 환산 점수 (0~100 스케일링, 실지출 기반 왜곡 교정)
+    // 8대 핵심 축 환산 점수 (0~100 스케일링, 실지출 기반 왜곡 교정, 14차원 pay_spend 분산 가산)
     const mobilityScore = Math.min(((features[1] + features[2]) / 500000) * 100, 100);
-    const shoppingScore = Math.min((features[3] / 1000000) * 100, 100);
+    const shoppingScore = Math.min(((features[3] + (features[13] || 0) * 0.5) / 1000000) * 100, 100);
     const foodScore = Math.min((features[5] / 1000000) * 100, 100);
     const snackScore = Math.min(((features[4] + features[6]) / 500000) * 100, 100);
-    const digitalScore = Math.min(((features[7] + features[8]) / 250000) * 100, 100);
+    const digitalScore = Math.min(((features[7] + features[8] + (features[13] || 0) * 0.5) / 250000) * 100, 100);
     const travelScore = Math.min((features[10] / 1000000) * 100, 100);
     const utilityScore = Math.min((features[11] / 600000) * 100, 100);
     const cultureScore = Math.min(((features[9] + features[12]) / 1200000) * 100, 100);
@@ -4474,6 +4515,12 @@
       rawDetail["🎓 학원/교육비"] = hasEdu ? Math.min(x[12] * 0.1, 40000) : x[12] * 0.005;
     }
 
+    // 13. 간편결제(Pay)
+    if (x[13] > 0) {
+      const hasPay = hasCategoryMatch(cats, ["간편결제", "네이버페이", "카카오페이", "삼성페이", "페이코", "스마일페이", "SSG페이", "L.pay", "엘페이", "Pay"]);
+      rawDetail["💳 간편결제(Pay)"] = hasPay ? Math.min(x[13] * 0.08, 20000) : x[13] * 0.005;
+    }
+
     if (totalBenefit !== null && totalBenefit >= 0) {
       const rawSum = Object.values(rawDetail).reduce((a, b) => a + b, 0);
       const scaledDetail = {};
@@ -4501,7 +4548,7 @@
     const myCard = CARDS_LIST.find(c => c.idx === idx);
     if (!myCard) return;
     
-    // 내 카드 예상 혜택 계산 (13차원 순방향)
+    // 내 카드 예상 혜택 계산 (14차원 순방향)
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -4515,7 +4562,8 @@
       userAnswers.culture_spend,
       userAnswers.travel_spend,
       userAnswers.utility_spend,
-      userAnswers.education_spend
+      userAnswers.education_spend,
+      userAnswers.pay_spend
     ];
     
     let myBenefit = 0;
@@ -4584,7 +4632,8 @@
       "📚 도서/문화생활": x[9],
       "✈️ 여행/숙박/항공": x[10],
       "💸 공과금/납부": x[11],
-      "🎓 학원/교육비": x[12]
+      "🎓 학원/교육비": x[12],
+      "💳 간편결제(Pay)": x[13] || 0
     };
 
     const allKeys = [...new Set([...Object.keys(myDetails), ...Object.keys(bestDetails)])];
