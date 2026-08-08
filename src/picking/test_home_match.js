@@ -34,3 +34,8 @@ test('추천 이유는 실제 적용 혜택이 큰 두 항목을 사용한다', 
     '교통 10%로 약 7,000원 혜택'
   ]);
 });
+
+test('카드 수 문구는 배열 길이를 천 단위로 표시한다', () => {
+  assert.equal(HomeMatch.cardCountCopy(new Array(1276)), '1,276장의 카드가 싸웁니다.');
+  assert.equal(HomeMatch.cardCountCopy(null), '수많은 카드가 싸웁니다.');
+});

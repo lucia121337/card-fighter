@@ -46,5 +46,11 @@
     return lines.length ? lines : [fallback || '상세 혜택을 확인해보세요.'];
   }
 
-  return {STANDARD_SPEND, totalSpend, rankCards, reasonLines};
+  function cardCountCopy(cards) {
+    return Array.isArray(cards) && cards.length
+      ? `${cards.length.toLocaleString()}장의 카드가 싸웁니다.`
+      : '수많은 카드가 싸웁니다.';
+  }
+
+  return {STANDARD_SPEND, totalSpend, rankCards, reasonLines, cardCountCopy};
 });

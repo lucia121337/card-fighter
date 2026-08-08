@@ -1,8 +1,8 @@
 /* 홈 개인화 — 소비 프로필로 "생활 상황별 대표 카드"를 "내 소비 기준 Top3"로 바꾼다.
  * index.html 마크업은 건드리지 않고 주입한다(#home-featured-cards 위에 스트립 삽입).
  * 프로필 없으면: 퀵 입력 스트립만 노출, 기존 대표카드 그대로(무회귀).
- * 프로필 있으면: benefits_structured.json + cards.json(활성만) 지연 로드 → BenefitCalc 순이득 Top3.
- * 의존: profile.js(CardProfile), benefit-calc.js(BenefitCalc) */
+ * 프로필 있으면: benefits_structured.json + cards_list.json 지연 로드 → BenefitCalc 순이득 Top3.
+ * 의존: profile.js(CardProfile), benefit-calc.js(BenefitCalc), home-match.js(HomeMatch) */
 (function () {
   'use strict';
   var QUICK_CATS = [
@@ -11,7 +11,7 @@
   ];
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var won = function (n) { return Math.round(n).toLocaleString() + '원'; };
-  var DATA = null; // {BEN, CARDS}
+  var DATA = null; // {BEN, CARD_LIST, CARDS}
 
   function el(id) { return document.getElementById(id); }
 
@@ -172,11 +172,13 @@
     if (DATA) return Promise.resolve(DATA);
     return Promise.all([
       fetch('benefits_structured.json').then(function (r) { return r.json(); }),
-      fetch('cards.json').then(function (r) { return r.json(); })   // 활성 목록(단종 제외)
+      fetch('cards_list.json').then(function (r) { return r.json(); })
     ]).then(function (rs) {
       var byIdx = {};
       rs[1].forEach(function (c) { byIdx[c.idx] = c; });
-      DATA = { BEN: rs[0], CARDS: byIdx };
+      var countCopy = el('home-card-count-copy');
+      if (countCopy) countCopy.textContent = HomeMatch.cardCountCopy(rs[1]);
+      DATA = { BEN: rs[0], CARD_LIST: rs[1], CARDS: byIdx };
       return DATA;
     });
   }
@@ -185,14 +187,7 @@
     var grid = el('home-featured-cards'); if (!grid) return;
     loadData().then(function (d) {
       var prev = p.prevMonth > 0 ? p.prevMonth : CardProfile.total(p);
-      var ranked = [];
-      for (var idx in d.CARDS) {                       // 활성 카드만 순회
-        var b = d.BEN[String(idx)]; if (!b) continue;
-        var r = BenefitCalc.calc(b, p.spend, { prevMonth: prev });
-        if (r.money <= 0) continue;                    // 돈 혜택 있는 카드만 (홈은 단순하게)
-        ranked.push({ idx: idx, card: d.CARDS[idx], r: r });
-      }
-      ranked.sort(function (a, z) { return z.r.net - a.r.net || a.r.feeMonthly - z.r.feeMonthly; });
+      var ranked = HomeMatch.rankCards(d.CARD_LIST, d.BEN, p.spend, prev, BenefitCalc);
       var top = ranked.slice(0, 3);
       if (!top.length) return;                         // 계산 불가 프로필이면 기존 화면 유지
 
@@ -229,29 +224,14 @@
 
   /* 히어로 '오늘의 매치' — 프로필 있으면 내 1위 vs 2위, 없으면 표준 소비 기준(계산기 '보통' 프리셋).
      가짜 예시가 아니라 실데이터 계산 결과를 보여준다. */
-  var NORMAL_PRESET = { '푸드': 400000, '카페/디저트': 100000, '마트/편의점': 250000,
-    '온라인쇼핑': 200000, '교통': 70000, '주유': 100000, '통신': 70000 };
-
-  function rankCards(spend, prevMonth, d) {
-    var ranked = [];
-    for (var idx in d.CARDS) {
-      var b = d.BEN[String(idx)]; if (!b) continue;
-      var r = BenefitCalc.calc(b, spend, { prevMonth: prevMonth });
-      if (r.money <= 0) continue;
-      ranked.push({ idx: idx, card: d.CARDS[idx], r: r });
-    }
-    ranked.sort(function (a, z) { return z.r.net - a.r.net || a.r.feeMonthly - z.r.feeMonthly; });
-    return ranked;
-  }
-
   function renderHeroMatch() {
     var box = el('hero-match'); if (!box) return;
     var p = CardProfile.load();
-    var spend = p ? p.spend : NORMAL_PRESET;
+    var spend = p ? p.spend : HomeMatch.STANDARD_SPEND;
     var prev = p && p.prevMonth > 0 ? p.prevMonth
-             : Object.values(spend).reduce(function (a, b) { return a + b; }, 0);
+             : HomeMatch.totalSpend(spend);
     loadData().then(function (d) {
-      var top2 = rankCards(spend, prev, d).slice(0, 2);
+      var top2 = HomeMatch.rankCards(d.CARD_LIST, d.BEN, spend, prev, BenefitCalc).slice(0, 2);
       if (top2.length < 2) return;
       var row = function (t, win) {
         var c = t.card;
