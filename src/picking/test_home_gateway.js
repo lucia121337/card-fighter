@@ -6,6 +6,16 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '../..');
 const HomeGateway = require(path.join(ROOT, 'home-gateway.js'));
 
+test('purpose routes use three decorative currentColor line icons', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  const nav = index.match(/<nav id="home-purpose-routes"[\s\S]*?<\/nav>/)[0];
+
+  assert.equal((nav.match(/<svg\b/g) || []).length, 3);
+  assert.equal((nav.match(/<svg\b[^>]*aria-hidden="true"/g) || []).length, 3);
+  assert.equal((nav.match(/stroke="currentColor"/g) || []).length, 3);
+  assert.doesNotMatch(nav, /[▣◒◈]/);
+});
+
 test('phone header collapse covers common 360 to 412px widths with touch targets', () => {
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   const match = index.match(/@media\(max-width:(\d+)px\)\{[\s\S]*?\.header-top\{[^}]*flex-wrap:wrap/);
