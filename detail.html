@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<base href="/">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>카드 상세 — 카드 파이터</title>
@@ -451,10 +452,11 @@ function render(d){
     </div>`;
 }
 
-const idx = new URLSearchParams(location.search).get('idx');
+const pathIdx = location.pathname.match(/^\/detail\/([^/]+)/);
+const idx = pathIdx ? decodeURIComponent(pathIdx[1]) : new URLSearchParams(location.search).get('idx');
 if(!idx){
   // 카드 지정 없이 들어오면 목록으로 (상세 화면은 항상 특정 카드 기준이어야 함)
-  location.replace('index.html');
+  location.replace('/index.html');
 } else {
   Promise.all([
     fetch('card_detail/' + idx + '.json').then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
