@@ -944,7 +944,9 @@ function updateCompareBar(){
   document.getElementById('popup-count').textContent = `${compareList.length}/3`;
   const pcb = document.getElementById('popup-compare-btn');
   if(pcb) pcb.disabled = compareList.length < 2;
-  if(window.HomeRecommendation) HomeRecommendation.renderCompare(compareList);
+  if (window.HomeGateway && window.CardProfile) {
+    HomeGateway.updateResume(CardProfile.load(), compareList);
+  }
 }
 
 function resetCompare(){
@@ -1762,7 +1764,7 @@ fetch('cards_list.json')
     renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
     updateFeeUI();         // 연회비 슬라이더 초기 표시
     applyFilters();
-    if(window.HomeRecommendation) HomeRecommendation.renderCards(DATA);
+    if (window.HomeGateway) HomeGateway.updateCards(DATA);
   })
   .catch(e=>{
     document.getElementById('empty').hidden=false;
@@ -2297,33 +2299,30 @@ REC_CARDS.forEach(c => recCardMap[c.idx] = c);
 loadRealtimeKeywords();
 realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
 </script>
-<script src="home-recommendation.js"></script>
+<script src="profile.js"></script>
+<script src="home-gateway.js"></script>
 <script>
-HomeRecommendation.init({
-  cards: DATA,
-  cashback: getPlatformCompanies('전체보기'),
+HomeGateway.init({
+  cards: Array.isArray(DATA) ? DATA : [],
+  profile: CardProfile.load(),
   compareList,
   actions: {
-    benefits(){ showSection('cards'); },
-    cashback(){ showSection('cashback'); },
-    compare(){ compareList.length >= 2 ? goCompare() : showSection('cards'); },
-    category(category){
+    cashback() { showSection('cashback'); },
+    benefits() {
       showSection('cards');
-      activeCategories.clear();
-      activeCategories.add(category);
-      document.querySelectorAll('.cat-pill').forEach(button => {
-        button.classList.toggle('active', button.dataset.cat === category);
+      requestAnimationFrame(() => {
+        const target = document.getElementById('benefit-filters');
+        if (!target) return;
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+        target.focus({preventScroll: true});
       });
-      applyFilters();
     },
-    toggleCompare
+    compare() {
+      compareList.length >= 2 ? goCompare() : showSection('cards');
+    }
   }
 });
 </script>
-<!-- 소비 프로필 허브: 홈 대표카드를 '내 소비 기준 Top3'로 개인화 (프로필 없으면 기존 동작 그대로) -->
-<script src="profile.js"></script>
-<script src="benefit-calc.js"></script>
-<script src="home-match.js"></script>
-<script src="home-profile.js"></script>
 </body>
 </html>

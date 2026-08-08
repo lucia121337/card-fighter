@@ -6,6 +6,26 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '../..');
 const HomeGateway = require(path.join(ROOT, 'home-gateway.js'));
 
+test('index wires only the purpose gateway home', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(index, /<script src="profile\.js"><\/script>/);
+  assert.match(index, /<script src="home-gateway\.js"><\/script>/);
+  assert.match(index, /HomeGateway\.updateCards\(DATA\)/);
+  assert.match(index, /HomeGateway\.updateResume\(CardProfile\.load\(\), compareList\)/);
+  assert.match(index, /HomeGateway\.init\(/);
+  assert.doesNotMatch(index, /home-recommendation\.js/);
+  assert.doesNotMatch(index, /home-profile\.js/);
+  assert.doesNotMatch(index, /home-match\.js/);
+  assert.doesNotMatch(index, /benefit-calc\.js/);
+});
+
+test('index no longer references removed recommendation home modules', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  for (const oldName of ['HomeRecommendation', 'hero-match', 'home-featured-cards', 'home-cashback-list']) {
+    assert.doesNotMatch(index, new RegExp(oldName));
+  }
+});
+
 test('세 가지 공식 목적 경로만 제공한다', () => {
   assert.deepEqual(HomeGateway.PURPOSE_ROUTES.map(route => [route.id, route.href]), [
     ['calculator', 'calculator.html'],

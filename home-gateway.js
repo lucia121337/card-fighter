@@ -116,39 +116,24 @@
     target.hidden = !html;
   }
 
-  let actions = {};
-  let delegatedRoot = null;
-  let delegatedHandler = null;
+  const state = {actions: {}, ready: false};
 
-  function init(options) {
-    const settings = options || {};
-    actions = settings.actions || {};
-    updateCards(settings.cards);
-    updateResume(settings.profile, settings.compareList);
-
+  function init(options = {}) {
     if (typeof document === 'undefined') return;
-
-    const gateway = document.getElementById('home-gateway');
-    if (!gateway || gateway === delegatedRoot) return;
-
-    if (delegatedRoot && delegatedHandler) {
-      delegatedRoot.removeEventListener('click', delegatedHandler);
-    }
-
-    delegatedRoot = gateway;
-    delegatedHandler = event => {
-      const target = event.target && event.target.closest
-        ? event.target.closest('[data-home-route]')
-        : null;
-      if (!target || !gateway.contains(target)) return;
-
-      const action = actions[target.dataset.homeRoute];
+    state.actions = options.actions || {};
+    updateCards(options.cards || []);
+    updateResume(options.profile || null, options.compareList || []);
+    const root = document.getElementById('home-gateway');
+    if (!root || state.ready) return;
+    state.ready = true;
+    root.addEventListener('click', event => {
+      const target = event.target.closest('[data-home-route]');
+      if (!target) return;
+      const action = state.actions[target.dataset.homeRoute];
       if (typeof action !== 'function') return;
-
       event.preventDefault();
-      action(event);
-    };
-    gateway.addEventListener('click', delegatedHandler);
+      action();
+    });
   }
 
   return {
