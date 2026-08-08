@@ -131,15 +131,43 @@ test('카드 총 문구는 cards_list 배열 길이를 표시한다', () => {
   assert.equal(HomeGateway.cardCountCopy(null), '수많은 카드 데이터');
 });
 
-test('히어로 장식은 이미지가 있는 앞쪽 카드 세 장만 고른다', () => {
+test('hero selection uses the supplied random source without duplicates', () => {
   const cards = [
-    {idx: 1, card_name: '이미지 없음', card_img: ''},
-    {idx: 2, card_name: 'A', card_img: 'a.png'},
-    {idx: 3, card_name: 'B', card_img: 'b.png'},
-    {idx: 4, card_name: 'C', card_img: 'c.png'},
-    {idx: 5, card_name: 'D', card_img: 'd.png'}
+    {idx: 0, card_name: 'no image', card_img: ''},
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
   ];
-  assert.deepEqual(HomeGateway.selectHeroCards(cards).map(card => card.idx), [2, 3, 4]);
+
+  const low = HomeGateway.selectHeroCards(cards, 3, () => 0).map(card => card.idx);
+  const high = HomeGateway.selectHeroCards(cards, 3, () => 0.999).map(card => card.idx);
+
+  assert.deepEqual(low, [2, 3, 4]);
+  assert.deepEqual(high, [1, 2, 3]);
+  assert.equal(new Set(low).size, 3);
+  assert.ok(low.every(idx => idx !== 0));
+});
+
+test('hero picker keeps one non-empty combination for the page lifetime', () => {
+  const cards = [
+    {idx: 1, card_name: 'A', card_img: 'a.png'},
+    {idx: 2, card_name: 'B', card_img: 'b.png'},
+    {idx: 3, card_name: 'C', card_img: 'c.png'},
+    {idx: 4, card_name: 'D', card_img: 'd.png'}
+  ];
+  let randomCalls = 0;
+  const picker = HomeGateway.createHeroCardPicker(() => {
+    randomCalls += 1;
+    return 0;
+  });
+
+  assert.deepEqual(picker([]), []);
+  const first = picker(cards);
+  const second = picker(cards.slice().reverse());
+
+  assert.deepEqual(second, first);
+  assert.equal(randomCalls, 3);
 });
 
 test('저장된 탐색이 전혀 없으면 이어하기 상태를 만들지 않는다', () => {
