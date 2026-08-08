@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '../..');
@@ -88,4 +89,30 @@ test('외부 이어하기 상태의 행동 값과 문구를 HTML로 해석하지
   assert.match(html, /&lt;img src=x&gt;/);
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
   assert.doesNotMatch(html, /<img src=x>|<script>alert\(1\)<\/script>/);
+});
+
+test('index includes only the purpose gateway home structure', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(index, /id="home-gateway"/);
+  assert.match(index, /id="home-hero-cards"/);
+  assert.match(index, /id="home-purpose-routes"/);
+  assert.match(index, /href="calculator\.html"/);
+  assert.match(index, /href="\/event"/);
+  assert.match(index, /href="\/card#benefit-filters"/);
+  assert.match(index, /id="home-resume"[^>]*hidden/);
+  assert.match(index, /id="benefit-filters"/);
+  assert.doesNotMatch(index, /id="hero-match"/);
+  assert.doesNotMatch(index, /class="home-block home-featured"/);
+  assert.doesNotMatch(index, /class="home-block home-cashback"/);
+  assert.doesNotMatch(index, /id="home-compare-panel"/);
+});
+
+test('the gateway stylesheet includes hierarchy, mobile, and reduced-motion rules', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+  assert.match(css, /\.home-editorial-hero/);
+  assert.match(css, /\.home-purpose-grid/);
+  assert.match(css, /\.home-resume/);
+  assert.match(css, /\.home-lab-grid/);
+  assert.match(css, /@media \(max-width:720px\)/);
+  assert.match(css, /prefers-reduced-motion:reduce/);
 });
