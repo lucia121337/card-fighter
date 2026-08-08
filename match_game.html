@@ -3559,7 +3559,7 @@
   }
 
   // 10. MBTI 및 추천 혜택금 계산 (14차원 입력 벡터 매핑 + 7:3 통합 점수 + MBTI 앙상블 + 연간 순이득)
-  function calculateRecommendations() {
+  function calculateRecommendations(isInlineRecalc = false) {
     const x = [
       userAnswers.transit_type,
       userAnswers.transit_type === 1 ? userAnswers.gas_spend : 0,
@@ -3675,7 +3675,7 @@
     const top3 = results.slice(0, 3);
     bestCardItem = top3[0]; // 1위 통합 추천 카드 캐싱
     
-    renderResultView(mbti, top3, x);
+    renderResultView(mbti, top3, x, isInlineRecalc);
   }
 
   // 11. 16가지 소비 MBTI 4글자 코드 데이터베이스 (1축:C/B, 2축:O/I, 3축:E/V, 4축:P/F)
@@ -3810,15 +3810,17 @@
   }
 
   // 12. 결과 렌더링
-  function renderResultView(mbti, top3, features) {
+  function renderResultView(mbti, top3, features, isInlineRecalc = false) {
     document.getElementById('game-loading').style.display = 'none';
     
     // 결과 페이지 상단 탭 네비게이션 활성화
     const navTabs = document.getElementById('result-nav-tabs');
     if (navTabs) navTabs.style.display = 'flex';
     
-    // 1단계 MBTI 진단 화면 표시 (2단계 추천 화면은 숨김)
-    switchResultTab('mbti');
+    // 인라인 지출 재계산일 경우 현재 탭(cards) 유지!
+    if (!isInlineRecalc) {
+      switchResultTab('mbti');
+    }
 
     // MBTI 데이터 바인딩
     document.getElementById('mbti-tag-val').innerText = `소비 분석 MBTI: ${mbti.tag}`;
@@ -4409,8 +4411,8 @@
     items.forEach(item => {
       if (item.val > 0) {
         total += item.val;
-        const manVal = Math.round(item.val / 10000);
-        chipsHtml += `<div class="spend-chip">${item.label} <span class="chip-amt">${manVal}만 원</span></div>`;
+        const displayStr = formatMoney(item.val);
+        chipsHtml += `<div class="spend-chip">${item.label} <span class="chip-amt">${displayStr}</span></div>`;
       }
     });
 
@@ -4523,17 +4525,22 @@
     const numVal = parseInt(val, 10) || 0;
     userAnswers[`${type}_spend`] = numVal;
 
-    // 메인 슬라이더 및 텍스트 동기화
+    // 메인 슬라이더 및 퀴즈 게이지 디스플레이 실시간 업데이트
     const mainSlider = document.getElementById(`${type}-slider`);
-    if (mainSlider) mainSlider.value = numVal;
+    if (mainSlider) {
+      mainSlider.value = numVal;
+      if (typeof updateSliderDisplay === 'function') {
+        updateSliderDisplay(type);
+      }
+    }
 
     const displayEl = document.getElementById(`inline-${type}-display`);
     if (displayEl) displayEl.innerText = formatMoney(numVal);
 
-    // 실시간 AI 연산 재실행 (100ms Debounce)
+    // 실시간 AI 연산 재실행 (100ms Debounce, 인라인 플래그 true)
     if (inlineRecalcDebounceTimer) clearTimeout(inlineRecalcDebounceTimer);
     inlineRecalcDebounceTimer = setTimeout(() => {
-      calculateRecommendations();
+      calculateRecommendations(true);
     }, 100);
   }
 
@@ -4574,7 +4581,7 @@
     }, 1800);
   }
 
-  function switchResultTab(tabName) {
+  function switchResultTab(tabName, skipScroll = false) {
     const mbtiView = document.getElementById('game-result-mbti');
     const cardsView = document.getElementById('game-result-cards');
     const tabMbti = document.getElementById('tab-btn-mbti');
@@ -4594,7 +4601,9 @@
         selectBestCardItem(0);
       }
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!skipScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   function showMbtiView() {
