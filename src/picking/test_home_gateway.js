@@ -116,3 +116,16 @@ test('the gateway stylesheet includes hierarchy, mobile, and reduced-motion rule
   assert.match(css, /@media \(max-width:720px\)/);
   assert.match(css, /prefers-reduced-motion:reduce/);
 });
+
+test('the Card Lab link provides a 44px keyboard and touch target', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+  assert.match(css, /.home-lab-head>a{[^}]*display:inline-flex[^}]*min-height:44px[^}]*padding:/);
+});
+
+test('the Card Lab uses the site blue-gray palette and natural tournament copy', () => {
+  const css = fs.readFileSync(path.join(ROOT, 'home-gateway.css'), 'utf8');
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.doesNotMatch(css, /#ddd6fe|#f5f1ff|#7c3aed/);
+  assert.match(index, /마지막까지 살아남을 카드는?/);
+  assert.doesNotMatch(index, /마음 마지막까지 남아있는 카드는?/);
+});
