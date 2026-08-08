@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>내 카드 이득 계산기 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#e8f0fd; --line:#e2e8f0;
+    --txt:#1e293b; --muted:#64748b; --brand:#145CE6; --brand-deep:#0E47C0;
+    --good:#059669; --shadow:0 4px 18px rgba(20,92,230,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+       font-family:"GmarketSans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+  a{text-decoration:none;color:inherit}
+  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);
+         backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+         padding:12px 24px;display:flex;align-items:center;gap:14px}
+  .back{display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--brand);
+        font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
+        box-shadow:0 2px 8px rgba(20,92,230,.28)}
+  .header-logo{font-size:26px}.header-title{font-weight:800;font-size:16px;letter-spacing:-.5px;white-space:nowrap}
+  /* 상단 메뉴(GNB) — index.html과 동일 구성. 어느 페이지로 가도 전체 메뉴 유지 */
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 6px;flex-shrink:0}
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+  .gnb::-webkit-scrollbar{display:none}
+  .gnb a{color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
+         padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.15s}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  .gnb a.active{background:var(--brand);color:#fff}
+  @media(max-width:640px){.header-title{display:none}.gnb a{font-size:13px;padding:6px 9px}}
+  .wrap{max-width:1040px;margin:0 auto;padding:28px 16px 90px}
+
+  .hero{text-align:center;padding:12px 0 26px}
+  .hero .eyebrow{display:inline-flex;gap:6px;background:var(--panel2);color:var(--brand);
+        font-size:12.5px;font-weight:800;padding:6px 14px;border-radius:99px;border:1px solid #bfdbfe;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;margin:0 0 8px;letter-spacing:-1px}
+  .hero h1 b{color:var(--brand)}
+  .hero p{color:var(--muted);font-size:14px;margin:0}
+
+  .layout{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
+  @media(max-width:860px){ .layout{grid-template-columns:1fr} }
+
+  /* 입력 패널 */
+  .panel{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+  .panel-title{font-size:14px;font-weight:800;margin:0 0 4px}
+  .panel-sub{font-size:12px;color:var(--muted);margin:0 0 14px}
+  .spend-row{display:flex;align-items:center;gap:10px;padding:8px 0}
+  .spend-ico{width:34px;height:34px;border-radius:10px;background:var(--panel2);display:grid;place-items:center;font-size:17px;flex-shrink:0}
+  .spend-name{flex:1;font-size:13.5px;font-weight:700}
+  .spend-input{width:96px;position:relative}
+  .spend-input input{width:100%;text-align:right;padding:8px 34px 8px 10px;border:1.5px solid var(--line);
+        border-radius:9px;font-size:13.5px;font-family:inherit;outline:none;font-weight:700}
+  .spend-input input:focus{border-color:var(--brand)}
+  .spend-input .unit{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);font-weight:700}
+  .total-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:14px;border-top:1.5px dashed var(--line)}
+  .total-row .tl{font-size:13px;font-weight:700;color:var(--muted)}
+  .total-row .tv{font-size:17px;font-weight:800;color:var(--brand)}
+  .presets{display:flex;gap:6px;margin-top:12px}
+  .presets button{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+        padding:7px 0;font-size:12px;font-weight:700;color:var(--brand);cursor:pointer;font-family:inherit}
+  .presets button:hover{border-color:var(--brand)}
+
+  /* 결과 */
+  .res-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+  .res-head h2{font-size:16px;font-weight:800;margin:0}
+  .res-head .cnt{font-size:12.5px;color:var(--muted);font-weight:700}
+  .res-head .cnt b{color:var(--brand)}
+  .disc{font-size:11.5px;color:#92826a;background:#fffbeb;border:1px solid #fde68a;
+        border-radius:10px;padding:9px 12px;margin-bottom:14px;line-height:1.5}
+  .rank{display:flex;flex-direction:column;gap:11px}
+  .rcard{display:flex;align-items:center;gap:14px;background:var(--panel);border:1.5px solid var(--line);
+        border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);transition:.15s}
+  .rcard:hover{border-color:var(--brand);box-shadow:0 12px 28px rgba(20,92,230,.14)}
+  /* 순위 위계: 1위는 '챔피언'(월드컵과 같은 언어), 2·3위는 은/동 메달 톤 — 골드는 1위에만 쓴다 */
+  .rcard.top{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff);position:relative;margin-top:8px}
+  .rcard.top::before{content:'🏆 CHAMPION';position:absolute;top:-10px;left:16px;
+        background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;font-size:9.5px;font-weight:900;
+        letter-spacing:.8px;padding:2.5px 10px;border-radius:99px;box-shadow:0 3px 8px rgba(223,163,42,.35)}
+  .rnum{width:30px;height:30px;border-radius:99px;background:#f1f5f9;color:#64748b;
+        font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+        font-variant-numeric:tabular-nums}
+  .rnum.r1{background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;box-shadow:0 3px 9px rgba(223,163,42,.35)}
+  .rnum.r2{background:#e2e8f0;color:#475569}
+  .rnum.r3{background:#f6e7d4;color:#b45309}
+  .rimg{width:66px;height:42px;object-fit:contain;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px;flex-shrink:0}
+  .rbody{flex:1;min-width:0}
+  .rname{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rcorp{font-size:12px;color:var(--muted);font-weight:600}
+  .rreason{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+  .rchip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--panel2);color:var(--brand)}
+  .rchip.warn{background:#fff1f2;color:#e11d48;border:1px solid #fecdd3}
+  .rchip.mile{background:#ecfeff;color:#0891b2;border:1px solid #a5f3fc}
+  .sort-tabs{display:flex;gap:8px;margin-bottom:12px}
+  .sort-tab{background:var(--panel);border:1.5px solid var(--line);border-radius:99px;
+        padding:7px 16px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;font-family:inherit;transition:.13s}
+  .sort-tab:hover{border-color:var(--brand);color:var(--brand)}
+  .sort-tab.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .rmoney{text-align:right;flex-shrink:0}
+  .rmoney .net{font-size:18px;font-weight:800;color:var(--good)}
+  .rmoney .lab{font-size:10.5px;color:var(--muted);font-weight:700}
+  .rmoney .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  .rmoney a{font-size:11px;font-weight:800;color:var(--brand)}
+  .rlinks{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:4px}
+  .why-btn{background:none;border:0;padding:0;font-family:inherit;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
+  .why-btn:hover{color:var(--brand)}
+  .why-panel{background:#f8fafc;border:1.5px solid var(--line);border-top:0;border-radius:0 0 14px 14px;
+             margin:-10px 0 12px;padding:14px 18px 12px}
+  .why-grid{display:flex;flex-direction:column;gap:5px}
+  .why-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:#334155}
+  .why-row b{font-variant-numeric:tabular-nums}
+  .why-total{border-top:1px dashed #cbd5e1;margin-top:5px;padding-top:8px;font-weight:800;color:var(--good);font-size:13.5px}
+  .why-note{font-size:11px;color:var(--muted);margin-top:8px}
+  /* 빈 상태 — '빈 링' 안내: 뭘 하면 뭐가 나오는지 + 프리셋 바로가기 + 결과 미리보기 */
+  .empty{padding:36px 24px 28px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7;
+         background:var(--panel);border:1.5px dashed #c9d8f4;border-radius:16px}
+  .empty-ring{width:64px;height:64px;margin:0 auto 12px;display:grid;place-items:center;font-size:30px;
+         border-radius:99px;background:linear-gradient(135deg,#eef4ff,#dbe7ff);border:1.5px solid #c9d8f4}
+  .empty h3{margin:0 0 6px;font-size:17px;font-weight:800;color:var(--txt);letter-spacing:-.3px}
+  .empty p{margin:0}
+  .empty p b{color:var(--brand)}
+  .empty-steps{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0 4px;font-size:12px;font-weight:700;color:var(--txt)}
+  .empty-steps span{background:#f8fafc;border:1px solid var(--line);border-radius:99px;padding:6px 12px;white-space:nowrap}
+  .empty-steps span b{display:inline-grid;place-items:center;width:16px;height:16px;margin-right:5px;border-radius:99px;
+         background:var(--brand);color:#fff;font-size:10px;vertical-align:-3px}
+  .empty-steps i{color:#cbd5e1;font-style:normal;font-weight:800}
+  .empty-cta{margin-top:18px;font-size:12.5px}
+  .empty-cta-btns{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:9px}
+  .empty-cta-btns button{background:#fff;border:1.5px solid #c9d8f4;border-radius:10px;padding:9px 15px;
+         font-family:inherit;font-size:12.5px;font-weight:800;color:var(--brand);cursor:pointer;transition:.14s}
+  .empty-cta-btns button:hover{background:var(--brand);border-color:var(--brand);color:#fff;transform:translateY(-1px)}
+  .empty-ghost{max-width:420px;margin:22px auto 0;display:flex;flex-direction:column;gap:8px;opacity:.55}
+  .g-card{display:flex;align-items:center;gap:12px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .g-num{width:24px;height:24px;border-radius:99px;background:#e2e8f0;color:#94a3b8;font-size:12px;font-weight:800;
+         display:grid;place-items:center;flex-shrink:0}
+  .g-bar{height:10px;border-radius:99px;background:linear-gradient(90deg,#e2e8f0,#eef2f7)}
+  .g-amt{margin-left:auto;width:56px;height:12px;border-radius:99px;background:#d7f2e4}
+  .ml-note{margin-top:26px;text-align:center;color:#94a3b8;font-size:11.5px;line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">← 홈으로</a>
+  <span class="header-logo" role="img" aria-label="카드 파이터">🥊</span>
+  <span class="header-title">카드 파이터</span>
+  <div class="gnb-divider"></div>
+  <nav class="gnb">
+    <a href="index.html">홈</a>
+    <a href="index.html#cards">전체카드</a>
+    <a href="index.html#cashback">🪙 캐시백</a>
+    <a href="index.html#shopping">할인가맹점</a>
+    <a href="calculator.html" class="active">🧮 혜택계산기</a>
+    <a href="cardlab.html">카드 연구소</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow">🧮 내 소비 기반 계산기</span>
+    <h1>내 소비로 <b>진짜 이득</b>인 카드는?</h1>
+    <p>한 달 지출을 넣으면, 카드별 <b>예상 월 이득</b>을 계산해 순위로 보여줘요.</p>
+  </div>
+
+  <div class="layout">
+    <!-- 입력 -->
+    <div class="panel">
+      <p class="panel-title">💳 월 지출 입력</p>
+      <p class="panel-sub">쓰는 곳만 넣어도 돼요. (만원 단위)</p>
+      <div id="spend-list"></div>
+      <div class="total-row"><span class="tl">월 총지출</span><span class="tv" id="total">0원</span></div>
+      <div class="presets">
+        <button onclick="preset('light')">가볍게</button>
+        <button onclick="preset('normal')">보통</button>
+        <button onclick="preset('heavy')">많이</button>
+      </div>
+    </div>
+
+    <!-- 결과 -->
+    <div>
+      <div class="res-head">
+        <h2>🏆 내게 이득인 카드</h2>
+        <span class="cnt"><b id="res-count">0</b>장 계산</span>
+      </div>
+      <div class="sort-tabs">
+        <button class="sort-tab on" data-mode="money" onclick="setSort('money')">💰 돈 이득순</button>
+        <button class="sort-tab" data-mode="miles" onclick="setSort('miles')">✈️ 마일 적립순</button>
+      </div>
+      <div class="disc">ⓘ 금액은 <b>혜택 문구의 "최대 기준"</b>으로 계산한 <b>예상치</b>예요. 마일리지는 돈과 단위가 달라 <b>합산하지 않고 따로</b> 표시했어요. <b>순위 비교용</b>으로 봐주세요.</div>
+      <div class="rank" id="rank"></div>
+      <div class="empty" id="empty">
+        <div class="empty-ring">🥊</div>
+        <h3>아직 링이 비어 있어요</h3>
+        <p>왼쪽에 월 지출을 넣으면 <b>1,111장의 카드</b>가 겨루고,<br>연회비까지 뺀 <b>진짜 순이득 순위</b>가 나와요.</p>
+        <div class="empty-steps">
+          <span><b>1</b> 지출 입력</span><i>→</i><span><b>2</b> 전 카드 자동 계산</span><i>→</i><span><b>3</b> 🏆 챔피언 확인</span>
+        </div>
+        <div class="empty-cta">
+          <span>입력이 귀찮다면, 프리셋으로 바로:</span>
+          <div class="empty-cta-btns">
+            <button onclick="preset('light')">☕ 가볍게 쓰는 편</button>
+            <button onclick="preset('normal')">🛒 보통 소비</button>
+            <button onclick="preset('heavy')">🔥 많이 쓰는 편</button>
+          </div>
+        </div>
+        <div class="empty-ghost" aria-hidden="true">
+          <div class="g-card"><span class="g-num">1</span><span class="g-bar" style="width:58%"></span><span class="g-amt"></span></div>
+          <div class="g-card"><span class="g-num">2</span><span class="g-bar" style="width:42%"></span><span class="g-amt"></span></div>
+          <div class="g-card"><span class="g-num">3</span><span class="g-bar" style="width:48%"></span><span class="g-amt"></span></div>
+        </div>
+      </div>
+      <div class="ml-note">혜택율·카테고리는 카드 혜택 문구(<code>top_benefit_summary</code>)를 <b>자동 구조화</b>한 데이터로 계산했어요. 월 한도 미파악 카드는 기본 한도로 보정합니다.</div>
+    </div>
+  </div>
+</div>
+
+<script src="profile.js"></script>
+<script src="benefit-calc.js"></script>
+<script>
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const won = n => Math.round(n).toLocaleString()+'원';
+// 계산 규칙(율 상한·기본 한도·월한도 선택)은 benefit-calc.js(BenefitCalc) 공용 모듈에서 관리
+
+// 입력 카테고리(구조화 데이터의 카테고리명과 일치)
+const CATS = [
+  {key:'푸드',icon:'🍔'}, {key:'카페/디저트',icon:'☕'}, {key:'마트/편의점',icon:'🛒'},
+  {key:'온라인쇼핑',icon:'🛍️'}, {key:'교통',icon:'🚌'}, {key:'주유',icon:'⛽'},
+  {key:'통신',icon:'📶'}, {key:'OTT/영화/문화',icon:'🎬'}, {key:'여행/숙박',icon:'✈️'}, {key:'해외',icon:'🌍'}
+];
+const PRESETS = {
+  light:  {'푸드':20,'카페/디저트':5,'마트/편의점':15,'온라인쇼핑':10,'교통':5,'통신':5},
+  normal: {'푸드':40,'카페/디저트':10,'마트/편의점':25,'온라인쇼핑':20,'교통':7,'주유':10,'통신':7,'OTT/영화/문화':2},
+  heavy:  {'푸드':60,'카페/디저트':15,'마트/편의점':35,'온라인쇼핑':40,'교통':7,'주유':20,'통신':10,'OTT/영화/문화':3,'여행/숙박':30,'해외':20}
+};
+
+let BEN=null, BYIDX={}, sortMode='money';
+function setSort(mode){
+  sortMode = mode;
+  document.querySelectorAll('.sort-tab').forEach(b=>b.classList.toggle('on', b.dataset.mode===mode));
+  recalc();
+}
+
+document.getElementById('spend-list').innerHTML = CATS.map(c=>`
+  <div class="spend-row">
+    <div class="spend-ico">${c.icon}</div>
+    <div class="spend-name">${esc(c.key)}</div>
+    <div class="spend-input"><input type="number" min="0" inputmode="numeric" data-cat="${esc(c.key)}" oninput="recalc()"><span class="unit">만원</span></div>
+  </div>`).join('') + `
+  <div class="spend-row" style="border-top:1px dashed #e2e8f0;margin-top:4px;padding-top:10px">
+    <div class="spend-ico">🧾</div>
+    <div class="spend-name">평소 월 카드 사용액 <small style="color:#94a3b8;font-weight:600">전월실적 · 비우면 합계로 계산</small></div>
+    <div class="spend-input"><input type="number" min="0" inputmode="numeric" id="prev-month" oninput="recalc()" placeholder="합계"><span class="unit">만원</span></div>
+  </div>`;
+
+// 소비 프로필 연동: 홈/월드컵과 공유하는 프로필을 자동으로 불러오고, 수정하면 recalc()에서 다시 저장한다.
+(function prefillProfile(){
+  const p = window.CardProfile && CardProfile.load();
+  if(!p) return;
+  document.querySelectorAll('#spend-list input[data-cat]').forEach(i=>{
+    const w = p.spend[i.dataset.cat];
+    if(w>0) i.value = Math.round(w/10000);
+  });
+  if(p.prevMonth>0) document.getElementById('prev-month').value = Math.round(p.prevMonth/10000);
+  const sub = document.querySelector('.panel-sub');
+  if(sub) sub.innerHTML = '🔗 <b style="color:#145ce6">내 소비 프로필을 불러왔어요</b> — 수정하면 홈·카드월드컵에도 반영돼요. (만원 단위)';
+})();
+
+Promise.all([
+  fetch('benefits_structured.json').then(r=>r.json()),
+  fetch('cards_list.json').then(r=>r.json())
+]).then(([ben,cards])=>{
+  BEN=ben; cards.forEach(c=>BYIDX[c.idx]=c); recalc();
+}).catch(e=>{
+  document.getElementById('empty').textContent = '데이터 로드 실패: '+e;
+});
+
+function getSpending(){
+  const s={};
+  document.querySelectorAll('#spend-list input').forEach(i=>{
+    const v=parseFloat(i.value)||0; if(v>0) s[i.dataset.cat]=v*10000;
+  });
+  return s;
+}
+function preset(name){
+  const p=PRESETS[name]||{};
+  document.querySelectorAll('#spend-list input').forEach(i=>{ i.value = p[i.dataset.cat]||''; });
+  recalc();
+}
+
+function recalc(){
+  const spending=getSpending();
+  const total=Object.values(spending).reduce((a,b)=>a+b,0);
+  document.getElementById('total').textContent = won(total);
+  if(!BEN || total<=0){
+    document.getElementById('rank').innerHTML='';
+    document.getElementById('empty').style.display='';
+    document.getElementById('res-count').textContent='0';
+    return;
+  }
+  document.getElementById('empty').style.display='none';
+
+  // 전월실적: 별도 입력. 비우면 지출 합계로 간주. (한도 tier·실적조건 판정 기준)
+  const pv = parseFloat(document.getElementById('prev-month')?.value)||0;
+  const prevMonth = pv>0 ? pv*10000 : total;
+
+  // 프로필 저장(홈·월드컵 공유) — 유효 지출이 있을 때만, 빈 입력으로 기존 프로필을 지우지 않는다
+  if(window.CardProfile) CardProfile.save(spending, pv>0 ? pv*10000 : 0);
+
+  const results=[];
+  for(const idx in BEN){
+    const b=BEN[idx], card=BYIDX[idx]; if(!card) continue;
+    const r = BenefitCalc.calc(b, spending, {prevMonth});
+    if(r.money<=0 && r.miles<=0 && r.points<=0) continue;   // 돈·마일·포인트 다 없으면 제외
+    results.push({idx, benefit:r.money, net:r.net, feeM:r.feeMonthly, matched:r.matched,
+      meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped, gated:r.gatedByPreMonth,
+      miles:r.miles, bonus:r.milesBonus, air:r.airline, isMile:r.isMileage, type:b.type,
+      points:r.points, pointName:r.pointName,
+      fixedMoney:r.fixedMoney, fuelMoney:r.fuelMoney, services:r.services, voucherWon:r.voucherWon,
+      condFixed:r.condFixed});
+  }
+  if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
+    results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
+  else                    // 💰 돈 이득순 → 동점이면 매칭 잘 됨 → 낮은 연회비
+    results.sort((a,b)=> b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
+  render(results.slice(0,12), results.length);
+}
+
+function render(list, total){
+  document.getElementById('res-count').textContent = total.toLocaleString();
+  document.getElementById('rank').innerHTML = list.map((r,i)=>{
+    const c=BYIDX[r.idx];
+    const reasons = r.matched.sort((a,b)=>b.rate-a.rate).slice(0,3)
+      .map(m=>`<span class="rchip">${esc(m.cat)} ${Math.round(m.rate*100)}%</span>`).join('');
+    const mm = n => n>=10000 ? (n/10000).toLocaleString()+'만' : n.toLocaleString();
+    const ico = r.air ? '✈️' : '🎫';
+    const nm  = r.air==='항공' ? '항공마일' : (r.air ? r.air+'마일' : '카드마일');
+    const mile = r.miles>0 ? `<span class="rchip mile">${ico} 월 ${r.miles.toLocaleString()}${nm}</span>`
+               : (r.bonus>0 ? `<span class="rchip mile">${ico} 연 ${mm(r.bonus)}${nm}</span>`
+               : (r.isMile ? `<span class="rchip mile">${ico} ${nm}적립</span>` : ''));
+    const pointChip = r.points>0 ? `<span class="rchip mile">🅿️ 월 ${r.points.toLocaleString()} ${esc(r.pointName||'포인트')}</span>` : '';
+    const fixedChip = r.fixedMoney>0 ? `<span class="rchip">정액 ${won(r.fixedMoney)}</span>` : '';
+    const fuelChip = r.fuelMoney>0 ? `<span class="rchip">⛽ ${won(r.fuelMoney)}</span>` : '';
+    const shortSvc = s => { const t=s.replace(/\(.*$/,'').trim(); return t.length>18?t.slice(0,18)+'…':t; };
+    const svcChips = (r.services||[]).slice(0,2).map(s=>`<span class="rchip">🎫 ${esc(shortSvc(s))}</span>`).join('');
+    const vChip = r.voucherWon>0 ? `<span class="rchip">🎁 연바우처 ${mm(r.voucherWon)}원</span>` : '';
+    const condChip = (r.condFixed||[]).slice(0,2).map(f=>
+      `<span class="rchip" style="background:#fff7ed;color:#c2410c" title="해당 카테고리를 실제 이용할 때만 받는 정액할인 — 순이득에는 합산하지 않았어요">조건부 ${esc(f.category||'')} 이용 시 ${mm(f.won)}원</span>`).join('');
+    const warn = r.gated ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 미달로 할인 제외</span>`
+               : (!r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '');
+    return `<div class="rcard ${i===0?'top':''}">
+      <div class="rnum ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</div>
+      <img class="rimg" src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+      <div class="rbody">
+        <div class="rname">${esc(c.card_name)}</div>
+        <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
+        <div class="rreason">${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${condChip}${warn}</div>
+      </div>
+      <div class="rmoney">
+        <div class="lab">월 예상 순이득</div>
+        <div class="net">${won(Math.max(r.net,0))}</div>
+        <div class="sub">혜택 ${won(r.benefit)}${r.capped?' (한도)':''} − 연회비 ${won(r.feeM)}</div>
+        <div class="rlinks"><button class="why-btn" onclick="toggleWhy('${r.idx}',this)">근거 ▾</button><a href="detail?idx=${c.idx}">상세 →</a></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* '왜 이 순위인가' — 해당 카드만 다시 계산해 혜택 내역을 분해해서 보여준다 */
+function toggleWhy(idx, btn){
+  const rc = btn.closest('.rcard');
+  const nxt = rc.nextElementSibling;
+  if(nxt && nxt.classList.contains('why-panel')){ nxt.remove(); btn.textContent='근거 ▾'; return; }
+  document.querySelectorAll('.why-panel').forEach(e=>e.remove());
+  document.querySelectorAll('.why-btn').forEach(b=>b.textContent='근거 ▾');
+  const spending=getSpending();
+  const total=Object.values(spending).reduce((a,b)=>a+b,0);
+  const pv=parseFloat(document.getElementById('prev-month')?.value)||0;
+  const r=BenefitCalc.calc(BEN[idx], spending, {prevMonth: pv>0?pv*10000:total});
+  const lines=[];
+  r.rows.forEach(row=>{
+    if(row.rate>0 && row.spend>0 && row.raw>0)
+      lines.push(`<span>${esc(row.cat)} <b>${Math.round(row.rate*100)}%</b> × ${won(row.spend)}</span><b>${won(Math.round(row.shown))}</b>`);
+  });
+  (r.fixedRows||[]).forEach(f=> lines.push(`<span>정액 · ${esc(f.category||'')}</span><b>${won(f.won)}</b>`));
+  if(r.fuelMoney>0) lines.push(`<span>주유 리터당 ${r.fuelPerL}원 (자체 한도)</span><b>${won(r.fuelMoney)}</b>`);
+  if(r.capped) lines.push(`<span style="color:#c2410c">통합 월 한도 ${won(r.cap)} 적용 — 초과분 제외</span><b style="color:#c2410c">−${won(Math.max(0,Math.round(r.rawMoney-r.cap)))}</b>`);
+  if(r.gatedByPreMonth) lines.push(`<span style="color:#c2410c">전월실적 ${won(r.preMonth)} 미달 — 할인 미적용</span><b>0원</b>`);
+  lines.push(`<span>연회비 (연 ${won(r.feeMonthly*12)} ÷ 12)</span><b style="color:#dc2626">−${won(r.feeMonthly)}</b>`);
+  if(r.voucherWon>0) lines.push(`<span>연 바우처 ${mm(r.voucherWon)}원 (별도 · 순이득 미포함)</span><b>🎁</b>`);
+  const panel=document.createElement('div');
+  panel.className='why-panel';
+  panel.innerHTML=`<div class="why-grid">${lines.map(l=>`<div class="why-row">${l}</div>`).join('')}
+    <div class="why-row why-total"><span>월 예상 순이득</span><b>${won(Math.max(r.net,0))}</b></div></div>
+    <div class="why-note">ⓘ '최대 기준' 예상치 · 한도/실적 데이터는 팀이 카드사 원문과 대조해 검수했어요.</div>`;
+  rc.after(panel);
+  btn.textContent='근거 ▴';
+}
+</script>
+</body>
+</html>

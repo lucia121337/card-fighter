@@ -1,0 +1,47 @@
+{
+ "owners": {
+  "담당1": {
+   "companies": [
+    "현대카드",
+    "신협"
+   ],
+   "review_cards": 50
+  },
+  "담당2": {
+   "companies": [
+    "KB국민카드",
+    "IBK기업은행",
+    "BC 바로카드"
+   ],
+   "review_cards": 50
+  },
+  "담당3": {
+   "companies": [
+    "삼성카드",
+    "NH농협카드",
+    "현대백화점",
+    "케이뱅크"
+   ],
+   "review_cards": 50
+  },
+  "담당4": {
+   "companies": [
+    "우리카드",
+    "하나카드",
+    "전북은행",
+    "iM뱅크"
+   ],
+   "review_cards": 49
+  },
+  "담당5": {
+   "companies": [
+    "신한카드",
+    "롯데카드",
+    "SSGPAY. CARD",
+    "Sh수협은행"
+   ],
+   "review_cards": 49
+  }
+ },
+ "total_cards": 248
+}
