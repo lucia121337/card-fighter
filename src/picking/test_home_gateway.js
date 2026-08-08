@@ -6,6 +6,15 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '../..');
 const HomeGateway = require(path.join(ROOT, 'home-gateway.js'));
 
+test('360px header keeps navigation in the viewport with touch targets', () => {
+  const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.header-top\{[^}]*flex-wrap:wrap/);
+  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.gnb\{[^}]*width:100%[^}]*flex-wrap:wrap/);
+  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.gnb a\{[^}]*min-height:44px/);
+  assert.match(index, /@media\(max-width:360px\)\{[\s\S]*?\.header-search\{[^}]*padding-left:0/);
+  assert.doesNotMatch(index, /@media\(max-width:360px\)\{[\s\S]*?html\s*,?\s*body\{[^}]*overflow-x:hidden/);
+});
+
 test('index wires only the purpose gateway home', () => {
   const index = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
   assert.match(index, /<script src="profile\.js"><\/script>/);

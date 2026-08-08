@@ -66,6 +66,20 @@
   .search-box .search-btn:hover{color:var(--brand)}
   .search-box .search-btn svg{width:20px;height:20px}
 
+  @media(max-width:360px){
+    header{padding:8px 12px}
+    .header-top{flex-wrap:wrap;gap:8px}
+    .brand-left{width:100%;gap:8px}
+    .brand-left .logo{font-size:28px}
+    .brand-left h1{font-size:19px}
+    .gnb-divider{display:none}
+    .header-search{order:2;flex:0 0 100%;width:100%;padding-left:0}
+    .search-box{min-height:44px;padding:6px 12px}
+    .search-box input{min-width:0}
+    .gnb{order:3;width:100%;gap:4px;flex-wrap:wrap}
+    .gnb a{display:inline-flex;align-items:center;min-height:44px;padding:8px 10px;font-size:13px}
+  }
+
   /* 카드 툴바 (그리드 위 오른쪽) */
   .cards-toolbar{display:flex;align-items:center;justify-content:flex-end;
     gap:10px;flex-wrap:wrap;margin-bottom:16px}
