@@ -61,14 +61,27 @@
 .home-hero .home-btn-primary{border-color:#f2c94c;background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#132a58;box-shadow:0 8px 20px rgba(223,163,42,.32)}
 .home-hero .home-btn-secondary{border-color:rgba(255,255,255,.3);background:transparent;color:#fff}
 .home-match{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:18px;background:#fff;box-shadow:0 24px 48px rgba(4,12,30,.4)}
+.hm-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .hm-label{color:#132a58;font-size:12.5px;font-weight:900;letter-spacing:.02em}
 .hm-label small{margin-left:6px;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:11px}
-.hm-card{position:relative;display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid #e2e8f0;border-radius:13px}
+.hm-basis-toggle{min-height:44px;padding:8px 7px;border:0;background:transparent;color:var(--home-blue);font:800 11.5px "Noto Sans KR",sans-serif;white-space:nowrap;cursor:pointer}
+.hm-criteria{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;padding:10px 12px;border:1px solid #dce7f8;border-radius:12px;background:#f5f8ff}
+.hm-criteria[hidden]{display:none}
+.hm-criteria-item{display:flex;justify-content:space-between;gap:8px;color:var(--home-muted);font:700 10.5px "Noto Sans KR",sans-serif}
+.hm-criteria-item b{color:var(--home-ink);white-space:nowrap}
+.hm-card{position:relative;display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid #e2e8f0;border-radius:13px}
+.hm-card-link{color:inherit;text-decoration:none;cursor:pointer;transition:border-color .16s ease,transform .16s ease,box-shadow .16s ease}
+.hm-card-link:hover{transform:translateY(-1px);border-color:#9bb7ea;box-shadow:0 8px 18px rgba(19,42,88,.1)}
+.hm-card-link:focus-visible{outline:3px solid #2f6fed;outline-offset:3px}
 .hm-card img{width:56px;height:36px;object-fit:contain;flex-shrink:0}
-.hm-card>div{flex:1;min-width:0}
+.hm-card-copy{flex:1;min-width:0}
 .hm-card small{display:block;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:11px}
 .hm-card b{color:var(--home-ink);font-size:13.5px;letter-spacing:-.02em;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.hm-net{margin-left:auto;color:#047857;font-weight:800;font-size:13.5px;white-space:nowrap}
+.hm-reasons{margin:6px 0 0;padding:0;list-style:none;color:#42526e;font:700 10.5px/1.45 "Noto Sans KR",sans-serif}
+.hm-reasons li+li{margin-top:2px}
+.hm-equation{margin:5px 0 0;color:#7b8ba2;font:700 10px/1.35 "Noto Sans KR",sans-serif}
+.hm-net{display:flex;flex-direction:column;align-items:flex-end;margin-left:auto;color:#047857;font-weight:800;font-size:9.5px;white-space:nowrap}
+.hm-net strong{font-size:14px;letter-spacing:-.02em}
 .hm-card.hm-win{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff)}
 .hm-belt{position:absolute;top:-9px;left:12px;padding:2px 9px;border-radius:99px;background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;font-size:9px;font-weight:900;letter-spacing:.8px;box-shadow:0 3px 7px rgba(223,163,42,.4)}
 .hm-vs{z-index:1;align-self:center;display:grid;place-items:center;width:34px;height:34px;margin:-6px 0;border-radius:99px;background:#132a58;color:#f2c94c;font-weight:900;font-size:12px;box-shadow:0 4px 10px rgba(19,42,88,.45)}
@@ -76,7 +89,8 @@
 .hm-more:hover{text-decoration:underline}
 .hm-loading{padding:26px 0;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:12.5px;text-align:center}
 @media (max-width:860px){.home-hero{grid-template-columns:minmax(0,1fr)}.home-hero-copy,.home-match{min-width:0}}
-@media (max-width:720px){.hm-card{flex-wrap:wrap}.hm-net{width:100%;margin:2px 0 0 68px}}
+@media (max-width:720px){.hm-card{flex-wrap:wrap}.hm-net{width:100%;margin:2px 0 0 68px;align-items:flex-start}}
+@media (max-width:520px){.hm-head{align-items:flex-start}.hm-label small{display:block;margin:3px 0 0}.hm-criteria{grid-template-columns:1fr}.hm-card{align-items:flex-start}.hm-card img{margin-top:3px}.hm-reasons{font-size:10.5px}}
 
 /* ── 취향 게임 섹션 — 한 줄 텍스트였던 곳을 두 개의 게임 입구로 ── */
 .home-lab{display:block;padding-top:58px}

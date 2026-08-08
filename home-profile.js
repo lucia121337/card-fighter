@@ -232,21 +232,21 @@
              : HomeMatch.totalSpend(spend);
     loadData().then(function (d) {
       var top2 = HomeMatch.rankCards(d.CARD_LIST, d.BEN, spend, prev, BenefitCalc).slice(0, 2);
-      if (top2.length < 2) return;
-      var row = function (t, win) {
-        var c = t.card;
-        return '<div class="hm-card' + (win ? ' hm-win' : '') + '">' +
-          (win ? '<span class="hm-belt">🏆 WINNER</span>' : '') +
-          '<img loading="lazy" src="' + esc(c.card_img || '') + '" alt="" onerror="this.style.visibility=\'hidden\'">' +
-          '<div><small>' + esc(c.company || '') + '</small><b>' + esc(c.card_name || '') + '</b></div>' +
-          '<span class="hm-net">월 ' + won(t.r.net) + '</span></div>';
-      };
-      box.innerHTML =
-        '<div class="hm-label">🥊 오늘의 매치 <small>' + (p ? '내 소비 기준' : '표준 소비 기준 (월 119만원)') + '</small></div>' +
-        row(top2[0], true) +
-        '<div class="hm-vs">VS</div>' +
-        row(top2[1], false) +
-        '<a class="hm-more" href="calculator.html">전체 랭킹 보기 →</a>';
+      box.innerHTML = HomeMatch.renderHeroMatchHtml({
+        ranked: top2,
+        spend: spend,
+        personal: Boolean(p)
+      });
+      var basisToggle = box.querySelector('.hm-basis-toggle');
+      var criteria = box.querySelector('#hm-criteria');
+      if (basisToggle && criteria) {
+        basisToggle.onclick = function () {
+          var open = basisToggle.getAttribute('aria-expanded') === 'true';
+          basisToggle.setAttribute('aria-expanded', String(!open));
+          criteria.hidden = open;
+          basisToggle.textContent = open ? '기준 보기' : '기준 닫기';
+        };
+      }
       // 프로필 전 기본 대표카드에도 상세 혜택 채움 (팀 렌더가 늦을 수 있어 재시도)
       if (!p) {
         var tries = 0;

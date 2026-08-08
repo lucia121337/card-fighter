@@ -39,3 +39,55 @@ test('카드 수 문구는 배열 길이를 천 단위로 표시한다', () => {
   assert.equal(HomeMatch.cardCountCopy(new Array(1276)), '1,276장의 카드가 싸웁니다.');
   assert.equal(HomeMatch.cardCountCopy(null), '수많은 카드가 싸웁니다.');
 });
+
+function matchFixture() {
+  return [
+    {
+      idx: 1,
+      card: {idx: 1, card_name: 'A카드', company: 'A사', card_img: 'a.png', top_benefit_summary: '쇼핑 할인'},
+      r: {money: 20000, net: 19000, feeMonthly: 1000, rows: [{cat: '온라인쇼핑', rate: 0.05, shown: 10000}]}
+    },
+    {
+      idx: 2,
+      card: {idx: 2, card_name: 'B카드', company: 'B사', card_img: 'b.png', top_benefit_summary: '교통 할인'},
+      r: {money: 15000, net: 14000, feeMonthly: 1000, rows: []}
+    }
+  ];
+}
+
+test('매치 카드는 카드 상세 링크와 기준 펼치기 접근성을 제공한다', () => {
+  const html = HomeMatch.renderHeroMatchHtml({
+    ranked: matchFixture(),
+    spend: HomeMatch.STANDARD_SPEND,
+    personal: false
+  });
+
+  assert.match(html, /detail\.html\?idx=1/);
+  assert.match(html, /detail\.html\?idx=2/);
+  assert.match(html, /aria-expanded="false"/);
+  assert.match(html, /표준 소비 기준 · 월 119만 원/);
+});
+
+test('추천 이유와 순이득 계산식을 카드 안에 보여준다', () => {
+  const html = HomeMatch.renderHeroMatchHtml({
+    ranked: matchFixture(),
+    spend: HomeMatch.STANDARD_SPEND,
+    personal: false
+  });
+
+  assert.match(html, /온라인쇼핑 5%로 약 10,000원 혜택/);
+  assert.match(html, /예상 혜택 20,000원/);
+  assert.match(html, /월 연회비 1,000원/);
+  assert.match(html, /월 순이득 <strong>19,000원<\/strong>/);
+});
+
+test('계산 가능한 카드가 두 장 미만이면 계산기 안내를 보여준다', () => {
+  const html = HomeMatch.renderHeroMatchHtml({
+    ranked: [],
+    spend: HomeMatch.STANDARD_SPEND,
+    personal: false
+  });
+
+  assert.match(html, /계산 가능한 카드가 부족해요/);
+  assert.match(html, /calculator\.html/);
+});

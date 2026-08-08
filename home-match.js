@@ -52,5 +52,65 @@
       : '수많은 카드가 싸웁니다.';
   }
 
-  return {STANDARD_SPEND, totalSpend, rankCards, reasonLines, cardCountCopy};
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[char]);
+  }
+
+  function won(value) {
+    return `${Math.round(Number(value) || 0).toLocaleString()}원`;
+  }
+
+  function basisWon(value) {
+    const amount = Math.round(Number(value) || 0);
+    return amount % 10000 === 0 ? `${(amount / 10000).toLocaleString()}만 원` : won(amount);
+  }
+
+  function renderHeroMatchHtml(options) {
+    const ranked = Array.isArray(options && options.ranked) ? options.ranked : [];
+    if (ranked.length < 2) {
+      return '<div class="hm-loading">계산 가능한 카드가 부족해요 — <a href="calculator.html">계산기에서 직접 확인 →</a></div>';
+    }
+
+    const spend = options.spend || STANDARD_SPEND;
+    const personal = Boolean(options.personal);
+    const basis = personal ? '내 소비 기준' : '표준 소비 기준';
+    const criteria = Object.entries(spend)
+      .filter(([, amount]) => Number(amount) > 0)
+      .map(([name, amount]) => (
+        `<div class="hm-criteria-item"><span>${escapeHtml(name)}</span><b>${won(amount)}</b></div>`
+      )).join('');
+
+    function cardHtml(item, winner) {
+      const card = item.card || {};
+      const result = item.r || {};
+      const reasons = reasonLines(result, card.top_benefit_summary)
+        .map(line => `<li>${escapeHtml(line)}</li>`).join('');
+      return `<a class="hm-card hm-card-link${winner ? ' hm-win' : ''}" href="detail.html?idx=${encodeURIComponent(card.idx)}">
+        ${winner ? '<span class="hm-belt">🏆 WINNER</span>' : ''}
+        <img loading="lazy" src="${escapeHtml(card.card_img || '')}" alt="" onerror="this.style.visibility='hidden'">
+        <div class="hm-card-copy"><small>${escapeHtml(card.company || '')}</small><b>${escapeHtml(card.card_name || '')}</b>
+          <ul class="hm-reasons">${reasons}</ul>
+          <p class="hm-equation">예상 혜택 ${won(result.money)} − 월 연회비 ${won(result.feeMonthly)}</p>
+        </div>
+        <span class="hm-net">월 순이득 <strong>${won(result.net)}</strong></span>
+      </a>`;
+    }
+
+    return `<div class="hm-head"><div class="hm-label">🥊 오늘의 매치 <small>${basis} · 월 ${basisWon(totalSpend(spend))}</small></div>
+      <button type="button" class="hm-basis-toggle" aria-expanded="false" aria-controls="hm-criteria">기준 보기</button></div>
+      <div class="hm-criteria" id="hm-criteria" hidden>${criteria}</div>
+      ${cardHtml(ranked[0], true)}<div class="hm-vs">VS</div>${cardHtml(ranked[1], false)}
+      <a class="hm-more" href="calculator.html">전체 랭킹 보기 →</a>`;
+  }
+
+  return {
+    STANDARD_SPEND,
+    totalSpend,
+    rankCards,
+    reasonLines,
+    cardCountCopy,
+    renderHeroMatchHtml
+  };
 });
