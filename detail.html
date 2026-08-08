@@ -886,7 +886,7 @@ function extractAmount(html){
 
 /* 구조화 혜택 데이터로 "내 지출 → 예상 혜택" 계산. 계산은 전부 benefit-calc.js(BenefitCalc) 공용 모듈.
    Option D: 할인/적립은 원으로 합산, 마일리지·포인트는 단위가 달라 따로 표시(원 환산 X). */
-function buildCalc(bs){
+function buildBenefitCalc(bs){
   if(!bs) return '';
   const rows = BenefitCalc.buildRows(bs);
   // 카테고리 입력행이 없어도 마일/포인트/단위형이면 '월 전체 지출' 한 줄로 계산기를 띄운다.
@@ -1125,7 +1125,8 @@ function render(d, list = [], recs = {}) {
       <div class="sum-card"><div class="lab">전월실적 조건</div><div class="val accent">${esc(pre)}</div></div>
       ${d.release_dt?`<div class="sum-card"><div class="lab">출시일</div><div class="val">${esc(d.release_dt)}</div></div>`:''}
     </div>
-    ${buildCalc(kb, d.pre_month_money, d.pre_month_condition, d)}
+    ${typeof buildPickingCalc === 'function' ? buildPickingCalc(kb, d.pre_month_money, d.pre_month_condition, d) : ''}
+    ${typeof buildBenefitCalc === 'function' ? buildBenefitCalc(window._CALC_BS) : ''}
     <div class="sec-box">
       <h3>💡 상세 혜택</h3>
       ${benefitHTML}

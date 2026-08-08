@@ -183,28 +183,40 @@ function extractPerfOptions(items, totalTiers) {
   return Array.from(set).sort((a, b) => a - b);
 }
 
-/* ═══════════════════════════════════════════════
- * 구조화 혜택 배열 생성 (JSON 직접 바인딩)
- * ═══════════════════════════════════════════════ */
-
-function getStructuredBenefits(cardData) {
-  if (!cardData || !cardData.structured_benefits) return [];
-
+function getStructuredBenefits(cardData, fallbackKb) {
   try {
-    let benefits = cardData.structured_benefits;
+    let benefits = cardData ? cardData.structured_benefits : null;
 
     if (typeof benefits === 'string') {
       try {
         benefits = JSON.parse(benefits);
       } catch (e) {
-        console.error('structured_benefits JSON 파싱 예외:', e);
-        return [];
+        benefits = null;
+      }
+    }
+
+    if (!benefits || !Array.isArray(benefits) || benefits.length === 0) {
+      const kb = (cardData && Array.isArray(cardData.key_benefit)) ? cardData.key_benefit : (Array.isArray(fallbackKb) ? fallbackKb : []);
+      if (kb.length > 0) {
+        benefits = kb.map(b => {
+          let rate = 0.05;
+          const txt = String(b.title || '') + ' ' + cleanHtml(b.info || b.summary || '');
+          const rMatch = txt.match(/(\d+(?:\.\d+)?)%/);
+          if (rMatch) rate = parseFloat(rMatch[1]) / 100;
+          return {
+            title: b.title || '혜택',
+            detail: cleanHtml(b.info || b.summary || ''),
+            rate: rate,
+            fixedAmount: 0,
+            minPayment: 0,
+            item_limit: -1
+          };
+        });
       }
     }
 
     if (!Array.isArray(benefits)) return [];
 
-    // JSON 내 rate, item_limit, group, fixedAmount, minPayment 등 직접 바인딩
     return benefits.map((b, idx) => {
       const groupObj = b.group || null;
       const groupId = (groupObj && groupObj.id) ? groupObj.id : (b.group_id || 'none');
@@ -217,7 +229,7 @@ function getStructuredBenefits(cardData) {
         rate: b.rate !== undefined ? b.rate : 0,
         fixedAmount: typeof b.fixedAmount === 'number' ? b.fixedAmount : 0,
         minPayment: typeof b.minPayment === 'number' ? b.minPayment : 0,
-        amount: b.item_limit !== undefined ? b.item_limit : -1, // 1차 개별 한도
+        amount: b.item_limit !== undefined ? b.item_limit : -1,
         group: groupObj,
         groupId,
         groupLimit,
@@ -323,8 +335,17 @@ function calculateMinRequiredPayment(items, results) {
  * 혜택 계산기 UI 렌더링
  * ═══════════════════════════════════════════════ */
 
-function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
+function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
   try {
+    if (kb && typeof kb === 'object' && !Array.isArray(kb) && !cardData) {
+      cardData = kb;
+      kb = cardData.key_benefit || [];
+      preMonthMoney = cardData.pre_month_money;
+      preMonthCondition = cardData.pre_month_condition;
+    }
+    if (!cardData && Array.isArray(kb)) {
+      cardData = { key_benefit: kb, pre_month_money: preMonthMoney, pre_month_condition: preMonthCondition, is_calc_supported: 'TRUE' };
+    }
     if (!cardData) return '';
 
     // is_calc_supported 유연한 조건 검사
@@ -344,7 +365,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       }
     }
 
-    const items = getStructuredBenefits(cardData);
+    const items = getStructuredBenefits(cardData, kb);
 
     // total_limit_tiers 및 item_limit 배열 기반 동적 실적 구간 추출
     let perfOptions = extractPerfOptions(items, totalLimitTiers);
@@ -537,22 +558,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       }
     };
 
-    // 문서 레벨 이벤트 위임 안전장치 (DOM 바인딩 이중 보장)
-    if (typeof document !== 'undefined' && document.addEventListener && !window._calcToggleBound) {
-      window._calcToggleBound = true;
-      document.addEventListener('change', function (e) {
-        const target = e.target;
-        if (target && (target.classList?.contains('calc-checkbox') || target.closest?.('.calc-toggle'))) {
-          const cb = target.tagName === 'INPUT' ? target : target.querySelector('input[type="checkbox"]');
-          if (cb) {
-            const bId = cb.getAttribute('data-benefit-id') || cb.id.replace('calc-', '');
-            if (bId !== null && bId !== undefined && typeof window._toggleBenefitItem === 'function') {
-              window._toggleBenefitItem(bId, cb.checked);
-            }
-          }
-        }
-      });
-    }
+    // inline onchange 사용으로 문서 레벨 이중 바인딩 불필요
 
     /* ── HTML 행 생성 ── */
     function makeRow(it) {
@@ -652,7 +658,7 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 
     return `
       <div class="calc-box">
-        <h3>🧮 혜택 계산기</h3>
+        <h3>🎯 피킹률 계산기</h3>
         ${perfSelectHTML}
         ${groupsHTML}
         ${itemsContentHTML}
@@ -683,7 +689,8 @@ function buildCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 }
 
 /* ── 브라우저 글로벌 노출 ── */
-window.buildCalc = buildCalc;
+window.buildPickingCalc = buildPickingCalc;
+window.buildCalc = buildPickingCalc;
 window.getStructuredBenefits = getStructuredBenefits;
 window.applyThreeLevelCap = applyThreeLevelCap;
 window.calculateMinRequiredPayment = calculateMinRequiredPayment;
