@@ -23,7 +23,16 @@
   .back{display:inline-flex;align-items:center;gap:6px;color:#fff;background:var(--brand);
         font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
         box-shadow:0 2px 8px rgba(20,92,230,.28)}
-  .header-logo{font-size:26px}.header-title{font-weight:800;font-size:16px;letter-spacing:-.5px}
+  .header-logo{font-size:26px}.header-title{font-weight:800;font-size:16px;letter-spacing:-.5px;white-space:nowrap}
+  /* 상단 메뉴(GNB) — index.html과 동일 구성. 어느 페이지로 가도 전체 메뉴 유지 */
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 6px;flex-shrink:0}
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+  .gnb::-webkit-scrollbar{display:none}
+  .gnb a{color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
+         padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.15s}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  .gnb a.active{background:var(--brand);color:#fff}
+  @media(max-width:640px){.header-title{display:none}.gnb a{font-size:13px;padding:6px 9px}}
   .wrap{max-width:1040px;margin:0 auto;padding:28px 16px 90px}
 
   .hero{text-align:center;padding:12px 0 26px}
@@ -67,9 +76,17 @@
   .rcard{display:flex;align-items:center;gap:14px;background:var(--panel);border:1.5px solid var(--line);
         border-radius:16px;padding:14px 16px;box-shadow:var(--shadow);transition:.15s}
   .rcard:hover{border-color:var(--brand);box-shadow:0 12px 28px rgba(20,92,230,.14)}
-  .rcard.top{border-color:var(--brand);background:linear-gradient(180deg,#f5f9ff,#fff)}
-  .rnum{width:26px;font-size:16px;font-weight:800;color:var(--muted);text-align:center;flex-shrink:0}
-  .rcard.top .rnum{color:var(--brand)}
+  /* 순위 위계: 1위는 '챔피언'(월드컵과 같은 언어), 2·3위는 은/동 메달 톤 — 골드는 1위에만 쓴다 */
+  .rcard.top{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff);position:relative;margin-top:8px}
+  .rcard.top::before{content:'🏆 CHAMPION';position:absolute;top:-10px;left:16px;
+        background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;font-size:9.5px;font-weight:900;
+        letter-spacing:.8px;padding:2.5px 10px;border-radius:99px;box-shadow:0 3px 8px rgba(223,163,42,.35)}
+  .rnum{width:30px;height:30px;border-radius:99px;background:#f1f5f9;color:#64748b;
+        font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+        font-variant-numeric:tabular-nums}
+  .rnum.r1{background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;box-shadow:0 3px 9px rgba(223,163,42,.35)}
+  .rnum.r2{background:#e2e8f0;color:#475569}
+  .rnum.r3{background:#f6e7d4;color:#b45309}
   .rimg{width:66px;height:42px;object-fit:contain;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px;flex-shrink:0}
   .rbody{flex:1;min-width:0}
   .rname{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -88,6 +105,16 @@
   .rmoney .lab{font-size:10.5px;color:var(--muted);font-weight:700}
   .rmoney .sub{font-size:11px;color:var(--muted);margin-top:2px}
   .rmoney a{font-size:11px;font-weight:800;color:var(--brand)}
+  .rlinks{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin-top:4px}
+  .why-btn{background:none;border:0;padding:0;font-family:inherit;font-size:11px;font-weight:800;color:var(--muted);cursor:pointer}
+  .why-btn:hover{color:var(--brand)}
+  .why-panel{background:#f8fafc;border:1.5px solid var(--line);border-top:0;border-radius:0 0 14px 14px;
+             margin:-10px 0 12px;padding:14px 18px 12px}
+  .why-grid{display:flex;flex-direction:column;gap:5px}
+  .why-row{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:#334155}
+  .why-row b{font-variant-numeric:tabular-nums}
+  .why-total{border-top:1px dashed #cbd5e1;margin-top:5px;padding-top:8px;font-weight:800;color:var(--good);font-size:13.5px}
+  .why-note{font-size:11px;color:var(--muted);margin-top:8px}
   .empty{padding:50px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7}
   .ml-note{margin-top:26px;text-align:center;color:#94a3b8;font-size:11.5px;line-height:1.7}
 </style>
@@ -97,6 +124,15 @@
   <a class="back" href="index.html">← 홈으로</a>
   <span class="header-logo" role="img" aria-label="카드 파이터">🥊</span>
   <span class="header-title">카드 파이터</span>
+  <div class="gnb-divider"></div>
+  <nav class="gnb">
+    <a href="index.html">홈</a>
+    <a href="index.html#cards">전체카드</a>
+    <a href="index.html#cashback">🪙 캐시백</a>
+    <a href="index.html#shopping">할인가맹점</a>
+    <a href="calculator.html" class="active">🧮 혜택계산기</a>
+    <a href="cardlab.html">카드 연구소</a>
+  </nav>
 </header>
 
 <div class="wrap">
@@ -138,6 +174,7 @@
   </div>
 </div>
 
+<script src="profile.js"></script>
 <script src="benefit-calc.js"></script>
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -174,6 +211,19 @@ document.getElementById('spend-list').innerHTML = CATS.map(c=>`
     <div class="spend-name">평소 월 카드 사용액 <small style="color:#94a3b8;font-weight:600">전월실적 · 비우면 합계로 계산</small></div>
     <div class="spend-input"><input type="number" min="0" inputmode="numeric" id="prev-month" oninput="recalc()" placeholder="합계"><span class="unit">만원</span></div>
   </div>`;
+
+// 소비 프로필 연동: 홈/월드컵과 공유하는 프로필을 자동으로 불러오고, 수정하면 recalc()에서 다시 저장한다.
+(function prefillProfile(){
+  const p = window.CardProfile && CardProfile.load();
+  if(!p) return;
+  document.querySelectorAll('#spend-list input[data-cat]').forEach(i=>{
+    const w = p.spend[i.dataset.cat];
+    if(w>0) i.value = Math.round(w/10000);
+  });
+  if(p.prevMonth>0) document.getElementById('prev-month').value = Math.round(p.prevMonth/10000);
+  const sub = document.querySelector('.panel-sub');
+  if(sub) sub.innerHTML = '🔗 <b style="color:#145ce6">내 소비 프로필을 불러왔어요</b> — 수정하면 홈·카드월드컵에도 반영돼요. (만원 단위)';
+})();
 
 Promise.all([
   fetch('benefits_structured.json').then(r=>r.json()),
@@ -212,6 +262,9 @@ function recalc(){
   // 전월실적: 별도 입력. 비우면 지출 합계로 간주. (한도 tier·실적조건 판정 기준)
   const pv = parseFloat(document.getElementById('prev-month')?.value)||0;
   const prevMonth = pv>0 ? pv*10000 : total;
+
+  // 프로필 저장(홈·월드컵 공유) — 유효 지출이 있을 때만, 빈 입력으로 기존 프로필을 지우지 않는다
+  if(window.CardProfile) CardProfile.save(spending, pv>0 ? pv*10000 : 0);
 
   const results=[];
   for(const idx in BEN){
@@ -255,7 +308,7 @@ function render(list, total){
     const warn = r.gated ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 미달로 할인 제외</span>`
                : (!r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '');
     return `<div class="rcard ${i===0?'top':''}">
-      <div class="rnum">${i+1}</div>
+      <div class="rnum ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</div>
       <img class="rimg" src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
@@ -266,10 +319,41 @@ function render(list, total){
         <div class="lab">월 예상 순이득</div>
         <div class="net">${won(Math.max(r.net,0))}</div>
         <div class="sub">혜택 ${won(r.benefit)}${r.capped?' (한도)':''} − 연회비 ${won(r.feeM)}</div>
-        <a href="detail?idx=${c.idx}">상세 →</a>
+        <div class="rlinks"><button class="why-btn" onclick="toggleWhy('${r.idx}',this)">근거 ▾</button><a href="detail?idx=${c.idx}">상세 →</a></div>
       </div>
     </div>`;
   }).join('');
+}
+
+/* '왜 이 순위인가' — 해당 카드만 다시 계산해 혜택 내역을 분해해서 보여준다 */
+function toggleWhy(idx, btn){
+  const rc = btn.closest('.rcard');
+  const nxt = rc.nextElementSibling;
+  if(nxt && nxt.classList.contains('why-panel')){ nxt.remove(); btn.textContent='근거 ▾'; return; }
+  document.querySelectorAll('.why-panel').forEach(e=>e.remove());
+  document.querySelectorAll('.why-btn').forEach(b=>b.textContent='근거 ▾');
+  const spending=getSpending();
+  const total=Object.values(spending).reduce((a,b)=>a+b,0);
+  const pv=parseFloat(document.getElementById('prev-month')?.value)||0;
+  const r=BenefitCalc.calc(BEN[idx], spending, {prevMonth: pv>0?pv*10000:total});
+  const lines=[];
+  r.rows.forEach(row=>{
+    if(row.rate>0 && row.spend>0 && row.raw>0)
+      lines.push(`<span>${esc(row.cat)} <b>${Math.round(row.rate*100)}%</b> × ${won(row.spend)}</span><b>${won(Math.round(row.shown))}</b>`);
+  });
+  (r.fixedRows||[]).forEach(f=> lines.push(`<span>정액 · ${esc(f.category||'')}</span><b>${won(f.won)}</b>`));
+  if(r.fuelMoney>0) lines.push(`<span>주유 리터당 ${r.fuelPerL}원 (자체 한도)</span><b>${won(r.fuelMoney)}</b>`);
+  if(r.capped) lines.push(`<span style="color:#c2410c">통합 월 한도 ${won(r.cap)} 적용 — 초과분 제외</span><b style="color:#c2410c">−${won(Math.max(0,Math.round(r.rawMoney-r.cap)))}</b>`);
+  if(r.gatedByPreMonth) lines.push(`<span style="color:#c2410c">전월실적 ${won(r.preMonth)} 미달 — 할인 미적용</span><b>0원</b>`);
+  lines.push(`<span>연회비 (연 ${won(r.feeMonthly*12)} ÷ 12)</span><b style="color:#dc2626">−${won(r.feeMonthly)}</b>`);
+  if(r.voucherWon>0) lines.push(`<span>연 바우처 ${mm(r.voucherWon)}원 (별도 · 순이득 미포함)</span><b>🎁</b>`);
+  const panel=document.createElement('div');
+  panel.className='why-panel';
+  panel.innerHTML=`<div class="why-grid">${lines.map(l=>`<div class="why-row">${l}</div>`).join('')}
+    <div class="why-row why-total"><span>월 예상 순이득</span><b>${won(Math.max(r.net,0))}</b></div></div>
+    <div class="why-note">ⓘ '최대 기준' 예상치 · 한도/실적 데이터는 팀이 카드사 원문과 대조해 검수했어요.</div>`;
+  rc.after(panel);
+  btn.textContent='근거 ▴';
 }
 </script>
 </body>

@@ -700,24 +700,18 @@
     <div id="home-recommendation" class="home-shell">
       <section class="home-hero" aria-labelledby="home-title">
         <div class="home-hero-copy">
-          <span class="home-eyebrow">내 소비에 맞춘 카드 선택</span>
-          <h2 id="home-title">어떤 카드가 좋은지가 아니라,<br><strong>나에게 어떤 카드가 유리한지</strong> 찾아보세요.</h2>
-          <p>소비패턴과 원하는 혜택을 기준으로 계산하고 비교해 카드 선택을 도와드려요.</p>
+          <span class="home-eyebrow">🥊 카드 파이터 아레나</span>
+          <h2 id="home-title">당신의 지갑을 두고,<br><strong>1,111장의 카드가 싸웁니다.</strong></h2>
+          <p>소비패턴을 넣는 순간 대진이 시작돼요. 어떤 카드가 좋은지가 아니라, <b>나에게 유리한 카드</b>가 이깁니다.</p>
           <div class="home-hero-actions">
-            <a class="home-btn home-btn-primary" href="calculator.html" data-home-action="calculator">1분 맞춤 추천 시작</a>
+            <a class="home-btn home-btn-primary" href="calculator.html" data-home-action="calculator">🥊 내 챔피언 찾기</a>
             <button class="home-btn home-btn-secondary" type="button" data-home-action="benefits">혜택으로 빠르게 찾기</button>
           </div>
-          <p class="home-hero-trust">카드고릴라 공개 데이터 기준 · 계산 결과는 카드 선택을 위한 참고용이에요.</p>
+          <p class="home-hero-trust">카드고릴라 공개 데이터 기준 · 한도/실적 조건은 팀이 원문 검수 · 결과는 카드 선택을 위한 참고용이에요.</p>
         </div>
-        <aside class="home-result-preview" aria-label="맞춤 추천 결과 예시">
-          <span class="home-result-label">맞춤 추천 결과 예시</span>
-          <div class="home-result-score"><small>예상 월 혜택</small><strong>32,400원</strong></div>
-          <dl class="home-result-details">
-            <div><dt>연회비 제외 연 이득</dt><dd>368,800원</dd></div>
-            <div><dt>전월실적</dt><dd>30만원</dd></div>
-            <div><dt>추천 이유</dt><dd>교통·통신 지출에 유리</dd></div>
-          </dl>
-          <small class="home-result-note">입력한 소비 금액에 따라 결과가 달라져요.</small>
+        <aside class="home-match" id="hero-match" aria-label="오늘의 카드 매치">
+          <div class="hm-label">🥊 오늘의 매치</div>
+          <div class="hm-loading">대진을 계산하고 있어요…</div>
         </aside>
       </section>
 
@@ -2242,5 +2236,9 @@ HomeRecommendation.init({
   }
 });
 </script>
+<!-- 소비 프로필 허브: 홈 대표카드를 '내 소비 기준 Top3'로 개인화 (프로필 없으면 기존 동작 그대로) -->
+<script src="profile.js"></script>
+<script src="benefit-calc.js"></script>
+<script src="home-profile.js"></script>
 </body>
 </html>

@@ -26,7 +26,15 @@
         box-shadow:0 2px 8px rgba(20,92,230,.28);transition:.15s background;white-space:nowrap}
   .back:hover{background:var(--brand-deep)}
   .header-logo{font-size:26px;line-height:1;flex-shrink:0}
-  .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px}
+  .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px;white-space:nowrap}
+  /* 상단 메뉴(GNB) — index.html과 동일 구성. 어느 페이지로 가도 전체 메뉴 유지 */
+  .gnb-divider{width:1px;height:22px;background:var(--line);margin:0 6px;flex-shrink:0}
+  .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
+  .gnb::-webkit-scrollbar{display:none}
+  .gnb a{color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
+         padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.15s}
+  .gnb a:hover{background:var(--panel2);color:var(--brand)}
+  @media(max-width:640px){.header-title{display:none}.gnb a{font-size:13px;padding:6px 9px}}
 
   .wrap{max-width:1200px;margin:0 auto;padding:28px 20px 80px}
   .page-title{font-size:22px;font-weight:800;color:var(--txt);margin:0 0 24px;letter-spacing:-1px}
@@ -79,6 +87,15 @@
   <a class="back" href="index.html">← 목록으로</a>
   <span class="header-logo" role="img" aria-label="카드 파이터 로고">🥊</span>
   <span class="header-title">카드 비교</span>
+  <div class="gnb-divider"></div>
+  <nav class="gnb">
+    <a href="index.html">홈</a>
+    <a href="index.html#cards">전체카드</a>
+    <a href="index.html#cashback">🪙 캐시백</a>
+    <a href="index.html#shopping">할인가맹점</a>
+    <a href="calculator.html">🧮 혜택계산기</a>
+    <a href="cardlab.html">카드 연구소</a>
+  </nav>
 </header>
 
 <div class="wrap" id="wrap">

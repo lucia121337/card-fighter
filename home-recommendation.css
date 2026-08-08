@@ -48,3 +48,32 @@
 
 @media (max-width:720px){.home-result-preview{display:grid;grid-template-columns:1fr auto;gap:10px 16px}.home-result-label,.home-result-score,.home-result-note{grid-column:1/-1}.home-result-score{padding-bottom:14px}.home-result-details{display:contents}.home-result-details div{padding:0;border:0}.home-result-details div:last-child{grid-column:1/-1;padding-top:8px;border-top:1px solid rgba(255,255,255,.12)}.home-result-note{margin-top:2px}.home-hero{gap:22px}}
 @media (max-width:720px){.home-hero{gap:16px;padding-top:22px;padding-bottom:22px}.home-hero-trust,.home-result-note{display:none}.home-result-preview{padding-top:18px;padding-bottom:18px}}
+
+/* ── 히어로: 네이비 아레나 + 오늘의 매치 (카드 파이터 세계관 — 골드는 승자에만) ── */
+.home-hero{background:linear-gradient(132deg,#0b1b38 0%,#122a5c 58%,#173572 100%);border-color:#1d3563}
+.home-hero::before{background:linear-gradient(180deg,#f2c94c 0 42%,var(--home-blue) 42%)}
+.home-hero .home-eyebrow{color:#f2c94c}
+.home-hero h2{color:#fff}
+.home-hero h2 strong{color:#f2c94c}
+.home-hero-copy>p:not(.home-hero-trust){color:#b9c8e6}
+.home-hero-copy>p:not(.home-hero-trust) b{color:#fff}
+.home-hero-trust{color:#6f81a6}
+.home-hero .home-btn-primary{border-color:#f2c94c;background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#132a58;box-shadow:0 8px 20px rgba(223,163,42,.32)}
+.home-hero .home-btn-secondary{border-color:rgba(255,255,255,.3);background:transparent;color:#fff}
+.home-match{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:18px;background:#fff;box-shadow:0 24px 48px rgba(4,12,30,.4)}
+.hm-label{color:#132a58;font-size:12.5px;font-weight:900;letter-spacing:.02em}
+.hm-label small{margin-left:6px;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:11px}
+.hm-card{position:relative;display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid #e2e8f0;border-radius:13px}
+.hm-card img{width:56px;height:36px;object-fit:contain;flex-shrink:0}
+.hm-card>div{flex:1;min-width:0}
+.hm-card small{display:block;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:11px}
+.hm-card b{color:var(--home-ink);font-size:13.5px;letter-spacing:-.02em;display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.hm-net{margin-left:auto;color:#047857;font-weight:800;font-size:13.5px;white-space:nowrap}
+.hm-card.hm-win{border-color:#e7bd4b;background:linear-gradient(180deg,#fffdf4,#fff)}
+.hm-belt{position:absolute;top:-9px;left:12px;padding:2px 9px;border-radius:99px;background:linear-gradient(135deg,#f2c94c,#dfa32a);color:#fff;font-size:9px;font-weight:900;letter-spacing:.8px;box-shadow:0 3px 7px rgba(223,163,42,.4)}
+.hm-vs{z-index:1;align-self:center;display:grid;place-items:center;width:34px;height:34px;margin:-6px 0;border-radius:99px;background:#132a58;color:#f2c94c;font-weight:900;font-size:12px;box-shadow:0 4px 10px rgba(19,42,88,.45)}
+.hm-more{align-self:flex-end;color:var(--home-blue);font-size:12px;font-weight:800;text-decoration:none}
+.hm-more:hover{text-decoration:underline}
+.hm-loading{padding:26px 0;color:var(--home-muted);font-family:"Noto Sans KR",sans-serif;font-size:12.5px;text-align:center}
+@media (max-width:860px){.home-hero{grid-template-columns:minmax(0,1fr)}.home-hero-copy,.home-match{min-width:0}}
+@media (max-width:720px){.hm-card{flex-wrap:wrap}.hm-net{width:100%;margin:2px 0 0 68px}}
