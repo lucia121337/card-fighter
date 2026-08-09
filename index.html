@@ -246,6 +246,7 @@
         padding:4px 9px;font-size:11.5px;color:var(--muted)}
   .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  .chip.chk{background:#fff7ed;border-color:#fed7aa;color:#c2410c;font-weight:700}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
   .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
@@ -1369,6 +1370,7 @@ function render(){
         <div class="nm-row">
           <span class="nm">${esc(c.card_name)}</span>
           <span class="co">${esc(c.company||'')}</span>
+          ${c.cate==='CHK'?'<span class="chip chk">체크</span>':''}
           ${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}
         </div>
         <div class="benefit-row">${benefit}</div>
