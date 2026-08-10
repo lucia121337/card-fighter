@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/188",
   "top_benefit_summary": "주유: 150원 | 생활: 10%",
   "detailed_benefits": "주유: GS칼텍스, 농협주유소 리터당 100원~150원 청구할인 (LPG충전소 포함) | 생활: 커피(스타벅스/이디야) 10% NH포인트 적립",
-  "item_limit": "[{\"perf\":300000,\"limit\":800000},{\"perf\":800000,\"limit\":1500000},{\"perf\":1500000,\"limit\":150}] | [{\"perf\":300000,\"limit\":800000}]",
+  "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":1500000,\"limit\":20000},{\"perf\":800000,\"limit\":300000}] | [{\"perf\":800000,\"limit\":300000}]",
   "group_id": "none | none",
   "group_limit": "-1 | -1",
   "total_limit_tiers": [],
@@ -78,8 +78,26 @@
       "title": "주유",
       "detail": "GS칼텍스, 농협주유소 리터당 100원~150원 청구할인 (LPG충전소 포함)",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 10000
+        },
+        {
+          "perf": 1500000,
+          "limit": 20000
+        },
+        {
+          "perf": 800000,
+          "limit": 300000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -88,8 +106,18 @@
       "title": "생활",
       "detail": "커피(스타벅스/이디야) 10% NH포인트 적립",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 800000,
+          "limit": 300000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

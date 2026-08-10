@@ -73,8 +73,8 @@
   "top_benefit_summary": "OK캐쉬백: 무제한 | OTT/영화/문화: 무제한",
   "detailed_benefits": "OK캐쉬백: OK캐쉬백 멤버십 서비스 | OTT/영화/문화: NHN Entertainment 서비스",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

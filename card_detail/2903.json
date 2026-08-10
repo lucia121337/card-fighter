@@ -74,8 +74,8 @@
   "top_benefit_summary": "주유: 무제한 | 적립: 무제한 | 적립: 무제한 | 온라인쇼핑: 무제한",
   "detailed_benefits": "주유: [주유 할인 서비스] | 적립: [기본적립] | 적립: [특별적립] | 온라인쇼핑: [추가적립]",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "group_2903_주유 할인 서비스 | none | none | none",
-  "group_limit": "20000 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

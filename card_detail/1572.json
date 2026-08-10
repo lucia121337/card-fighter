@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 0.2% | 푸드: 0.2% | 대중교통: 0.2% | 통신: 0.2%",
   "detailed_benefits": "적립: 국내외 가맹점 0.2% 기본 포인트리 적립 | 푸드: 음식점, 커피전문점 업종 0.2% 추가 포인트리 적립 | 대중교통: 대중교통(버스&middot;지하철), 택시 0.2% 추가 포인트리 적립 | 통신: 이동통신요금 0.2% 추가 포인트리 적립",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

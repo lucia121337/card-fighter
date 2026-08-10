@@ -83,8 +83,8 @@
   "top_benefit_summary": "수수료우대: 무제한 | 국내외가맹점: 무제한 | 간편결제: 무제한 | 쇼핑: 무제한 | 배달앱: 무제한 | 대중교통: 무제한",
   "detailed_benefits": "수수료우대: 트래블로그 스위치 서비스 | 국내외가맹점: 국내외 가맹점 적립 서비스 | 간편결제: 페이결제 적립 서비스 | 쇼핑: 쇼핑 적립 서비스 | 배달앱: 딜리버리 적립 서비스 | 대중교통: 대중교통 적립 서비스",
   "item_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

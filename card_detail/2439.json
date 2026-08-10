@@ -73,8 +73,8 @@
   "top_benefit_summary": "편의점: 무제한 | 온라인쇼핑: 무제한 | 캐시백: 무제한",
   "detailed_benefits": "편의점: 편의점 업종에서 결제금액 상관없이 이용할 때마다 100원 캐시백 | 온라인쇼핑: 온라인 업종에서 결제금액 상관없이 이용할 때마다 100원 캐시백 | 캐시백: 전월(1일~말일)실적 10만원 이상 및 5회 이상 결제 시 500원 캐시백",
   "item_limit": "10 | 5 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

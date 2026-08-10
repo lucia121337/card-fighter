@@ -55,8 +55,8 @@
   "top_benefit_summary": "LOCA 나누기 혜택: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "LOCA 나누기 혜택: &#39;LOCA 나누기&#39; 혜택 이란? | 멤버십포인트: - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -63,8 +63,8 @@
   "top_benefit_summary": "국내외가맹점: 0.8% | 적립: 5% | 적립: 무제한",
   "detailed_benefits": "국내외가맹점: [기본적립] 국내/해외 가맹점에서 NH포인트 0.8%~1.8% 적립 | 적립: [추가적립] &#39;기본적립&#39;된 포인트의 5% 추가적립 - 연 1회 | 적립: [해피포인트 적립] SPC 가맹점 이용 시 해피포인트 적립",
   "item_limit": "[{\"perf\":500000,\"limit\":2000000},{\"perf\":2000000,\"limit\":200000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

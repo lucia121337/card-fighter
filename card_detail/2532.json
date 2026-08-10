@@ -68,8 +68,8 @@
   "top_benefit_summary": "수수료우대: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "수수료우대: 해외 수수료 할인 서비스 | 멤버십포인트: 마이신한포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

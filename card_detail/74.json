@@ -78,8 +78,8 @@
   "top_benefit_summary": "영화: 3000원 | 카페: 20% | 패스트푸드: 10%",
   "detailed_benefits": "영화: 전국 영화관 3,000원 청구할인 | 카페: 스타벅스, 이디야, 폴바셋 20% 할인 | 패스트푸드: 치킨/피자 10% 청구할인",
   "item_limit": "-1 | 5000 | 5000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

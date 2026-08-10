@@ -73,8 +73,8 @@
   "top_benefit_summary": "모든가맹점: 0.3% | 점심: 무제한 | 대형마트: 무제한",
   "detailed_benefits": "모든가맹점: 국내 이용금액의 0.3% 포인트 적립 | 점심: 평일 점심시간(11:30~13:30) 음식점업종 이용 시 1천원 할인 | 대형마트: 휴일 이마트, 롯데마트, 홈플러스 이용 시 3천원 할인",
   "item_limit": "-1 | [{\"perf\":10000,\"limit\":300000}] | [{\"perf\":50000,\"limit\":300000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

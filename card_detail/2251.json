@@ -68,8 +68,8 @@
   "top_benefit_summary": "쇼핑: 무제한 | 카페: 5% | 편의점: 5%",
   "detailed_benefits": "쇼핑: 오케이몰 상품 구매 시 장기할부 제공 | 카페: 스타벅스, 투썸플레이스, 이디야, 폴바셋 이용금액 5% 할인 | 편의점: GS25, CU, 세븐일레븐, 이마트24 이용금액 5% 할인",
   "item_limit": "[{\"perf\":300000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":20000}] | 3000 | [{\"perf\":10000,\"limit\":300000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

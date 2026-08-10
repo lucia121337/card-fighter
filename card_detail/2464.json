@@ -93,8 +93,8 @@
   "top_benefit_summary": "해외: 5% | 국내가맹점: 0.5% | 적립: 0.5% | 호텔: 20%",
   "detailed_benefits": "해외: 해외 이용액 2~5% NH포인트 적립 | 국내가맹점: 국내 이용액 0.5% NH포인트 기본적립 | 적립: 항공권, 면세점 업종 0.5% NH포인트 추가적립 | 호텔: 호텔스닷컴 이용 시 20% 즉시할인(월 이용 한도 4회)",
   "item_limit": "[{\"perf\":500000,\"limit\":1500000}] | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

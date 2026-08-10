@@ -78,8 +78,8 @@
   "top_benefit_summary": "호텔: 무제한 | 적립: 무제한 | 적립: 무제한",
   "detailed_benefits": "호텔: [전세계 메리어트 참여 호텔 무료숙박권] | 적립: [메리어트 본보이&trade; 포인트 적립] | 적립: 연회비 주기 내 이용 실적에 따른 메리어트 본보이&trade; 보너스 포인트 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

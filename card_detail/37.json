@@ -93,8 +93,8 @@
   "top_benefit_summary": "여행/숙박: 8% | 카페: 무제한",
   "detailed_benefits": "여행/숙박: JDC 면세점 8% 결제일 할인 | 카페: 스타벅스 커피할인 서비스",
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

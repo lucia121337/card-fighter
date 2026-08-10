@@ -93,8 +93,8 @@
   "top_benefit_summary": "아시아나항공: 무제한 | 항공권: 무제한 | 면세점: 무제한",
   "detailed_benefits": "아시아나항공: 항공 마일리지 적립서비스 | 항공권: 항공 좌석 업그레이드 또는 동반자 무료 항공권 제공 서비스 | 면세점: 국내 유명 면세점 할인 서비스",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

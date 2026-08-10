@@ -73,8 +73,8 @@
   "top_benefit_summary": "쇼핑: 무제한 | 쇼핑: 무제한 | 편의점: 5%",
   "detailed_benefits": "쇼핑: 코오롱 FnC 온/오프라인 매장 상품 구매시 청구할인 제공 | 쇼핑: 코오롱 FnC 온/오프라인 매장 상품 구매시 장기할부 제공 | 편의점: 편의점 5% 청구할인 서비스",
   "item_limit": "[{\"perf\":500000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":7000}] | [{\"perf\":10000,\"limit\":300000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

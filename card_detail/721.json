@@ -78,13 +78,8 @@
   "top_benefit_summary": "국민행복: 5% | 국민행복: 7% | 디지털구독: 20% | 해외: 무제한 | 여행/숙박: 무제한",
   "detailed_benefits": "국민행복: 쇼핑/생활 업종(백화점, 대형할인점, 온라인쇼핑, 이동통신, 생활월납, 렌탈) 5% 청구할인 | 국민행복: 의료(임신&middot;출산) / 보육(교육) 업종 7% 청구할인 | 디지털구독: 언택트 라이프 업종(영상, 음원, 전자도서, 멤버십) 20% 청구할인 | 해외: 해외가맹점(해외직구 포함) 이용금액 청구할인 | 여행/숙박: 프리미엄 투어 서비스",
   "item_limit": "-1 | -1 | -1 | [{\"perf\":10000,\"limit\":300000}] | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 2
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

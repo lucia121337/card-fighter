@@ -88,8 +88,8 @@
   "top_benefit_summary": "국내외가맹점: 1% | 온라인쇼핑: 5% | 배달앱: 5% | 통신: 5% | 디지털구독: 50%",
   "detailed_benefits": "국내외가맹점: 어디서나 1% 결제일 할인 | 온라인쇼핑: 온라인 쇼핑 최대 5% 결제일 할인 | 배달앱: 배달의 민족, 쿠팡이츠, 요기요 5% 결제일 할인 | 통신: SKT, KT, LG U+ 5% 결제일 할인 | 디지털구독: 넷플릭스, 유튜브프리미엄, 왓챠, 멜론, 지니뮤직 50% 결제일 할인",
   "item_limit": "-1 | -1 | [{\"perf\":1000000,\"limit\":100000}] | [{\"perf\":1000000,\"limit\":100000}] | [{\"perf\":1000000,\"limit\":10000}]",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

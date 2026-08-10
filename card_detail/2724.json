@@ -88,8 +88,8 @@
   "top_benefit_summary": "쇼핑: 7% | 푸드: 7% | 생활: 7% | 적립: 1% | 해외: 2%",
   "detailed_benefits": "쇼핑: [바로카드 Pick! 적립] 쇼픽 그룹 7% 적립 | 푸드: [바로카드 Pick! 적립] 쇼픽 그룹 7% 적립 | 생활: [바로카드 Pick! 적립] 생픽 그룹 7% 적립 | 적립: [전월 실적, 한도 없는 적립] 국내 카카오페이 결제 1% 적립 | 해외: [전월 실적, 한도 없는 적립] 해외 온/오프라인 결제 2% 적립",
   "item_limit": "-1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

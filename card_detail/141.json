@@ -68,8 +68,8 @@
   "top_benefit_summary": "애완동물: 30% | 대형마트: 무제한",
   "detailed_benefits": "애완동물: 동물병원, 애완동물 업종 30% 청구할인 | 대형마트: - 인터넷쇼핑몰/슈퍼(이마트 에브리데이, 홈플러스 익스프레스, 롯데슈퍼, 롯데마켓999) 이용금액, 상품권 구매 및 건물 내 임대매장 이용금액은 할인 제외",
   "item_limit": "1 | 1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

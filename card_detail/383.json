@@ -63,8 +63,8 @@
   "top_benefit_summary": "캐시백: 20% | 캐시백: 무제한 | 해피포인트: 무제한",
   "detailed_benefits": "캐시백: 해피포인트 가맹점 20% 현금 캐쉬백 | 캐시백: 캐쉬백 | 해피포인트: 멤버쉽 혜택",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

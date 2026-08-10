@@ -68,8 +68,8 @@
   "top_benefit_summary": "적립: 10% | 해외이용: 1% | 해피포인트: 무제한",
   "detailed_benefits": "적립: 해피오더/해피마켓 사용 시, 해피포인트 10% 적립 | 해외이용: 해외 이용금액의 1% 해피포인트 적립 | 해피포인트: 해피포인트 가맹점 이용액 현장 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -88,8 +88,8 @@
   "top_benefit_summary": "국내외가맹점: 0.5% | 간편결제: 5% | 대형마트: 5% | 주유: 5% | 카페: 5% | 기타: 5%",
   "detailed_benefits": "국내외가맹점: 전가맹점 0.5% 할인 | 간편결제: 간편결제 5% 할인 | 대형마트: 마트 5% 할인 | 주유: 주유/LPG충전 5% 할인 | 카페: 커피 5% 할인 | 기타: 뷰티&amp;펫 5% 할인",
   "item_limit": "-1 | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

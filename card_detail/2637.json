@@ -78,8 +78,8 @@
   "top_benefit_summary": "카카오페이: 2% | 카페: 5% | 대중교통: 5% | 해외: 1%",
   "detailed_benefits": "카카오페이: 카카오페이 이용금액에 2% 카카오페이포인트 적립&amp; 「카카오톡(APP) 내 쇼핑하기/선물하기」 이용금액에 2% 카카오페이포인트 추가 적립 | 카페: 커피전문점 업종 이용금액에 5% 카카오페이포인트 적립 | 대중교통: 대중교통 이용금액에 5% 카카오페이포인트 적립(버스/지하철) | 해외: 해외(온라인 포함) 이용금액에 1% 카카오페이포인트 적립",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

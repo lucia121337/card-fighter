@@ -44,7 +44,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2217",
   "top_benefit_summary": "모든가맹점: 1%",
   "detailed_benefits": "모든가맹점: 전월 사용금액에 따라 0.5~1% 캐시백 지급",
-  "item_limit": "[{\"perf\":300000,\"limit\":20000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":20000},{\"perf\":1500000,\"limit\":20000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -55,8 +55,22 @@
       "title": "모든가맹점",
       "detail": "전월 사용금액에 따라 0.5~1% 캐시백 지급",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.01
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 20000
+        },
+        {
+          "perf": 1500000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

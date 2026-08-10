@@ -68,8 +68,8 @@
   "top_benefit_summary": "국내외가맹점: 0.2% | 캐시백: 0.2% | 캐시백: 5%",
   "detailed_benefits": "국내외가맹점: [기본 캐시백] 국내외 이용금액의 0.2% 캐시백 | 캐시백: [추가 캐시백] 대상 업종 또는 가맹점 이용금액의 0.2% 추가 캐시백 | 캐시백: [특별 캐시백] 대상 업종별 5% 추가 캐시백",
   "item_limit": "-1 | -1 | 6000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

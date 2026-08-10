@@ -83,8 +83,8 @@
   "top_benefit_summary": "자동차/하이패스: 무제한 | 편의점: 무제한 | 카페: 무제한 | 택시: 무제한 | 영화: 무제한",
   "detailed_benefits": "자동차/하이패스: [정비소] SpeedMate | 편의점: [편의점] | 카페: [커피] | 택시: [택시] | 영화: 영화서비스 유의 사항",
   "item_limit": "-1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

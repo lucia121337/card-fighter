@@ -73,8 +73,8 @@
   "top_benefit_summary": "여행사: 무제한 | 패밀리레스토랑: 10% | 카페: 10%",
   "detailed_benefits": "여행사: 모두투어 투어마일리지 적립 | 패밀리레스토랑: 외식 10% 청구할인 | 카페: 커피 10% 청구할인",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":200000}] | [{\"perf\":300000,\"limit\":200000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -73,8 +73,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 해외이용: 무제한 | 면세점: 무제한",
   "detailed_benefits": "대한항공: 기본 적립 | 해외이용: 해외 이용 | 면세점: 신라면세점 더 심플(앱)",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

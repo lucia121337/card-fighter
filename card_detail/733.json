@@ -59,8 +59,8 @@
   "top_benefit_summary": "온라인쇼핑: 5% | 적립: 1%",
   "detailed_benefits": "온라인쇼핑: 무신사 및 솔드아웃에서 결제 시 5% 청구 할인 | 적립: 그 외 가맹점에서 결제 시 무신사 적립금 1% 적립",
   "item_limit": "[{\"perf\":300000,\"limit\":30000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

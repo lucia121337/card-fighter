@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 1.5% | 적립: 5% | 프리미엄 서비스: 무제한",
   "detailed_benefits": "적립: [기본 혜택] 국내외 가맹점 1.5% M포인트 적립 | 적립: [추가 혜택] 교육, 병원, 여행, 골프 5% M포인트 적립 | 프리미엄 서비스: M 긴급적립(선지급 포인트 서비스)",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

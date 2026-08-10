@@ -51,19 +51,12 @@ cardsFull.forEach(c => {
       const title = parts[0] ? parts[0].trim() : '혜택';
       const detail = parts[1] ? parts[1].trim() : sumText;
       
-      let parsedLimit = 0;
-      if (rawLimits[i]) {
+      let parsedLimit = -1;
+      if (rawLimits[i] !== undefined && rawLimits[i] !== '') {
         try {
-          const jsonLim = JSON.parse(rawLimits[i]);
-          if (Array.isArray(jsonLim) && jsonLim.length > 0) {
-            parsedLimit = jsonLim[0].limit !== undefined ? jsonLim[0].limit : jsonLim[0];
-          } else if (typeof jsonLim === 'number') {
-            parsedLimit = jsonLim;
-          } else {
-            parsedLimit = Number(rawLimits[i]) || 0;
-          }
+          parsedLimit = JSON.parse(rawLimits[i]);
         } catch (e) {
-          parsedLimit = Number(rawLimits[i]) || 0;
+          parsedLimit = rawLimits[i];
         }
       }
       
@@ -85,6 +78,18 @@ cardsFull.forEach(c => {
       };
     });
     c.structured_benefits = bItems;
+  } else if (bItems && Array.isArray(bItems)) {
+    // 혜택 항목의 item_limit이 원본 cards_full.json의 c.item_limit 원본과 1:1 보존되도록 동기화
+    const rawLimits = itemLimitStr.split('|').map(s => s.trim());
+    bItems.forEach((it, i) => {
+      if (rawLimits[i] !== undefined && rawLimits[i] !== '') {
+        try {
+          it.item_limit = JSON.parse(rawLimits[i]);
+        } catch (e) {
+          it.item_limit = rawLimits[i];
+        }
+      }
+    });
   }
 
   if (!bItems || bItems.length === 0) {
@@ -101,7 +106,6 @@ cardsFull.forEach(c => {
   try {
     const capRes = windowMock.applyThreeLevelCap(items, c.total_limit_tiers, perf);
     const reqPay = windowMock.calculateMinRequiredPayment(items, capRes.results);
-    const expectedBenefit = capRes.totalBenefit;
 
     if (isFinite(reqPay) && !isNaN(reqPay) && capRes.totalSpent >= 0) {
       c.is_calc_supported = 'TRUE';
@@ -118,13 +122,20 @@ cardsFull.forEach(c => {
       });
 
       items.forEach(it => {
+        let itemLimitVal = it.amount;
+        if (typeof itemLimitVal === 'object' && itemLimitVal !== null) {
+          itemLimitVal = JSON.stringify(itemLimitVal);
+        } else {
+          itemLimitVal = String(itemLimitVal);
+        }
+
         dbBenefitItems.push({
           card_id: c.idx,
           title: it.title,
           detail: it.summary || it.detail,
           group_id: it.groupId && it.groupId !== 'none' ? it.groupId : null,
-          rate: JSON.stringify(it.rate),
-          item_limit: typeof it.amount === 'object' ? JSON.stringify(it.amount) : String(it.amount),
+          rate: typeof it.rate === 'object' ? JSON.stringify(it.rate) : String(it.rate),
+          item_limit: itemLimitVal,
           fixedAmount: it.fixedAmount || 0,
           minPayment: it.minPayment || 0
         });

@@ -93,8 +93,8 @@
   "top_benefit_summary": "골프: 무제한 | 멤버십포인트: 0.5%",
   "detailed_benefits": "골프: 항공권 | 멤버십포인트: 연간 이용금액에 따라 0.5%~2% RAUME포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

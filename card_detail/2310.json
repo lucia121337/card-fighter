@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 1% | 적립: 13% | 할인: 20%",
   "detailed_benefits": "적립: 전월 실적 / 연회비 없이 온라인 1% &middot; 오프라인 최대 1% 적립 | 적립: 매월 바뀌는 브랜드에서 건당 최대 13% 적립 | 할인: 매월 바뀌는 브랜드에서 건당 최대 20% 할인",
   "item_limit": "-1 | [{\"perf\":2000000,\"limit\":120000}] | [{\"perf\":10000,\"limit\":1000},{\"perf\":15000,\"limit\":1000},{\"perf\":40000,\"limit\":100000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

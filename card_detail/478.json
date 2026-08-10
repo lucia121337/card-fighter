@@ -68,8 +68,8 @@
   "top_benefit_summary": "영화: 무제한 | 기타: 무제한",
   "detailed_benefits": "영화: YES24, 인터파크 영화 예매 할인 | 기타: 생활친화가맹점 잔돈할인 서비스(Coin-Save 월 10회 제공)",
   "item_limit": "-1 | [{\"perf\":20000,\"limit\":100000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

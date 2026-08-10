@@ -59,8 +59,8 @@
   "top_benefit_summary": "국내외가맹점: 0.7% | 온라인쇼핑: 5%",
   "detailed_benefits": "국내외가맹점: 국내외 가맹점 0.7% 결제일 할인 | 온라인쇼핑: 온라인 쇼핑 최대 5% 결제일 할인",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

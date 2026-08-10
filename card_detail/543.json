@@ -63,8 +63,8 @@
   "top_benefit_summary": "공과금: 무제한 | 기타: 30%",
   "detailed_benefits": "공과금: 아파트관리비(공공 임대료) 5천~15천원 청구할인 | 기타: 유튜브 프리미엄 정기권 30% 청구할인",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":15000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -64,8 +64,8 @@
   "top_benefit_summary": "모든가맹점: 1% | 캐시백: 무제한 | 기타: 무제한",
   "detailed_benefits": "모든가맹점: 국내 모든 가맹점에서 건당 이용금액에 따라 최대 1% 포인트 적립 | 캐시백: 적립된 포인트 익월 15일 이후 결제계좌로 자동 캐시백 입금 | 기타: 그린카드 서비스",
   "item_limit": "[{\"perf\":10000,\"limit\":50000},{\"perf\":50000,\"limit\":300000},{\"perf\":300000,\"limit\":1000000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

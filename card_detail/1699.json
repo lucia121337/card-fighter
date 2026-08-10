@@ -83,8 +83,8 @@
   "top_benefit_summary": "주유: 무제한 | 대중교통: 무제한 | 통신: 무제한 | 카페/디저트: 무제한",
   "detailed_benefits": "주유: SK주유소(LPG포함) 주유 할인 | 대중교통: 전국 버스, 지하철 할인 | 통신: 휴대폰 요금 할인 | 카페/디저트: 커피전문점 할인",
   "item_limit": "-1 | 50 | 1000 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

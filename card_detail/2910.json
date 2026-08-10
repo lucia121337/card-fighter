@@ -58,8 +58,8 @@
   "top_benefit_summary": "하이패스: 무제한 | 하이패스: 무제한",
   "detailed_benefits": "하이패스: 카카오뱅크 스마트 하이패스카드 소개 | 하이패스: 하이패스 할인 안내",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

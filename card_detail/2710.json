@@ -78,8 +78,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 적립: 무제한 | 항공권: 무제한",
   "detailed_benefits": "대한항공: 대한항공 마일리지 적립 | 적립: 연간 보너스 6천 마일리지 적립(연 1회) | 항공권: 대한항공 직판 국제선 항공권 5만원 할인 쿠폰 제공(연 1장)",
   "item_limit": "[{\"perf\":500000,\"limit\":1000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -78,8 +78,8 @@
   "top_benefit_summary": "캐시백: 무제한 | 쇼핑: 5% | 영화: 무제한",
   "detailed_benefits": "캐시백: 매주 평일 이용실적(월~금) | 쇼핑: 롯데백화점 5% 할인 e-쿠폰 | 영화: 롯데시네마 관람권 1,500원 환급 할인 (일 1회, 월 5회, 연 12회)",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

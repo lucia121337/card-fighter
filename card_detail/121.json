@@ -98,8 +98,8 @@
   "top_benefit_summary": "대중교통: 무제한 | 통신: 무제한 | 주유소: 무제한 | 영화: 무제한 | 해외: 무제한 | 기타: 무제한",
   "detailed_benefits": "대중교통: 대중교통 기본 할인 서비스 | 통신: 이동통신 기본 할인 서비스 | 주유소: 주유 기본 할인 서비스 | 영화: CGV/메가박스 온라인 영화예매시 승인건당 3,500원 청구 할인 | 해외: 해외 기본 할인 서비스 | 기타: [다담리워드 서비스]",
   "item_limit": "5000 | 5000 | -1 | 14000 | 5000 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

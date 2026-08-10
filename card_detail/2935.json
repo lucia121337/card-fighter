@@ -77,8 +77,8 @@
   "top_benefit_summary": "해외직구: 0.3% | 할인: 5% | 캐시백: 무제한",
   "detailed_benefits": "해외직구: 전월 실적 무관하게 0.3% 마이신한포인트 적립 | 할인: 국내 4대 편의점 5% 결제일 할인 | 캐시백: 마이셀렉트샵 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":500000}] | 3000 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

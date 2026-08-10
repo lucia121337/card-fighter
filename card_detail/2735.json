@@ -68,13 +68,8 @@
   "top_benefit_summary": "학원: 10% | 생활: 1% | 영화: 무제한",
   "detailed_benefits": "학원: [학원비] 최대 10% 캐시백 | 생활: [생활비] 1% 캐시백 | 영화: [문화 취미] 메가박스 영화 온라인 예매 7천원 즉시 할인",
   "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":2000000}] | [{\"perf\":500000,\"limit\":2000}] | [{\"perf\":500000,\"limit\":7000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 200000,
-      "limit": 1
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

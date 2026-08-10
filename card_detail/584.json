@@ -68,8 +68,8 @@
   "top_benefit_summary": "대중교통: 무제한 | 캐시백: 무제한",
   "detailed_benefits": "대중교통: K-패스 사업 지역 안내 | 캐시백: 기본 서비스",
   "item_limit": "-1 | [{\"perf\":10000,\"limit\":1000},{\"perf\":20000,\"limit\":2000},{\"perf\":30000,\"limit\":3000},{\"perf\":50000,\"limit\":3000},{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":700000},{\"perf\":700000,\"limit\":28000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

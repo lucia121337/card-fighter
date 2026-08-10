@@ -73,8 +73,8 @@
   "top_benefit_summary": "캐시백: 0.2% | 캐시백: 0.6%",
   "detailed_benefits": "캐시백: 국내&middot;해외 전 가맹점 0.2% 캐시백 | 캐시백: 점심&middot;저녁시간 국내 전 가맹점 3배(총 0.6%) 캐시백",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

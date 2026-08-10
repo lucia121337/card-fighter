@@ -68,8 +68,8 @@
   "top_benefit_summary": "적립: 0.2% | 주유소: 무제한",
   "detailed_benefits": "적립: 전국 가맹점에서 롯데카드 제공 L.POINT 0.2% 적립 | 주유소: SK주유소(LPG 제외)에서 리터당 50포인트 SK주유포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

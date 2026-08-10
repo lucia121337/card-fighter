@@ -72,8 +72,8 @@
   "top_benefit_summary": "할인: 무제한 | 제주항공: 무제한",
   "detailed_benefits": "할인: 국내 혜택 | 제주항공: 전용 혜택",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

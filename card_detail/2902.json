@@ -88,8 +88,8 @@
   "top_benefit_summary": "적립: 무제한 | 적립: 무제한 | 적립: 무제한 | 공항: 무제한 | 생활: 10%",
   "detailed_benefits": "적립: 기본적립 | 적립: 특별적립Ⅰ | 적립: 특별적립Ⅱ | 공항: 인천공항 주차장 3만원 이상 결제 시 1만원 청구할인 | 생활: 해당 가맹점에서 1만원 이상 결제 시 10% 청구할인",
   "item_limit": "-1 | -1 | -1 | [{\"perf\":30000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":5000}]",
-  "group_id": "none | group_2902_백화점 | group_2902_국내 항공권 | none | group_2902_유튜브",
-  "group_limit": "-1 | 50000 | 50000 | -1 | 5000",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

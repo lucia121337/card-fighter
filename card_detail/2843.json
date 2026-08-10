@@ -69,8 +69,8 @@
   "top_benefit_summary": "할인: 1% | 할인: 5% | 적립: 무제한",
   "detailed_benefits": "할인: [기본 혜택] 전월 이용 금액 50만원 이상 시 국내외 가맹점 1% 청구 할인 | 할인: [추가 혜택] 전월 이용 금액 100만원 이상 시 온라인몰, 교육, 병원 5% 청구 할인 | 적립: X 긴급할인(선지급 포인트 서비스)",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

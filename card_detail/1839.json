@@ -95,17 +95,8 @@
   "top_benefit_summary": "보험사: 무제한 | 경기관람: 20% | 항공권: 무제한 | 영화: 1500원 | 멤버십포인트: 무제한",
   "detailed_benefits": "보험사: AIA생명 롯데 리얼체크카드로 보험료 결제 시 월 3천원~5천원 할인 | 경기관람: 롯데 자이언츠 20% 할인 | 항공권: 해외항공권 | 영화: 롯데시네마 관람료 1,500원 청구할인 | 멤버십포인트: L.POINT 적립",
   "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}] | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 3
-    },
-    {
-      "perf": 500000,
-      "limit": 5
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

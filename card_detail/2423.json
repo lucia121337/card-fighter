@@ -112,7 +112,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2423",
   "top_benefit_summary": "카페: 10% | 게임: 10% | 공연/전시: 10% | 드럭스토어: 5% | 편의점: 5% | 디지털구독: 1000원 | 배달앱: 1000원 | 통신: 2500원 | OTT/영화/문화: 4000원 | 테마파크: 15000원 | 해외이용: 2%",
   "detailed_benefits": "카페: [일상] 스타벅스, 커피빈 10% 할인 | 게임: [일상] 구글플레이스토어, 앱스토어 10% 할인 | 공연/전시: [일상] 인터파크 티켓 10% 할인 | 드럭스토어: [일상] 올리브영, 미용실 업종 5% 할인 | 편의점: [일상] GS25, CU 5% 할인 | 디지털구독: [일상]넷플릭스, 유튜브프리미엄 1,000원 할인 | 배달앱: [일상] 배달의 민족, 요기요 1,000원 할인 | 통신: [일상] SKT, KT, LG U+, Liiv M 2,500원 할인 | OTT/영화/문화: [일상] CGV 4,000원 할인 | 테마파크: [일상] 에버랜드, 롯데월드 15,000원 할인 | 해외이용: [Global] 해외 가맹점 2% 추가 할인",
-  "item_limit": "3000 | [{\"perf\":200000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":7000}] | [{\"perf\":200000,\"limit\":2000}] | [{\"perf\":200000,\"limit\":2000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":50000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":30000}] | [{\"perf\":300000,\"limit\":5000}]",
+  "item_limit": "3000 | 5000 | 7000 | 2000 | 2000 | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":200000,\"limit\":50000}] | [{\"perf\":200000,\"limit\":10000}] | [{\"perf\":10000,\"limit\":5000},{\"perf\":200000,\"limit\":30000}] | 5000",
   "group_id": "none | none | none | none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [
@@ -128,8 +128,13 @@
       "title": "카페",
       "detail": "[일상] 스타벅스, 커피빈 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -138,8 +143,13 @@
       "title": "게임",
       "detail": "[일상] 구글플레이스토어, 앱스토어 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 5000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -148,8 +158,13 @@
       "title": "공연/전시",
       "detail": "[일상] 인터파크 티켓 10% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 7000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -158,8 +173,13 @@
       "title": "드럭스토어",
       "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 2000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -168,8 +188,13 @@
       "title": "편의점",
       "detail": "[일상] GS25, CU 5% 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 2000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -178,8 +203,18 @@
       "title": "디지털구독",
       "detail": "[일상]넷플릭스, 유튜브프리미엄 1,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -188,8 +223,18 @@
       "title": "배달앱",
       "detail": "[일상] 배달의 민족, 요기요 1,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -198,8 +243,18 @@
       "title": "통신",
       "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 50000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -208,8 +263,18 @@
       "title": "OTT/영화/문화",
       "detail": "[일상] CGV 4,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -218,8 +283,22 @@
       "title": "테마파크",
       "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 10000,
+          "limit": 5000
+        },
+        {
+          "perf": 200000,
+          "limit": 30000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -228,8 +307,13 @@
       "title": "해외이용",
       "detail": "[Global] 해외 가맹점 2% 추가 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.02
+        }
+      ],
+      "item_limit": 5000,
       "fixedAmount": 0,
       "minPayment": 0
     }

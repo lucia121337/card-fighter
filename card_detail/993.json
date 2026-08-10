@@ -81,8 +81,8 @@
   "top_benefit_summary": "항공마일리지: 무제한 | 골프: 무제한",
   "detailed_benefits": "항공마일리지: 항공 마일리지 적립 서비스 | 골프: 골프 할인 서비스",
   "item_limit": "[{\"perf\":2000000,\"limit\":2000000}] | [{\"perf\":100000,\"limit\":10000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

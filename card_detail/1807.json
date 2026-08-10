@@ -63,9 +63,9 @@
   "top_benefit_summary": "게임: 5% | 카페: 20%",
   "detailed_benefits": "게임: 구글 플레이스토어, 애플 앱스토어, 원스토어 5% 캐시백 | 카페: 스타벅스 20% 캐시백",
   "item_limit": "10000 | 7000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -73,8 +73,13 @@
       "title": "게임",
       "detail": "구글 플레이스토어, 애플 앱스토어, 원스토어 5% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "10000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -83,8 +88,13 @@
       "title": "카페",
       "detail": "스타벅스 20% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.2}]",
-      "item_limit": "7000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.2
+        }
+      ],
+      "item_limit": 7000,
       "fixedAmount": 0,
       "minPayment": 0
     }

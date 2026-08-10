@@ -59,8 +59,8 @@
   "top_benefit_summary": "보험사: 무제한 | 병원/약국: 5%",
   "detailed_benefits": "보험사: 전월 이용실적 구간별 할인 금액 | 병원/약국: 병원/약국 5% 할인",
   "item_limit": "[{\"perf\":800000,\"limit\":5000}] | [{\"perf\":400000,\"limit\":5000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -78,8 +78,8 @@
   "top_benefit_summary": "LGU+: 무제한 | 패밀리레스토랑: 10% | 카페: 10% | 영화: 무제한",
   "detailed_benefits": "LGU+: LGU+ 통신요금 할인서비스 | 패밀리레스토랑: 패밀리레스토랑 10% 캐시백 할인 | 카페: 커피 10% 캐시백 할인 | 영화: 전국 영화관 2천원 캐시백 할인",
   "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":700000,\"limit\":5000}] | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "푸드: 무제한 | 뷰티/피트니스: 무제한 | 교통: 무제한",
   "detailed_benefits": "푸드: &middot; | 뷰티/피트니스: &middot; | 교통: &middot;",
   "item_limit": "90000 | 10000 | 50000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

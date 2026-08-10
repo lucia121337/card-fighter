@@ -93,22 +93,9 @@
   "top_benefit_summary": "대중교통: 300원 | 카페: 300원 | 편의점: 300원 | 디지털구독: 3000원 | 주유: 3000원 | 쇼핑: 3000원 | 생활: 3000원",
   "detailed_benefits": "대중교통: 대중교통 건당 300원 할인 | 카페: 커피 건당 300원 할인 | 편의점: 편의점 건당 300원 할인 | 디지털구독: 디지털 구독 건당 3,000원 할인 | 주유: 주유/충전 건당 3,000원 할인 | 쇼핑: 쇼핑 건당 3,000원 할인 | 생활: 생활요금 건당 3,000원 할인",
   "item_limit": "300 | 300 | 300 | 3000 | 3000 | 3000 | 3000",
-  "group_id": "none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 200000,
-      "limit": 10
-    },
-    {
-      "perf": 600000,
-      "limit": 20
-    },
-    {
-      "perf": 1000000,
-      "limit": 30
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -116,8 +103,13 @@
       "title": "대중교통",
       "detail": "대중교통 건당 300원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "300",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 300,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -126,8 +118,13 @@
       "title": "카페",
       "detail": "커피 건당 300원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "300",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 300,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -136,8 +133,13 @@
       "title": "편의점",
       "detail": "편의점 건당 300원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "300",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 300,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -146,8 +148,13 @@
       "title": "디지털구독",
       "detail": "디지털 구독 건당 3,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -156,8 +163,13 @@
       "title": "주유",
       "detail": "주유/충전 건당 3,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -166,8 +178,13 @@
       "title": "쇼핑",
       "detail": "쇼핑 건당 3,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -176,8 +193,13 @@
       "title": "생활",
       "detail": "생활요금 건당 3,000원 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     }

@@ -73,8 +73,8 @@
   "top_benefit_summary": "무실적: 0.2% | 적립: 무제한 | 적립: 무제한",
   "detailed_benefits": "무실적: [기본 적립] 국내외 가맹점 이용금액 0.2% 적립 | 적립: [추가 적립] 전월실적에 따라 최대 3천원 추가 적립 | 적립: [특별 적립] 4대 일상영역 중 한 곳 1만원 적립",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":1000},{\"perf\":600000,\"limit\":2000},{\"perf\":900000,\"limit\":3000}] | [{\"perf\":300000,\"limit\":10000}]",
-  "group_id": "none | none | group_2552_특별 적립",
-  "group_limit": "-1 | -1 | 1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

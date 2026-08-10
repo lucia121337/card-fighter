@@ -73,8 +73,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 대한항공: 무제한",
   "detailed_benefits": "대한항공: 기본적립 | 대한항공: 특화적립",
   "item_limit": "[{\"perf\":500000,\"limit\":1500}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

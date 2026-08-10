@@ -73,9 +73,9 @@
   "top_benefit_summary": "직장인: 5% | 교통: 5% | 쇼핑: 5% | 해외: 2%",
   "detailed_benefits": "직장인: 저녁 5시 ~ 11시 모든 음식점(주점 포함), 노래방 5% 캐시백 | 교통: 택시 5% 캐시백 | 쇼핑: 이마트, 롯데마트, 홈플러스 5% 캐시백 | 해외: 해외가맹점(해외직구 포함) 이용금액의 2.0%~0.5% 캐시백",
   "item_limit": "40000 | 30000 | 90000 | 10000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -83,8 +83,13 @@
       "title": "직장인",
       "detail": "저녁 5시 ~ 11시 모든 음식점(주점 포함), 노래방 5% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "40000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 40000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -93,8 +98,13 @@
       "title": "교통",
       "detail": "택시 5% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "30000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 30000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -103,8 +113,13 @@
       "title": "쇼핑",
       "detail": "이마트, 롯데마트, 홈플러스 5% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "90000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 90000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -113,8 +128,13 @@
       "title": "해외",
       "detail": "해외가맹점(해외직구 포함) 이용금액의 2.0%~0.5% 캐시백",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.02}]",
-      "item_limit": "10000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.02
+        }
+      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     }

@@ -813,13 +813,6 @@
       "is_calc_supported": "TRUE"
     },
     {
-      "card_id": 688,
-      "card_name": "카드의정석 POINT CHECK x 핑크퐁",
-      "company": "우리카드",
-      "annual_fee": 0,
-      "is_calc_supported": "TRUE"
-    },
-    {
       "card_id": 656,
       "card_name": "카드의 정석 SSO3 NEW-TRO CHECK",
       "company": "우리카드",
@@ -1249,11 +1242,6 @@
   ],
   "performance_tiers": [
     {
-      "card_id": 2265,
-      "perf": 400000,
-      "total_limit": 10000
-    },
-    {
       "card_id": 2365,
       "perf": 800000,
       "total_limit": 15000
@@ -1279,34 +1267,9 @@
       "total_limit": 30000
     },
     {
-      "card_id": 2175,
-      "perf": 300000,
-      "total_limit": 5
-    },
-    {
-      "card_id": 2175,
-      "perf": 700000,
-      "total_limit": 10000
-    },
-    {
       "card_id": 2336,
       "perf": 800000,
       "total_limit": 20000
-    },
-    {
-      "card_id": 2409,
-      "perf": 200000,
-      "total_limit": 10
-    },
-    {
-      "card_id": 2409,
-      "perf": 600000,
-      "total_limit": 20
-    },
-    {
-      "card_id": 2409,
-      "perf": 1000000,
-      "total_limit": 30
     },
     {
       "card_id": 751,
@@ -1329,16 +1292,6 @@
       "total_limit": 1
     },
     {
-      "card_id": 470,
-      "perf": 500000,
-      "total_limit": 5
-    },
-    {
-      "card_id": 470,
-      "perf": 1000000,
-      "total_limit": 10000
-    },
-    {
       "card_id": 2235,
       "perf": 300000,
       "total_limit": 10000
@@ -1347,26 +1300,6 @@
       "card_id": 2235,
       "perf": 600000,
       "total_limit": 20000
-    },
-    {
-      "card_id": 688,
-      "perf": 300000,
-      "total_limit": 10000
-    },
-    {
-      "card_id": 688,
-      "perf": 500000,
-      "total_limit": 20000
-    },
-    {
-      "card_id": 688,
-      "perf": 800000,
-      "total_limit": 30000
-    },
-    {
-      "card_id": 369,
-      "perf": 500000,
-      "total_limit": 5
     },
     {
       "card_id": 309,
@@ -1374,44 +1307,14 @@
       "total_limit": 12000
     },
     {
-      "card_id": 757,
-      "perf": 300000,
-      "total_limit": 3
-    },
-    {
-      "card_id": 757,
-      "perf": 500000,
-      "total_limit": 4
-    },
-    {
       "card_id": 357,
       "perf": 500000,
       "total_limit": 10000
     },
     {
-      "card_id": 328,
-      "perf": 250000,
-      "total_limit": 5000
-    },
-    {
-      "card_id": 328,
-      "perf": 500000,
-      "total_limit": 10000
-    },
-    {
-      "card_id": 328,
-      "perf": 700000,
-      "total_limit": 15000
-    },
-    {
       "card_id": 372,
       "perf": 500000,
       "total_limit": 10000
-    },
-    {
-      "card_id": 725,
-      "perf": 600000,
-      "total_limit": 4
     },
     {
       "card_id": 752,
@@ -1429,24 +1332,9 @@
       "total_limit": 5
     },
     {
-      "card_id": 2984,
-      "perf": 600000,
-      "total_limit": 10000
-    },
-    {
-      "card_id": 375,
-      "perf": 500000,
-      "total_limit": 1
-    },
-    {
       "card_id": 2550,
       "perf": 10000,
       "total_limit": 2
-    },
-    {
-      "card_id": 2974,
-      "perf": 600000,
-      "total_limit": 10000
     },
     {
       "card_id": 2588,
@@ -1467,7 +1355,7 @@
       "detail": "[Daily 할인] 주유 리터당 60~100원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1667,7 +1555,7 @@
       "detail": "카카오톡 선물하기 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1677,7 +1565,7 @@
       "detail": "카카오페이 결제 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1697,7 +1585,7 @@
       "detail": "주유 리터당 60~100원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1707,7 +1595,7 @@
       "detail": "대중교통 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1757,7 +1645,7 @@
       "detail": "대중교통 및 통신요금 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1767,7 +1655,7 @@
       "detail": "교육 업종(학원, 학습지 등) 5~7% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":1000000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":30000},{\"perf\":1500000,\"limit\":50000},{\"perf\":2000000,\"limit\":70000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1797,7 +1685,7 @@
       "detail": "생활밀착 할인의 정석",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1807,7 +1695,7 @@
       "detail": "생활밀착 할인의 정석",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1827,7 +1715,7 @@
       "detail": "Most주유소 리터당 최대 200원 청구할인(SK주유소는 최대 80원 청구할인)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000},{\"perf\":1000000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1837,7 +1725,7 @@
       "detail": "영화관 업종 5,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1847,7 +1735,7 @@
       "detail": "S-OIL, 현대오일뱅크 리터당 60~100원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":300000},{\"perf\":1000000,\"limit\":500000},{\"perf\":1000000,\"limit\":100}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1857,7 +1745,7 @@
       "detail": "대중교통 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1877,7 +1765,7 @@
       "detail": "엔터테인먼트, 휴대폰 요금, 교통/주유, 쇼핑, 교육 등 5개의 항목에서 카드 사용 액의 4%~20%까지 특별 포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.04}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":700000,\"limit\":300000},{\"perf\":1000000,\"limit\":700000},{\"perf\":2000000,\"limit\":1000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1887,7 +1775,7 @@
       "detail": "[MX Black Zone] Shopping Zone 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":20000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1897,7 +1785,7 @@
       "detail": "[MX Black Zone] Food &amp; Drink Zone 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":15000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1907,7 +1795,7 @@
       "detail": "[MX Black Zone] Mobility Zone 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":10000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":2000000,\"limit\":15000},{\"perf\":2000000,\"min_perf\":2000000,\"max_perf\":null,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1917,7 +1805,7 @@
       "detail": "롯데홈쇼핑에서 7% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":600000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1927,7 +1815,7 @@
       "detail": "롯데홈쇼핑 적립금 최대 3.5% 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.035}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1937,7 +1825,7 @@
       "detail": "[커피전문점 이용금액의 50% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":13000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1947,7 +1835,7 @@
       "detail": "[편의점 이용금액의 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1957,7 +1845,7 @@
       "detail": "[대중교통 이용금액의 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1967,7 +1855,7 @@
       "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1977,7 +1865,7 @@
       "detail": "[이동통신요금 정기결제 시 7% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1987,7 +1875,7 @@
       "detail": "[온라인 간편결제 이용금액의 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":13000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -1997,7 +1885,7 @@
       "detail": "[온라인쇼핑 멤버십 이용금액의 70% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.7}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2007,7 +1895,7 @@
       "detail": "[디지털 콘텐츠 서비스 이용금액의 30% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2017,7 +1905,7 @@
       "detail": "[배달 앱 이용금액의 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2027,7 +1915,7 @@
       "detail": "[커피전문점 스마트오더 이용금액의 50% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":8000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2077,7 +1965,7 @@
       "detail": "모아포인트 5% ~ 0.6% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2097,7 +1985,7 @@
       "detail": "베베쿡 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "20000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2107,7 +1995,7 @@
       "detail": "일상생활 쇼핑 할 때에도 5% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2117,7 +2005,7 @@
       "detail": "주요 커피점, 잡화, 온라인서점 쇼핑할 때에도 5% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2127,7 +2015,7 @@
       "detail": "GS SHOP 12% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.12}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":30000},{\"perf\":1500000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2137,7 +2025,7 @@
       "detail": "대형마트 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2147,7 +2035,7 @@
       "detail": "이동통신 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2257,7 +2145,7 @@
       "detail": "대중교통 이용액 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":30000,\"limit\":3000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2267,7 +2155,7 @@
       "detail": "주유소(충전소 포함) 리터당 150원~300원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":150},{\"perf\":800000,\"limit\":200},{\"perf\":1500000,\"limit\":250},{\"perf\":2000000,\"limit\":300}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2277,7 +2165,7 @@
       "detail": "차량정비, 주차장, 세차장 업종 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2287,7 +2175,7 @@
       "detail": "수소차 충전요금 10% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2327,7 +2215,7 @@
       "detail": "1. 후불교통(버스,지하철) 이용요금 5% J머니 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2347,7 +2235,7 @@
       "detail": "대중교통 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2357,7 +2245,7 @@
       "detail": "커피 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2367,7 +2255,7 @@
       "detail": "미용실 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2377,7 +2265,7 @@
       "detail": "온라인쇼핑 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2387,7 +2275,7 @@
       "detail": "스트리밍 서비스 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":3000},{\"perf\":800000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2437,7 +2325,7 @@
       "detail": "E1 충전소 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2447,7 +2335,7 @@
       "detail": "편의점 업종 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2457,7 +2345,7 @@
       "detail": "커피 업종 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2507,7 +2395,7 @@
       "detail": "통신요금 자동이체 최대 15,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2517,7 +2405,7 @@
       "detail": "렌탈요금 자동이체 최대 15,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2527,7 +2415,7 @@
       "detail": "손해보험사 자동이체 최대 15,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2537,7 +2425,7 @@
       "detail": "기타 자동이체 가맹점 최대 15,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":9000},{\"perf\":800000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2547,7 +2435,7 @@
       "detail": "생활업종 청구할인 5%",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "9900",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2557,7 +2445,7 @@
       "detail": "전국 주요 쇼핑업종, 모든 해외가맹점 청구할인 5% 할인(월5천원~2만5천원)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2567,7 +2455,7 @@
       "detail": "전국 음식점 7% 청구할인(해외포함)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2577,7 +2465,7 @@
       "detail": "전국 대중교통 7% 청구할인(해외포함)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2587,7 +2475,7 @@
       "detail": "국내외 온라인쇼핑 7% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2597,7 +2485,7 @@
       "detail": "국내외 커피전문점 30% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2657,7 +2545,7 @@
       "detail": "신세계백화점 최대 7% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000},{\"perf\":1500000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2667,7 +2555,7 @@
       "detail": "신세계 계열사 5% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":3000},{\"perf\":1500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2677,7 +2565,7 @@
       "detail": "커피&middot;배달앱&middot;온라인서점&middot;잡화 5% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":7000},{\"perf\":1500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2687,7 +2575,7 @@
       "detail": "커피전문점 업종 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":1000000,\"limit\":600000},{\"perf\":1000000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2697,7 +2585,7 @@
       "detail": "주차장 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2757,7 +2645,7 @@
       "detail": "땡겨요 앱 이용 금액 마이신한포인트 10% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":700000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2767,7 +2655,7 @@
       "detail": "편의점 이용금액 마이신한포인트 5% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":700000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2807,7 +2695,7 @@
       "detail": "1. 후불교통(버스,지하철) 이용요금 5% J머니 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2867,7 +2755,7 @@
       "detail": "카카오톡 선물하기/ 카카오T 카카오페이 결제시 10% 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2877,7 +2765,7 @@
       "detail": "생활/요식/교통영역 결제시 1~1.5% 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.015}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":50000,\"limit\":10000},{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2887,7 +2775,7 @@
       "detail": "SK 주유소 주유시 리터당 100원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2907,7 +2795,7 @@
       "detail": "- 당월 이용금액 30만원 이상 시 2%",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":700000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2917,7 +2805,7 @@
       "detail": "- 당월 이용금액 30만원 이상 시 3%",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":700000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2927,7 +2815,7 @@
       "detail": "전통시장가맹점 이용 5~10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":400000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2937,7 +2825,7 @@
       "detail": "온누리상품권 차감 이용 5~10% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":400000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2947,7 +2835,7 @@
       "detail": "KB Pay 쇼핑 이용 5~10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":400000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2957,7 +2845,7 @@
       "detail": "기본적립 0.7% + 우대적립 0.1%~0.3%",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":400000},{\"perf\":2000000,\"limit\":1000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2967,7 +2855,7 @@
       "detail": "생활영역 0.7%~1.2% 추가 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2977,7 +2865,7 @@
       "detail": "[기본 혜택] 전월 이용 금액 40만원 이상 시 국내외 가맹점 이용 금액 0.5% 배민포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.005}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2987,7 +2875,7 @@
       "detail": "반려동물 업종 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":20000},{\"perf\":600000,\"limit\":30000},{\"perf\":900000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -2997,7 +2885,7 @@
       "detail": "이마트 &middot; 롯데마트 &middot; 홈플러스 5%청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":600000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3007,7 +2895,7 @@
       "detail": "G마켓 &middot; 옥션 &middot; 인터파크 &middot; 11번가 5%청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":600000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3017,7 +2905,7 @@
       "detail": "삼성 페이 10% 할인서비스",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3037,7 +2925,7 @@
       "detail": "CU 편의점 외 최대 5% 네이버페이 포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":700000,\"limit\":400000},{\"perf\":1000000,\"limit\":700000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3047,7 +2935,7 @@
       "detail": "커피전문점 2,000원 청구할인(월 2회)",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3057,7 +2945,7 @@
       "detail": "편의점 1,000원 청구할인(월 2회)",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":20000,\"limit\":30000},{\"perf\":1000000,\"limit\":500000},{\"perf\":1500000,\"limit\":1000000},{\"perf\":1500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3067,7 +2955,7 @@
       "detail": "삼성라이온즈 홈경기 입장권/팀스토어 50% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3077,7 +2965,7 @@
       "detail": "대구삼성라이온즈파크 식음매장 10% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3097,7 +2985,7 @@
       "detail": "커피전문점/편의점 10% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3117,7 +3005,7 @@
       "detail": "철도 5% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3137,7 +3025,7 @@
       "detail": "여행플랫폼 5% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3147,7 +3035,7 @@
       "detail": "kt 통신요금 청구할인. 전월실적 별 월 최대 25,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":15000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3157,7 +3045,7 @@
       "detail": "SK 주유소 1% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3167,7 +3055,7 @@
       "detail": "GS칼텍스, 농협주유소 리터당 100원~150원 청구할인 (LPG충전소 포함)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":10000},{\"perf\":1500000,\"limit\":20000},{\"perf\":800000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3177,7 +3065,7 @@
       "detail": "커피(스타벅스/이디야) 10% NH포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3227,7 +3115,7 @@
       "detail": "버스/지하철/택시/철도 7% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3237,7 +3125,7 @@
       "detail": "공유모빌리티 7% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3247,7 +3135,7 @@
       "detail": "전기차 충전 7% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3257,7 +3145,7 @@
       "detail": "이동통신요금 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3267,7 +3155,7 @@
       "detail": "오픈마켓/배달앱 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3277,7 +3165,7 @@
       "detail": "스포츠/H&amp;B매장 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3287,7 +3175,7 @@
       "detail": "스타벅스 50% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3297,7 +3185,7 @@
       "detail": "구독 20% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3307,7 +3195,7 @@
       "detail": "온라인 간편결제 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3327,7 +3215,7 @@
       "detail": "대중교통 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "3000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3337,7 +3225,7 @@
       "detail": "기본적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1500000,\"limit\":1000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3347,7 +3235,7 @@
       "detail": "이마트/트레이더스 최대 30% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":70000},{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3357,7 +3245,7 @@
       "detail": "스타벅스 최대 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":10000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3367,7 +3255,7 @@
       "detail": "생활업종 최대 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":10000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3377,7 +3265,7 @@
       "detail": "구독서비스 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3387,7 +3275,7 @@
       "detail": "버스/지하철 10% 청구할인 (월 1만원, 월 2만원)",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":20000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3417,7 +3305,7 @@
       "detail": "국내 가맹점 0.3% 기본적립",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.003}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3427,7 +3315,7 @@
       "detail": "사업지원영역(주유/통신/전자상거래 업종) 0.6% 포인트리 추가적립",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.006}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3437,7 +3325,7 @@
       "detail": "골프장&middot;골프연습장&middot;스크린골프 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":5000},{\"perf\":2000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3537,7 +3425,7 @@
       "detail": "온라인 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000},{\"perf\":1200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3547,7 +3435,7 @@
       "detail": "오프라인 10% 혜택",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000},{\"perf\":1200000,\"limit\":7000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3557,7 +3445,7 @@
       "detail": "[로스트아크 모험가 전용 혜택] 로스트아크 모험가를 위한 로열 크리스탈 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":700000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3577,7 +3465,7 @@
       "detail": "kt 통신요금 청구할인. 전월실적 별 월 최대 18,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"min_perf\":300000,\"max_perf\":700000,\"limit\":13000},{\"perf\":700000,\"min_perf\":700000,\"max_perf\":null,\"limit\":18000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3587,7 +3475,7 @@
       "detail": "SK 주유소 1% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3617,7 +3505,7 @@
       "detail": "생활요금・교육・병의원・교통 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":100000,\"limit\":10000},{\"perf\":400000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3627,7 +3515,7 @@
       "detail": "모든 가맹점 0.7% 포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.006999999999999999}]",
-      "item_limit": "5000",
+      "item_limit": "50000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3667,7 +3555,7 @@
       "detail": "기본적립 0.7% + 우대적립 0.1%~0.3%",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.006999999999999999}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":400000},{\"perf\":2000000,\"limit\":1000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3677,7 +3565,7 @@
       "detail": "생활영역 0.5%~1.0% 추가 적립",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.005}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3687,7 +3575,7 @@
       "detail": "네이버페이&middot;카카오페이&middot;삼성페이 결제 시, 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3697,7 +3585,7 @@
       "detail": "GS25, CU, 세븐일레븐, 이마트24에서 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3707,7 +3595,7 @@
       "detail": "스타벅스(사이렌오더 포함) 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3717,7 +3605,7 @@
       "detail": "인생네컷 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3727,7 +3615,7 @@
       "detail": "넷플릭스, 멜론, 유튜브프리미엄, 디즈니플러스 30% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3737,7 +3625,7 @@
       "detail": "카카오웹툰, 카카오페이지, 네이버웹툰 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3747,7 +3635,7 @@
       "detail": "무신사, 에이블리, 지그재그, 마켓컬리, SSG, 쿠팡, G마켓, 옥션, 11번가 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3757,7 +3645,7 @@
       "detail": "요기요, 배달의 민족 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":20000},{\"perf\":800000,\"limit\":40000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3767,7 +3655,7 @@
       "detail": "딜리버리 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3777,7 +3665,7 @@
       "detail": "편의점 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3787,7 +3675,7 @@
       "detail": "영상 스트리밍 40% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.4}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3797,7 +3685,7 @@
       "detail": "택시 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3807,7 +3695,7 @@
       "detail": "대중교통 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3817,7 +3705,7 @@
       "detail": "하나페이 맛집 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3827,7 +3715,7 @@
       "detail": "온라인식품&amp;쇼핑 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3837,7 +3725,7 @@
       "detail": "국내외 가맹점 기본 1% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":2000000,\"limit\":1000000},{\"perf\":2000000,\"limit\":2000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3847,7 +3735,7 @@
       "detail": "Food&middot;Coffee&middot;Movie 30% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":2000000,\"limit\":1000000},{\"perf\":2000000,\"limit\":2000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3857,7 +3745,7 @@
       "detail": "대형마트/온라인쇼핑몰/홈쇼핑 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3867,7 +3755,7 @@
       "detail": "키즈카페/문화센터/학습지 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3877,7 +3765,7 @@
       "detail": "통신료/아파트관리비 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":10000},{\"perf\":1200000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3887,7 +3775,7 @@
       "detail": "SKT통신요금 20% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3897,7 +3785,7 @@
       "detail": "T멤버십 바코드 결제 20% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3907,7 +3795,7 @@
       "detail": "SK주유&amp;쇼핑 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3917,7 +3805,7 @@
       "detail": "마트 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3927,7 +3815,7 @@
       "detail": "대중교통 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3937,7 +3825,7 @@
       "detail": "택시 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3967,7 +3855,7 @@
       "detail": "정기결제 50% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":500000},{\"perf\":2000000,\"limit\":1000000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3977,7 +3865,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 교육, 병원 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3987,7 +3875,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 이동통신 요금, 아파트 관리비, 도시가스 요금 정기결제 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -3997,7 +3885,7 @@
       "detail": "온라인 쇼핑몰 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4007,7 +3895,7 @@
       "detail": "[일반음식점 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4017,7 +3905,7 @@
       "detail": "[영화 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4027,7 +3915,7 @@
       "detail": "[해외 가맹점 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4037,7 +3925,7 @@
       "detail": "[디지털 콘텐츠 서비스 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4107,7 +3995,7 @@
       "detail": "SK주유(충전)소에서 주유 시 10% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":800000,\"limit\":800000},{\"perf\":1200000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4187,7 +4075,7 @@
       "detail": "월납 요금 최대 15,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":300000},{\"perf\":800000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4197,7 +4085,7 @@
       "detail": "인터넷 쇼핑몰",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4207,7 +4095,7 @@
       "detail": "푸드 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4217,7 +4105,7 @@
       "detail": "소셜커머스",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4227,7 +4115,7 @@
       "detail": "배달앱",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4237,7 +4125,7 @@
       "detail": "백화점",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4247,7 +4135,7 @@
       "detail": "커피",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4257,7 +4145,7 @@
       "detail": "편의점",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4267,7 +4155,7 @@
       "detail": "대중교통",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4277,7 +4165,7 @@
       "detail": "이동통신",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4287,7 +4175,7 @@
       "detail": "온라인 음원",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4297,7 +4185,7 @@
       "detail": "인터넷 쇼핑몰 앱카드 결제",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4307,7 +4195,7 @@
       "detail": "배달의민족 이용금액 5% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4317,7 +4205,7 @@
       "detail": "국내/외 가맹점 이용금액 1% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4357,7 +4245,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 온라인몰, 대형마트, 슈퍼마켓, 백화점, 프리미엄 아울렛 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4367,7 +4255,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 커피전문점, 편의점, 대중교통 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4377,7 +4265,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 일반음식점, 배달 앱 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4387,7 +4275,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 커피전문점, 편의점, 대중교통 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4397,7 +4285,7 @@
       "detail": "[자동이체] 영상 스트리밍 40% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.4}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4407,7 +4295,7 @@
       "detail": "[자동이체] 생활요금 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4417,7 +4305,7 @@
       "detail": "딜리버리 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4427,7 +4315,7 @@
       "detail": "대중교통 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4437,7 +4325,7 @@
       "detail": "커피 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4447,7 +4335,7 @@
       "detail": "편의점 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4457,7 +4345,7 @@
       "detail": "스타벅스 50% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4497,7 +4385,7 @@
       "detail": "생활요금 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4507,7 +4395,7 @@
       "detail": "병원/약국 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4517,7 +4405,7 @@
       "detail": "주유/LPG충전 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4527,7 +4415,7 @@
       "detail": "택시 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4537,7 +4425,7 @@
       "detail": "커피 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4547,7 +4435,7 @@
       "detail": "세탁 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":1200000,\"limit\":800000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4557,7 +4445,7 @@
       "detail": "전월 이용 금액 50만원 이상 시 9개 영역 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4567,7 +4455,7 @@
       "detail": "전월 이용 금액 50만원 이상 시 일반음식점, 주유, 대형마트 주말(토&middot;일요일) 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4577,7 +4465,7 @@
       "detail": "해외여행 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4587,7 +4475,7 @@
       "detail": "쇼핑 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":15000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4597,7 +4485,7 @@
       "detail": "골프 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":15000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4607,7 +4495,7 @@
       "detail": "커피 50% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":15000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4617,7 +4505,7 @@
       "detail": "택시 50% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":5000},{\"perf\":1000000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4627,7 +4515,7 @@
       "detail": "[온라인 쇼핑몰 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4637,7 +4525,7 @@
       "detail": "[편의점 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4647,7 +4535,7 @@
       "detail": "[커피전문점 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4657,7 +4545,7 @@
       "detail": "[대중교통 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4667,7 +4555,7 @@
       "detail": "[도서 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4677,7 +4565,7 @@
       "detail": "[온라인 쇼핑몰 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4687,7 +4575,7 @@
       "detail": "[병원&middot;약국 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4697,7 +4585,7 @@
       "detail": "[학원 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4707,7 +4595,7 @@
       "detail": "[주유 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4717,7 +4605,7 @@
       "detail": "[생활 요금 정기 결제 10% 청구 할인]",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4727,7 +4615,7 @@
       "detail": "스타벅스 50% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4817,7 +4705,7 @@
       "detail": "버스/지하철/택시/철도 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":20000},{\"perf\":800000,\"limit\":400000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4827,7 +4715,7 @@
       "detail": "이동통신요금 5% 청구할인(월 1회)",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":400000},{\"perf\":800000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4837,7 +4725,7 @@
       "detail": "커피전문점 10% 청구할인(월 2천원, 2회 한)",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4847,7 +4735,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 주유소, 충전소, 차량 정비소, 세차장 10% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4857,7 +4745,7 @@
       "detail": "전월 이용 금액 40만원 이상 시 이동통신 요금, 아파트 관리비, 도시가스 요금 정기결제 5% 청구 할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":5000},{\"perf\":800000,\"limit\":5000},{\"perf\":1200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4877,7 +4765,7 @@
       "detail": "교통&middot;이동통신&middot;스트리밍 10% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":600000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4887,7 +4775,7 @@
       "detail": "온라인 간편결제&middot;해외 3% 결제일할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":600000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4907,7 +4795,7 @@
       "detail": "[Daily 할인] 주유 리터당 60~100원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4937,7 +4825,7 @@
       "detail": "[기본할인] 국내 가맹점 1%, NH페이 및 해외 2% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4957,7 +4845,7 @@
       "detail": "[TEN Discount] 5대 일상영역 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":5000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4967,7 +4855,7 @@
       "detail": "[ONE Discount] 음식점/주점 및 온라인 간편결제 1% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":400000,\"min_perf\":400000,\"max_perf\":800000,\"limit\":10000},{\"perf\":800000,\"min_perf\":800000,\"max_perf\":null,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4977,7 +4865,7 @@
       "detail": "아파트관리비 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4987,7 +4875,7 @@
       "detail": "공과금(도시가스비, 전기료) 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -4997,7 +4885,7 @@
       "detail": "대중교통 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5007,7 +4895,7 @@
       "detail": "SKT, KT, LG U+ 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5017,7 +4905,7 @@
       "detail": "배달의 민족, 요기요, 쿠팡이츠 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5027,7 +4915,7 @@
       "detail": "생명보험, 손해보험 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5037,7 +4925,7 @@
       "detail": "학습지 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5067,7 +4955,7 @@
       "detail": "국내외 가맹점 1.2% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.012}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":3000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5077,7 +4965,7 @@
       "detail": "분기별 이용 실적에 따라 최대 15,000원 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":3000000,\"min_perf\":3000000,\"max_perf\":6000000,\"limit\":5000},{\"perf\":6000000,\"min_perf\":6000000,\"max_perf\":9000000,\"limit\":10000},{\"perf\":9000000,\"min_perf\":9000000,\"max_perf\":null,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5087,7 +4975,7 @@
       "detail": "네이버페이, 카카오페이, 페이코 결제 시 이용금액의 20% 할인 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "6000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5097,7 +4985,7 @@
       "detail": "쿠팡, 무신사, 지그재그, W컨셉, 에이블리 결제 시 이용금액의 20% 할인 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "6000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5107,7 +4995,7 @@
       "detail": "스타벅스, 투썸플레이스, 커피빈, 메가커피, 빽다방, 컴포즈커피 결제 시 이용금액의 20% 할인 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "6000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5117,7 +5005,7 @@
       "detail": "인터넷쇼핑몰 5% 환급할인 서비스",
       "group_id": null,
       "rate": "[{\"perf\":100000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":100000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5127,7 +5015,7 @@
       "detail": "약국 업종 5% 환급할인 서비스",
       "group_id": null,
       "rate": "[{\"perf\":100000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":100000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5157,47 +5045,7 @@
       "detail": "모아포인트 0.3 ~ 1.5% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.015}]",
-      "item_limit": "10000",
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "card_id": 688,
-      "title": "1.5% 특별적립군",
-      "detail": "이동통신, 대중교통, 전기차충전, 커피, 영화 1.5% 모아포인트 적립",
-      "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
-      "item_limit": "-1",
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "card_id": 688,
-      "title": "0.5% 특별적립군",
-      "detail": "백화점, 할인점, 온라인쇼핑, 주유, 해외 0.5% 모아포인트 적립",
-      "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.005}]",
-      "item_limit": "-1",
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "card_id": 688,
-      "title": "0.3% 기본적립군",
-      "detail": "기타 일반 가맹점 0.3% 모아포인트 적립",
-      "group_id": null,
-      "rate": "[{\"perf\":0,\"rate\":0.003}]",
-      "item_limit": "-1",
-      "fixedAmount": 0,
-      "minPayment": 0
-    },
-    {
-      "card_id": 688,
-      "title": "1.5% 간편결제 추가적립군",
-      "detail": "네이버페이, 카카오페이, PAYCO, SSGPAY 등 간편결제 1.5% 추가 모아포인트 적립",
-      "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.015}]",
-      "item_limit": "-1",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":30000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5247,7 +5095,7 @@
       "detail": "모아포인트 0.3 ~ 1.5% 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.015}]",
-      "item_limit": "10000",
+      "item_limit": "[{\"perf\":500000,\"limit\":10000},{\"perf\":800000,\"limit\":20000},{\"perf\":30000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5257,7 +5105,7 @@
       "detail": "온라인쇼핑몰/소셜커머스 3~5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5287,7 +5135,7 @@
       "detail": "백화점 7% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5297,7 +5145,7 @@
       "detail": "온라인쇼핑 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5307,7 +5155,7 @@
       "detail": "커피 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5317,7 +5165,7 @@
       "detail": "뷰티업종 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5327,7 +5175,7 @@
       "detail": "문화공연 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5337,7 +5185,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5347,7 +5195,7 @@
       "detail": "학원 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5357,7 +5205,7 @@
       "detail": "대형마트 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5367,7 +5215,7 @@
       "detail": "편의점 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5377,7 +5225,7 @@
       "detail": "이동통신요금 5,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5387,7 +5235,7 @@
       "detail": "골프장, 골프연습장 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5397,7 +5245,7 @@
       "detail": "스포츠&middot;레저 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5407,7 +5255,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5417,7 +5265,7 @@
       "detail": "패밀리레스토랑 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000},{\"perf\":1500000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5427,7 +5275,7 @@
       "detail": "이동통신요금 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5437,7 +5285,7 @@
       "detail": "학원 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5447,7 +5295,7 @@
       "detail": "병원, 약국 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5457,7 +5305,7 @@
       "detail": "인터넷쇼핑 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5467,7 +5315,7 @@
       "detail": "백화점, 대형마트 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5477,7 +5325,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5487,7 +5335,7 @@
       "detail": "도서 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5497,7 +5345,7 @@
       "detail": "공연 3% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5507,7 +5355,7 @@
       "detail": "이동통신요금 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5517,7 +5365,7 @@
       "detail": "병원, 약국 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5527,7 +5375,7 @@
       "detail": "골프장, 골프연습장 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5537,7 +5385,7 @@
       "detail": "대형마트 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5547,7 +5395,7 @@
       "detail": "숙박업종 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5557,7 +5405,7 @@
       "detail": "자동차정비 5,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5567,7 +5415,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5577,7 +5425,7 @@
       "detail": "교통 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5587,7 +5435,7 @@
       "detail": "베이커리 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5597,7 +5445,7 @@
       "detail": "이동통신요금 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5607,7 +5455,7 @@
       "detail": "병원, 약국 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5617,7 +5465,7 @@
       "detail": "골프장, 골프연습장 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5627,7 +5475,7 @@
       "detail": "대형마트 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5637,7 +5485,7 @@
       "detail": "숙박업종 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5647,7 +5495,7 @@
       "detail": "자동차정비 5,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5657,7 +5505,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5667,7 +5515,7 @@
       "detail": "교통 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5677,7 +5525,7 @@
       "detail": "베이커리 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000},{\"perf\":800000,\"limit\":20000},{\"perf\":1000000,\"limit\":25000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5687,7 +5535,7 @@
       "detail": "당월 10만원 이상 ~ 30만원 미만 사용",
       "group_id": null,
       "rate": "[{\"perf\":100000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5757,7 +5605,7 @@
       "detail": "EDIYA COFFEE에서 결제 시 30% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.3}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":2000},{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":4000},{\"perf\":800000,\"limit\":8000},{\"perf\":1200000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5787,7 +5635,7 @@
       "detail": "온라인 이용 건 3% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":3000},{\"perf\":500000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5797,7 +5645,7 @@
       "detail": "소셜커머스 &middot;오픈마켓(쿠팡, 티몬, 위메프, 11번가, 옥션, G마켓) 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":500000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5807,7 +5655,7 @@
       "detail": "한식, 휴게음식점 업종 5% 환급할인 (평일만)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5817,7 +5665,7 @@
       "detail": "커피음료전문점 업종 5% 환급할인 (평일만)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5827,7 +5675,7 @@
       "detail": "제과아이스크림 업종 5% 환급할인 (평일만)",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5877,7 +5725,7 @@
       "detail": "전통시장 15% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5887,7 +5735,7 @@
       "detail": "나들가게 15% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5897,7 +5745,7 @@
       "detail": "이동통신요금 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5907,7 +5755,7 @@
       "detail": "교통 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000},{\"perf\":1000000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5917,7 +5765,7 @@
       "detail": "국내 가맹점 이용 시 0.2% ~ 0.3% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.002}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5927,7 +5775,7 @@
       "detail": "AK플라자, AK몰 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5937,7 +5785,7 @@
       "detail": "제주항공 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5947,7 +5795,7 @@
       "detail": "커피전문점 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5957,7 +5805,7 @@
       "detail": "CGV 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -5967,7 +5815,7 @@
       "detail": "해피포인트 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6007,7 +5855,7 @@
       "detail": "커피전문점 1회당 1,000원 할인 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":250000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":250000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":700000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6017,7 +5865,7 @@
       "detail": "전통시장가맹점 이용 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "10000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6027,7 +5875,7 @@
       "detail": "온누리상품권 차감 이용 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "10000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6037,7 +5885,7 @@
       "detail": "KB Pay 쇼핑 이용 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "10000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6047,7 +5895,7 @@
       "detail": "국내&middot;외 전 가맹점 0.2%~0.4% TOP포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.002}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6057,7 +5905,7 @@
       "detail": "Liiv M 이동통신요금 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6067,7 +5915,7 @@
       "detail": "11번가 3% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6077,7 +5925,7 @@
       "detail": "야놀자 3% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6087,7 +5935,7 @@
       "detail": "CU편의점 3% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6097,7 +5945,7 @@
       "detail": "커피 업종 100원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":3000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6107,7 +5955,7 @@
       "detail": "편의점 200원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6117,7 +5965,7 @@
       "detail": "모바일 200원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":3000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6127,7 +5975,7 @@
       "detail": "배달음식 500원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6137,7 +5985,7 @@
       "detail": "대중교통 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6147,7 +5995,7 @@
       "detail": "영화 &middot; 커피 10%할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":300000},{\"perf\":500000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6157,7 +6005,7 @@
       "detail": "골프연습장/스크린골프 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":100000,\"limit\":100000},{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6167,7 +6015,7 @@
       "detail": "주유소 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":100000,\"limit\":100000},{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6177,7 +6025,7 @@
       "detail": "보험료 자동납부 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":50000,\"limit\":50000},{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6187,7 +6035,7 @@
       "detail": "해피포인트 멤버쉽 최대 5% 현장적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":600000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6197,7 +6045,7 @@
       "detail": "버스&middot;지하철 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6207,7 +6055,7 @@
       "detail": "이동통신요금 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":50000,\"limit\":2500},{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6217,7 +6065,7 @@
       "detail": "CGV 35% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.35}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6227,7 +6075,7 @@
       "detail": "아웃백, VIPS 20% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6237,7 +6085,7 @@
       "detail": "스타벅스 20% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6247,7 +6095,7 @@
       "detail": "에버랜드&middot;롯데월드 50% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6257,7 +6105,7 @@
       "detail": "GS25 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6267,7 +6115,7 @@
       "detail": "교보문고 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6317,7 +6165,7 @@
       "detail": "H&amp;B스토어 최대 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":20000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6327,7 +6175,7 @@
       "detail": "Cosmetic 최대 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":20000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6337,7 +6185,7 @@
       "detail": "Beauty 최대 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "2000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":20000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6347,7 +6195,7 @@
       "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6357,7 +6205,7 @@
       "detail": "온라인쇼핑몰 이용금액 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6367,7 +6215,7 @@
       "detail": "[오프라인쇼핑] 편의점 이용금액 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6377,7 +6225,7 @@
       "detail": "[오프라인쇼핑] 드럭스토어, 다이소 이용금액 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6387,7 +6235,7 @@
       "detail": "GS25 편의점 5% 환급할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":600000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6397,7 +6245,7 @@
       "detail": "쏘카, 야놀자, LiivM 이동통신 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":600000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6407,7 +6255,7 @@
       "detail": "스타벅스, 파리바게뜨 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":600000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6417,7 +6265,7 @@
       "detail": "멜론, 지니, 넷플릭스, 웨이브 월정액 결제시 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":600000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6427,7 +6275,7 @@
       "detail": "교보문고, 어학시험응시료(온라인접수) 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":2000},{\"perf\":600000,\"limit\":4000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6437,7 +6285,7 @@
       "detail": "병원 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":1000},{\"perf\":400000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6447,7 +6295,7 @@
       "detail": "키즈카페/문화센터/학습지 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":1000},{\"perf\":400000,\"limit\":3000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6487,7 +6335,7 @@
       "detail": "기본적립",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000},{\"perf\":1000000,\"limit\":600000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6497,7 +6345,7 @@
       "detail": "병/의원, 조산원, 산후조리원 업종(정부지원금 제외) 3% 할인(캐시백)",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.03}]",
-      "item_limit": "5000",
+      "item_limit": "10000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6507,7 +6355,7 @@
       "detail": "국내&middot;외 전 가맹점 0.2~0.3% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":500000,\"rate\":0.003}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6517,7 +6365,7 @@
       "detail": "전월 사용금액에 따라 0.5~1% 캐시백 지급",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":20000},{\"perf\":1500000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6537,7 +6385,7 @@
       "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":600000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6557,7 +6405,7 @@
       "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6567,7 +6415,7 @@
       "detail": "[On-line 쇼핑] 온라인 쇼핑몰 10% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6577,7 +6425,7 @@
       "detail": "[Off-line 쇼핑] 편의점 및 드럭스토어 5% 청구할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":20000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6587,7 +6435,7 @@
       "detail": "해외 물품 구매시 2% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":100000},{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6597,7 +6445,7 @@
       "detail": "10대 업종 0.5~1.0% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.01}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":200000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6657,7 +6505,7 @@
       "detail": "[일상] 인터파크 티켓 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6667,7 +6515,7 @@
       "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6677,7 +6525,7 @@
       "detail": "[일상] GS25, CU 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6687,7 +6535,7 @@
       "detail": "[일상] 넷플릭스, 유튜브프리미엄 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6697,7 +6545,7 @@
       "detail": "[일상] 배달의민족, 요기요 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6707,7 +6555,7 @@
       "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6717,7 +6565,7 @@
       "detail": "[일상] CGV 4,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6727,7 +6575,7 @@
       "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":5000},{\"perf\":200000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6737,7 +6585,7 @@
       "detail": "[Play] PC방 업종 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6747,7 +6595,7 @@
       "detail": "[Play] 패스트푸드 업종 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6757,7 +6605,7 @@
       "detail": "세탁소 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6767,7 +6615,7 @@
       "detail": "정육점 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":30000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6777,7 +6625,7 @@
       "detail": "슈퍼마켓 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":20000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6787,7 +6635,7 @@
       "detail": "반찬가게 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6797,7 +6645,7 @@
       "detail": "야채과일가게 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":20000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6807,7 +6655,7 @@
       "detail": "번개장터(번개페이) 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":30000},{\"perf\":400000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6857,7 +6705,7 @@
       "detail": "전월 이용 금액 30만원 이상 시 Apple Pay 이용 금액 10% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":600000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6867,7 +6715,7 @@
       "detail": "생활 5% 캐시백 서비스",
       "group_id": null,
       "rate": "[{\"perf\":250000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":250000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6877,7 +6725,7 @@
       "detail": "온라인 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":400000,\"limit\":200000},{\"perf\":600000,\"limit\":400000},{\"perf\":600000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6887,7 +6735,7 @@
       "detail": "오프라인 5% 혜택",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":1000},{\"perf\":400000,\"limit\":200000},{\"perf\":600000,\"limit\":400000},{\"perf\":600000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6897,7 +6745,7 @@
       "detail": "카카오페이 15% 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6907,7 +6755,7 @@
       "detail": "편의점 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6917,7 +6765,7 @@
       "detail": "소셜커머스 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6927,7 +6775,7 @@
       "detail": "어학응시료 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6937,7 +6785,7 @@
       "detail": "영화 2,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6947,7 +6795,7 @@
       "detail": "커피전문점 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6957,7 +6805,7 @@
       "detail": "스타일푸드 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":150000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":150000,\"limit\":5000},{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":15000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6967,7 +6815,7 @@
       "detail": "페이결제 0.5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.005}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6977,7 +6825,7 @@
       "detail": "GS25, CU, 이마트24, 세븐일레븐 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6987,7 +6835,7 @@
       "detail": "배달의 민족, 요기요 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -6997,7 +6845,7 @@
       "detail": "버스, 지하철 10% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7007,7 +6855,7 @@
       "detail": "스타벅스, 투썸플레이스 20% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":300000,\"limit\":100000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7037,7 +6885,7 @@
       "detail": "인터파크 티켓 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7047,7 +6895,7 @@
       "detail": "올리브영, 미용실 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7057,7 +6905,7 @@
       "detail": "GS25, CU 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7067,7 +6915,7 @@
       "detail": "넷플릭스, 유튜브프리미엄 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7077,7 +6925,7 @@
       "detail": "배달의 민족, 요기요 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7087,7 +6935,7 @@
       "detail": "SKT, KT, LG U+, Liiv M 2,500원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7097,7 +6945,7 @@
       "detail": "CGV 4,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7107,7 +6955,7 @@
       "detail": "에버랜드, 롯데월드 15,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":5000},{\"perf\":200000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7127,7 +6975,7 @@
       "detail": "카카오페이 7% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":250000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":250000,\"limit\":7000},{\"perf\":400000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7177,7 +7025,7 @@
       "detail": "힐링 7% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":100000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7187,7 +7035,7 @@
       "detail": "열공 7% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":100000,\"rate\":0.07}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":2000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7197,7 +7045,7 @@
       "detail": "적립한도 없이 0.2% ~ 0.7% NH포인트 적립",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.002}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":1000000,\"limit\":300000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7207,7 +7055,7 @@
       "detail": "해외 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":1000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7217,7 +7065,7 @@
       "detail": "쇼핑 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7227,7 +7075,7 @@
       "detail": "푸드 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7237,7 +7085,7 @@
       "detail": "일상 5% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "1000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7247,7 +7095,7 @@
       "detail": "대중교통(버스, 지하철) 이용 시 10% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7257,7 +7105,7 @@
       "detail": "간편결제로 결제 시 2% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7267,7 +7115,7 @@
       "detail": "생활서비스 2% 결제일 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7277,7 +7125,7 @@
       "detail": "버스/지하철 10% 캐시백",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":800000,\"limit\":200000},{\"perf\":800000,\"limit\":3000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7287,7 +7135,7 @@
       "detail": "이동통신요금 5% 캐시백(월 3천원, 1회 한)",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7317,7 +7165,7 @@
       "detail": "[일상] 인터파크 티켓 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "7000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7327,7 +7175,7 @@
       "detail": "[일상] 올리브영, 미용실 업종 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7337,7 +7185,7 @@
       "detail": "[일상] GS25, CU 5% 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "item_limit": "2000",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7347,7 +7195,7 @@
       "detail": "[일상]넷플릭스, 유튜브프리미엄 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7357,7 +7205,7 @@
       "detail": "[일상] 배달의 민족, 요기요 1,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7367,7 +7215,7 @@
       "detail": "[일상] SKT, KT, LG U+, Liiv M 2,500원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":50000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7377,7 +7225,7 @@
       "detail": "[일상] CGV 4,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":200000,\"limit\":10000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7387,7 +7235,7 @@
       "detail": "[일상] 에버랜드, 롯데월드 15,000원 할인",
       "group_id": null,
       "rate": "[{\"perf\":200000,\"rate\":0}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":10000,\"limit\":5000},{\"perf\":200000,\"limit\":30000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -7477,7 +7325,7 @@
       "detail": "[외식] 패밀리레스토랑 업종 10% 할인",
       "group_id": null,
       "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "item_limit": "[{\"perf\":30000,\"limit\":3000}]",
       "fixedAmount": 0,
       "minPayment": 0
     },

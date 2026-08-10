@@ -68,8 +68,8 @@
   "top_benefit_summary": "혜택 프로모션: 무제한 | 카페/디저트: 15% | 마트/편의점: 10% | 기타: 3%",
   "detailed_benefits": "혜택 프로모션: 1만원 이상 결제마다 4개 행운번호 럭키권 2장씩 발급 | 카페/디저트: 커피빈 15% 할인 | 마트/편의점: GS25, 세븐일레븐 10% 캐시백 | 기타: 코나 애플리케이션 내 단골 매장 등록을 통해 3곳의 매장에서 3% 캐시백 제공",
   "item_limit": "-1 | -1 | [{\"perf\":200000,\"limit\":200000}] | [{\"perf\":200000,\"limit\":200000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

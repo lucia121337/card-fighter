@@ -394,15 +394,24 @@ async function runSearch(query){
   document.getElementById('q').value = query;
   if (!q) { renderResults(query, [], [], [], []); return; }
 
-  const [cardsRes, productsRes, tfidfIndex, bertData] = await Promise.all([
+  const [cardsResRaw, productsRes, activeIds, similarMap, tfidfIndex, bertData] = await Promise.all([
     fetch('/cards_list.json').then(r=>r.json()).catch(()=>[]),
     fetch('/data/naver_products.json').then(r=>r.json()).catch(()=>[]),
+    fetch('/active_cards.json').then(r=>r.json()).catch(()=>null),
+    fetch('/data/card_similar.json').then(r=>r.json()).catch(()=>({})),
     fetch('/data/card_tfidf_index.json').then(r=>r.json()).catch(()=>null),
     fetch('/data/card_bert_embeddings.json').then(r=>r.json()).catch(()=>null),
   ]);
-  window.__ALL_CARDS = cardsRes;
+  window.__ALL_CARDS = cardsResRaw;
+  window.__SIMILAR_MAP = similarMap;
   window.__TFIDF_INDEX = tfidfIndex;
   window.__BERT_DATA = bertData;
+
+  let cardsRes = cardsResRaw;
+  if (activeIds) {
+    const activeSet = new Set(activeIds.map(String));
+    cardsRes = cardsResRaw.filter(c => activeSet.has(String(c.idx)));
+  }
 
   /* 1) 카드: 이름/카드사/혜택카테고리/혜택요약에서 검색 */
   const cardMatches = cardsRes.filter(c => {

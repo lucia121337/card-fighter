@@ -64,8 +64,8 @@
   "top_benefit_summary": "적립: 무제한 | 적립: 무제한",
   "detailed_benefits": "적립: KB Pay 3회 이용하면 포인트리 1천점 적립 | 적립: 매 주 포인트리 1천점 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

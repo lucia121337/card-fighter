@@ -68,8 +68,8 @@
   "top_benefit_summary": "네이버페이: 1.2% | 멤버십포인트: 무제한",
   "detailed_benefits": "네이버페이: 국내&middot;외 가맹점(온라인 포함)에서 1.2% 네이버페이 포인트 적립 | 멤버십포인트: POP CARD 할인 및 GS&amp;POINT 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -72,7 +72,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/612",
   "top_benefit_summary": "카페: 5%",
   "detailed_benefits": "카페: 커피전문점 업종 5% 청구할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":600000,\"limit\":1000000},{\"perf\":1000000,\"limit\":5000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":300000},{\"perf\":1000000,\"limit\":600000},{\"perf\":1000000,\"limit\":5000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -83,8 +83,26 @@
       "title": "카페",
       "detail": "커피전문점 업종 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 300000
+        },
+        {
+          "perf": 1000000,
+          "limit": 600000
+        },
+        {
+          "perf": 1000000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

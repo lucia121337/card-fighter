@@ -59,8 +59,8 @@
   "top_benefit_summary": "적립: 0.9% | 기타: 무제한",
   "detailed_benefits": "적립: 전월실적에 상관없이 0.7 ~ 0.9% 적립 | 기타: OK Cashbag",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

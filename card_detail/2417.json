@@ -68,8 +68,8 @@
   "top_benefit_summary": "배달앱: 1% | 편의점: 1% | 통신: 1%",
   "detailed_benefits": "배달앱: 배달앱 1% M포인트 적립 | 편의점: 편의점 1% M포인트 적립 | 통신: 통신요금 자동이체 1% M포인트 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

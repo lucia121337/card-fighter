@@ -68,8 +68,8 @@
   "top_benefit_summary": "디지털구독: 무제한 | 디지털구독: 무제한 | 디지털구독: 무제한",
   "detailed_benefits": "디지털구독: [구독ON] | 디지털구독: [MY구독] | 디지털구독: [스트리밍]",
   "item_limit": "[{\"perf\":30000,\"limit\":5000},{\"perf\":400000,\"limit\":400000},{\"perf\":800000,\"limit\":30000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

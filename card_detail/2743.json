@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 무제한 | 적립: 무제한 | 적립: 무제한",
   "detailed_benefits": "적립: [기본 혜택] 전월 이용 금액 50만원 이상 시 국내외 가맹점 이용 금액 3종 리워드 적립* | 적립: &middot; | 적립: 연간 보너스 리워드 적립 (연 1회)",
   "item_limit": "-1 | [{\"perf\":500000,\"limit\":1000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

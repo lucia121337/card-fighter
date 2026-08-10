@@ -78,13 +78,8 @@
   "top_benefit_summary": "주유: 무제한 | 프리미엄: 무제한",
   "detailed_benefits": "주유: S-OIL 주유소 주유 시 리터당 40 보너스포인트 적립 | 프리미엄: American Express Selects 서비스 제공",
   "item_limit": "400000 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 1
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

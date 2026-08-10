@@ -82,8 +82,8 @@
   "top_benefit_summary": "해외: 1% | 할인: 5% | 해외이용: 무제한",
   "detailed_benefits": "해외: 해외 대중교통 컨택리스 방식으로 이용 시 1% 결제일 할인 | 할인: 국내 4대 편의점 5% 결제일 할인 | 해외이용: 마스터 트래블 리워드(Master Travel Rewards) 서비스",
   "item_limit": "3000 | 3000 | 5000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

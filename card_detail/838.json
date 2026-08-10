@@ -73,17 +73,8 @@
   "top_benefit_summary": "KT: 무제한 | 카페: 10% | 캐시백: 무제한 | BC TOP: 무제한",
   "detailed_benefits": "KT: KT통신료 월 7천원 ~ 1만5천원 청구할인 | 카페: 슬립리스인시애틀 10% 청구할인 | 캐시백: 연간 1,500만원 이상 사용 시, 3만원 캐쉬백 | BC TOP: 전국 TOP포인트 가맹점에서 TOP포인트 적립",
   "item_limit": "[{\"perf\":300000,\"limit\":7000}] | -1 | [{\"perf\":5000000,\"limit\":30000}] | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 7
-    },
-    {
-      "perf": 700000,
-      "limit": 15000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -63,25 +63,8 @@
   "top_benefit_summary": "국민행복: 무제한 | 국민행복: 무제한",
   "detailed_benefits": "국민행복: 1. 의료 | 국민행복: 1. 육아/교육",
   "item_limit": "1500 | 1500",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 5
-    },
-    {
-      "perf": 500000,
-      "limit": 7
-    },
-    {
-      "perf": 700000,
-      "limit": 10000
-    },
-    {
-      "perf": 1000000,
-      "limit": 15000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

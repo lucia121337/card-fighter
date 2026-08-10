@@ -78,8 +78,8 @@
   "top_benefit_summary": "대중교통: 10% | 통신: 10% | 편의점: 무제한 | 대중교통: 무제한",
   "detailed_benefits": "대중교통: 대중교통 10% 캐시백 | 통신: 이동통신 10% 캐시백 | 편의점: 편의점/커피전문점/제과 1,000원 캐시백 | 대중교통: K-패스 마일리지",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

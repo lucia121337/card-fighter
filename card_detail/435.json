@@ -72,8 +72,8 @@
   "top_benefit_summary": "국내외가맹점: 0.2% | 혜택 프로모션: 무제한",
   "detailed_benefits": "국내외가맹점: 조건 없이 캐시백, 평일 0.2% 주말/공휴일 0.4% | 혜택 프로모션: 프렌즈 체크카드 캐시백 프로모션 2026",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

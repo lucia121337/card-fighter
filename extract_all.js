@@ -35,31 +35,71 @@ function cleanHtml(html) {
 }
 
 /**
- * 한국어 금액 문자열 → 숫자(원) 변환
- * 예) "3만원" → 30000 / "1만 5천원" → 15000 / "500,000원" → 500000
+ * [금액 변환 및 구간 배열 강제 룰]
+ * 숫자/한글 혼용 금액 변환 룰: 약관에 '1만3천원', '1.5만원', '일만오천원' 등 한글 단위가 섞인 금액 표기가 등장하면, 
+ * 절대 무시하거나 누락하지 말고 반드시 순수 정수(예: 13000, 15000)로 변환해서 추출해라. 
+ * 특히 전월 실적(perf) 구간에 따라 한도가 다를 경우, 첫 번째 조건만 가져오지 말고 모든 구간을 파악하여 반드시 배열(Array) 형태로 `item_limit`을 작성해라.
+ * 
+ * Few-Shot 예시:
+ * 원문: "전월 이용금액 40만원 이상 시 월 1만원, 80만원 이상 시 월 1만3천원 한도"
+ * 출력:
+ * "item_limit": [
+ *   {"perf": 400000, "limit": 10000},
+ *   {"perf": 800000, "limit": 13000}
+ * ]
+ *
+ * 한국어 금액 문자열 → 숫자(원) 변환 (순수 정수 13000, 15000 등 변환 보장)
+ * 예) "3만원" → 30000 / "1만 3천원" → 13000 / "1만3천원" → 13000 / "1.5만원" → 15000 / "500,000원" → 500000
  */
 function parseKoreanAmount(str) {
   if (!str) return 0;
-  const s = str.replace(/,/g, '').replace(/\s+/g, '').trim();
 
-  // 만 단위 파싱
-  const manMatch = s.match(/(\d+(?:\.\d+)?)만/);
+  const numKoreanMap = { '일': 1, '이': 2, '삼': 3, '사': 4, '오': 5, '육': 6, '칠': 7, '팔': 8, '구': 9 };
+  let s = String(str).trim();
+  
+  if (s.includes('만') || s.includes('천')) {
+    s = s.replace(/([일이삼사오육칠팔구])(?=[만천])/g, (_, p1) => numKoreanMap[p1] || p1);
+  }
+
+  s = s.replace(/,/g, '').replace(/\s+/g, '').trim();
+
   let total = 0;
-  if (manMatch) {
-    total += parseFloat(manMatch[1]) * 10000;
-    // 만 이후 천 단위 보정
-    const restPart = s.slice(manMatch.index + manMatch[0].length);
-    const chunMatch = restPart.match(/(\d+(?:\.\d+)?)천/);
-    if (chunMatch) total += parseFloat(chunMatch[1]) * 1000;
-  } else {
+
+  if (s.includes('만')) {
+    const parts = s.split('만');
+    const manVal = parseFloat(parts[0]);
+    if (!isNaN(manVal)) {
+      total += Math.round(manVal * 10000);
+    }
+    const rest = parts[1] || '';
+    if (rest) {
+      const chunMatch = rest.match(/(\d+(?:\.\d+)?)천/);
+      if (chunMatch) {
+        total += Math.round(parseFloat(chunMatch[1]) * 1000);
+      } else {
+        const numMatch = rest.match(/(\d+)/);
+        if (numMatch) {
+          const n = parseInt(numMatch[1], 10);
+          if (n < 10) {
+            total += n * 1000;
+          } else {
+            total += n;
+          }
+        }
+      }
+    }
+  } else if (s.includes('천')) {
     const chunMatch = s.match(/(\d+(?:\.\d+)?)천/);
     if (chunMatch) {
-      total += parseFloat(chunMatch[1]) * 1000;
-    } else {
-      const numOnly = s.match(/\d+/);
-      if (numOnly) total = parseInt(numOnly[0], 10);
+      total += Math.round(parseFloat(chunMatch[1]) * 1000);
+    }
+  } else {
+    const numOnly = s.match(/\d+/);
+    if (numOnly) {
+      total = parseInt(numOnly[0], 10);
     }
   }
+
   return total;
 }
 

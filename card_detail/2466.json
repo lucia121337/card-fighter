@@ -78,8 +78,8 @@
   "top_benefit_summary": "카페: 무제한 | 카페: 무제한 | 디지털구독: 30% | 교통: 5%",
   "detailed_benefits": "카페: 이디야 멤버스 음료쿠폰 제공 | 카페: 이디야커피 청구할인 | 디지털구독: 디지털 구독 30% 청구할인 | 교통: 교통 5% 청구할인",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

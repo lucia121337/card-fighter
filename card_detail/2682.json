@@ -68,8 +68,8 @@
   "top_benefit_summary": "대중교통: 10% | 드럭스토어: 1% | 카페: 1%",
   "detailed_benefits": "대중교통: 버스/지하철 10% 캐시백 (월 3천원, 월 6천원) | 드럭스토어: 다이소/올리브영 1% 캐시백 (월 1만원) | 카페: 스타벅스/커피빈 1% 캐시백 (월 5천원)",
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

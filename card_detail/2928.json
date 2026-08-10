@@ -88,8 +88,8 @@
   "top_benefit_summary": "푸드: 7% | 생활: 7% | 디지털구독: 7% | 전통시장: 7% | 해외: 무제한",
   "detailed_benefits": "푸드: 커피, 간식, 배달앱 7% 할인 | 생활: 온라인몰, 다이소, 올리브영 7% 할인 | 디지털구독: 디지털구독, 쇼핑멤버십 7% 할인 | 전통시장: 전통시장 7% 할인 | 해외: 해외가맹점 및 해외 직접 구매 이용시",
   "item_limit": "[{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | [{\"perf\":300000,\"limit\":600000}] | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

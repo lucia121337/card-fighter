@@ -83,8 +83,26 @@
       "title": "카카오페이",
       "detail": "카카오페이 가맹점 이용금액 15% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.15}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.15
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 5000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -93,8 +111,26 @@
       "title": "온라인쇼핑",
       "detail": "온라인쇼핑몰 이용금액 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 5000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -103,8 +139,26 @@
       "title": "편의점",
       "detail": "[오프라인쇼핑] 편의점 이용금액 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 5000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -113,8 +167,26 @@
       "title": "드럭스토어",
       "detail": "[오프라인쇼핑] 드럭스토어, 다이소 이용금액 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 200000,
+          "limit": 5000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

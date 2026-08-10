@@ -78,8 +78,8 @@
   "top_benefit_summary": "간편결제: 무제한 | 간편결제: 무제한 | 생활: 12%",
   "detailed_benefits": "간편결제: e스타일할인 - 매월 스마일페이 및 롯데 제휴사 매장 5천원 결제일 할인 | 간편결제: e스마일할인 - 매년 스마일페이 가맹점 결제일 할인 | 생활: 영라이프할인 - 라이프 가맹점 10~12% 결제일 할인",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":20000}] | [{\"perf\":100000,\"limit\":1500000},{\"perf\":1500000,\"limit\":3000000},{\"perf\":3000000,\"limit\":30000}] | [{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

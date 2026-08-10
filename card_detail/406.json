@@ -63,8 +63,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 온라인쇼핑: 5%",
   "detailed_benefits": "대한항공: 5대 온라인 몰에서 온라인 쇼핑하면 1,000원당 대한항공 1마일리지 적립 | 온라인쇼핑: 온라인 몰 5% 청구 할인",
   "item_limit": "[{\"perf\":10000,\"limit\":2000000},{\"perf\":30000,\"limit\":2000000}] | 30000",
-  "group_id": "group_406_SUPER 적립 | none",
-  "group_limit": "2000000 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

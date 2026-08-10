@@ -72,10 +72,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2688",
   "top_benefit_summary": "할인: 0.7% | 주유: 100원 | 대중교통: 10% | 카페: 10%",
   "detailed_benefits": "할인: [Simple 할인] 국내 가맹점 1.0~0.7% 청구할인 | 주유: [Daily 할인] 주유 리터당 60~100원 청구할인 | 대중교통: [Daily 할인] 대중교통 10% 청구할인 | 카페: [Daily 할인] 커피 10% 청구할인",
-  "item_limit": "1000000 | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":60}] | 3000 | 1000",
-  "group_id": "none | group_2688_Daily 할인 | group_2688_Daily 할인 | group_2688_Daily 할인",
-  "group_limit": "-1 | 7000 | 3000 | 5000",
-  "total_limit_tiers": [],
+  "item_limit": "1000000 | 7000 | 3000 | 1000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -83,8 +83,13 @@
       "title": "할인",
       "detail": "[Simple 할인] 국내 가맹점 1.0~0.7% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.006999999999999999}]",
-      "item_limit": "1000000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.006999999999999999
+        }
+      ],
+      "item_limit": 1000000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -93,8 +98,13 @@
       "title": "주유",
       "detail": "[Daily 할인] 주유 리터당 60~100원 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": 7000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -103,8 +113,13 @@
       "title": "대중교통",
       "detail": "[Daily 할인] 대중교통 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "3000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 3000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -113,8 +128,13 @@
       "title": "카페",
       "detail": "[Daily 할인] 커피 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "1000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 1000,
       "fixedAmount": 0,
       "minPayment": 0
     }

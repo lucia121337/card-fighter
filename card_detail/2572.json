@@ -68,8 +68,8 @@
   "top_benefit_summary": "항공마일리지: 무제한",
   "detailed_benefits": "항공마일리지: UniMile 적립",
   "item_limit": "-1",
-  "group_id": "group_2572_해외결제 및 기타안내",
-  "group_limit": "100000",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

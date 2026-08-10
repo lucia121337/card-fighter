@@ -68,8 +68,8 @@
   "top_benefit_summary": "캐시백: 0.5% | 대중교통: 무제한 | 디지털구독: 무제한",
   "detailed_benefits": "캐시백: 국내외 이용금액 최대 0.5% 캐시백 | 대중교통: 버스/지하철 후불교통 이용금액 캐시백 | 디지털구독: 디지털 구독 이용금액 캐시백",
   "item_limit": "[{\"perf\":300000,\"limit\":3000000},{\"perf\":5000000,\"limit\":20000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":200}] | 10000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }
