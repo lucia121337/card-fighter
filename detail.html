@@ -797,6 +797,7 @@
 </div>
 
 <script src="benefit-calc.js"></script>
+<script src="calculator.js"></script>
 <script>
 var esc = window.esc || (s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])));
 const won = n => n ? Number(n).toLocaleString()+'원' : '없음';
@@ -1048,39 +1049,27 @@ function render(d, list = [], recs = {}) {
     topBenefit = parts.join(' + ');
   }
 
-  // 유사 카드 추천 HTML 생성 (검수 완료 카드 최우선 정렬)
-  const recList = (recs[String(d.idx)] || recs[Number(d.idx)] || []);
+  // 유사 카드 추천 HTML 생성
+  const recList = (recs[String(d.idx)] || recs[Number(d.idx)] || []).slice(0, 4);
   let recHTML = '';
   if (recList.length > 0) {
-    const verifiedIds = typeof getVerifiedCardIds === 'function' ? getVerifiedCardIds() : [];
-    
-    // 추천 카드 중 검수 완료된 카드를 상단에 우선 정렬
-    const sortedRecList = [...recList].sort((a, b) => {
-      const aVer = verifiedIds.includes(String(a.recommended_idx)) ? 1 : 0;
-      const bVer = verifiedIds.includes(String(b.recommended_idx)) ? 1 : 0;
-      return bVer - aVer;
-    }).slice(0, 4);
-
-    const itemsHTML = sortedRecList.map(rec => {
+    const itemsHTML = recList.map(rec => {
       const rCard = list.find(c => String(c.idx) === String(rec.recommended_idx));
       if (!rCard) return '';
       const rName = rCard.card_name || rCard.name || '카드';
       const rCorp = rCard.company || (rCard.corp && rCard.corp.name) || '';
       const rImg = rCard.card_img || (rCard.card_img_obj && rCard.card_img_obj.url) || '';
-      const isVerified = verifiedIds.includes(String(rec.recommended_idx));
       
       const kwList = rec.common_keywords || [];
       const hashtags = kwList.length ? kwList.map(k => '#' + esc(k)).join(' ') : '';
-      const badgeText = isVerified 
-        ? `☑️ 데이터 검수 완료 · ${hashtags || '비슷한 혜택'}`
-        : (hashtags ? `💡 이 카드도 ${hashtags} 혜택이 비슷해요!` : '💡 이 카드와 혜택이 비슷해요!');
+      const badgeText = hashtags ? `💡 이 카드도 ${hashtags} 혜택이 비슷해요!` : '💡 이 카드와 혜택이 비슷해요!';
       
       return `
-        <a class="rec-card-item" href="/detail/${rec.recommended_idx}" style="${isVerified ? 'border-color: #10b981; background: #ecfdf5;' : ''}">
+        <a class="rec-card-item" href="/detail/${rec.recommended_idx}">
           <img class="rec-card-img" src="${esc(rImg)}" alt="" onerror="this.style.visibility='hidden'"/>
-          <div class="rec-card-name">${isVerified ? '<span style="color:#059669;font-weight:800;margin-right:2px;">☑️</span>' : ''}${esc(rName)}</div>
+          <div class="rec-card-name">${esc(rName)}</div>
           <div class="rec-card-corp">${esc(rCorp)}</div>
-          <div class="rec-keywords-badge" style="${isVerified ? 'background:#d1fae5;color:#047857;border-color:#6ee7b7;' : ''}">${badgeText}</div>
+          <div class="rec-keywords-badge">${badgeText}</div>
         </a>
       `;
     }).join('');
@@ -1158,6 +1147,9 @@ if (!idx) {
   ])
     .then(([detail, list, recs, ben]) => {
       window._CALC_BS = ben[idx] || null;
+      detail.idx = detail.idx || idx;
+      detail.id = detail.id || idx;
+      detail.bs = window._CALC_BS;
       const meta = list.find(c => String(c.idx) === String(idx));
       if (meta) {
         if (detail.pre_month_money === undefined || detail.pre_month_money === null) {

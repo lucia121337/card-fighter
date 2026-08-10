@@ -327,14 +327,6 @@ function checkIsCalculable(cardData) {
       return false;
     }
 
-    // 0-2) 검수 완료(verified_cards) 목록이 존재하는 경우, 검수 완료된 카드를 우선 반영
-    const verifiedList = getVerifiedCardIds();
-    if (verifiedList.length > 0) {
-      if (!verifiedList.includes(cardId)) {
-        return false;
-      }
-    }
-
     // 1) 명시적 is_calculable / is_calc_supported false 플래그 검증
     if (cardData.is_calculable === false) return false;
     if (cardData.is_calc_supported === 'FALSE' || cardData.is_calc_supported === false) return false;
