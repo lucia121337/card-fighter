@@ -88,7 +88,11 @@ body.prem-theme .sec-sub {
   color: #9aa0ac !important;
 }
 
-body.prem-theme .lnb-bar,
+body.prem-theme .lnb-bar {
+  background: transparent !important;
+  border-bottom: 2px solid rgba(201, 164, 92, 0.2) !important;
+}
+
 body.prem-theme .filter-bar,
 body.prem-theme .quick-seg {
   background: #141519 !important;
@@ -96,15 +100,25 @@ body.prem-theme .quick-seg {
 }
 
 body.prem-theme .lnb-item {
-  color: #c8ccd4 !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2.5px solid transparent !important;
+  color: #c8b489 !important;
+  margin-bottom: -2px;
+  border-radius: 0 !important;
 }
 
 body.prem-theme .lnb-item:hover {
+  background: transparent !important;
   color: #e8c886 !important;
 }
 
-body.prem-theme .lnb-item.active {
-  color: #1a150a !important;
+body.prem-theme .lnb-item.active,
+body.prem-theme .lnb-item.lnb-prem.active {
+  background: transparent !important;
+  color: #e8c886 !important;
+  border-bottom: 2.5px solid #e3b448 !important;
+  font-weight: 800 !important;
 }
 
 body.prem-theme .count-badge {
