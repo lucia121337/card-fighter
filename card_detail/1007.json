@@ -1,0 +1,18 @@
+{
+  "idx": 1007,
+  "card_name": "Clip카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard, JCB",
+  "annual_fee": "해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "통신: KT통신요금 최대 1만7천원 할인",
+  "benefit_categories": "KT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1007/card_img/21528/1007card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1007",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

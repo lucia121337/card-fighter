@@ -1,0 +1,18 @@
+{
+  "idx": 1529,
+  "card_name": "KT Super DC",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, JCB",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "KT: 통신요금 최대 1만5천원 할인 | 카페: 5대 커피업종 5% 할인 | 영화: 영화 3천원 할인",
+  "benefit_categories": "제휴/PLCC, 영화, 카페, KT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1529/card_img/20202/1529card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1529",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

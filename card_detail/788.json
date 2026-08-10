@@ -1,0 +1,18 @@
+{
+  "idx": 788,
+  "card_name": "CJ ONE 삼성카드",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 200000,
+  "pre_month_condition": "200,000원",
+  "top_benefit_summary": "CJ ONE: CJ ONE 포인트 2~5배 적립 | CJ ONE: CJ ONE 포인트 0.5% 특별적립 | 테마파크: 놀이공원 자유이용권 50% 현장할인",
+  "benefit_categories": "제휴/PLCC, CJ ONE, 영화, 카페, 일반음식점, 패밀리레스토랑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/788/card_img/28073/788card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/788",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -19,6 +19,7 @@ import http.server
 import functools
 import json
 import os
+import re
 import sys
 import urllib.parse
 
@@ -27,14 +28,15 @@ DEFAULT_PORT = 5500
 
 
 def load_rewrites():
-    """vercel.json 의 rewrites 를 {source: destination} 로 읽는다."""
-    rules = {}
+    """vercel.json 의 rewrites 를 [(compiled_regex, destination)] 로 읽는다."""
+    rules = []
     try:
         with open(os.path.join(ROOT, "vercel.json"), encoding="utf-8") as f:
             for r in (json.load(f).get("rewrites") or []):
                 src, dst = r.get("source"), r.get("destination")
                 if src and dst:
-                    rules[src] = dst
+                    pattern_str = "^" + re.sub(r":\w+", r"[^/]+", src) + "$"
+                    rules.append((re.compile(pattern_str), dst))
     except (OSError, ValueError):
         pass
     return rules
@@ -47,8 +49,12 @@ class PreviewHandler(http.server.SimpleHTTPRequestHandler):
     def _rewrite_path(self):
         parts = urllib.parse.urlsplit(self.path)
         p = parts.path
-        # 1) vercel.json 에 정의된 정확한 리라이트 우선
-        dst = REWRITES.get(p)
+        # 1) vercel.json 에 정의된 리라이트 패턴 우선 (파라미터형 :param 포함)
+        dst = None
+        for pattern, destination in REWRITES:
+            if pattern.match(p):
+                dst = destination
+                break
         # 2) 없으면: 확장자 없는 경로에 대응하는 .html 이 있으면 그걸로 (일반 규칙)
         if not dst and p and p != "/" and not os.path.splitext(p)[1]:
             candidate = os.path.join(ROOT, p.lstrip("/").replace("/", os.sep) + ".html")
@@ -81,7 +87,7 @@ def main():
             print(f"포트 번호가 올바르지 않습니다: {sys.argv[1]}")
             sys.exit(1)
     handler = functools.partial(PreviewHandler, directory=ROOT)
-    routes = ", ".join(REWRITES) or "(vercel.json 없음)"
+    routes = ", ".join(pat.pattern for pat, _ in REWRITES) or "(vercel.json 없음)"
     print(f"card-fighter 미리보기: http://localhost:{port}")
     print(f"리라이트: {routes}")
     print("종료: Ctrl+C")

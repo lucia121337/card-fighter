@@ -1,0 +1,18 @@
+{
+  "idx": 1188,
+  "card_name": "펫 사랑 카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "동물병원: 동물병원 10% 적립 | 온라인쇼핑: 온라인쇼핑 10% 적립 | 교통: 대중교통,시외버스 등 7% 적립",
+  "benefit_categories": "고속버스, 대중교통, 제휴/PLCC, 온라인쇼핑, 소셜커머스, 동물병원, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1188/card_img/21120/1188card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1188",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

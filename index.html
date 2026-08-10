@@ -7,6 +7,9 @@
 <title>카드 파이터 — 신용카드 비교</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/common.css">
+<link rel="stylesheet" href="home-gateway.css">
+<script src="/common-header.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
@@ -64,6 +67,20 @@
     color:var(--muted);flex-shrink:0;transition:.15s color}
   .search-box .search-btn:hover{color:var(--brand)}
   .search-box .search-btn svg{width:20px;height:20px}
+
+  @media(max-width:480px){
+    header{padding:8px 12px}
+    .header-top{flex-wrap:wrap;gap:8px}
+    .brand-left{width:100%;gap:8px}
+    .brand-left .logo{font-size:28px}
+    .brand-left h1{font-size:19px}
+    .gnb-divider{display:none}
+    .header-search{order:2;flex:0 0 100%;width:100%;padding-left:0}
+    .search-box{min-height:44px;padding:6px 12px}
+    .search-box input{min-width:0}
+    .gnb{order:3;width:100%;gap:4px;flex-wrap:wrap}
+    .gnb a{display:inline-flex;align-items:center;min-height:44px;padding:8px 10px;font-size:13px}
+  }
 
   /* 카드 툴바 (그리드 위 오른쪽) */
   .cards-toolbar{display:flex;align-items:center;justify-content:flex-end;
@@ -218,12 +235,12 @@
   .card-media .compare-btn{width:100%}
   .card-info{flex:1;min-width:0}
   .nm-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-  .card .nm{font-weight:700;font-size:17px;line-height:1.3}
-  .card .co{color:var(--muted);font-size:13px}
-  .benefit-row{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:14px;min-height:37px;align-items:center}
-  .benefit-item{max-width:220px}
-  .benefit-item .b-label{color:var(--muted);font-size:12px;margin-bottom:4px}
-  .benefit-item .b-val{font-size:15.5px;font-weight:700;color:var(--txt);
+  .card .nm{font-weight:800;font-size:18px;line-height:1.3;color:var(--txt);letter-spacing:-0.3px;word-break:keep-all}
+  .card .co{color:var(--muted);font-size:13px;font-weight:500}
+  .benefit-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px 24px;margin-bottom:14px;min-height:37px;align-items:flex-start}
+  .benefit-item{width:100%;min-width:0}
+  .benefit-item .b-label{color:var(--muted);font-size:11.5px;margin-bottom:3px;font-weight:600;letter-spacing:-0.2px;word-break:keep-all}
+  .benefit-item .b-val{font-size:14px;font-weight:600;color:var(--sub);line-height:1.45;word-break:keep-all;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .benefit-item.no-benefit{color:#94a3b8;font-size:13px}
   .row{display:flex;gap:7px;flex-wrap:wrap}
@@ -231,14 +248,19 @@
         padding:4px 9px;font-size:11.5px;color:var(--muted)}
   .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
+  .chip.chk{background:#fff7ed;border-color:#fed7aa;color:#c2410c;font-weight:700}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
-  .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
-  #section-cards.prem-theme{background:radial-gradient(120% 60% at 50% 0%,#1b1d26 0%,#0e0f13 60%);
-    border:1px solid #2a2d38;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  #section-cards.prem-theme{background:transparent !important;
+    border:none !important;border-radius:0 !important;box-shadow:none !important;padding:0 !important;margin:0 !important}
+  .prem-theme .cards-layout{background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important}
   .prem-theme .cards-title{color:#e8c886}
   .prem-theme .cards-subtitle{color:#9aa0ac}.prem-theme .cards-subtitle b{color:#e8c886}
-  .prem-theme .lnb-item{background:#181a22;border-color:#2a2d38;color:#c8ccd4}
+  .prem-theme .lnb{display:flex !important;align-items:center !important;gap:0 !important;border-bottom:2px solid rgba(201,164,92,.25) !important;margin-bottom:20px !important;background:transparent !important}
+  .prem-theme .lnb-item{display:inline-flex !important;align-items:center !important;gap:7px !important;padding:10px 18px !important;font-size:14px !important;font-weight:600 !important;font-family:inherit !important;white-space:nowrap !important;background:transparent !important;border:none !important;border-bottom:2.5px solid transparent !important;margin-bottom:-2px !important;border-radius:0 !important;color:#c8b489 !important;transition:color .15s ease,border-color .15s ease,filter .15s ease !important}
+  .prem-theme .lnb-item::after{display:none !important}
+  .prem-theme .lnb-item:hover{background:transparent !important;color:#e8c886 !important}
+  .prem-theme .lnb-item.active, .prem-theme .lnb-item.lnb-prem.active{background:transparent !important;color:#e8c886 !important;border-bottom:2.5px solid #e3b448 !important;font-weight:800 !important;filter:drop-shadow(0 2px 6px rgba(227,180,72,.5)) !important}
   /* 프리미엄: '혜택으로 찾기' 박스 골드 처리 */
   .prem-theme .cat-filter-box{background:linear-gradient(180deg,#181a22,#111219);
     border:1.5px solid #5c4a1f;box-shadow:0 8px 26px rgba(201,164,92,.1),inset 0 1px 0 rgba(232,200,134,.06)}
@@ -275,13 +297,13 @@
   .prem-theme .card{background:linear-gradient(180deg,#191b23,#141519);border-color:#2a2d38;box-shadow:none}
   .prem-theme .card:hover{border-color:#c9a45c;box-shadow:0 12px 30px rgba(201,164,92,.18)}
   .prem-theme .card-media .img-wrap::before{background:radial-gradient(circle,#26293380 0%,rgba(38,41,51,0) 72%)}
-  .prem-theme .card .nm{color:#f5f3ee}
+  .prem-theme .card .nm{color:#f5f3ee;font-weight:800}
   .prem-theme .card .co{color:#9aa0ac}
   .prem-theme .chip{background:#20222c;border-color:#2f333f;color:#c8ccd4}
   .prem-theme .chip.fee{background:#2a2213;border-color:#5c4a1f;color:#e8c886}
   .prem-theme .chip.pre{background:#14261a;border-color:#255c39;color:#7fe0a5}
   .prem-theme .benefit-item .b-label{color:#8a8f9a}
-  .prem-theme .benefit-item .b-val{color:#f5f3ee}
+  .prem-theme .benefit-item .b-val{color:#c8b489;font-weight:600}
   .prem-theme .detail-btn{background:linear-gradient(90deg,#b8860b,#e3b448);box-shadow:0 2px 10px rgba(201,164,92,.3)}
   .prem-theme .compare-btn{background:#181a22;border-color:#2a2d38;color:#c8ccd4}
   .prem-theme .compare-btn:hover{border-color:#c9a45c;color:#e8c886}
@@ -289,15 +311,15 @@
   .prem-theme #more{background:linear-gradient(90deg,#b8860b,#e3b448);box-shadow:none}
   .foot{display:flex;align-items:center;gap:8px;flex-shrink:0}
   .foot .dt{color:#94a3b8;font-size:11px}
-  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:9px;
+  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:var(--radius-sm);
         padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
         box-shadow:0 2px 8px rgba(19,85,255,.28);white-space:nowrap;display:inline-block;
-        flex-shrink:0;align-self:center;transition:.15s background}
-  .detail-btn:hover{background:var(--brand-deep)}
+        flex-shrink:0;align-self:center;transition:all 0.15s ease}
+  .detail-btn:hover{background:var(--brand-deep);transform:translateY(-2px)}
   #more{display:block;margin:26px auto;background:var(--brand);
-        color:#fff;border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
-        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:.15s background}
-  #more:hover{background:var(--brand-deep)}
+        color:#fff;border:none;border-radius:var(--radius-md);padding:12px 30px;cursor:pointer;
+        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:all 0.15s ease}
+  #more:hover{background:var(--brand-deep);transform:translateY(-2px)}
   .empty{text-align:center;color:var(--muted);padding:60px}
 
   /* ── 플로팅 버블 ── */
@@ -424,12 +446,18 @@
   .cbc-amt{font-size:12.5px;font-weight:800;color:#e8590c}
   .cbc-more{font-size:12px;font-weight:700;color:var(--brand);margin-top:6px}
   .cbc-period{font-size:11px;color:#94a3b8}
-  /* 캐시백 상세 모달 */
-  .cb-modal{position:fixed;inset:0;background:rgba(15,23,42,.5);display:none;z-index:300;
-    align-items:center;justify-content:center;padding:20px}
-  .cb-modal.on{display:flex}
-  .cb-modal-inner{background:#fff;border-radius:16px;max-width:620px;width:100%;max-height:86vh;
-    overflow:auto;padding:22px;position:relative}
+  /* 캐시백 상세 모달 (통합 모달 & 바텀 시트 시스템 반영) */
+  .cb-modal{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(8px);display:none;z-index:2000;
+    align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity 0.2s ease, visibility 0.2s ease;}
+  .cb-modal.on{display:flex;opacity:1;visibility:visible;}
+  .cb-modal-inner{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-lg);max-width:620px;width:100%;max-height:86vh;
+    overflow:auto;padding:28px;position:relative;box-shadow:0 20px 40px rgba(0,0,0,0.2);transform:scale(0.95);transition:transform 0.2s ease;}
+  .cb-modal.on .cb-modal-inner{transform:scale(1);}
+  @media(max-width:640px){
+    .cb-modal{align-items:flex-end;padding:0;}
+    .cb-modal-inner{max-width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);box-shadow:0 -10px 30px rgba(0,0,0,0.2);}
+    .cb-modal.on .cb-modal-inner{transform:translateY(0);}
+  }
   .cbm-close{float:right;background:#f1f5f9;color:#334155;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700}
   .cbm-tag{font-size:12px;color:var(--brand);font-weight:700}
   .cbm-title{margin:4px 0}
@@ -475,7 +503,7 @@
   .avatar-nav{display:flex;justify-content:flex-start;gap:20px;margin-bottom:50px;
     flex-wrap:nowrap;overflow-x:auto;padding:0 10px 16px;scrollbar-width:none;-ms-overflow-style:none}
   .avatar-nav::-webkit-scrollbar{display:none}
-  @media(min-width:768px){.avatar-nav{justify-content:center}}
+  @media(min-width:1024px){.avatar-nav{justify-content:center}}
   .avatar-item{display:flex;flex-direction:column;align-items:center;gap:12px;
     cursor:pointer;transition:.2s transform;flex-shrink:0}
   .avatar-item:hover{transform:translateY(-5px)}
@@ -507,18 +535,18 @@
 
   .mag-container{background:var(--panel);border:1.5px solid var(--line);border-radius:28px;
     padding:40px;box-shadow:0 12px 40px rgba(20,92,230,.08)}
-  @media(max-width:768px){.mag-container{padding:24px}}
+  @media(max-width:640px){.mag-container{padding:24px}}
   .mag-title{font-size:28px;font-weight:800;color:var(--txt);margin:0 0 30px;line-height:1.4;
     word-break:keep-all;text-align:center}
   .mag-title .highlight{background:linear-gradient(180deg,rgba(255,255,255,0) 60%,#ffeaa7 40%);padding:0 4px}
-  @media(max-width:768px){.mag-title{font-size:22px}}
+  @media(max-width:640px){.mag-title{font-size:22px}}
   .mag-subtitle{font-size:20px;font-weight:800;color:var(--brand);margin-bottom:24px;
     display:flex;align-items:center;gap:8px}
   .mag-subtitle::before{content:"";display:block;width:6px;height:20px;background:var(--brand);border-radius:4px}
 
   .analysis-section{display:grid;grid-template-columns:1fr 1fr;gap:30px;
     background:#f8fafc;padding:30px;border-radius:20px;border:1px solid var(--line);margin-bottom:40px}
-  @media(max-width:900px){.analysis-section{grid-template-columns:1fr}}
+  @media(max-width:640px){.analysis-section{grid-template-columns:1fr}}
   .chart-area{display:flex;flex-direction:column;align-items:center}
   .chart-inner{width:100%;max-width:280px;aspect-ratio:1/1}
   .text-area{display:flex;flex-direction:column;justify-content:center;gap:24px}
@@ -531,7 +559,7 @@
 
   .mag-cards-section{margin-bottom:40px}
   .mag-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  @media(max-width:900px){
+  @media(max-width:640px){
     .mag-cards-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
       padding-bottom:20px;scrollbar-width:none;-ms-overflow-style:none;gap:16px}
     .mag-cards-grid::-webkit-scrollbar{display:none}
@@ -563,7 +591,7 @@
   .mag-tip{background:#1e293b;color:#fff;padding:24px 30px;border-radius:16px;
     font-size:16px;line-height:1.5;display:flex;align-items:flex-start;gap:12px;
     animation:pulseTip 2s infinite alternate}
-  @media(max-width:768px){.mag-tip{flex-direction:column}}
+  @media(max-width:640px){.mag-tip{flex-direction:column}}
   @keyframes pulseTip{0%{box-shadow:0 0 0 rgba(0,0,0,0)}100%{box-shadow:0 8px 24px rgba(30,41,59,.4)}}
   .mag-tip strong{color:#f1c40f;font-weight:800;font-size:19px;flex-shrink:0}
 
@@ -597,11 +625,15 @@
     padding:4px 8px}
   .trend-lb-more:hover{color:var(--brand)}
 
-  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);
-    display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);
+    backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
   .trend-modal-overlay.visible{display:flex}
-  .trend-modal-box{background:#fff;border-radius:20px;width:420px;max-width:100%;
-    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .trend-modal-box{background:var(--panel);border-radius:var(--radius-lg);width:420px;max-width:100%;
+    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);border:1.5px solid var(--line)}
+  @media(max-width:640px){
+    .trend-modal-overlay{align-items:flex-end;padding:0}
+    .trend-modal-box{max-width:100%;border-radius:24px 24px 0 0;max-height:85vh}
+  }
   .trend-modal-head{display:flex;align-items:center;justify-content:space-between;
     padding:20px 22px 14px;border-bottom:1.5px solid var(--line)}
   .trend-modal-head h3{font-size:16px;font-weight:800;color:var(--txt);margin:0}
@@ -665,6 +697,7 @@
       <a href="/card" data-section="cards" onclick="showSection('cards');return false">전체카드</a>
       <a href="/event" data-section="cashback" onclick="showSection('cashback');return false"><span class="coin-icon">🪙</span>캐시백</a>
       <a href="/shopping" data-section="shopping" onclick="showSection('shopping');return false">할인가맹점</a>
+      <a href="calculator.html">🧮 혜택계산기</a>
       <a href="/cardlab">카드 연구소</a>
     </nav>
     <div class="header-search">
@@ -713,12 +746,38 @@
 
   <!-- 홈 섹션 -->
   <div id="section-home" class="section">
-    <div class="coming-soon">
-      <div class="cs-icon">🏗️</div>
-      <span class="cs-badge">준비중</span>
-      <h2>홈 화면을 준비하고 있어요</h2>
-      <p>더 멋진 메인 페이지로 곧 찾아올게요!</p>
+    <div id="home-gateway" class="home-shell">
+      <section class="home-editorial-hero" aria-labelledby="home-title">
+        <div class="home-hero-number" aria-hidden="true">1276</div>
+        <div class="home-hero-copy">
+          <span class="home-kicker">CARD CHOICE STARTS WITH PURPOSE</span>
+          <h2 id="home-title">카드를 고르기 전에,<br><strong>이유</strong>부터 골라요.</h2>
+          <p>선택은 복잡할 필요가 없어요. 지금 필요한 것과 하나만 선택하면 카드 파이터가 알맞은 경로를 안내해드려요.</p>
+          <span id="home-card-count-copy" class="home-card-count">수많은 카드 데이터</span>
+        </div>
+        <div id="home-hero-cards" class="home-card-stack" aria-hidden="true"></div>
+        <span class="home-best-stamp" aria-hidden="true">BEST<br>MATCH</span>
+      </section>
+
+      <nav id="home-purpose-routes" class="home-purpose-grid" aria-label="카드 찾기 목적 선택">
+        <a class="home-purpose is-primary" href="calculator.html" data-home-route="calculator"><span class="home-purpose-number">01</span><span class="home-purpose-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="8.5" width="17" height="14" rx="2.5"/><path d="M3.5 13h17M22 17l3-3 3 3M25 14v9"/></svg></span><strong>매달 가장 이득인 카드</strong><small>내 소비패턴으로 계산 →</small></a>
+        <a class="home-purpose" href="/event" data-home-route="cashback"><span class="home-purpose-number">02</span><span class="home-purpose-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 13h22v15H5zM3.5 9h25v4h-25zM16 9v19M16 9c-1.4-4.6-7.2-5.2-7.2-1.8C8.8 9 11 9 16 9Zm0 0c1.4-4.6 7.2-5.2 7.2-1.8C23.2 9 21 9 16 9Z"/></svg></span><strong>지금 받을 수 있는 발급 혜택</strong><small>카드사별 캐시백 확인 →</small></a>
+        <a class="home-purpose" href="/card#benefit-filters" data-home-route="benefits"><span class="home-purpose-number">03</span><span class="home-purpose-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="6" height="6" rx="1"/><rect x="13" y="5" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><circle cx="20.5" cy="20.5" r="5.5"/><path d="m24.5 24.5 4 4"/></svg></span><strong>원하는 혜택이 있는 카드</strong><small>혜택 카테고리로 직접 검색 →</small></a>
+      </nav>
+
+      <section id="home-resume" class="home-resume" aria-label="지금 카드 탐색 이어하기" hidden></section>
+
+      <section class="home-lab" aria-labelledby="home-lab-title">
+        <div class="home-lab-head"><div><span>CARD LAB</span><h2 id="home-lab-title">취향으로 한 번 더 발견하기</h2></div><a href="/cardlab">카드 연구소 전체 →</a></div>
+        <div class="home-lab-grid">
+          <a class="home-lab-entry home-lab-mbti" href="/cardlab/match"><span class="home-lab-icon" aria-hidden="true">🧠</span><span><strong>나는 어떤 소비자일까?</strong><small>13문항 소비 MBTI</small></span><b aria-hidden="true">→</b></a>
+          <a class="home-lab-entry home-lab-worldcup" href="/cardlab/worldcup"><span class="home-lab-icon" aria-hidden="true">🏆</span><span><strong>마지막까지 살아남을 카드는?</strong><small>최대 32강 카드 월드컵</small></span><b aria-hidden="true">→</b></a>
+        </div>
+      </section>
+
+      <footer class="home-trust"><strong>데이터를 기준으로 비교합니다.</strong><p><span id="home-trust-count">수많은 카드 데이터</span> · 월 순이득은 예상 혜택에서 월 환산 연회비를 뺀 값입니다. 추천 조건을 공개하고 카드사 상품설명서 원문을 검수합니다. 신청 전 최신 상품설명서와 약관을 직접 확인해주세요.</p></footer>
     </div>
+
   </div>
 
   <!-- 전체카드 섹션 -->
@@ -736,7 +795,7 @@
         <p class="cards-subtitle">총 <b id="cards-total-count">0</b>건</p>
       </div>
       <!-- 혜택 카테고리 필터 (복수선택 - AND 조건) -->
-      <div class="cat-filter-box">
+      <div id="benefit-filters" class="cat-filter-box" tabindex="-1">
         <div class="cat-filter-label">🎯 혜택으로 찾기</div>
         <div class="cat-filter-row" id="cat-filter-row"></div>
       </div>
@@ -795,7 +854,32 @@
           </div>
           <div class="stat">검색 결과 <b id="count">0</b>건 표시</div>
         </div>
-        <div class="grid" id="grid"></div>
+        <div class="grid" id="grid">
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line w-75"></div>
+              <div class="skeleton-line w-50"></div>
+              <div class="skeleton-line w-30"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line w-75"></div>
+              <div class="skeleton-line w-50"></div>
+              <div class="skeleton-line w-30"></div>
+            </div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-body">
+              <div class="skeleton-line w-75"></div>
+              <div class="skeleton-line w-50"></div>
+              <div class="skeleton-line w-30"></div>
+            </div>
+          </div>
+        </div>
         <button id="more" hidden>더 보기</button>
         <div class="empty" id="empty" hidden>조건에 맞는 카드가 없습니다.</div>
       </div>
@@ -844,7 +928,18 @@
 
 <script>
 /* ── 비교함 (localStorage 연동) ── */
-let compareList = JSON.parse(localStorage.getItem('compareList')||'[]');
+function readStoredCompareList() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('compareList') || '[]');
+    return (Array.isArray(parsed) ? parsed : [])
+      .filter(card => card && typeof card === 'object' && card.idx != null)
+      .slice(0, 3);
+  } catch (error) {
+    return [];
+  }
+}
+
+let compareList = readStoredCompareList();
 
 function saveCompare(){ localStorage.setItem('compareList', JSON.stringify(compareList)); }
 
@@ -872,6 +967,12 @@ let popupOpen = false;
 function togglePopup(){
   popupOpen = !popupOpen;
   document.getElementById('compare-popup').classList.toggle('visible', popupOpen);
+}
+
+function refreshHomeResume() {
+  if (window.HomeGateway && window.CardProfile) {
+    HomeGateway.updateResume(CardProfile.load(), compareList);
+  }
 }
 
 function updateCompareBar(){
@@ -916,6 +1017,7 @@ function updateCompareBar(){
   document.getElementById('popup-count').textContent = `${compareList.length}/3`;
   const pcb = document.getElementById('popup-compare-btn');
   if(pcb) pcb.disabled = compareList.length < 2;
+  refreshHomeResume();
 }
 
 function resetCompare(){
@@ -1137,7 +1239,9 @@ function setCardType(el, opts){
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
-  document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  const isPrem = activeCardType === '프리미엄';
+  document.getElementById('section-cards').classList.toggle('prem-theme', isPrem);
+  document.body.classList.toggle('prem-theme', isPrem);
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({}, '', path);
@@ -1309,6 +1413,7 @@ function render(){
         <div class="nm-row">
           <span class="nm">${esc(c.card_name)}</span>
           <span class="co">${esc(c.company||'')}</span>
+          ${c.cate==='CHK'?'<span class="chip chk">체크</span>':''}
           ${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}
         </div>
         <div class="benefit-row">${benefit}</div>
@@ -1628,6 +1733,24 @@ const PLATFORM_COMPANY_LANDING = {
   },
 };
 
+// 플랫폼 대표 랜딩 — 서브타이틀의 "OO 바로가기" 버튼과 같은 주소.
+function cbPlatformUrl(platform){
+  const plat = CASHBACK[platform];
+  return (plat && plat.url) ? plat.url : '';
+}
+// 드릴다운 화면에서 기준이 될 플랫폼. 전체보기는 카드사별로 최댓값을 보여준 플랫폼(bestPlatform)을 쓴다.
+function cbCardPlatform(co){
+  return activePlatform === '전체보기' ? (co && co.bestPlatform) : activePlatform;
+}
+// 특정 플랫폼이 그 카드사에 대해 가진 카드 목록.
+// 전체보기의 c.cards는 여러 플랫폼을 합친 목록이라, 랜딩 판단에는 출처 플랫폼의 카드만 봐야 한다.
+function cbSourceCards(companyName, platform){
+  const plat = CASHBACK[platform];
+  if(!plat) return [];
+  const co = (plat.companies||[]).find(x => x.name === companyName);
+  return (co && co.cards) || [];
+}
+
 function renderCbCompanies(companies){
   document.getElementById('cb-grid').className = 'cb-grid';
   document.getElementById('cb-grid').innerHTML = companies.map(c=>{
@@ -1638,8 +1761,16 @@ function renderCbCompanies(companies){
     // 전체보기에서는 카드사별 최댓값을 실제로 보여준 플랫폼(bestPlatform)의 랜딩으로 보낸다.
     const sourcePlatform = activePlatform === '전체보기' ? c.bestPlatform : activePlatform;
     const landing = (PLATFORM_COMPANY_LANDING[sourcePlatform] || {})[c.name];
+    // 토스·카카오페이처럼 드릴다운해도 열어볼 상세(event_idx)나 카드별 링크(url)가 없는 플랫폼은
+    // 빈 타일만 보여주게 되므로, 서브타이틀의 "OO 바로가기"와 같은 플랫폼 대표 랜딩으로 보낸다.
+    // 판단 기준은 출처 플랫폼(전체보기면 bestPlatform)의 카드 — 합쳐진 c.cards로 보면 안 된다.
+    const srcCards = activePlatform === '전체보기' ? cbSourceCards(c.name, sourcePlatform) : (c.cards||[]);
+    const drillable = srcCards.some(card => card.event_idx || card.url);
+    const platLanding = drillable ? '' : cbPlatformUrl(sourcePlatform);
     const onclick = landing
       ? `window.open('${esc(landing)}','_blank','noopener')`
+      : platLanding
+      ? `window.open('${esc(platLanding)}','_blank','noopener')`
       : `drillCb('${esc(c.name)}')`;
     return `<div class="cb-company-card" onclick="${onclick}">
       ${logo}<div class="co-name">${esc(c.name)}</div><div class="co-amount">${amt}</div></div>`;
@@ -1652,14 +1783,19 @@ function renderCbCards(co){
   document.getElementById('cb-grid').innerHTML = co.cards.map(card=>{
     const badge = card.type ? `<span class="cbc-badge ${card.type==='캐시백'?'cbk':''}">${esc(card.type)}</span>` : '';
     const amt = card.amount>0 ? `<span class="cbc-amt">최대 ${card.amount}만원</span>` : '';
-    const click = card.event_idx ? `onclick="openCbDetail(${card.event_idx})"` : '';
+    // 상세 모달(event_idx) → 카드별 링크(url) → 플랫폼 대표 랜딩 순으로 이동 대상을 정한다.
+    // 셋 다 없을 때만 클릭이 안 되게 두어, 눌러도 아무 일 없는 타일이 생기지 않도록 한다.
+    const outUrl = card.event_idx ? '' : (card.url || cbPlatformUrl(cbCardPlatform(co)));
+    const click = card.event_idx
+      ? `onclick="openCbDetail(${card.event_idx})"`
+      : outUrl ? `onclick="window.open('${esc(outUrl)}','_blank','noopener')"` : '';
     const ev = card.event_idx ? CB_EVENTS.find(x=>x.idx===card.event_idx) : null;
     const linked = resolveOurCard(ev) ? '<span class="cbc-link-badge">📇 카드정보</span>' : '';
     return `<div class="cb-event-card" ${click}>
       <div class="cbc-top">${badge}${amt}${linked}</div>
       <div class="cbc-title">${esc(card.name)}</div>
       <div class="cbc-subject">${esc(card.subject||'')}</div>
-      ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : ''}
+      ${card.event_idx ? '<div class="cbc-more">자세히 보기 →</div>' : outUrl ? '<div class="cbc-more">바로가기 →</div>' : ''}
     </div>`;
   }).join('') || '<div class="empty">카드가 없어요.</div>';
 }
@@ -1705,7 +1841,8 @@ function openCbDetail(idx){
          <div class="cl-name">${esc(oc.card_name)}</div></div>
        <span class="cl-arrow">상세보기 →</span></a>` : '';
   document.getElementById('cb-modal-body').innerHTML =
-    `<button class="cbm-close" onclick="closeCbModal()">닫기 ✕</button>
+    `<div class="c-modal-drag-handle"></div>
+     <button class="cbm-close" onclick="closeCbModal()">닫기 ✕</button>
      <div class="cbm-tag">${esc(e.type)} · ${esc(e.corp_name||'')}</div>
      <h3 class="cbm-title">${esc(e.title||'')}</h3>
      <div class="cbm-sub">${esc(e.subject||'')} · ${esc(e.start||'')} ~ ${esc(e.end||'')}</div>
@@ -1733,6 +1870,7 @@ fetch('cards_list.json')
     renderPreSeg();        // 전월실적 구간 버튼(개수 표시)
     updateFeeUI();         // 연회비 슬라이더 초기 표시
     applyFilters();
+    if (window.HomeGateway) HomeGateway.updateCards(DATA);
   })
   .catch(e=>{
     document.getElementById('empty').hidden=false;
@@ -1760,7 +1898,9 @@ function applyPathSubState(){
       btn.classList.add('active');
       activeCardType = cardtype;
       document.getElementById('cards-title').textContent = btn.textContent.trim();
-      document.getElementById('section-cards').classList.toggle('prem-theme', cardtype === '프리미엄');
+      const isPrem = cardtype === '프리미엄';
+      document.getElementById('section-cards').classList.toggle('prem-theme', isPrem);
+      document.body.classList.toggle('prem-theme', isPrem);
     }
   }
   if (PATH_PLATFORM.hasOwnProperty(location.pathname)) {
@@ -2103,13 +2243,11 @@ function buildLeaderboardHtml(ranked) {
 }
 
 function refreshCompareButtons() {
-  compareList.forEach(c => {
-    document.querySelectorAll(`.compare-btn[data-idx="${c.idx}"]`).forEach(btn => {
-      btn.classList.add('selected'); btn.textContent = '✓ 담겼어요';
-    });
-  });
-  document.querySelectorAll('.compare-btn:not(.selected)').forEach(btn => {
-    btn.disabled = compareList.length >= 3;
+  document.querySelectorAll('.compare-btn').forEach(btn => {
+    const selected = compareList.some(card => String(card.idx) === btn.dataset.idx);
+    btn.classList.toggle('selected', selected);
+    btn.textContent = selected ? '✓ 담겼어요' : '비교함 담기';
+    btn.disabled = !selected && compareList.length >= 3;
   });
   updateCompareBar();
 }
@@ -2266,6 +2404,44 @@ REC_CARDS.forEach(c => recCardMap[c.idx] = c);
 // 페이지 로드 시 바로 실행하고, 1시간마다 독립적으로 갱신한다.
 loadRealtimeKeywords();
 realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
+</script>
+<script src="profile.js"></script>
+<script src="home-gateway.js"></script>
+<script>
+HomeGateway.init({
+  cards: Array.isArray(DATA) ? DATA : [],
+  profile: CardProfile.load(),
+  compareList,
+  actions: {
+    calculator() { window.location.href = 'calculator.html'; },
+    cashback() { showSection('cashback'); },
+    benefits() {
+      showSection('cards');
+      requestAnimationFrame(() => {
+        const target = document.getElementById('benefit-filters');
+        if (!target) return;
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+        target.focus({preventScroll: true});
+      });
+    },
+    compare() {
+      compareList.length >= 2 ? goCompare() : showSection('cards');
+    }
+  }
+});
+
+function refreshStoredHomeState() {
+  compareList = readStoredCompareList();
+  refreshCompareButtons();
+}
+
+window.addEventListener('pageshow', refreshStoredHomeState);
+window.addEventListener('storage', event => {
+  if (event.key === null || event.key === 'compareList' || event.key === CardProfile.KEY) {
+    refreshStoredHomeState();
+  }
+});
 </script>
 </body>
 </html>

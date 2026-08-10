@@ -1,0 +1,18 @@
+{
+  "idx": 86,
+  "card_name": "카드의정석 DISCOUNT",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 0.7~1% 할인 | 주유: S-OIL,현대오일뱅크 60~100원/L 할인 | 교통: 대중교통 10% 할인",
+  "benefit_categories": "대중교통, 국내외가맹점, 적립, 주유소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/86/card_img/20168/86card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/86",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

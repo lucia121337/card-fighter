@@ -7,6 +7,8 @@
 <title>검색 결과 — 카드 파이터</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/common.css">
+<script src="/common-header.js" defer></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
   :root{
@@ -61,10 +63,10 @@
   .sr-section-title{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;margin:0 0 14px}
   .sr-section-title .cnt{color:var(--brand)}
 
-  .sr-row{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);
-    border-radius:14px;padding:14px 18px;margin-bottom:10px;text-decoration:none;color:inherit;
-    transition:.15s box-shadow,.15s border-color}
-  .sr-row:hover{box-shadow:var(--shadow);border-color:var(--brand)}
+  .sr-row{display:flex;align-items:center;gap:16px;background:var(--panel);border:1.5px solid var(--line);
+    border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:10px;text-decoration:none;color:inherit;
+    transition:transform 0.15s ease,box-shadow 0.15s ease,border-color 0.15s ease}
+  .sr-row:hover{box-shadow:var(--shadow-md);border-color:var(--brand);transform:translateY(-2px)}
   .sr-row img{width:52px;height:34px;object-fit:contain;border-radius:6px;background:var(--bg);
     border:1px solid var(--line);flex-shrink:0}
   .sr-row-icon{width:52px;height:34px;border-radius:6px;background:var(--panel2);display:flex;
@@ -72,9 +74,24 @@
   .sr-row-body{flex:1;min-width:0}
   .sr-row-name{font-size:15px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sr-row-sub{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sr-row-tag{font-size:11px;font-weight:700;color:var(--brand);background:var(--panel2);
-    padding:2px 8px;border-radius:99px;flex-shrink:0}
+  .sr-row-tag{font-size:11.5px;font-weight:600;color:var(--brand);background:var(--panel2);
+    padding:3px 10px;border-radius:var(--radius-sm);flex-shrink:0}
   .sr-row-arrow{color:var(--muted);font-size:18px;flex-shrink:0}
+
+  .sr-reco{margin-top:12px;border-top:1px solid var(--line);padding-top:32px}
+  .sr-reco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+  .sr-reco-card{display:block;text-decoration:none;color:inherit;background:var(--panel);
+    border:1.5px solid var(--line);border-radius:var(--radius-lg);padding:12px;text-align:center;
+    transition:transform 0.15s ease,box-shadow 0.15s ease,border-color 0.15s ease}
+  .sr-reco-card:hover{box-shadow:var(--shadow-md);border-color:var(--brand);transform:translateY(-2px)}
+  .sr-reco-card img{width:100%;height:64px;object-fit:contain;background:var(--bg);
+    border-radius:8px;margin-bottom:8px}
+  .sr-reco-name{font-size:12.5px;font-weight:700;color:var(--txt);white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis}
+  .sr-reco-company{font-size:11px;color:var(--muted);margin-top:2px}
+
+  .sr-reco-loading{color:var(--muted);font-size:13px;padding:18px 0;text-align:center}
+  .sr-guess{margin-bottom:32px}
 </style>
 </head>
 <body>
@@ -171,15 +188,221 @@ const CASHBACK = {
 
 function stripHtml(s){ return String(s||'').replace(/<[^>]+>/g,' '); }
 
+/* ============================================================
+   검색어 기반 추천 시스템 — TF-IDF(텍스트 빈도)와 BERT(문장임베딩) 두 방식의
+   후보를 섞어(interleave) 하나의 목록 5개로 노출한다 (UI에는 방식 구분 없음).
+   ============================================================ */
+
+/* 검색된(1순위 매칭) 카드와 "혜택이 비슷한" 카드 5개 — 둘 다 카드 대 카드 비교라
+   card_tfidf_index.json/card_bert_embeddings.json에 미리 계산해 둔 벡터끼리 코사인
+   유사도만 내면 돼서, 검색어를 다시 임베딩할 필요가 없다(모델 로드/추론 불필요). */
+function tfidfCardSimilar(idx, tfidfIndex, topN){
+  if (!tfidfIndex || !tfidfIndex.cards) return [];
+  const target = tfidfIndex.cards.find(c => c.idx === idx);
+  if (!target) return [];
+  const scored = tfidfIndex.cards.filter(c => c.idx !== idx).map(c => {
+    const [small, big] = Object.keys(target.vec).length < Object.keys(c.vec).length
+      ? [target.vec, c.vec] : [c.vec, target.vec];
+    let sum = 0;
+    for (const term in small) { if (big[term]) sum += small[term] * big[term]; }
+    return { c, score: sum };
+  }).filter(s => s.score > 0);
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, topN).map(s => s.c);
+}
+
+function bertCardSimilar(idx, bertData, topN){
+  if (!bertData || !bertData.cards) return [];
+  const target = bertData.cards.find(c => c.idx === idx);
+  if (!target) return [];
+  const te = target.embedding;
+  const scored = bertData.cards.filter(c => c.idx !== idx).map(c => {
+    const e = c.embedding;
+    let sum = 0;
+    for (let i = 0; i < te.length; i++) sum += te[i] * e[i];
+    return { c, score: sum };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, topN).map(s => s.c);
+}
+
+// TF-IDF/BERT 두 방식의 후보를 번갈아 섞어(interleave) 중복 제거 후 topN만 남긴다.
+function mergeCardSimilar(idx, tfidfIndex, bertData, topN){
+  const tfidfTop = tfidfCardSimilar(idx, tfidfIndex, topN * 2);
+  const bertTop = bertCardSimilar(idx, bertData, topN * 2);
+  const merged = [];
+  const seen = new Set([idx]);
+  const maxLen = Math.max(tfidfTop.length, bertTop.length);
+  for (let i = 0; i < maxLen && merged.length < topN; i++) {
+    for (const c of [bertTop[i], tfidfTop[i]]) {
+      if (c && !seen.has(c.idx)) { seen.add(c.idx); merged.push(c); }
+      if (merged.length >= topN) break;
+    }
+  }
+  return merged;
+}
+
+function shuffle(arr){
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* "혹시 이 카드를 찾으셨나요?" — 편집거리 기반 유사 카드명 매칭 */
+function levenshtein(a, b){
+  const m = a.length, n = b.length;
+  if (!m) return n;
+  if (!n) return m;
+  const dp = new Array(n + 1);
+  for (let j = 0; j <= n; j++) dp[j] = j;
+  for (let i = 1; i <= m; i++) {
+    let prev = dp[0];
+    dp[0] = i;
+    for (let j = 1; j <= n; j++) {
+      const tmp = dp[j];
+      dp[j] = a[i - 1] === b[j - 1] ? prev : 1 + Math.min(prev, dp[j], dp[j - 1]);
+      prev = tmp;
+    }
+  }
+  return dp[n];
+}
+/* 2벌식 자판 매핑 — 한글을 의도했지만 영문 상태로 입력된 오타("dkwjdekd" 등)를
+   실제 한글("아정당")로 복원해서 같은 파이프라인으로 비교할 수 있게 한다. */
+const KEY_JAMO = {
+  q:'ㅂ',w:'ㅈ',e:'ㄷ',r:'ㄱ',t:'ㅅ',y:'ㅛ',u:'ㅕ',i:'ㅑ',o:'ㅐ',p:'ㅔ',
+  a:'ㅁ',s:'ㄴ',d:'ㅇ',f:'ㄹ',g:'ㅎ',h:'ㅗ',j:'ㅓ',k:'ㅏ',l:'ㅣ',
+  z:'ㅋ',x:'ㅌ',c:'ㅊ',v:'ㅍ',b:'ㅠ',n:'ㅜ',m:'ㅡ',
+  Q:'ㅃ',W:'ㅉ',E:'ㄸ',R:'ㄲ',T:'ㅆ',O:'ㅒ',P:'ㅖ',
+};
+const CHO_LIST = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const JUNG_LIST = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+const JONG_LIST = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const CHO_SET = new Set(CHO_LIST);
+const JUNG_SET = new Set(JUNG_LIST);
+
+function composeHangul(cho, jung, jong){
+  const ci = CHO_LIST.indexOf(cho), vi = JUNG_LIST.indexOf(jung), fi = JONG_LIST.indexOf(jong || '');
+  if (ci < 0 || vi < 0 || fi < 0) return cho + jung + jong;
+  return String.fromCharCode(0xAC00 + (ci * 21 + vi) * 28 + fi);
+}
+
+// 영문 오타 → 자모 시퀀스 → 한글 음절로 조합. 자모로 못 바꾸거나 초성+중성 규칙에
+// 안 맞는 글자가 하나라도 있으면 애초에 한글 오타가 아니라고 보고 null을 반환한다.
+function decodeKeyboardTypo(str){
+  const jamos = [...str].map(ch => KEY_JAMO[ch]);
+  if (jamos.some(j => !j)) return null;
+  let out = '', i = 0;
+  while (i < jamos.length) {
+    if (!CHO_SET.has(jamos[i])) return null;
+    const cho = jamos[i++];
+    if (i >= jamos.length || !JUNG_SET.has(jamos[i])) return null;
+    const jung = jamos[i++];
+    let jong = '';
+    if (i < jamos.length && CHO_SET.has(jamos[i]) && !(i + 1 < jamos.length && JUNG_SET.has(jamos[i + 1]))) {
+      jong = jamos[i++];
+    }
+    out += composeHangul(cho, jung, jong);
+  }
+  return out;
+}
+
+// 카드명 전체가 아니라 "단어(토큰) 단위"로도 비교해서, 브랜드명만 짧게 검색해도
+// ("아성당" 같은 오타 포함) "아정당 우리카드" 같은 긴 카드명을 잡아낼 수 있게 한다.
+function bestNameRatio(query, name){
+  let best = levenshtein(query, name) / Math.max(query.length, name.length, 1);
+  for (const token of name.split(/\s+/).filter(Boolean)) {
+    const ratio = levenshtein(query, token) / Math.max(query.length, token.length, 1);
+    if (ratio < best) best = ratio;
+  }
+  return best;
+}
+
+function findSimilarCardNames(query, allCards, topN){
+  const q = query.trim().toLowerCase();
+  if (!q || !allCards.length) return [];
+  const decoded = decodeKeyboardTypo(query.trim());
+  const candidates = decoded ? [q, decoded.toLowerCase()] : [q];
+
+  const scored = allCards.map(c => {
+    const name = String(c.card_name || '').toLowerCase();
+    const ratio = Math.min(...candidates.map(cand => bestNameRatio(cand, name)));
+    return { c, ratio };
+  });
+  scored.sort((a, b) => a.ratio - b.ratio);
+  return scored.filter(s => s.ratio <= 0.45).slice(0, topN).map(s => s.c);
+}
+
+const recoCardHtml = c => `
+  <a class="sr-reco-card" href="/detail/${c.idx}">
+    <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+    <div class="sr-reco-name">${esc(c.card_name)}</div>
+    <div class="sr-reco-company">${esc(c.company||'')}</div>
+  </a>`;
+
+/* 검색 결과 유무에 따라 완전히 다른 추천 영역을 그린다.
+   - 검색결과 있음: 1순위로 매칭된 카드와 "혜택이 비슷한" 카드 5개(카드-카드 유사도)
+   - 검색결과 없음 + 비슷한 카드명 있음: "혹시 이 카드를 찾으셨나요?" 목록만
+   - 검색결과 없음 + 비슷한 카드명도 없음: 전체카드 중 랜덤 5개(볼 때마다 다시 셔플) */
+function renderRecoArea(query, cardMatches){
+  const allCards = window.__ALL_CARDS || [];
+  const tfidfIndex = window.__TFIDF_INDEX;
+  const bertData = window.__BERT_DATA;
+  const container = document.getElementById('reco-area');
+  if (!container || !query.trim()) return;
+
+  if (cardMatches.length) {
+    const merged = mergeCardSimilar(cardMatches[0].idx, tfidfIndex, bertData, 5);
+    container.innerHTML = merged.length ? `
+      <div class="sr-section sr-reco">
+        <h2 class="sr-section-title">✨ 이런 카드도 있어요!</h2>
+        <div class="sr-reco-grid">${merged.map(recoCardHtml).join('')}</div>
+      </div>` : '';
+    return;
+  }
+
+  const guesses = findSimilarCardNames(query, allCards, 5);
+  if (guesses.length) {
+    container.innerHTML = `
+      <div class="sr-section sr-guess">
+        <h2 class="sr-section-title">🔍 혹시 이 카드를 찾으셨나요?</h2>
+        ${guesses.map(c => `
+          <a class="sr-row" href="/detail/${c.idx}">
+            <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
+            <div class="sr-row-body">
+              <div class="sr-row-name">${esc(c.card_name)}</div>
+              <div class="sr-row-sub">${esc(c.company||'')}</div>
+            </div>
+            <span class="sr-row-arrow">›</span>
+          </a>`).join('')}
+      </div>`;
+    return;
+  }
+
+  const randomFive = shuffle(allCards).slice(0, 5);
+  container.innerHTML = randomFive.length ? `
+    <div class="sr-section sr-reco">
+      <h2 class="sr-section-title">✨ 이런 카드는 어떠세요?</h2>
+      <div class="sr-reco-grid">${randomFive.map(recoCardHtml).join('')}</div>
+    </div>` : '';
+}
+
 async function runSearch(query){
   const q = query.trim().toLowerCase();
   document.getElementById('q').value = query;
   if (!q) { renderResults(query, [], [], [], []); return; }
 
-  const [cardsRes, productsRes] = await Promise.all([
+  const [cardsRes, productsRes, tfidfIndex, bertData] = await Promise.all([
     fetch('/cards_list.json').then(r=>r.json()).catch(()=>[]),
     fetch('/data/naver_products.json').then(r=>r.json()).catch(()=>[]),
+    fetch('/data/card_tfidf_index.json').then(r=>r.json()).catch(()=>null),
+    fetch('/data/card_bert_embeddings.json').then(r=>r.json()).catch(()=>null),
   ]);
+  window.__ALL_CARDS = cardsRes;
+  window.__TFIDF_INDEX = tfidfIndex;
+  window.__BERT_DATA = bertData;
 
   /* 1) 카드: 이름/카드사/혜택카테고리/혜택요약에서 검색 */
   const cardMatches = cardsRes.filter(c => {
@@ -220,12 +443,24 @@ function renderResults(query, cards, cashback, products, contents){
   const main = document.getElementById('main');
 
   if (!query.trim()) {
-    main.innerHTML = '<div class="sr-empty">검색어를 입력해주세요.</div>';
+    main.innerHTML = `
+      <div class="c-empty-state">
+        <div class="c-empty-icon">🔍</div>
+        <div class="c-empty-title">검색어를 입력해주세요</div>
+        <div class="c-empty-sub">카드명, 카드사, 스타벅스/주유 등의 혜택 키워드를 검색해보세요.</div>
+      </div>`;
     return;
   }
   if (total === 0) {
-    main.innerHTML = `<p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
-      <div class="sr-empty">다른 키워드로 다시 검색해보세요.</div>`;
+    main.innerHTML = `
+      <p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+      <div class="c-empty-state">
+        <div class="c-empty-icon">💳</div>
+        <div class="c-empty-title">원하시는 검색 결과를 찾지 못했습니다</div>
+        <div class="c-empty-sub">다른 검색어나 카테고리로 다시 검색해보세요.</div>
+      </div>
+      <div id="reco-area"></div>`;
+    renderRecoArea(query, cards);
     return;
   }
 
@@ -288,7 +523,10 @@ function renderResults(query, cards, cashback, products, contents){
     html += `</div>`;
   }
 
+  html += '<div id="reco-area"></div>';
+
   main.innerHTML = html;
+  renderRecoArea(query, cards);
 }
 
 const initialQuery = new URLSearchParams(location.search).get('q') || '';

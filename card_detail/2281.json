@@ -1,0 +1,18 @@
+{
+  "idx": 2281,
+  "card_name": "American Express® Gold Card",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "AMEX",
+  "annual_fee": "해외겸용 [300,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "적립: 매년 연간스페셜 3만MR 적립(30만원 상당) | 적립: 공항라운지/발레파킹 무료 이용 | 적립: 1,000원당 최대 3MR 적립",
+  "benefit_categories": "공항라운지, 골프, 국내외가맹점, 적립, 면세점, 리조트, 호텔, 항공권, 도서, 카페, 패밀리레스토랑, 프리미엄 서비스, 기타, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2281/card_img/20685/2281card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2281",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

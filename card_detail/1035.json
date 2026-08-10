@@ -1,0 +1,18 @@
+{
+  "idx": 1035,
+  "card_name": "한화손해보험 카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [5,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 200000,
+  "pre_month_condition": "200,000원",
+  "top_benefit_summary": "보험: 자동차 보험료 최대 3만원 할인 | 주유소: SK주유소 50원/L 할인 | 대중교통: 대중교통 10% 할인",
+  "benefit_categories": "대중교통, 무이자할부, 제휴/PLCC, 테마파크, 영화, 보험, 정비, 주유소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1035/card_img/21500/1035card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1035",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

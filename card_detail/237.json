@@ -1,0 +1,18 @@
+{
+  "idx": 237,
+  "card_name": "하나멤버스 1Q카드 내맘대로",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, JCB",
+  "annual_fee": "해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "푸드: 점심/배달앱/베이커리 7% 적립 | 쇼핑: 온/오프라인쇼핑 7% 적립 | 카페/디저트: 커피 30~7% 적립",
+  "benefit_categories": "PP, 학원, 기차, 택시, 선택형, 골프, 대형마트, 편의점, 병원, 약국, 드럭스토어, 피트니스, SPA브랜드, 백화점, 온라인쇼핑, 홈쇼핑, 소셜커머스, 인테리어, 기타, 동물병원, 항공권, 공연/전시, 도서, 영화, 주유소, 베이커리, 카페, KT, LGU+, SKT, 일반음식점, 점심, 배달앱, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/237/card_img/20464/237card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/237",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

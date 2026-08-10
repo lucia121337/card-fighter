@@ -1,0 +1,18 @@
+{
+  "idx": 88,
+  "card_name": "D4@카드의정석",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [9,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "교통: 대중교통 33% 할인 | 카페/디저트: 커피 55% 할인 | 여행/숙박: 영화관 5,500원 할인",
+  "benefit_categories": "대중교통, 택시, 단종임박+중단, 편의점, 영화, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/88/card_img/20241/88card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/88",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

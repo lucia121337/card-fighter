@@ -1,0 +1,18 @@
+{
+  "idx": 2348,
+  "card_name": "BC 바로 페이백 플러스",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "모든가맹점: 전 가맹점 0.7% 기본 할인 | 온라인쇼핑: 온라인쇼핑 6.3% 추가 할인 | 푸드: 음식점 6.3% 추가 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, APP, 국내외가맹점, 온라인쇼핑, 음원사이트, 주유소, KT, LGU+, SKT, 일반음식점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2348/card_img/25292/2348card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2348",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

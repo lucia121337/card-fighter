@@ -1,0 +1,18 @@
+{
+  "idx": 2862,
+  "card_name": "MG+ S 하나카드",
+  "company": "MG새마을금고",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [17,000]원 / 해외겸용 [17,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "간편결제: 간편결제 10% 청구할인 | 디지털구독: 영상 스트리밍 50% 청구할인 | 디지털구독: 디지털 멤버십 50% 청구할인",
+  "benefit_categories": "네이버페이, 카카오페이, APP, 기타, 디지털구독",
+  "only_online": false,
+  "release_dt": "2025-06-18",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2862/card_img/43837/2862card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2862",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

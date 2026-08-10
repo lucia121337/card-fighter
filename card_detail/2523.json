@@ -1,0 +1,18 @@
+{
+  "idx": 2523,
+  "card_name": "LG U+ 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [10,000원] / 해외겸용 [15,000원]",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "LGU+: LG U+ 통신요금 최대 15,000원 청구할인 | 패밀리레스토랑: 페밀리레스토랑 10% 청구할인 | 카페: 커피 20% 청구할인",
+  "benefit_categories": "테마파크, 영화, 카페, LGU+, 패밀리레스토랑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2523/card_img/28848/2523card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2523",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 1002,
+  "card_name": "Mobile x LOCA 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard, AMEX",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용[20,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "기타: 통신요금 최대 2만원 할인 | 모든가맹점: 모든가맹점 최대 1% 할인",
+  "benefit_categories": "기타, 국내외가맹점, 기타",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1002/card_img/21533/1002card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1002",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

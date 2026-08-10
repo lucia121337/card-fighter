@@ -1,0 +1,18 @@
+{
+  "idx": 100,
+  "card_name": "씨티 NEW 캐시백",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [13,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "할인: 전월실적조건없이 0.7% 캐시백 | 쇼핑: 온라인쇼핑,해외 7% 캐시백 | 통신: 휴대폰요금 7% 캐시백",
+  "benefit_categories": "모든가맹점, 할인, 적립, 온라인쇼핑, KT, LGU+, SKT, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/100/card_img/20257/100card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/100",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

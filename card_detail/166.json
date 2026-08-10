@@ -1,0 +1,18 @@
+{
+  "idx": 166,
+  "card_name": "BAZIC(베이직)카드",
+  "company": "NH농협카드",
+  "card_type": "신용",
+  "brands": "Mastercard, JCB",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [8,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 0.7~1.0% 할인 | 해외: 해외가맹점 0.7% 할인",
+  "benefit_categories": "모든가맹점, 할인, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/166/card_img/20389/166card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/166",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

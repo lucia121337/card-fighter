@@ -1,0 +1,18 @@
+{
+  "idx": 112,
+  "card_name": "GS행복가득카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard, AMEX",
+  "annual_fee": "국내전용 [7,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "주유: GS칼텍스 100원/L 할인 | 자동차/하이패스: 오토오아시스 엔진오일 무료 교환 | 교통: 대중교통 10% 할인",
+  "benefit_categories": "대중교통, 제휴/PLCC, 해피포인트, 기타, 정비, 주유소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/112/card_img/20270/112card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/112",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

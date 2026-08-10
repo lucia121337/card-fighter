@@ -1,0 +1,18 @@
+{
+  "idx": 101,
+  "card_name": "NEW 씨티 클리어",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [4,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 150000,
+  "pre_month_condition": "150,000원",
+  "top_benefit_summary": "대중교통: 버스,지하철 10% 청구할인 | 점심: 점심 5% 청구할인 | 배달앱: 배달 7% 청구할인",
+  "benefit_categories": "대중교통, 무이자할부, 테마파크, 편의점, 드럭스토어, 아울렛, 온라인쇼핑, 항공권, 도서, 영화, 베이커리, 카페, KT, LGU+, SKT, 주점, 패밀리레스토랑, 패스트푸드, 점심",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/101/card_img/20258/101card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/101",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

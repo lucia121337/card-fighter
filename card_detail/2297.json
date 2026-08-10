@@ -1,0 +1,18 @@
+{
+  "idx": 2297,
+  "card_name": "톡톡F 카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard, AMEX",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "쇼핑: 패션 플랫폼 50% 할인 | 간편결제: 온라인 간편결제 10% 할인 | 편의점: 편의점 5% 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 대중교통, 단종임박+중단, 편의점, 디지털구독",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2297/card_img/22991/2297card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2297",
+  "is_calc_supported": "TRUE",
+  "cate": "CRD"
+}

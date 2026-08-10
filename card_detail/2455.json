@@ -1,0 +1,18 @@
+{
+  "idx": 2455,
+  "card_name": "카카오뱅크 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "기타: 카카오톡 선물하기 50% 할인 | 카카오페이: 카카오페이 결제 10% 할인",
+  "benefit_categories": "카카오페이, 기타",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2455/card_img/28009/2455card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2455",
+  "is_calc_supported": "TRUE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 143,
+  "card_name": "청춘대로 꿀맛α카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "APP: 음식/배달App 건당 2,000원 할인 | 카페/디저트: 커피/제과 건당 1,000원 할인 | 할인: 알파원오토체인지 5% 할인",
+  "benefit_categories": "APP, 베이커리, 카페, 일반음식점, 주점, 패밀리레스토랑, 패스트푸드, 점심, 저녁, 배달앱, 기타",
+  "only_online": true,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/143/card_img/20371/143card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/143",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

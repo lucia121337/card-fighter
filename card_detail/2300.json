@@ -1,0 +1,18 @@
+{
+  "idx": 2300,
+  "card_name": "내맘대로 쁨 카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "주유: EV충전 20% 하나머니 적립 | 쇼핑: 쇼핑/패션/명품 5% 하나머니 적립 | 간편결제: 페이결제 최대 1.5% 하나머니 적립",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, APP, 기타, 학원, 기차, 골프, 대형마트, 국내외가맹점, 적립, 병원, 백화점, 홈쇼핑, 기타, 동물병원, 호텔, 항공권, 주유소, 충전소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2300/card_img/28825/2300card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2300",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

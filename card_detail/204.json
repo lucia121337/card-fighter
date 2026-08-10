@@ -1,0 +1,18 @@
+{
+  "idx": 204,
+  "card_name": "ALL MY POINT",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, AMEX",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [18,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "모든가맹점: 모든가맹점 1% 적립 | 대중교통: 교통/통신/마트 1.5% 적립 | 주유소: 주유/해외 1.5% 적립",
+  "benefit_categories": "대중교통, 기타, 대형마트, 주유소, 충전소, KT, LGU+, SKT, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/204/card_img/20426/204card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/204",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

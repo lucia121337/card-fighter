@@ -1,0 +1,18 @@
+{
+  "idx": 2381,
+  "card_name": "신세계 BC 바로 아시아나 플러스",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "항공마일리지: 아시아나 1,000원당 최대 2.0마일 적립 | 제휴/PLCC: 신세계백화점 제휴 서비스 제공 | 프리미엄 서비스: Visa Platinum 서비스 제공",
+  "benefit_categories": "제휴/PLCC, 대형마트, 온라인쇼핑, 아시아나항공, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2381/card_img/25483/2381card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2381",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

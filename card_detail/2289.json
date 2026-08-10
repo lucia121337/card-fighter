@@ -1,0 +1,18 @@
+{
+  "idx": 2289,
+  "card_name": "삼성 iD EV 카드",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "충전소: 전기차 충전요금 50%·70% 할인 | 자동차: 주차장·하이패스·대리운전 10% 할인 | 보험: 자동차보험 3만원 할인",
+  "benefit_categories": "디지털구독, 보험, 기타, 충전소, 배달앱, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2289/card_img/27722/2289card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2289",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

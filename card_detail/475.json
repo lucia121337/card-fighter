@@ -1,0 +1,18 @@
+{
+  "idx": 475,
+  "card_name": "ONE AIR(UniMile)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 국내외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "저가항공: 1,500원당 10~30마일 적립 | 공항라운지: 공항라운지 연 2회 무료 | 카페: 스타벅스 2천원 할인",
+  "benefit_categories": "공항라운지, 카페, 저가항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/475/card_img/21165/475card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/475",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 1816,
+  "card_name": "카드의정석 시니어플러스",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "적립: 모아포인트 1~3% 적립 | 영화: 영화관 3천원 할인 | 카페: 커피전문점 10% 할인",
+  "benefit_categories": "공항라운지, 기차, 대중교통, 하이브리드, 골프, 대형마트, 피트니스, 렌터카, 여행사, 영화, 카페, KT, LGU+, SKT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1816/card_img/22290/1816card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1816",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

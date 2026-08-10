@@ -1,0 +1,18 @@
+{
+  "idx": 11,
+  "card_name": "신한카드 Simple+",
+  "company": "신한카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내겸용 [10,000]원 / 해외겸용 [13,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "모든가맹점: 전가맹점 0.7% 캐시백 | 통신: 이동통신요금 0.7% 추가캐시백 | 할인: 생활친화가맹점 월 10회 잔돈할인",
+  "benefit_categories": "국내외가맹점, 영화, KT, LGU+, SKT, 기타, 모든가맹점, 통신비, 영화",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/11/card_img/32203/11card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/11",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
