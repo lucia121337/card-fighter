@@ -1,0 +1,18 @@
+{
+  "idx": 175,
+  "card_name": "NH올원 하나로카드",
+  "company": "NH농협카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 100000,
+  "pre_month_condition": "100,000원",
+  "top_benefit_summary": "마트/편의점: 농협판매장 10% 적립 | 모든가맹점: 모든가맹점 0.2% 적립 | 멤버십포인트: 제휴서비스 OK캐쉬백 적립",
+  "benefit_categories": "대형마트, 기타, OK캐쉬백, 기타, 모든가맹점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/175/card_img/20387/175card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/175",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

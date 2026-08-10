@@ -1,0 +1,18 @@
+{
+  "idx": 2233,
+  "card_name": "네이버 현대카드",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "디지털구독: 네이버플러스멤버십 무료 이용권 | 네이버페이: 네이버플러스멤버십 회원 5% 적립 | 모든가맹점: 그외가맹점 1% 적립",
+  "benefit_categories": "네이버페이, 제휴/PLCC, 국내외가맹점, 디지털구독",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2233/card_img/20932/2233card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2233",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

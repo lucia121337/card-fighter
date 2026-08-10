@@ -1,0 +1,18 @@
+{
+  "idx": 2518,
+  "card_name": "컬리카드",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "BC, AMEX",
+  "annual_fee": "국내전용 [12,000원] / 해외겸용 [12,000원]",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "기타: 컬리 적립금 5% 적립 | 기타: 해외 가맹점 2% 적립 | 기타: 국내 가맹점 1% 적립",
+  "benefit_categories": "제휴/PLCC, 기타, 국내외가맹점, 적립, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2518/card_img/28798/2518card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2518",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

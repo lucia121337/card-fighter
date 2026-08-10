@@ -1,0 +1,18 @@
+{
+  "idx": 610,
+  "card_name": "현대카드ZERO Edition2(포인트형)",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "적립: 국내외 가맹점 1% 기본적립 | 적립: 생활필수영역 2.5% 적립",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 대중교통, 택시, 무이자할부, 단종임박+중단, 대형마트, 편의점, 국내외가맹점, 적립, 자동차, 주유소, 카페, 일반음식점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/610/card_img/27232/608card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/610",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

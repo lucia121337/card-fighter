@@ -1,0 +1,18 @@
+{
+  "idx": 127,
+  "card_name": "청춘대로 매니아i카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "교통: 대중교통 5% 적립 | 카페/디저트: 커피/디저트 10% 적립 | 해외: 해외이용금액 3% 캐시백",
+  "benefit_categories": "대중교통, 택시, SPA브랜드, 소셜커머스, 기타, 공연/전시, 음원사이트, 디지털구독, 주유소, 충전소, 카페, KT, LGU+, SKT, 유의사항",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/127/card_img/20357/127card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/127",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

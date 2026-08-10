@@ -7,6 +7,8 @@
 <title>검색 결과 — 카드 파이터</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/common.css">
+<script src="/common-header.js" defer></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
   :root{
@@ -61,10 +63,10 @@
   .sr-section-title{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;margin:0 0 14px}
   .sr-section-title .cnt{color:var(--brand)}
 
-  .sr-row{display:flex;align-items:center;gap:16px;background:var(--panel);border:1px solid var(--line);
-    border-radius:14px;padding:14px 18px;margin-bottom:10px;text-decoration:none;color:inherit;
-    transition:.15s box-shadow,.15s border-color}
-  .sr-row:hover{box-shadow:var(--shadow);border-color:var(--brand)}
+  .sr-row{display:flex;align-items:center;gap:16px;background:var(--panel);border:1.5px solid var(--line);
+    border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:10px;text-decoration:none;color:inherit;
+    transition:transform 0.15s ease,box-shadow 0.15s ease,border-color 0.15s ease}
+  .sr-row:hover{box-shadow:var(--shadow-md);border-color:var(--brand);transform:translateY(-2px)}
   .sr-row img{width:52px;height:34px;object-fit:contain;border-radius:6px;background:var(--bg);
     border:1px solid var(--line);flex-shrink:0}
   .sr-row-icon{width:52px;height:34px;border-radius:6px;background:var(--panel2);display:flex;
@@ -72,16 +74,16 @@
   .sr-row-body{flex:1;min-width:0}
   .sr-row-name{font-size:15px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .sr-row-sub{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sr-row-tag{font-size:11px;font-weight:700;color:var(--brand);background:var(--panel2);
-    padding:2px 8px;border-radius:99px;flex-shrink:0}
+  .sr-row-tag{font-size:11.5px;font-weight:600;color:var(--brand);background:var(--panel2);
+    padding:3px 10px;border-radius:var(--radius-sm);flex-shrink:0}
   .sr-row-arrow{color:var(--muted);font-size:18px;flex-shrink:0}
 
   .sr-reco{margin-top:12px;border-top:1px solid var(--line);padding-top:32px}
   .sr-reco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
   .sr-reco-card{display:block;text-decoration:none;color:inherit;background:var(--panel);
-    border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;
-    transition:.15s box-shadow,.15s border-color}
-  .sr-reco-card:hover{box-shadow:var(--shadow);border-color:var(--brand)}
+    border:1.5px solid var(--line);border-radius:var(--radius-lg);padding:12px;text-align:center;
+    transition:transform 0.15s ease,box-shadow 0.15s ease,border-color 0.15s ease}
+  .sr-reco-card:hover{box-shadow:var(--shadow-md);border-color:var(--brand);transform:translateY(-2px)}
   .sr-reco-card img{width:100%;height:64px;object-fit:contain;background:var(--bg);
     border-radius:8px;margin-bottom:8px}
   .sr-reco-name{font-size:12.5px;font-weight:700;color:var(--txt);white-space:nowrap;
@@ -441,11 +443,22 @@ function renderResults(query, cards, cashback, products, contents){
   const main = document.getElementById('main');
 
   if (!query.trim()) {
-    main.innerHTML = '<div class="sr-empty">검색어를 입력해주세요.</div>';
+    main.innerHTML = `
+      <div class="c-empty-state">
+        <div class="c-empty-icon">🔍</div>
+        <div class="c-empty-title">검색어를 입력해주세요</div>
+        <div class="c-empty-sub">카드명, 카드사, 스타벅스/주유 등의 혜택 키워드를 검색해보세요.</div>
+      </div>`;
     return;
   }
   if (total === 0) {
-    main.innerHTML = `<p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+    main.innerHTML = `
+      <p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+      <div class="c-empty-state">
+        <div class="c-empty-icon">💳</div>
+        <div class="c-empty-title">원하시는 검색 결과를 찾지 못했습니다</div>
+        <div class="c-empty-sub">다른 검색어나 카테고리로 다시 검색해보세요.</div>
+      </div>
       <div id="reco-area"></div>`;
     renderRecoArea(query, cards);
     return;

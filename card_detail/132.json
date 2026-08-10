@@ -1,0 +1,18 @@
+{
+  "idx": 132,
+  "card_name": "청춘대로 1코노미 카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "해외겸용 [17,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "편의점: 편의점 20% 적립 | 공과금: 통신/생활요금 5% 적립 | 배달앱: 음식점/배달앱 5% 적립",
+  "benefit_categories": "공과금, 택시, 편의점, 온라인쇼핑, 기타, 렌터카, 기타, 영화, KT, LGU+, SKT, 일반음식점, 패밀리레스토랑, 점심, 저녁, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/132/card_img/20361/132card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/132",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

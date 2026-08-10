@@ -1,0 +1,18 @@
+{
+  "idx": 603,
+  "card_name": "대한항공카드 the First",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [500,000]원 / 해외겸용 [500,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "대한항공: 국내외가맹점 1마일리지 적립 | 항공마일리지: 특정업종 3~5마일리지 적립 | 기타: 힝공권바우처 5만원상당 제공(연2회)",
+  "benefit_categories": "공항라운지, 더라운지, 제휴/PLCC, 단종임박, 국내외가맹점, 면세점, 호텔, 기타, 카페, 프리미엄 서비스, 바우처, 대한항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/603/card_img/21370/603card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/603",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

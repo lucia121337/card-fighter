@@ -1,0 +1,18 @@
+{
+  "idx": 779,
+  "card_name": "위메프페이 신용카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard, JCB",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "온라인쇼핑: 위메프 2% 적립 | 온라인쇼핑: 위메프오 1% 적립 | 생활: 생활영역/구독서비스 5% 적립",
+  "benefit_categories": "골프, 편의점, 국내외가맹점, 적립, 온라인쇼핑, 소셜커머스, 디지털구독, 카페, 패밀리레스토랑, 패스트푸드",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/779/card_img/22253/779card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/779",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

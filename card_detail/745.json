@@ -1,0 +1,18 @@
+{
+  "idx": 745,
+  "card_name": "알뜰교통 my pass 마패 신용카드(Hana-BC)",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [17,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "대중교통: 대중교통 20% 할인 | 편의점: 편의점 10% 할인 | 카페: 커피 10% 할인",
+  "benefit_categories": "대중교통, 편의점, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/745/card_img/27829/745card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/745",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

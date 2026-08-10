@@ -1,0 +1,18 @@
+{
+  "idx": 215,
+  "card_name": "I’m CHEERFUL",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "푸드: 음식점 5% 할인 | 교통: 시내버스/지하철 10% 할인 | 점심: 점심음식점 10% 할인",
+  "benefit_categories": "대중교통, 온라인쇼핑, 영화, 카페, 일반음식점, 점심",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/215/card_img/20441/215card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/215",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

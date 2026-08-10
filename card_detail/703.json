@@ -1,0 +1,18 @@
+{
+  "idx": 703,
+  "card_name": "현대카드 M3 BOOST",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [90,000]원 / 해외겸용[90,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "적립: 업종별 최대 6% 적립 | 간편결제: 온라인 간편결제 5% 적립 | 해외: 해외가맹점 5% 적립",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 학원, 대중교통, 택시, 보험사, 무이자할부, 단종임박+중단, 대형마트, 편의점, 국내외가맹점, 병원, 약국, 헤어, 화장품, 면세점, 백화점, 온라인쇼핑, 공연/전시, 도서, 영화, 차/중고차, 하이패스, 주유소, 베이커리, 카페, KT, LGU+, SKT, 일반음식점, 해외이용, 대중교통, 하이패스, 정비/주차/보험, 차량구매/중고차, 온라인쇼핑, 마트/편의점, 백화점/아울렛, 면세점, 통신비, 음식점, 커피/디저트, 병원, 약국, 화장품, 학원/학습지, 카카오페이, 삼성페이, 네이버페이, 애플페이, 해외이용, 대한항공, 저가항공, 프리미엄서비스, 무이자할부",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/703/card_img/22177/703card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/703",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

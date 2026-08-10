@@ -1,0 +1,18 @@
+{
+  "idx": 2316,
+  "card_name": "차이 신용카드",
+  "company": "차이",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "대중교통: 대중교통 2% 캐시백 | 기타: [기간특별혜택] 최대 80% 캐시백",
+  "benefit_categories": "APP, 대중교통, 국내외가맹점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2316/card_img/23743/2316card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2316",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

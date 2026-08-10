@@ -1,0 +1,18 @@
+{
+  "idx": 2653,
+  "card_name": "010PAY 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "적립: 0.3% 010PAY포인트 적립 | 혜택 프로모션: 최대 1억 당첨 리또 증정 프로모션 | 혜택 프로모션: 리또 이용 고객 30,000 010PAY 포인트 증정 프로모션",
+  "benefit_categories": "",
+  "only_online": false,
+  "release_dt": "2023-11-28",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2653/card_img/32205/2653card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2653",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

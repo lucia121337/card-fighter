@@ -1,0 +1,18 @@
+{
+  "idx": 2525,
+  "card_name": "만나 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [12,000원] / 해외겸용 [12,000원]",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "주유소: 주유 최대 100원/L 할인 | 대중교통: 버스·지하철 10% 청구할인 | 카페: 스타벅스·폴바셋 10% 청구할인",
+  "benefit_categories": "대중교통, 제휴/PLCC, 할인, 주유소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2525/card_img/28884/2525card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2525",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

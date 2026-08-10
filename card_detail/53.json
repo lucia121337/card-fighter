@@ -1,0 +1,18 @@
+{
+  "idx": 53,
+  "card_name": "아시아나 삼성애니패스플래티늄카드",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "해외전용 [20,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "아시아나항공: 1,000원당 1~5마일 적립 | 테마파크: 놀이공원 50% 할인 | 정비: 엔진오일교환 15,000원 할인",
+  "benefit_categories": "테마파크, 국내외가맹점, 적립, 영화, 정비, 주유소, 충전소, 카페, 일반음식점, 주점, 패밀리레스토랑, 패스트푸드, 점심, 저녁, 아시아나항공, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/53/card_img/27709/53card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/53",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

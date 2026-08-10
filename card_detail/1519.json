@@ -1,0 +1,18 @@
+{
+  "idx": 1519,
+  "card_name": "LG전자 렌탈 플러스 하나카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [15,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "렌탈: LG전자 렌탈요금 월 1만3천~2만3천원 할인 서비스",
+  "benefit_categories": "렌탈 , 제휴/PLCC",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1519/card_img/20214/1519card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1519",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

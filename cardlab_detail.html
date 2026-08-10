@@ -1055,7 +1055,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // 데이터 불러오기 및 초기 렌더링
     try {
-      const res = await fetch('data/persona_db.json');
+      const res = await fetch('/data/persona_db.json');
       if (!res.ok) throw new Error();
       PERSONA_DB = await res.json();
       renderPersona('20대_여성');

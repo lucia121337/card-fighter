@@ -1,0 +1,18 @@
+{
+  "idx": 2677,
+  "card_name": "카드의정석 Dear, Shopper(디어쇼퍼)",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [150,000]원 / 해외겸용 [150,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "쇼핑: 퍼스널 쇼핑 5% 적립 | 적립: 국내 가맹점 1% 적립 | 공항라운지/PP: 국내외 공항라운지 무료 이용",
+  "benefit_categories": "공항라운지, 더라운지, 백화점, 아울렛, 온라인쇼핑, 기타, 프리미엄 서비스, 바우처, 해외이용",
+  "only_online": false,
+  "release_dt": "2024-01-26",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2677/card_img/32696/2677card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2677",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

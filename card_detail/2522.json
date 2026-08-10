@@ -1,0 +1,18 @@
+{
+  "idx": 2522,
+  "card_name": "KT NU우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [20,000원] / 해외겸용 [20,000원]",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "KT: KT통신서비스 최대 2만원 할인 | KT: KT단말기 장기할부 서비스",
+  "benefit_categories": "KT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2522/card_img/28847/2522card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2522",
+  "is_calc_supported": "TRUE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 1487,
+  "card_name": "IBK 무직타이거 카드(신용)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "대중교통: 버스,지하철 건당 200원 할인 | 주유: 주유소/충전소 60원/L 할인 | 쇼핑: 온라인쇼핑 20% 할인",
+  "benefit_categories": "대중교통, 기타, 단종임박+중단, 테마파크, 대형마트, 편의점, 온라인쇼핑, 영화, 주유소, 충전소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1487/card_img/20427/1487card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1487",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
