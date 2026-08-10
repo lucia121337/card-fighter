@@ -152,8 +152,9 @@
           <div>
             <select id="filter-pass" onchange="renderCardList()"
               class="w-full bg-white border border-slate-300 rounded py-1 px-1.5 text-slate-700 focus:outline-none">
-              <option value="all">전체 카드</option>
+              <option value="verified">☑️ 검수 완료 카드만</option>
               <option value="active" selected>계산기 카드만</option>
+              <option value="all">전체 카드</option>
               <option value="passed">패싱(제외) 카드만</option>
             </select>
           </div>
@@ -575,6 +576,7 @@
       const passFilter = document.getElementById('filter-pass').value;
 
       const passedIds = typeof getPassedCardIds === 'function' ? getPassedCardIds() : [];
+      const verifiedIds = typeof getVerifiedCardIds === 'function' ? getVerifiedCardIds() : [];
 
       const filtered = allCards.filter(c => {
         const cid = String(c.id || c.idx || '');
@@ -584,12 +586,23 @@
         if (searchTxt && !cName.includes(searchTxt) && !cCompany.includes(searchTxt)) return false;
 
         const isPassed = passedIds.includes(cid);
+        const isVerified = verifiedIds.includes(cid);
         const isCalc = typeof checkIsCalculable === 'function' ? checkIsCalculable(c) : true;
 
+        if (passFilter === 'verified' && !isVerified) return false;
         if (passFilter === 'active' && (isPassed || !isCalc)) return false;
         if (passFilter === 'passed' && !isPassed) return false;
 
         return true;
+      });
+
+      // 검수 완료된 카드가 상단에 배치되도록 정렬
+      filtered.sort((a, b) => {
+        const aCid = String(a.id || a.idx || '');
+        const bCid = String(b.id || b.idx || '');
+        const aVer = verifiedIds.includes(aCid) ? 1 : 0;
+        const bVer = verifiedIds.includes(bCid) ? 1 : 0;
+        return bVer - aVer;
       });
 
       const groups = {};
@@ -599,7 +612,8 @@
           gName = c.company || c.card_company || '기타 카드사';
         } else if (groupKey === 'status') {
           const cid = String(c.id || c.idx || '');
-          if (passedIds.includes(cid)) gName = '🔴 계산기 제외';
+          if (verifiedIds.includes(cid)) gName = '☑️ 검수 완료';
+          else if (passedIds.includes(cid)) gName = '🔴 계산기 제외';
           else if (checkIsCalculable(c)) gName = '🟢 계산 가능';
           else gName = '⚪ 정형데이터 부족';
         }
@@ -638,21 +652,25 @@
         groupCards.forEach(c => {
           const cid = String(c.id || c.idx || '');
           const isPassed = passedIds.includes(cid);
+          const isVerified = verifiedIds.includes(cid);
           const isSelected = selectedCard && (String(selectedCard.id || selectedCard.idx) === cid);
 
           const itemBtn = document.createElement('button');
           itemBtn.onclick = () => selectCard(c);
           itemBtn.className = `w-full text-left p-2 rounded-lg text-xs transition flex items-center justify-between border ${isSelected
             ? 'bg-blue-50 border-blue-500 text-blue-900 font-bold shadow-sm'
-            : 'bg-white hover:bg-slate-50 border-slate-100 text-slate-700'
+            : (isVerified ? 'bg-emerald-50/50 hover:bg-emerald-50 border-emerald-200 text-slate-800' : 'bg-white hover:bg-slate-50 border-slate-100 text-slate-700')
             }`;
 
           itemBtn.innerHTML = `
             <div class="truncate pr-2">
-              <div class="font-medium truncate ${isPassed ? 'line-through text-slate-400' : ''}">${esc(c.name || c.card_name)}</div>
+              <div class="font-medium truncate ${isPassed ? 'line-through text-slate-400' : ''}">
+                ${isVerified ? '<i class="fa-solid fa-square-check text-emerald-600 mr-1" title="검수 완료"></i>' : ''}
+                ${esc(c.name || c.card_name)}
+              </div>
               <div class="text-[10px] text-slate-400 font-normal">${esc(c.company || c.card_company || '')}</div>
             </div>
-            ${isPassed ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-bold">패싱</span>' : ''}
+            ${isVerified ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-200">검수 완료</span>' : (isPassed ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-bold">패싱</span>' : '')}
           `;
           listDiv.appendChild(itemBtn);
         });

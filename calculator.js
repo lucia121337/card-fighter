@@ -250,9 +250,10 @@ function extractPerfOptions(items, totalTiers) {
  */
 
 /**
- * localStorage 기반 복잡한 카드 패싱(제외) 관리 헬퍼
+ * localStorage 기반 복잡한 카드 패싱(제외) 및 검수 완료 카드 관리 헬퍼
  */
 const PASSED_CARDS_STORAGE_KEY = 'card_fighter_passed_cards';
+const VERIFIED_CARDS_STORAGE_KEY = 'card_fighter_verified_cards';
 
 function getPassedCardIds() {
   try {
@@ -263,6 +264,23 @@ function getPassedCardIds() {
   } catch {
     return [];
   }
+}
+
+function getVerifiedCardIds() {
+  try {
+    const raw = localStorage.getItem(VERIFIED_CARDS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
+function isCardVerified(cardId) {
+  if (!cardId) return false;
+  const verified = getVerifiedCardIds();
+  return verified.includes(String(cardId));
 }
 
 function isCardPassed(cardId) {
@@ -303,10 +321,18 @@ function checkIsCalculable(cardData) {
   try {
     if (!cardData || typeof cardData !== 'object') return false;
 
-    const cardId = cardData.id || cardData.idx || cardData.card_id;
-    // 0) localStorage 패싱 카드 리스트 검증
+    const cardId = String(cardData.id || cardData.idx || cardData.card_id || '');
+    // 0-1) localStorage 패싱 카드 리스트 검증
     if (cardId && isCardPassed(cardId)) {
       return false;
+    }
+
+    // 0-2) 검수 완료(verified_cards) 목록이 존재하는 경우, 검수 완료된 카드를 우선 반영
+    const verifiedList = getVerifiedCardIds();
+    if (verifiedList.length > 0) {
+      if (!verifiedList.includes(cardId)) {
+        return false;
+      }
     }
 
     // 1) 명시적 is_calculable / is_calc_supported false 플래그 검증
@@ -474,12 +500,26 @@ function getStructuredBenefits(cardData, fallbackKb) {
 
     if (!Array.isArray(benefits)) return [];
 
+    const cardIdStr = String(rawCard.id || rawCard.idx || rawCard.card_id || '');
+    let itemOverrides = {};
+    try { itemOverrides = JSON.parse(localStorage.getItem('card_fighter_item_overrides') || '{}'); } catch {}
+    const globalItemOverrides = itemOverrides[cardIdStr] || {};
+
     return benefits.map((b, idx) => {
       const groupObj = b.group || null;
-      const groupId = b.group_id || (groupObj && groupObj.id ? groupObj.id : 'none');
-      const groupLimit = (b.group_limit !== undefined && b.group_limit !== null)
+      let groupId = b.group_id || (groupObj && groupObj.id ? groupObj.id : 'none');
+      let groupLimit = (b.group_limit !== undefined && b.group_limit !== null)
         ? b.group_limit
         : ((groupObj && typeof groupObj.limit === 'number' && groupObj.limit > 0) ? groupObj.limit : -1);
+
+      const itemOv = globalItemOverrides[idx] || {};
+      if (itemOv.rate !== undefined) b.rate = Number(itemOv.rate) / 100;
+      if (itemOv.limit !== undefined) b.item_limit = itemOv.limit === -1 ? Infinity : itemOv.limit;
+      if (itemOv.group !== undefined) groupId = itemOv.group;
+      if (itemOv.subtitle !== undefined) b.detail = itemOv.subtitle;
+
+      // 삭제 처리된 항목 체크
+      const isDeleted = Boolean(itemOv.deleted);
 
       // 세부 월 한도 (Sub-limit) 파싱 및 홍보용 한도 분리 보정
       const txt = (b.title || '') + ' ' + (b.detail || b.summary || '');
@@ -518,7 +558,7 @@ function getStructuredBenefits(cardData, fallbackKb) {
         isExcluded: Boolean(b.isExcluded || b.is_excluded || txt.includes('실적 제외')),
         exclusiveGroup: b.exclusiveGroup || b.exclusive_group || null,
         priority: typeof b.priority === 'number' ? b.priority : 0,
-        checked: true
+        checked: !isDeleted
       };
     });
 
@@ -538,23 +578,55 @@ function getStructuredBenefits(cardData, fallbackKb) {
  * 2) Tier 2 (그룹 한도): group_limit (group_id)
  * 3) Tier 3 (총 통합 한도): tier_limits / cap_tiers
  */
-function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
+function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID', cardIdStr = '') {
   try {
     const mode = (cappingMode || 'HYBRID').toUpperCase();
-    const totalCap = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
+    
+    // total_cap_overrides 확인 (특정 실적 전용 오버라이드 > 카드 대표 오버라이드 > DB 기본 계산)
+    let totalCap = (mode === 'INDIVIDUAL_TIER') ? Infinity : getTotalCapForPerf(totalTiers, perf);
+    if (cardIdStr) {
+      try {
+        const totalCapOverrides = JSON.parse(localStorage.getItem('card_fighter_total_cap_overrides') || '{}');
+        if (totalCapOverrides[`${cardIdStr}_${perf}`] !== undefined) {
+          totalCap = Number(totalCapOverrides[`${cardIdStr}_${perf}`]) || Infinity;
+        } else if (totalCapOverrides[cardIdStr] !== undefined) {
+          totalCap = Number(totalCapOverrides[cardIdStr]) || Infinity;
+        }
+      } catch {}
+    }
+
     const groupSpentMap = {};
     const exclusiveAppliedMap = {}; // 상호 배타적 혜택 그룹 선택 상태
     let totalSpent = 0;
     const results = [];
 
+    // 그룹 한도 오버라이드 로드
+    let groupOverrides = {};
+    if (cardIdStr) {
+      try { groupOverrides = JSON.parse(localStorage.getItem('card_fighter_group_overrides') || '{}'); } catch {}
+    }
+
+    // 항목 한도/요율 실적 구간별 오버라이드 로드
+    let itemOverrides = {};
+    if (cardIdStr) {
+      try { itemOverrides = JSON.parse(localStorage.getItem('card_fighter_item_overrides') || '{}'); } catch {}
+    }
+    const perfSpecificOverrides = cardIdStr ? (itemOverrides[`${cardIdStr}_${perf}`] || {}) : {};
+
     // 상호 배타적 혜택 우선순위 정렬 복사본
     const sortedItems = [...(items || [])].sort((a, b) => (b.priority || 0) - (a.priority || 0));
 
     for (const it of sortedItems) {
-      const currentItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
-      const applicableRate = getApplicableRate(it.rate, perf);
+      const itemOv = perfSpecificOverrides[it.id] || {};
+      const overrideRate = itemOv.rate !== undefined ? (Number(itemOv.rate) / 100) : undefined;
+      const overrideLimit = itemOv.limit !== undefined ? (itemOv.limit === -1 ? Infinity : itemOv.limit) : undefined;
+      const isDeleted = Boolean(itemOv.deleted);
 
-      if (perf === 0 || !it.checked) {
+      const rawItemLimit = (mode === 'TOTAL_TIER') ? Infinity : getItemLimitForPerf(it.amount, perf);
+      const currentItemLimit = overrideLimit !== undefined ? overrideLimit : rawItemLimit;
+      const applicableRate = overrideRate !== undefined ? overrideRate : getApplicableRate(it.rate, perf);
+
+      if (perf === 0 || !it.checked || isDeleted) {
         results.push({ id: it.id, applied: 0, currentItemLimit, applicableRate, cap1: 0, cap2: 0, isExclusiveBlocked: false });
         continue;
       }
@@ -586,7 +658,11 @@ function applyThreeLevelCap(items, totalTiers, perf, cappingMode = 'HYBRID') {
       // 2차: Tier 2 그룹 공유 통합 한도 캡핑 (group_limit)
       let cap2 = cap1;
       if (mode !== 'TOTAL_TIER' && it.groupId && it.groupId !== 'none') {
-        const gLimit = (it.groupLimit === -1 || it.groupLimit == null || it.groupLimit <= 0) ? Infinity : it.groupLimit;
+        let gLimit = (it.groupLimit === -1 || it.groupLimit == null || it.groupLimit <= 0) ? Infinity : it.groupLimit;
+        if (cardIdStr && groupOverrides[`${cardIdStr}_${it.groupId}`] !== undefined) {
+          gLimit = Number(groupOverrides[`${cardIdStr}_${it.groupId}`]) || Infinity;
+        }
+
         const gSpent = groupSpentMap[it.groupId] || 0;
         const gRemain = isFinite(gLimit) ? Math.max(0, gLimit - gSpent) : Infinity;
         cap2 = isFinite(gRemain) ? Math.min(cap1, gRemain) : cap1;
@@ -735,8 +811,9 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
     });
 
     /* ── 초기 캡핑 연산 ── */
+    const cardIdStr = String(cardData.id || cardData.idx || cardData.card_id || '');
     const initialCappingMode = cardData.capping_mode || 'HYBRID';
-    const initCapObj = applyThreeLevelCap(items, totalLimitTiers, basePerf, initialCappingMode);
+    const initCapObj = applyThreeLevelCap(items, totalLimitTiers, basePerf, initialCappingMode, cardIdStr);
     const initResults = initCapObj.results || [];
     const initTotalSpent = initCapObj.totalSpent || 0;
     const initReqPayment = calculateMinRequiredPayment(items, initResults);
@@ -772,7 +849,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 
         const cappingMode = cardData.capping_mode || 'HYBRID';
         const { results, totalSpent, groupSpentMap, totalCap } =
-          applyThreeLevelCap(items, totalLimitTiers, currentPerf, cappingMode);
+          applyThreeLevelCap(items, totalLimitTiers, currentPerf, cappingMode, cardIdStr);
 
         const { totalRequiredSum, excludedRequiredSum } = calculateMinRequiredPayment(items, results);
 
