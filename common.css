@@ -90,34 +90,21 @@ body.prem-theme .sec-sub {
 
 body.prem-theme .lnb-bar {
   background: transparent !important;
-  border-bottom: 2px solid rgba(201, 164, 92, 0.2) !important;
-}
-
-body.prem-theme .filter-bar,
-body.prem-theme .quick-seg {
-  background: #141519 !important;
-  border-color: #2a2d38 !important;
+  border-bottom: 1px solid rgba(201, 164, 92, 0.25) !important;
 }
 
 body.prem-theme .lnb-item {
-  position: relative;
   background: transparent !important;
   border: none !important;
+  border-bottom: 2.5px solid transparent !important;
   color: #c8b489 !important;
-  margin-bottom: -2px;
+  margin-bottom: -2px !important;
   border-radius: 0 !important;
+  transition: color 0.15s ease, border-color 0.15s ease, filter 0.15s ease !important;
 }
 
 body.prem-theme .lnb-item::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2.5px;
-  background: transparent;
-  border-radius: 2px;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  display: none !important;
 }
 
 body.prem-theme .lnb-item:hover {
@@ -129,13 +116,9 @@ body.prem-theme .lnb-item.active,
 body.prem-theme .lnb-item.lnb-prem.active {
   background: transparent !important;
   color: #e8c886 !important;
+  border-bottom: 2.5px solid #e3b448 !important;
   font-weight: 800 !important;
-}
-
-body.prem-theme .lnb-item.active::after,
-body.prem-theme .lnb-item.lnb-prem.active::after {
-  background: linear-gradient(90deg, #b8860b, #e3b448, #f5d77f) !important;
-  box-shadow: 0 2px 8px rgba(227, 180, 72, 0.45) !important;
+  filter: drop-shadow(0 2px 6px rgba(227, 180, 72, 0.5)) !important;
 }
 
 body.prem-theme .count-badge {
