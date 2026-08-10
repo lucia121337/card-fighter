@@ -311,15 +311,15 @@
   .prem-theme #more{background:linear-gradient(90deg,#b8860b,#e3b448);box-shadow:none}
   .foot{display:flex;align-items:center;gap:8px;flex-shrink:0}
   .foot .dt{color:#94a3b8;font-size:11px}
-  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:9px;
+  .detail-btn{background:var(--brand);color:#fff;border:none;border-radius:var(--radius-sm);
         padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
         box-shadow:0 2px 8px rgba(19,85,255,.28);white-space:nowrap;display:inline-block;
-        flex-shrink:0;align-self:center;transition:.15s background}
-  .detail-btn:hover{background:var(--brand-deep)}
+        flex-shrink:0;align-self:center;transition:all 0.15s ease}
+  .detail-btn:hover{background:var(--brand-deep);transform:translateY(-2px)}
   #more{display:block;margin:26px auto;background:var(--brand);
-        color:#fff;border:none;border-radius:12px;padding:12px 30px;cursor:pointer;
-        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:.15s background}
-  #more:hover{background:var(--brand-deep)}
+        color:#fff;border:none;border-radius:var(--radius-md);padding:12px 30px;cursor:pointer;
+        font-size:14px;font-weight:700;box-shadow:0 6px 18px rgba(19,85,255,.28);transition:all 0.15s ease}
+  #more:hover{background:var(--brand-deep);transform:translateY(-2px)}
   .empty{text-align:center;color:var(--muted);padding:60px}
 
   /* ── 플로팅 버블 ── */
