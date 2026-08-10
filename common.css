@@ -583,3 +583,183 @@ button:focus-visible, .detail-btn:focus-visible, .compare-btn:focus-visible, .ba
 #more {
   border-radius: var(--radius-md);
 }
+
+/* Skeleton Shimmer Loading UI */
+@keyframes cf-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-card {
+  background: var(--panel);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.skeleton-img {
+  width: 120px;
+  height: 76px;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: cf-shimmer 1.5s infinite;
+  flex-shrink: 0;
+}
+
+.skeleton-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: cf-shimmer 1.5s infinite;
+}
+
+.skeleton-line.w-50 { width: 50%; }
+.skeleton-line.w-75 { width: 75%; }
+.skeleton-line.w-30 { width: 30%; }
+
+/* Standard Empty State Component */
+.c-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+}
+
+.c-empty-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.c-empty-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--txt);
+  margin-bottom: 6px;
+}
+
+.c-empty-sub {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+/* Global Modal & Bottom Sheet System */
+.c-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.c-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.c-modal-content {
+  background: var(--panel);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+
+.c-modal-overlay.active .c-modal-content {
+  transform: scale(1);
+}
+
+.c-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Mobile Bottom Sheet Modal Overrides */
+@media (max-width: 640px) {
+  .c-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .c-modal-content {
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    transform: translateY(100%);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+  }
+  .c-modal-overlay.active .c-modal-content {
+    transform: translateY(0);
+  }
+  .c-modal-drag-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 99px;
+    background: var(--line);
+    margin: 0 auto 16px;
+  }
+}
+
+/* Global Footer Styling */
+.cf-global-footer {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  padding: 40px 24px 48px;
+  margin-top: 60px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.8;
+}
+
+.cf-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cf-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--txt);
+}
+
+.cf-footer-disclaimer {
+  color: var(--muted);
+  font-size: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}

@@ -81,9 +81,37 @@
     location.href = '/search.html?q=' + encodeURIComponent(q.trim());
   };
 
+  window.handleSmartBack = function (fallbackUrl = '/index.html') {
+    if (document.referrer && document.referrer.includes(location.host) && !document.referrer.endsWith(location.pathname)) {
+      history.back();
+    } else {
+      location.href = fallbackUrl;
+    }
+  };
+
+  function initFooter() {
+    if (document.querySelector('.cf-global-footer')) return;
+    const footerHtml = `
+      <footer class="cf-global-footer">
+        <div class="cf-footer-inner">
+          <div class="cf-footer-brand">
+            <span>🥊</span> 카드파이터 (CardFighter)
+          </div>
+          <div>신용카드 및 체크카드 주요 혜택 및 연회비 실시간 비교·계산 플랫폼</div>
+          <div class="cf-footer-disclaimer">
+            본 서비스에서 제공하는 카드 상품 정보 및 혜택 내역은 각 카드사의 제공 데이터 기준이며 카드사 사정에 따라 일시 변경될 수 있습니다.<br>
+            © 2026 CardFighter. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    `;
+    document.body.insertAdjacentHTML('beforeend', footerHtml);
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeader);
+    document.addEventListener('DOMContentLoaded', () => { initHeader(); initFooter(); });
   } else {
     initHeader();
+    initFooter();
   }
 })();
