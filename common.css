@@ -479,6 +479,10 @@ body.prem-theme .calc-disc {
   }
 }
 
+body {
+  word-break: keep-all;
+}
+
 /* Global Standardized Card Tile Components */
 .c-card, .card, .sr-row, .sr-reco-card {
   background: var(--panel);
