@@ -127,7 +127,15 @@ body.prem-theme .count-badge {
   border-color: #5c4a1f !important;
 }
 
-body.prem-theme #section-cards,
+body.prem-theme #section-cards {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 20px 0 26px !important;
+  margin-top: 6px !important;
+}
+
 body.prem-theme .cards-layout {
   background: transparent !important;
   border: none !important;
