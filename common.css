@@ -100,12 +100,24 @@ body.prem-theme .quick-seg {
 }
 
 body.prem-theme .lnb-item {
+  position: relative;
   background: transparent !important;
   border: none !important;
-  border-bottom: 2.5px solid transparent !important;
   color: #c8b489 !important;
   margin-bottom: -2px;
   border-radius: 0 !important;
+}
+
+body.prem-theme .lnb-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: transparent;
+  border-radius: 2px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 body.prem-theme .lnb-item:hover {
@@ -117,8 +129,13 @@ body.prem-theme .lnb-item.active,
 body.prem-theme .lnb-item.lnb-prem.active {
   background: transparent !important;
   color: #e8c886 !important;
-  border-bottom: 2.5px solid #e3b448 !important;
   font-weight: 800 !important;
+}
+
+body.prem-theme .lnb-item.active::after,
+body.prem-theme .lnb-item.lnb-prem.active::after {
+  background: linear-gradient(90deg, #b8860b, #e3b448, #f5d77f) !important;
+  box-shadow: 0 2px 8px rgba(227, 180, 72, 0.45) !important;
 }
 
 body.prem-theme .count-badge {

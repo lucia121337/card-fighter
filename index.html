@@ -258,9 +258,11 @@
   .prem-theme .cards-title{color:#e8c886}
   .prem-theme .cards-subtitle{color:#9aa0ac}.prem-theme .cards-subtitle b{color:#e8c886}
   .prem-theme .lnb-bar{background:transparent !important;border-bottom:2px solid rgba(201,164,92,.2) !important}
-  .prem-theme .lnb-item{background:transparent !important;border:none !important;border-bottom:2.5px solid transparent !important;color:#c8b489 !important;margin-bottom:-2px;border-radius:0 !important}
+  .prem-theme .lnb-item{position:relative;background:transparent !important;border:none !important;color:#c8b489 !important;margin-bottom:-2px;border-radius:0 !important}
+  .prem-theme .lnb-item::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2.5px;background:transparent;border-radius:2px;transition:background .2s,box-shadow .2s}
   .prem-theme .lnb-item:hover{background:transparent !important;color:#e8c886 !important}
-  .prem-theme .lnb-item.active, .prem-theme .lnb-item.lnb-prem.active{background:transparent !important;color:#e8c886 !important;border-bottom:2.5px solid #e3b448 !important;font-weight:800 !important}
+  .prem-theme .lnb-item.active, .prem-theme .lnb-item.lnb-prem.active{background:transparent !important;color:#e8c886 !important;font-weight:800 !important}
+  .prem-theme .lnb-item.active::after, .prem-theme .lnb-item.lnb-prem.active::after{background:linear-gradient(90deg,#b8860b,#e3b448,#f5d77f) !important;box-shadow:0 2px 8px rgba(227,180,72,.45) !important}
   /* 프리미엄: '혜택으로 찾기' 박스 골드 처리 */
   .prem-theme .cat-filter-box{background:linear-gradient(180deg,#181a22,#111219);
     border:1.5px solid #5c4a1f;box-shadow:0 8px 26px rgba(201,164,92,.1),inset 0 1px 0 rgba(232,200,134,.06)}
