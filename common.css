@@ -113,6 +113,14 @@ body.prem-theme .count-badge {
   border-color: #5c4a1f !important;
 }
 
+body.prem-theme #section-cards,
+body.prem-theme .cards-layout {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
 /* Header Base Styling */
 .cf-global-header {
   position: sticky;
