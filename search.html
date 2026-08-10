@@ -443,11 +443,22 @@ function renderResults(query, cards, cashback, products, contents){
   const main = document.getElementById('main');
 
   if (!query.trim()) {
-    main.innerHTML = '<div class="sr-empty">검색어를 입력해주세요.</div>';
+    main.innerHTML = `
+      <div class="c-empty-state">
+        <div class="c-empty-icon">🔍</div>
+        <div class="c-empty-title">검색어를 입력해주세요</div>
+        <div class="c-empty-sub">카드명, 카드사, 스타벅스/주유 등의 혜택 키워드를 검색해보세요.</div>
+      </div>`;
     return;
   }
   if (total === 0) {
-    main.innerHTML = `<p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+    main.innerHTML = `
+      <p class="sr-summary">'<b>${esc(query)}</b>'에 대한 검색 결과가 없어요.</p>
+      <div class="c-empty-state">
+        <div class="c-empty-icon">💳</div>
+        <div class="c-empty-title">원하시는 검색 결과를 찾지 못했습니다</div>
+        <div class="c-empty-sub">다른 검색어나 카테고리로 다시 검색해보세요.</div>
+      </div>
       <div id="reco-area"></div>`;
     renderRecoArea(query, cards);
     return;
