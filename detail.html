@@ -454,6 +454,9 @@ function render(d){
     </div>`;
 }
 
+const feeMax = s => { const m=[...String(s||'').matchAll(/[\d,]{3,}/g)].map(x=>+x[0].replace(/,/g,'')).filter(v=>v>=1000); return m.length?Math.max(...m):0; };
+const isPremiumCard = d => d && (d.cardtype === '프리미엄' || feeMax(d.annual_fee) >= 150000 || (Array.isArray(d.tags) && d.tags.includes('프리미엄')));
+
 const pathIdx = location.pathname.match(/^\/detail\/([^/]+)/);
 const idx = pathIdx ? decodeURIComponent(pathIdx[1]) : new URLSearchParams(location.search).get('idx');
 if(!idx){
@@ -474,7 +477,14 @@ if(!idx){
       ),
     fetch('/benefits_structured.json').then(r => r.ok ? r.json() : {}).catch(()=>({}))
   ])
-    .then(([d, ben])=>{ window._CALC_BS = ben[idx] || null; render(d); if(window._calcRender) window._calcRender(); })
+    .then(([d, ben])=>{
+      if (isPremiumCard(d)) {
+        document.body.classList.add('prem-theme');
+      }
+      window._CALC_BS = ben[idx] || null;
+      render(d);
+      if(window._calcRender) window._calcRender();
+    })
     .catch(e => {
       document.getElementById('wrap').innerHTML =
         `<div class="status">카드 정보를 불러오지 못했습니다.<br>

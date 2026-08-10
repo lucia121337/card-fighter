@@ -160,6 +160,93 @@ body.prem-theme .cards-layout {
   border-radius: 0 !important;
 }
 
+/* Premium Detail Page Theme Overrides */
+body.prem-theme .hero,
+body.prem-theme .sum-card,
+body.prem-theme .sec-box,
+body.prem-theme .disclaimer {
+  background: linear-gradient(180deg, #191b23, #141519) !important;
+  border-color: #3a3320 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(232, 200, 134, 0.08) !important;
+}
+
+body.prem-theme .hero img {
+  background: #0f1014 !important;
+  border-color: #3a3320 !important;
+}
+
+body.prem-theme .hero .h-name,
+body.prem-theme .sum-card .val,
+body.prem-theme .sec-box h3,
+body.prem-theme .binfo strong,
+body.prem-theme .binfo th {
+  color: #f5f3ee !important;
+}
+
+body.prem-theme .sum-card .lab,
+body.prem-theme .hero .h-corp,
+body.prem-theme .disclaimer,
+body.prem-theme .binfo p,
+body.prem-theme .binfo td {
+  color: #c8b489 !important;
+}
+
+body.prem-theme .sec-box h3 {
+  border-bottom-color: #e3b448 !important;
+}
+
+body.prem-theme .hero .h-tags span,
+body.prem-theme .cat-chip {
+  background: #20222c !important;
+  border-color: #5c4a1f !important;
+  color: #e8c886 !important;
+}
+
+body.prem-theme .sum-card .val.accent,
+body.prem-theme .disclaimer .d-head,
+body.prem-theme .ext-link {
+  color: #e8c886 !important;
+  border-color: #e3b448 !important;
+}
+
+body.prem-theme .kb-tab {
+  background: #181a22 !important;
+  border-color: #3a3320 !important;
+  color: #c8b489 !important;
+}
+
+body.prem-theme .kb-tab:hover,
+body.prem-theme .ext-link:hover {
+  background: #20222c !important;
+  border-color: #e3b448 !important;
+  color: #e8c886 !important;
+}
+
+body.prem-theme .kb-tab.active {
+  background: linear-gradient(90deg, #b8860b, #e3b448) !important;
+  border-color: #e3b448 !important;
+  color: #1a150a !important;
+  font-weight: 800 !important;
+}
+
+body.prem-theme .compare-hero-btn,
+body.prem-theme .back {
+  background: linear-gradient(90deg, #b8860b, #e3b448) !important;
+  color: #1a150a !important;
+  box-shadow: 0 2px 10px rgba(201, 164, 92, 0.3) !important;
+}
+
+body.prem-theme .binfo th,
+body.prem-theme .binfo .b-table-top {
+  background: #20222c !important;
+  color: #e8c886 !important;
+  border-color: #3a3320 !important;
+}
+
+body.prem-theme .binfo td {
+  border-color: #2a2d38 !important;
+}
+
 /* Header Base Styling */
 .cf-global-header {
   position: sticky;
