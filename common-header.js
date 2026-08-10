@@ -23,19 +23,37 @@
     return '';
   }
 
+  const darkPages = [
+    '/match_game.html',
+    '/worldcup_game.html',
+    '/cardlab/match',
+    '/cardlab/worldcup',
+    '/qa.html',
+    '/review.html',
+    '/premium-dark.html'
+  ];
+
+  function isDarkModePage(path) {
+    if (document.documentElement.getAttribute('data-theme') === 'dark' || document.body.classList.contains('dark-theme')) {
+      return true;
+    }
+    return darkPages.some(p => path === p || path.startsWith(p));
+  }
+
   function initHeader() {
     const headerEl = document.querySelector('header');
     if (!headerEl) return;
 
     const currentPath = location.pathname;
     const activeName = getActiveTab(currentPath);
+    const isDark = isDarkModePage(currentPath);
 
     const gnbItems = routes.map(r => {
       const isActive = r.name === activeName ? ' active' : '';
       return `<a href="${r.url}" class="cf-gnb-item${isActive}">${r.name}</a>`;
     }).join('');
 
-    headerEl.className = 'cf-global-header';
+    headerEl.className = 'cf-global-header' + (isDark ? ' cf-header-dark' : '');
     headerEl.innerHTML = `
       <div class="cf-header-left">
         <a href="/" class="cf-logo">
