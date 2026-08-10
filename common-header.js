@@ -34,7 +34,7 @@
     headerEl.innerHTML = `
       <div class="cf-header-left">
         <a href="/" class="cf-logo">
-          <span class="cf-logo-icon">⚔️</span>
+          <span class="cf-logo-icon">🥊</span>
           <span class="cf-logo-text">카드파이터</span>
         </a>
         <div class="cf-gnb-divider"></div>

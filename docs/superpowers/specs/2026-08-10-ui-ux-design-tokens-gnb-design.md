@@ -54,7 +54,7 @@ Location: `card-fighter/common.css`
 ### 2. Common GNB Header (`common-header.js` & `common.css`)
 Location: `card-fighter/common-header.js`
 
-- **Brand Logo**: ⚔️ **카드파이터** (Clicking links to `/`)
+- **Brand Logo**: 🥊 **카드파이터** (Clicking links to `/`)
 - **Navigation Links**:
   - `전체카드` (`/card` / `/index.html`)
   - `캐시백이벤트` (`/event`)
