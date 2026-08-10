@@ -88,18 +88,32 @@ body.prem-theme .sec-sub {
   color: #9aa0ac !important;
 }
 
-body.prem-theme .lnb-bar {
+body.prem-theme .lnb,
+.prem-theme .lnb {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  border-bottom: 2px solid rgba(201, 164, 92, 0.25) !important;
+  margin-bottom: 20px !important;
   background: transparent !important;
-  border-bottom: 1px solid rgba(201, 164, 92, 0.25) !important;
 }
 
-body.prem-theme .lnb-item {
+body.prem-theme .lnb-item,
+.prem-theme .lnb-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 10px 18px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  white-space: nowrap !important;
   background: transparent !important;
   border: none !important;
   border-bottom: 2.5px solid transparent !important;
-  color: #c8b489 !important;
   margin-bottom: -2px !important;
   border-radius: 0 !important;
+  color: #c8b489 !important;
   transition: color 0.15s ease, border-color 0.15s ease, filter 0.15s ease !important;
 }
 
@@ -107,13 +121,16 @@ body.prem-theme .lnb-item::after {
   display: none !important;
 }
 
-body.prem-theme .lnb-item:hover {
+body.prem-theme .lnb-item:hover,
+.prem-theme .lnb-item:hover {
   background: transparent !important;
   color: #e8c886 !important;
 }
 
 body.prem-theme .lnb-item.active,
-body.prem-theme .lnb-item.lnb-prem.active {
+body.prem-theme .lnb-item.lnb-prem.active,
+.prem-theme .lnb-item.active,
+.prem-theme .lnb-item.lnb-prem.active {
   background: transparent !important;
   color: #e8c886 !important;
   border-bottom: 2.5px solid #e3b448 !important;
@@ -132,7 +149,7 @@ body.prem-theme #section-cards {
   border: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
-  padding: 20px 0 26px !important;
+  padding: 20px 18px 26px !important;
   margin-top: 6px !important;
 }
 
