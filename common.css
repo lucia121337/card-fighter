@@ -1,0 +1,191 @@
+/* Card Fighter Global Design Tokens & Header Styles */
+
+:root {
+  /* Brand Primary Colors */
+  --brand: #145CE6;
+  --brand-deep: #0E47C0;
+  --brand-light: #E8F0FD;
+  --brand-soft: #BFDBFE;
+
+  /* Neutral Background & Surface Colors */
+  --bg: #F5F7FA;
+  --panel: #FFFFFF;
+  --panel2: #F8FAFC;
+  --line: #E2E8F0;
+
+  /* Typography Colors */
+  --txt: #1E293B;
+  --muted: #64748B;
+  --sub: #475569;
+
+  /* Accent & Semantic Colors */
+  --accent: #2563EB;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  /* Border Radii */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 18px rgba(20, 92, 230, 0.07);
+
+  /* Layout */
+  --header-height: 60px;
+  --max-width: 1200px;
+}
+
+/* Header Base Styling */
+.cf-global-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 24px;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.cf-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cf-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--txt);
+  cursor: pointer;
+}
+
+.cf-logo-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.cf-logo-text {
+  font-family: 'GmarketSans', 'Noto Sans KR', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--txt);
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.cf-gnb-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+  margin: 0 4px;
+}
+
+.cf-gnb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cf-gnb::-webkit-scrollbar {
+  display: none;
+}
+
+.cf-gnb-item {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.cf-gnb-item:hover {
+  background: var(--brand-light);
+  color: var(--brand);
+}
+
+.cf-gnb-item.active {
+  background: var(--brand-light);
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.cf-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cf-search-box {
+  display: flex;
+  align-items: center;
+  background: #F1F5F9;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 4px 14px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cf-search-box:focus-within {
+  border-color: var(--brand);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(20, 92, 230, 0.12);
+}
+
+.cf-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--txt);
+  width: 180px;
+  font-family: inherit;
+}
+
+.cf-search-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.cf-search-btn:hover {
+  color: var(--brand);
+}
+
+@media (max-width: 768px) {
+  .cf-global-header {
+    padding: 0 16px;
+  }
+  .cf-search-input {
+    width: 120px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cf-search-box {
+    display: none;
+  }
+}
