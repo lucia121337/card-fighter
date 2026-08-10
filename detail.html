@@ -23,9 +23,9 @@
          backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
          padding:12px 24px;display:flex;align-items:center;gap:14px}
   .back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
-        background:var(--brand);font-weight:700;font-size:13px;padding:8px 16px;border-radius:10px;
-        box-shadow:0 2px 8px rgba(20,92,230,.28);transition:.15s background;white-space:nowrap}
-  .back:hover{background:var(--brand-deep)}
+        background:var(--brand);font-weight:700;font-size:13px;padding:8px 16px;border-radius:var(--radius-sm);
+        box-shadow:0 2px 8px rgba(20,92,230,.28);transition:all 0.15s ease;white-space:nowrap}
+  .back:hover{background:var(--brand-deep);transform:translateY(-2px)}
   .header-logo{font-size:26px;line-height:1;flex-shrink:0}
   .header-title{font-weight:800;color:var(--txt);font-size:16px;letter-spacing:-.5px;white-space:nowrap}
   /* 상단 메뉴(GNB) — index.html과 동일 구성. 카드 상세로 와도 전체 메뉴가 유지되도록 */
@@ -33,35 +33,38 @@
   .gnb{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
   .gnb::-webkit-scrollbar{display:none}
   .gnb a{color:var(--muted);font-size:14px;font-weight:600;text-decoration:none;
-         padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.15s}
+         padding:7px 12px;border-radius:99px;white-space:nowrap;transition:.15s}
   .gnb a:hover{background:var(--panel2);color:var(--brand)}
   @media(max-width:640px){.header-title{display:none}.gnb a{font-size:13px;padding:6px 9px}}
   .wrap{max-width:820px;margin:0 auto;padding:28px 16px 80px}
   .hero{background:var(--panel);border:1.5px solid var(--line);
-        border-radius:22px;padding:32px 28px;display:flex;gap:26px;align-items:center;
-        box-shadow:var(--shadow)}
+        border-radius:var(--radius-lg);padding:32px 28px;display:flex;gap:26px;align-items:center;
+        box-shadow:var(--shadow-sm);transition:transform 0.15s ease,box-shadow 0.15s ease}
+  .hero:hover{box-shadow:var(--shadow-md)}
   .hero img{width:156px;height:100px;object-fit:contain;border-radius:12px;
             background:var(--bg);padding:10px;border:1px solid var(--line);flex-shrink:0}
   .hero .h-name{font-size:22px;font-weight:800;color:var(--txt);line-height:1.35}
   .hero .h-corp{font-size:13.5px;color:var(--muted);margin-top:6px;font-weight:600}
   .hero .h-tags{margin-top:12px;display:flex;gap:7px;flex-wrap:wrap}
-  .hero .h-tags span{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;border-radius:8px;
+  .hero .h-tags span{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;border-radius:var(--radius-sm);
              padding:4px 12px;font-size:12px;font-weight:700}
   .summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px}
-  .sum-card{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
-        padding:18px 20px;box-shadow:var(--shadow)}
+  .sum-card{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-lg);
+        padding:18px 20px;box-shadow:var(--shadow-sm);transition:transform 0.15s ease,box-shadow 0.15s ease}
+  .sum-card:hover{box-shadow:var(--shadow-md)}
   .sum-card .lab{font-size:11.5px;color:var(--muted);font-weight:700;margin-bottom:8px;letter-spacing:.05em}
   .sum-card .val{font-size:15px;color:var(--txt);line-height:1.6;font-weight:700}
   .sum-card .val.accent{color:var(--brand)}
-  .sec-box{background:var(--panel);border:1.5px solid var(--line);border-radius:16px;
-       padding:22px;margin-top:18px;box-shadow:var(--shadow)}
+  .sec-box{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-lg);
+       padding:22px;margin-top:18px;box-shadow:var(--shadow-sm);transition:transform 0.15s ease,box-shadow 0.15s ease}
+  .sec-box:hover{box-shadow:var(--shadow-md)}
   .sec-box h3{font-size:15px;font-weight:800;color:var(--txt);margin:0 0 16px;
         padding-bottom:12px;border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:8px}
   .kb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-  .kb-tab{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:10px;
+  .kb-tab{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);
         font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--line);
-        background:var(--panel);color:var(--muted);transition:.14s all;font-family:inherit}
-  .kb-tab:hover{border-color:var(--brand);color:var(--brand)}
+        background:var(--panel);color:var(--muted);transition:all 0.15s ease;font-family:inherit}
+  .kb-tab:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
   .kb-tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
   .kb-tab img{width:18px;height:18px;object-fit:contain;border-radius:4px}
   .kb-panel{display:none}
@@ -77,13 +80,13 @@
   .binfo li{margin:5px 0}
   .cat-wrap{display:flex;flex-wrap:wrap;gap:8px}
   .cat-chip{background:var(--panel2);color:var(--brand);border:1px solid #bfdbfe;
-        border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:600}
+        border-radius:var(--radius-sm);padding:5px 12px;font-size:12.5px;font-weight:600}
   .ext-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;
         color:var(--brand);font-size:13px;font-weight:700;margin-top:18px;
-        padding:10px 18px;border:1.5px solid var(--brand);border-radius:10px;transition:.15s background}
-  .ext-link:hover{background:var(--panel2)}
+        padding:10px 18px;border:1.5px solid var(--brand);border-radius:var(--radius-sm);transition:all 0.15s ease}
+  .ext-link:hover{background:var(--panel2);transform:translateY(-2px)}
   .disclaimer{margin-top:22px;padding:18px 20px;background:var(--panel2);
-        border:1.5px solid var(--line);border-radius:14px;font-size:12px;
+        border:1.5px solid var(--line);border-radius:var(--radius-md);font-size:12px;
         line-height:1.9;color:var(--muted)}
   .disclaimer .d-head{color:var(--brand);font-weight:800;margin-bottom:6px;font-size:12.5px}
   .status{padding:80px 0;text-align:center;color:var(--muted);font-size:15px;line-height:2}
@@ -94,10 +97,11 @@
 
   /* 비교함 버튼 */
   .compare-hero-btn{background:var(--brand);border:none;color:#fff;
-        border-radius:10px;padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;
-        font-family:inherit;transition:.15s background;width:156px;text-align:center;
+        border-radius:var(--radius-sm);padding:9px 0;font-size:13px;font-weight:700;cursor:pointer;
+        font-family:inherit;transition:all 0.15s ease;width:156px;text-align:center;
         box-shadow:0 2px 8px rgba(20,92,230,.3)}
-  .compare-hero-btn:hover{background:var(--brand-deep)}
+  .compare-hero-btn:hover{background:var(--brand-deep);transform:translateY(-2px)}
+  .compare-hero-btn.selected{background:#10b981}
   .compare-hero-btn.selected{background:#10b981}
 
   /* 혜택 계산기 */
