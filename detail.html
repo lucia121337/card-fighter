@@ -703,36 +703,20 @@
       text-align: center;
     }
 
-    /* 유사 카드 추천 캐러셀 */
+    /* 유사 카드 추천 영역 */
     .rec-carousel {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 14px;
-      overflow-x: auto;
-      padding: 4px 2px 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .rec-carousel::-webkit-scrollbar {
-      height: 6px;
-    }
-    .rec-carousel::-webkit-scrollbar-track {
-      background: var(--panel2);
-      border-radius: 99px;
-    }
-    .rec-carousel::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 99px;
-    }
-    .rec-carousel::-webkit-scrollbar-thumb:hover {
-      background: var(--brand);
+      padding: 4px 2px 4px;
+      width: 100%;
     }
     .rec-card-item {
-      flex: 0 0 230px;
-      scroll-snap-align: start;
+      width: 100%;
       background: #f8fafc;
       border: 1.5px solid var(--line);
       border-radius: 16px;
-      padding: 18px 16px;
+      padding: 18px 14px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1065,7 +1049,7 @@ function render(d, list = [], recs = {}) {
   }
 
   // 유사 카드 추천 HTML 생성
-  const recList = recs[String(d.idx)] || recs[Number(d.idx)] || [];
+  const recList = (recs[String(d.idx)] || recs[Number(d.idx)] || []).slice(0, 4);
   let recHTML = '';
   if (recList.length > 0) {
     const itemsHTML = recList.map(rec => {

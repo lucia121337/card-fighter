@@ -118,7 +118,12 @@ function getItemLimitForPerf(itemLimit, perf) {
 
     let limitVal = itemLimit;
     if (typeof itemLimit === 'string') {
-      try { limitVal = JSON.parse(itemLimit); } catch { limitVal = itemLimit; }
+      const trimmed = itemLimit.trim();
+      if (trimmed.startsWith('[') || trimmed.startsWith('{')) {
+        try { limitVal = JSON.parse(trimmed); } catch { limitVal = itemLimit; }
+      } else {
+        limitVal = itemLimit;
+      }
     }
 
     if (Array.isArray(limitVal)) {
@@ -137,7 +142,7 @@ function getItemLimitForPerf(itemLimit, perf) {
           found = true;
         }
       }
-      return found ? best : 0;
+      return found ? best : (typeof limitVal[0] === 'number' ? limitVal[0] : 0);
     }
 
     const n = Number(limitVal);
@@ -245,12 +250,64 @@ function extractPerfOptions(items, totalTiers) {
  */
 
 /**
+ * localStorage 기반 복잡한 카드 패싱(제외) 관리 헬퍼
+ */
+const PASSED_CARDS_STORAGE_KEY = 'card_fighter_passed_cards';
+
+function getPassedCardIds() {
+  try {
+    const raw = localStorage.getItem(PASSED_CARDS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
+function isCardPassed(cardId) {
+  if (!cardId) return false;
+  const passed = getPassedCardIds();
+  return passed.includes(String(cardId));
+}
+
+function togglePassCard(cardId, forceState) {
+  if (!cardId) return false;
+  try {
+    const cidStr = String(cardId);
+    let passed = getPassedCardIds();
+    const exists = passed.includes(cidStr);
+
+    let targetState = (forceState !== undefined) ? Boolean(forceState) : !exists;
+    if (targetState) {
+      if (!exists) passed.push(cidStr);
+    } else {
+      passed = passed.filter(id => id !== cidStr);
+    }
+    localStorage.setItem(PASSED_CARDS_STORAGE_KEY, JSON.stringify(passed));
+
+    // 이벤트를 발생시켜 동기화
+    window.dispatchEvent(new CustomEvent('cardPassChanged', { detail: { cardId: cidStr, passed: targetState } }));
+    return targetState;
+  } catch (e) {
+    console.error('togglePassCard 오류:', e);
+    return false;
+  }
+}
+
+/**
  * 정형화 데이터(item_limit, tier_limits, category_rates 등) 존재 여부 및 계산 가능성 엄격 검증
  * 자연어 cap_note에만 의존하거나 수치화된 정형 필드가 누락된 카드는 is_calculable: false 및 원천 필터링
  */
 function checkIsCalculable(cardData) {
   try {
     if (!cardData || typeof cardData !== 'object') return false;
+
+    const cardId = cardData.id || cardData.idx || cardData.card_id;
+    // 0) localStorage 패싱 카드 리스트 검증
+    if (cardId && isCardPassed(cardId)) {
+      return false;
+    }
 
     // 1) 명시적 is_calculable / is_calc_supported false 플래그 검증
     if (cardData.is_calculable === false) return false;
@@ -437,12 +494,10 @@ function getStructuredBenefits(cardData, fallbackKb) {
         }
       }
 
-      let finalAmount = b.item_limit !== undefined ? b.item_limit : (b.amount !== undefined ? b.amount : (b.limit !== undefined ? b.limit : -1));
+      let finalLimit = b.item_limit !== undefined ? b.item_limit : (b.amount !== undefined ? b.amount : (b.limit !== undefined ? b.limit : -1));
       if (parsedSubLimit !== null) {
-        if (finalAmount === -1 || finalAmount === Infinity) {
-          finalAmount = parsedSubLimit;
-        } else if (typeof finalAmount === 'number' && finalAmount > 0) {
-          finalAmount = Math.min(finalAmount, parsedSubLimit);
+        if (finalLimit === -1 || finalLimit === Infinity) {
+          finalLimit = parsedSubLimit;
         }
       }
 
@@ -455,7 +510,8 @@ function getStructuredBenefits(cardData, fallbackKb) {
         rate: rateProp,
         fixedAmount: typeof b.fixedAmount === 'number' ? b.fixedAmount : 0,
         minPayment: typeof b.minPayment === 'number' ? b.minPayment : 0,
-        amount: finalAmount,
+        item_limit: finalLimit,
+        amount: finalLimit,
         group: groupObj,
         groupId,
         groupLimit,
@@ -678,6 +734,33 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       }
     });
 
+    /* ── 초기 캡핑 연산 ── */
+    const initialCappingMode = cardData.capping_mode || 'HYBRID';
+    const initCapObj = applyThreeLevelCap(items, totalLimitTiers, basePerf, initialCappingMode);
+    const initResults = initCapObj.results || [];
+    const initTotalSpent = initCapObj.totalSpent || 0;
+    const initReqPayment = calculateMinRequiredPayment(items, initResults);
+    const initRealSpending = (basePerf === 0 || initTotalSpent === 0) ? 0 : Math.round(Math.max(basePerf, initReqPayment.totalRequiredSum) + initReqPayment.excludedRequiredSum);
+
+    // 연회비 월할 산정
+    let initAnnualFee = 0;
+    const rawFeeStr = cardData.annual_fee || cardData.annual_fee_detail || '';
+    if (typeof rawFeeStr === 'number') {
+      initAnnualFee = rawFeeStr;
+    } else if (typeof rawFeeStr === 'string') {
+      const feeM = rawFeeStr.replace(/,/g, '').match(/\d+/);
+      if (feeM) initAnnualFee = parseInt(feeM[0], 10);
+    }
+    const initMonthlyFee = initAnnualFee / 12;
+
+    let initPickingRate = 0;
+    if (initRealSpending > 0 && initTotalSpent > 0) {
+      initPickingRate = ((initTotalSpent - initMonthlyFee) / initRealSpending) * 100;
+    }
+    if (isNaN(initPickingRate) || !isFinite(initPickingRate) || initPickingRate < 0 || initRealSpending <= 0) {
+      initPickingRate = 0;
+    }
+
     /* ── 실시간 피킹률 계산 및 대시보드 업데이트 ── */
     function renderTotal() {
       try {
@@ -693,7 +776,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
 
         const { totalRequiredSum, excludedRequiredSum } = calculateMinRequiredPayment(items, results);
 
-        // 개별 UI Row 업데이트
+        // 개별 UI Row 업데이트: 원본 한도/잠재 수치가 아닌 3단계 캡핑이 최종 적용된 r.applied 수치만 렌더링
         results.forEach(r => {
           const it = items.find(x => x.id === r.id);
           if (!it) return;
@@ -710,16 +793,11 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
               displayEl.textContent = '중복 제외';
               displayEl.className = 'calc-amount zero';
             } else if (r.applied === 0) {
-              displayEl.textContent = '0원 (한도 도달)';
+              displayEl.textContent = '0원 (통합 한도 도달)';
               displayEl.className = 'calc-amount zero';
             } else {
-              const capText = isFinite(r.currentItemLimit)
-                ? ` / 한도 ${r.currentItemLimit.toLocaleString()}원`
-                : '';
               const exTag = it.isExcluded ? ' (실적제외)' : '';
-              displayEl.textContent = it.fixedAmount > 0
-                ? `${r.applied.toLocaleString()}원 할인${exTag}`
-                : `최대 ${r.applied.toLocaleString()}원${capText}${exTag}`;
+              displayEl.textContent = `${r.applied.toLocaleString()}원 적용${exTag}`;
               displayEl.className = 'calc-amount';
             }
           }
@@ -783,7 +861,6 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         realSpending = Math.round(realSpending);
 
         // [최종 피킹률 공식 적용 & 방어적 예외 처리]
-        // 공식: ((최종 예상 혜택 합계 - (연회비 / 12)) / 실질 필요 사용 금액) * 100
         let pickingRate = 0;
         if (realSpending > 0 && totalSpent > 0) {
           const netMonthlyBenefit = totalSpent - monthlyAnnualFee;
@@ -857,16 +934,22 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       }
     };
 
-    /* ── HTML 행 생성 ── */
+    /* ── HTML 행 생성 (최종 3계층 적용 금액 applied 바인딩) ── */
     function makeRow(it) {
-      const lim = getItemLimitForPerf(it.amount, basePerf);
+      const initR = initResults.find(r => r.id === it.id);
+      const appliedAmt = initR ? initR.applied : 0;
+      const isBlocked = initR ? initR.isExclusiveBlocked : false;
+
       let displayAmt = '';
       if (basePerf === 0) {
         displayAmt = '혜택 없음';
+      } else if (isBlocked) {
+        displayAmt = '중복 제외';
+      } else if (appliedAmt === 0) {
+        displayAmt = '0원 (통합 한도 도달)';
       } else {
-        displayAmt = it.fixedAmount > 0
-          ? `${it.fixedAmount.toLocaleString()}원 할인`
-          : (lim === Infinity ? '한도 없음' : `최대 ${lim.toLocaleString()}원`);
+        const exTag = it.isExcluded ? ' (실적제외)' : '';
+        displayAmt = `${appliedAmt.toLocaleString()}원 적용${exTag}`;
       }
 
       const isChecked = it.checked !== false;
@@ -882,7 +965,7 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
             <div class="benefit-title">${esc(it.title)}${it.isExcluded ? ' <span style="font-size:11px;color:#ef4444;font-weight:bold;">[실적제외]</span>' : ''}</div>
             <div class="benefit-summary">${esc(it.summary)}</div>
           </span>
-          <span id="calc-amt-${it.id}" class="calc-amount ${!isChecked ? 'zero' : ''}">
+          <span id="calc-amt-${it.id}" class="calc-amount ${(!isChecked || appliedAmt === 0 || isBlocked || basePerf === 0) ? 'zero' : ''}">
             ${isChecked ? displayAmt : '선택 해제'}
           </span>
         </div>`;
@@ -953,6 +1036,12 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
       itemsContentHTML = soloItems.map(makeRow).join('');
     }
 
+    const initTotalDisplay = (basePerf === 0 || initTotalSpent === 0) ? '0원' : `최대 ${initTotalSpent.toLocaleString()}원`;
+    const initReqDisplay = (basePerf === 0 || initTotalSpent === 0) ? '0원' : `${initRealSpending.toLocaleString()}원`;
+    const initPickRateDisplay = (basePerf === 0 || initTotalSpent === 0 || initPickingRate <= 0) ? '0.00%' : `${initPickingRate.toFixed(2)}%`;
+    const initGaugeWidth = (basePerf === 0 || initPickingRate <= 0) ? '0%' : (Math.min(initPickingRate * 10, 100) + '%');
+    const initGaugeLevel = (basePerf === 0 || initPickingRate <= 0) ? 'level-0' : (initPickingRate < 1 ? 'level-1' : initPickingRate < 3 ? 'level-2' : initPickingRate < 5 ? 'level-3' : 'level-4');
+
     return `
       <div class="calc-box">
         <h3>🎯 피킹률 계산기</h3>
@@ -963,18 +1052,18 @@ function buildPickingCalc(kb, preMonthMoney, preMonthCondition, cardData) {
         <div class="calc-total-dashboard">
           <div class="dashboard-row">
             <span class="db-label">최종 예상 혜택 합계</span>
-            <span class="db-value text-brand" id="calc-total-amt">0원</span>
+            <span class="db-value text-brand" id="calc-total-amt">${initTotalDisplay}</span>
           </div>
           <div class="dashboard-row">
             <span class="db-label">실질 필요 사용 금액 (최소)</span>
-            <span class="db-value" id="calc-required-amt">0원</span>
+            <span class="db-value" id="calc-required-amt">${initReqDisplay}</span>
           </div>
           <div class="dashboard-row picking-rate-row">
             <span class="db-label">실질 체감 피킹률</span>
-            <span class="db-value highlight" id="calc-picking-rate">0.00%</span>
+            <span class="db-value highlight" id="calc-picking-rate">${initPickRateDisplay}</span>
           </div>
           <div class="gauge-container">
-            <div class="gauge-bar level-0" id="calc-gauge-bar" style="width: 0%;"></div>
+            <div class="gauge-bar ${initGaugeLevel}" id="calc-gauge-bar" style="width: ${initGaugeWidth};"></div>
           </div>
         </div>
       </div>`;

@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카드 혜택 검증기 | Card Fighter</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* 카드사 원본 약관 테이블 스타일 */
+    .benefit-html-area table.b-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .benefit-html-area table.b-table td,
+    .benefit-html-area table.b-table th {
+      border: 1px solid #e2e8f0;
+      padding: 7px 10px;
+      vertical-align: middle;
+    }
+
+    .benefit-html-area tr.b-table-top td,
+    .benefit-html-area .b-table-top {
+      background: #eff6ff;
+      font-weight: 700;
+      color: #1e3a8a;
+      text-align: center;
+    }
+
+    .benefit-html-area p {
+      font-size: 12px;
+      color: #475569;
+      margin: 4px 0;
+      line-height: 1.6;
+    }
+
+    .benefit-html-area strong {
+      color: #1e40af;
+      font-size: 13px;
+    }
+
+    .benefit-html-area u {
+      color: #dc2626;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- TOP LIGHT HEADER BAR -->
+  <header
+    class="bg-white border-b border-slate-200 px-6 py-3 sticky top-0 z-50 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+    <div class="flex items-center gap-3">
+      <div
+        class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+        <i class="fa-solid fa-calculator text-lg"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          카드 데이터 검증기
+          <span
+            class="text-xs px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold border border-blue-200">verify.html</span>
+        </h1>
+        <p class="text-xs text-slate-500">계산기 혜택 금액 수정 · 그룹 묶음한도 검증 · 원본 약관 비교</p>
+      </div>
+    </div>
+
+    <!-- TOP STATS SUMMARY -->
+    <div class="flex items-center gap-3 text-xs">
+      <div class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
+        <span class="text-slate-500">전체 카드:</span>
+        <span id="stat-total" class="font-bold text-slate-900">0</span>
+      </div>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
+        <span class="text-emerald-700"><i class="fa-solid fa-circle-check mr-1"></i>계산기 가능:</span>
+        <span id="stat-calculable" class="font-bold text-emerald-800">0</span>
+      </div>
+      <div class="bg-rose-50 border border-rose-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
+        <span class="text-rose-700"><i class="fa-solid fa-ban mr-1"></i>패싱(제외):</span>
+        <span id="stat-passed" class="font-bold text-rose-800">0</span>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 flex items-center gap-2">
+        <span class="text-blue-700"><i class="fa-solid fa-square-check mr-1"></i>검수 완료:</span>
+        <span id="stat-verified" class="font-bold text-blue-800">0</span>
+      </div>
+
+      <div class="h-4 w-[1px] bg-slate-300 mx-1"></div>
+      <button id="btn-export-pass" onclick="exportPassedCards()"
+        class="bg-white hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-300 font-medium transition flex items-center gap-1.5 shadow-sm">
+        <i class="fa-solid fa-download text-slate-500"></i> 내보내기
+      </button>
+      <label
+        class="bg-white hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-300 font-medium transition flex items-center gap-1.5 shadow-sm cursor-pointer">
+        <i class="fa-solid fa-upload text-slate-500"></i> 가져오기
+        <input type="file" id="file-import-pass" accept=".json" class="hidden" onchange="importPassedCards(event)">
+      </label>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER (LEFT SIDEBAR + MAIN 2-COLUMN DISPLAY) -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- LEFT SIDEBAR: CARD SEARCH & LIST -->
+    <aside class="w-72 bg-white border-r border-slate-200 flex flex-col shrink-0 h-[calc(100vh-61px)]">
+
+      <!-- Search & Filters -->
+      <div class="p-3 border-b border-slate-200 space-y-2 bg-slate-50/50">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+          <input type="text" id="search-input" oninput="renderCardList()" placeholder="카드명 또는 카드사 검색..."
+            class="w-full bg-white border border-slate-300 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500 shadow-sm">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <div>
+            <select id="group-select" onchange="renderCardList()"
+              class="w-full bg-white border border-slate-300 rounded py-1 px-1.5 text-slate-700 focus:outline-none">
+              <option value="company">카드사별</option>
+              <option value="status">계산기 가능 여부별</option>
+            </select>
+          </div>
+          <div>
+            <select id="filter-pass" onchange="renderCardList()"
+              class="w-full bg-white border border-slate-300 rounded py-1 px-1.5 text-slate-700 focus:outline-none">
+              <option value="all">전체 카드</option>
+              <option value="active" selected>계산기 카드만</option>
+              <option value="passed">패싱(제외) 카드만</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card List -->
+      <div id="card-list-container" class="flex-1 overflow-y-auto p-2 space-y-2 custom-scrollbar">
+        <!-- Dynamic Cards -->
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD (2-COLUMN: LEFT CALCULATOR TEST & RIGHT DETAIL BENIFITS TABLE) -->
+    <main class="flex-1 overflow-y-auto p-5 custom-scrollbar">
+
+      <!-- EMPTY SELECTION STATE -->
+      <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center p-12 text-slate-400">
+        <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 mb-3">
+          <i class="fa-solid fa-hand-pointer text-xl"></i>
+        </div>
+        <h2 class="text-base font-bold text-slate-700 mb-1">좌측 목록에서 카드를 선택해 주세요</h2>
+        <p class="text-xs text-slate-500 max-w-sm">계산기 혜택 금액 수정, 그룹 한도 묶음 검증, 원본 약관 표를 가로형으로 비교할 수 있습니다.</p>
+      </div>
+
+      <!-- MAIN CONTENT DASHBOARD -->
+      <div id="simulator-content" class="space-y-5 hidden">
+
+        <!-- CARD TOP BAR & PASS BUTTON & TOTAL CAP -->
+        <div
+          class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div
+              class="w-14 h-20 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center shrink-0 p-1">
+              <img id="card-img" src="" alt="카드" class="w-full h-full object-contain hidden">
+              <i id="card-img-fallback" class="fa-solid fa-credit-card text-xl text-slate-400"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span id="card-company"
+                  class="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200">카드사</span>
+                <span id="card-status-badge"
+                  class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">계산
+                  가능</span>
+              </div>
+              <h2 id="card-name" class="text-xl font-bold text-slate-900">카드 이름</h2>
+              <div class="text-xs text-slate-500 mt-1 flex items-center gap-4">
+                <span>연회비: <strong id="card-fee" class="text-slate-800">0원</strong></span>
+                <div
+                  class="flex items-center gap-1.5 bg-blue-50/80 px-2.5 py-1 rounded-lg border border-blue-200 text-blue-900">
+                  <i class="fa-solid fa-credit-card text-blue-600"></i>
+                  <span class="font-bold">카드 월 총 통합한도:</span>
+                  <input type="number" id="header-total-cap-input" placeholder="무제한"
+                    onchange="saveTotalCapOverride(this.value)"
+                    class="bg-white border border-blue-300 rounded px-2 py-0.5 text-xs font-extrabold text-blue-900 w-24 text-right focus:outline-none focus:border-blue-500">
+                  <span class="font-bold">원</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 검수 완료 토글 & 복잡한 카드 패싱 버튼 -->
+          <div class="flex items-center gap-2">
+            <button id="btn-toggle-verify" onclick="handleVerifyToggle()"
+              class="px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 border bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300">
+              <i id="verify-icon" class="fa-solid fa-square-check text-sm"></i>
+              <span id="verify-btn-text">검수 완료 처리</span>
+            </button>
+            <button id="btn-toggle-pass" onclick="handlePassToggle()"
+              class="px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 border">
+              <i id="pass-icon" class="fa-solid fa-ban"></i>
+              <span id="pass-btn-text">복잡한 카드 패싱 / 계산기 제외</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2-COLUMN MAIN CONTENT (LEFT: CALCULATOR & GROUPS / RIGHT: RAW SPEC TABLE) -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+
+          <!-- LEFT COLUMN: 혜택 계산기 테스트 & 그룹 묶음 검증 -->
+          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
+
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-blue-600"></i>
+                한도 데이터 정합성 검증표
+              </h3>
+              <button onclick="toggleCalcSimMode()" id="btn-toggle-sim"
+                class="text-xs text-blue-600 hover:text-blue-800 font-semibold bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded border border-blue-200 transition flex items-center gap-1">
+                <i class="fa-solid fa-calculator text-[11px]"></i>
+                <span id="sim-toggle-text">피킹률 계산기 켜기</span>
+              </button>
+            </div>
+
+            <!-- 1. 최상위 계층: 전월 실적 구간 선택 탭 -->
+            <div class="bg-blue-50/80 border border-blue-200 rounded-xl p-3.5 space-y-2">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-extrabold text-blue-900 flex items-center gap-1.5">
+                  <i class="fa-solid fa-sliders text-blue-600"></i> [최상위] 전월 실적 구간 선택
+                </label>
+                <span
+                  class="text-[11px] text-blue-600 font-semibold bg-white px-2 py-0.5 rounded border border-blue-200">구간
+                  선택 시 하위 한도 자동 동기화</span>
+              </div>
+              <select id="perf-tier-select" onchange="onPerfSelectChange()"
+                class="w-full bg-white border border-blue-500 rounded-lg px-3 py-2 text-sm font-extrabold text-blue-900 focus:outline-none shadow-sm cursor-pointer">
+                <!-- Dynamic Options -->
+              </select>
+            </div>
+
+            <!-- 2. 차상위 계층: 선택된 전월실적 기준 [카드 월 총 통합 한도] 입력 상자 -->
+            <div
+              class="bg-emerald-50/80 border border-emerald-300 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-credit-card text-emerald-600 text-base"></i>
+                <div>
+                  <span class="text-xs font-extrabold text-emerald-950 block">카드 월 총 통합 한도</span>
+                  <span id="current-perf-badge-total" class="text-[10px] text-emerald-700">전월실적 기준 적용 중</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-bold text-emerald-900">최대</span>
+                <input type="number" id="center-total-cap-input" placeholder="무제한"
+                  onchange="saveTotalCapForCurrentPerf(this.value)"
+                  class="bg-white border border-emerald-400 rounded-lg px-3 py-1 text-sm font-black text-emerald-700 w-32 text-right focus:outline-none focus:border-emerald-600 shadow-sm">
+                <span class="text-xs font-bold text-emerald-900">원</span>
+              </div>
+            </div>
+
+            <!-- 혜택 그룹화 실행 액션바 -->
+            <div
+              class="bg-amber-50/70 border border-amber-200 rounded-lg p-2.5 flex items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-amber-900 flex items-center gap-1"><i
+                    class="fa-solid fa-crown text-amber-500"></i> 그룹 지정:</span>
+                <span class="text-amber-800 text-[11px]">체크박스 선택 후 묶기</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button onclick="groupSelectedItems()"
+                  class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1 shadow-sm">
+                  <i class="fa-solid fa-link"></i> 선택 항목 그룹으로 묶기
+                </button>
+                <button onclick="ungroupSelectedItems()"
+                  class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-semibold px-2.5 py-1.5 rounded-lg text-xs transition">
+                  그룹 해제
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. 하위 계층: 혜택 리스트 & 그룹 묶음 검증 박스 컨테이너 -->
+            <div id="calculator-items-container" class="space-y-3 pt-1">
+              <!-- Dynamic Items or Group Containers -->
+            </div>
+
+            <!-- 피킹률 계산 대시보드 (기본 숨김/토글) -->
+            <div id="sim-dashboard-area" class="hidden bg-blue-900 text-white rounded-xl p-4 shadow-md space-y-3">
+              <div class="flex items-center justify-between text-xs text-blue-200 border-b border-blue-800 pb-2">
+                <span class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-calculator text-amber-400"></i>
+                  실질 피킹률 계산 결과</span>
+                <div class="flex items-center gap-1">
+                  <span class="text-[11px] text-blue-300">총 통합한도:</span>
+                  <input type="number" id="total-cap-input" placeholder="무제한"
+                    onchange="saveTotalCapOverride(this.value)"
+                    class="bg-blue-800 border border-blue-600 rounded px-2 py-0.5 text-xs font-bold text-emerald-300 w-24 text-right focus:outline-none focus:border-amber-400">
+                  <span class="text-[11px] text-blue-300">원</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <span class="text-[11px] text-blue-300 block">최종 혜택액</span>
+                  <strong id="calc-total-benefit" class="text-base text-emerald-400 font-extrabold">0원</strong>
+                </div>
+                <div>
+                  <span class="text-[11px] text-blue-300 block">실질 사용금액</span>
+                  <strong id="calc-total-spend" class="text-base text-blue-100 font-extrabold">0원</strong>
+                </div>
+                <div>
+                  <span class="text-[11px] text-amber-300 block">체감 피킹률</span>
+                  <strong id="calc-picking-rate" class="text-lg text-amber-400 font-black">0.0%</strong>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: 원본 상세 혜택 (card_detail JSON 직접 렌더링) -->
+          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-3 flex flex-col">
+
+            <!-- 오른쪽 패널 헤더 + 메인 탭 전환 (원본 약관 / 전월실적 수정) -->
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-amber-500"></i>
+                상세 혜택
+              </h3>
+              <div class="flex items-center gap-2">
+                <button id="right-tab-benefit" onclick="switchRightTab('benefit')"
+                  class="px-3 py-1 rounded-lg text-xs font-bold border transition bg-blue-600 text-white border-blue-600 shadow-sm">
+                  <i class="fa-solid fa-list-check mr-1"></i>원본 약관
+                </button>
+                <button id="right-tab-perf" onclick="switchRightTab('perf')"
+                  class="px-3 py-1 rounded-lg text-xs font-bold border transition bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100">
+                  <i class="fa-solid fa-pen-to-square mr-1"></i>전월실적 수정
+                </button>
+                <span class="text-xs text-slate-400" id="detail-loading-label">카드사 원본</span>
+              </div>
+            </div>
+
+            <!-- [탭1] 혜택 카테고리 탭 버튼 + 원본 HTML 출력 영역 -->
+            <div id="right-panel-benefit" class="space-y-2">
+              <div id="detail-category-tabs"
+                class="flex flex-wrap gap-1.5 text-xs font-semibold pb-2 border-b border-slate-100">
+                <!-- Dynamic Category Tabs -->
+              </div>
+              <div id="detail-benefit-html-area"
+                class="benefit-html-area overflow-y-auto flex-1 max-h-[480px] custom-scrollbar">
+                <div class="text-xs text-slate-400 py-8 text-center">카드를 선택하면 원본 약관 상세 혜택이 표시됩니다.</div>
+              </div>
+            </div>
+
+            <!-- [탭2] 전월실적 수정 패널 -->
+            <div id="right-panel-perf" class="hidden space-y-4">
+
+              <!-- 현재 매칭된 전월실적 정보 -->
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-2">
+                <div class="text-xs font-bold text-blue-800 flex items-center gap-2 mb-1">
+                  <i class="fa-solid fa-circle-info text-blue-500"></i> 현재 데이터 기준 전월실적
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <div class="text-[10px] text-slate-500 mb-0.5">pre_month_money (숫자)</div>
+                    <div id="perf-current-money" class="font-bold text-slate-900 text-sm">-</div>
+                  </div>
+                  <div>
+                    <div class="text-[10px] text-slate-500 mb-0.5">pre_month_condition (표기)</div>
+                    <div id="perf-current-condition" class="font-bold text-slate-900 text-sm">-</div>
+                  </div>
+                </div>
+                <div class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1 mt-1">
+                  ⚠️ 위 값이 실제 약관과 다를 경우 아래에서 수정 후 저장하세요. 수정값은 이 기기 로컬에만 저장됩니다.
+                </div>
+              </div>
+
+              <!-- 저장된 오버라이드가 있을 경우 표시 -->
+              <div id="perf-override-badge"
+                class="hidden bg-amber-50 border border-amber-300 rounded-lg px-3 py-2 text-xs flex items-center justify-between gap-2">
+                <span class="text-amber-800 font-semibold flex items-center gap-1.5">
+                  <i class="fa-solid fa-pen-ruler text-amber-500"></i>
+                  <span id="perf-override-label">수정된 전월실적 적용 중</span>
+                </span>
+                <button onclick="clearPerfOverride()" class="text-rose-600 hover:text-rose-700 text-xs font-bold">
+                  <i class="fa-solid fa-rotate-left mr-0.5"></i>원복
+                </button>
+              </div>
+
+              <!-- 전월실적 수정 입력 -->
+              <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+                <div class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <i class="fa-solid fa-pen-to-square text-blue-500"></i> 전월실적 기준 수정
+                </div>
+
+                <div>
+                  <label class="text-[11px] text-slate-500 block mb-1">전월실적 최소 금액 (숫자, 원)</label>
+                  <input type="number" id="perf-edit-money" placeholder="예: 300000"
+                    class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 focus:outline-none focus:border-blue-500"
+                    min="0" step="10000">
+                </div>
+
+                <div>
+                  <label class="text-[11px] text-slate-500 block mb-1">표기 문자열 (pre_month_condition)</label>
+                  <input type="text" id="perf-edit-condition" placeholder="예: 30만원 이상"
+                    class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500">
+                </div>
+
+                <!-- 전월실적 구간 멀티 입력 (tiers) -->
+                <div class="border-t border-slate-100 pt-3 space-y-2">
+                  <div class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                    <i class="fa-solid fa-layer-group text-blue-500"></i>
+                    전월실적 구간 목록 (쉼표 구분)
+                  </div>
+                  <input type="text" id="perf-edit-tiers" placeholder="예: 300000,500000,1000000"
+                    class="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-blue-500">
+                </div>
+
+                <!-- 💳 전월실적별 총 통합 한도 구간표 -->
+                <div class="border-t border-slate-100 pt-3 space-y-2">
+                  <div class="text-[11px] font-bold text-slate-700 flex items-center justify-between">
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-credit-card text-emerald-600"></i> 전월실적별
+                      카드 월 총 한도 구간표</span>
+                  </div>
+                  <div id="perf-total-cap-tiers-container" class="space-y-1.5 text-xs">
+                    <!-- Dynamic Tier Rows for Total Cap -->
+                  </div>
+                  <p class="text-[10px] text-slate-400">※ 전월 실적별로 제공되는 총 통합 한도를 기입합니다.</p>
+                </div>
+
+                <!-- 👑 전월실적별 그룹 통합 한도 구간표 -->
+                <div class="border-t border-slate-100 pt-3 space-y-2">
+                  <div class="text-[11px] font-bold text-slate-700 flex items-center justify-between">
+                    <span class="flex items-center gap-1"><i class="fa-solid fa-crown text-amber-500"></i> 전월실적별 그룹 통합
+                      한도 구간표</span>
+                  </div>
+                  <div id="perf-group-cap-tiers-container" class="space-y-2 text-xs">
+                    <!-- Dynamic Group Cap Rows -->
+                  </div>
+                </div>
+
+                <button onclick="savePerfOverride()"
+                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl py-2.5 text-sm transition flex items-center justify-center gap-2 shadow-sm">
+                  <i class="fa-solid fa-floppy-disk"></i> 실적/한도 구간 전체 저장
+                </button>
+              </div>
+
+              <!-- 저장된 전체 전월실적 오버라이드 목록 -->
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+                <div class="text-[11px] font-bold text-slate-600 flex items-center justify-between">
+                  <span><i class="fa-solid fa-database text-slate-400 mr-1"></i>저장된 전월실적 수정 목록</span>
+                  <button onclick="renderPerfOverrideList()"
+                    class="text-blue-500 text-[11px] hover:underline">새로고침</button>
+                </div>
+                <div id="perf-override-list" class="space-y-1 max-h-48 overflow-y-auto custom-scrollbar text-xs">
+                  <div class="text-slate-400 text-center py-3">저장된 수정 데이터 없음</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast"
+    class="fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-xl font-medium text-sm flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50">
+    <i id="toast-icon" class="fa-solid fa-circle-check text-lg"></i>
+    <span id="toast-message">알림</span>
+  </div>
+
+  <!-- ENGINE JS -->
+  <script src="calculator.js"></script>
+
+  <script>
+    let allCards = [];
+    let structuredBenefitsMap = {};
+    let selectedCard = null;
+    let userInputs = {}; // { benefitIndex: spendAmount }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadData();
+      renderStats();
+      renderCardList();
+
+      window.addEventListener('cardPassChanged', (e) => {
+        renderStats();
+        renderCardList();
+        if (selectedCard && (String(selectedCard.id || selectedCard.idx) === String(e.detail.cardId))) {
+          updatePassButtonUI();
+          renderCalculatorView();
+        }
+      });
+    });
+
+    async function loadData() {
+      try {
+        try {
+          const resBs = await fetch('benefits_structured.json');
+          if (resBs.ok) structuredBenefitsMap = await resBs.json();
+        } catch (e) {
+          console.warn('bs fail', e);
+        }
+
+        let cardRes = await fetch('cards_list.json');
+        if (!cardRes.ok) cardRes = await fetch('cards.json');
+        if (!cardRes.ok) cardRes = await fetch('active_cards.json');
+
+        if (cardRes.ok) {
+          const rawData = await cardRes.json();
+          allCards = Array.isArray(rawData) ? rawData : (rawData.cards || []);
+          allCards.forEach(c => {
+            const cid = String(c.id || c.idx || '');
+            if (structuredBenefitsMap[cid]) c.bs = structuredBenefitsMap[cid];
+          });
+        }
+      } catch (err) {
+        showToast('데이터 로딩 오류', 'error');
+      }
+    }
+
+    function renderStats() {
+      const passedList = typeof getPassedCardIds === 'function' ? getPassedCardIds() : [];
+      const total = allCards.length;
+      let calculable = 0;
+      let passedCount = 0;
+
+      allCards.forEach(c => {
+        const cid = String(c.id || c.idx || '');
+        if (passedList.includes(cid)) {
+          passedCount++;
+        } else if (typeof checkIsCalculable === 'function' && checkIsCalculable(c)) {
+          calculable++;
+        }
+      });
+
+      document.getElementById('stat-total').innerText = total.toLocaleString();
+      document.getElementById('stat-calculable').innerText = calculable.toLocaleString();
+      document.getElementById('stat-passed').innerText = passedCount.toLocaleString();
+      const verifiedCount = getVerifiedCardIds().length;
+      const statVer = document.getElementById('stat-verified');
+      if (statVer) statVer.innerText = verifiedCount.toLocaleString();
+    }
+
+    function renderCardList() {
+      const container = document.getElementById('card-list-container');
+      const searchTxt = (document.getElementById('search-input').value || '').trim().toLowerCase();
+      const groupKey = document.getElementById('group-select').value;
+      const passFilter = document.getElementById('filter-pass').value;
+
+      const passedIds = typeof getPassedCardIds === 'function' ? getPassedCardIds() : [];
+
+      const filtered = allCards.filter(c => {
+        const cid = String(c.id || c.idx || '');
+        const cName = (c.name || c.card_name || '').toLowerCase();
+        const cCompany = (c.company || c.card_company || '').toLowerCase();
+
+        if (searchTxt && !cName.includes(searchTxt) && !cCompany.includes(searchTxt)) return false;
+
+        const isPassed = passedIds.includes(cid);
+        const isCalc = typeof checkIsCalculable === 'function' ? checkIsCalculable(c) : true;
+
+        if (passFilter === 'active' && (isPassed || !isCalc)) return false;
+        if (passFilter === 'passed' && !isPassed) return false;
+
+        return true;
+      });
+
+      const groups = {};
+      filtered.forEach(c => {
+        let gName = '기타';
+        if (groupKey === 'company') {
+          gName = c.company || c.card_company || '기타 카드사';
+        } else if (groupKey === 'status') {
+          const cid = String(c.id || c.idx || '');
+          if (passedIds.includes(cid)) gName = '🔴 계산기 제외';
+          else if (checkIsCalculable(c)) gName = '🟢 계산 가능';
+          else gName = '⚪ 정형데이터 부족';
+        }
+        if (!groups[gName]) groups[gName] = [];
+        groups[gName].push(c);
+      });
+
+      container.innerHTML = '';
+      const groupKeys = Object.keys(groups).sort();
+
+      if (groupKeys.length === 0) {
+        container.innerHTML = `<div class="text-center py-8 text-slate-400 text-xs">조건에 해당하는 카드가 없습니다.</div>`;
+        return;
+      }
+
+      groupKeys.forEach((gName, idx) => {
+        const groupCards = groups[gName];
+        const groupEl = document.createElement('details');
+        groupEl.className = 'bg-white border border-slate-200 rounded-lg overflow-hidden group shadow-sm';
+        groupEl.open = idx === 0 || groupKeys.length <= 2;
+
+        const summary = document.createElement('summary');
+        summary.className = 'px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-xs font-bold text-slate-700 flex items-center justify-between cursor-pointer select-none border-b border-slate-200';
+        summary.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 group-open:rotate-90 transition-transform"></i>
+            <span>${esc(gName)}</span>
+          </div>
+          <span class="bg-white text-slate-500 border border-slate-200 px-1.5 py-0.2 rounded-full text-[10px]">${groupCards.length}</span>
+        `;
+        groupEl.appendChild(summary);
+
+        const listDiv = document.createElement('div');
+        listDiv.className = 'p-1 space-y-1 bg-white';
+
+        groupCards.forEach(c => {
+          const cid = String(c.id || c.idx || '');
+          const isPassed = passedIds.includes(cid);
+          const isSelected = selectedCard && (String(selectedCard.id || selectedCard.idx) === cid);
+
+          const itemBtn = document.createElement('button');
+          itemBtn.onclick = () => selectCard(c);
+          itemBtn.className = `w-full text-left p-2 rounded-lg text-xs transition flex items-center justify-between border ${isSelected
+            ? 'bg-blue-50 border-blue-500 text-blue-900 font-bold shadow-sm'
+            : 'bg-white hover:bg-slate-50 border-slate-100 text-slate-700'
+            }`;
+
+          itemBtn.innerHTML = `
+            <div class="truncate pr-2">
+              <div class="font-medium truncate ${isPassed ? 'line-through text-slate-400' : ''}">${esc(c.name || c.card_name)}</div>
+              <div class="text-[10px] text-slate-400 font-normal">${esc(c.company || c.card_company || '')}</div>
+            </div>
+            ${isPassed ? '<span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-bold">패싱</span>' : ''}
+          `;
+          listDiv.appendChild(itemBtn);
+        });
+
+        groupEl.appendChild(listDiv);
+        container.appendChild(groupEl);
+      });
+    }
+
+    function selectCard(card) {
+      selectedCard = card;
+      userInputs = {}; // Reset user spend inputs
+      renderCardList();
+
+      document.getElementById('empty-state').classList.add('hidden');
+      document.getElementById('simulator-content').classList.remove('hidden');
+
+      document.getElementById('card-name').innerText = card.name || card.card_name || '이름 없음';
+      document.getElementById('card-company').innerText = card.company || card.card_company || '카드사';
+      document.getElementById('card-fee').innerText = moneyLabel(card.annualFee || card.annual_fee || 0);
+
+      // Card Image
+      const imgEl = document.getElementById('card-img');
+      const fallbackEl = document.getElementById('card-img-fallback');
+      const imgUrl = card.img || card.card_img || card.image;
+      if (imgUrl) {
+        imgEl.src = imgUrl;
+        imgEl.classList.remove('hidden');
+        fallbackEl.classList.add('hidden');
+      } else {
+        imgEl.classList.add('hidden');
+        fallbackEl.classList.remove('hidden');
+      }
+
+      updatePassButtonUI();
+
+      // Populate Performance Tier Options dropdown
+      const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(card) : [];
+      const totalTiers = card.tier_limits || card.cap_tiers || card.total_limit_tiers || (card.bs ? card.bs.total_limit_tiers : null);
+      const perfOptions = typeof extractPerfOptions === 'function' ? extractPerfOptions(benefits, totalTiers) : [300000, 500000];
+
+      const perfSelect = document.getElementById('perf-tier-select');
+      perfSelect.innerHTML = '';
+      if (perfOptions.length === 0) perfOptions.push(300000);
+
+      perfOptions.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.innerText = `전월 실적 ${moneyLabel(p)} 이상`;
+        perfSelect.appendChild(opt);
+      });
+      perfSelect.value = perfOptions[0];
+
+      // Render Left Calculator View & Right Detail Spec Table
+      renderCalculatorView();
+      // Right detail spec table (card_detail/{id}.json fetch 완료 후 소제목 반영을 위해 재렌더)
+      renderDetailSpecTable().then(() => {
+        renderCalculatorView();
+      });
+    }
+
+    const VERIFIED_CARDS_STORAGE_KEY = 'card_fighter_verified_cards';
+
+    function getVerifiedCardIds() {
+      try {
+        const raw = localStorage.getItem(VERIFIED_CARDS_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch { return []; }
+    }
+
+    function isCardVerified(cardId) {
+      return getVerifiedCardIds().map(String).includes(String(cardId));
+    }
+
+    function toggleVerifyCard(cardId) {
+      const list = getVerifiedCardIds().map(String);
+      const target = String(cardId);
+      let isVerified = false;
+      const idx = list.indexOf(target);
+      if (idx >= 0) {
+        list.splice(idx, 1);
+      } else {
+        list.push(target);
+        isVerified = true;
+      }
+      localStorage.setItem(VERIFIED_CARDS_STORAGE_KEY, JSON.stringify(list));
+      renderStats();
+      renderCardList();
+      return isVerified;
+    }
+
+    function updatePassButtonUI() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+      const isPassed = typeof isCardPassed === 'function' ? isCardPassed(cid) : false;
+      const isVerified = isCardVerified(cid);
+
+      const btnPass = document.getElementById('btn-toggle-pass');
+      const iconPass = document.getElementById('pass-icon');
+      const textPass = document.getElementById('pass-btn-text');
+
+      const btnVerify = document.getElementById('btn-toggle-verify');
+      const iconVerify = document.getElementById('verify-icon');
+      const textVerify = document.getElementById('verify-btn-text');
+
+      const statusBadge = document.getElementById('card-status-badge');
+
+      if (isVerified) {
+        btnVerify.className = 'px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600';
+        iconVerify.className = 'fa-solid fa-circle-check text-sm';
+        textVerify.innerText = '✅ 검수 완료됨';
+      } else {
+        btnVerify.className = 'px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300';
+        iconVerify.className = 'fa-regular fa-square text-sm';
+        textVerify.innerText = '☑️ 검수 완료 처리';
+      }
+
+      if (isPassed) {
+        btnPass.className = 'px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white border-rose-600';
+        iconPass.className = 'fa-solid fa-ban text-sm';
+        textPass.innerText = '🔴 계산기 제외됨';
+
+        statusBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-bold border border-rose-200';
+        statusBadge.innerText = '🔴 패싱됨';
+      } else if (isVerified) {
+        btnPass.className = 'px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white border-slate-900';
+        iconPass.className = 'fa-solid fa-shield-cat text-sm';
+        textPass.innerText = '⚡ 계산기 제외';
+
+        statusBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-bold border border-blue-200';
+        statusBadge.innerText = '🔵 검수 완료';
+      } else {
+        btnPass.className = 'px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition transform active:scale-95 flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white border-slate-900';
+        iconPass.className = 'fa-solid fa-shield-cat text-sm';
+        textPass.innerText = '⚡ 계산기 제외';
+
+        const isCalc = checkIsCalculable(selectedCard);
+        if (isCalc) {
+          statusBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200';
+          statusBadge.innerText = '🟢 계산 가능';
+        } else {
+          statusBadge.className = 'text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 border border-slate-200';
+          statusBadge.innerText = '⚪ 계산 미지원';
+        }
+      }
+    }
+
+    function handleVerifyToggle() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+      const newVerifiedState = toggleVerifyCard(cid);
+      updatePassButtonUI();
+      showToast(newVerifiedState ? '카드 검수 완료 처리되었습니다.' : '카드 검수 미완료로 변경되었습니다.', newVerifiedState ? 'success' : 'info');
+    }
+
+    function handlePassToggle() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+      if (typeof togglePassCard === 'function') {
+        const newPassedState = togglePassCard(cid);
+        showToast(newPassedState ? '계산기 제외(패싱) 등록 완료' : '계산기 다시 활성화', newPassedState ? 'warning' : 'success');
+      }
+    }
+
+    function onPerfSelectChange() {
+      userInputs = {}; // Reset user spend input on tier change
+      renderCalculatorView();
+    }
+
+    function onBenefitSpendInput(idx, val) {
+      userInputs[idx] = Number(val) || 0;
+      renderCalculatorView(true); // Don't re-render input elements to preserve cursor
+    }
+
+    // RENDER LEFT CALCULATOR & GROUP VERIFICATION BOXES
+    function renderCalculatorView(skipInputRebuild = false) {
+      if (!selectedCard) return;
+
+      const container = document.getElementById('calculator-items-container');
+      const perf = Number(document.getElementById('perf-tier-select').value) || 300000;
+      const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(selectedCard) : [];
+
+      const totalLimitTiers = selectedCard.tier_limits || selectedCard.cap_tiers || selectedCard.total_limit_tiers || (selectedCard.bs ? selectedCard.bs.total_limit_tiers : null);
+      const rawCalculatedTotalCap = typeof getTotalCapForPerf === 'function' ? getTotalCapForPerf(totalLimitTiers, perf) : Infinity;
+
+      // 총한도 수동 오버라이드 확인
+      const TOTAL_CAP_OVERRIDE_KEY = 'card_fighter_total_cap_overrides';
+      let totalCapOverrides = {};
+      try { totalCapOverrides = JSON.parse(localStorage.getItem(TOTAL_CAP_OVERRIDE_KEY) || '{}'); } catch { }
+      const cidStr = String(selectedCard.id || selectedCard.idx);
+      let totalCap = rawCalculatedTotalCap;
+      if (totalCapOverrides[`${cidStr}_${perf}`] !== undefined) {
+        totalCap = Number(totalCapOverrides[`${cidStr}_${perf}`]) || Infinity;
+      } else if (totalCapOverrides[cidStr] !== undefined) {
+        totalCap = Number(totalCapOverrides[cidStr]) || Infinity;
+      }
+
+      // 중앙 및 헤더 총한도 폼 업데이트
+      const centerCapInput = document.getElementById('center-total-cap-input');
+      if (centerCapInput) centerCapInput.value = totalCap === Infinity ? '' : totalCap;
+      const headerCapInput = document.getElementById('header-total-cap-input');
+      if (headerCapInput) headerCapInput.value = totalCap === Infinity ? '' : totalCap;
+      const totalDashboardCapInput = document.getElementById('total-cap-input');
+      if (totalDashboardCapInput) totalDashboardCapInput.value = totalCap === Infinity ? '' : totalCap;
+
+      const badgeTotal = document.getElementById('current-perf-badge-total');
+      if (badgeTotal) badgeTotal.innerText = `전월실적 ${moneyLabel(perf)} 이상 적용 기준`;
+
+      if (benefits.length === 0) {
+        container.innerHTML = `<div class="text-xs text-slate-400 py-8 text-center bg-slate-50 rounded-lg border border-slate-200">정형 혜택 정보가 없어 계산기 항목을 생성할 수 없습니다.</div>`;
+        document.getElementById('calc-total-benefit').innerText = '0원';
+        document.getElementById('calc-total-spend').innerText = moneyLabel(perf);
+        document.getElementById('calc-picking-rate').innerText = '0.0%';
+        return;
+      }
+
+      // 개별 항목 오버라이드 데이터 로드 (현재 선택된 perf 우선 적용)
+      const ITEM_OVERRIDE_KEY = 'card_fighter_item_overrides';
+      let itemOverrides = {};
+      try { itemOverrides = JSON.parse(localStorage.getItem(ITEM_OVERRIDE_KEY) || '{}'); } catch { }
+      const perfSpecificOverrides = itemOverrides[`${cidStr}_${perf}`] || {};
+      const globalItemOverrides = itemOverrides[cidStr] || {};
+
+      // 약관 및 정형데이터에서 파싱 가능한 그룹 목록 추출
+      const availableGroupOptions = ['none'];
+      benefits.forEach(b => {
+        if (b.group_id && b.group_id !== 'none' && !availableGroupOptions.includes(b.group_id)) {
+          availableGroupOptions.push(b.group_id);
+        }
+      });
+      if (currentDetailData && Array.isArray(currentDetailData.key_benefit)) {
+        currentDetailData.key_benefit.forEach(kb => {
+          if (kb.title && !availableGroupOptions.includes(kb.title)) {
+            availableGroupOptions.push(kb.title);
+          }
+        });
+      }
+
+      // Group benefits by group_id
+      const groupMap = {};
+      benefits.forEach((b, idx) => {
+        const itemOv = perfSpecificOverrides[idx] !== undefined ? perfSpecificOverrides[idx] : (globalItemOverrides[idx] || {});
+        if (itemOv.rate !== undefined) b.rateOverride = itemOv.rate;
+        if (itemOv.limit !== undefined) b.itemLimitOverride = itemOv.limit;
+        if (itemOv.group !== undefined) b.group_id = itemOv.group;
+        if (itemOv.subtitle !== undefined) b.subtitleOverride = itemOv.subtitle;
+
+        const gid = b.group_id || 'none';
+        // 그룹 한도 오버라이드 반영 및 전월실적(perf) 기준 동적 그룹 한도 계산
+        const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+        let groupOverrides = {};
+        try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+        const overrideKey = `${cidStr}_${gid}`;
+        const rawGLimit = typeof getItemLimitForPerf === 'function' ? getItemLimitForPerf(b.group_limit, perf) : Infinity;
+        const gLimit = (groupOverrides[overrideKey] !== undefined && gid !== 'none') ? (Number(groupOverrides[overrideKey]) || Infinity) : rawGLimit;
+        if (!groupMap[gid]) {
+          groupMap[gid] = { limit: gLimit, items: [] };
+        }
+        groupMap[gid].items.push({ ...b, originalIndex: idx });
+      });
+
+      // Calculate totals
+      let totalBenefitSum = 0;
+      let totalSpendSum = 0;
+
+      if (!skipInputRebuild) {
+        container.innerHTML = '';
+      }
+
+      const groupKeys = Object.keys(groupMap);
+
+      groupKeys.forEach(gid => {
+        const group = groupMap[gid];
+        const gLimit = group.limit;
+        const gName = cleanGroupName(gid);
+        const isGrouped = gid !== 'none' && gLimit !== Infinity;
+
+        let groupWrapper = null;
+        let groupItemsContainer = null;
+
+        if (!skipInputRebuild) {
+          if (isGrouped) {
+            const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+            let groupOverrides = {};
+            try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+            const overrideKey = `${String(selectedCard.id || selectedCard.idx)}_${gid}`;
+            const overriddenLimit = groupOverrides[overrideKey] !== undefined ? groupOverrides[overrideKey] : gLimit;
+
+            groupWrapper = document.createElement('div');
+            groupWrapper.className = 'bg-amber-50/60 border border-amber-300 rounded-xl p-3 space-y-2';
+            groupWrapper.innerHTML = `
+              <div class="flex items-center justify-between text-xs font-bold text-amber-900 border-b border-amber-200/60 pb-2">
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-solid fa-crown text-amber-500"></i>
+                  <span>${esc(gName)} 그룹 통합한도</span>
+                </span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] text-amber-600 font-normal">최대</span>
+                  <input type="number" id="group-limit-input-${overrideKey.replace(/[^a-zA-Z0-9_]/g, '_')}" value="${overriddenLimit === Infinity ? '' : overriddenLimit}"
+                    placeholder="무제한"
+                    onchange="saveGroupLimitOverride('${overrideKey}', this.value)"
+                    class="bg-white border border-amber-300 rounded px-2 py-0.5 text-xs font-extrabold text-amber-900 w-24 text-right focus:outline-none focus:border-amber-500">
+                  <span class="text-[10px] text-amber-600 font-normal">원</span>
+                  ${overriddenLimit !== gLimit ? `<button onclick="clearGroupLimitOverride('${overrideKey}')" class="text-[10px] text-rose-500 hover:text-rose-700 ml-1" title="원복"><i class="fa-solid fa-rotate-left"></i></button>` : ''}
+                </div>
+              </div>
+            `;
+            groupItemsContainer = document.createElement('div');
+            groupItemsContainer.className = 'space-y-2';
+            groupWrapper.appendChild(groupItemsContainer);
+            container.appendChild(groupWrapper);
+          } else {
+            groupItemsContainer = container;
+          }
+        }
+
+        let groupAppliedBenefitSum = 0;
+
+        group.items.forEach(b => {
+          const idx = b.originalIndex;
+          // 선택된 전월실적(perf)에 따른 동적 요율 및 동적 개별 한도 계산
+          const baseRate = typeof getApplicableRate === 'function' ? getApplicableRate(b.rate, perf) : 0.05;
+          const rateRatio = b.rateOverride !== undefined ? (Number(b.rateOverride) / 100) : baseRate;
+
+          // 원본 DB / JSON 의 item_limit 파이프 분할 및 perf 기준 동적 한도 평가
+          let targetItemLimitObj = b.item_limit !== undefined ? b.item_limit : b.amount;
+          if (typeof targetItemLimitObj === 'string' && targetItemLimitObj.includes('|')) {
+            const parts = targetItemLimitObj.split('|').map(s => s.trim());
+            targetItemLimitObj = parts[idx] !== undefined ? parts[idx] : parts[0];
+          }
+
+          const rawCalculatedItemLimit = typeof getItemLimitForPerf === 'function' ? getItemLimitForPerf(targetItemLimitObj, perf) : Infinity;
+          const itemLimit = b.itemLimitOverride !== undefined ? (b.itemLimitOverride === -1 ? Infinity : b.itemLimitOverride) : rawCalculatedItemLimit;
+
+          // Default user input spend calculation
+          let defaultSpend = 0;
+          if (b.fixedAmount > 0) {
+            defaultSpend = b.minPayment || b.fixedAmount;
+          } else if (rateRatio > 0 && itemLimit !== Infinity) {
+            defaultSpend = itemLimit / rateRatio;
+          } else {
+            defaultSpend = 100000;
+          }
+
+          const userSpend = (userInputs[idx] !== undefined) ? userInputs[idx] : defaultSpend;
+          userInputs[idx] = userSpend;
+
+          // Benefit amount calculation
+          let calculatedBenefit = 0;
+          if (b.fixedAmount > 0) {
+            calculatedBenefit = b.fixedAmount;
+          } else if (rateRatio > 0) {
+            calculatedBenefit = userSpend * rateRatio;
+          }
+
+          // Apply Tier 1 Item Limit
+          const itemCappedBenefit = Math.min(calculatedBenefit, itemLimit);
+          groupAppliedBenefitSum += itemCappedBenefit;
+          totalSpendSum += userSpend;
+
+          if (!skipInputRebuild) {
+            const itemRow = document.createElement('div');
+            itemRow.className = 'bg-white border border-slate-200 rounded-lg p-3 shadow-sm space-y-2';
+
+            // key_benefit.info에서 <strong> 소제목 추출 또는 b.detail / b.title 기반 소제목 사용
+            let subtitleText = b.subtitleOverride || '';
+            if (!subtitleText) {
+              if (currentDetailData && Array.isArray(currentDetailData.key_benefit)) {
+                // 1순위: 인덱스 매칭
+                const kbByIndex = currentDetailData.key_benefit[idx];
+                if (kbByIndex && kbByIndex.info) {
+                  const tempDiv = document.createElement('div');
+                  tempDiv.innerHTML = kbByIndex.info;
+                  const firstStrong = tempDiv.querySelector('strong');
+                  if (firstStrong && firstStrong.textContent.trim()) {
+                    subtitleText = firstStrong.textContent.trim();
+                  }
+                }
+
+                // 2순위: title/detail 텍스트 포함 매칭
+                if (!subtitleText) {
+                  const matchedKb = currentDetailData.key_benefit.find(kb =>
+                    kb.title && (kb.title === b.title || (b.detail && b.detail.includes(kb.title)) || (b.title && b.title.includes(kb.title)))
+                  );
+                  if (matchedKb && matchedKb.info) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = matchedKb.info;
+                    const firstStrong = tempDiv.querySelector('strong');
+                    if (firstStrong && firstStrong.textContent.trim()) {
+                      subtitleText = firstStrong.textContent.trim();
+                    }
+                  }
+                }
+              }
+
+              // 3순위: b.detail 본문 텍스트 사용
+              if (!subtitleText && b.detail) {
+                subtitleText = b.detail;
+              }
+            }
+
+            const currentRatePct = b.rateOverride !== undefined ? b.rateOverride : (baseRate * 100);
+            const isSimActive = !document.getElementById('sim-dashboard-area')?.classList.contains('hidden');
+
+            itemRow.innerHTML = `
+              <!-- 혜택 구분 & 약관 소제목 & 체크박스 -->
+              <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-1.5">
+                <div class="flex items-center gap-2 min-w-0 flex-1">
+                  <input type="checkbox" data-item-idx="${idx}" class="item-select-checkbox w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500 shrink-0">
+                  <span class="px-2 py-0.5 bg-blue-50 text-blue-700 font-bold text-xs rounded border border-blue-200 shrink-0">${esc(b.title)}</span>
+                  <input type="text" value="${esc(subtitleText)}" placeholder="상세 약관 소제목"
+                    onchange="saveItemSubtitleOverride(${idx}, this.value)"
+                    class="w-full text-xs text-blue-900 font-semibold bg-slate-50 border border-slate-200 rounded px-2 py-0.5 focus:outline-none focus:border-blue-400">
+                </div>
+                ${b.group_id && b.group_id !== 'none' ? `<span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded border border-amber-200 shrink-0">👑 ${esc(cleanGroupName(b.group_id))}</span>` : ''}
+              </div>
+
+              <!-- 한도 정합성 검증 파라미터 (할인율 | 항목한도) -->
+              <div class="grid grid-cols-2 gap-2 pt-0.5 text-xs">
+                <div>
+                  <span class="text-[10px] text-slate-400 block mb-0.5">🎯 할인율(%)</span>
+                  <input type="number" step="0.1" value="${currentRatePct}" placeholder="5"
+                    onchange="saveItemRateOverride(${idx}, this.value)"
+                    class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-bold text-amber-700 focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-400 block mb-0.5">💰 항목한도(원)</span>
+                  <input type="number" value="${itemLimit === Infinity ? '' : itemLimit}" placeholder="무제한"
+                    onchange="saveItemLimitOverride(${idx}, this.value)"
+                    class="w-full bg-white border border-slate-300 rounded px-2 py-1 text-xs font-bold text-blue-900 focus:outline-none focus:border-blue-500">
+                </div>
+              </div>
+
+              ${isSimActive ? `
+                <div class="border-t border-slate-100 pt-1.5 flex items-center justify-between text-xs bg-slate-50/50 p-2 rounded">
+                  <span class="text-slate-500 text-[11px]">사용금액 테스트:</span>
+                  <input type="number" value="${userSpend}" oninput="onBenefitSpendInput(${idx}, this.value)"
+                    class="bg-white border border-slate-300 rounded px-2 py-0.5 text-xs font-bold text-slate-900 w-28 text-right focus:outline-none">
+                </div>
+              ` : ''}
+            `;
+            (groupItemsContainer || container).appendChild(itemRow);
+          }
+        });
+
+        // Group capping
+        const groupCappedBenefit = Math.min(groupAppliedBenefitSum, gLimit);
+        totalBenefitSum += groupCappedBenefit;
+      });
+
+      // Tier 3 Total Cap
+      const finalCappedTotalBenefit = Math.min(totalBenefitSum, totalCap);
+      const annualFee = selectedCard.annualFee || selectedCard.annual_fee || 0;
+      const monthlyFee = annualFee / 12;
+
+      const finalRequiredSpend = Math.max(perf, totalSpendSum);
+      const netBenefit = Math.max(0, finalCappedTotalBenefit - monthlyFee);
+
+      let pickingRate = 0;
+      if (finalRequiredSpend > 0) {
+        pickingRate = (netBenefit / finalRequiredSpend) * 100;
+      }
+      if (isNaN(pickingRate) || pickingRate < 0) pickingRate = 0;
+
+      document.getElementById('calc-total-benefit').innerText = moneyLabel(finalCappedTotalBenefit);
+      document.getElementById('calc-total-spend').innerText = moneyLabel(finalRequiredSpend);
+      document.getElementById('calc-picking-rate').innerText = `${pickingRate.toFixed(1)}%`;
+    }
+
+    // 현재 로드된 card_detail 데이터
+    let currentDetailData = null;
+    let currentDetailTabIdx = 0;
+
+    // RENDER RIGHT PANEL: card_detail/{id}.json fetch 후 원본 HTML 약관 탭별 렌더링
+    async function renderDetailSpecTable() {
+      if (!selectedCard) return;
+
+      const tabsContainer = document.getElementById('detail-category-tabs');
+      const htmlArea = document.getElementById('detail-benefit-html-area');
+      const loadingLabel = document.getElementById('detail-loading-label');
+
+      tabsContainer.innerHTML = '';
+      htmlArea.innerHTML = `<div class="text-xs text-slate-400 py-8 text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i>약관 데이터 로딩 중...</div>`;
+      loadingLabel.innerText = '로딩 중...';
+
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+
+      try {
+        // 1. card_detail/{id}.json fetch 시도
+        const res = await fetch(`card_detail/${cid}.json`);
+        if (res.ok) {
+          currentDetailData = await res.json();
+        } else {
+          // fallback: 현재 selectedCard의 key_benefit 사용
+          currentDetailData = selectedCard;
+        }
+      } catch (e) {
+        currentDetailData = selectedCard;
+      }
+
+      const keyBenefits = Array.isArray(currentDetailData.key_benefit) ? currentDetailData.key_benefit : [];
+
+      if (keyBenefits.length === 0) {
+        htmlArea.innerHTML = `<div class="text-xs text-slate-400 py-8 text-center">상세 혜택 약관 정보가 없습니다.</div>`;
+        loadingLabel.innerText = '데이터 없음';
+        return;
+      }
+
+      loadingLabel.innerText = `${keyBenefits.length}개 혜택 탭`;
+      currentDetailTabIdx = 0;
+
+      // 탭 버튼 생성
+      keyBenefits.forEach((kb, idx) => {
+        const tabBtn = document.createElement('button');
+        tabBtn.id = `detail-tab-${idx}`;
+        tabBtn.onclick = () => showDetailTab(idx);
+        tabBtn.className = `px-3 py-1 rounded-lg text-xs font-bold border transition ${idx === 0 ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+          }`;
+        // 로고 이미지 있으면 함께 표시
+        if (kb.logo_url) {
+          tabBtn.innerHTML = `<img src="${kb.logo_url}" class="inline-block w-3.5 h-3.5 mr-1 object-contain" onerror="this.style.display='none'">${esc(kb.title)}`;
+        } else {
+          tabBtn.innerText = kb.title || `혜택 ${idx + 1}`;
+        }
+        tabsContainer.appendChild(tabBtn);
+      });
+
+      // 첫 번째 탭 렌더링
+      showDetailTab(0);
+    }
+
+    function showDetailTab(idx) {
+      if (!currentDetailData) return;
+      const keyBenefits = Array.isArray(currentDetailData.key_benefit) ? currentDetailData.key_benefit : [];
+      if (!keyBenefits[idx]) return;
+
+      currentDetailTabIdx = idx;
+      const htmlArea = document.getElementById('detail-benefit-html-area');
+
+      // 탭 버튼 활성화 스타일 전환
+      keyBenefits.forEach((_, i) => {
+        const btn = document.getElementById(`detail-tab-${i}`);
+        if (!btn) return;
+        if (i === idx) {
+          btn.className = 'px-3 py-1 rounded-lg text-xs font-bold border transition bg-blue-600 text-white border-blue-600 shadow-sm';
+        } else {
+          btn.className = 'px-3 py-1 rounded-lg text-xs font-bold border transition bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100';
+        }
+      });
+
+      const kb = keyBenefits[idx];
+      // info 필드가 HTML 형태이므로 직접 innerHTML로 렌더링
+      if (kb.info) {
+        htmlArea.innerHTML = kb.info;
+      } else {
+        htmlArea.innerHTML = `<div class="text-xs text-slate-400 py-4 text-center">"${esc(kb.title)}" 탭의 약관 상세 정보가 없습니다.</div>`;
+      }
+    }
+
+    function exportPassedCards() {
+      const passedList = typeof getPassedCardIds === 'function' ? getPassedCardIds() : [];
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(passedList, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `card_fighter_passed_cards.json`);
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+      showToast(`${passedList.length}개 카드 설정 내보내기 완료`, 'success');
+    }
+
+    function importPassedCards(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            localStorage.setItem(PASSED_CARDS_STORAGE_KEY, JSON.stringify(imported.map(String)));
+            renderStats();
+            renderCardList();
+            if (selectedCard) selectCard(selectedCard);
+            showToast(`${imported.length}개 카드 동기화 완료`, 'success');
+          }
+        } catch (err) {
+          showToast('JSON 읽기 실패', 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showToast(msg, type = 'info') {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      const toastIcon = document.getElementById('toast-icon');
+
+      toastMsg.innerText = msg;
+      if (type === 'success') {
+        toast.className = 'fixed bottom-6 right-6 bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-xl font-medium text-sm flex items-center gap-3 transform transition-all duration-300 z-50';
+        toastIcon.className = 'fa-solid fa-circle-check text-lg';
+      } else if (type === 'warning') {
+        toast.className = 'fixed bottom-6 right-6 bg-amber-600 text-white px-5 py-3 rounded-xl shadow-xl font-medium text-sm flex items-center gap-3 transform transition-all duration-300 z-50';
+        toastIcon.className = 'fa-solid fa-triangle-exclamation text-lg';
+      } else {
+        toast.className = 'fixed bottom-6 right-6 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-xl font-medium text-sm flex items-center gap-3 transform transition-all duration-300 z-50';
+        toastIcon.className = 'fa-solid fa-circle-info text-lg';
+      }
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+    // ====================================================
+    // 전월실적 오버라이드 관련 (localStorage 기반)
+    // ====================================================
+    const PERF_OVERRIDE_KEY = 'card_fighter_perf_overrides';
+
+    function getPerfOverrides() {
+      try { return JSON.parse(localStorage.getItem(PERF_OVERRIDE_KEY) || '{}'); } catch { return {}; }
+    }
+
+    function getPerfOverrideForCard(cid) {
+      return getPerfOverrides()[String(cid)] || null;
+    }
+
+    function switchRightTab(tab) {
+      const benefitPanel = document.getElementById('right-panel-benefit');
+      const perfPanel = document.getElementById('right-panel-perf');
+      const tabBenefit = document.getElementById('right-tab-benefit');
+      const tabPerf = document.getElementById('right-tab-perf');
+
+      if (tab === 'benefit') {
+        benefitPanel.classList.remove('hidden');
+        perfPanel.classList.add('hidden');
+        tabBenefit.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold border transition bg-blue-600 text-white border-blue-600 shadow-sm';
+        tabPerf.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold border transition bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100';
+      } else {
+        benefitPanel.classList.add('hidden');
+        perfPanel.classList.remove('hidden');
+        tabBenefit.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold border transition bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100';
+        tabPerf.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold border transition bg-blue-600 text-white border-blue-600 shadow-sm';
+        renderPerfEditPanel();
+      }
+    }
+
+    function renderPerfEditPanel() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+
+      // 현재 데이터 표시
+      const rawMoney = selectedCard.pre_month_money || selectedCard.preMonthMoney || selectedCard.minMonthly || '';
+      const rawCond = selectedCard.pre_month_condition || selectedCard.preMonthCondition || '';
+      document.getElementById('perf-current-money').innerText = rawMoney ? moneyLabel(Number(rawMoney)) + ` (${rawMoney})` : '데이터 없음';
+      document.getElementById('perf-current-condition').innerText = rawCond || '데이터 없음';
+
+      // 기존 오버라이드 불러오기
+      const override = getPerfOverrideForCard(cid);
+      const badge = document.getElementById('perf-override-badge');
+      const badgeLabel = document.getElementById('perf-override-label');
+
+      if (override) {
+        badge.classList.remove('hidden');
+        const tiersStr = Array.isArray(override.tiers) && override.tiers.length > 0
+          ? override.tiers.map(t => moneyLabel(t)).join(', ')
+          : moneyLabel(override.money);
+        badgeLabel.innerText = `수정 적용 중: ${tiersStr} (${override.condition})`;
+
+        // 입력 폼에도 기존 값 채우기
+        document.getElementById('perf-edit-money').value = override.money || '';
+        document.getElementById('perf-edit-condition').value = override.condition || '';
+        document.getElementById('perf-edit-tiers').value = Array.isArray(override.tiers) ? override.tiers.join(',') : '';
+      } else {
+        badge.classList.add('hidden');
+        // 기존 카드 데이터로 폼 초기화
+        document.getElementById('perf-edit-money').value = rawMoney || '';
+        document.getElementById('perf-edit-condition').value = rawCond || '';
+
+        // 기존 structured_benefits에서 구간 파악
+        const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(selectedCard) : [];
+        const tiers = [...new Set(benefits.flatMap(b => {
+          const tl = b.tier_limits || b.tierLimits || [];
+          return tl.map(t => t.perf || t.min_perf || t.threshold).filter(Boolean);
+        }))].sort((a, b) => a - b);
+        document.getElementById('perf-edit-tiers').value = tiers.length > 0 ? tiers.join(',') : (rawMoney ? String(rawMoney) : '');
+      }
+
+      // 전월실적별 총 한도 구간표 렌더링
+      renderTotalCapTierRows();
+
+      // 전월실적별 그룹 한도 구간표 렌더링
+      renderGroupCapTierRows();
+
+      renderPerfOverrideList();
+    }
+
+    function renderTotalCapTierRows() {
+      const container = document.getElementById('perf-total-cap-tiers-container');
+      if (!container || !selectedCard) return;
+
+      const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(selectedCard) : [];
+      const totalTiers = selectedCard.tier_limits || selectedCard.cap_tiers || selectedCard.total_limit_tiers || (selectedCard.bs ? selectedCard.bs.total_limit_tiers : null);
+      const perfOptions = typeof extractPerfOptions === 'function' ? extractPerfOptions(benefits, totalTiers) : [300000, 500000];
+
+      if (perfOptions.length === 0) perfOptions.push(300000);
+
+      container.innerHTML = perfOptions.map(p => {
+        const curCap = typeof getTotalCapForPerf === 'function' ? getTotalCapForPerf(totalTiers, p) : Infinity;
+        return `
+          <div class="flex items-center justify-between bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5">
+            <span class="font-bold text-slate-700 text-xs">전월 ${moneyLabel(p)} 이상:</span>
+            <div class="flex items-center gap-1">
+              <input type="number" data-perf="${p}" class="total-cap-tier-input bg-white border border-slate-300 rounded px-2 py-0.5 text-xs font-bold text-emerald-700 w-24 text-right focus:outline-none focus:border-blue-500"
+                value="${curCap === Infinity ? '' : curCap}" placeholder="무제한">
+              <span class="text-slate-500 text-[11px]">원</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderGroupCapTierRows() {
+      const container = document.getElementById('perf-group-cap-tiers-container');
+      if (!container || !selectedCard) return;
+
+      const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(selectedCard) : [];
+      const totalTiers = selectedCard.tier_limits || selectedCard.cap_tiers || selectedCard.total_limit_tiers || (selectedCard.bs ? selectedCard.bs.total_limit_tiers : null);
+      const perfOptions = typeof extractPerfOptions === 'function' ? extractPerfOptions(benefits, totalTiers) : [300000, 500000];
+
+      // 그룹 맵 파악
+      const groupSet = new Set();
+      benefits.forEach(b => {
+        if (b.group_id && b.group_id !== 'none') groupSet.add(b.group_id);
+      });
+
+      const groups = Array.from(groupSet);
+      if (groups.length === 0) {
+        container.innerHTML = `<div class="text-slate-400 text-center py-2 bg-slate-50 rounded border border-slate-200 text-[11px]">지정된 혜택 그룹이 없습니다. (좌측에서 항목을 그룹으로 묶어보세요)</div>`;
+        return;
+      }
+
+      container.innerHTML = groups.map(gid => {
+        const gName = cleanGroupName(gid);
+        const rowsHtml = perfOptions.map(p => {
+          const sampleItem = benefits.find(b => b.group_id === gid);
+          const curGLimit = sampleItem ? getItemLimitForPerf(sampleItem.group_limit, p) : Infinity;
+          return `
+            <div class="flex items-center justify-between text-[11px] pt-1">
+              <span class="text-slate-600">전월 ${moneyLabel(p)} 이상:</span>
+              <div class="flex items-center gap-1">
+                <input type="number" data-group-id="${gid}" data-perf="${p}" class="group-cap-tier-input bg-white border border-amber-200 rounded px-2 py-0.5 text-xs font-bold text-amber-900 w-24 text-right focus:outline-none focus:border-amber-500"
+                  value="${curGLimit === Infinity ? '' : curGLimit}" placeholder="무제한">
+                <span class="text-slate-500">원</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="bg-amber-50/60 border border-amber-200 rounded-lg p-2.5 space-y-1">
+            <div class="font-bold text-amber-900 text-xs border-b border-amber-200/60 pb-1 flex items-center gap-1">
+              <i class="fa-solid fa-crown text-amber-500"></i> ${esc(gName)} 그룹
+            </div>
+            ${rowsHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function savePerfOverride() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+      const moneyVal = Number(document.getElementById('perf-edit-money').value);
+      const condVal = document.getElementById('perf-edit-condition').value.trim();
+      const tiersRaw = document.getElementById('perf-edit-tiers').value.trim();
+
+      if (!moneyVal && !condVal) {
+        showToast('전월실적 금액 또는 표기를 입력해주세요', 'warning');
+        return;
+      }
+
+      const tiers = tiersRaw
+        ? tiersRaw.split(',').map(t => Number(t.trim())).filter(t => t > 0)
+        : (moneyVal ? [moneyVal] : []);
+
+      const overrides = getPerfOverrides();
+      overrides[cid] = {
+        cardId: cid,
+        cardName: selectedCard.name || selectedCard.card_name || '',
+        money: moneyVal,
+        condition: condVal,
+        tiers: tiers,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem(PERF_OVERRIDE_KEY, JSON.stringify(overrides));
+
+      // 1. 총 한도 구간 오버라이드 저장
+      const totalCapInputs = document.querySelectorAll('.total-cap-tier-input');
+      const TOTAL_CAP_OVERRIDE_KEY = 'card_fighter_total_cap_overrides';
+      let totalCapOverrides = {};
+      try { totalCapOverrides = JSON.parse(localStorage.getItem(TOTAL_CAP_OVERRIDE_KEY) || '{}'); } catch { }
+
+      totalCapInputs.forEach(inp => {
+        const perfVal = Number(inp.dataset.perf);
+        const capVal = Number(inp.value);
+        if (inp.value !== '' && !isNaN(capVal) && capVal >= 0) {
+          totalCapOverrides[`${cid}_${perfVal}`] = capVal;
+          totalCapOverrides[cid] = capVal; // 현재 대표값
+        }
+      });
+      localStorage.setItem(TOTAL_CAP_OVERRIDE_KEY, JSON.stringify(totalCapOverrides));
+
+      // 2. 그룹 한도 구간 오버라이드 저장
+      const groupCapInputs = document.querySelectorAll('.group-cap-tier-input');
+      const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+      let groupOverrides = {};
+      try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+
+      groupCapInputs.forEach(inp => {
+        const gid = inp.dataset.groupId;
+        const gLimitVal = Number(inp.value);
+        if (inp.value !== '' && !isNaN(gLimitVal) && gLimitVal >= 0) {
+          groupOverrides[`${cid}_${gid}`] = gLimitVal;
+        }
+      });
+      localStorage.setItem(GROUP_OVERRIDE_KEY, JSON.stringify(groupOverrides));
+
+      // perf-tier-select 드롭다운 갱신
+      if (tiers.length > 0) {
+        const perfSelect = document.getElementById('perf-tier-select');
+        perfSelect.innerHTML = '';
+        tiers.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t;
+          opt.innerText = `전월 실적 ${moneyLabel(t)} 이상`;
+          perfSelect.appendChild(opt);
+        });
+        perfSelect.value = tiers[0];
+        onPerfSelectChange();
+      }
+
+      renderCalculatorView(false);
+      showToast(`"${selectedCard.name || selectedCard.card_name}" 실적/한도 구간 설정 전체 저장 완료`, 'success');
+      renderPerfEditPanel();
+    }
+
+    function groupSelectedItems() {
+      if (!selectedCard) return;
+      const checkedEls = document.querySelectorAll('.item-select-checkbox:checked');
+      if (checkedEls.length === 0) {
+        showToast('그룹으로 묶을 혜택 항목을 1개 이상 선택해 주세요', 'warning');
+        return;
+      }
+
+      const defaultGroupName = '통합할인그룹';
+      const groupName = prompt(`선택한 ${checkedEls.length}개 항목을 묶을 그룹 이름을 입력하세요:`, defaultGroupName);
+      if (!groupName || !groupName.trim()) return;
+
+      const groupLimitStr = prompt(`"${groupName.trim()}" 그룹의 월 통합 한도(원)를 입력하세요 (비워두면 무제한):`, '10000');
+      const gLimit = groupLimitStr ? Number(groupLimitStr) : Infinity;
+
+      const cidStr = String(selectedCard.id || selectedCard.idx);
+      const gid = `group_${groupName.trim()}`;
+
+      checkedEls.forEach(el => {
+        const idx = Number(el.dataset.itemIdx);
+        updateItemOverride(idx, 'group', gid);
+      });
+
+      if (gLimit !== Infinity && !isNaN(gLimit)) {
+        const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+        let groupOverrides = {};
+        try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+        groupOverrides[`${cidStr}_${gid}`] = gLimit;
+        localStorage.setItem(GROUP_OVERRIDE_KEY, JSON.stringify(groupOverrides));
+      }
+
+      renderCalculatorView(false);
+      showToast(`${checkedEls.length}개 항목이 "${groupName.trim()}" 그룹으로 묶였습니다.`, 'success');
+    }
+
+    function ungroupSelectedItems() {
+      if (!selectedCard) return;
+      const checkedEls = document.querySelectorAll('.item-select-checkbox:checked');
+      if (checkedEls.length === 0) {
+        showToast('그룹 해제할 혜택 항목을 선택해 주세요', 'warning');
+        return;
+      }
+
+      checkedEls.forEach(el => {
+        const idx = Number(el.dataset.itemIdx);
+        updateItemOverride(idx, 'group', 'none');
+      });
+
+      renderCalculatorView(false);
+      showToast('선택한 항목의 그룹 묶음이 해제되었습니다.', 'success');
+    }
+    function toggleCalcSimMode() {
+      const dash = document.getElementById('sim-dashboard-area');
+      const text = document.getElementById('sim-toggle-text');
+      if (dash.classList.contains('hidden')) {
+        dash.classList.remove('hidden');
+        text.innerText = '피킹률 계산기 끄기';
+      } else {
+        dash.classList.add('hidden');
+        text.innerText = '피킹률 계산기 켜기';
+      }
+      renderCalculatorView(false);
+    }
+
+    function buildGroupSelectOptions(currentGid, availableOptions) {
+      const cur = currentGid || 'none';
+      let html = `<option value="none" ${cur === 'none' ? 'selected' : ''}>❌ 없음 (개별 한도)</option>`;
+
+      const customOptions = availableOptions.filter(o => o !== 'none');
+      if (!customOptions.includes(cur) && cur !== 'none') {
+        customOptions.push(cur);
+      }
+
+      customOptions.forEach(opt => {
+        const displayName = cleanGroupName(opt);
+        html += `<option value="${esc(opt)}" ${cur === opt ? 'selected' : ''}>👑 ${esc(displayName)} 그룹</option>`;
+      });
+
+      html += `<option value="__NEW__">➕ 새 그룹 직접 생성...</option>`;
+      return html;
+    }
+
+    function handleGroupSelectChange(idx, val) {
+      if (val === '__NEW__') {
+        const newGroup = prompt('새로운 그룹 이름을 입력해 주세요 (예: My Life 서비스, 통합쇼핑그룹):');
+        if (newGroup && newGroup.trim()) {
+          saveItemGroupOverride(idx, newGroup.trim());
+        } else {
+          renderCalculatorView(false);
+        }
+      } else {
+        saveItemGroupOverride(idx, val);
+      }
+    }
+
+    function saveTotalCapForCurrentPerf(val) {
+      if (!selectedCard) return;
+      const perf = Number(document.getElementById('perf-tier-select').value) || 300000;
+      const cidStr = String(selectedCard.id || selectedCard.idx);
+      const TOTAL_CAP_OVERRIDE_KEY = 'card_fighter_total_cap_overrides';
+      let totalCapOverrides = {};
+      try { totalCapOverrides = JSON.parse(localStorage.getItem(TOTAL_CAP_OVERRIDE_KEY) || '{}'); } catch { }
+
+      const numVal = Number(val);
+      if (!val || isNaN(numVal) || numVal <= 0) {
+        delete totalCapOverrides[`${cidStr}_${perf}`];
+        delete totalCapOverrides[cidStr];
+      } else {
+        totalCapOverrides[`${cidStr}_${perf}`] = numVal;
+        totalCapOverrides[cidStr] = numVal;
+      }
+      localStorage.setItem(TOTAL_CAP_OVERRIDE_KEY, JSON.stringify(totalCapOverrides));
+      renderCalculatorView(false);
+      showToast(`전월실적 ${moneyLabel(perf)} 기준 카드 월 총 한도 수정 저장 완료`, 'success');
+    }
+
+    function saveTotalCapOverride(val) {
+      if (!selectedCard) return;
+      const cidStr = String(selectedCard.id || selectedCard.idx);
+      const TOTAL_CAP_OVERRIDE_KEY = 'card_fighter_total_cap_overrides';
+      let totalCapOverrides = {};
+      try { totalCapOverrides = JSON.parse(localStorage.getItem(TOTAL_CAP_OVERRIDE_KEY) || '{}'); } catch { }
+      const numVal = Number(val);
+      if (!val || isNaN(numVal) || numVal <= 0) {
+        delete totalCapOverrides[cidStr];
+      } else {
+        totalCapOverrides[cidStr] = numVal;
+      }
+      localStorage.setItem(TOTAL_CAP_OVERRIDE_KEY, JSON.stringify(totalCapOverrides));
+      renderCalculatorView(false);
+      showToast('총 통합 한도 수정 저장', 'success');
+    }
+
+    function saveItemRateOverride(idx, val) {
+      // 0.7 입력 시 그대로 0.7% 로 저장 (소수점 중복 변환 방지)
+      const num = Number(val);
+      updateItemOverride(idx, 'rate', !isNaN(num) && val !== '' ? num : undefined);
+    }
+    function saveItemLimitOverride(idx, val) {
+      updateItemOverride(idx, 'limit', val ? Number(val) : -1);
+    }
+    function saveItemGroupOverride(idx, val) {
+      updateItemOverride(idx, 'group', val ? val.trim() : 'none');
+    }
+    function saveItemSubtitleOverride(idx, val) {
+      updateItemOverride(idx, 'subtitle', val ? val.trim() : '');
+    }
+
+    function updateItemOverride(idx, field, value) {
+      if (!selectedCard) return;
+      const perf = Number(document.getElementById('perf-tier-select').value) || 300000;
+      const cidStr = String(selectedCard.id || selectedCard.idx);
+      const ITEM_OVERRIDE_KEY = 'card_fighter_item_overrides';
+      let itemOverrides = {};
+      try { itemOverrides = JSON.parse(localStorage.getItem(ITEM_OVERRIDE_KEY) || '{}'); } catch { }
+
+      const perfKey = `${cidStr}_${perf}`;
+      if (!itemOverrides[perfKey]) itemOverrides[perfKey] = {};
+      if (!itemOverrides[perfKey][idx]) itemOverrides[perfKey][idx] = {};
+
+      if (value === undefined || value === '') {
+        delete itemOverrides[perfKey][idx][field];
+      } else {
+        itemOverrides[perfKey][idx][field] = value;
+      }
+
+      localStorage.setItem(ITEM_OVERRIDE_KEY, JSON.stringify(itemOverrides));
+      renderCalculatorView(false);
+      showToast('항목 혜택 데이터 수정 저장', 'success');
+    }
+
+    function saveGroupLimitOverride(overrideKey, val) {
+      const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+      let groupOverrides = {};
+      try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+      const numVal = Number(val);
+      if (!val || isNaN(numVal) || numVal <= 0) {
+        delete groupOverrides[overrideKey];
+      } else {
+        groupOverrides[overrideKey] = numVal;
+      }
+      localStorage.setItem(GROUP_OVERRIDE_KEY, JSON.stringify(groupOverrides));
+      renderCalculatorView(false);
+      showToast('그룹 통합한도 수정 저장', 'success');
+    }
+
+    function clearGroupLimitOverride(overrideKey) {
+      const GROUP_OVERRIDE_KEY = 'card_fighter_group_overrides';
+      let groupOverrides = {};
+      try { groupOverrides = JSON.parse(localStorage.getItem(GROUP_OVERRIDE_KEY) || '{}'); } catch { }
+      delete groupOverrides[overrideKey];
+      localStorage.setItem(GROUP_OVERRIDE_KEY, JSON.stringify(groupOverrides));
+      renderCalculatorView(false);
+      showToast('그룹 한도 원복 완료', 'success');
+    }
+
+    function clearPerfOverride() {
+      if (!selectedCard) return;
+      const cid = String(selectedCard.id || selectedCard.idx || '');
+      const overrides = getPerfOverrides();
+      delete overrides[cid];
+      localStorage.setItem(PERF_OVERRIDE_KEY, JSON.stringify(overrides));
+
+      // 드롭다운 원복
+      const benefits = typeof getStructuredBenefits === 'function' ? getStructuredBenefits(selectedCard) : [];
+      const totalTiers = selectedCard.tier_limits || selectedCard.total_limit_tiers || null;
+      const perfOptions = typeof extractPerfOptions === 'function' ? extractPerfOptions(benefits, totalTiers) : [300000];
+      const perfSelect = document.getElementById('perf-tier-select');
+      perfSelect.innerHTML = '';
+      perfOptions.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.innerText = `전월 실적 ${moneyLabel(p)} 이상`;
+        perfSelect.appendChild(opt);
+      });
+      if (perfOptions.length > 0) { perfSelect.value = perfOptions[0]; onPerfSelectChange(); }
+
+      showToast('전월실적 수정 원복 완료', 'success');
+      renderPerfEditPanel();
+    }
+
+    function renderPerfOverrideList() {
+      const listEl = document.getElementById('perf-override-list');
+      if (!listEl) return;
+      const overrides = getPerfOverrides();
+      const keys = Object.keys(overrides);
+      if (keys.length === 0) {
+        listEl.innerHTML = '<div class="text-slate-400 text-center py-3">저장된 수정 데이터 없음</div>';
+        return;
+      }
+      listEl.innerHTML = keys.map(cid => {
+        const ov = overrides[cid];
+        const tiersStr = Array.isArray(ov.tiers) && ov.tiers.length > 0
+          ? ov.tiers.map(t => moneyLabel(t)).join(', ')
+          : moneyLabel(ov.money);
+        return `
+          <div class="flex items-center justify-between bg-white border border-slate-200 rounded-lg px-2.5 py-1.5">
+            <div>
+              <span class="font-semibold text-slate-800">${esc(ov.cardName || cid)}</span>
+              <span class="ml-2 text-slate-500">${tiersStr}</span>
+              <span class="ml-1 text-amber-700 font-medium">(${esc(ov.condition || '-')})</span>
+            </div>
+            <button onclick="deletePerfOverrideById('${cid}')" class="text-rose-500 hover:text-rose-700 ml-2"><i class="fa-solid fa-trash text-[11px]"></i></button>
+          </div>`;
+      }).join('');
+    }
+
+    function deletePerfOverrideById(cid) {
+      const overrides = getPerfOverrides();
+      delete overrides[cid];
+      localStorage.setItem(PERF_OVERRIDE_KEY, JSON.stringify(overrides));
+      renderPerfOverrideList();
+      showToast('삭제 완료', 'success');
+    }
+
+  </script>
+</body>
+
+</html>
