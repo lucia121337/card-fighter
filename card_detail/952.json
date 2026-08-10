@@ -1,0 +1,18 @@
+{
+  "idx": 952,
+  "card_name": "SK Oil 400 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "주유: SK주유소 월 최대 5만원 할인 | 카페/디저트: 커피전문점 20% 할인 | 푸드: 패밀리레스토랑 10% 할인",
+  "benefit_categories": "제휴/PLCC, 테마파크, 영화, 주유소, 카페, 패밀리레스토랑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/952/card_img/21591/952card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/952",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

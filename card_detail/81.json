@@ -1,0 +1,18 @@
+{
+  "idx": 81,
+  "card_name": "위메프 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "소셜커머스: 위메프 5% 적립 | 카페: 스타벅스 50% 할인 | 편의점: 편의점 10% 할인",
+  "benefit_categories": "제휴/PLCC, 편의점, 소셜커머스, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/81/card_img/20163/81card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/81",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

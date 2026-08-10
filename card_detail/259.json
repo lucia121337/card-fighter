@@ -1,0 +1,18 @@
+{
+  "idx": 259,
+  "card_name": "Oil & Life카드(Life카드)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [5,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "푸드: 전국 음식점 10% 할인 | 카페/디저트: 커피전문점 10% 할인 | 주유: GS칼텍스(LPG포함) 60원/L 할인",
+  "benefit_categories": "은행사, 선택형, 테마파크, 대형마트, 기타, 영화, 기타, 정비, 주유소, 충전소, 베이커리, 아이스크림, 카페, KT, LGU+, SKT, 일반음식점, 주점, 패밀리레스토랑, 패스트푸드",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/259/card_img/38516/259card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/259",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

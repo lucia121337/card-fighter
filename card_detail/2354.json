@@ -1,0 +1,18 @@
+{
+  "idx": 2354,
+  "card_name": "NU Uniq",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [20,000원] / 해외겸용[20,000원]",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "모든가맹점: 국내 가맹점 최대 0.8% 청구할인 | 배달앱: 배달앱 1.5% 청구할인 | 카페/디저트: 커피·스트리밍 5% 청구할인",
+  "benefit_categories": "대중교통, 대형마트, 국내외가맹점, 적립, 소셜커머스, 디지털구독, 카페, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2354/card_img/24965/2354card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2354",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

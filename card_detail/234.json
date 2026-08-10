@@ -1,0 +1,18 @@
+{
+  "idx": 234,
+  "card_name": "하나멤버스 1Q(원큐) 카드 Daily",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 0.5% 적립 | 쇼핑: 온라인쇼핑 10만원당 5,000머니 적립 | 통신: 통신/교통/공과금 10만원당 5,000머니 적립",
+  "benefit_categories": "공과금, 기타, 대중교통, 택시, 은행사, 기타, 적립, 온라인쇼핑, 홈쇼핑, 소셜커머스, 카페, KT, LGU+, SKT, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/234/card_img/20461/234card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/234",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

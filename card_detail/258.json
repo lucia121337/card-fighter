@@ -1,0 +1,18 @@
+{
+  "idx": 258,
+  "card_name": "Oil & Life카드(Oil카드)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [5,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "주유: GS칼텍스(LPG포함) 120원/L 할인 | OTT/영화/문화: CGV, 롯데시네마 2,000원 현장할인 | 레저/스포츠: 주요 놀이공원 50% 할인",
+  "benefit_categories": "은행사, 선택형, 테마파크, 대형마트, 기타, 영화, 기타, 정비, 주유소, 충전소, 아이스크림, KT, LGU+, SKT, 패밀리레스토랑, 패스트푸드",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/258/card_img/33952/258card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/258",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

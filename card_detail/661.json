@@ -1,0 +1,18 @@
+{
+  "idx": 661,
+  "card_name": "카드의정석 UNTACT AIR",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "생활: 정기결제 최대 20% 할인 | 배달앱: 배달앱 30% 적립 | 소셜커머스: 쿠팡 20% 적립",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, 기타, 공과금, 렌탈 , 학습지, 기타, 온라인쇼핑, 소셜커머스, 도서, 음원사이트, 기타, 디지털구독, 카페, 배달앱, 해외이용, 해외직구, 온라인쇼핑, 공과금, 렌탈비, 멤버십(쿠팡,네이버,배민 등), 스트리밍(넷플릭스,티빙 등), 배달앱, 커피/디저트, 학원/학습지, 서점, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/661/card_img/21424/661card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/661",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

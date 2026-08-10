@@ -1,0 +1,18 @@
+{
+  "idx": 179,
+  "card_name": "NH올원 Shopping&11번가카드(R2타입)",
+  "company": "NH농협카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "온라인쇼핑: 11번가 11~22% 할인 | 기타: 기타 온라인쇼핑 7% 할인 | 생활: 마트/병원/주유 등 5~10% 할인",
+  "benefit_categories": "생활, 제휴/PLCC, 테마파크, 대형마트, 병원, 약국, 백화점, 온라인쇼핑, 홈쇼핑, 소셜커머스, 기타, 주유소, 베이커리, 카페, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/179/card_img/37250/179card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/179",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

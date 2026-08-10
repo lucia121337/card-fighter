@@ -1,0 +1,18 @@
+{
+  "idx": 1861,
+  "card_name": "롭스 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [7,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "드럭스토어: 롭스 매장 최대 15% 할인 | 헤어: 미용실 최대 20% 할인 | 공연/전시: 공연 최대 30% 할인",
+  "benefit_categories": "경기관람, 테마파크, 대형마트, 기타, 드럭스토어, 면세점, 백화점, 온라인쇼핑, 공연/전시, 카페, 패밀리레스토랑, 패스트푸드",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1861/card_img/22154/1861card.jpg",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1861",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 114,
+  "card_name": "마일리지 가온카드(아시아나)",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "항공마일리지: 국내 1,000원당 1마일 적립 | 항공마일리지: 해외 1,000원당 2마일 적립 | 항공마일리지: 면세 1,000원당 2마일 적립",
+  "benefit_categories": "적립, 면세점, 아시아나항공, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/114/card_img/20272/114card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/114",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 1544,
+  "card_name": "해피포인트 KB국민카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, JCB",
+  "annual_fee": "해외겸용 [5,000]원",
+  "pre_month_money": 100000,
+  "pre_month_condition": "100,000원",
+  "top_benefit_summary": "해피포인트: 해피포인트 가맹점 10~30% 할인 | 온라인쇼핑: 온라인쇼핑 5% 할인 | 영화: 영화 3,500원 할인",
+  "benefit_categories": "제휴/PLCC, 해피포인트, 온라인쇼핑, 영화",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1544/card_img/22690/1544card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1544",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

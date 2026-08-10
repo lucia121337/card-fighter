@@ -1,0 +1,18 @@
+{
+  "idx": 197,
+  "card_name": "올마이쇼핑 카드 (교통)",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "쇼핑: 쇼핑업종 5% 할인 | 대중교통: 대중교통 10% 할인",
+  "benefit_categories": "대중교통, SSM, 대형마트, 편의점, 백화점, 온라인쇼핑, 홈쇼핑, 소셜커머스",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/197/card_img/20417/197card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/197",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 2287,
+  "card_name": "현대카드 MX Black",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [150,000]원 / 해외겸용 [150,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "온라인쇼핑: 온라인쇼핑 10% 할인 | 배달앱: 배달앱 10% 할인 | 모든가맹점: 모든가맹점 1% 적립",
+  "benefit_categories": "대중교통, 택시, 대형마트, 편의점, 국내외가맹점, 백화점, 온라인쇼핑, 주유소, 카페, 배달앱, 프리미엄 서비스",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2287/card_img/20679/2287card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2287",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

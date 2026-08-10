@@ -232,7 +232,7 @@ if(!slot){
 } else {
   const idxList = slot.split(',').map(s=>s.trim()).filter(Boolean).slice(0,3);
   Promise.all(idxList.map(idx=>
-    fetch(`card_detail/${idx}.json`).then(r=>r.ok?r.json():null)
+    fetch(`/card_detail/${idx}.json`).then(r=>r.ok?r.json():null)
   )).then(cards=>{
     const valid = cards.filter(Boolean);
     if(!valid.length){

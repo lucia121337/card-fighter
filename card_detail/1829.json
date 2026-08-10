@@ -1,0 +1,18 @@
+{
+  "idx": 1829,
+  "card_name": "바디프랜드 카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC Global, Mastercard",
+  "annual_fee": "해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "렌탈: 바디프랜드 렌탈 최대 2만원 할인 | 영화: 영화 6천원 청구할인 | 카페: 커피 5% 청구할인",
+  "benefit_categories": "렌탈 , 제휴/PLCC, 테마파크, 영화, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1829/card_img/22277/1829card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1829",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

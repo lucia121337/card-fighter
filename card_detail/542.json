@@ -1,0 +1,18 @@
+{
+  "idx": 542,
+  "card_name": "갤러리아 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "백화점: 갤러리아 5% 할인 | 해외이용: 해외가맹점 1% 할인 | 영화: 영화관 5,000원 할인",
+  "benefit_categories": "공항라운지, 제휴/PLCC, 편의점, 백화점, 공연/전시, 영화, 주유소, 카페, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/542/card_img/21246/542card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/542",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

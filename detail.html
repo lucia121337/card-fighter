@@ -459,15 +459,25 @@ if(!idx){
   location.replace('/index.html');
 } else {
   Promise.all([
-    fetch('card_detail/' + idx + '.json').then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }),
-    fetch('benefits_structured.json').then(r => r.ok ? r.json() : {}).catch(()=>({}))
+    fetch('/card_detail/' + idx + '.json')
+      .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .catch(() =>
+        fetch('/cards_list.json')
+          .then(r => r.ok ? r.json() : [])
+          .then(list => {
+            const found = list.find(c => String(c.idx) === String(idx));
+            if (!found) throw new Error('HTTP 404 (Card Not Found)');
+            return found;
+          })
+      ),
+    fetch('/benefits_structured.json').then(r => r.ok ? r.json() : {}).catch(()=>({}))
   ])
     .then(([d, ben])=>{ window._CALC_BS = ben[idx] || null; render(d); if(window._calcRender) window._calcRender(); })
     .catch(e => {
       document.getElementById('wrap').innerHTML =
         `<div class="status">카드 정보를 불러오지 못했습니다.<br>
         <small style="color:#94a3b8">${esc(String(e))}</small><br><br>
-        <a href="index.html">← 목록으로</a></div>`;
+        <a href="/index.html">← 목록으로</a></div>`;
     });
 }
 </script>

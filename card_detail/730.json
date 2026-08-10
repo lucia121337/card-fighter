@@ -1,0 +1,18 @@
+{
+  "idx": 730,
+  "card_name": "현대카드Z family",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "온라인쇼핑: 온라인쇼핑 10% 할인 | 배달앱: 배달앱 10% 할인 | 주유: 주유소 100원/L 할인",
+  "benefit_categories": "공과금, 무이자할부, 단종임박+중단, 대형마트, 온라인쇼핑, 소셜커머스, 주유소, KT, LGU+, SKT, 배달앱, 주유소, 온라인쇼핑, 통신비, 배달앱, 무이자할부",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/730/card_img/22204/730card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/730",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

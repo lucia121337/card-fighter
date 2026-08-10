@@ -1,0 +1,18 @@
+{
+  "idx": 1984,
+  "card_name": "동양생명 우리카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "보험사: 동양생명보험료 최대2만원 할인",
+  "benefit_categories": "보험사, 제휴/PLCC",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1984/card_img/22014/1984card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1984",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 21,
+  "card_name": "신한카드 Simple Platinum#",
+  "company": "신한카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay, JCB",
+  "annual_fee": "해외겸용 [30,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "국내외가맹점: 국내외 가맹점 1% 캐시백 | 생활: 생활밀착가맹점 0.7% 추가캐시백 | 할인: 생활친화가맹점 월 10회 잔돈 할인",
+  "benefit_categories": "생활, 공항, 테마파크, 국내외가맹점, 할인, 영화",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/21/card_img/32302/21card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/21",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

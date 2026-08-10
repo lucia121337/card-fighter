@@ -1,0 +1,18 @@
+{
+  "idx": 463,
+  "card_name": "신세계 씨티 클리어 카드",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [4,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 200000,
+  "pre_month_condition": "200,000원",
+  "top_benefit_summary": "통신: 통신비 7% 할인 | 푸드: 점심식사/배달앱 5% 할인 | 쇼핑: 신세계백화점/이마트 등 7% 할인",
+  "benefit_categories": "대중교통, 제휴/PLCC, SSM, 대형마트, 화장품, 백화점, 영화, KT, LGU+, SKT, 기타, 점심, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/463/card_img/20984/463card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/463",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

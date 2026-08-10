@@ -1,0 +1,18 @@
+{
+  "idx": 1926,
+  "card_name": "E1 LPG 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": null,
+  "annual_fee": "국내전용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "충전소: E1 LPG 충전소 87P/L 적립 | 하이패스: 하이패스 30% 적립 | 보험: 자동차보험료 3만원 할인",
+  "benefit_categories": "제휴/PLCC, 보험, 정비, 하이패스, 충전소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/1926/card_img/22072/1926card.jpg",
+  "detail_url": "https://www.card-gorilla.com/card/detail/1926",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

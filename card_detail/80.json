@@ -1,0 +1,18 @@
+{
+  "idx": 80,
+  "card_name": "썸(SUM) 페이 카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "간편결제: PAY 결제 7% 할인 | 쇼핑: PAY 외 결제 5% 할인 | OTT/영화/문화: 영화 3,000원 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, 대중교통, 편의점, 온라인쇼핑, 소셜커머스, 영화, KT, LGU+, SKT, 패스트푸드, 수수료우대, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/80/card_img/20162/80card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/80",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 152,
+  "card_name": "에듀카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "해외겸용 [35,000]원",
+  "pre_month_money": 1000000,
+  "pre_month_condition": "1,000,000원",
+  "top_benefit_summary": "학원: 교육관련 업종 5~7% 청구할인 | 약국: 약국 10% 할인",
+  "benefit_categories": "문화센터, 어린이집, 유치원, 학습지, 학원, 기타, 약국",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/152/card_img/20379/152card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/152",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 424,
+  "card_name": "the Purple Edition2",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [795,000]원 / 해외겸용 [800,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "바우처: 여행&쇼핑 바우처 연 1회 제공 | 선택형: 마일리지or포인트 선택형 서비스 | PP: 본인회원 PP카드 제공",
+  "benefit_categories": "학원, 대중교통, 택시, 선택형, 대형마트, 편의점, 병원, 약국, 헤어, 화장품, 면세점, 백화점, 온라인쇼핑, 호텔, 항공권, 공연/전시, 영화, 정비, 차/중고차, 베이커리, 프리미엄 서비스, 바우처, 대한항공, 아시아나항공, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/424/card_img/20922/424card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/424",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

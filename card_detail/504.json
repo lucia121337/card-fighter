@@ -1,0 +1,18 @@
+{
+  "idx": 504,
+  "card_name": "씨티 메가마일 아시아나",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용[10,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "아시아나항공: 1,500원당 1마일리지 기본적립 | 영화: 영화 20마일리지 특별적립 | 여행/숙박: 여행 10마일리지 특별적립",
+  "benefit_categories": "유치원, 학원, 대중교통, SSM, 대형마트, 헤어, 면세점, 백화점, 온라인쇼핑, 소셜커머스, 여행사, 영화, 주유소, 카페, KT, LGU+, SKT, 일반음식점, 패밀리레스토랑, 아시아나항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/504/card_img/21193/504card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/504",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
