@@ -247,6 +247,88 @@ body.prem-theme .binfo td {
   border-color: #2a2d38 !important;
 }
 
+/* Premium Detail Page Inline Calculator (.calc-box) Overrides */
+body.prem-theme .calc-box {
+  background: linear-gradient(180deg, #191b23, #141519) !important;
+  border-color: #3a3320 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(232, 200, 134, 0.08) !important;
+}
+
+body.prem-theme .calc-box h3 {
+  color: #f5f3ee !important;
+  border-bottom-color: #e3b448 !important;
+}
+
+body.prem-theme .calc-row {
+  border-bottom-color: #2a2d38 !important;
+}
+
+body.prem-theme .calc-name {
+  color: #f5f3ee !important;
+}
+
+body.prem-theme .calc-amount {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .calc-amount.zero {
+  color: #8a8f9a !important;
+}
+
+body.prem-theme .calc-slider {
+  background: #2a2d38 !important;
+}
+
+body.prem-theme .calc-toggle input:checked + .calc-slider {
+  background: linear-gradient(90deg, #b8860b, #e3b448) !important;
+}
+
+body.prem-theme .calc-total {
+  background: #20222c !important;
+  border: 1px solid #3a3320 !important;
+}
+
+body.prem-theme .calc-total .tot-label {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .calc-total .tot-amt {
+  color: #f5d77f !important;
+}
+
+body.prem-theme .calc-rate {
+  background: #2a2213 !important;
+  border-color: #5c4a1f !important;
+  color: #e8c886 !important;
+}
+
+body.prem-theme .calc-inp input {
+  background: #0f1014 !important;
+  border-color: #3a3320 !important;
+  color: #f5f3ee !important;
+}
+
+body.prem-theme .calc-inp input:focus {
+  border-color: #e3b448 !important;
+}
+
+body.prem-theme .calc-inp em,
+body.prem-theme .calc-hint,
+body.prem-theme .calc-net {
+  color: #c8b489 !important;
+}
+
+body.prem-theme .calc-type {
+  background: linear-gradient(90deg, #b8860b, #e3b448) !important;
+  color: #1a150a !important;
+}
+
+body.prem-theme .calc-disc {
+  background: #1f1b14 !important;
+  border-color: #5c4a1f !important;
+  color: #e8c886 !important;
+}
+
 /* Header Base Styling */
 .cf-global-header {
   position: sticky;
