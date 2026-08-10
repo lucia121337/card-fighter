@@ -619,11 +619,15 @@
     padding:4px 8px}
   .trend-lb-more:hover{color:var(--brand)}
 
-  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);
-    display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
+  .trend-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);
+    backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:300;padding:20px}
   .trend-modal-overlay.visible{display:flex}
-  .trend-modal-box{background:#fff;border-radius:20px;width:420px;max-width:100%;
-    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+  .trend-modal-box{background:var(--panel);border-radius:var(--radius-lg);width:420px;max-width:100%;
+    max-height:80vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);border:1.5px solid var(--line)}
+  @media(max-width:640px){
+    .trend-modal-overlay{align-items:flex-end;padding:0}
+    .trend-modal-box{max-width:100%;border-radius:24px 24px 0 0;max-height:85vh}
+  }
   .trend-modal-head{display:flex;align-items:center;justify-content:space-between;
     padding:20px 22px 14px;border-bottom:1.5px solid var(--line)}
   .trend-modal-head h3{font-size:16px;font-weight:800;color:var(--txt);margin:0}
