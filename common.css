@@ -56,17 +56,61 @@
 /* Header Dark Mode Variant */
 .cf-global-header.cf-header-dark,
 [data-theme="dark"] .cf-global-header,
-.dark-theme .cf-global-header {
-  --header-bg: rgba(15, 23, 42, 0.88);
-  --header-border: rgba(255, 255, 255, 0.1);
-  --header-txt: #F8FAFC;
-  --header-muted: #94A3B8;
-  --header-hover-bg: rgba(30, 41, 59, 0.8);
-  --header-hover-txt: #60A5FA;
-  --header-active-bg: rgba(59, 130, 246, 0.25);
-  --header-active-txt: #60A5FA;
-  --header-search-bg: #1E293B;
-  --header-search-border: rgba(255, 255, 255, 0.15);
+.dark-theme .cf-global-header,
+body.prem-theme .cf-global-header {
+  --header-bg: rgba(14, 16, 21, 0.92);
+  --header-border: rgba(201, 164, 92, 0.25);
+  --header-txt: #e8c886;
+  --header-muted: #c8b489;
+  --header-hover-bg: rgba(42, 34, 19, 0.8);
+  --header-hover-txt: #e3b448;
+  --header-active-bg: rgba(184, 134, 11, 0.25);
+  --header-active-txt: #e3b448;
+  --header-search-bg: #191b23;
+  --header-search-border: rgba(201, 164, 92, 0.3);
+}
+
+/* Premium Dark Gold Body Background Theme */
+body.prem-theme {
+  background-color: #0e1015 !important;
+  background-image: radial-gradient(circle at top right, rgba(201, 164, 92, 0.12), transparent 45%),
+                    radial-gradient(circle at bottom left, rgba(184, 134, 11, 0.1), transparent 40%) !important;
+  color: #f5f3ee !important;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.prem-theme .sec-h2,
+body.prem-theme #cards-title {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .sec-sub {
+  color: #9aa0ac !important;
+}
+
+body.prem-theme .lnb-bar,
+body.prem-theme .filter-bar,
+body.prem-theme .quick-seg {
+  background: #141519 !important;
+  border-color: #2a2d38 !important;
+}
+
+body.prem-theme .lnb-item {
+  color: #c8ccd4 !important;
+}
+
+body.prem-theme .lnb-item:hover {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .lnb-item.active {
+  color: #1a150a !important;
+}
+
+body.prem-theme .count-badge {
+  background: #2a2213 !important;
+  color: #e8c886 !important;
+  border-color: #5c4a1f !important;
 }
 
 /* Header Base Styling */

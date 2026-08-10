@@ -1200,7 +1200,9 @@ function setCardType(el, opts){
   el.classList.add('active');
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
-  document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  const isPrem = activeCardType === '프리미엄';
+  document.getElementById('section-cards').classList.toggle('prem-theme', isPrem);
+  document.body.classList.toggle('prem-theme', isPrem);
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({}, '', path);
@@ -1856,7 +1858,9 @@ function applyPathSubState(){
       btn.classList.add('active');
       activeCardType = cardtype;
       document.getElementById('cards-title').textContent = btn.textContent.trim();
-      document.getElementById('section-cards').classList.toggle('prem-theme', cardtype === '프리미엄');
+      const isPrem = cardtype === '프리미엄';
+      document.getElementById('section-cards').classList.toggle('prem-theme', isPrem);
+      document.body.classList.toggle('prem-theme', isPrem);
     }
   }
   if (PATH_PLATFORM.hasOwnProperty(location.pathname)) {
