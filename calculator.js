@@ -370,6 +370,10 @@ function getStructuredBenefits(cardData, fallbackKb) {
       return [];
     }
 
+    // 카드 전체 텍스트 기반 전월 실적 제외 키워드 자동 판별 (Hidden State)
+    const fullCardText = JSON.stringify(rawCard);
+    const isCardLevelExcluded = /(?:할인|청구할인|혜택|적립)(?: 서비스)?\s*받은\s*(?:이용건|매출|이용금액)|할인\(적립\)받은\s*매출|이용실적\s*제외대상.*할인/i.test(fullCardText);
+
     let benefits = rawCard.structured_benefits || null;
     if (typeof benefits === 'string') {
       try { benefits = JSON.parse(benefits); } catch { benefits = null; }
@@ -547,7 +551,7 @@ function getStructuredBenefits(cardData, fallbackKb) {
         group: groupObj,
         groupId,
         groupLimit,
-        isExcluded: Boolean(b.isExcluded || b.is_excluded || txt.includes('실적 제외')),
+        isExcluded: Boolean(b.isExcluded || b.is_excluded || txt.includes('실적 제외') || isCardLevelExcluded),
         exclusiveGroup: b.exclusiveGroup || b.exclusive_group || null,
         priority: typeof b.priority === 'number' ? b.priority : 0,
         checked: !isDeleted
