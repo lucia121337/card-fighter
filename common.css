@@ -783,6 +783,35 @@ button:focus-visible, .detail-btn:focus-visible, .compare-btn:focus-visible, .ba
   padding-top: 16px;
 }
 
+/* Dark Footer Themes for Premium & Calculator */
+body.prem-theme .cf-global-footer,
+body.prem-theme footer {
+  background: #090a0d !important;
+  border-top: 1px solid rgba(201, 164, 92, 0.2) !important;
+  color: #9aa0ac !important;
+}
+body.prem-theme .cf-footer-brand {
+  color: #e8c886 !important;
+}
+body.prem-theme .cf-footer-disclaimer {
+  color: #6b7280 !important;
+  border-top-color: rgba(201, 164, 92, 0.2) !important;
+}
+
+body.calc-theme .cf-global-footer,
+body.calc-theme footer {
+  background: #040e0c !important;
+  border-top: 1px solid rgba(22, 168, 150, 0.2) !important;
+  color: #7ab5ac !important;
+}
+body.calc-theme .cf-footer-brand {
+  color: #7fe0a5 !important;
+}
+body.calc-theme .cf-footer-disclaimer {
+  color: #4a7a72 !important;
+  border-top-color: rgba(22, 168, 150, 0.2) !important;
+}
+
 /* Global Typography Scale System */
 h1, .c-h1 {
   font-size: 24px;
