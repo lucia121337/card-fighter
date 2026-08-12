@@ -252,8 +252,8 @@ function extractPerfOptions(items, totalTiers) {
 /**
  * localStorage 기반 복잡한 카드 패싱(제외) 및 검수 완료 카드 관리 헬퍼
  */
-const PASSED_CARDS_STORAGE_KEY = 'card_fighter_passed_cards';
-const VERIFIED_CARDS_STORAGE_KEY = 'card_fighter_verified_cards';
+var PASSED_CARDS_STORAGE_KEY = 'card_fighter_passed_cards';
+var VERIFIED_CARDS_STORAGE_KEY = 'card_fighter_verified_cards';
 
 function getPassedCardIds() {
   try {

@@ -221,7 +221,6 @@
 <script src="benefit-calc.js"></script>
 <script src="calculator.js"></script>
 <script>
-const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => Math.round(n).toLocaleString()+'원';
 // 계산 규칙(율 상한·기본 한도·월한도 선택)은 benefit-calc.js(BenefitCalc) 공용 모듈에서 관리
 
