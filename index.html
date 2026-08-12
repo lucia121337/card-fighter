@@ -266,8 +266,7 @@
     border-color:#16a896;color:#fff;font-weight:800}
   .calc-theme .controls select,.calc-theme .filter-btn{background:#0e2622;border-color:#165c52;color:#e0f7f4}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
-  #section-cards.prem-theme{background:radial-gradient(120% 60% at 50% 0%,#1b1d26 0%,#0e0f13 60%);
-    border:1px solid #2a2d38;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  #section-cards.prem-theme{background:transparent;border:none;box-shadow:none;padding:0;margin-top:0}
   .prem-theme .cards-title{color:#e8c886}
   .prem-theme .cards-subtitle{color:#9aa0ac}.prem-theme .cards-subtitle b{color:#e8c886}
   .prem-theme .lnb-item{background:#181a22;border-color:#2a2d38;color:#c8ccd4}
@@ -1170,8 +1169,11 @@ function showSection(name, opts){
         firstLnb.classList.add('active');
         document.getElementById('cards-title').textContent = firstLnb.textContent.trim();
         document.getElementById('section-cards').classList.remove('prem-theme');
+        document.body.classList.remove('prem-theme');
       }
     }
+  } else {
+    document.body.classList.remove('prem-theme');
   }
   if(name === 'cashback') renderCashback();
   if(name === 'shopping'){
@@ -1216,6 +1218,7 @@ function setCardType(el, opts){
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
   document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  document.body.classList.toggle('prem-theme', activeCardType === '프리미엄');
   document.getElementById('section-cards').classList.toggle('calc-theme', activeCardType === '혜택계산기');
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
@@ -1849,6 +1852,7 @@ function applyPathSubState(){
       activeCardType = cardtype;
       document.getElementById('cards-title').textContent = btn.textContent.trim();
       document.getElementById('section-cards').classList.toggle('prem-theme', cardtype === '프리미엄');
+      document.body.classList.toggle('prem-theme', cardtype === '프리미엄');
     }
   }
   if (PATH_PLATFORM.hasOwnProperty(location.pathname)) {
