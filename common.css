@@ -166,7 +166,14 @@ body.prem-theme .count-badge {
   border-color: #5c4a1f !important;
 }
 
-body.prem-theme #section-cards {
+body.calc-theme .count-badge {
+  background: #0d2f2b !important;
+  color: #7fe0a5 !important;
+  border-color: #165c52 !important;
+}
+
+body.prem-theme #section-cards,
+body.calc-theme #section-cards {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -175,12 +182,14 @@ body.prem-theme #section-cards {
   margin: 0 !important;
 }
 
-body.prem-theme .cards-layout {
+body.prem-theme .cards-layout,
+body.calc-theme .cards-layout {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   border-radius: 0 !important;
 }
+
 
 /* Premium Detail Page Theme Overrides */
 body.prem-theme .hero,
