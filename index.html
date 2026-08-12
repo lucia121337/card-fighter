@@ -248,7 +248,23 @@
   .chip.fee{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
+  .chip.calc-badge{background:linear-gradient(90deg,#0e7f6e,#16a896);border:none;color:#fff;font-weight:700}
   .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
+  .lnb-item.lnb-calc.active{background:linear-gradient(90deg,#0e7f6e,#16a896);border-color:#0e7f6e;color:#fff}
+  /* ── 혜택계산기 테마 (혜택계산기 탭 선택 시) ── */
+  #section-cards.calc-theme{background:radial-gradient(120% 60% at 50% 0%,#112522 0%,#091513 60%);
+    border:1px solid #165c52;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  .calc-theme .cards-title{color:#7fe0a5}
+  .calc-theme .cards-subtitle{color:#7ab5ac}.calc-theme .cards-subtitle b{color:#7fe0a5}
+  .calc-theme .lnb-item{background:#0e2622;border-color:#165c52;color:#a3e6d8}
+  .calc-theme .cat-filter-box{background:linear-gradient(180deg,#0e2622,#091b18);
+    border:1.5px solid #166e61;box-shadow:0 8px 26px rgba(22,168,150,.1)}
+  .calc-theme .cat-filter-label{color:#7fe0a5}
+  .calc-theme .cat-pill{background:#11302b;border-color:#1b4f47;color:#a3e6d8}
+  .calc-theme .cat-pill:hover{border-color:#16a896;color:#7fe0a5}
+  .calc-theme .cat-pill.active{background:linear-gradient(90deg,#0e7f6e,#16a896);
+    border-color:#16a896;color:#fff;font-weight:800}
+  .calc-theme .controls select,.calc-theme .filter-btn{background:#0e2622;border-color:#165c52;color:#e0f7f4}
   /* ── 프리미엄 탭: 골드&블랙 럭셔리 테마 (프리미엄 선택 시에만) ── */
   #section-cards.prem-theme{background:radial-gradient(120% 60% at 50% 0%,#1b1d26 0%,#0e0f13 60%);
     border:1px solid #2a2d38;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
@@ -773,6 +789,7 @@
         <button class="lnb-item" data-cardtype="신용" onclick="setCardType(this)">신용카드</button>
         <button class="lnb-item" data-cardtype="체크" onclick="setCardType(this)">체크카드</button>
         <button class="lnb-item lnb-prem" data-cardtype="프리미엄" onclick="setCardType(this)">👑 프리미엄</button>
+        <button class="lnb-item lnb-calc" data-cardtype="혜택계산기" onclick="setCardType(this)">🎯 피킹률 계산기</button>
       </nav>
       <div class="cards-title-row">
         <h2 class="cards-title" id="cards-title">전체카드</h2>
@@ -1191,7 +1208,7 @@ function showSection(name, opts){
   window.scrollTo(0, 0);
 }
 
-const CARDTYPE_PATH = { '':'/card', '신용':'/card/credit', '체크':'/card/check', '프리미엄':'/card/premium' };
+const CARDTYPE_PATH = { '':'/card', '신용':'/card/credit', '체크':'/card/check', '프리미엄':'/card/premium', '혜택계산기':'/card/calculator' };
 function setCardType(el, opts){
   opts = opts || {};
   document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
@@ -1199,9 +1216,14 @@ function setCardType(el, opts){
   activeCardType = el.dataset.cardtype;
   document.getElementById('cards-title').textContent = el.textContent.trim();
   document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
+  document.getElementById('section-cards').classList.toggle('calc-theme', activeCardType === '혜택계산기');
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({}, '', path);
+  }
+  if (activeCardType === '혜택계산기') {
+    const sortSelect = document.getElementById('sort');
+    if (sortSelect) sortSelect.value = 'accuracy';
   }
   applyFilters();
 }
@@ -1306,6 +1328,9 @@ function applyFilters(){
   view = DATA.filter(c=>{
     if(activeCardType === '프리미엄'){
       if(!isPremium(c)) return false;                 // 프리미엄 탭: 연회비 15만원 이상만
+    } else if(activeCardType === '혜택계산기'){
+      const isCalculable = typeof checkIsCalculable === 'function' ? checkIsCalculable(c) : ((c.is_calc_supported||'').toUpperCase() === 'TRUE');
+      if(!isCalculable) return false;                 // 혜택계산기 탭: 계산 연산 지원 카드만
     } else if(activeCardType){
       const cateType = c.cate === 'CHK' ? '체크' : '신용'; // cate: CRD=신용, CHK=체크
       if(cateType !== activeCardType) return false;
@@ -1371,6 +1396,7 @@ function render(){
           <span class="nm">${esc(c.card_name)}</span>
           <span class="co">${esc(c.company||'')}</span>
           ${isPremium(c)?'<span class="chip prem">👑 프리미엄</span>':''}
+          ${(typeof checkIsCalculable === 'function' ? checkIsCalculable(c) : (c.is_calc_supported||'').toUpperCase()==='TRUE') ? '<span class="chip calc-badge">🧮 계산기</span>' : ''}
         </div>
         <div class="benefit-row">${benefit}</div>
         <div class="row">
@@ -2327,6 +2353,7 @@ REC_CARDS.forEach(c => recCardMap[c.idx] = c);
 loadRealtimeKeywords();
 realtimeTimer = setInterval(loadRealtimeKeywords, TREND_AUTO_REFRESH_MS);
 </script>
+<script src="calculator.js"></script>
 <script src="profile.js"></script>
 <script src="home-gateway.js"></script>
 <script>
