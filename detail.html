@@ -151,7 +151,49 @@
   .kb-bullet { color:var(--brand); font-weight:800; flex-shrink:0; }
   .kb-text { color:inherit; }
 
+  /* ── 유사 카드 추천 영역 ── */
+  /* 추천 카드는 개수(최대 4장)와 상관없이 항상 한 줄에 균등 배분한다.
+     grid의 auto-fit은 카드 최소폭에 걸려 4장째가 다음 줄로 떨어져서 flex로 바꿨다. */
+  .rec-carousel{display:flex;gap:14px;padding:4px 2px;width:100%}
+  .rec-card-item{flex:1 1 0;min-width:0;background:#f8fafc;border:1.5px solid var(--line);border-radius:16px;
+    padding:18px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;
+    cursor:pointer;text-decoration:none;color:inherit;
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+  .rec-card-item:hover{transform:translateY(-4px);border-color:var(--brand);
+    box-shadow:0 8px 20px rgba(20,92,230,.14);background:#fff}
+  .rec-card-img{width:120px;height:76px;object-fit:contain;margin-bottom:12px;background:#fff;
+    padding:6px;border-radius:10px;border:1px solid var(--line);flex-shrink:0}
+  .rec-card-name{font-size:14px;font-weight:700;color:var(--txt);line-height:1.35;margin-bottom:4px;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+  .rec-card-corp{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:12px}
+  .rec-keywords-badge{margin-top:auto;background:var(--panel2);border:1px solid #bfdbfe;border-radius:10px;
+    padding:8px 10px;font-size:11.5px;font-weight:700;color:var(--brand);line-height:1.4;
+    width:100%;word-break:keep-all}
+  /* 모바일에서만 2열로 접는다 (전역 중단점 640px 기준) */
+  @media (max-width:640px){
+    .rec-carousel{flex-wrap:wrap}
+    .rec-card-item{flex:1 1 calc(50% - 7px)}
+    .rec-card-img{width:100%;max-width:120px}
+  }
+
   /* ── 프리미엄 럭셔리 다크모드 상세페이지 가독성 보정 ── */
+  body.prem-theme .rec-card-item{
+    background:#14161f !important;
+    border-color:rgba(201,164,92,.25) !important;
+  }
+  body.prem-theme .rec-card-item:hover{
+    border-color:#c9a45c !important;
+    background:#1a1d28 !important;
+    box-shadow:0 8px 20px rgba(0,0,0,.45) !important;
+  }
+  body.prem-theme .rec-card-name{color:#ffffff !important}
+  body.prem-theme .rec-card-corp{color:#cbd5e1 !important}
+  body.prem-theme .rec-keywords-badge{
+    background:rgba(201,164,92,.12) !important;
+    border-color:rgba(201,164,92,.35) !important;
+    color:#e8c886 !important;
+  }
+
   body.prem-theme .sum-card,
   body.prem-theme .sec-box,
   body.prem-theme .calc-box {
@@ -449,7 +491,7 @@ function switchTab(i){
   document.querySelectorAll('.kb-panel').forEach((p,j)=>p.classList.toggle('active',i===j));
 }
 
-function render(d){
+function render(d, list = [], recs = {}){
   const name = d.card_name || d.name || '카드';
   const corp = d.company || (d.corp&&d.corp.name) || '';
   const img  = d.card_img || (d.card_img_obj&&d.card_img_obj.url) || '';
@@ -506,6 +548,37 @@ function render(d){
     topBenefit = parts.join(' + ');
   }
 
+  // 유사 카드 추천 — recommendations.json(카드별 추천 idx + 공통 혜택 키워드) 기준 최대 4장.
+  // 추천 대상 카드의 이름/이미지는 cards_list.json에서 찾아 쓰므로, 목록에 없는 카드(단종 등)는 건너뛴다.
+  const recList = (recs[String(d.idx)] || recs[Number(d.idx)] || []).slice(0, 4);
+  let recHTML = '';
+  if(recList.length){
+    const itemsHTML = recList.map(rec=>{
+      const rCard = list.find(c=>String(c.idx)===String(rec.recommended_idx));
+      if(!rCard) return '';
+      const rName = rCard.card_name || rCard.name || '카드';
+      const rCorp = rCard.company || (rCard.corp&&rCard.corp.name) || '';
+      const rImg  = rCard.card_img || (rCard.card_img_obj&&rCard.card_img_obj.url) || '';
+      const kwList = rec.common_keywords || [];
+      const hashtags = kwList.length ? kwList.map(k=>'#'+esc(k)).join(' ') : '';
+      const badgeText = hashtags ? `💡 이 카드도 ${hashtags} 혜택이 비슷해요!` : '💡 이 카드와 혜택이 비슷해요!';
+      return `
+        <a class="rec-card-item" href="/detail/${rec.recommended_idx}">
+          <img class="rec-card-img" src="${esc(rImg)}" alt="" onerror="this.style.visibility='hidden'"/>
+          <div class="rec-card-name">${esc(rName)}</div>
+          <div class="rec-card-corp">${esc(rCorp)}</div>
+          <div class="rec-keywords-badge">${badgeText}</div>
+        </a>`;
+    }).join('');
+    if(itemsHTML.trim()){
+      recHTML = `
+    <div class="sec-box">
+      <h3>🃏 이 카드와 혜택이 비슷한 카드</h3>
+      <div class="rec-carousel">${itemsHTML}</div>
+    </div>`;
+    }
+  }
+
   document.title = name + ' — 카드 파이터';
   const inCompare = getCompareList().some(c=>String(c.idx)===String(d.idx));
 
@@ -544,6 +617,7 @@ function render(d){
     ${cats.length?`<div class="sec-box"><h3>🏷️ 혜택 카테고리</h3>
       <div class="cat-wrap">${cats.map(c=>`<span class="cat-chip">${esc(c)}</span>`).join('')}</div>
     </div>`:''}
+    ${recHTML}
     <div class="disclaimer">
       <div class="d-head">※ 본 게시물은 카드파이터에서 대가관계 없이 자체제작한 게시물입니다</div>
       * 본 카드의 서비스 내용은 카드사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있습니다.<br>
@@ -572,14 +646,17 @@ if(!idx){
             return found;
           })
       ),
-    fetch('/benefits_structured.json').then(r => r.ok ? r.json() : {}).catch(()=>({}))
+    fetch('/benefits_structured.json').then(r => r.ok ? r.json() : {}).catch(()=>({})),
+    // 추천카드 렌더에 필요한 두 파일. 실패해도 상세 본문은 그대로 뜨도록 빈 값으로 폴백한다.
+    fetch('/cards_list.json').then(r => r.ok ? r.json() : []).catch(()=>[]),
+    fetch('/recommendations.json').then(r => r.ok ? r.json() : {}).catch(()=>({}))
   ])
-    .then(([d, ben])=>{
+    .then(([d, ben, list, recs])=>{
       if (isPremiumCard(d)) {
         document.body.classList.add('prem-theme');
       }
       window._CALC_BS = ben[idx] || null;
-      render(d);
+      render(d, list, recs);
       if(window._calcRender) window._calcRender();
     })
     .catch(e => {
