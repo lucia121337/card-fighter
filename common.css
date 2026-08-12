@@ -1067,7 +1067,7 @@ body.prem-theme .cf-footer-desc {
 /* 3. Global Scroll to Top Button */
 .cf-scroll-top-btn {
   position: fixed;
-  bottom: 28px;
+  bottom: 96px;
   right: 28px;
   background: var(--panel);
   color: var(--brand);
@@ -1078,10 +1078,36 @@ body.prem-theme .cf-footer-desc {
   padding: 10px 16px;
   border-radius: 99px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 150;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.25s ease;
+}
+
+body.prem-theme .cf-scroll-top-btn {
+  background: #181a22 !important;
+  color: #e8c886 !important;
+  border-color: #3a3320 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.prem-theme .cf-scroll-top-btn:hover {
+  background: linear-gradient(90deg, #b8860b, #e3b448) !important;
+  color: #1a150a !important;
+  border-color: #e3b448 !important;
+}
+
+body.calc-theme .cf-scroll-top-btn {
+  background: #0e2622 !important;
+  color: #7fe0a5 !important;
+  border-color: #165c52 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.calc-theme .cf-scroll-top-btn:hover {
+  background: linear-gradient(90deg, #0e7f6e, #16a896) !important;
+  color: #ffffff !important;
+  border-color: #16a896 !important;
 }
 
 .cf-scroll-top-btn.show {
