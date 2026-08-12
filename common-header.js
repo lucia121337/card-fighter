@@ -136,23 +136,33 @@
     location.href = '/search?q=' + encodeURIComponent(q.trim());
   };
 
-  window.handleSmartBack = function (fallbackUrl = '/card') {
+  function safeUrl(url) {
+    if (!url) return '/index.html?type=calc';
+    if (url.includes('/card/calculator')) return '/index.html?type=calc';
+    if (url.includes('/card/credit')) return '/index.html?type=credit';
+    if (url.includes('/card/check')) return '/index.html?type=check';
+    if (url.includes('/card/premium')) return '/index.html?type=premium';
+    return url;
+  }
+
+  window.handleSmartBack = function (fallbackUrl = '/index.html?type=calc') {
     const ref = document.referrer;
     const isSameHost = ref && ref.includes(location.host);
     const isDifferentPath = isSameHost && !ref.endsWith(location.pathname);
     const isDetailRef = isSameHost && ref.includes('/detail');
+    const targetUrl = safeUrl(fallbackUrl);
 
     if (isDifferentPath && !isDetailRef && window.history.length > 1) {
       history.back();
       setTimeout(() => {
         if (location.href.includes('/detail')) {
-          location.href = (ref && !isDetailRef) ? ref : fallbackUrl;
+          location.href = (ref && !isDetailRef) ? safeUrl(ref) : targetUrl;
         }
       }, 150);
     } else if (ref && isSameHost && !isDetailRef) {
-      location.href = ref;
+      location.href = safeUrl(ref);
     } else {
-      location.href = fallbackUrl;
+      location.href = targetUrl;
     }
   };
 

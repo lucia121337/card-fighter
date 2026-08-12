@@ -1880,7 +1880,7 @@ fetch('cards_list.json')
 /* ── 초기 라우팅: /card, /event, /shopping 및 전체카드 LNB/캐시백 플랫폼 하위 경로까지 clean URL로
    들어왔을 때 해당 GNB 섹션 + 하위 탭까지 바로 맞춰준다.
    과거 index.html#cards 같은 해시 링크(다른 파일에 남아있을 수 있음)도 폴백으로 계속 지원. ── */
-const PATH_SECTION = { '/':'home',
+const PATH_SECTION = { '/':'home', '/index.html':'home',
   '/card':'cards', '/card/credit':'cards', '/card/check':'cards', '/card/premium':'cards', '/card/calculator':'cards',
   '/event':'cashback', '/event/card-gorilla':'cashback', '/event/ajd-card':'cashback',
   '/event/kakaopay':'cashback', '/event/naverpay':'cashback', '/event/toss':'cashback', '/event/banksalad':'cashback',
@@ -1890,8 +1890,18 @@ const PATH_PLATFORM = { '/event':'전체보기', '/event/card-gorilla':'카드�
   '/event/kakaopay':'카카오페이', '/event/naverpay':'네이버페이', '/event/toss':'토스', '/event/banksalad':'뱅크샐러드' };
 
 function applyPathSubState(){
-  if (PATH_CARDTYPE.hasOwnProperty(location.pathname)) {
-    const cardtype = PATH_CARDTYPE[location.pathname];
+  const searchParams = new URLSearchParams(location.search);
+  const paramType = searchParams.get('type') || searchParams.get('cardtype') || searchParams.get('tab');
+
+  let cardtype = PATH_CARDTYPE[location.pathname];
+  if (cardtype === undefined && paramType) {
+    if (paramType === 'calc' || paramType === 'calculator' || paramType === '혜택계산기') cardtype = '혜택계산기';
+    else if (paramType === 'credit' || paramType === '신용') cardtype = '신용';
+    else if (paramType === 'check' || paramType === '체크') cardtype = '체크';
+    else if (paramType === 'premium' || paramType === '프리미엄') cardtype = '프리미엄';
+  }
+
+  if (cardtype !== undefined) {
     const btn = document.querySelector(`#section-cards .lnb-item[data-cardtype="${cardtype}"]`);
     if (btn) {
       document.querySelectorAll('#section-cards .lnb-item').forEach(b => b.classList.remove('active'));
@@ -1912,7 +1922,9 @@ function applyPathSubState(){
 
 (function routeInitial(){
   const HASH_SECTION = { cards:'cards', cashback:'cashback', shopping:'shopping', merchant:'shopping' };
-  const target = PATH_SECTION[location.pathname] || HASH_SECTION[location.hash.slice(1)];
+  const searchParams = new URLSearchParams(location.search);
+  const hasTypeParam = searchParams.has('type') || searchParams.has('cardtype') || searchParams.has('tab');
+  const target = PATH_SECTION[location.pathname] || HASH_SECTION[location.hash.slice(1)] || (hasTypeParam ? 'cards' : null);
   if (target) {
     applyPathSubState();
     showSection(target, {replace:true});
@@ -1922,7 +1934,10 @@ function applyPathSubState(){
 /* ── 브라우저 뒤로/앞으로 가기 대응 ── */
 window.addEventListener('popstate', () => {
   applyPathSubState();
-  showSection(PATH_SECTION[location.pathname] || 'home', {skipHistory:true});
+  const searchParams = new URLSearchParams(location.search);
+  const hasTypeParam = searchParams.has('type') || searchParams.has('cardtype') || searchParams.has('tab');
+  const target = PATH_SECTION[location.pathname] || HASH_SECTION[location.hash.slice(1)] || (hasTypeParam ? 'cards' : 'home');
+  showSection(target, {skipHistory:true});
 });
 </script>
 
