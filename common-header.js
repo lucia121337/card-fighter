@@ -136,9 +136,21 @@
     location.href = '/search?q=' + encodeURIComponent(q.trim());
   };
 
-  window.handleSmartBack = function (fallbackUrl = '/index.html') {
-    if (document.referrer && document.referrer.includes(location.host) && !document.referrer.endsWith(location.pathname)) {
+  window.handleSmartBack = function (fallbackUrl = '/card') {
+    const ref = document.referrer;
+    const isSameHost = ref && ref.includes(location.host);
+    const isDifferentPath = isSameHost && !ref.endsWith(location.pathname);
+    const isDetailRef = isSameHost && ref.includes('/detail');
+
+    if (isDifferentPath && !isDetailRef && window.history.length > 1) {
       history.back();
+      setTimeout(() => {
+        if (location.href.includes('/detail')) {
+          location.href = (ref && !isDetailRef) ? ref : fallbackUrl;
+        }
+      }, 150);
+    } else if (ref && isSameHost && !isDetailRef) {
+      location.href = ref;
     } else {
       location.href = fallbackUrl;
     }

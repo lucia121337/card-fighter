@@ -228,7 +228,7 @@
 </head>
 <body>
 <header>
-  <a class="back" href="/index.html" onclick="event.preventDefault(); handleSmartBack('/index.html')">← 목록으로</a>
+  <a class="back" href="/card" onclick="event.preventDefault(); handleSmartBack('/card')">← 목록으로</a>
   <span class="header-logo" role="img" aria-label="카드 파이터 로고">🥊</span>
   <span class="header-title">카드 파이터</span>
   <div class="gnb-divider"></div>
@@ -586,7 +586,7 @@ if(!idx){
       document.getElementById('wrap').innerHTML =
         `<div class="status">카드 정보를 불러오지 못했습니다.<br>
         <small style="color:#94a3b8">${esc(String(e))}</small><br><br>
-        <a href="/index.html">← 목록으로</a></div>`;
+        <a href="/card" onclick="event.preventDefault(); handleSmartBack('/card')">← 목록으로</a></div>`;
     });
 }
 </script>
