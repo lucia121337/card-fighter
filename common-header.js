@@ -26,9 +26,7 @@
 
   const darkPages = [
     '/match_game.html',
-    '/worldcup_game.html',
     '/cardlab/match',
-    '/cardlab/worldcup',
     '/qa.html',
     '/review.html',
     '/premium-dark.html'
