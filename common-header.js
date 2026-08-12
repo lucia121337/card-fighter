@@ -128,19 +128,12 @@
     `;
   }
 
+  // 헤더 검색은 항상 통합검색 페이지(/search)로 보낸다. /search 는 카드/캐시백/할인가맹점/카드연구소
+  // 4종 통합 + TF-IDF·BERT 유사도 기반 추천까지 붙어 있는 페이지라, 전체카드 목록만 인라인 필터링하면
+  // 그 기능들이 전부 도달 불가가 된다(실제로 그렇게 바뀌면서 검색이 사라졌던 이력 있음).
   window.CFHeaderSearch = function (q) {
     if (!q || !q.trim()) return;
-    if (typeof filterCards === 'function') {
-      const searchInp = document.getElementById('card-search');
-      if (searchInp) {
-        searchInp.value = q.trim();
-        if (typeof showSection === 'function') showSection('cards');
-        filterCards();
-        window.CardToast && window.CardToast.show(`"${q.trim()}" 검색 결과입니다.`);
-        return;
-      }
-    }
-    location.href = '/card?q=' + encodeURIComponent(q.trim());
+    location.href = '/search?q=' + encodeURIComponent(q.trim());
   };
 
   window.handleSmartBack = function (fallbackUrl = '/index.html') {
