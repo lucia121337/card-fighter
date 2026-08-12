@@ -1088,78 +1088,7 @@ body.prem-theme .cf-footer-desc {
   box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
 }
 
-/* 4. Mobile Hamburger Drawer Menu */
-.cf-hamburger-btn {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  color: var(--txt);
-  padding: 4px 8px;
-}
-
-@media (max-width: 768px) {
-  .cf-gnb { display: none !important; }
-  .cf-hamburger-btn { display: block !important; }
-}
-
-.cf-mobile-drawer {
-  position: fixed;
-  inset: 0;
-  background: var(--panel);
-  z-index: 5000;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 24px;
-}
-
-.cf-mobile-drawer.open {
-  transform: translateX(0);
-}
-
-.cf-mobile-drawer-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
-}
-
-.cf-mobile-drawer-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  color: var(--muted);
-}
-
-.cf-mobile-drawer-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.cf-mobile-drawer-body a {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--txt);
-  text-decoration: none;
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
-  transition: background 0.15s ease;
-}
-
-.cf-mobile-drawer-body a:hover,
-.cf-mobile-drawer-body a.active {
-  background: var(--brand-light);
-  color: var(--brand);
-}
-
-/* 5. Skeleton Loading UI & Breadcrumbs */
+/* 4. Skeleton Loading UI & Breadcrumbs */
 @keyframes cfSkeletonPulse {
   0% { background-position: -200px 0; }
   100% { background-position: calc(200px + 100%) 0; }
@@ -1190,5 +1119,25 @@ body.prem-theme .cf-footer-desc {
 
 .cf-breadcrumb a:hover {
   color: var(--brand);
+}
+
+.cf-breadcrumb-current {
+  color: var(--txt);
+  font-weight: 700;
+}
+
+body.prem-theme .cf-breadcrumb,
+body.prem-theme .cf-breadcrumb a,
+body.prem-theme .cf-breadcrumb-sep {
+  color: #9aa0ac !important;
+}
+
+body.prem-theme .cf-breadcrumb a:hover {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .cf-breadcrumb-current {
+  color: #e8c886 !important;
+  font-weight: 800 !important;
 }
 

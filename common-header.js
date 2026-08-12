@@ -88,7 +88,7 @@
     });
   }
 
-  /* ── 4. Global Header & Mobile Hamburger Navigation ── */
+  /* ── 4. Global Header Navigation ── */
   function initHeader() {
     const headerEl = document.querySelector('header');
     if (!headerEl) return;
@@ -124,26 +124,9 @@
             🔍
           </button>
         </div>
-        <button type="button" class="cf-hamburger-btn" onclick="window.toggleCFMobileMenu()" aria-label="메뉴 열기">
-          ☰
-        </button>
-      </div>
-      <div id="cf-mobile-drawer" class="cf-mobile-drawer">
-        <div class="cf-mobile-drawer-head">
-          <span style="font-weight:800;font-size:16px">🥊 카드 파이터 메뉴</span>
-          <button type="button" class="cf-mobile-drawer-close" onclick="window.toggleCFMobileMenu()">✕</button>
-        </div>
-        <div class="cf-mobile-drawer-body">
-          ${gnbItems}
-        </div>
       </div>
     `;
   }
-
-  window.toggleCFMobileMenu = function () {
-    const drawer = document.getElementById('cf-mobile-drawer');
-    if (drawer) drawer.classList.toggle('open');
-  };
 
   window.CFHeaderSearch = function (q) {
     if (!q || !q.trim()) return;

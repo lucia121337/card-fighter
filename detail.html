@@ -511,9 +511,9 @@ function render(d){
 
   document.getElementById('wrap').innerHTML = `
     <div class="cf-breadcrumb">
-      <a href="/">홈</a> <span>›</span>
-      <a href="/card">전체카드</a> <span>›</span>
-      <span style="color:var(--txt);font-weight:700">${esc(name)}</span>
+      <a href="/">홈</a> <span class="cf-breadcrumb-sep">›</span>
+      <a href="/card">전체카드</a> <span class="cf-breadcrumb-sep">›</span>
+      <span class="cf-breadcrumb-current">${esc(name)}</span>
     </div>
     <div class="hero">
       <div style="display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0">
