@@ -83,8 +83,8 @@
   "top_benefit_summary": "마트/편의점: 무제한 | 도서: 무제한 | 패스트푸드: 무제한 | 교통: 무제한 | CJ ONE: 무제한 | 기타: 무제한",
   "detailed_benefits": "마트/편의점: 편의점/올리브영 캐시백 | 도서: 서점 캐시백 | 패스트푸드: 베이커리/패스트푸드 캐시백 | 교통: 티머니 충전 캐시백 | CJ ONE: 멀티 멤버십 서비스 | 기타: 월 캐시백 한도",
   "item_limit": "[{\"perf\":10000,\"limit\":1000}] | [{\"perf\":10000,\"limit\":1000}] | [{\"perf\":10000,\"limit\":1000}] | [{\"perf\":10000,\"limit\":1000}] | -1 | [{\"perf\":100000,\"limit\":5000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

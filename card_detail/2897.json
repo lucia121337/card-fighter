@@ -68,8 +68,8 @@
   "top_benefit_summary": "카페: 무제한 | 기타: 무제한 | 국내외가맹점: 무제한",
   "detailed_benefits": "카페: 스타벅스 이용 시 스타벅스 별 리워드 적립 | 기타: 전월 이용금액에 관계없이, 스타벅스 선불카드 충전 이용 시 당월 누적 이용금액 3만원당 스타벅스 별 리워드 1개 적립 | 국내외가맹점: 국내외 가맹점 이용 시 당월 누적 이용금액 3만원당 스타벅스 별 리워드 1개 적립",
   "item_limit": "[{\"perf\":500000,\"limit\":30000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

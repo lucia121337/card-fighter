@@ -66,8 +66,8 @@
   "top_benefit_summary": "혜택 프로모션: 무제한 | 적립: 2% | 적립: 0.2%",
   "detailed_benefits": "혜택 프로모션: 행사 기간: 2026. 10. 15(목)까지 | 적립: 쿠팡, 쿠팡이츠, 쿠팡플레이 2% 쿠팡캐시 적립 | 적립: - 국내외 가맹점 이용금액 0.2% 쿠팡캐시 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

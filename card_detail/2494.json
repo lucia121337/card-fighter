@@ -68,8 +68,8 @@
   "top_benefit_summary": "멤버십포인트: 5% | 적립: 0.5%",
   "detailed_benefits": "멤버십포인트: H.Point 5% 특별적립 | 적립: 전월실적조건, 한도 제한 없이 0.5% H.Point 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

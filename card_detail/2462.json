@@ -83,8 +83,8 @@
   "top_benefit_summary": "쇼핑: 1.7% | 해외이용: 1.7% | 기타: 2.7%",
   "detailed_benefits": "쇼핑: 신세계백화점 이용금액의 1.7% 청구 할인 | 해외이용: 해외 가맹점 이용금액의 1.7% 청구 할인 | 기타: 신세계 아카데미 이용금액의 2.7% 청구 할인",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

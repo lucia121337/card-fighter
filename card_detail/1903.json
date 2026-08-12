@@ -93,17 +93,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 온라인쇼핑: 무제한 | 점심: 무제한 | 대형마트: 무제한 | 카페: 무제한 | 통신: 무제한 | 편의점: 무제한 | 경기관람: 무제한",
   "detailed_benefits": "대한항공: 마일리지 적립 | 온라인쇼핑: 쇼핑 | 점심: 쇼핑 | 대형마트: 마트 | 카페: 커피 | 통신: 통신요금 | 편의점: 편의점 | 경기관람: 프로 스포츠",
   "item_limit": "[{\"perf\":300000,\"limit\":30000}] | [{\"perf\":300000,\"limit\":30000}] | [{\"perf\":10000,\"limit\":5000}] | [{\"perf\":10000,\"limit\":5000}] | 5000 | [{\"perf\":30000,\"limit\":3000}] | 5000 | [{\"perf\":10000,\"limit\":5000}]",
-  "group_id": "none | none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 10000,
-      "limit": 5
-    },
-    {
-      "perf": 30000,
-      "limit": 3
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

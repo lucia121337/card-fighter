@@ -68,13 +68,8 @@
   "top_benefit_summary": "교통: 무제한 | 카페: 무제한 | 백화점: 무제한",
   "detailed_benefits": "교통: 신한 S-Choice 체크카드의 할인 서비스 (교통, 커피, 쇼핑 서비스 중 택 1 제공) | 카페: 신한 S-Choice 체크카드의 할인 서비스 (교통, 커피, 쇼핑 서비스 중 택 1 제공) | 백화점: 신한 S-Choice 체크카드의 할인 서비스 (교통, 커피, 쇼핑 서비스 중 택 1 제공)",
   "item_limit": "-1 | 5 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 1200000,
-      "limit": 12000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "국내외가맹점: 무제한 | 전통시장: 15% | 생활: 0.3%",
   "detailed_benefits": "국내외가맹점: NH포인트 적립 | 전통시장: 전통시장 15% NH포인트 적립 | 생활: 생활영역 0.3% NH포인트 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

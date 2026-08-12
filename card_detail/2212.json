@@ -83,8 +83,8 @@
   "top_benefit_summary": "편의점: 10% | 카페: 10% | 대형마트: 무제한 | 온라인쇼핑: 무제한 | 주유: 무제한",
   "detailed_benefits": "편의점: [기본혜택] 주요편의점 10%캐시백 | 카페: [기본혜택] 주요커피전문점 10%캐시백 | 대형마트: [백화점&amp;마트 캐시백형] | 온라인쇼핑: [온라인쇼핑 캐시백형] | 주유: [주유 캐시백형]",
   "item_limit": "-1 | -1 | 5000 | -1 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

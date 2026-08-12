@@ -77,10 +77,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2684",
   "top_benefit_summary": "온라인쇼핑: 10% | 일반음식점: 10% | 영화: 10% | 해외: 10% | 디지털구독: 10%",
   "detailed_benefits": "온라인쇼핑: 온라인 쇼핑몰 10% 청구 할인 | 일반음식점: [일반음식점 10% 청구 할인] | 영화: [영화 10% 청구 할인] | 해외: [해외 가맹점 10% 청구 할인] | 디지털구독: [디지털 콘텐츠 서비스 10% 청구 할인]",
-  "item_limit": "[{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":6000},{\"perf\":1000000,\"limit\":10000}]",
-  "group_id": "none | group_2684_일반음식점 10% 청구 할인 | group_2684_영화 10% 청구 할인 | group_2684_해외 가맹점 10% 청구 할인 | none",
-  "group_limit": "-1 | 1 | 1 | 1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}] | [{\"perf\":500000,\"min_perf\":500000,\"max_perf\":1000000,\"limit\":6000},{\"perf\":1000000,\"min_perf\":1000000,\"max_perf\":null,\"limit\":10000}]",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -88,8 +88,26 @@
       "title": "온라인쇼핑",
       "detail": "온라인 쇼핑몰 10% 청구 할인",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -98,8 +116,26 @@
       "title": "일반음식점",
       "detail": "[일반음식점 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -108,8 +144,26 @@
       "title": "영화",
       "detail": "[영화 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -118,8 +172,26 @@
       "title": "해외",
       "detail": "[해외 가맹점 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -128,8 +200,26 @@
       "title": "디지털구독",
       "detail": "[디지털 콘텐츠 서비스 10% 청구 할인]",
       "group_id": null,
-      "rate": "[{\"perf\":500000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 500000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "min_perf": 500000,
+          "max_perf": 1000000,
+          "limit": 6000
+        },
+        {
+          "perf": 1000000,
+          "min_perf": 1000000,
+          "max_perf": null,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

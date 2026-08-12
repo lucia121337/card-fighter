@@ -83,8 +83,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 골프: 무제한 | 배달앱: 10%",
   "detailed_benefits": "대한항공: 항공 마일리지 적립 | 골프: 골프 쇼핑 할인 | 배달앱: 쿠팡이츠, 배달의 민족 10% 결제일 할인",
   "item_limit": "[{\"perf\":300000,\"limit\":500000}] | [{\"perf\":30000,\"limit\":20000}] | 5000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

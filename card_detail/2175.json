@@ -62,19 +62,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2175",
   "top_benefit_summary": "생활: 10%",
   "detailed_benefits": "생활: 주차장 10% 청구할인",
-  "item_limit": "[{\"perf\":10000,\"limit\":300000},{\"perf\":700000,\"limit\":10000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":10000}]",
   "group_id": "none",
   "group_limit": "-1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 5
-    },
-    {
-      "perf": 700000,
-      "limit": 10000
-    }
-  ],
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -82,8 +73,22 @@
       "title": "생활",
       "detail": "주차장 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 10000
+        },
+        {
+          "perf": 700000,
+          "limit": 10000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

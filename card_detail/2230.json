@@ -64,8 +64,8 @@
   "top_benefit_summary": "생활: 5% | 보험: 무제한",
   "detailed_benefits": "생활: 생활업종 5% 결제일 할인 | 보험: 자동차보험료 3만원 결제일 할인",
   "item_limit": "[{\"perf\":750000,\"limit\":10000}] | 300000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

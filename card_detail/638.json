@@ -73,8 +73,8 @@
   "top_benefit_summary": "모든가맹점: 0.3% | 생활: 2% | 쇼핑: 1% | 해외이용: 1%",
   "detailed_benefits": "모든가맹점: 모든 가맹점 0.3% 포인트 적립 | 생활: 생활가맹점 총 2% 포인트 적립 (기본 0.3%+추가 1.7%) | 쇼핑: 쇼핑가맹점 총 1% 포인트 적립(기본 0.3%+추가 0.7%) | 해외이용: 해외 가맹점 이용금액 총 1% 포인트 적립(기본 0.3%+추가 0.7%)",
   "item_limit": "30000 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

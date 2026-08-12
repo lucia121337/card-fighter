@@ -78,8 +78,8 @@
   "top_benefit_summary": "대한항공: 무제한 | 대한항공: 무제한 | 대한항공: 무제한",
   "detailed_benefits": "대한항공: 1,500원당 1 스카이패스 마일리지 | 대한항공: 1,500원당 1 스카이패스 마일리지 추가 | 대한항공: 1백만원당 200 스카이패스 마일리지 추가",
   "item_limit": "-1 | 2000 | 2000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

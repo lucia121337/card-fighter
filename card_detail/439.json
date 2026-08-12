@@ -68,17 +68,8 @@
   "top_benefit_summary": "해피포인트: 20% | 멤버십포인트: 무제한",
   "detailed_benefits": "해피포인트: 해피포인트 가맹점 10~20% 캐시백 | 멤버십포인트: POP CARD 할인 및 GS&amp;POINT 적립",
   "item_limit": "4000 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 10
-    },
-    {
-      "perf": 600000,
-      "limit": 20
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

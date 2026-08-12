@@ -73,8 +73,8 @@
   "top_benefit_summary": "경기관람: 무제한 | 적립: 10% | 배달앱: 5% | 편의점: 5%",
   "detailed_benefits": "경기관람: LG트윈스 정규 시즌 홈경기 입장권 3천원 할인 | 적립: LG트윈스 홈경기장 내 구단 공식 매장에서 용품 구매 시 최대 10% 적립 | 배달앱: 배달앱 이용 시 최대 5% 적립(요기요, 배달의 민족, 쿠팡이츠, 땡겨요) | 편의점: 편의점 이용 시 최대 5% 적립(GS25, CU, 세븐일레븐, 이마트24)",
   "item_limit": "-1 | -1 | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":800000}] | [{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":800000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

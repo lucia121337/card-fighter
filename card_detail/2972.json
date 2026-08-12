@@ -68,8 +68,8 @@
   "top_benefit_summary": "국내외가맹점: 0.5% | 적립: 5%",
   "detailed_benefits": "국내외가맹점: 실적&middot;한도 제한 없이 국내외 가맹점 0.5% M포인트 적립 | 적립: 전월 이용 금액 30만원 이상 시 일반음식점, 배달 앱, 편의점, 대중교통 5% M포인트 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

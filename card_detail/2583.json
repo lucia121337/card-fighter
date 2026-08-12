@@ -73,8 +73,8 @@
   "top_benefit_summary": "기타: 무제한 | 카페: 5% | 편의점: 5%",
   "detailed_benefits": "기타: PAYCO 36 우리카드 장기할부 서비스 제공 | 카페: 커피전문점 5% 청구할인 | 편의점: 편의점 5% 청구할인",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":500000,\"limit\":1000000},{\"perf\":800000,\"limit\":10000}] | 3000 | 10000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

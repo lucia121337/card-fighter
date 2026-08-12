@@ -78,8 +78,8 @@
   "top_benefit_summary": "주유: 5% | 비즈니스: 0.5% | 기타: 10% | 자동차: 1%",
   "detailed_benefits": "주유: 국내 주유소 및 LPG&middot;수소차 충전소 5% 청구할인, 전기차 충전소 5% 청구할인 | 비즈니스: 주요 사업경비업종 0.5% 청구할인 | 기타: 카카오T대리 자동결제 10% 청구할인 | 자동차: 차량 구매액 1% 청구할인",
   "item_limit": "[{\"perf\":500000,\"limit\":1500000},{\"perf\":1500000,\"limit\":3000000},{\"perf\":3000000,\"limit\":10000}] | [{\"perf\":500000,\"limit\":50000}] | [{\"perf\":500000,\"limit\":3000}] | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

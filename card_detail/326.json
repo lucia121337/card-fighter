@@ -68,9 +68,9 @@
   "top_benefit_summary": "해피포인트: 5% | 마트/편의점: 5%",
   "detailed_benefits": "해피포인트: 해피포인트 가맹점 5% 적립(해피포인트 현장 적립) | 마트/편의점: 5대 할인점 5% 청구 할인 서비스",
   "item_limit": "20000 | 90000",
-  "group_id": "group_326_주의사항 | group_326_주의사항",
-  "group_limit": "1 | 1",
-  "total_limit_tiers": [],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -78,8 +78,13 @@
       "title": "해피포인트",
       "detail": "해피포인트 가맹점 5% 적립(해피포인트 현장 적립)",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "20000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 20000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -88,8 +93,13 @@
       "title": "마트/편의점",
       "detail": "5대 할인점 5% 청구 할인 서비스",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.05}]",
-      "item_limit": "90000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 90000,
       "fixedAmount": 0,
       "minPayment": 0
     }

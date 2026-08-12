@@ -88,8 +88,8 @@
   "top_benefit_summary": "카페: 무제한 | 생활: 무제한 | 영화: 무제한 | 기타: 무제한 | 쇼핑: 무제한 | 간편결제: 무제한",
   "detailed_benefits": "카페: [커피] | 생활: [스트리밍/배달앱] | 영화: [영화] | 기타: [대중교통/통신요금] | 쇼핑: [온라인쇼핑/편의점] | 간편결제: [간편결제]",
   "item_limit": "-1 | 7000 | 10000 | -1 | 20000 | 2000",
-  "group_id": "none | none | none | group_666_대중교통/통신요금 | none | none",
-  "group_limit": "-1 | -1 | -1 | 1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

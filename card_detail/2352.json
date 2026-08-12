@@ -68,8 +68,8 @@
   "top_benefit_summary": "마트/편의점: 3% | 모든가맹점: 0.7% | 기타: 무제한",
   "detailed_benefits": "마트/편의점: GS가맹점 최대 3% GS&amp;POINT 적립 | 모든가맹점: 국내 전 가맹점 0.7% GS&amp;POINT 적립 | 기타: GS POP서비스 제공",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

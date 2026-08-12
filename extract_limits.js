@@ -45,28 +45,69 @@ function stringifyCSV(rows) {
   }).join('\n');
 }
 
+/**
+ * [금액 변환 및 구간 배열 강제 룰]
+ * 숫자/한글 혼용 금액 변환 룰: 약관에 '1만3천원', '1.5만원', '일만오천원' 등 한글 단위가 섞인 금액 표기가 등장하면, 
+ * 절대 무시하거나 누락하지 말고 반드시 순수 정수(예: 13000, 15000)로 변환해서 추출해라. 
+ * 특히 전월 실적(perf) 구간에 따라 한도가 다를 경우, 첫 번째 조건만 가져오지 말고 모든 구간을 파악하여 반드시 배열(Array) 형태로 `item_limit`을 작성해라.
+ * 
+ * Few-Shot 예시:
+ * 원문: "전월 이용금액 40만원 이상 시 월 1만원, 80만원 이상 시 월 1만3천원 한도"
+ * 출력:
+ * "item_limit": [
+ *   {"perf": 400000, "limit": 10000},
+ *   {"perf": 800000, "limit": 13000}
+ * ]
+ */
 function parseKoreanAmount(str) {
   if (!str) return 0;
+
+  const numKoreanMap = { '일': 1, '이': 2, '삼': 3, '사': 4, '오': 5, '육': 6, '칠': 7, '팔': 8, '구': 9 };
+  let s = String(str).trim();
+  
+  if (s.includes('만') || s.includes('천')) {
+    s = s.replace(/([일이삼사오육칠팔구])(?=[만천])/g, (_, p1) => numKoreanMap[p1] || p1);
+  }
+
+  s = s.replace(/,/g, '').replace(/\s+/g, '').trim();
+
   let total = 0;
-  const cleaned = str.replace(/,/g, '').replace(/\s+/g, '').trim();
 
-  const manMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*만/);
-  const chunMatch = cleaned.match(/(\d+(?:\.\d+)?)\s*천/);
-
-  if (manMatch) {
-    total += parseFloat(manMatch[1]) * 10000;
-    const restChun = cleaned.match(/만\s*(\d+(?:\.\d+)?)\s*(?:천)?/);
-    if (restChun && (cleaned.includes('천') || restChun[1] < 10)) {
-      total += parseFloat(restChun[1]) * 1000;
+  if (s.includes('만')) {
+    const parts = s.split('만');
+    const manVal = parseFloat(parts[0]);
+    if (!isNaN(manVal)) {
+      total += Math.round(manVal * 10000);
     }
-  } else if (chunMatch) {
-    total += parseFloat(chunMatch[1]) * 1000;
+    const rest = parts[1] || '';
+    if (rest) {
+      const chunMatch = rest.match(/(\d+(?:\.\d+)?)천/);
+      if (chunMatch) {
+        total += Math.round(parseFloat(chunMatch[1]) * 1000);
+      } else {
+        const numMatch = rest.match(/(\d+)/);
+        if (numMatch) {
+          const n = parseInt(numMatch[1], 10);
+          if (n < 10) {
+            total += n * 1000;
+          } else {
+            total += n;
+          }
+        }
+      }
+    }
+  } else if (s.includes('천')) {
+    const chunMatch = s.match(/(\d+(?:\.\d+)?)천/);
+    if (chunMatch) {
+      total += Math.round(parseFloat(chunMatch[1]) * 1000);
+    }
   } else {
-    const numOnly = cleaned.match(/\d+/);
+    const numOnly = s.match(/\d+/);
     if (numOnly) {
       total = parseInt(numOnly[0], 10);
     }
   }
+
   return total;
 }
 

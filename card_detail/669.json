@@ -68,17 +68,8 @@
   "top_benefit_summary": "모든가맹점: 0.3% | 기타: 3%",
   "detailed_benefits": "모든가맹점: 모든 가맹점에서 0.3% 캐시백 | 기타: 최대 2만원 3% 특별 캐시백",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":10000},{\"perf\":500000,\"limit\":20000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 10000
-    },
-    {
-      "perf": 500000,
-      "limit": 20000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

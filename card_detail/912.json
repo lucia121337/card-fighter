@@ -73,8 +73,8 @@
   "top_benefit_summary": "쇼핑: 10% | 간편결제: 5%",
   "detailed_benefits": "쇼핑: 온라인쇼핑몰, 대형마트, 소셜커머스, 백화점 10% 포인트리 적립 | 간편결제: 온라인쇼핑몰에서 KB Pay 이용 시 5% 포인트리 적립",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -68,8 +68,8 @@
   "top_benefit_summary": "기타: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "기타: 혜택 | 멤버십포인트: ※ 일상생활 속 다양한 가맹점에서 이용금액 일부를 M포인트로 사용",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

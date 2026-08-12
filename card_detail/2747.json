@@ -78,8 +78,8 @@
   "top_benefit_summary": "동물병원: 30% | 쇼핑: 30% | 온라인쇼핑: 10% | 애완동물: 20% | 할인: 무제한",
   "detailed_benefits": "동물병원: 전국 동물병원 30% 결제일 할인 | 쇼핑: 5개 펫 온라인 전용몰 30% 결제일 할인 | 온라인쇼핑: 일반 온라인 쇼핑몰 10% 결제일 할인 | 애완동물: 반려동물 등록 20% 결제일 할인 [연(1월~12월) 2회] | 할인: 동물병원, 펫 전용몰 할인한도 변경서비스",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":20000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000},{\"perf\":1200000,\"limit\":20000}] | -1 | 100",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

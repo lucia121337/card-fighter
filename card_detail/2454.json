@@ -83,8 +83,8 @@
   "top_benefit_summary": "국내외가맹점: 무제한 | 캐시백: 3% | 무실적: 무제한 | 해외: 무제한",
   "detailed_benefits": "국내외가맹점: 무제한 캐시백 | 캐시백: 국내/해외 상관없이 해외 가맹점이면 3% 캐시백 | 무실적: 실적 조건 NO! 결제한 금액만큼 즉시 혜택 제공 | 해외: ATM 출금 수수료 무료 혜택",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

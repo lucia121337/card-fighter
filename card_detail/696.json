@@ -83,8 +83,8 @@
   "top_benefit_summary": "자동차: 무제한 | 대중교통: 무제한 | 도서: 무제한 | 통신: 무제한 | 디지털구독: 무제한 | 간편결제: 무제한",
   "detailed_benefits": "자동차: [친환경 소비 모아포인트 적립] | 대중교통: [친환경 소비 모아포인트 적립] | 도서: [친환경 소비 모아포인트 적립] | 통신: [디지털 생활 모아포인트 적립] | 디지털구독: [디지털 생활 모아포인트 적립] | 간편결제: [10대 간편결제 모아포인트 적립]",
   "item_limit": "-1 | -1 | -1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

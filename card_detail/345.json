@@ -78,8 +78,8 @@
   "top_benefit_summary": "백화점: 7% | 홈쇼핑: 5% | 화장품: 5% | 교통: 5% | 해외이용: 5%",
   "detailed_benefits": "백화점: 롯데&middot;현대&middot;신세계백화점 7% 환급할인 | 홈쇼핑: GS홈쇼핑&middot;CJ홈쇼핑 / G마켓&middot;옥션 5% 환급할인 | 화장품: 미용실&middot;화장품&middot;피부미용 5% 환급할인 | 교통: 버스&middot;지하철 5% 청구할인 | 해외이용: 해외이용 5% 할인 캐시백",
   "item_limit": "100000 | 50000 | 100000 | -1 | 100000",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

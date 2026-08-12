@@ -89,17 +89,8 @@
   "top_benefit_summary": "항공권: 10% | 카페: 5% | 해외이용: 무제한 | 영화: 1500원 | 멤버십포인트: 무제한",
   "detailed_benefits": "항공권: 진에어 항공권 10% 청구할인 (최대3만원) | 카페: 커피전문점 5% 청구할인 | 해외이용: 일본 | 영화: 롯데시네마 관람료 1,500원 청구할인 | 멤버십포인트: L.POINT",
   "item_limit": "-1 | [{\"perf\":300000,\"limit\":5000}] | -1 | -1 | 1000000",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 300000,
-      "limit": 10
-    },
-    {
-      "perf": 500000,
-      "limit": 10
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

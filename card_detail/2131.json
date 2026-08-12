@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2131",
   "top_benefit_summary": "적립: 0.8%",
   "detailed_benefits": "적립: 기본적립 : 국내&middot;외 0.8% NH포인트 적립",
-  "item_limit": "[{\"perf\":1000000,\"limit\":1500000}]",
+  "item_limit": "[{\"perf\":1500000,\"limit\":1000000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -78,8 +78,18 @@
       "title": "적립",
       "detail": "기본적립",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 1500000,
+          "limit": 1000000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

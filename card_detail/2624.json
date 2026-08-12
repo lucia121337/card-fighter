@@ -88,8 +88,8 @@
   "top_benefit_summary": "온라인쇼핑: 10% | 주유: 5% | 통신: 10% | 패밀리레스토랑: 30% | 해외이용: 5% | 테마파크: 무제한",
   "detailed_benefits": "온라인쇼핑: 온라인 쇼핑 10% 할인 (KB Pay 결제 시) | 주유: 주유 100원/L, 편의점 5% 할인 | 통신: 이동통신 10%, OTT 30% 할인 | 패밀리레스토랑: 패밀리레스토랑 30% 할인 | 해외이용: 해외 가맹점 5% 할인 | 테마파크: 놀이공원 현장 할인",
   "item_limit": "1 | 1 | 1 | 1 | 1 | -1",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

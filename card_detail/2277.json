@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2277",
   "top_benefit_summary": "생활: 5%",
   "detailed_benefits": "생활: 생활업종 청구할인 5%",
-  "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":600000,\"limit\":20000}]",
+  "item_limit": "9900",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -78,8 +78,13 @@
       "title": "생활",
       "detail": "생활업종 청구할인 5%",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 9900,
       "fixedAmount": 0,
       "minPayment": 0
     }

@@ -78,8 +78,8 @@
   "top_benefit_summary": "모든가맹점: 0.2% | 대형마트: 1% | 학원: 1% | 병원/약국: 1% | 캐시백: 무제한",
   "detailed_benefits": "모든가맹점: 기본적립 0.1~0.2% 적립 | 대형마트: 추가적립 대형마트(이마트, 롯데마트, 홈플러스) 1% 적립 | 학원: 학원(오프라인) 1% 적립 | 병원/약국: 병/의원, 약국 1% 적립 | 캐시백: 적립된 포인트 익월 15일 이후 결제계좌로 자동 캐시백 입금",
   "item_limit": "10000 | [{\"perf\":300000,\"limit\":600000},{\"perf\":600000,\"limit\":1000000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":300000,\"limit\":600000},{\"perf\":600000,\"limit\":1000000},{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":300000,\"limit\":600000},{\"perf\":600000,\"limit\":1000000},{\"perf\":1000000,\"limit\":10000}] | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -78,8 +78,8 @@
   "top_benefit_summary": "할인: 무제한 | 영화: 3500원 | 테마파크: 50% | 테마파크: 30%",
   "detailed_benefits": "할인: SK인텔릭스 구독료 자동이체 시 1만 1천원 ~ 2만원 청구할인 | 영화: 메가박스/CGV 온라인 영화 예매 시 승인 건당 3,500원 청구할인 | 테마파크: 롯데월드 어드벤처 종합이용권 50% 현장 할인 | 테마파크: 캐리비안베이 입장권 30% 현장 할인",
   "item_limit": "[{\"perf\":1000000,\"limit\":20000}] | 14000 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -93,8 +93,8 @@
   "top_benefit_summary": "주유소: 2% | 패밀리레스토랑: 10% | 카페: 10% | 경기관람: 1500원 | 도서: 2000원 | 금융: 무제한",
   "detailed_benefits": "주유소: 전주유소 이용액의 2% 할인(LPG제외) | 패밀리레스토랑: 주요 패밀리레스토랑 10% 할인 | 카페: 커피전문점 (Sleepless In Seattle) 10% 할인(결제일 캐시백) | 경기관람: 인터넷 예매 1,500원 할인 | 도서: 온라인 서적 인터넷 2,000원 할인 | 금융: 당행 CD / ATM기 현금 인출수수료 면제(영업시간 외 이용시)",
   "item_limit": "400000 | 10000 | -1 | -1 | 30000 | 10",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

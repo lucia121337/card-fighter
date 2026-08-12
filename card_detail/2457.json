@@ -55,8 +55,8 @@
   "top_benefit_summary": "보험사: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "보험사: 캐롯손해보험료 결제일 할인 | 멤버십포인트: L.POINT 안내",
   "item_limit": "[{\"perf\":300000,\"limit\":10000},{\"perf\":700000,\"limit\":15000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -73,8 +73,8 @@
   "top_benefit_summary": "카페: 10% | 영화: 무제한 | 기타: 무제한",
   "detailed_benefits": "카페: 커피전문점 10% 청구할인 | 영화: 영화관 2,000원 청구 할인 | 기타: 1. 전자금융(인터넷뱅킹, 텔레뱅킹) 이용수수료 면제",
   "item_limit": "[{\"perf\":300000,\"limit\":10000}] | [{\"perf\":300000,\"limit\":300000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

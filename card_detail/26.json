@@ -68,8 +68,8 @@
   "top_benefit_summary": "교육/육아: 무제한 | 공과금: 무제한 | 생활: 1%",
   "detailed_benefits": "교육/육아: 기본 혜택 | 공과금: 아파트 관리비 자동이체 매월 5,000원 캐시백 | 생활: 주요 생활업종 이용시 1% 캐시백",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

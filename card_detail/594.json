@@ -73,8 +73,8 @@
   "top_benefit_summary": "쇼핑: 무제한 | 영화: 무제한 | 카페: 무제한",
   "detailed_benefits": "쇼핑: 삼성디지털프라자 상품 및 서비스 구매 시 장기할부 제공 | 영화: 영화관 할인 | 카페: 커피전문점 할인",
   "item_limit": "[{\"perf\":300000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000},{\"perf\":1000000,\"limit\":18000}] | 12000 | 25000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

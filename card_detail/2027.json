@@ -59,8 +59,8 @@
   "top_benefit_summary": "기타: 무제한 | 멤버십포인트: 무제한",
   "detailed_benefits": "기타: 모바일쿠폰 서비스 | 멤버십포인트: 통합 포인트 멤버십 서비스를 제공",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

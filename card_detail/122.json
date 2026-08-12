@@ -73,13 +73,8 @@
   "top_benefit_summary": "간편결제: 무제한 | 소셜커머스: 무제한 | 통신: 무제한 | 대중교통: 무제한",
   "detailed_benefits": "간편결제: 삼성페이, Kmotion 오프라인 모바일결제 할인 서비스 | 소셜커머스: 3대 소셜커머스 할인 서비스 | 통신: 이동통신요금 자동이체 할인 서비스 | 대중교통: 티머니 후불교통 할인 서비스",
   "item_limit": "[{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":3000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":3000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 500000,
-      "limit": 5000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

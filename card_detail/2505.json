@@ -83,8 +83,8 @@
   "top_benefit_summary": "간편결제: 무제한 | 학원: 무제한 | 통신: 무제한 | 카페: 무제한 | 대중교통: 무제한 | 영화: 무제한",
   "detailed_benefits": "간편결제: 간편 결제 할인 서비스 | 학원: 학원 업종 할인 서비스 | 통신: 이동통신 할인 서비스 | 카페: 커피 할인 서비스 | 대중교통: 대중교통 할인 서비스 | 영화: 영화관 할인 서비스",
   "item_limit": "[{\"perf\":300000,\"limit\":10000}] | [{\"perf\":50000,\"limit\":5000}] | 5000 | 5000 | 5000 | [{\"perf\":300000,\"limit\":10000}]",
-  "group_id": "none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

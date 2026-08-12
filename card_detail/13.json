@@ -103,13 +103,8 @@
   "top_benefit_summary": "공과금: 10% | 편의점: 10% | 병원/약국: 10% | 생활: 10% | 온라인쇼핑: 10% | 택시: 10% | 푸드: 10% | 대형마트: 무제한 | 주유소: 무제한 | 온라인쇼핑: 20%",
   "detailed_benefits": "공과금: 월납요금(공과금) 10% 할인서비스 | 편의점: TIME 할인서비스 10% 할인 | 병원/약국: TIME 할인서비스 10% 할인 | 생활: TIME 할인서비스 10% 할인 | 온라인쇼핑: 오후 9시 ~ 오전 9시까지 Night 할인서비스 10% 할인 | 택시: 오후 9시 ~ 오전 9시까지 Night 할인서비스 10% 할인 | 푸드: 오후 9시 ~ 오전 9시까지 Night 할인서비스 10% 할인 | 대형마트: 주말할인서비스 | 주유소: 주말할인서비스 | 온라인쇼핑: 건강한 라이프스타일 푸드 인테이크몰(www.shopintake.com) 결제 시 20% 할인",
   "item_limit": "[{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":30000}] | [{\"perf\":1000000,\"limit\":10000}] | [{\"perf\":1000000,\"limit\":10000}] | -1",
-  "group_id": "none | none | none | none | none | none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 1000000,
-      "limit": 10000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

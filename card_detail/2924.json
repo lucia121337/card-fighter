@@ -68,8 +68,8 @@
   "top_benefit_summary": "저가항공: 0.7% | 할인: 3%",
   "detailed_benefits": "저가항공: 국내 가맹점 0.7% 적립 | 할인: 간편결제, 인앱결제 3% 청구할인",
   "item_limit": "-1 | [{\"perf\":500000,\"limit\":3000}]",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

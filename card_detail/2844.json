@@ -69,8 +69,8 @@
   "top_benefit_summary": "할인: 0.8% | 할인: 1.6% | 할인: 무제한",
   "detailed_benefits": "할인: [기본 혜택] 실적&middot;한도 제한 없이 국내외 가맹점 0.8% 청구 할인 | 할인: [추가 혜택] 온라인몰, 대형마트, 교육, 주유, 이동통신 요금 10만원 이상 결제 시 1.6% 청구 할인 | 할인: X 긴급할인(선지급 포인트 서비스)",
   "item_limit": "-1 | [{\"perf\":100000,\"limit\":100000}] | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

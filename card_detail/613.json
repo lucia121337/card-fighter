@@ -68,8 +68,8 @@
   "top_benefit_summary": "생활: 30% | 온라인쇼핑: 무제한 | 기타: 10%",
   "detailed_benefits": "생활: OTT 30% 포인트 적립 | 온라인쇼핑: 온라인쇼핑몰 최대 12,500포인트 적립 | 기타: 홈게임방 10% 포인트 적립",
   "item_limit": "-1 | 50000 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

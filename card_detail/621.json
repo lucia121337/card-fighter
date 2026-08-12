@@ -73,8 +73,8 @@
   "top_benefit_summary": "주유: 무제한 | 보험: 무제한 | 마트/편의점: 무제한 | 배달앱: 무제한",
   "detailed_benefits": "주유: [주유] | 보험: [자동차 보험] | 마트/편의점: [편의점] | 배달앱: [배달앱]",
   "item_limit": "-1 | 300000 | 10000 | 10000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

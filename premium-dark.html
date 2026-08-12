@@ -74,7 +74,20 @@ function maxFee(s){
 
 async function load(){
   let cards = [];
-  try { cards = await (await fetch('cards_list.json')).json(); }
+  try {
+    const [cardsResRaw, activeRes] = await Promise.all([
+      fetch('cards_list.json'),
+      fetch('active_cards.json').catch(() => null)
+    ]);
+    if (!cardsResRaw.ok) throw new Error("HTTP " + cardsResRaw.status);
+    let d = await cardsResRaw.json();
+    if (activeRes && activeRes.ok) {
+      const activeIds = await activeRes.json();
+      const activeSet = new Set(activeIds.map(String));
+      d = d.filter(c => activeSet.has(String(c.idx)));
+    }
+    cards = d;
+  }
   catch(e){ document.getElementById('count').textContent = '카드 데이터를 불러오지 못했어요. (주소창이 http://localhost:… 인지 확인)'; return; }
 
   const premium = cards

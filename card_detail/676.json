@@ -68,8 +68,8 @@
   "top_benefit_summary": "적립: 0.2% | 적립: 무제한",
   "detailed_benefits": "적립: 국내/외 이용가맹점 0.2% NH포인트 적립 | 적립: 아래 6개 영역 중 당월(1일~말일) 이용금액 1위/2위 영역은 기본적립의 3배/2배 자동적용",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

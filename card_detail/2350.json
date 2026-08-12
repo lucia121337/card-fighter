@@ -73,8 +73,8 @@
   "top_benefit_summary": "모든가맹점: 0.8% | 생활: 0.5% | 기타: 0.2% | 무실적: 무제한",
   "detailed_benefits": "모든가맹점: 국내외 가맹점 0.8% 청구할인 | 생활: 생활 편의 업종 이용 시 0.5% 추가 청구할인 | 기타: 국내 가맹점 3개월 이상 유이자 할부 또는 결제 금액 10만원 이상 사용 시 0.2% 추가 청구할인 | 무실적: 실적 조건 없이 매월 최대 5천원 할인",
   "item_limit": "-1 | -1 | -1 | 5000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -73,8 +73,8 @@
   "top_benefit_summary": "국내외가맹점: 무제한 | 적립: 무제한",
   "detailed_benefits": "국내외가맹점: 기본적립 | 적립: 특화적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

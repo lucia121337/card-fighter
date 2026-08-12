@@ -73,8 +73,8 @@
   "top_benefit_summary": "해외: 2% | 여행/숙박: 무제한 | 적립: 1.5% | 적립: 10%",
   "detailed_benefits": "해외: 해외 온/오프라인 2% 적립 | 여행/숙박: N트래블클럽 업그레이드 | 적립: 네이버 쇼핑 간편결제 최대 1.5% 적립 | 적립: 플러스 멤버십 스튜던트 정기결제 10% 적립",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

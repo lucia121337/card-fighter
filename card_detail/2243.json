@@ -62,8 +62,8 @@
   "top_benefit_summary": "쇼핑: 2% | 모든가맹점: 0.3%",
   "detailed_benefits": "쇼핑: GS리테일 점내 이용 시 GS&amp;POINT 2% 적립 | 모든가맹점: 그 외 모든 가맹점 이용 시 GS&amp;POINT 0.3% 기본 적립",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

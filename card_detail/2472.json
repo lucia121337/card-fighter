@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 3% | 적립: 1.5% | 적립: 무제한",
   "detailed_benefits": "적립: 국내외 가맹점에서 0.5~3% M포인트 적립 | 적립: 현대자동차&middot;기아 신차 구매 시 1.5% 적립 | 적립: 온라인쇼핑 결제 시 M포인트 추가 적립",
   "item_limit": "-1 | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

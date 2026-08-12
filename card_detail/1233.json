@@ -59,8 +59,8 @@
   "top_benefit_summary": "기타: 무제한 | 렌탈: 무제한",
   "detailed_benefits": "기타: 라이트할부 할인서비스 | 렌탈: 렌탈요금 할인서비스",
   "item_limit": "[{\"perf\":50000,\"limit\":300000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

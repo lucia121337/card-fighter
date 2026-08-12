@@ -73,8 +73,8 @@
   "top_benefit_summary": "국내외가맹점: 1% | 카페/디저트: 10% | 해피포인트: 10% | 온라인쇼핑: 2%",
   "detailed_benefits": "국내외가맹점: 국내외 가맹점 1% 해피포인트 적립 | 카페/디저트: 파리바게뜨, 배스킨라빈스, 던킨 10% 해피포인트 적립 | 해피포인트: 해피포인트 앱 내 해피오더, 마켓, 선물하기 10% 해피포인트 적립 | 온라인쇼핑: 쿠팡, 11번가 2% 해피포인트 적립",
   "item_limit": "-1 | 10000 | 10000 | 10000",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

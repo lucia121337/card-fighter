@@ -64,8 +64,8 @@
   "top_benefit_summary": "쇼핑: 15% | 적립: 5% | 면세점: 무제한",
   "detailed_benefits": "쇼핑: [기본적립] 온・오프라인 쇼핑 이용 시 최대 15% NH포인트 적립 | 적립: [추가적립] &#39;기본적립&#39;된 포인트의 5% 추가적립 (연 1회) | 면세점: [멤버십혜택] 현대백화점면세점 BLACK 등급 멤버십 제공",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000},{\"perf\":1500000,\"limit\":150000}] | -1 | -1",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

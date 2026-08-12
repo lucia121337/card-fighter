@@ -73,8 +73,8 @@
   "top_benefit_summary": "일반음식점: 60% | 배달앱: 60% | 카페: 60% | 디지털구독: 60%",
   "detailed_benefits": "일반음식점: 음식점 60% 결제일 할인 | 배달앱: 배달의 민족, 쿠팡이츠, 요기요 60% 결제일 할인 | 카페: 스타벅스, 투썸플레이스, 할리스커피, 폴바셋 60% 결제일 할인 | 디지털구독: 쿠팡 로켓와우, 네이버플러스 멤버십 60% 결제일 할인",
   "item_limit": "-1 | -1 | -1 | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

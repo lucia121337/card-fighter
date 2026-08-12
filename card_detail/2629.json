@@ -63,8 +63,8 @@
   "top_benefit_summary": "국내외가맹점: 0.7% | 적립: 2%",
   "detailed_benefits": "국내외가맹점: 국내외 가맹점 이용 시 스마일캐시 0.7% 적립 | 적립: 추가 적립 대상점 이용 시 스마일캐시 2% 적립(기본0.7%+추가1.3%)",
   "item_limit": "-1 | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

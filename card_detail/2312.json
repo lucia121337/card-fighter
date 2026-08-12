@@ -68,8 +68,8 @@
   "top_benefit_summary": "카페: 15% | 편의점: 10% | 기타: 3%",
   "detailed_benefits": "카페: 커피빈 15% 할인 | 편의점: GS25, 세븐일레븐 10% 캐시백 제공 | 기타: 코나 애플리케이션 내 단골 매장 등록을 통해 3곳의 매장에서 3% 캐시백 제공",
   "item_limit": "-1 | [{\"perf\":200000,\"limit\":200000}] | [{\"perf\":200000,\"limit\":200000}]",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -97,7 +97,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2568",
   "top_benefit_summary": "대중교통: 10% | 통신: 5% | 영화: 35% | 패밀리레스토랑: 20% | 카페: 20% | 테마파크: 50% | 편의점: 5% | 도서: 5%",
   "detailed_benefits": "대중교통: 버스&middot;지하철 10% 청구할인 | 통신: 이동통신요금 5% 환급할인 | 영화: CGV 35% 환급할인 | 패밀리레스토랑: 아웃백, VIPS 20% 환급할인 | 카페: 스타벅스 20% 환급할인 | 테마파크: 에버랜드&middot;롯데월드 50% 환급할인 | 편의점: GS25 5% 환급할인 | 도서: 교보문고 5% 환급할인",
-  "item_limit": "[{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":50000,\"limit\":2500},{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}] | [{\"perf\":200000,\"limit\":300000},{\"perf\":500000,\"limit\":1000000}]",
+  "item_limit": "[{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":50000,\"limit\":2500},{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}] | [{\"perf\":300000,\"limit\":200000},{\"perf\":1000000,\"limit\":500000}]",
   "group_id": "none | none | none | none | none | none | none | none",
   "group_limit": "-1 | -1 | -1 | -1 | -1 | -1 | -1 | -1",
   "total_limit_tiers": [],
@@ -108,8 +108,22 @@
       "title": "대중교통",
       "detail": "버스&middot;지하철 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -118,8 +132,26 @@
       "title": "통신",
       "detail": "이동통신요금 5% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 50000,
+          "limit": 2500
+        },
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -128,8 +160,22 @@
       "title": "영화",
       "detail": "CGV 35% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.35}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.35
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -138,8 +184,22 @@
       "title": "패밀리레스토랑",
       "detail": "아웃백, VIPS 20% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.2
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -148,8 +208,22 @@
       "title": "카페",
       "detail": "스타벅스 20% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.2}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.2
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -158,8 +232,22 @@
       "title": "테마파크",
       "detail": "에버랜드&middot;롯데월드 50% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.5
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -168,8 +256,22 @@
       "title": "편의점",
       "detail": "GS25 5% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -178,8 +280,22 @@
       "title": "도서",
       "detail": "교보문고 5% 환급할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 200000
+        },
+        {
+          "perf": 1000000,
+          "limit": 500000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

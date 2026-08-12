@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2693",
   "top_benefit_summary": "대중교통: 10% | 간편결제: 2% | 생활: 2%",
   "detailed_benefits": "대중교통: 대중교통(버스, 지하철) 이용 시 10% 결제일 할인 | 간편결제: 간편결제로 결제 시 2% 결제일 할인 | 생활: 생활서비스 2% 결제일 할인",
-  "item_limit": "[{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":200000,\"limit\":500000},{\"perf\":500000,\"limit\":5000}]",
+  "item_limit": "[{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}] | [{\"perf\":500000,\"limit\":200000},{\"perf\":500000,\"limit\":5000}]",
   "group_id": "none | none | none",
   "group_limit": "-1 | -1 | -1",
   "total_limit_tiers": [],
@@ -78,8 +78,22 @@
       "title": "대중교통",
       "detail": "대중교통(버스, 지하철) 이용 시 10% 결제일 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 200000
+        },
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -88,8 +102,22 @@
       "title": "간편결제",
       "detail": "간편결제로 결제 시 2% 결제일 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.02
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 200000
+        },
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -98,8 +126,22 @@
       "title": "생활",
       "detail": "생활서비스 2% 결제일 할인",
       "group_id": null,
-      "rate": "[{\"perf\":200000,\"rate\":0.02}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 200000,
+          "rate": 0.02
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 500000,
+          "limit": 200000
+        },
+        {
+          "perf": 500000,
+          "limit": 5000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

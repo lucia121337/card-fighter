@@ -78,8 +78,8 @@
   "top_benefit_summary": "적립: 5% | 주유: 무제한 | OTT/영화/문화: 10% | 수수료우대: 무제한",
   "detailed_benefits": "적립: 농협판매장 NH포인트 적립(5%) | 주유: 농협운영주유소 적립 및 할인 | OTT/영화/문화: 문화서비스(영화, 커피, 서적) 할인(10%) | 수수료우대: 외화 환전 우대 서비스(전월 실적과 관계없이 제공)",
   "item_limit": "40000 | -1 | 1000 | -1",
-  "group_id": "none | group_499_Tip | none | none",
-  "group_limit": "-1 | 1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

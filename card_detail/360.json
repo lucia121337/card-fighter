@@ -67,7 +67,7 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/360",
   "top_benefit_summary": "모든가맹점: 0.2%",
   "detailed_benefits": "모든가맹점: 적립한도 없이 0.2% ~ 0.7% NH포인트 적립",
-  "item_limit": "[{\"perf\":300000,\"limit\":1000000}]",
+  "item_limit": "[{\"perf\":1000000,\"limit\":300000}]",
   "group_id": "none",
   "group_limit": "-1",
   "total_limit_tiers": [],
@@ -78,8 +78,18 @@
       "title": "모든가맹점",
       "detail": "적립한도 없이 0.2% ~ 0.7% NH포인트 적립",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.002}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.002
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 1000000,
+          "limit": 300000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     }

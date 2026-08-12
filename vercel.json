@@ -4,6 +4,7 @@
     { "source": "/card/credit", "destination": "/index.html" },
     { "source": "/card/check", "destination": "/index.html" },
     { "source": "/card/premium", "destination": "/index.html" },
+    { "source": "/card/calculator", "destination": "/index.html" },
     { "source": "/event", "destination": "/index.html" },
     { "source": "/event/card-gorilla", "destination": "/index.html" },
     { "source": "/event/ajd-card", "destination": "/index.html" },

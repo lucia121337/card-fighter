@@ -58,10 +58,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/148",
   "top_benefit_summary": "삼성페이: 10% | 생활: 5%",
   "detailed_benefits": "삼성페이: 삼성 페이 10% 할인서비스 | 생활: 주요 생활영역 5% 할인서비스",
-  "item_limit": "[{\"perf\":30000,\"limit\":400000}] | 10000",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":400000,\"limit\":30000}] | 10000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -69,8 +69,18 @@
       "title": "삼성페이",
       "detail": "삼성 페이 10% 할인서비스",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 400000,
+          "limit": 30000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -79,8 +89,13 @@
       "title": "생활",
       "detail": "주요 생활영역 5% 할인서비스",
       "group_id": null,
-      "rate": "[{\"perf\":400000,\"rate\":0.05}]",
-      "item_limit": "10000",
+      "rate": [
+        {
+          "perf": 400000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": 10000,
       "fixedAmount": 0,
       "minPayment": 0
     }

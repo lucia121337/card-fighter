@@ -73,8 +73,8 @@
   "top_benefit_summary": "렌탈: 무제한 | 공과금: 무제한 | 기타: 무제한 | 생활: 무제한",
   "detailed_benefits": "렌탈: 10개 렌탈사 자동이체 이용 시 마이신한포인트 적립 | 공과금: 7개 생활월납 자동이체 이용 시 마이신한포인트 적립 | 기타: 7개 디지털 구독 서비스 정기결제 이용 시 마이신한 포인트 적립 | 생활: 커피, 편의점, 해외 이용시 마이신한포인트 적립",
   "item_limit": "[{\"perf\":10000,\"limit\":400000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

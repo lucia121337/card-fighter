@@ -73,8 +73,8 @@
   "top_benefit_summary": "자동차: 무제한 | 쇼핑: 무제한 | 디지털구독: 무제한 | 기타: 무제한",
   "detailed_benefits": "자동차: [Green Mobility] | 쇼핑: [Green Shopping] | 디지털구독: [Green Plus] | 기타: # Green",
   "item_limit": "[{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":400000,\"limit\":800000},{\"perf\":800000,\"limit\":1200000}] | [{\"perf\":1200000,\"limit\":2000000}]",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

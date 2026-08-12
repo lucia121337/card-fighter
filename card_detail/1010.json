@@ -68,13 +68,8 @@
   "top_benefit_summary": "기타: 50% | 기타: 무제한",
   "detailed_benefits": "기타: [Charging] 전기/수소차 충전 : 50% 포인트리 적립 | 기타: 이용건별 기부서비스(1+1적립)",
   "item_limit": "[{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":1500000}] | -1",
-  "group_id": "none | none",
-  "group_limit": "-1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 1500000,
-      "limit": 30000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

@@ -108,8 +108,8 @@
   "top_benefit_summary": "푸드: 무제한 | 경기관람: 무제한 | 여행/숙박: 무제한 | 푸드: 10% | 주유소: 무제한",
   "detailed_benefits": "푸드: 혜택 | 경기관람: 대상 | 여행/숙박: 문의&middot;예약 | 푸드: 보네스뻬/보네스뻬브레드 10% 할인 | 주유소: 혜택",
   "item_limit": "5000 | -1 | -1 | 20000 | 1000000",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

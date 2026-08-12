@@ -78,13 +78,8 @@
   "top_benefit_summary": "배달앱: 무제한 | 온라인쇼핑: 10% | 카페: 20% | 기타: 10% | 대중교통: 무제한",
   "detailed_benefits": "배달앱: 배달의민족 1,100원 캐시백 | 온라인쇼핑: G마켓, 옥션, 우리WON마켓 10% 캐시백 | 카페: 스타벅스(사이렌오더 포함) 20% 캐시백 | 기타: 파리바게뜨, 배스킨라빈스, 던킨도너츠 10% 캐시백 | 대중교통: 전국 시내버스 지하철 2,000원 캐시백",
   "item_limit": "50000 | 40000 | 20000 | 20000 | -1",
-  "group_id": "none | none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1 | -1",
-  "total_limit_tiers": [
-    {
-      "perf": 900000,
-      "limit": 30000
-    }
-  ],
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

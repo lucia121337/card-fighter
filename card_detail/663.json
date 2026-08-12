@@ -73,8 +73,8 @@
   "top_benefit_summary": "적립: 7% | 주유소: 1% | 기타: 무제한 | 기타: 무제한",
   "detailed_benefits": "적립: 롤라머니 7% 적립 | 주유소: SK 주유소 롤라머니 1% 적립 | 기타: [플레이 롯데] | 기타: [플레이롤라]",
   "item_limit": "[{\"perf\":400000,\"limit\":700000},{\"perf\":700000,\"limit\":1000000}] | -1 | [{\"perf\":10000,\"limit\":2000},{\"perf\":200000,\"limit\":1000}] | -1",
-  "group_id": "none | none | none | none",
-  "group_limit": "-1 | -1 | -1 | -1",
+  "group_id": "none",
+  "group_limit": "-1",
   "total_limit_tiers": null,
   "is_calc_supported": "FALSE"
 }

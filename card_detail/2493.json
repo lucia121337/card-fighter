@@ -87,10 +87,10 @@
   "detail_url": "https://www.card-gorilla.com/card/detail/2493",
   "top_benefit_summary": "골프: 5% | 골프: 50% | 카페: 10%",
   "detailed_benefits": "골프: 골프장&middot;골프연습장&middot;스크린골프 5% 청구할인 | 골프: 쇼골프 연습장 일 타석권 50% 청구할인 | 카페: 커피전문점 10% 청구할인",
-  "item_limit": "[{\"perf\":300000,\"limit\":500000},{\"perf\":500000,\"limit\":1000000},{\"perf\":1000000,\"limit\":2000000},{\"perf\":2000000,\"limit\":20000}] | 20000 | 5000",
-  "group_id": "none | none | none",
-  "group_limit": "-1 | -1 | -1",
-  "total_limit_tiers": [],
+  "item_limit": "[{\"perf\":300000,\"limit\":5000},{\"perf\":500000,\"limit\":10000},{\"perf\":1000000,\"limit\":5000},{\"perf\":2000000,\"limit\":20000}] | 20000 | 5000",
+  "group_id": "none",
+  "group_limit": "-1",
+  "total_limit_tiers": null,
   "is_calc_supported": "TRUE",
   "structured_benefits": [
     {
@@ -98,8 +98,30 @@
       "title": "골프",
       "detail": "골프장&middot;골프연습장&middot;스크린골프 5% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.05}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.05
+        }
+      ],
+      "item_limit": [
+        {
+          "perf": 300000,
+          "limit": 5000
+        },
+        {
+          "perf": 500000,
+          "limit": 10000
+        },
+        {
+          "perf": 1000000,
+          "limit": 5000
+        },
+        {
+          "perf": 2000000,
+          "limit": 20000
+        }
+      ],
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -108,8 +130,13 @@
       "title": "골프",
       "detail": "쇼골프 연습장 일 타석권 50% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.5}]",
-      "item_limit": "20000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.5
+        }
+      ],
+      "item_limit": 20000,
       "fixedAmount": 0,
       "minPayment": 0
     },
@@ -118,8 +145,13 @@
       "title": "카페",
       "detail": "커피전문점 10% 청구할인",
       "group_id": null,
-      "rate": "[{\"perf\":300000,\"rate\":0.1}]",
-      "item_limit": "5000",
+      "rate": [
+        {
+          "perf": 300000,
+          "rate": 0.1
+        }
+      ],
+      "item_limit": 5000,
       "fixedAmount": 0,
       "minPayment": 0
     }
