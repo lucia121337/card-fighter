@@ -70,12 +70,34 @@ body.prem-theme .cf-global-header {
   --header-search-border: rgba(201, 164, 92, 0.3);
 }
 
+body.calc-theme .cf-global-header {
+  --header-bg: rgba(9, 27, 24, 0.92);
+  --header-border: rgba(22, 168, 150, 0.25);
+  --header-txt: #7fe0a5;
+  --header-muted: #7ab5ac;
+  --header-hover-bg: rgba(14, 41, 38, 0.8);
+  --header-hover-txt: #5ee8d0;
+  --header-active-bg: rgba(14, 127, 110, 0.25);
+  --header-active-txt: #5ee8d0;
+  --header-search-bg: #0d2522;
+  --header-search-border: rgba(22, 168, 150, 0.3);
+}
+
 /* Premium Dark Gold Body Background Theme */
 body.prem-theme {
   background-color: #0e1015 !important;
   background-image: radial-gradient(circle at top right, rgba(201, 164, 92, 0.12), transparent 45%),
                     radial-gradient(circle at bottom left, rgba(184, 134, 11, 0.1), transparent 40%) !important;
   color: #f5f3ee !important;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Calculator Dark Emerald Body Background Theme */
+body.calc-theme {
+  background-color: #071715 !important;
+  background-image: radial-gradient(circle at top right, rgba(22, 168, 150, 0.15), transparent 50%),
+                    radial-gradient(circle at bottom left, rgba(14, 127, 110, 0.12), transparent 45%) !important;
+  color: #e0f7f4 !important;
   transition: background 0.3s ease, color 0.3s ease;
 }
 

@@ -249,11 +249,10 @@
   .chip.pre{background:#f0fdf4;border-color:#bbf7d0;color:#15803d}
   .chip.prem{background:linear-gradient(90deg,#b8860b,#e3b448);border:none;color:#fff;font-weight:700}
   .chip.calc-badge{background:linear-gradient(90deg,#0e7f6e,#16a896);border:none;color:#fff;font-weight:700}
-  .lnb-item.lnb-prem.active{background:linear-gradient(90deg,#b8860b,#e3b448);border-color:#b8860b;color:#fff}
-  .lnb-item.lnb-calc.active{background:linear-gradient(90deg,#0e7f6e,#16a896);border-color:#0e7f6e;color:#fff}
+  .lnb-item.lnb-prem.active{color:#e3b448;border-bottom-color:#e3b448}
+  .lnb-item.lnb-calc.active{color:#5ee8d0;border-bottom-color:#16a896}
   /* ── 혜택계산기 테마 (혜택계산기 탭 선택 시) ── */
-  #section-cards.calc-theme{background:radial-gradient(120% 60% at 50% 0%,#112522 0%,#091513 60%);
-    border:1px solid #165c52;border-radius:20px;padding:20px 18px 26px;margin-top:6px}
+  #section-cards.calc-theme{background:transparent;border:none;box-shadow:none;padding:0;margin-top:0}
   .calc-theme .cards-title{color:#7fe0a5}
   .calc-theme .cards-subtitle{color:#7ab5ac}.calc-theme .cards-subtitle b{color:#7fe0a5}
   .calc-theme .lnb-item{background:#0e2622;border-color:#165c52;color:#a3e6d8}
@@ -1170,10 +1169,13 @@ function showSection(name, opts){
         document.getElementById('cards-title').textContent = firstLnb.textContent.trim();
         document.getElementById('section-cards').classList.remove('prem-theme');
         document.body.classList.remove('prem-theme');
+        document.getElementById('section-cards').classList.remove('calc-theme');
+        document.body.classList.remove('calc-theme');
       }
     }
   } else {
     document.body.classList.remove('prem-theme');
+    document.body.classList.remove('calc-theme');
   }
   if(name === 'cashback') renderCashback();
   if(name === 'shopping'){
@@ -1220,6 +1222,7 @@ function setCardType(el, opts){
   document.getElementById('section-cards').classList.toggle('prem-theme', activeCardType === '프리미엄');
   document.body.classList.toggle('prem-theme', activeCardType === '프리미엄');
   document.getElementById('section-cards').classList.toggle('calc-theme', activeCardType === '혜택계산기');
+  document.body.classList.toggle('calc-theme', activeCardType === '혜택계산기');
   const path = CARDTYPE_PATH[activeCardType] || '/card';
   if (!opts.skipHistory && location.pathname !== path) {
     history[opts.replace ? 'replaceState' : 'pushState']({}, '', path);
@@ -1853,6 +1856,8 @@ function applyPathSubState(){
       document.getElementById('cards-title').textContent = btn.textContent.trim();
       document.getElementById('section-cards').classList.toggle('prem-theme', cardtype === '프리미엄');
       document.body.classList.toggle('prem-theme', cardtype === '프리미엄');
+      document.getElementById('section-cards').classList.toggle('calc-theme', cardtype === '혜택계산기');
+      document.body.classList.toggle('calc-theme', cardtype === '혜택계산기');
     }
   }
   if (PATH_PLATFORM.hasOwnProperty(location.pathname)) {
