@@ -12,16 +12,19 @@
  * ═══════════════════════════════════════════════ */
 
 /** HTML 이스케이프 헬퍼 */
-function esc(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/ me/g, ' ')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+if (typeof window.esc !== 'function') {
+  window.esc = function esc(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/ me/g, ' ')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  };
 }
+var esc = window.esc;
 
 /** HTML 태그 제거 헬퍼 */
 function cleanHtml(html) {
