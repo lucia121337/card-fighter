@@ -9,24 +9,14 @@
   <script src="/common-header.js" defer></script>
   <style>
     @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
-    :root {
-      --bg: #f8fafc;
-      --panel: #ffffff;
-      --line: #e2e8f0;
-      --txt: #0f172a;
-      --muted: #64748b;
-      --brand: #145CE6;
-      --brand-deep: #0E47C0;
-      --brand-light: #e8f0fd;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'GmarketSans', 'Noto Sans KR', sans-serif;
-      background-color: var(--bg);
-      color: var(--txt);
-      line-height: 1.6;
-    }
-    @view-transition{navigation:auto}
+    *{box-sizing:border-box}
+  body {
+    font-family: 'GmarketSans', 'Noto Sans KR', sans-serif;
+    background-color: var(--bg);
+    color: var(--txt);
+    line-height: 1.6;
+  }
+  @view-transition{navigation:auto}
     .game-container {
       max-width: 680px;
       margin: 60px auto;
@@ -44,7 +34,7 @@
       font-size: 64px;
       margin-bottom: 24px;
     }
-    h1 {
+    .game-box h1 {
       font-family: 'GmarketSans', sans-serif;
       font-size: 28px;
       font-weight: 700;
