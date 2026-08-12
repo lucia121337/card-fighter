@@ -145,6 +145,12 @@
   .calc-disc{font-size:11px;color:#92826a;background:#fffbeb;border:1px solid #fde68a;
         border-radius:99px;padding:8px 12px;margin-top:12px;line-height:1.5}
 
+  /* ── 혜택 폴백 리스트 ── */
+  .kb-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
+  .kb-item { display:flex; align-items:flex-start; gap:8px; font-size:14px; line-height:1.6; color:var(--txt); }
+  .kb-bullet { color:var(--brand); font-weight:800; flex-shrink:0; }
+  .kb-text { color:inherit; }
+
   /* ── 프리미엄 럭셔리 다크모드 상세페이지 가독성 보정 ── */
   body.prem-theme .sum-card,
   body.prem-theme .sec-box,
@@ -175,8 +181,12 @@
     font-weight: 800;
   }
 
-  body.prem-theme .binfo li span {
+  body.prem-theme .binfo li span,
+  body.prem-theme .kb-item {
     color: #e2e8f0 !important;
+  }
+  body.prem-theme .kb-bullet {
+    color: #e3b448 !important;
   }
 
   body.prem-theme .kb-tab {
@@ -464,10 +474,10 @@ function render(d){
   } else if (d.top_benefit_summary || d.benefit_summary) {
     const summary = d.top_benefit_summary || d.benefit_summary;
     const items = summary.split('|').map(s => s.trim()).filter(Boolean);
-    benefitHTML = `<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">` +
-      items.map(item => `<li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.6;color:var(--txt)">
-        <span style="color:var(--brand);font-weight:800;flex-shrink:0">•</span>
-        <span>${esc(item)}</span>
+    benefitHTML = `<ul class="kb-list">` +
+      items.map(item => `<li class="kb-item">
+        <span class="kb-bullet">•</span>
+        <span class="kb-text">${esc(item)}</span>
       </li>`).join('') + `</ul>`;
   } else {
     benefitHTML = '<p style="color:#94a3b8;padding:8px 0">혜택 정보가 없습니다.</p>';
