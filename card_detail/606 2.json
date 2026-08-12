@@ -1,0 +1,18 @@
+{
+  "idx": 606,
+  "card_name": "카드의정석 UNTACT",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "생활: 정기결제 최대 20% 할인 | 온라인쇼핑: 쿠팡로켓와우 2,900원 할인 | 게임: 게임정기결제 10% 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, 공과금, 렌탈 , 기타, 학습지, 생활, 기타, 도서, 음원사이트, 기타, 디지털구독, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/606/card_img/21373/606card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/606",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

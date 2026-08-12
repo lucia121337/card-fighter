@@ -1,0 +1,18 @@
+{
+  "idx": 2388,
+  "card_name": "넥슨 현대카드 UNLIMITED",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [150,000]원 / 해외겸용 [150,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "모든가맹점: 국내외 가맹점 최대 3% 포인트 적립 | 바우처: 넥슨 현대카드 포인트 연간 6만 바우처 제공 | 게임: PC방 결제 시 최대 3천원 청구 할인",
+  "benefit_categories": "생활, 제휴/PLCC, 게임, 공연/전시, 프리미엄 서비스, 바우처",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2388/card_img/25777/2388card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2388",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 583,
+  "card_name": "우리 K-패스(신용)",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [13,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "대중교통: 대중교통 10% 할인 | 공과금/렌탈: 자동결제업종 10% 할인 | PAYCO: 페이코포인트 1% 적립",
+  "benefit_categories": "PAYCO, 공과금, 렌탈 , 기타, 학습지, 대중교통, 보험사, KT, LGU+, SKT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/583/card_img/33530/583card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/583",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

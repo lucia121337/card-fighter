@@ -1,0 +1,18 @@
+{
+  "idx": 2286,
+  "card_name": "NU Uniq point",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 0.5% 적립 | 기타: 쇼핑/교통/생활영역 2% 적립 | 주유: 주유/충전 60원/L 적립",
+  "benefit_categories": "공과금, 기타, 대중교통, 택시, 기타, 제휴/PLCC, 국내외가맹점, 온라인쇼핑, 카페, 배달앱, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2286/card_img/25532/2286card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2286",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

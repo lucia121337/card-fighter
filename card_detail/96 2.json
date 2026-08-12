@@ -1,0 +1,18 @@
+{
+  "idx": 96,
+  "card_name": "씨티 리워드",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내외가맹점 0.5~1.5% 적립 | 푸드: 아웃백,파파존스등 20% 적립 | 영화: CGV,롯데시네마 20% 적립",
+  "benefit_categories": "유치원, 학원, 대중교통, 무이자할부, 대형마트, 편의점, 백화점, 온라인쇼핑, 영화, 주유소, 베이커리, 카페, KT, LGU+, SKT, 패밀리레스토랑, 패스트푸드",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/96/card_img/20251/96card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/96",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

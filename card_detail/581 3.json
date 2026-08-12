@@ -1,0 +1,18 @@
+{
+  "idx": 581,
+  "card_name": "I’m Powerful",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard, AMEX",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "모든가맹점: 국내외가맹점 0.5% 할인 | 카페: 커피 최대2% 할인 | 통신: 이동통신 최대5% 할인",
+  "benefit_categories": "대중교통, 편의점, 기타, 병원, 카페, KT, LGU+, SKT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/581/card_img/21322/581card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/581",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

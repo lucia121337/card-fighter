@@ -1,0 +1,18 @@
+{
+  "idx": 726,
+  "card_name": "알뜰폰 Hub 카드",
+  "company": "KB국민카드",
+  "card_type": "신용",
+  "brands": "UnionPay",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "통신: 알뜰폰 통신요금 최대 1만5천원 할인 | 프리미엄: 공항&호텔 티타늄서비스 제공",
+  "benefit_categories": "공항라운지, 기타, 통신비, 공항라운지/PP",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/726/card_img/22200/726card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/726",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

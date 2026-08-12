@@ -1,0 +1,18 @@
+{
+  "idx": 2401,
+  "card_name": "NU Nature",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "충전소: 전기차 충전  60% 적립 | 디지털구독: 스트리밍 10% 적립 | 간편결제: 주요 간편결제 1.6% 적립",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 대중교통, 기타, 디지털구독, 충전소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2401/card_img/26210/2401card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2401",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

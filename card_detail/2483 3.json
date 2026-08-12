@@ -1,0 +1,18 @@
+{
+  "idx": 2483,
+  "card_name": "IBK DC히어로즈 카드(신용)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "푸드: 음식점 1% 캐시백 | 병원/약국: 병원비 1% 캐시백 | 캐시백: 이용금액 최다영역 1% 추가캐시백",
+  "benefit_categories": "대중교통, 대형마트, 편의점, 병원, 온라인쇼핑, 주유소, 충전소, KT, LGU+, SKT, 일반음식점, 주점, 패밀리레스토랑, 기타",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2483/card_img/28404/2483card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2483",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

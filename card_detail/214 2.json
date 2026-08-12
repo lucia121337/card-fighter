@@ -1,0 +1,18 @@
+{
+  "idx": 214,
+  "card_name": "I’m GREAT",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "공과금/렌탈: 통신/공과금/교육/보험 5~10% 할인 | 마트/편의점: 마트/슈퍼 5~10% 할인 | 생활: 의료/교통/편의점 5~10% 할인",
+  "benefit_categories": "공과금, 어린이집, 유치원, 학원, 대중교통, 택시, 기타, SSM, 대형마트, 편의점, 병원, 약국, 도서, KT, LGU+, SKT",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/214/card_img/20440/214card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/214",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

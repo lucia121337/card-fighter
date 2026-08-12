@@ -1,0 +1,18 @@
+{
+  "idx": 410,
+  "card_name": "현대카드ZERO(할인형)",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay",
+  "annual_fee": "국내전용 [5,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "할인: 모든가맹점 0.7% 할인 | 할인: 생활필수영역 +0.5% 추가할인 | 할인: 선결제 시 +0.3% 추가할인",
+  "benefit_categories": "대중교통, 택시, 보험사, 무이자할부, 생활, 대형마트, 편의점, 할인, 카페, 일반음식점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/410/card_img/20908/410card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/410",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

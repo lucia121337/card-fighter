@@ -1,0 +1,18 @@
+{
+  "idx": 276,
+  "card_name": "플러스마일카드",
+  "company": "SC제일은행",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [49,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "항공마일리지: 기본적립 1,000원당 1.0~1.3마일 적립 | 항공마일리지: 특별적립 1,000원당 2.0~2.5마일 적립 | 항공마일리지: 슈퍼적립 1,000원당 3.0~3.5마일 적립",
+  "benefit_categories": "공항라운지, 적립, 대한항공, 아시아나항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/276/card_img/20498/276card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/276",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 50,
+  "card_name": "아시아나 삼성지엔미플래티늄카드",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "해외전용 [20,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "아시아나항공: 1,000원당 1~5마일 적립 | 주유소: S-OIL주유소 40/L 적립 | 영화: CGV 3,000원 할인",
+  "benefit_categories": "테마파크, 국내외가맹점, 적립, 온라인쇼핑, 홈쇼핑, 영화, 정비, 주유소, 카페, 패밀리레스토랑, 아시아나항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/50/card_img/27706/50card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/50",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

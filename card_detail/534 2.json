@@ -1,0 +1,18 @@
+{
+  "idx": 534,
+  "card_name": "인터파크 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "무실적: 국내외 가맹점 0.5% 청구할인 | 온라인쇼핑: 인터파크 5% 청구할인",
+  "benefit_categories": "제휴/PLCC, 할인, 온라인쇼핑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/534/card_img/21232/534card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/534",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

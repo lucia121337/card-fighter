@@ -1,0 +1,18 @@
+{
+  "idx": 3,
+  "card_name": "신한카드 Lady",
+  "company": "신한카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [5,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "백화점: 3대백화점 5% 할인 | 패밀리레스토랑: 패밀리레스토랑 20% 할인 | 테마파크: 놀이공원 30~50% 할인",
+  "benefit_categories": "기타, 경기관람, 테마파크, 대형마트, 백화점, 기타, 영화, 주유소, 카페, KT, LGU+, SKT, 일반음식점, 패밀리레스토랑, 주유소, 마트/편의점, 백화점/아울렛, 통신비, 음식점, 출산/육아, 영화, 테마파크, 스포츠/게임",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/3/card_img/20085/3card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/3",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

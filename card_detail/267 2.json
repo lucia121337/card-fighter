@@ -1,0 +1,18 @@
+{
+  "idx": 267,
+  "card_name": "마일앤조이카드(대한항공)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "UnionPay",
+  "annual_fee": "해외겸용 [30,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "항공마일리지: 1,500원당 3~1마일 적립 | 교통: KTX, SRT  10% 할인 | 공항라운지/PP: 공항라운지 연 2회 무료",
+  "benefit_categories": "공항라운지, 기차, 기타, 공항, 골프, 적립, 면세점, 렌터카, 호텔, 기타, 항공권, 대한항공, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/267/card_img/20490/267card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/267",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

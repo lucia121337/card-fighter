@@ -1,0 +1,18 @@
+{
+  "idx": 704,
+  "card_name": "현대카드 X2 BOOST",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [60,000]원 / 해외겸용[60,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "모든가맹점: 모든가맹점 1~1.5% 기본할인 | 간편결제: 온라인 간편결제 5% 할인 | 해외: 해외가맹점 5% 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 무이자할부, 단종임박+중단, 국내외가맹점, 기타, 카페, 해외이용, 모든가맹점, 카카오페이, 삼성페이, 네이버페이, 애플페이, 해외이용, 프리미엄서비스, 무이자할부",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/704/card_img/22178/704card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/704",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 2210,
+  "card_name": "블랙핑크 카드",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "기타: 음반/티켓 10% 할인 | 마트/편의점: 편의점/백화점 10% 할인 | 생활: 대중교통/배달앱 10% 할인",
+  "benefit_categories": "제휴/PLCC, 편의점, 헤어, 화장품, 백화점, 공연/전시, 음원사이트, 기타, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2210/card_img/21775/2210card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2210",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

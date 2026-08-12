@@ -1,0 +1,18 @@
+{
+  "idx": 459,
+  "card_name": "카드의정석 WOWRI",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, BC, Mastercard",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 모아포인트 5%~0.8% 적립 | 간편결제: 주요간편결제 3% 추가적립",
+  "benefit_categories": "네이버페이, 카카오페이, PAYCO, 기타, 대중교통, SSM, 대형마트, 국내외가맹점, 면세점, 백화점, 온라인쇼핑, 소셜커머스, 영화, 주유소, 기타, 카페, KT, LGU+, SKT, 기타, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/459/card_img/20980/459card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/459",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
