@@ -1,0 +1,18 @@
+{
+  "idx": 2410,
+  "card_name": "New 제주항공 하나카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [17,000]원 / 해외겸용 [17,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "여행/숙박: 여행특화 1천원당 30p 적립 | 적립: 쇼핑/구독/레저 1천원당 20p 적립 | 적립: 국내 전가맹점 1천원당 5p 적립",
+  "benefit_categories": "골프, 국내외가맹점, 적립, 면세점, 백화점, 온라인쇼핑, 여행사, 디지털구독, 제주항공, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2410/card_img/26582/2410card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2410",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

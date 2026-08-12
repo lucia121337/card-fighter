@@ -1,0 +1,18 @@
+{
+  "idx": 593,
+  "card_name": "카카오뱅크 씨티카드",
+  "company": "씨티카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [6,000]원 / 해외겸용 [7,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "카페: 스타벅스 50% 할인 | 기타: 공유자전거 50% 할인 | OTT/영화/문화: 넷플릭스 25% 할인",
+  "benefit_categories": "대중교통, 제휴/PLCC, 편의점, 할인, 디지털구독, 카페, KT, LGU+, SKT, 배달앱, 수수료우대",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/593/card_img/21360/593card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/593",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

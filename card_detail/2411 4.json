@@ -1,0 +1,18 @@
+{
+  "idx": 2411,
+  "card_name": "슈퍼쇼퍼카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "할인: 국내 가맹점 0.7% 청구할인 | 온라인쇼핑: 국내 온라인 가맹점 1.7% 청구할인 | 해외이용: 해외 가맹점 1.7% 청구할인",
+  "benefit_categories": "단종임박+중단, 국내외가맹점, 할인, 온라인쇼핑, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2411/card_img/26602/2411card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2411",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

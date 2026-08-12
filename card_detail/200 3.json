@@ -1,0 +1,18 @@
+{
+  "idx": 200,
+  "card_name": "올마이쇼핑 카드 (해외)",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "해외겸용 [15,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "쇼핑: 쇼핑 5% 할인 | 편의점: 편의점 5% 할인 | 해외: 해외 10% 할인",
+  "benefit_categories": "대형마트, 편의점, 면세점, 백화점, 아울렛, 온라인쇼핑, 홈쇼핑, 소셜커머스, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/200/card_img/20420/200card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/200",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

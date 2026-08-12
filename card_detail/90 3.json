@@ -1,0 +1,18 @@
+{
+  "idx": 90,
+  "card_name": "카드의정석 위비온 플러스",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "BC, Mastercard",
+  "annual_fee": "국내전용 [13,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 5% 할인 | 모든가맹점: 해외가맹점 3% 할인 | 레저/스포츠: 워라밸업종 7% 할인",
+  "benefit_categories": "공항라운지, 대중교통, 택시, 기타, 모든가맹점, 피트니스, 도서, KT, LGU+, SKT, 수수료우대, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/90/card_img/20243/90card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/90",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

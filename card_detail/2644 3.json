@@ -1,0 +1,18 @@
+{
+  "idx": 2644,
+  "card_name": "GOAT BC 바로카드",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "적립: 국내 가맹점 최대 1.5% 적립 | 적립: 국외 가맹점 최대 3% 적립 | 적립: 연간사용액 3천만원 이상 시 10% 추가 적립",
+  "benefit_categories": "기타, 국내외가맹점, 적립, 해외결제",
+  "only_online": false,
+  "release_dt": "2023-12-25",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2644/card_img/32094/2644card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2644",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

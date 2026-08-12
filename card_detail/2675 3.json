@@ -1,0 +1,18 @@
+{
+  "idx": 2675,
+  "card_name": "I-Mileage (아시아나)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "Mastercard, BC",
+  "annual_fee": "국내전용 [41,000]원 / 해외겸용 [42,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "항공마일리지: 국내・해외 가맹점 1.5마일리지 적립 | 공항라운지/PP: 공항 라운지 무료 이용 서비스 | 카페: 스타벅스 4천원 청구할인",
+  "benefit_categories": "공항라운지, 더라운지, 공항, 카페, 아시아나항공",
+  "only_online": false,
+  "release_dt": "2024-03-26",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2675/card_img/32668/2675card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2675",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

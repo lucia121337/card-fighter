@@ -1,0 +1,18 @@
+{
+  "idx": 2611,
+  "card_name": "신한카드 Applus",
+  "company": "신한카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [15,000원] / 해외겸용 [15,000원]",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "적립: 프로그램 iPhone for Life 이용 | 적립: Applus포인트 0.2% 적립 | 적립: 프로그램 미이용시 3%~5% 적립",
+  "benefit_categories": "생활, 편의점, 백화점, 온라인쇼핑, 카페, KT, LGU+, SKT, 기타, 배달앱, 해외이용",
+  "only_online": false,
+  "release_dt": "2023-10-06",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2611/card_img/31283/2611card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2611",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

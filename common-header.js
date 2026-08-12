@@ -1,4 +1,4 @@
-/* Card Fighter Common GNB Header Injector */
+/* Card Fighter Common GNB Header & Global UI Utilities Injector */
 
 (function () {
   const routes = [
@@ -33,12 +33,62 @@
   ];
 
   function isDarkModePage(path) {
-    if (document.documentElement.getAttribute('data-theme') === 'dark' || document.body.classList.contains('dark-theme')) {
+    if (document.documentElement.getAttribute('data-theme') === 'dark' || document.body.classList.contains('dark-theme') || document.body.classList.contains('prem-theme')) {
       return true;
     }
     return darkPages.some(p => path === p || path.startsWith(p));
   }
 
+  /* ── 1. Global Favicon Injector ── */
+  function initFavicon() {
+    if (document.querySelector("link[rel*='icon']")) return;
+    const link = document.createElement('link');
+    link.type = 'image/svg+xml';
+    link.rel = 'shortcut icon';
+    link.href = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🥊</text></svg>';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+
+  /* ── 2. Global Toast Notification System ── */
+  window.CardToast = {
+    show: function (msg, duration = 3000) {
+      let toastEl = document.getElementById('cf-global-toast');
+      if (!toastEl) {
+        toastEl = document.createElement('div');
+        toastEl.id = 'cf-global-toast';
+        toastEl.className = 'cf-toast-notification';
+        document.body.appendChild(toastEl);
+      }
+      toastEl.innerHTML = `<span style="margin-right:6px">🥊</span> ${msg}`;
+      toastEl.classList.add('show');
+      if (toastEl._timer) clearTimeout(toastEl._timer);
+      toastEl._timer = setTimeout(() => {
+        toastEl.classList.remove('show');
+      }, duration);
+    }
+  };
+
+  /* ── 3. Global Scroll-to-Top Button ── */
+  function initScrollToTop() {
+    if (document.getElementById('cf-scroll-top')) return;
+    const btn = document.createElement('button');
+    btn.id = 'cf-scroll-top';
+    btn.className = 'cf-scroll-top-btn';
+    btn.setAttribute('aria-label', '최상단으로 이동');
+    btn.innerHTML = '↑ Top';
+    btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+  }
+
+  /* ── 4. Global Header & Mobile Hamburger Navigation ── */
   function initHeader() {
     const headerEl = document.querySelector('header');
     if (!headerEl) return;
@@ -69,18 +119,45 @@
       </div>
       <div class="cf-header-right">
         <div class="cf-search-box">
-          <input type="text" class="cf-search-input" placeholder="스타벅스, 주유 할인 검색" onkeydown="if(event.key==='Enter') window.CFHeaderSearch(this.value)" />
+          <input type="text" class="cf-search-input" placeholder="카카오, 주유, 항공마일 검색" onkeydown="if(event.key==='Enter') window.CFHeaderSearch(this.value)" />
           <button type="button" class="cf-search-btn" onclick="window.CFHeaderSearch(this.previousElementSibling.value)" aria-label="검색">
             🔍
           </button>
+        </div>
+        <button type="button" class="cf-hamburger-btn" onclick="window.toggleCFMobileMenu()" aria-label="메뉴 열기">
+          ☰
+        </button>
+      </div>
+      <div id="cf-mobile-drawer" class="cf-mobile-drawer">
+        <div class="cf-mobile-drawer-head">
+          <span style="font-weight:800;font-size:16px">🥊 카드 파이터 메뉴</span>
+          <button type="button" class="cf-mobile-drawer-close" onclick="window.toggleCFMobileMenu()">✕</button>
+        </div>
+        <div class="cf-mobile-drawer-body">
+          ${gnbItems}
         </div>
       </div>
     `;
   }
 
+  window.toggleCFMobileMenu = function () {
+    const drawer = document.getElementById('cf-mobile-drawer');
+    if (drawer) drawer.classList.toggle('open');
+  };
+
   window.CFHeaderSearch = function (q) {
     if (!q || !q.trim()) return;
-    location.href = '/search.html?q=' + encodeURIComponent(q.trim());
+    if (typeof filterCards === 'function') {
+      const searchInp = document.getElementById('card-search');
+      if (searchInp) {
+        searchInp.value = q.trim();
+        if (typeof showSection === 'function') showSection('cards');
+        filterCards();
+        window.CardToast && window.CardToast.show(`"${q.trim()}" 검색 결과입니다.`);
+        return;
+      }
+    }
+    location.href = '/card?q=' + encodeURIComponent(q.trim());
   };
 
   window.handleSmartBack = function (fallbackUrl = '/index.html') {
@@ -91,29 +168,15 @@
     }
   };
 
-  function initFooter() {
-    if (document.querySelector('.cf-global-footer')) return;
-    const footerHtml = `
-      <footer class="cf-global-footer">
-        <div class="cf-footer-inner">
-          <div class="cf-footer-brand">
-            <span>🥊</span> 카드파이터 (CardFighter)
-          </div>
-          <div>신용카드 및 체크카드 주요 혜택 및 연회비 실시간 비교·계산 플랫폼</div>
-          <div class="cf-footer-disclaimer">
-            본 서비스에서 제공하는 카드 상품 정보 및 혜택 내역은 각 카드사의 제공 데이터 기준이며 카드사 사정에 따라 일시 변경될 수 있습니다.<br>
-            © 2026 CardFighter. All rights reserved.
-          </div>
-        </div>
-      </footer>
-    `;
-    document.body.insertAdjacentHTML('beforeend', footerHtml);
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { initHeader(); initFooter(); });
+    document.addEventListener('DOMContentLoaded', () => {
+      initFavicon();
+      initHeader();
+      initScrollToTop();
+    });
   } else {
+    initFavicon();
     initHeader();
-    initFooter();
+    initScrollToTop();
   }
 })();

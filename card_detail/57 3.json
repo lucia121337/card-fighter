@@ -1,0 +1,18 @@
+{
+  "idx": 57,
+  "card_name": "삼성카드 애니패스+",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외전용 [49,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "영화: 영화 5,000원 할인 | 카페: 카페 10% 할인 | 푸드: VIPS, 계절밥상 20,000원 할인",
+  "benefit_categories": "택시, 테마파크, 편의점, 국내외가맹점, 영화, 정비, 주유소, 카페, 일반음식점, 주점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/57/card_img/28051/57card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/57",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

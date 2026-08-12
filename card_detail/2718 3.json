@@ -1,0 +1,18 @@
+{
+  "idx": 2718,
+  "card_name": "모바일엔디지로카",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "통신: 이동통신요금 최대 2만원 할인",
+  "benefit_categories": "KT, LGU+, SKT, 기타",
+  "only_online": false,
+  "release_dt": "2024-05-02",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2718/card_img/35577/2728card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2718",
+  "is_calc_supported": "TRUE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 774,
+  "card_name": "쿠팡 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay",
+  "annual_fee": "국내전용 [5,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 200000,
+  "pre_month_condition": "200,000원",
+  "top_benefit_summary": "온라인쇼핑: 쿠팡 15% 할인 | 푸드: 외식업종 10% 할인 | 테마파크: 롯데월드 50% 할인",
+  "benefit_categories": "제휴/PLCC, 테마파크, 대형마트, 기타, 면세점, 백화점, 온라인쇼핑, 영화, 주유소, 베이커리, 아이스크림, 카페, 기타, 패스트푸드, 기타",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/774/card_img/22248/774card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/774",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 2271,
+  "card_name": "밸런스 카드",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "카페: 스타벅스 사이렌오더 50% 할인 | 배달앱: 배달어플 10% 할인 | 골프: 골프 7% 할인",
+  "benefit_categories": "대중교통, 골프, 편의점, 피트니스, 온라인쇼핑, 디지털구독, 주유소, 카페, KT, LGU+, SKT, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2271/card_img/20695/2271card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2271",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

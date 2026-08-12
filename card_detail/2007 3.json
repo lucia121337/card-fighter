@@ -1,0 +1,18 @@
+{
+  "idx": 2007,
+  "card_name": "LG전자 라서즐거운 카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard, UnionPay",
+  "annual_fee": "해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "렌탈: LG전자 렌탈 최대 2만원 할인 | 카페/디저트: 커피 20% 할인 | 영화: 영화관 3천원 할인",
+  "benefit_categories": "렌탈 , 테마파크, 영화, 카페, 패밀리레스토랑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2007/card_img/21991/2007card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2007",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

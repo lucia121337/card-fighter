@@ -1,0 +1,18 @@
+{
+  "idx": 2345,
+  "card_name": "현대백화점 Fit카드",
+  "company": "현대백화점",
+  "card_type": "신용",
+  "brands": null,
+  "annual_fee": "국내전용 [없음]",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "쇼핑: 현대백화점 5% 할인 | 백화점: 현대백화점 2시간 무료 주차 | 기타: H.Point 20% 추가 적립",
+  "benefit_categories": "경품 증정(상품권, 기프티콘 등), 기타, 백화점, 아울렛",
+  "only_online": true,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2345/card_img/24462/2345card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2345",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
