@@ -3,19 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>최애 혜택 매치! 카드 월드컵 — 카드 파이터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/common.css">
+<script src="/common-header.js" defer></script>
 <style>
   @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
-  :root{--brand:#2563eb;--brand-deep:#1d4ed8;--txt:#0f172a;--muted:#64748b;
-        --line:#e2e8f0;--panel:#fff;--panel2:#f1f5f9;--bg:#f8fafc;--gold:#b45309}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'GmarketSans','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-       background:var(--bg);color:var(--txt);min-height:100vh}
-  header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
-         border-bottom:1px solid var(--line);padding:14px 24px;display:flex;align-items:center;gap:12px}
-  .back{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;
-        font-size:13px;font-weight:800;padding:8px 14px;border-radius:10px}
-  .header-title{font-weight:900;font-size:17px}
+  *{box-sizing:border-box}
   .wrap{max-width:980px;margin:0 auto;padding:34px 20px 80px}
 
   .step-head{text-align:center;margin-bottom:26px}
@@ -120,10 +114,7 @@
 </style>
 </head>
 <body>
-<header>
-  <a class="back" href="cardlab.html">← 카드 연구소</a>
-  <span role="img" aria-label="로고">🏆</span><span class="header-title">최애 혜택 매치! 카드 월드컵</span>
-</header>
+<header></header>
 
 <div class="wrap">
 
@@ -176,11 +167,15 @@
   <!-- 4단계: 매치 -->
   <section class="step" id="step-bracket">
     <div class="round-bar">
-      <div class="round-name" id="round-name">32강</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+        <div class="round-name" id="round-name">32강</div>
+        <button type="button" onclick="openBracketModal()" style="background:#eff6ff;color:#2563eb;border:1.5px solid #bfdbfe;border-radius:99px;padding:4px 12px;font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s ease">🏆 대진표 보기</button>
+      </div>
       <div class="round-prog" id="round-prog"></div>
     </div>
+    <div id="vs-fact-check" style="text-align:center;margin-bottom:16px;min-height:28px"></div>
     <div class="vs-wrap" id="vs-wrap"></div>
-    <button class="ghost" onclick="location.reload()">처음부터 다시</button>
+    <button class="ghost" style="margin-top:20px" onclick="location.reload()">처음부터 다시</button>
   </section>
 
   <!-- 5단계: 결과 -->
@@ -332,14 +327,31 @@ function startTournament(){
   show('step-bracket');
   renderMatch();
 }
-const ROUND_NAME = {32:'32강',16:'16강',8:'8강',4:'준결승',2:'결승'};
+const ROUND_NAME = {32:'32강',16:'16강',8:'8강',4:'준결승',2:'FINAL 결승전'};
 function renderMatch(){
   const n=roundCards.length;
-  document.getElementById('round-name').textContent = ROUND_NAME[n]||n+'강';
+  const roundTxt = ROUND_NAME[n] || n+'강';
+  document.getElementById('round-name').textContent = roundTxt;
   document.getElementById('round-prog').textContent = `${matchIdx/2+1} / ${n/2} 경기 · 더 끌리는 카드를 선택하세요`;
   const A=roundCards[matchIdx], B=roundCards[matchIdx+1];
+
+  // 혜택 팩트체크 차액 뱃지 시각화
+  const factCheckEl = document.getElementById('vs-fact-check');
+  if (TRACK === 'money' && A.r.net !== undefined && B.r.net !== undefined) {
+    const diff = A.r.net - B.r.net;
+    if (Math.abs(diff) < 500) {
+      factCheckEl.innerHTML = `<span style="background:#f1f5f9;color:#475569;font-size:12px;font-weight:700;padding:6px 14px;border-radius:99px;border:1px solid #cbd5e1">⚖️ 예상 혜택 백중세! (근소한 혜택 차이)</span>`;
+    } else if (diff > 0) {
+      factCheckEl.innerHTML = `<span style="background:#ecfdf5;color:#047857;font-size:12px;font-weight:800;padding:6px 14px;border-radius:99px;border:1px solid #a7f3d0;box-shadow:0 2px 8px rgba(16,185,129,0.15)">💡 <b>${esc(A.card.card_name)}</b> 가 월 <b>+${won(diff)}</b> 더 이득!</span>`;
+    } else {
+      factCheckEl.innerHTML = `<span style="background:#ecfdf5;color:#047857;font-size:12px;font-weight:800;padding:6px 14px;border-radius:99px;border:1px solid #a7f3d0;box-shadow:0 2px 8px rgba(16,185,129,0.15)">💡 <b>${esc(B.card.card_name)}</b> 가 월 <b>+${won(Math.abs(diff))}</b> 더 이득!</span>`;
+    }
+  } else {
+    factCheckEl.innerHTML = '';
+  }
+
   document.getElementById('vs-wrap').innerHTML =
-    matchCard(A,0) + '<div class="vs-mid">VS</div>' + matchCard(B,1);
+    matchCard(A,0) + '<div class="vs-mid" style="animation:vsPulse 2s ease-in-out infinite">VS</div>' + matchCard(B,1);
 }
 const signWon = n => (n<0?'−':'+') + won(Math.abs(n));
 function benefitLine(p){
@@ -397,17 +409,31 @@ function matchCard(p, side){
   </div>`;
 }
 window._winners=[];
+let _matchHistory = [];
 function pickWinner(side){
   const w=roundCards[matchIdx+side], l=roundCards[matchIdx+1-side];
-  window._winners.push(w);
-  if(roundCards.length===4) semifinalists.push(l);
-  if(roundCards.length===2) runnerUp=l;
-  matchIdx+=2;
-  if(matchIdx>=roundCards.length){
-    if(window._winners.length===1) return showResult(window._winners[0]);
-    roundCards=window._winners; window._winners=[]; matchIdx=0;
+  const roundTxt = ROUND_NAME[roundCards.length] || roundCards.length + '강';
+  _matchHistory.push({ roundName: roundTxt, cardA: roundCards[matchIdx].card, cardB: roundCards[matchIdx+1].card, winnerIdx: w.card.idx });
+
+  // 카드 클릭 인터랙션 애니메이션
+  const cards = document.querySelectorAll('#vs-wrap .mcard');
+  if (cards.length >= 2) {
+    cards[side].style.animation = 'cardWinnerPick 0.35s ease forwards';
+    cards[1 - side].style.opacity = '0.3';
+    cards[1 - side].style.transform = 'scale(0.92)';
   }
-  renderMatch();
+
+  setTimeout(() => {
+    window._winners.push(w);
+    if(roundCards.length===4) semifinalists.push(l);
+    if(roundCards.length===2) runnerUp=l;
+    matchIdx+=2;
+    if(matchIdx>=roundCards.length){
+      if(window._winners.length===1) return showResult(window._winners[0]);
+      roundCards=window._winners; window._winners=[]; matchIdx=0;
+    }
+    renderMatch();
+  }, 280);
 }
 
 /* ── 결과 (작업계획서 §4) ──────────────────────── */
@@ -457,8 +483,8 @@ function showResult(p){
     }
   }
   document.getElementById('result-box').innerHTML = `
-    <div class="champ">
-      <span class="c-badge">🏆 CHAMPION</span>
+    <div class="champ" style="border:2px solid #f59e0b;background:linear-gradient(180deg,#ffffff,#fffdf5);box-shadow:0 16px 48px rgba(245,158,11,0.18)">
+      <span class="c-badge" style="background:#fffbeb;color:#b45309;font-size:13px">🏆 TOURNAMENT CHAMPION</span>
       <img src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
       <div class="c-name">${esc(c.card_name)}</div>
       <div class="c-corp">${esc(c.company||'')}</div>
@@ -466,14 +492,89 @@ function showResult(p){
       <div class="c-why">${why}</div>
       <div class="c-links">
         <a class="c-go" href="detail?idx=${c.idx}">상세보기 →</a>
-        <button class="c-retry" onclick="location.reload()">다시 하기</button>
+        <button type="button" class="c-retry" onclick="copyResultLink()" style="background:#eff6ff;border-color:#bfdbfe;color:#2563eb">📋 링크 복사</button>
+        <button type="button" class="c-retry" onclick="location.reload()">🔄 다시 하기</button>
       </div>
     </div>
     ${vsData}
     ${runnerUp?`<div class="finalists">🥈 준우승: ${esc(runnerUp.card.card_name)}${
       semifinalists.length?`<br>🥉 4강: ${semifinalists.map(s=>esc(s.card.card_name)).join(' · ')}`:''}</div>`:''}`;
   show('step-result');
+  launchConfetti();
+}
+
+// Confetti 폭죽 연출 함수
+function launchConfetti() {
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:3000;overflow:hidden;';
+  document.body.appendChild(container);
+  const colors = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#eab308'];
+  for (let i = 0; i < 70; i++) {
+    const p = document.createElement('div');
+    const size = Math.random() * 8 + 6;
+    p.style.cssText = `
+      position: absolute;
+      top: -20px;
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      opacity: ${Math.random() * 0.7 + 0.3};
+      animation: confettiFall ${Math.random() * 2 + 2}s linear forwards;
+      animation-delay: ${Math.random() * 0.5}s;
+    `;
+    container.appendChild(p);
+  }
+  setTimeout(() => container.remove(), 4500);
+}
+
+// 대진표 보기 모달 조작 함수
+function openBracketModal() {
+  const treeEl = document.getElementById('bracket-tree-content');
+  if (!_matchHistory.length) {
+    treeEl.innerHTML = '<div style="text-align:center;color:var(--muted);padding:24px">아직 완료된 경기가 없습니다.</div>';
+  } else {
+    treeEl.innerHTML = _matchHistory.map((m, i) => `
+      <div class="cf-bracket-stage">
+        <div class="cf-bracket-stage-title">MATCH ${i + 1} (${esc(m.roundName)})</div>
+        <div class="cf-bracket-match-list">
+          <div class="cf-bracket-item ${m.winnerIdx === m.cardA.idx ? 'winner' : ''}">
+            <span>💳 ${esc(m.cardA.card_name)}</span>
+            <span>${m.winnerIdx === m.cardA.idx ? '승리 🏆' : ''}</span>
+          </div>
+          <div class="cf-bracket-item ${m.winnerIdx === m.cardB.idx ? 'winner' : ''}">
+            <span>💳 ${esc(m.cardB.card_name)}</span>
+            <span>${m.winnerIdx === m.cardB.idx ? '승리 🏆' : ''}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  document.getElementById('bracket-modal').classList.add('active');
+}
+function closeBracketModal() {
+  document.getElementById('bracket-modal').classList.remove('active');
+}
+
+// 결과 링크 복사 함수
+function copyResultLink() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    alert('🏆 결과 링크가 클립보드에 복사되었습니다!');
+  }).catch(() => {
+    alert('주소창의 URL을 직접 복사해주세요.');
+  });
 }
 </script>
+
+<!-- 대진표 모달 -->
+<div id="bracket-modal" class="c-modal-overlay">
+  <div class="c-modal-content cf-bracket-modal">
+    <button type="button" class="c-modal-close" onclick="closeBracketModal()">✕</button>
+    <h3 style="font-size:18px;font-weight:800;color:var(--txt);margin-bottom:16px">🏆 토너먼트 진행 대진표</h3>
+    <div id="bracket-tree-content" class="cf-bracket-tree"></div>
+  </div>
+</div>
+
 </body>
 </html>

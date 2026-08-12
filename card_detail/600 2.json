@@ -1,0 +1,18 @@
+{
+  "idx": 600,
+  "card_name": "대한항공카드 030",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [30,000]원 / 해외겸용 [30,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "대한항공: 국내외가맹점 1마일리지 적립 | 항공마일리지: 특정업종 2마일리지 적립 | 기타: 웰컴보너스 3천마일리지 적립",
+  "benefit_categories": "제휴/PLCC, 단종임박, 국내외가맹점, 대한항공",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/600/card_img/21367/600card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/600",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

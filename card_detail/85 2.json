@@ -1,0 +1,18 @@
+{
+  "idx": 85,
+  "card_name": "카드의정석 SHOPPING",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "쇼핑: 온·오프라인쇼핑 10% 할인 | 간편결제: 간편결제 5% 추가할인 | 주유: 주말주유 60원/L 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, SSM, 대형마트, 편의점, 드럭스토어, 백화점, 아울렛, 온라인쇼핑, 주유소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/85/card_img/20167/85card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/85",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

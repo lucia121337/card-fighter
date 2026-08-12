@@ -1,0 +1,18 @@
+{
+  "idx": 2489,
+  "card_name": "K-FIRST (모바일전용)",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay",
+  "annual_fee": "해외겸용 [5,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "모든가맹점: 전 가맹점 1% 할인 | 생활: 대중교통/편의점/커피 0.5% 추가할인 | 쇼핑: 페이북 쇼핑 5% 할인",
+  "benefit_categories": "대중교통, 대형마트, 편의점, 국내외가맹점, 백화점, 기타, 호텔, 항공권, 일반음식점",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2489/card_img/28439/2489card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2489",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

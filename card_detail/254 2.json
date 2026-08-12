@@ -1,0 +1,18 @@
+{
+  "idx": 254,
+  "card_name": "1Q My Lunch",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [17,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "점심: 점심식사 10% 적립 | 주유: SK에너지 70머니/L 적립 | 생활: 통신/교통 7% 적립",
+  "benefit_categories": "기차, 대중교통, 선택형, 골프, 기타, SSM, 편의점, 국내외가맹점, 백화점, 온라인쇼핑, 홈쇼핑, 소셜커머스, 영화, 주유소, KT, LGU+, SKT, 기타, 일반음식점, 점심",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/254/card_img/20482/254card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/254",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

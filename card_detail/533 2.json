@@ -1,0 +1,18 @@
+{
+  "idx": 533,
+  "card_name": "I’m DRIVING",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, AMEX",
+  "annual_fee": "국내전용 [18,000]원 / 해외겸용 [18,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "주유: 주유소 5천원 할인 | 기타: 대리운전 5% 할인 | 기타: 엔진오일교환 2만5천원 할인",
+  "benefit_categories": "편의점, 보험, 정비, 기타, 자동차, 주유소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/533/card_img/21231/533card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/533",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

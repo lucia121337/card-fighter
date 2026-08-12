@@ -1,0 +1,18 @@
+{
+  "idx": 483,
+  "card_name": "뉴타임카드",
+  "company": "SC제일은행",
+  "card_type": "신용",
+  "brands": "VISA, BC, BC Global, Mastercard",
+  "annual_fee": "국내전용 [8,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "푸드: 음식점 5% 할인 | 카페: 커피전문점 5% 할인 | 배달앱: 배달앱 5% 할인",
+  "benefit_categories": "대중교통, 대형마트, 편의점, 드럭스토어, 온라인쇼핑, 주유소, 충전소, 카페, KT, LGU+, SKT, 점심, 저녁, 배달앱, 해외이용, 해외직구",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/483/card_img/21173/483card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/483",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

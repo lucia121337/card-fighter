@@ -1,0 +1,18 @@
+{
+  "idx": 89,
+  "card_name": "우리Most카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, BC, UnionPay",
+  "annual_fee": "국내전용 [19,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "주유: Most주유소 최대 200원/L 할인 | 자동차: 주차장 2,000원 할인 | 영화: 영화 5,000원 할인",
+  "benefit_categories": "제휴/PLCC, 테마파크, 영화, 정비, 자동차, 주유소",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/89/card_img/20242/89card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/89",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 58,
+  "card_name": "카라이프 삼성카드 DISCOUNT+",
+  "company": "삼성카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [49,000]원 / 해외겸용 [49,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "주유: 모든주유소 90원/L 할인 | 자동차: 카카오드라이버 10% 할인 | 모든가맹점: 모든가맹점 0.5% 할인",
+  "benefit_categories": "대형마트, 편의점, 국내외가맹점, 소셜커머스, 영화, 보험, 정비, 자동차, 주유소, 카페",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/58/card_img/28052/58card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/58",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

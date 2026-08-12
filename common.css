@@ -70,12 +70,34 @@ body.prem-theme .cf-global-header {
   --header-search-border: rgba(201, 164, 92, 0.3);
 }
 
+body.calc-theme .cf-global-header {
+  --header-bg: rgba(9, 27, 24, 0.92);
+  --header-border: rgba(22, 168, 150, 0.25);
+  --header-txt: #7fe0a5;
+  --header-muted: #7ab5ac;
+  --header-hover-bg: rgba(14, 41, 38, 0.8);
+  --header-hover-txt: #5ee8d0;
+  --header-active-bg: rgba(14, 127, 110, 0.25);
+  --header-active-txt: #5ee8d0;
+  --header-search-bg: #0d2522;
+  --header-search-border: rgba(22, 168, 150, 0.3);
+}
+
 /* Premium Dark Gold Body Background Theme */
 body.prem-theme {
   background-color: #0e1015 !important;
   background-image: radial-gradient(circle at top right, rgba(201, 164, 92, 0.12), transparent 45%),
                     radial-gradient(circle at bottom left, rgba(184, 134, 11, 0.1), transparent 40%) !important;
   color: #f5f3ee !important;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Calculator Dark Emerald Body Background Theme */
+body.calc-theme {
+  background-color: #071715 !important;
+  background-image: radial-gradient(circle at top right, rgba(22, 168, 150, 0.15), transparent 50%),
+                    radial-gradient(circle at bottom left, rgba(14, 127, 110, 0.12), transparent 45%) !important;
+  color: #e0f7f4 !important;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -761,6 +783,35 @@ button:focus-visible, .detail-btn:focus-visible, .compare-btn:focus-visible, .ba
   padding-top: 16px;
 }
 
+/* Dark Footer Themes for Premium & Calculator */
+body.prem-theme .cf-global-footer,
+body.prem-theme footer {
+  background: #090a0d !important;
+  border-top: 1px solid rgba(201, 164, 92, 0.2) !important;
+  color: #9aa0ac !important;
+}
+body.prem-theme .cf-footer-brand {
+  color: #e8c886 !important;
+}
+body.prem-theme .cf-footer-disclaimer {
+  color: #6b7280 !important;
+  border-top-color: rgba(201, 164, 92, 0.2) !important;
+}
+
+body.calc-theme .cf-global-footer,
+body.calc-theme footer {
+  background: #040e0c !important;
+  border-top: 1px solid rgba(22, 168, 150, 0.2) !important;
+  color: #7ab5ac !important;
+}
+body.calc-theme .cf-footer-brand {
+  color: #7fe0a5 !important;
+}
+body.calc-theme .cf-footer-disclaimer {
+  color: #4a7a72 !important;
+  border-top-color: rgba(22, 168, 150, 0.2) !important;
+}
+
 /* Global Typography Scale System */
 h1, .c-h1 {
   font-size: 24px;
@@ -809,5 +860,81 @@ h3, .c-h3 {
   .hide-on-desktop {
     display: none !important;
   }
+}
+
+/* ── Card Worldcup UI/UX Overhaul Animations & Components ── */
+@keyframes vsPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.4)); }
+  50% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(37, 99, 235, 0.8)); }
+}
+
+@keyframes roundBannerPop {
+  0% { opacity: 0; transform: translate(-50%, -40%) scale(0.8); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(1); }
+}
+
+@keyframes cardWinnerPick {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08) translateY(-6px); filter: drop-shadow(0 16px 32px rgba(37, 99, 235, 0.3)); }
+  100% { transform: scale(1); }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.cf-bracket-modal {
+  max-width: 720px !important;
+  background: var(--panel) !important;
+}
+
+.cf-bracket-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 8px 4px;
+}
+
+.cf-bracket-stage {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+}
+
+.cf-bracket-stage-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 8px;
+}
+
+.cf-bracket-match-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.cf-bracket-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cf-bracket-item.winner {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand-deep);
+  font-weight: 800;
 }
 

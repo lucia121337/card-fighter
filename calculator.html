@@ -256,7 +256,6 @@
 
 <script src="profile.js"></script>
 <script src="benefit-calc.js"></script>
-<script src="calculator.js"></script>
 <script>
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const won = n => Math.round(n).toLocaleString()+'원';
@@ -354,26 +353,21 @@ function recalc(){
   if(window.CardProfile) CardProfile.save(spending, pv>0 ? pv*10000 : 0);
 
   const results=[];
-  const verifiedIds = typeof getVerifiedCardIds === 'function' ? getVerifiedCardIds() : [];
-
   for(const idx in BEN){
     const b=BEN[idx], card=BYIDX[idx]; if(!card) continue;
     const r = BenefitCalc.calc(b, spending, {prevMonth});
     if(r.money<=0 && r.miles<=0 && r.points<=0) continue;   // 돈·마일·포인트 다 없으면 제외
-    const isVerified = verifiedIds.includes(String(idx));
     results.push({idx, benefit:r.money, net:r.net, feeM:r.feeMonthly, matched:r.matched,
       meets:r.meetsPreMonth, pre:r.preMonth, capped:r.capped, gated:r.gatedByPreMonth,
       miles:r.miles, bonus:r.milesBonus, air:r.airline, isMile:r.isMileage, type:b.type,
       points:r.points, pointName:r.pointName,
       fixedMoney:r.fixedMoney, fuelMoney:r.fuelMoney, services:r.services, voucherWon:r.voucherWon,
-      condFixed:r.condFixed, isVerified});
+      condFixed:r.condFixed});
   }
-
-  // 검수 완료된 카드(isVerified=true)를 최상단에 우선 정렬
-  if(sortMode==='miles')  // ✈️ 마일 적립순 (검수완료 → 마일 → 원 순이득)
-    results.sort((a,b)=> (b.isVerified ? 1 : 0) - (a.isVerified ? 1 : 0) || b.miles - a.miles || b.net - a.net);
-  else                    // 💰 돈 이득순 (검수완료 → 순이득 → 매칭 → 낮은연회비)
-    results.sort((a,b)=> (b.isVerified ? 1 : 0) - (a.isVerified ? 1 : 0) || b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
+  if(sortMode==='miles')  // ✈️ 마일 적립순 (마일 → 원 순이득)
+    results.sort((a,b)=> b.miles - a.miles || b.net - a.net);
+  else                    // 💰 돈 이득순 → 동점이면 매칭 잘 됨 → 낮은 연회비
+    results.sort((a,b)=> b.net - a.net || b.matched.length - a.matched.length || a.feeM - b.feeM);
   render(results.slice(0,12), results.length);
 }
 
@@ -399,14 +393,13 @@ function render(list, total){
       `<span class="rchip" style="background:#fff7ed;color:#c2410c" title="해당 카테고리를 실제 이용할 때만 받는 정액할인 — 순이득에는 합산하지 않았어요">조건부 ${esc(f.category||'')} 이용 시 ${mm(f.won)}원</span>`).join('');
     const warn = r.gated ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 미달로 할인 제외</span>`
                : (!r.meets ? `<span class="rchip warn">전월실적 ${Math.round(r.pre/10000)}만원 필요</span>` : '');
-    const verChip = r.isVerified ? `<span class="rchip" style="background:#d1fae5;color:#047857;font-weight:800;border:1px solid #6ee7b7">☑️ 검수완료</span>` : '';
-    return `<div class="rcard ${i===0?'top':''}" style="${r.isVerified ? 'border-color:#10b981;background:#ecfdf5;' : ''}">
+    return `<div class="rcard ${i===0?'top':''}">
       <div class="rnum ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</div>
       <img class="rimg" src="${esc(c.card_img||'')}" alt="" onerror="this.style.visibility='hidden'">
       <div class="rbody">
         <div class="rname">${esc(c.card_name)}</div>
         <div class="rcorp">${esc(c.company||'')} · 연회비 ${won(r.feeM*12).replace('원','')}원</div>
-        <div class="rreason">${verChip}${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${condChip}${warn}</div>
+        <div class="rreason">${reasons}${fixedChip}${fuelChip}${mile}${pointChip}${vChip}${svcChips}${condChip}${warn}</div>
       </div>
       <div class="rmoney">
         <div class="lab">월 예상 순이득</div>

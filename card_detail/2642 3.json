@@ -1,0 +1,18 @@
+{
+  "idx": 2642,
+  "card_name": "에너지플러스카드 Edition3",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [30,000]원 / 해외겸용 [30,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "주유: 주유 리터당 최대 300 M포인트 적립 | 적립: 국내외 가맹점 1% M포인트 한도 없이 적립",
+  "benefit_categories": "제휴/PLCC, 기타, 주유소",
+  "only_online": false,
+  "release_dt": "2023-11-02",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2642/card_img/32040/2642card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2642",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

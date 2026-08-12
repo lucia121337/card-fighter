@@ -1,0 +1,18 @@
+{
+  "idx": 521,
+  "card_name": "카드의정석 베트남여행",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "온라인쇼핑: 온/오프라인 쇼핑  10% 할인 | 해외: 베트남현지 5%  할인 | 공항라운지/PP: 공항라운지 무료 이용",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, 공항라운지, 더라운지, SSM, 대형마트, 편의점, 드럭스토어, 화장품, 백화점, 아울렛, 온라인쇼핑, 소셜커머스, 주유소, 카페, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/521/card_img/21206/521card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/521",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 2551,
+  "card_name": "카드의정석 EVERY 1",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "국내외가맹점: 국내외 가맹점 1% 청구할인 | 할인: 전월실적 따라 최대 2만원 추가할인",
+  "benefit_categories": "국내외가맹점, 할인",
+  "only_online": false,
+  "release_dt": "2023-07-13",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2551/card_img/29587/2551card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2551",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

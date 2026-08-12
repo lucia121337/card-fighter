@@ -2,11 +2,12 @@
 
 (function () {
   const routes = [
-    { name: '전체카드', url: '/card', match: ['/', '/card', '/index.html'] },
+    { name: '홈', url: '/', match: ['/', '/index.html'] },
+    { name: '전체카드', url: '/card', match: ['/card'] },
+    { name: '혜택계산기', url: '/calculator.html', match: ['/calculator.html'] },
     { name: '캐시백이벤트', url: '/event', match: ['/event'] },
     { name: '할인가맹점', url: '/shopping', match: ['/shopping'] },
-    { name: '카드연구소', url: '/cardlab', match: ['/cardlab', '/cardlab_detail.html', '/match_game.html', '/worldcup_game.html'] },
-    { name: '혜택계산기', url: '/calculator.html', match: ['/calculator.html'] }
+    { name: '카드연구소', url: '/cardlab', match: ['/cardlab', '/cardlab_detail.html', '/match_game.html', '/worldcup_game.html', '/tournament.html'] }
   ];
 
   function isMatch(path, pattern) {
@@ -25,9 +26,7 @@
 
   const darkPages = [
     '/match_game.html',
-    '/worldcup_game.html',
     '/cardlab/match',
-    '/cardlab/worldcup',
     '/qa.html',
     '/review.html',
     '/premium-dark.html'
@@ -48,9 +47,12 @@
     const activeName = getActiveTab(currentPath);
     const isDark = isDarkModePage(currentPath);
 
+    const SECTION_MAP = { '홈': 'home', '전체카드': 'cards', '캐시백이벤트': 'cashback', '할인가맹점': 'shopping' };
     const gnbItems = routes.map(r => {
       const isActive = r.name === activeName ? ' active' : '';
-      return `<a href="${r.url}" class="cf-gnb-item${isActive}">${r.name}</a>`;
+      const sec = SECTION_MAP[r.name];
+      const onclickAttr = sec ? ` data-section="${sec}" onclick="if(typeof showSection==='function'){showSection('${sec}');return false;}"` : '';
+      return `<a href="${r.url}" class="cf-gnb-item${isActive}"${onclickAttr}>${r.name}</a>`;
     }).join('');
 
     headerEl.className = 'cf-global-header' + (isDark ? ' cf-header-dark' : '');
