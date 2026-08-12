@@ -5,17 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>최애 혜택 매치! 카드 월드컵 — 카드 파이터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/common.css">
   <script src="/common-header.js" defer></script>
   <style>
     @import url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css');
     *{box-sizing:border-box}
-  body {
-    font-family: 'GmarketSans', 'Noto Sans KR', sans-serif;
-    background-color: var(--bg);
-    color: var(--txt);
-    line-height: 1.6;
-  }
   @view-transition{navigation:auto}
     .game-container {
       max-width: 680px;
@@ -133,10 +129,22 @@
     <h1>최애 혜택 매치! 카드 월드컵</h1>
     <p class="game-desc">
       당신이 가장 포기하기 힘든 혜택은 무엇인가요?<br>
-      주유, 통신, 마트, 카페, 항공 마일리지 등 다양한 영역의 혜택을 가진 실시간 카드 혜택들을 1:1로 맞붙여 최종 1위를 가려보세요!
+      주유, 통신, 마트, 카페, 항공 마일리지 등 1,563개 카드의 핵심 혜택을 1:1로 겨루어 나의 최애 카드를 가려보세요!
     </p>
-    <a href="tournament.html" class="start-btn">게임 시작하기</a>
-    <a href="/cardlab" class="back-link">← 카드 연구소로 돌아가기</a>
+
+    <!-- VS 프리뷰 링 -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0;">
+      <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 18px;font-size:13px;font-weight:700;color:#1e293b;box-shadow:0 4px 12px rgba(0,0,0,0.04)">
+        💳 디지로카 Travel <small style="display:block;color:#64748b;font-weight:600;margin-top:2px">월 예상 +45,000원</small>
+      </div>
+      <span style="background:linear-gradient(135deg,#ef4444,#f59e0b);color:#fff;font-weight:900;font-size:11px;padding:5px 10px;border-radius:99px;box-shadow:0 4px 12px rgba(239,68,68,0.3)">VS</span>
+      <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:12px 18px;font-size:13px;font-weight:700;color:#1e293b;box-shadow:0 4px 12px rgba(0,0,0,0.04)">
+        💳 MG+ S 하나카드 <small style="display:block;color:#64748b;font-weight:600;margin-top:2px">월 예상 +38,000원</small>
+      </div>
+    </div>
+
+    <a href="tournament.html" class="start-btn">🏆 16강 토너먼트 시작하기</a>
+    <a href="/cardlab" class="back-link">← 카드 연구소 메인으로</a>
   </div>
 </main>
 

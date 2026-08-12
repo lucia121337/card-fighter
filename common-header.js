@@ -7,7 +7,7 @@
     { name: '혜택계산기', url: '/calculator.html', match: ['/calculator.html'] },
     { name: '캐시백이벤트', url: '/event', match: ['/event'] },
     { name: '할인가맹점', url: '/shopping', match: ['/shopping'] },
-    { name: '카드연구소', url: '/cardlab', match: ['/cardlab', '/cardlab_detail.html', '/match_game.html', '/worldcup_game.html'] }
+    { name: '카드연구소', url: '/cardlab', match: ['/cardlab', '/cardlab_detail.html', '/match_game.html', '/worldcup_game.html', '/tournament.html'] }
   ];
 
   function isMatch(path, pattern) {
