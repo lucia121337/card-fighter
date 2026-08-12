@@ -938,3 +938,206 @@ h3, .c-h3 {
   font-weight: 800;
 }
 
+/* ── Common Global UI Polish & Consistency Styles ── */
+
+/* 1. Common Footer Styling */
+.cf-global-footer {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  padding: 48px 24px 40px;
+  margin-top: 60px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+body.prem-theme .cf-global-footer {
+  background: #0f1118 !important;
+  border-top: 1px solid rgba(201, 164, 92, 0.25) !important;
+  color: #94a3b8 !important;
+}
+
+body.calc-theme .cf-global-footer {
+  background: #061412 !important;
+  border-top: 1px solid rgba(22, 168, 150, 0.2) !important;
+  color: #94a3b8 !important;
+}
+
+.cf-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cf-footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cf-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--txt);
+}
+
+body.prem-theme .cf-footer-brand { color: #e8c886 !important; }
+
+.cf-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.cf-footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: color 0.15s ease;
+}
+
+.cf-footer-links a:hover {
+  color: var(--brand);
+}
+
+.cf-footer-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.7;
+  padding: 14px 18px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+}
+
+body.prem-theme .cf-footer-desc {
+  background: #141620 !important;
+  border-color: rgba(201, 164, 92, 0.15) !important;
+  color: #8b96a5 !important;
+}
+
+.cf-footer-copy {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* 2. Global Toast Notification */
+.cf-toast-notification {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 99px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.cf-toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* 3. Global Scroll to Top Button */
+.cf-scroll-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: var(--panel);
+  color: var(--brand);
+  border: 1.5px solid var(--line);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.25s ease;
+}
+
+.cf-scroll-top-btn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cf-scroll-top-btn:hover {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+}
+
+/* 4. Skeleton Loading UI & Breadcrumbs */
+@keyframes cfSkeletonPulse {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.cf-skeleton {
+  background: linear-gradient(90deg, #e2e8f0 0px, #f1f5f9 50px, #e2e8f0 100px);
+  background-size: 200px 100%;
+  animation: cfSkeletonPulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+.cf-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.cf-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cf-breadcrumb a:hover {
+  color: var(--brand);
+}
+
+.cf-breadcrumb-current {
+  color: var(--txt);
+  font-weight: 700;
+}
+
+body.prem-theme .cf-breadcrumb,
+body.prem-theme .cf-breadcrumb a,
+body.prem-theme .cf-breadcrumb-sep {
+  color: #9aa0ac !important;
+}
+
+body.prem-theme .cf-breadcrumb a:hover {
+  color: #e8c886 !important;
+}
+
+body.prem-theme .cf-breadcrumb-current {
+  color: #e8c886 !important;
+  font-weight: 800 !important;
+}
+

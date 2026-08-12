@@ -1,0 +1,18 @@
+{
+  "idx": 723,
+  "card_name": "IBK무민카드(신용)",
+  "company": "IBK기업은행",
+  "card_type": "신용",
+  "brands": "Mastercard, BC, UnionPay",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "카페: 주요 커피전문점 20% 할인 | 온라인쇼핑: 쿠팡, 티몬, 위메프 20% 할인 | 편의점: 편의점 10% 할인",
+  "benefit_categories": "대중교통, 기타, 테마파크, 대형마트, 편의점, 화장품, 온라인쇼핑, 소셜커머스, 영화, 주유소, 충전소, 카페, 대중교통, 주유소, 온라인쇼핑, 마트/편의점, 커피/디저트, 영화, 테마파크",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/723/card_img/22197/723card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/723",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

@@ -1,0 +1,18 @@
+{
+  "idx": 541,
+  "card_name": "I’m Wonderful Plus",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "Mastercard, AMEX",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "모든가맹점: 국내외 가맹점 최대0.7% 할인 | 할인: 10만원 이상 최대1.4% 할인",
+  "benefit_categories": "국내외가맹점, 할인",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/541/card_img/21245/541card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/541",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

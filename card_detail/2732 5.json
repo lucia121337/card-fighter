@@ -1,0 +1,18 @@
+{
+  "idx": 2732,
+  "card_name": "토스뱅크 하나카드 Wide",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "Mastercard",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "할인: 국내외 모든 가맹점 최대 2% 청구할인",
+  "benefit_categories": "국내외가맹점",
+  "only_online": false,
+  "release_dt": "2024-04-19",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2732/card_img/37974/2732card_1.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2732",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

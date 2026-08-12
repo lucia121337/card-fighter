@@ -1,0 +1,18 @@
+{
+  "idx": 502,
+  "card_name": "네이버페이 플래티넘 롯데카드",
+  "company": "롯데카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard",
+  "annual_fee": "국내전용 [15,000]원 / 해외겸용 [15,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "모든가맹점: 일반가맹점 0.5% 적립 | 네이버페이: 네이버페이가맹점 3% 적립",
+  "benefit_categories": "네이버페이, 제휴/PLCC",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/502/card_img/21191/502card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/502",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

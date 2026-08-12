@@ -1,0 +1,18 @@
+{
+  "idx": 732,
+  "card_name": "현대카드Z ontact",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [10,000]원 / 해외겸용 [10,000]원",
+  "pre_month_money": 400000,
+  "pre_month_condition": "400,000원",
+  "top_benefit_summary": "온라인쇼핑: 온라인쇼핑 멤버십 70% 할인 | 카페: 스마트오더 50% 할인 | 디지털구독: 디지털 콘텐츠 30% 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 무이자할부, 단종임박+중단, 온라인쇼핑, 디지털구독, 카페, 배달앱, 온라인쇼핑, 멤버십(쿠팡,네이버,배민 등), 스트리밍(넷플릭스,티빙 등), 배달앱, 커피/디저트, 카카오페이, 삼성페이, 네이버페이, 무이자할부",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/732/card_img/22206/732card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/732",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

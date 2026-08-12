@@ -1,0 +1,18 @@
+{
+  "idx": 2405,
+  "card_name": "#any 하나카드",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay",
+  "annual_fee": "국내전용 [12,000]원 / 해외겸용 [12,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "디지털구독: 디지털 구독 50% 청구할인 | 간편결제: 디지털 결제 1% 청구할인 | 할인: 국내/외 전 가맹점 0.5% 청구할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, PAYCO, APP, 기타, 선택형, 할인, 디지털구독",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2405/card_img/26454/2405card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2405",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

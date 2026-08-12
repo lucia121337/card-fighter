@@ -1,0 +1,18 @@
+{
+  "idx": 569,
+  "card_name": "현대카드 DIGITAL LOVER",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA",
+  "annual_fee": "국내전용 [20,000]원 / 해외겸용 [20,000]원",
+  "pre_month_money": 500000,
+  "pre_month_condition": "500,000원",
+  "top_benefit_summary": "기타: 디지털스트리밍 1만원 할인 | 간편결제: 간편결제 5% 할인",
+  "benefit_categories": "네이버페이, 삼성페이, 카카오페이, 기타, 음원사이트, 기타, 디지털구독",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/569/card_img/21302/569card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/569",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

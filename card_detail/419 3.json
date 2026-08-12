@@ -1,0 +1,18 @@
+{
+  "idx": 419,
+  "card_name": "현대카드ZERO MOBILE(할인형)",
+  "company": "현대카드",
+  "card_type": "신용",
+  "brands": "VISA, UnionPay",
+  "annual_fee": "국내전용 [5,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "할인: 국내외가맹점 0.7% 할인 | 할인: 6대온라인쇼핑 +0.8% 추가할인 | 할인: 선결제 시 +0.3% 추가할인",
+  "benefit_categories": "할인, 면세점, 백화점, 온라인쇼핑, 소셜커머스, 배달앱, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/419/card_img/20917/419card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/419",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

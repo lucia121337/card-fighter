@@ -1,0 +1,18 @@
+{
+  "idx": 73,
+  "card_name": "카드의정석 NEW우리V카드",
+  "company": "우리카드",
+  "card_type": "신용",
+  "brands": "VISA, BC, BC Global, Mastercard, UnionPay",
+  "annual_fee": "국내전용 [2,000]원 / 해외겸용 [5,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "대형마트: 대형마트 5% 할인 | 패밀리레스토랑: 아웃백 25% 할인 | 영화: CGV 6,000원 할인",
+  "benefit_categories": "생활, 골프, 테마파크, 대형마트, 병원, 호텔, 영화, 주유소, 카페, KT, LGU+, SKT, 패밀리레스토랑",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/73/card_img/20155/73card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/73",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

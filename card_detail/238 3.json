@@ -1,0 +1,18 @@
+{
+  "idx": 238,
+  "card_name": "1Q Daily+",
+  "company": "하나카드",
+  "card_type": "신용",
+  "brands": "VISA, Mastercard, JCB",
+  "annual_fee": "국내전용 [10,000원] / 해외겸용 [10,000]원",
+  "pre_month_money": 300000,
+  "pre_month_condition": "300,000원",
+  "top_benefit_summary": "모든가맹점: 국내가맹점 0.3~1% 적립 | 쇼핑: 플러스적립 5,000머니 적립 | 주유: SK주유소 3,000원 할인",
+  "benefit_categories": "공과금, 대중교통, 택시, 국내외가맹점, 적립, 온라인쇼핑, 홈쇼핑, 소셜커머스, 주유소, 카페, KT, LGU+, SKT, 기타, 해외이용",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/238/card_img/20465/238card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/238",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}

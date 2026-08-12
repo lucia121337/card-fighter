@@ -1,0 +1,18 @@
+{
+  "idx": 2418,
+  "card_name": "始發(시발)카드",
+  "company": "BC 바로카드",
+  "card_type": "신용",
+  "brands": "VISA, BC",
+  "annual_fee": "국내전용 [5,000]원 / 해외겸용 [8,000]원",
+  "pre_month_money": 0,
+  "pre_month_condition": "없음",
+  "top_benefit_summary": "배달앱: 배달앱 최대 1,800원 할인 | 편의점: 편의점 최대 1,800원 할인 | 모든가맹점: 실적/한도없이 0.7% 할인",
+  "benefit_categories": "편의점, 국내외가맹점, 할인, 백화점, 온라인쇼핑, 카페, 배달앱",
+  "only_online": false,
+  "release_dt": "",
+  "card_img": "https://d1c5n4ri2guedi.cloudfront.net/card/2418/card_img/28128/2418card.png",
+  "detail_url": "https://www.card-gorilla.com/card/detail/2418",
+  "is_calc_supported": "FALSE",
+  "cate": "CRD"
+}
