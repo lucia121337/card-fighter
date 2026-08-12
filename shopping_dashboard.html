@@ -151,7 +151,6 @@ a.plink:hover { text-decoration: underline; }
 .card-chip-info { min-width: 0; }
 .card-chip-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-chip-benefit { font-size: 0.74rem; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-chip-predicted { font-size: 0.72rem; color: var(--accent); font-weight: 700; margin-top: 2px; }
 
 .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; margin-bottom: 14px; }
 .metric { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
@@ -318,83 +317,6 @@ async function loadKeywordSimilarity() {
     KEYWORD_SIM = null;
   }
 }
-
-// match_game.html이 쓰는 카드별 소비 예측 신경망 (mbti_model.json). 읽기 전용으로 그대로 가져다 쓴다.
-let ML_MODEL = null;
-async function loadMbtiModel() {
-  try {
-    const res = await fetch('mbti_model.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    ML_MODEL = await res.json();
-  } catch (err) {
-    console.error(err);
-    ML_MODEL = null;
-  }
-}
-
-// match_game.html:2637 predictMLP()를 그대로 포팅. model = ML_MODEL[idxStr] ({W1,b1,W2,b2}),
-// x = 13차원 원본 입력(스케일링 전). model.W1이 없는 카드(혜택 0으로 학습 생략)는 rawSum 기반 폴백을 사용한다.
-// x 인덱스 → 혜택 카테고리 (모델 없는 카드의 폴백 계산 시, 카드가 실제로 보유한 카테고리의 지출만 인정)
-const PREDICT_FALLBACK_CATEGORY_BY_INDEX = { 1: '주유', 2: '교통', 3: '쇼핑', 4: '마트/편의점', 5: '푸드', 6: '카페/디저트', 7: '통신', 10: '여행/숙박', 11: '공과금/렌탈', 12: '교육/육아' };
-
-function predictMLP(model, x, card = null) {
-  if (!model || !model.W1 || model.W1.length === 0) {
-    if (card) {
-      const categories = (card.benefit_categories || '').split(',').map(s => s.trim());
-      const hasUniversal = categories.includes('모든가맹점');
-      let rawSum = 0;
-      for (let i = 1; i <= 12; i++) {
-        const cat = PREDICT_FALLBACK_CATEGORY_BY_INDEX[i];
-        if (hasUniversal || (cat && categories.includes(cat))) rawSum += x[i];
-      }
-      return Math.max(0, Math.round((rawSum * 0.03) / 100) * 100);
-    }
-    return 0;
-  }
-
-  const scaled_x = [
-    x[0],
-    x[1] / 450000.0,
-    x[2] / 180000.0,
-    x[3] / 1000000.0,
-    x[4] / 300000.0,
-    x[5] / 1000000.0,
-    x[6] / 300000.0,
-    x[7] / 150000.0,
-    x[8] / 150000.0,
-    x[9] / 300000.0,
-    x[10] / 1000000.0,
-    x[11] / 600000.0,
-    x[12] / 1000000.0,
-    (x[13] || 0) / 500000.0
-  ];
-
-  let hidden = [];
-  const numHidden = model.b1.length;
-  for (let j = 0; j < numHidden; j++) {
-    let sum = 0;
-    for (let i = 0; i < scaled_x.length; i++) {
-      sum += scaled_x[i] * (model.W1[i] ? model.W1[i][j] : 0);
-    }
-    sum += model.b1[j];
-    hidden.push(Math.max(0, sum));
-  }
-
-  let output = 0;
-  const numHiddenNodes = hidden.length;
-  for (let i = 0; i < numHiddenNodes; i++) {
-    output += hidden[i] * model.W2[i][0];
-  }
-  output += model.b2[0];
-
-  return Math.max(0, Math.round(output / 10) * 10);
-}
-
-// TOP3/품목 매칭에 쓰는 가상 소비 벡터. 입력 순서:
-// [transit_type, gas_spend, transit_spend, shopping_spend, convenience_spend,
-//  food_spend, cafe_spend, telecom_spend, digital_spend, culture_spend,
-//  travel_spend, utility_spend, education_spend]
-const SHOPPING_FOCUSED_VECTOR = [0, 0, 0, 1000000, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 async function loadLiveNaverProducts() {
   try {
@@ -632,18 +554,11 @@ const TOP_SHOPPING_TAGS = [
   "네이버페이", "카카오페이", "소셜커머스", "홈쇼핑", "해외직구", "면세점",
 ];
 
+// 쇼핑 관련 혜택 태그 수로 점수를 매긴다. "모든가맹점"처럼 쇼핑과 무관한 범용 카드가
+// 끼어드는 걸 막기 위해 쇼핑 특화 태그(TOP_SHOPPING_TAGS)만 센다.
 function getTopShoppingCards(n = 3) {
   if (!window.CARD_DATA) return [];
 
-  if (ML_MODEL) {
-    return window.CARD_DATA
-      .map(card => ({ card, benefit: predictMLP(ML_MODEL[String(card.idx)], SHOPPING_FOCUSED_VECTOR, card) }))
-      .filter(item => item.benefit > 0)
-      .sort((a, b) => b.benefit - a.benefit)
-      .slice(0, n);
-  }
-
-  // 폴백: mbti_model.json을 불러오지 못했을 때 기존 태그 카운팅 방식 사용
   return window.CARD_DATA
     .map(card => {
       const categories = (card.benefit_categories || "").split(",").map(s => s.trim());
@@ -653,7 +568,7 @@ function getTopShoppingCards(n = 3) {
     .filter(item => item.score > 0)
     .sort((a, b) => b.score - a.score || (a.card.pre_month_money || 0) - (b.card.pre_month_money || 0))
     .slice(0, n)
-    .map(item => ({ card: item.card, benefit: null }));
+    .map(item => item.card);
 }
 
 function renderTopShoppingCards() {
@@ -668,18 +583,14 @@ function renderTopShoppingCards() {
     body.innerHTML = `<div class="caption">쇼핑 최적화 카드를 찾지 못했어요</div>`;
     return;
   }
-  const rows = topItems.map(({ card, benefit }, i) => {
+  const rows = topItems.map((card, i) => {
     const summary = (card.top_benefit_summary || "").split("|")[0].trim();
-    const predictedLine = (benefit != null && benefit > 0)
-      ? `<div class="card-chip-predicted">예상 월 혜택 약 ${benefit.toLocaleString()}원</div>`
-      : "";
     return `<a class="top-card-row" href="/detail/${card.idx}" target="_top">
       <div class="top-card-rank">${i + 1}</div>
       <img src="${card.card_img}" alt="${card.card_name}">
       <div class="card-chip-info">
         <div class="card-chip-name">${card.card_name}</div>
         <div class="card-chip-benefit">${summary}</div>
-        ${predictedLine}
       </div>
     </a>`;
   }).join("");
@@ -1145,7 +1056,6 @@ async function init() {
   await loadLiveNaverProducts();
   ALL_MALLS = computeAllMalls();
   await loadKeywordSimilarity();
-  await loadMbtiModel();
   renderAll();
   renderTopShoppingCards();
   renderUsageTrendChart();
