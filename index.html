@@ -1881,11 +1881,11 @@ fetch('cards_list.json')
    들어왔을 때 해당 GNB 섹션 + 하위 탭까지 바로 맞춰준다.
    과거 index.html#cards 같은 해시 링크(다른 파일에 남아있을 수 있음)도 폴백으로 계속 지원. ── */
 const PATH_SECTION = { '/':'home',
-  '/card':'cards', '/card/credit':'cards', '/card/check':'cards', '/card/premium':'cards',
+  '/card':'cards', '/card/credit':'cards', '/card/check':'cards', '/card/premium':'cards', '/card/calculator':'cards',
   '/event':'cashback', '/event/card-gorilla':'cashback', '/event/ajd-card':'cashback',
   '/event/kakaopay':'cashback', '/event/naverpay':'cashback', '/event/toss':'cashback', '/event/banksalad':'cashback',
   '/shopping':'shopping' };
-const PATH_CARDTYPE = { '/card':'', '/card/credit':'신용', '/card/check':'체크', '/card/premium':'프리미엄' };
+const PATH_CARDTYPE = { '/card':'', '/card/credit':'신용', '/card/check':'체크', '/card/premium':'프리미엄', '/card/calculator':'혜택계산기' };
 const PATH_PLATFORM = { '/event':'전체보기', '/event/card-gorilla':'카드고릴라', '/event/ajd-card':'아정당카드',
   '/event/kakaopay':'카카오페이', '/event/naverpay':'네이버페이', '/event/toss':'토스', '/event/banksalad':'뱅크샐러드' };
 
@@ -1902,6 +1902,7 @@ function applyPathSubState(){
       document.body.classList.toggle('prem-theme', cardtype === '프리미엄');
       document.getElementById('section-cards').classList.toggle('calc-theme', cardtype === '혜택계산기');
       document.body.classList.toggle('calc-theme', cardtype === '혜택계산기');
+      if (typeof applyFilters === 'function') applyFilters();
     }
   }
   if (PATH_PLATFORM.hasOwnProperty(location.pathname)) {

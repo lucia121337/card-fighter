@@ -405,7 +405,7 @@ function render(list, total){
         <div class="lab">월 예상 순이득</div>
         <div class="net">${won(Math.max(r.net,0))}</div>
         <div class="sub">혜택 ${won(r.benefit)}${r.capped?' (한도)':''} − 연회비 ${won(r.feeM)}</div>
-        <div class="rlinks"><button class="why-btn" onclick="toggleWhy('${r.idx}',this)">근거 ▾</button><a href="detail?idx=${c.idx}">상세 →</a></div>
+        <div class="rlinks"><button class="why-btn" onclick="toggleWhy('${r.idx}',this)">근거 ▾</button><a href="/detail/${c.idx}">상세 →</a></div>
       </div>
     </div>`;
   }).join('');
