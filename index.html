@@ -1148,7 +1148,7 @@ function showSection(name, opts){
   opts = opts || {};
   document.querySelectorAll('.section').forEach(s => s.hidden = true);
   document.getElementById('section-'+name).hidden = false;
-  document.querySelectorAll('.gnb a[data-section]').forEach(a =>
+  document.querySelectorAll('.gnb a[data-section], .cf-gnb a[data-section], nav a[data-section]').forEach(a =>
     a.classList.toggle('active', a.dataset.section === name));
   const path = SECTION_PATH[name] || '/';
   // 현재 주소가 이미 이 섹션의 하위 경로(예: /event/card-gorilla)로 유효하게 매핑돼 있으면
