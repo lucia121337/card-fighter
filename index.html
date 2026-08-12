@@ -1174,8 +1174,8 @@ function showSection(name, opts){
       }
     }
   } else {
-    document.body.classList.remove('prem-theme');
-    document.body.classList.remove('calc-theme');
+    document.body.classList.toggle('prem-theme', activeCardType === '프리미엄');
+    document.body.classList.toggle('calc-theme', activeCardType === '혜택계산기');
   }
   if(name === 'cashback') renderCashback();
   if(name === 'shopping'){
